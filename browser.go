@@ -77,6 +77,7 @@ func New(port int, addr, proxy, binary string) (*Browser, error) {
 	var procAttributes os.ProcAttr
 	procAttributes.Dir = workDir
 	procAttributes.Files = []*os.File{nil, output, output}
+	fmt.Printf("DEBUG---------\n%v %v %v------------DEBUG\n", binary, args, &procAttributes)
 	process, err := os.StartProcess(binary, args, &procAttributes)
 	if err != nil {
 		output.Close()
