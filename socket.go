@@ -19,9 +19,9 @@ import (
 Command represents a command to send to Chrome
 */
 type Command interface {
+	Done(result []byte, err error)
 	Name() string
 	Params() interface{}
-	Done(result []byte, err error)
 }
 
 /*
@@ -37,12 +37,12 @@ type CommandJSON struct {
 Socket represents a websocket connection to the Browser instance
 */
 type Socket struct {
-	socket          *websocket.Conn
 	commandMutex    sync.Mutex
-	pendingCommands map[int]Command // key is id.
-	nextCommandID   int
 	eventMutex      sync.Mutex
 	events          map[string][]EventInterface
+	nextCommandID   int
+	pendingCommands map[int]Command // key is id.
+	socket          *websocket.Conn
 }
 
 /*
@@ -64,11 +64,15 @@ type EventInterface interface {
 MessageJSON represents a message
 */
 type MessageJSON struct {
-	ID     int             `json:"id"`
 	Error  ErrorJSON       `json:"error"`
-	Result json.RawMessage `json:"result"`
+	ID     int             `json:"id"`
 	Method string          `json:"method"`
 	Params json.RawMessage `json:"params"`
+	Result json.RawMessage `json:"result"`
+}
+
+type simpleEvent struct {
+	cb func(name string, params []byte)
 }
 
 /*
@@ -101,59 +105,59 @@ func newSocket(url string) (*Socket, error) {
 /*
 Close closes the current socket connection
 */
-func (c *Socket) Close() error {
-	return c.socket.Close()
+func (socket *Socket) Close() error {
+	return socket.socket.Close()
 }
 
 /*
 Send sends a command to a connected socket
 */
-func (c *Socket) Send(command Command) {
-	c.commandMutex.Lock()
-	defer c.commandMutex.Unlock()
+func (socket *Socket) Send(command Command) {
+	socket.commandMutex.Lock()
+	defer socket.commandMutex.Unlock()
 
-	c.nextCommandID++
+	socket.nextCommandID++
 	cj := &CommandJSON{
-		ID:     c.nextCommandID,
+		ID:     socket.nextCommandID,
 		Method: command.Name(),
 		Params: command.Params(),
 	}
 	log.Printf("Send %#v", cj)
-	if err := c.socket.WriteJSON(cj); err != nil {
+	if err := socket.socket.WriteJSON(cj); err != nil {
 		command.Done(nil, err)
 		return
 	}
-	c.pendingCommands[c.nextCommandID] = command
+	socket.pendingCommands[socket.nextCommandID] = command
 	// TODO: Implement timeout.
 }
 
 /*
 AddEvent adds an event to the event stack
 */
-func (c *Socket) AddEvent(name string, event EventInterface) {
-	c.eventMutex.Lock()
-	defer c.eventMutex.Unlock()
-	events := c.events[name]
+func (socket *Socket) AddEvent(name string, event EventInterface) {
+	socket.eventMutex.Lock()
+	defer socket.eventMutex.Unlock()
+	events := socket.events[name]
 	for _, s := range events {
 		if s == event {
 			return
 		}
 	}
-	c.events[name] = append(events, event)
+	socket.events[name] = append(events, event)
 }
 
 /*
 RemoveEvent removes an event from the stack
 */
-func (c *Socket) RemoveEvent(name string, event EventInterface) {
-	c.eventMutex.Lock()
-	defer c.eventMutex.Unlock()
-	events := c.events[name]
+func (socket *Socket) RemoveEvent(name string, event EventInterface) {
+	socket.eventMutex.Lock()
+	defer socket.eventMutex.Unlock()
+	events := socket.events[name]
 	for i, s := range events {
 		if s == event {
 			l := len(events)
 			events[i] = events[l-1]
-			c.events[name] = events[:l-1]
+			socket.events[name] = events[:l-1]
 			return
 		}
 	}
@@ -166,27 +170,23 @@ func NewEvent(cb func(name string, params []byte)) EventInterface {
 	return &simpleEvent{cb}
 }
 
-type simpleEvent struct {
-	cb func(name string, params []byte)
-}
-
 func (s *simpleEvent) OnEvent(name string, params []byte) {
 	s.cb(name, params)
 }
 
-func (c *Socket) handleResponse(mj *MessageJSON) {
+func (socket *Socket) handleResponse(mj *MessageJSON) {
 	id := mj.ID
 	errStr := mj.Error.Message
 	result := []byte(mj.Result)
 
 	log.Printf("handleResponse %d %s %s", id, string(result), errStr)
-	c.commandMutex.Lock()
-	defer c.commandMutex.Unlock()
+	socket.commandMutex.Lock()
+	defer socket.commandMutex.Unlock()
 
-	if cmd, ok := c.pendingCommands[id]; !ok {
+	if cmd, ok := socket.pendingCommands[id]; !ok {
 		log.Printf("Unknown command %d: result=%s err=%s", id, string(result), errStr)
 	} else {
-		delete(c.pendingCommands, id)
+		delete(socket.pendingCommands, id)
 		var err error
 		if errStr != "" {
 			err = errors.New(errStr)
@@ -195,7 +195,7 @@ func (c *Socket) handleResponse(mj *MessageJSON) {
 	}
 }
 
-func (c *Socket) handleEvent(mj *MessageJSON) {
+func (socket *Socket) handleEvent(mj *MessageJSON) {
 	name := mj.Method
 	params := []byte(mj.Params)
 
@@ -203,28 +203,28 @@ func (c *Socket) handleEvent(mj *MessageJSON) {
 	if name == "Inspector.targetCrashed" {
 		log.Fatal("Chrome has crashed!")
 	}
-	c.eventMutex.Lock()
-	defer c.eventMutex.Unlock()
+	socket.eventMutex.Lock()
+	defer socket.eventMutex.Unlock()
 
-	events := c.events[name]
+	events := socket.events[name]
 	for _, event := range events {
 		go event.OnEvent(name, params)
 	}
 }
 
-func (c *Socket) listen() {
+func (socket *Socket) listen() {
 	for {
 		mj := &MessageJSON{}
-		if err := c.socket.ReadJSON(mj); err != nil {
+		if err := socket.socket.ReadJSON(mj); err != nil {
 			if err == io.EOF || websocket.IsCloseError(err, 1006) ||
 				strings.Contains(err.Error(), "use of closed network connection") {
 				break
 			}
 			log.Printf("%v", err)
 		} else if mj.ID > 0 {
-			c.handleResponse(mj)
+			socket.handleResponse(mj)
 		} else {
-			c.handleEvent(mj)
+			socket.handleEvent(mj)
 		}
 	}
 }

@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 )
 
@@ -18,10 +19,10 @@ import (
 Browser is a struct that manages the Chrome process
 */
 type Browser struct {
-	output  *os.File
-	process *os.Process
 	address string
+	output  *os.File
 	port    int
+	process *os.Process
 	tabs    []*Tab
 	version Version
 }
@@ -33,11 +34,11 @@ type Tab struct {
 	Description          string `json:"description"`
 	DevtoolsFrontendURL  string `json:"devtoolsFrontendUrl"`
 	ID                   string `json:"id"`
+	Socket               *Socket
 	Title                string `json:"title"`
 	Type                 string `json:"type"`
 	URL                  string `json:"url"`
 	WebSocketDebuggerURL string `json:"webSocketDebuggerUrl"`
-	Socket               *Socket
 }
 
 /*
@@ -50,13 +51,30 @@ type Version struct {
 	WebKitVersion   string `json:"webkit-version"`
 }
 
+var browserInstance *Browser
+
 /*
 New launches the Chrome process and returns the connected Browser struct
 */
-func New(port int, addr, proxy, binary string) (*Browser, error) {
+func New(port int, address, proxy, binary string) (*Browser, error) {
+	if 0 == port {
+		port = 9222
+	}
+	if "" == address {
+		address = "127.0.0.1"
+	}
+	if "" == binary {
+		binary = "/usr/bin/google-chrome"
+	}
+
 	args := []string{
 		fmt.Sprintf("--port=%d", port),
-		fmt.Sprintf("--addr=%s", addr),
+		fmt.Sprintf("--addr=%s", address),
+		"--remote-debugging-port=9222",
+		"--remote-debugging-address=0.0.0.0",
+		"--disable-gpu",
+		"--headless",
+		"--no-sandbox",
 	}
 	if proxy != "" {
 		args = append(args, "--proxy="+proxy)
@@ -73,46 +91,46 @@ func New(port int, addr, proxy, binary string) (*Browser, error) {
 		return nil, fmt.Errorf("Cannot create output file '%s': %v", outputFile, err)
 	}
 
-	log.Printf("Starting %s %v (working directory: %s) ...", binary, args, workDir)
+	log.Printf("Starting %s %s", binary, strings.Join(args, " "))
 	var procAttributes os.ProcAttr
 	procAttributes.Dir = workDir
 	procAttributes.Files = []*os.File{nil, output, output}
-	fmt.Printf("DEBUG---------\n%v %v %v------------DEBUG\n", binary, args, &procAttributes)
 	process, err := os.StartProcess(binary, args, &procAttributes)
 	if err != nil {
 		output.Close()
 		return nil, err
 	}
+	fmt.Printf("\nPROCESS STARTED\n")
 
-	browser := &Browser{
-		output:  output,
-		process: process,
-		address: addr,
-		port:    port,
-	}
-	for i := 0; i < 5; i++ {
+	browserInstance = new(Browser)
+	browserInstance.output = output
+	browserInstance.process = process
+	browserInstance.address = address
+	browserInstance.port = port
+	for i := 0; i < 3; i++ {
 		time.Sleep(time.Second)
-		if err = browser.checkVersion(); err == nil {
+		if err = browserInstance.checkVersion(); err == nil {
 			break
 		}
 	}
 	if err != nil {
-		browser.Close()
+		browserInstance.Close()
 		return nil, err
 	}
-
-	return browser, nil
+	return browserInstance, nil
 }
 
 /*
 GetBrowser returns the current Chrome process
 */
 func GetBrowser() (*Browser, error) {
-	browser := &Browser{}
-	if err := browser.checkVersion(); err != nil {
+	if nil == browserInstance {
+		New(0, "", "", "")
+	}
+	if err := browserInstance.checkVersion(); err != nil {
 		return nil, err
 	}
-	return browser, nil
+	return browserInstance, nil
 }
 
 /*
@@ -127,7 +145,7 @@ func (b *Browser) Close() error {
 		if err != nil {
 			return err
 		}
-		log.Printf("Headless Chromium exited: %s", ps.String())
+		log.Printf("Chrome exited: %s", ps.String())
 	}
 	if b.output != nil {
 		b.output.Close()
@@ -209,21 +227,24 @@ func (b *Browser) checkVersion() error {
 	if err := b.getJSON("/json/version", &b.version); err != nil {
 		return err
 	}
-	log.Printf("Browser protocol version: %v", b.version.ProtocolVersion)
+	log.Printf("Browser protocol version: %s", b.version.ProtocolVersion)
 	return nil
 }
 
 func (b *Browser) getJSON(path string, msg interface{}) error {
 	uri := fmt.Sprintf("http://%s:%d%s", b.address, b.port, path)
+
 	resp, err := http.Get(uri)
 	if err != nil {
 		return err
 	}
 	defer resp.Body.Close()
+
 	if content, err := ioutil.ReadAll(resp.Body); err != nil {
 		return err
 	} else if err := json.Unmarshal(content, msg); err != nil {
 		return err
 	}
+
 	return nil
 }
