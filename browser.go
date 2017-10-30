@@ -7,12 +7,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/golang/glog"
 )
 
 /*
@@ -58,7 +59,7 @@ var browserInstance *Browser
 /*
 New launches the Chrome process and returns the connected Browser struct
 */
-func New(port int, address, proxy, binary string) (*Browser, error) {
+func Launch(port int, address, proxy, binary string) error {
 	if 0 == port {
 		port = 9222
 	}
@@ -84,23 +85,23 @@ func New(port int, address, proxy, binary string) (*Browser, error) {
 
 	workDir := filepath.Join(os.TempDir(), fmt.Sprintf("headless-chrome-%x", time.Now().UnixNano()))
 	if err := os.MkdirAll(workDir, 0700); err != nil {
-		return nil, fmt.Errorf("Cannot create working directory '%s': %v", workDir, err)
+		return fmt.Errorf("Cannot create working directory '%s': %v", workDir, err)
 	}
 
 	outputFile := filepath.Join(workDir, "output")
 	output, err := os.OpenFile(outputFile, os.O_CREATE|os.O_RDWR, 0600)
 	if err != nil {
-		return nil, fmt.Errorf("Cannot create output file '%s': %v", outputFile, err)
+		return fmt.Errorf("Cannot create output file '%s': %v", outputFile, err)
 	}
 
-	log.Printf("[INFO] Starting %s %s", binary, strings.Join(args, " "))
+	glog.Infof("Starting %s %s", binary, strings.Join(args, " "))
 	var procAttributes os.ProcAttr
 	procAttributes.Dir = workDir
 	procAttributes.Files = []*os.File{nil, output, output}
 	process, err := os.StartProcess(binary, args, &procAttributes)
 	if err != nil {
 		output.Close()
-		return nil, err
+		return err
 	}
 	fmt.Printf("\nPROCESS STARTED\n")
 
@@ -117,9 +118,9 @@ func New(port int, address, proxy, binary string) (*Browser, error) {
 	}
 	if err != nil {
 		browserInstance.Close()
-		return nil, err
+		return err
 	}
-	return browserInstance, nil
+	return nil
 }
 
 /*
@@ -127,7 +128,10 @@ GetBrowser returns the current Chrome process
 */
 func GetBrowser() (*Browser, error) {
 	if nil == browserInstance {
-		New(0, "", "", "")
+		err := Launch(0, "", "", "")
+		if nil != err {
+			return nil, err
+		}
 	}
 	if err := browserInstance.checkVersion(); err != nil {
 		return nil, err
@@ -147,7 +151,7 @@ func (b *Browser) Close() error {
 		if err != nil {
 			return err
 		}
-		log.Printf("[INFO] Chrome exited: %s", ps.String())
+		glog.Infof("Chrome exited: %s", ps.String())
 	}
 	if b.Output != nil {
 		b.Output.Close()
@@ -182,7 +186,7 @@ func (b *Browser) NewTabSocket(tabID string) (*Tab, error) {
 		return tab, err
 	}
 
-	err = b.GetJSON("/json/list", tabList)
+	err = b.GetJSON("/list", tabList)
 	for _, tmp := range tabList {
 		if tmp.ID == tabID {
 			tab = new(Tab)
@@ -221,20 +225,24 @@ GetTabs returns an array of Tab structs representing open tabs in the Chrome
 instance
 */
 func (b *Browser) GetTabs() ([]*Tab, error) {
-	err := b.GetJSON("/json/list", &b.Tabs)
+	err := b.GetJSON("/list", &b.Tabs)
 	return b.Tabs, err
 }
 
 func (b *Browser) checkVersion() error {
-	if err := b.GetJSON("/json/version", &b.Version); err != nil {
+	if err := b.GetJSON("/version", &b.Version); err != nil {
 		return err
 	}
-	log.Printf("[INFO] Browser protocol version: %s", b.Version.ProtocolVersion)
+	glog.Infof("Browser protocol version: %s", b.Version.ProtocolVersion)
 	return nil
 }
 
+/*
+GetJSON queries the developer tools endpoints and returns JSON data in the
+provided struct
+*/
 func (b *Browser) GetJSON(path string, msg interface{}) error {
-	uri := fmt.Sprintf("http://%s:%d%s", b.Address, b.Port, path)
+	uri := fmt.Sprintf("http://%s:%d%s/json", b.Address, b.Port, path)
 
 	resp, err := http.Get(uri)
 	if err != nil {
