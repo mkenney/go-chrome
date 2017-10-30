@@ -79,16 +79,17 @@ type simpleEvent struct {
 Return a new websocket connection
 */
 func newSocket(url string) (*Socket, error) {
-	log.Printf("Connecting to %s ...", url)
 
 	dialer := &websocket.Dialer{
 		EnableCompression: false,
 	}
 	header := http.Header{
-		"Origin": []string{"http://localhost/"},
+		"Origin": []string{url},
 	}
-	webSocket, _, err := dialer.Dial(url, header)
+
+	webSocket, response, err := dialer.Dial(url, header)
 	if err != nil {
+		log.Printf("[WARNING] Could not create socket connection. %s responded with '%s'", url, response.Status)
 		return nil, err
 	}
 
@@ -99,6 +100,7 @@ func newSocket(url string) (*Socket, error) {
 	}
 	go socket.listen()
 
+	log.Printf("[INFO] Opened new socket connection listening to %s", url)
 	return socket, nil
 }
 
@@ -122,7 +124,7 @@ func (socket *Socket) Send(command Command) {
 		Method: command.Name(),
 		Params: command.Params(),
 	}
-	log.Printf("Send %#v", cj)
+	log.Printf("[INFO] Send %#v", cj)
 	if err := socket.socket.WriteJSON(cj); err != nil {
 		command.Done(nil, err)
 		return
@@ -179,12 +181,12 @@ func (socket *Socket) handleResponse(mj *MessageJSON) {
 	errStr := mj.Error.Message
 	result := []byte(mj.Result)
 
-	log.Printf("handleResponse %d %s %s", id, string(result), errStr)
+	log.Printf("[INFO] handleResponse %d %s %s", id, string(result), errStr)
 	socket.commandMutex.Lock()
 	defer socket.commandMutex.Unlock()
 
 	if cmd, ok := socket.pendingCommands[id]; !ok {
-		log.Printf("Unknown command %d: result=%s err=%s", id, string(result), errStr)
+		log.Printf("[WARNING] Unknown command %d: result=%s err=%s", id, string(result), errStr)
 	} else {
 		delete(socket.pendingCommands, id)
 		var err error
@@ -199,9 +201,9 @@ func (socket *Socket) handleEvent(mj *MessageJSON) {
 	name := mj.Method
 	params := []byte(mj.Params)
 
-	log.Printf("handleEvent %s %s", name, string(params))
+	log.Printf("[INFO] handleEvent %s %s", name, string(params))
 	if name == "Inspector.targetCrashed" {
-		log.Fatal("Chrome has crashed!")
+		log.Panicf("[FATAL] Chrome has crashed!")
 	}
 	socket.eventMutex.Lock()
 	defer socket.eventMutex.Unlock()
@@ -220,7 +222,7 @@ func (socket *Socket) listen() {
 				strings.Contains(err.Error(), "use of closed network connection") {
 				break
 			}
-			log.Printf("%v", err)
+			log.Printf("[ERROR] %v", err)
 		} else if mj.ID > 0 {
 			socket.handleResponse(mj)
 		} else {

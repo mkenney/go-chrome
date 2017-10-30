@@ -19,12 +19,12 @@ import (
 Browser is a struct that manages the Chrome process
 */
 type Browser struct {
-	address string
-	output  *os.File
-	port    int
-	process *os.Process
-	tabs    []*Tab
-	version Version
+	Address string
+	Output  *os.File
+	Port    int
+	Process *os.Process
+	Tabs    []*Tab
+	Version Version
 }
 
 /*
@@ -45,10 +45,12 @@ type Tab struct {
 Version is a struct representing the Chrome version
 */
 type Version struct {
-	Browser         string `json:"browser"`
-	ProtocolVersion string `json:"protocol-version"`
-	UserAgent       string `json:"user-agent"`
-	WebKitVersion   string `json:"webkit-version"`
+	Browser              string `json:"browser"`
+	ProtocolVersion      string `json:"protocol-version"`
+	UserAgent            string `json:"user-agent"`
+	V8Version            string `json:"v8-version"`
+	WebKitVersion        string `json:"webkit-version"`
+	WebSocketDebuggerURL string `json:"webSocketDebuggerUrl"`
 }
 
 var browserInstance *Browser
@@ -61,7 +63,7 @@ func New(port int, address, proxy, binary string) (*Browser, error) {
 		port = 9222
 	}
 	if "" == address {
-		address = "127.0.0.1"
+		address = "localhost"
 	}
 	if "" == binary {
 		binary = "/usr/bin/google-chrome"
@@ -91,7 +93,7 @@ func New(port int, address, proxy, binary string) (*Browser, error) {
 		return nil, fmt.Errorf("Cannot create output file '%s': %v", outputFile, err)
 	}
 
-	log.Printf("Starting %s %s", binary, strings.Join(args, " "))
+	log.Printf("[INFO] Starting %s %s", binary, strings.Join(args, " "))
 	var procAttributes os.ProcAttr
 	procAttributes.Dir = workDir
 	procAttributes.Files = []*os.File{nil, output, output}
@@ -103,10 +105,10 @@ func New(port int, address, proxy, binary string) (*Browser, error) {
 	fmt.Printf("\nPROCESS STARTED\n")
 
 	browserInstance = new(Browser)
-	browserInstance.output = output
-	browserInstance.process = process
-	browserInstance.address = address
-	browserInstance.port = port
+	browserInstance.Output = output
+	browserInstance.Process = process
+	browserInstance.Address = address
+	browserInstance.Port = port
 	for i := 0; i < 3; i++ {
 		time.Sleep(time.Second)
 		if err = browserInstance.checkVersion(); err == nil {
@@ -137,50 +139,50 @@ func GetBrowser() (*Browser, error) {
 Close ends the Chrome process and cleans up
 */
 func (b *Browser) Close() error {
-	if b.process != nil {
-		if err := b.process.Signal(os.Interrupt); err != nil {
+	if b.Process != nil {
+		if err := b.Process.Signal(os.Interrupt); err != nil {
 			return err
 		}
-		ps, err := b.process.Wait()
+		ps, err := b.Process.Wait()
 		if err != nil {
 			return err
 		}
-		log.Printf("Chrome exited: %s", ps.String())
+		log.Printf("[INFO] Chrome exited: %s", ps.String())
 	}
-	if b.output != nil {
-		b.output.Close()
+	if b.Output != nil {
+		b.Output.Close()
 	}
 	return nil
 }
 
 /*
-NewSocket returns a new websocket connected to the Chrome instance for sending
+NewBrowserSocket returns a new websocket connected to the Chrome instance for sending
 commands through
 */
-func (b *Browser) NewSocket() (*Socket, error) {
-	return newSocket(fmt.Sprintf("ws://%s:%d/devtools/browser", b.address, b.port))
+func (b *Browser) NewBrowserSocket() (*Socket, error) {
+	return newSocket(b.Version.WebSocketDebuggerURL)
 }
 
 /*
 NewTab returns a web socket connected to a new tab in the chrome instance for
 sending commands through
 */
-func (b *Browser) NewTab(tabID string) (*Tab, error) {
+func (b *Browser) NewTabSocket(tabID string) (*Tab, error) {
 	var tab *Tab
 	var tabList []Tab
 
-	for _, tab := range b.tabs {
+	for _, tab := range b.Tabs {
 		if tab.ID == tabID {
 			return tab, fmt.Errorf("Tab '%s' already exists", tabID)
 		}
 	}
 
-	socket, err := newSocket(fmt.Sprintf("ws://%s:%d/devtools/page/%s", b.address, b.port, tabID))
+	socket, err := newSocket(fmt.Sprintf("ws://%s:%d/devtools/page/%s", b.Address, b.Port, tabID))
 	if err != nil {
 		return tab, err
 	}
 
-	err = b.getJSON("/json/list", tabList)
+	err = b.GetJSON("/json/list", tabList)
 	for _, tmp := range tabList {
 		if tmp.ID == tabID {
 			tab = new(Tab)
@@ -192,7 +194,7 @@ func (b *Browser) NewTab(tabID string) (*Tab, error) {
 			tab.URL = tmp.URL
 			tab.WebSocketDebuggerURL = tmp.WebSocketDebuggerURL
 			tab.Socket = socket
-			b.tabs = append(b.tabs, tab)
+			b.Tabs = append(b.Tabs, tab)
 			return tab, nil
 		}
 	}
@@ -205,7 +207,7 @@ GetTab returns a web socket connected to an existing tab in the chrome instance
 for sending commands
 */
 func (b *Browser) GetTab(tabID string) (tab *Tab, err error) {
-	for _, tab = range b.tabs {
+	for _, tab = range b.Tabs {
 		if tab.ID == tabID {
 			return tab, nil
 		}
@@ -219,20 +221,20 @@ GetTabs returns an array of Tab structs representing open tabs in the Chrome
 instance
 */
 func (b *Browser) GetTabs() ([]*Tab, error) {
-	err := b.getJSON("/json/list", &b.tabs)
-	return b.tabs, err
+	err := b.GetJSON("/json/list", &b.Tabs)
+	return b.Tabs, err
 }
 
 func (b *Browser) checkVersion() error {
-	if err := b.getJSON("/json/version", &b.version); err != nil {
+	if err := b.GetJSON("/json/version", &b.Version); err != nil {
 		return err
 	}
-	log.Printf("Browser protocol version: %s", b.version.ProtocolVersion)
+	log.Printf("[INFO] Browser protocol version: %s", b.Version.ProtocolVersion)
 	return nil
 }
 
-func (b *Browser) getJSON(path string, msg interface{}) error {
-	uri := fmt.Sprintf("http://%s:%d%s", b.address, b.port, path)
+func (b *Browser) GetJSON(path string, msg interface{}) error {
+	uri := fmt.Sprintf("http://%s:%d%s", b.Address, b.Port, path)
 
 	resp, err := http.Get(uri)
 	if err != nil {
