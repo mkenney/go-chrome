@@ -13,7 +13,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/golang/glog"
+	log "github.com/Sirupsen/logrus"
 )
 
 /*
@@ -94,7 +94,7 @@ func Launch(port int, address, proxy, binary string) error {
 		return fmt.Errorf("Cannot create output file '%s': %v", outputFile, err)
 	}
 
-	glog.Infof("Starting %s %s", binary, strings.Join(args, " "))
+	log.Infof("Starting %s %s", binary, strings.Join(args, " "))
 	var procAttributes os.ProcAttr
 	procAttributes.Dir = workDir
 	procAttributes.Files = []*os.File{nil, output, output}
@@ -103,7 +103,6 @@ func Launch(port int, address, proxy, binary string) error {
 		output.Close()
 		return err
 	}
-	fmt.Printf("\nPROCESS STARTED\n")
 
 	browserInstance = new(Browser)
 	browserInstance.Output = output
@@ -151,7 +150,7 @@ func (b *Browser) Close() error {
 		if err != nil {
 			return err
 		}
-		glog.Infof("Chrome exited: %s", ps.String())
+		log.Infof("Chrome exited: %s", ps.String())
 	}
 	if b.Output != nil {
 		b.Output.Close()
@@ -233,7 +232,7 @@ func (b *Browser) checkVersion() error {
 	if err := b.GetJSON("/version", &b.Version); err != nil {
 		return err
 	}
-	glog.Infof("Browser protocol version: %s", b.Version.ProtocolVersion)
+	log.Infof("Browser protocol version: %s", b.Version.ProtocolVersion)
 	return nil
 }
 
@@ -242,7 +241,7 @@ GetJSON queries the developer tools endpoints and returns JSON data in the
 provided struct
 */
 func (b *Browser) GetJSON(path string, msg interface{}) error {
-	uri := fmt.Sprintf("http://%s:%d%s/json", b.Address, b.Port, path)
+	uri := fmt.Sprintf("http://%s:%d/json%s", b.Address, b.Port, path)
 
 	resp, err := http.Get(uri)
 	if err != nil {

@@ -11,7 +11,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/golang/glog"
+	log "github.com/Sirupsen/logrus"
 	"github.com/gorilla/websocket"
 )
 
@@ -89,7 +89,7 @@ func newSocket(url string) (*Socket, error) {
 
 	webSocket, response, err := dialer.Dial(url, header)
 	if err != nil {
-		glog.Warningf("Could not create socket connection. %s responded with '%s'", url, response.Status)
+		log.Warningf("Could not create socket connection. %s responded with '%s'", url, response.Status)
 		return nil, err
 	}
 
@@ -100,7 +100,7 @@ func newSocket(url string) (*Socket, error) {
 	}
 	go socket.listen()
 
-	glog.Infof("Opened new socket connection listening to %s", url)
+	log.Infof("Opened new socket connection listening to %s", url)
 	return socket, nil
 }
 
@@ -124,7 +124,7 @@ func (socket *Socket) Send(command Command) {
 		Method: command.Name(),
 		Params: command.Params(),
 	}
-	glog.Infof("Send %#v", cj)
+	log.Infof("Send %#v", cj)
 	if err := socket.socket.WriteJSON(cj); err != nil {
 		command.Done(nil, err)
 		return
@@ -181,12 +181,12 @@ func (socket *Socket) handleResponse(mj *MessageJSON) {
 	errStr := mj.Error.Message
 	result := []byte(mj.Result)
 
-	glog.Infof("handleResponse %d %s %s", id, string(result), errStr)
+	log.Infof("handleResponse %d %s %s", id, string(result), errStr)
 	socket.commandMutex.Lock()
 	defer socket.commandMutex.Unlock()
 
 	if cmd, ok := socket.pendingCommands[id]; !ok {
-		glog.Infof("Unknown command %d: result=%s err=%s", id, string(result), errStr)
+		log.Infof("Unknown command %d: result=%s err=%s", id, string(result), errStr)
 	} else {
 		delete(socket.pendingCommands, id)
 		var err error
@@ -201,9 +201,9 @@ func (socket *Socket) handleEvent(mj *MessageJSON) {
 	name := mj.Method
 	params := []byte(mj.Params)
 
-	glog.Infof("handleEvent %s %s", name, string(params))
+	log.Infof("handleEvent %s %s", name, string(params))
 	if name == "Inspector.targetCrashed" {
-		glog.Fatalf("Chrome has crashed!")
+		log.Fatalf("Chrome has crashed!")
 	}
 	socket.eventMutex.Lock()
 	defer socket.eventMutex.Unlock()
@@ -222,7 +222,7 @@ func (socket *Socket) listen() {
 				strings.Contains(err.Error(), "use of closed network connection") {
 				break
 			}
-			glog.Errorf("%v", err)
+			log.Errorf("%v", err)
 		} else if mj.ID > 0 {
 			socket.handleResponse(mj)
 		} else {
