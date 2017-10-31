@@ -32,14 +32,14 @@ type Browser struct {
 Tab is a struct representing an individual Chrome tab
 */
 type Tab struct {
-	Description          string `json:"description"`
-	DevtoolsFrontendURL  string `json:"devtoolsFrontendUrl"`
-	ID                   string `json:"id"`
-	Socket               *Socket
-	Title                string `json:"title"`
-	Type                 string `json:"type"`
-	URL                  string `json:"url"`
-	WebSocketDebuggerURL string `json:"webSocketDebuggerUrl"`
+	Description          string  `json:"description"`
+	DevtoolsFrontendURL  string  `json:"devtoolsFrontendUrl"`
+	ID                   string  `json:"id"`
+	Socket               *Socket `json:"-"`
+	Title                string  `json:"title"`
+	Type                 string  `json:"type"`
+	URL                  string  `json:"url"`
+	WebSocketDebuggerURL string  `json:"webSocketDebuggerUrl"`
 }
 
 /*
