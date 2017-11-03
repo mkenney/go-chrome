@@ -4,6 +4,7 @@ Package chrome provides an interface to a headless Chrome instance.
 package chrome
 
 import (
+	"fmt"
 	"net/url"
 )
 
@@ -31,8 +32,9 @@ func NewTab(uri string) (*Tab, error) {
 	}
 
 	params := url.Values{}
-	tab := new(Tab)
 	params[uri] = nil
+
+	tab := new(Tab)
 	_, err = browser.Cmd("/new", params, tab)
 	if nil != err {
 		return nil, err
@@ -47,6 +49,18 @@ func NewTab(uri string) (*Tab, error) {
 	return tab, nil
 }
 
-func (tab *Tab) Close() {
+func (tab *Tab) Close() (interface{}, error) {
+	var err error
+	var browser *Browser
+	var result interface{}
 
+	browser, err = GetBrowser()
+	if nil != err {
+		return "", err
+	}
+	_, err = browser.Cmd(fmt.Sprintf("/close/%s", tab.ID), url.Values{}, &result)
+	if nil != err {
+		return "", err
+	}
+	return result, nil
 }

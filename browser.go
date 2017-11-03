@@ -195,6 +195,7 @@ func (b *Browser) Cmd(path string, params url.Values, msg interface{}) (interfac
 	if err != nil {
 		return "", err
 	}
+
 	defer resp.Body.Close()
 
 	content, err := ioutil.ReadAll(resp.Body)
