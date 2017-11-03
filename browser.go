@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -26,20 +27,6 @@ type Browser struct {
 	Process *os.Process
 	Tabs    []*Tab
 	Version Version
-}
-
-/*
-Tab is a struct representing an individual Chrome tab
-*/
-type Tab struct {
-	Description          string  `json:"description"`
-	DevtoolsFrontendURL  string  `json:"devtoolsFrontendUrl"`
-	ID                   string  `json:"id"`
-	Socket               *Socket `json:"-"`
-	Title                string  `json:"title"`
-	Type                 string  `json:"type"`
-	URL                  string  `json:"url"`
-	WebSocketDebuggerURL string  `json:"webSocketDebuggerUrl"`
 }
 
 /*
@@ -167,45 +154,6 @@ func (b *Browser) NewBrowserSocket() (*Socket, error) {
 }
 
 /*
-NewTab returns a web socket connected to a new tab in the chrome instance for
-sending commands through
-*/
-func (b *Browser) NewTabSocket(tabID string) (*Tab, error) {
-	var tab *Tab
-	var tabList []Tab
-
-	for _, tab := range b.Tabs {
-		if tab.ID == tabID {
-			return tab, fmt.Errorf("Tab '%s' already exists", tabID)
-		}
-	}
-
-	socket, err := newSocket(fmt.Sprintf("ws://%s:%d/devtools/page/%s", b.Address, b.Port, tabID))
-	if err != nil {
-		return tab, err
-	}
-
-	err = b.GetJSON("/list", tabList)
-	for _, tmp := range tabList {
-		if tmp.ID == tabID {
-			tab = new(Tab)
-			tab.Description = tmp.Description
-			tab.DevtoolsFrontendURL = tmp.DevtoolsFrontendURL
-			tab.ID = tmp.ID
-			tab.Title = tmp.Title
-			tab.Type = tmp.Type
-			tab.URL = tmp.URL
-			tab.WebSocketDebuggerURL = tmp.WebSocketDebuggerURL
-			tab.Socket = socket
-			b.Tabs = append(b.Tabs, tab)
-			return tab, nil
-		}
-	}
-
-	return tab, fmt.Errorf("Could not create tab '%s'", tabID)
-}
-
-/*
 GetTab returns a web socket connected to an existing tab in the chrome instance
 for sending commands
 */
@@ -224,12 +172,12 @@ GetTabs returns an array of Tab structs representing open tabs in the Chrome
 instance
 */
 func (b *Browser) GetTabs() ([]*Tab, error) {
-	err := b.GetJSON("/list", &b.Tabs)
+	_, err := b.Cmd("/list", url.Values{}, &b.Tabs)
 	return b.Tabs, err
 }
 
 func (b *Browser) checkVersion() error {
-	if err := b.GetJSON("/version", &b.Version); err != nil {
+	if _, err := b.Cmd("/version", url.Values{}, &b.Version); err != nil {
 		return err
 	}
 	log.Infof("Browser protocol version: %s", b.Version.ProtocolVersion)
@@ -237,23 +185,24 @@ func (b *Browser) checkVersion() error {
 }
 
 /*
-GetJSON queries the developer tools endpoints and returns JSON data in the
+Cmd queries the developer tools endpoints and returns JSON data in the
 provided struct
 */
-func (b *Browser) GetJSON(path string, msg interface{}) error {
-	uri := fmt.Sprintf("http://%s:%d/json%s", b.Address, b.Port, path)
+func (b *Browser) Cmd(path string, params url.Values, msg interface{}) (interface{}, error) {
+	uri := fmt.Sprintf("http://%s:%d/json%s%s", b.Address, b.Port, path, params.Encode())
 
 	resp, err := http.Get(uri)
 	if err != nil {
-		return err
+		return "", err
 	}
 	defer resp.Body.Close()
 
-	if content, err := ioutil.ReadAll(resp.Body); err != nil {
-		return err
-	} else if err := json.Unmarshal(content, msg); err != nil {
-		return err
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	} else if err := json.Unmarshal(content, &msg); err != nil {
+		return "", err
 	}
 
-	return nil
+	return msg, nil
 }
