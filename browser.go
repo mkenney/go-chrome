@@ -1,6 +1,3 @@
-/*
-Package chrome provides an interface to a headless Chrome instance.
-*/
 package chrome
 
 import (
@@ -64,7 +61,11 @@ func Launch(port int, address, proxy, binary string) error {
 		"--remote-debugging-address=0.0.0.0",
 		"--disable-gpu",
 		"--headless",
+		"--hide-scrollbars",
 		"--no-sandbox",
+		"--no-first-run",
+		"--disable-extensions",
+		"--user-data-dir=/tmp",
 	}
 	if proxy != "" {
 		args = append(args, "--proxy="+proxy)
@@ -119,9 +120,6 @@ func GetBrowser() (*Browser, error) {
 			return nil, err
 		}
 	}
-	if err := browserInstance.checkVersion(); err != nil {
-		return nil, err
-	}
 	return browserInstance, nil
 }
 
@@ -146,11 +144,15 @@ func (b *Browser) Close() error {
 }
 
 /*
-NewBrowserSocket returns a new websocket connected to the Chrome instance for sending
+NewSocket returns a new websocket connected to the Chrome instance for sending
 commands through
 */
-func (b *Browser) NewBrowserSocket() (*Socket, error) {
-	return newSocket(b.Version.WebSocketDebuggerURL)
+func (b *Browser) NewSocket() (*Socket, error) {
+	tabs, err := b.GetTabs()
+	if nil != err {
+		log.Fatal(err)
+	}
+	return NewSocket(tabs[0])
 }
 
 /*
@@ -172,12 +174,12 @@ GetTabs returns an array of Tab structs representing open tabs in the Chrome
 instance
 */
 func (b *Browser) GetTabs() ([]*Tab, error) {
-	_, err := b.Cmd("/list", url.Values{}, &b.Tabs)
+	_, err := b.Cmd("/json/list", url.Values{}, &b.Tabs)
 	return b.Tabs, err
 }
 
 func (b *Browser) checkVersion() error {
-	if _, err := b.Cmd("/version", url.Values{}, &b.Version); err != nil {
+	if _, err := b.Cmd("/json/version", url.Values{}, &b.Version); err != nil {
 		return err
 	}
 	log.Infof("Browser protocol version: %s", b.Version.ProtocolVersion)
@@ -189,20 +191,27 @@ Cmd queries the developer tools endpoints and returns JSON data in the
 provided struct
 */
 func (b *Browser) Cmd(path string, params url.Values, msg interface{}) (interface{}, error) {
-	uri := fmt.Sprintf("http://%s:%d/json%s%s", b.Address, b.Port, path, params.Encode())
+	if len(params) > 0 {
+		path += fmt.Sprintf("?%s", params.Encode())
+	}
+	uri := fmt.Sprintf("http://%s:%d%s", b.Address, b.Port, path)
 
 	resp, err := http.Get(uri)
 	if err != nil {
 		return "", err
 	}
-
 	defer resp.Body.Close()
+
+	log.Infof("chrome:/%s %s", path, resp.Status)
+	if 200 != resp.StatusCode {
+		return resp.Status, nil
+	}
 
 	content, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return "", err
 	} else if err := json.Unmarshal(content, &msg); err != nil {
-		return "", err
+		return content, nil
 	}
 
 	return msg, nil

@@ -17,13 +17,13 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  revision = "2509b142fb2b797aa7587dad548f113b2c0f20ce"
+  revision = "b080dc9a8c480b08e698fb1219160d598526310f"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix","windows"]
-  revision = "661970f62f5897bc0cd5fdca7e087ba8a98a8fa1"
+  revision = "4ff8c001ce4cc464e644b922325097228fce14d8"
 
 [solve-meta]
   analyzer-name = "dep"
