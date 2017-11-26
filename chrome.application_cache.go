@@ -3,11 +3,15 @@ package chrome
 import (
 	"app/chrome/protocol"
 	"encoding/json"
-	appcache "app/chrome/protocol/application_cache"
+	applicationCache "app/chrome/protocol/application_cache"
 
 	log "github.com/Sirupsen/logrus"
 )
 
+/*
+ApplicationCache: https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/
+EXPERIMENTAL
+*/
 type ApplicationCache struct{}
 
 /*
@@ -44,7 +48,7 @@ func (ApplicationCache) GetFramesWithManifests(socket *Socket) error {
 /*
 GetManifestForFrame returns manifest URL for document in the given frame.
 */
-func (ApplicationCache) GetManifestForFrame(socket *Socket, params *appcache.GetManifestForFrameParams) error {
+func (ApplicationCache) GetManifestForFrame(socket *Socket, params *applicationCache.GetManifestForFrameParams) error {
 	command := new(protocol.Command)
 	command.method = "ApplicationCache.getManifestForFrame"
 	command.params = params
@@ -56,7 +60,7 @@ func (ApplicationCache) GetManifestForFrame(socket *Socket, params *appcache.Get
 GetApplicationCacheForFrame returns relevant application cache data for the document
 in given frame.
 */
-func (ApplicationCache) GetApplicationCacheForFrame(socket *Socket, params *appcache.GetApplicationCacheForFrameParams) error {
+func (ApplicationCache) GetApplicationCacheForFrame(socket *Socket, params *applicationCache.GetApplicationCacheForFrameParams) error {
 	command := new(protocol.Command)
 	command.method = "ApplicationCache.getManifestForFrame"
 	command.params = params
@@ -65,20 +69,21 @@ func (ApplicationCache) GetApplicationCacheForFrame(socket *Socket, params *appc
 }
 
 /*
-OnStatusUpdated
+OnApplicationCacheStatusUpdated adds a handler to the ApplicationCache.applicationCacheStatusUpdated
+event.
 */
-func OnStatusUpdated(socket *Socket, callback func(event *appcache.StatusUpdatedEvent)) error {
-	event := protocol.NewEvent(
+func OnApplicationCacheStatusUpdated(socket *Socket, callback func(event *applicationCache.ApplicationCacheStatusUpdatedEvent)) error {
+	handler := protocol.NewEventHandler(
 		"ApplicationCache.applicationCacheStatusUpdated",
 		func(name string, params []byte) {
-			event := new(ApplicationCacheForFrameEvent)
-			if err := json.Unmarshal(params, evt); err != nil {
+			event := new(applicationCache.ApplicationCacheStatusUpdatedEvent)
+			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
 			}
 		}
 	)
-	socket.AddEventHandler(event)
+	socket.AddEventHandler(handler)
 	return command.Err
 }

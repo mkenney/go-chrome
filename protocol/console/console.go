@@ -23,3 +23,11 @@ type ConsoleMessage struct {
 	// Optional. Column number in the resource that generated this message (1-based).
 	Column int `json:"column,omitempty"`
 }
+
+/*
+MessageAddedEvent represents Console.messageAdded event data.
+*/
+type MessageAddedEvent struct {
+	// Console message that has been added.
+	Message ConsoleMessage `json:"message"`
+}

@@ -4,6 +4,10 @@ import (
 	"app/chrome/protocol"
 )
 
+/*
+Animation: https://chromedevtools.github.io/devtools-protocol/tot/Animation/
+EXPERIMENTAL
+*/
 type Animation struct{}
 
 /*

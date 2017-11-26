@@ -5,6 +5,10 @@ import (
 	audits "app/chrome/protocol/audits"
 )
 
+/*
+Audits: https://chromedevtools.github.io/devtools-protocol/tot/Audits/
+Allows investigation of page violations and possible improvements. EXPERIMENTAL
+*/
 type Audits struct{}
 
 /*

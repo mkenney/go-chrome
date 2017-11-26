@@ -2,6 +2,7 @@ package CSS
 
 import (
 	DOM "app/chrome/protocol/dom"
+	Page "app/chrome/protocol/page"
 	"fmt"
 )
 
@@ -106,7 +107,7 @@ type CSSStyleSheetHeader struct {
 	StyleSheetID StyleSheetID `json:"styleSheetId"`
 
 	// Owner frame identifier.
-	FrameID FrameID `json:"frameId"`
+	FrameID Page.FrameID `json:"frameId"`
 
 	// Stylesheet resource URL.
 	SourceURL string `json:"sourceURL"`
@@ -124,23 +125,23 @@ type CSSStyleSheetHeader struct {
 	OwnerNode DOM.BackendNodeID `json:"ownerNode,omitempty"`
 
 	// Denotes whether the stylesheet is disabled.
-	Disabled boolean `json:"disabled"`
+	Disabled bool `json:"disabled"`
 
 	// Optional. Whether the sourceURL field value comes from the sourceURL comment.
-	HasSourceURL boolean `json:"hasSourceURL,omitempty"`
+	HasSourceURL bool `json:"hasSourceURL,omitempty"`
 
 	// Whether this stylesheet is created for STYLE tag by parser. This flag is not set for
 	// document.written STYLE tags.
-	IsInline boolean `json:"isInline"`
+	IsInline bool `json:"isInline"`
 
 	// Line offset of the stylesheet within the resource (zero based).
-	StartLine number `json:"startLine"`
+	StartLine int `json:"startLine"`
 
 	// Column offset of the stylesheet within the resource (zero based).
-	StartColumn number `json:"startColumn"`
+	StartColumn int `json:"startColumn"`
 
 	// Size of the content (in characters).
-	Length number `json:"length"`
+	Length int `json:"length"`
 }
 
 /*
@@ -314,7 +315,7 @@ type MediaQuery struct {
 	Expressions []*MediaQueryExpression `json:"expressions"`
 
 	// Whether the media query condition is satisfied.
-	Active boolean `json:"active"`
+	Active bool `json:"active"`
 }
 
 /*
@@ -393,3 +394,165 @@ type StyleDeclarationEdit struct {
 	// New style text.
 	Text string `json:"text"`
 }
+
+/*
+GetMatchedStylesForNodeParams represents CSS.getMatchedStylesForNode parameters.
+*/
+type GetMatchedStylesForNodeParams struct {
+	NodeID DOM.NodeID `json:"nodeId"`
+}
+
+/*
+GetInlineStylesForNodeParams represents CSS.getInlineStylesForNode parameters.
+*/
+type GetInlineStylesForNodeParams struct {
+	NodeID DOM.NodeID `json:"nodeId"`
+}
+
+/*
+GetComputedStyleForNodeParams represents CSS.getComputedStyleForNode parameters.
+*/
+type GetComputedStyleForNodeParams struct {
+	NodeID DOM.NodeID `json:"nodeId"`
+}
+
+/*
+GetPlatformFontsForNodeParams represents CSS.getPlatformFontsForNode parameters.
+*/
+type GetPlatformFontsForNodeParams struct {
+	NodeID DOM.NodeID `json:"nodeId"`
+}
+
+/*
+GetStyleSheetTextParams represents CSS.getStyleSheetText parameters.
+*/
+type GetStyleSheetTextParams struct {
+	StyleSheetID StyleSheetID `json:"styleSheetId"`
+}
+
+/*
+CollectClassNamesParams represents CSS.collectClassNames parameters.
+*/
+type CollectClassNamesParams struct {
+	StyleSheetID StyleSheetID `json:"styleSheetId"`
+}
+
+/*
+SetStyleSheetTextParams represents CSS.setStyleSheetText parameters.
+*/
+type SetStyleSheetTextParams struct {
+	StyleSheetID StyleSheetID `json:"styleSheetId"`
+	Text         string       `json:"text"`
+}
+
+/*
+SetRuleSelectorParams represents CSS.setRuleSelector parameters.
+*/
+type SetRuleSelectorParams struct {
+	StyleSheetID StyleSheetID `json:"styleSheetId"`
+	Range        SourceRange  `json:"range"`
+	Selector     string       `json:"selector"`
+}
+
+/*
+SetKeyframeKeyParams represents CSS.setKeyframeKey parameters.
+*/
+type SetKeyframeKeyParams struct {
+	StyleSheetID StyleSheetID `json:"styleSheetId"`
+	Range        SourceRange  `json:"range"`
+	Selector     string       `json:"selector"`
+}
+
+/*
+SetStyleTextsParams represents CSS.setStyleTexts parameters.
+*/
+type SetStyleTextsParams struct {
+	Edits []*StyleDeclarationEdit `json:"edits"`
+}
+
+/*
+SetMediaTextParams represents CSS.setMediaText parameters.
+*/
+type SetMediaTextParams struct {
+	StyleSheetID StyleSheetID `json:"styleSheetId"`
+	Range        SourceRange  `json:"range"`
+	Text         string       `json:"text"`
+}
+
+/*
+CreateStyleSheetParams represents CSS.createStyleSheet parameters.
+*/
+type CreateStyleSheetParams struct {
+	FrameID Page.FrameID `json:"frameId"`
+}
+
+/*
+AddRuleParams represents CSS.addRule parameters.
+*/
+type AddRuleParams struct {
+	// The css style sheet identifier where a new rule should be inserted.
+	StyleSheetID StyleSheetID `json:"styleSheetId"`
+
+	// The text of a new rule.
+	RuleText string `json:"ruleText"`
+
+	// Text position of a new rule in the target style sheet.
+	Location SourceRange `json:"location"`
+}
+
+/*
+ForcePseudoStateParams represents CSS.forcePseudoState parameters.
+*/
+type ForcePseudoStateParams struct {
+	// The element ID for which to force the pseudo state.
+	NodeID DOM.NodeID `json:"nodeId"`
+
+	// Element pseudo classes to force when computing the element's style.
+	// Allowed values: active, focus, hover, visited.
+	ForcedPseudoClasses []string `json:"forcedPseudoClasses"`
+}
+
+/*
+GetMediaQueriesParams represents CSS.getMediaQueries parameters.
+*/
+type GetMediaQueriesParams struct {
+	Medias []*CSSMedia `json:"medias"`
+}
+
+/*
+SetEffectivePropertyValueForNodeParams represents CSS.setEffectivePropertyValueForNode parameters.
+*/
+type SetEffectivePropertyValueForNodeParams struct {
+	// The element id for which to set property.
+	NodeID       DOM.NodeID `json:"nodeId"`
+	PropertyName string     `json:"propertyName"`
+	Value        string     `json:"value"`
+}
+
+/*
+GetBackgroundColorsParams represents CSS.getBackgroundColors parameters.
+*/
+type GetBackgroundColorsParams struct {
+	// Id of the node to get background colors for.
+	NodeID DOM.NodeID `json:"nodeId"`
+}
+
+/*
+MediaQueryResultChangedEvent represents CSS.mediaQueryResultChanged event data.
+*/
+type MediaQueryResultChangedEvent struct{}
+
+/*
+FontsUpdatedEvent represents CSS.fontsUpdated event data.
+*/
+type FontsUpdatedEvent struct{}
+
+/*
+StyleSheetChangedEvent represents CSS.styleSheetChanged event data.
+*/
+type StyleSheetChangedEvent struct{}
+
+/*
+StyleSheetAddedEvent represents CSS.styleSheetAdded event data.
+*/
+type StyleSheetAddedEvent struct{}

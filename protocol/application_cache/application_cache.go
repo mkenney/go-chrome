@@ -69,10 +69,10 @@ type GetApplicationCacheForFrameParams struct {
 }
 
 /*
-StatusUpdatedEvent represents ApplicationCache.applicationCacheStatusUpdated
-parameters
+ApplicationCacheStatusUpdatedEvent represents ApplicationCache.applicationCacheStatusUpdated
+event data.
 */
-type StatusUpdatedEvent struct {
+type ApplicationCacheStatusUpdatedEvent struct {
 	// Identifier of the frame containing document whose application cache updated status.
 	FrameID Page.FrameID `json:"frameId"`
 

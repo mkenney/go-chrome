@@ -5,63 +5,63 @@ import (
 )
 
 /*
-EventInterface is the interface definition for a socket event
+EventHandlerInterface is the interface definition for a socket event
 */
-type EventInterface interface {
+type EventHandlerInterface interface {
 	OnEvent(name string, params []byte)
 	Name() string
 }
 
 /*
-Event is a generic EventInterface type
+EventHandler is a generic EventHandlerInterface type
 */
-type Event struct {
+type EventHandler struct {
 	callback func(name string, params []byte)
 	name     func() string
 }
 
-func NewEvent(name string, callback func(name string, params []byte)) *Event {
-	event = new(Event)
+func NewEventHandler(name string, callback func(name string, params []byte)) *EventHandler {
+	event = new(EventHandler)
 	event.name = name
 	event.callback = callback
 	return event
 }
 
 /*
-OnEvent is an EventInterface implementation
+OnEvent is an EventHandlerInterface implementation
 */
-func (e *Event) OnEvent(name string, params []byte) {
+func (e *EventHandler) OnEvent(name string, params []byte) {
 	e.Callback(name, params)
 }
 
 /*
-Name is an EventInterface implementation
+Name is an EventHandlerInterface implementation
 */
-func (e *Event) Name() string {
+func (e *EventHandler) Name() string {
 	return e.name
 }
 
 /*
-EventResult represents the result of the socket event
+EventHandlerResult represents the result of the socket event
 */
-type EventResult struct {
+type EventHandlerResult struct {
 	Data string `json:"data"`
 }
 
 /*
-EventPayload is a representation of a WebSocket JSON payload
+EventHandlerPayload is a representation of a WebSocket JSON payload
 */
-type EventPayload struct {
+type EventHandlerPayload struct {
 	ID     int         `json:"id"`
 	Method string      `json:"method"`
 	Params interface{} `json:"params"`
 }
 
 /*
-NewEventPayload generates a new EventPayload pointer
+NewEventHandlerPayload generates a new EventHandlerPayload pointer
 */
-func NewEventPayload(id int, method string, params interface{}) *EventPayload {
-	payload := new(EventPayload)
+func NewEventHandlerPayload(id int, method string, params interface{}) *EventHandlerPayload {
+	payload := new(EventHandlerPayload)
 	payload.ID = id
 	payload.Method = method
 	payload.Params = params
@@ -69,9 +69,9 @@ func NewEventPayload(id int, method string, params interface{}) *EventPayload {
 }
 
 /*
-EventResponse represents a socket message
+EventHandlerResponse represents a socket message
 */
-type EventResponse struct {
+type EventHandlerResponse struct {
 	Error  SocketError     `json:"error"`
 	ID     int             `json:"id"`
 	Method string          `json:"method"`

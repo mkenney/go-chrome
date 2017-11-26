@@ -35,7 +35,7 @@ func NewSocket(tab *Tab) (*Socket, error) {
 	socket := &Socket{
 		conn:     webSocket,
 		commands: make(map[int]SocketCmdIface),
-		events:   make(map[string][]EventInterface),
+		events:   make(map[string][]EventHandlerInterface),
 	}
 	go socket.Listen(tab)
 
@@ -50,8 +50,8 @@ type Socket struct {
 	cmdID      int
 	cmdMutex   sync.Mutex
 	eventMutex sync.Mutex
-	events     map[string][]EventIface // key is event name.
-	commands   map[int]CommandIface    // key is id.
+	events     map[string][]EventHandlerInterface // key is event name.
+	commands   map[int]CommandIface               // key is id.
 	conn       *websocket.Conn
 }
 

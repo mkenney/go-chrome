@@ -63,3 +63,55 @@ type CachedResponse struct {
 	// Entry content, base64-encoded.
 	Body string `json:"body"`
 }
+
+/*
+RequestCacheNamesParams represents CacheStorage.requestCacheNames parameters.
+*/
+type RequestCacheNamesParams struct {
+	// Security origin.
+	SecurityOrigin string `json:"securityOrigin"`
+}
+
+/*
+RequestEntriesParams represents CacheStorage.requestEntries parameters.
+*/
+type RequestEntriesParams struct {
+	// ID of cache to get entries from.
+	CacheID CacheID `json:"cacheId"`
+
+	// Number of records to skip.
+	SkipCount int `json:"skipCount"`
+
+	// Number of records to fetch.
+	PageSize int `json:"pageSize"`
+}
+
+/*
+DeleteCacheParams represents CacheStorage.deleteCache parameters.
+*/
+type DeleteCacheParams struct {
+	// Id of cache for deletion.
+	CacheID CacheID `json:"cacheId"`
+}
+
+/*
+DeleteEntryParams represents CacheStorage.deleteEntry parameters.
+*/
+type DeleteEntryParams struct {
+	// ID of cache where the entry will be deleted.
+	CacheID CacheID `json:"cacheId"`
+
+	// URL spec of the request.
+	Request string `json:"request"`
+}
+
+/*
+RequestCachedResponseParams represents CacheStorage.requestCachedResponse parameters.
+*/
+type RequestCachedResponseParams struct {
+	// ID of cache that contains the enty.
+	CacheID CacheID `json:"cacheId"`
+
+	// URL spec of the request.
+	RequestURL string `json:"requestURL"`
+}

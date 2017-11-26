@@ -5,6 +5,10 @@ import (
 	accessibility "app/chrome/protocol/accessibility"
 )
 
+/*
+Accessibility: https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/
+EXPERIMENTAL
+*/
 type Accessibility struct{}
 
 /*

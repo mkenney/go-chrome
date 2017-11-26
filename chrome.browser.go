@@ -5,6 +5,10 @@ import (
 	browser "app/chrome/protocol/browser"
 )
 
+/*
+Browser: https://chromedevtools.github.io/devtools-protocol/tot/Browser/
+Defines methods and events for browser management.
+*/
 type Browser struct{}
 
 /*
