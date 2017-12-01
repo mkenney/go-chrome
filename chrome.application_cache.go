@@ -3,7 +3,7 @@ package chrome
 import (
 	"app/chrome/protocol"
 	"encoding/json"
-	applicationCache "app/chrome/protocol/application_cache"
+	applicationCache "app/chrome/application_cache"
 
 	log "github.com/Sirupsen/logrus"
 )

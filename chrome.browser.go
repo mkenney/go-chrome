@@ -1,8 +1,8 @@
 package chrome
 
 import (
+	browser "app/chrome/browser"
 	"app/chrome/protocol"
-	browser "app/chrome/protocol/browser"
 )
 
 /*

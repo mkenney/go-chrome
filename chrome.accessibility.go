@@ -1,8 +1,8 @@
 package chrome
 
 import (
+	accessibility "app/chrome/accessibility"
 	"app/chrome/protocol"
-	accessibility "app/chrome/protocol/accessibility"
 )
 
 /*

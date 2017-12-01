@@ -1,8 +1,8 @@
 package chrome
 
 import (
+	audits "app/chrome/audits"
 	"app/chrome/protocol"
-	audits "app/chrome/protocol/audits"
 )
 
 /*
