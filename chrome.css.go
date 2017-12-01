@@ -2,11 +2,13 @@ package chrome
 
 import (
 	"app/chrome/protocol"
-	css "app/chrome/css"
+	"encoding/json"
+
+	log "github.com/Sirupsen/logrus"
 )
 
 /*
-CSS: https://chromedevtools.github.io/devtools-protocol/tot/CSS/
+CSS - https://chromedevtools.github.io/devtools-protocol/tot/CSS/
 Exposes CSS read/write operations. All CSS objects (stylesheets, rules, and styles) have an
 associated id used in subsequent operations on the related object. Each object type has a specific
 id structure, and those are not interchangeable between objects of different kinds. CSS objects can
@@ -21,8 +23,10 @@ Enable enables the CSS agent for the given page. Clients should not assume that 
 been enabled until the result of this command is received.
 */
 func (CSS) Enable(socket *Socket) error {
-	command := new(protocol.Command)
-	command.method = "CSS.enable"
+	command := &protocol.Command{
+		method: "CSS.enable",
+		params: nil,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -31,8 +35,10 @@ func (CSS) Enable(socket *Socket) error {
 Disable disables the CSS agent for the given page.
 */
 func (CSS) Disable(socket *Socket) error {
-	command := new(protocol.Command)
-	command.method = "CSS.disable"
+	command := &protocol.Command{
+		method: "CSS.disable",
+		params: nil,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -41,9 +47,10 @@ func (CSS) Disable(socket *Socket) error {
 GetMatchedStylesForNode returns requested styles for a DOM node identified by nodeId.
 */
 func (CSS) GetMatchedStylesForNode(socket *Socket, params *css.GetMatchedStylesForNodeParams) error {
-	command := new(protocol.Command)
-	command.method = "CSS.getMatchedStylesForNode"
-	command.params = params
+	command := &protocol.Command{
+		method: "CSS.getMatchedStylesForNode",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -53,9 +60,10 @@ GetInlineStylesForNode returns the styles defined inline (explicitly in the "sty
 implicitly, using DOM attributes) for a DOM node identified by nodeId.
 */
 func (CSS) GetInlineStylesForNode(socket *Socket, params *css.GetInlineStylesForNodeParams) error {
-	command := new(protocol.Command)
-	command.method = "CSS.getInlineStylesForNode"
-	command.params = params
+	command := &protocol.Command{
+		method: "CSS.getInlineStylesForNode",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -64,9 +72,10 @@ func (CSS) GetInlineStylesForNode(socket *Socket, params *css.GetInlineStylesFor
 GetComputedStyleForNode returns the computed style for a DOM node identified by nodeId.
 */
 func (CSS) GetComputedStyleForNode(socket *Socket, params *css.GetComputedStyleForNodeParams) error {
-	command := new(protocol.Command)
-	command.method = "CSS.getComputedStyleForNode"
-	command.params = params
+	command := &protocol.Command{
+		method: "CSS.getComputedStyleForNode",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -76,9 +85,10 @@ GetPlatformFontsForNode requests information about platform fonts which we used 
 TextNodes in the given node.
 */
 func (CSS) GetPlatformFontsForNode(socket *Socket, params *css.GetPlatformFontsForNodeParams) error {
-	command := new(protocol.Command)
-	command.method = "CSS.getPlatformFontsForNode"
-	command.params = params
+	command := &protocol.Command{
+		method: "CSS.getPlatformFontsForNode",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -87,9 +97,10 @@ func (CSS) GetPlatformFontsForNode(socket *Socket, params *css.GetPlatformFontsF
 GetStyleSheetText returns the current textual content and the URL for a stylesheet.
 */
 func (CSS) GetStyleSheetText(socket *Socket, params *css.GetStyleSheetTextParams) error {
-	command := new(protocol.Command)
-	command.method = "CSS.getStyleSheetText"
-	command.params = params
+	command := &protocol.Command{
+		method: "CSS.getStyleSheetText",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -98,9 +109,10 @@ func (CSS) GetStyleSheetText(socket *Socket, params *css.GetStyleSheetTextParams
 CollectClassNames returns all class names from specified stylesheet.
 */
 func (CSS) CollectClassNames(socket *Socket, params *css.CollectClassNamesParams) error {
-	command := new(protocol.Command)
-	command.method = "CSS.collectClassNames"
-	command.params = params
+	command := &protocol.Command{
+		method: "CSS.collectClassNames",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -109,9 +121,10 @@ func (CSS) CollectClassNames(socket *Socket, params *css.CollectClassNamesParams
 SetStyleSheetText sets the new stylesheet text.
 */
 func (CSS) SetStyleSheetText(socket *Socket, params *css.SetStyleSheetTextParams) error {
-	command := new(protocol.Command)
-	command.method = "CSS.setStyleSheetText"
-	command.params = params
+	command := &protocol.Command{
+		method: "CSS.setStyleSheetText",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -120,9 +133,10 @@ func (CSS) SetStyleSheetText(socket *Socket, params *css.SetStyleSheetTextParams
 SetRuleSelector modifies the rule selector.
 */
 func (CSS) SetRuleSelector(socket *Socket, params *css.SetRuleSelectorParams) error {
-	command := new(protocol.Command)
-	command.method = "CSS.setRuleSelector"
-	command.params = params
+	command := &protocol.Command{
+		method: "CSS.setRuleSelector",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -131,9 +145,10 @@ func (CSS) SetRuleSelector(socket *Socket, params *css.SetRuleSelectorParams) er
 SetKeyframeKey modifies the keyframe rule key text.
 */
 func (CSS) SetKeyframeKey(socket *Socket, params *css.SetKeyframeKeyParams) error {
-	command := new(protocol.Command)
-	command.method = "CSS.setKeyframeKey"
-	command.params = params
+	command := &protocol.Command{
+		method: "CSS.setKeyframeKey",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -142,9 +157,10 @@ func (CSS) SetKeyframeKey(socket *Socket, params *css.SetKeyframeKeyParams) erro
 SetStyleTexts applies specified style edits one after another in the given order.
 */
 func (CSS) SetStyleTexts(socket *Socket, params *css.SetStyleTextsParams) error {
-	command := new(protocol.Command)
-	command.method = "CSS.setStyleTexts"
-	command.params = params
+	command := &protocol.Command{
+		method: "CSS.setStyleTexts",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -153,9 +169,10 @@ func (CSS) SetStyleTexts(socket *Socket, params *css.SetStyleTextsParams) error 
 SetMediaText modifies the rule selector.
 */
 func (CSS) SetMediaText(socket *Socket, params *css.SetMediaTextParams) error {
-	command := new(protocol.Command)
-	command.method = "CSS.setMediaText"
-	command.params = params
+	command := &protocol.Command{
+		method: "CSS.setMediaText",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -164,9 +181,10 @@ func (CSS) SetMediaText(socket *Socket, params *css.SetMediaTextParams) error {
 CreateStyleSheet creates a new special "via-inspector" stylesheet in the frame with given frameId.
 */
 func (CSS) CreateStyleSheet(socket *Socket, params *css.CreateStyleSheetParams) error {
-	command := new(protocol.Command)
-	command.method = "CSS.createStyleSheet"
-	command.params = params
+	command := &protocol.Command{
+		method: "CSS.createStyleSheet",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -176,9 +194,10 @@ AddRule inserts a new rule with the given ruleText in a stylesheet with given st
 position specified by location.
 */
 func (CSS) AddRule(socket *Socket, params *css.AddRuleParams) error {
-	command := new(protocol.Command)
-	command.method = "CSS.addRule"
-	command.params = params
+	command := &protocol.Command{
+		method: "CSS.addRule",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -188,9 +207,10 @@ ForcePseudoState ensures that the given node will have specified pseudo-classes 
 is computed by the browser.
 */
 func (CSS) ForcePseudoState(socket *Socket, params *css.ForcePseudoStateParams) error {
-	command := new(protocol.Command)
-	command.method = "CSS.forcePseudoState"
-	command.params = params
+	command := &protocol.Command{
+		method: "CSS.forcePseudoState",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -199,9 +219,10 @@ func (CSS) ForcePseudoState(socket *Socket, params *css.ForcePseudoStateParams) 
 GetMediaQueries returns all media queries parsed by the rendering engine.
 */
 func (CSS) GetMediaQueries(socket *Socket, params *css.GetMediaQueriesParams) error {
-	command := new(protocol.Command)
-	command.method = "CSS.getMediaQueries"
-	command.params = params
+	command := &protocol.Command{
+		method: "CSS.getMediaQueries",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -211,9 +232,10 @@ SetEffectivePropertyValueForNode finds a rule with the given active property for
 sets the new value for that property.
 */
 func (CSS) SetEffectivePropertyValueForNode(socket *Socket, params *css.SetEffectivePropertyValueForNodeParams) error {
-	command := new(protocol.Command)
-	command.method = "CSS.setEffectivePropertyValueForNode"
-	command.params = params
+	command := &protocol.Command{
+		method: "CSS.setEffectivePropertyValueForNode",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -222,9 +244,10 @@ func (CSS) SetEffectivePropertyValueForNode(socket *Socket, params *css.SetEffec
 GetBackgroundColors gets background colors for a node.
 */
 func (CSS) GetBackgroundColors(socket *Socket, params *css.GetBackgroundColorsParams) error {
-	command := new(protocol.Command)
-	command.method = "CSS.getBackgroundColors"
-	command.params = params
+	command := &protocol.Command{
+		method: "CSS.getBackgroundColors",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -233,8 +256,10 @@ func (CSS) GetBackgroundColors(socket *Socket, params *css.GetBackgroundColorsPa
 StartRuleUsageTracking enables the selector recording.
 */
 func (CSS) StartRuleUsageTracking(socket *Socket) error {
-	command := new(protocol.Command)
-	command.method = "CSS.startRuleUsageTracking"
+	command := &protocol.Command{
+		method: "CSS.startRuleUsageTracking",
+		params: nil,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -244,8 +269,10 @@ TakeCoverageDelta obtains the list of rules that became used since last call to 
 since start of coverage instrumentation).
 */
 func (CSS) TakeCoverageDelta(socket *Socket) error {
-	command := new(protocol.Command)
-	command.method = "CSS.takeCoverageDelta"
+	command := &protocol.Command{
+		method: "CSS.takeCoverageDelta",
+		params: nil,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -254,8 +281,10 @@ func (CSS) TakeCoverageDelta(socket *Socket) error {
 StopRuleUsageTracking returns he list of rules with an indication of whether they were used.
 */
 func (CSS) StopRuleUsageTracking(socket *Socket) error {
-	command := new(protocol.Command)
-	command.method = "CSS.stopRuleUsageTracking"
+	command := &protocol.Command{
+		method: "CSS.stopRuleUsageTracking",
+		params: nil,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -266,17 +295,17 @@ CSS.mediaQueryResultChanged fires whenever a MediaQuery result changes (for exam
 window has been resized.) The current implementation considers only viewport-dependent media
 features.
 */
-func OnMediaQueryResultChanged(socket *Socket, callback func(event *css.MediaQueryResultChangedEvent)) error {
+func (CSS) OnMediaQueryResultChanged(socket *Socket, callback func(event *css.MediaQueryResultChangedEvent)) error {
 	handler := protocol.NewEventHandler(
 		"CSS.mediaQueryResultChanged",
 		func(name string, params []byte) {
-			event := new(css.MediaQueryResultChangedEvent)
+			event := &css.MediaQueryResultChangedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
 			}
-		}
+		},
 	)
 	socket.AddEventHandler(handler)
 	return command.Err
@@ -286,17 +315,17 @@ func OnMediaQueryResultChanged(socket *Socket, callback func(event *css.MediaQue
 OnFontsUpdated adds a handler to the CSS.fontsUpdated event. CSS.fontsUpdated fires whenever a web
 font gets loaded.
 */
-func OnFontsUpdated(socket *Socket, callback func(event *css.FontsUpdatedEvent)) error {
+func (CSS) OnFontsUpdated(socket *Socket, callback func(event *css.FontsUpdatedEvent)) error {
 	handler := protocol.NewEventHandler(
 		"CSS.fontsUpdated",
 		func(name string, params []byte) {
-			event := new(css.FontsUpdatedEvent)
+			event := &css.FontsUpdatedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
 			}
-		}
+		},
 	)
 	socket.AddEventHandler(handler)
 	return command.Err
@@ -306,17 +335,17 @@ func OnFontsUpdated(socket *Socket, callback func(event *css.FontsUpdatedEvent))
 OnStyleSheetChanged adds a handler to the CSS.styleSheetChanged event. CSS.styleSheetChanged fires
 whenever a stylesheet is changed as a result of the client operation.
 */
-func OnStyleSheetChanged(socket *Socket, callback func(event *css.StyleSheetChangedEvent)) error {
+func (CSS) OnStyleSheetChanged(socket *Socket, callback func(event *css.StyleSheetChangedEvent)) error {
 	handler := protocol.NewEventHandler(
 		"CSS.styleSheetChanged",
 		func(name string, params []byte) {
-			event := new(css.StyleSheetChangedEvent)
+			event := &css.StyleSheetChangedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
 			}
-		}
+		},
 	)
 	socket.AddEventHandler(handler)
 	return command.Err
@@ -326,17 +355,17 @@ func OnStyleSheetChanged(socket *Socket, callback func(event *css.StyleSheetChan
 OnStyleSheetAdded adds a handler to the CSS.styleSheetAdded event. CSS.styleSheetAdded fires
 whenever an active document stylesheet is added.
 */
-func OnStyleSheetAdded(socket *Socket, callback func(event *css.StyleSheetAddedEvent)) error {
+func (CSS) OnStyleSheetAdded(socket *Socket, callback func(event *css.StyleSheetAddedEvent)) error {
 	handler := protocol.NewEventHandler(
 		"CSS.styleSheetAdded",
 		func(name string, params []byte) {
-			event := new(css.StyleSheetAddedEvent)
+			event := &css.StyleSheetAddedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
 			}
-		}
+		},
 	)
 	socket.AddEventHandler(handler)
 	return command.Err
@@ -346,17 +375,17 @@ func OnStyleSheetAdded(socket *Socket, callback func(event *css.StyleSheetAddedE
 OnStyleSheetRemoved adds a handler to the CSS.styleSheetRemoved event. CSS.styleSheetRemoved fires
 whenever an active document stylesheet is removed.
 */
-func OnStyleSheetRemoved(socket *Socket, callback func(event *css.StyleSheetRemovedEvent)) error {
+func (CSS) OnStyleSheetRemoved(socket *Socket, callback func(event *css.StyleSheetRemovedEvent)) error {
 	handler := protocol.NewEventHandler(
 		"CSS.styleSheetRemoved",
 		func(name string, params []byte) {
-			event := new(css.StyleSheetRemovedEvent)
+			event := &css.StyleSheetRemovedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
 			}
-		}
+		},
 	)
 	socket.AddEventHandler(handler)
 	return command.Err

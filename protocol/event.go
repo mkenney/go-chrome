@@ -20,11 +20,14 @@ type EventHandler struct {
 	name     func() string
 }
 
+/*
+NewEventHandler returns a pointer to a generic event handler
+*/
 func NewEventHandler(name string, callback func(name string, params []byte)) *EventHandler {
-	event = new(EventHandler)
-	event.name = name
-	event.callback = callback
-	return event
+	return &EventHandler{
+		name:     name,
+		callback: callback,
+	}
 }
 
 /*
@@ -61,11 +64,11 @@ type EventHandlerPayload struct {
 NewEventHandlerPayload generates a new EventHandlerPayload pointer
 */
 func NewEventHandlerPayload(id int, method string, params interface{}) *EventHandlerPayload {
-	payload := new(EventHandlerPayload)
-	payload.ID = id
-	payload.Method = method
-	payload.Params = params
-	return payload
+	return &EventHandlerPayload{
+		ID:     id,
+		Method: method,
+		Params: params,
+	}
 }
 
 /*

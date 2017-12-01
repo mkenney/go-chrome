@@ -75,9 +75,9 @@ type CommandPayload struct {
 NewCommandPayload generates a new CommandPayload pointer
 */
 func NewCommandPayload(id int, method string, params interface{}) *CommandPayload {
-	payload := new(CommandPayload)
-	payload.ID = id
-	payload.Method = method
-	payload.Params = params
-	return payload
+	return &CommandPayload{
+		ID:     id,
+		Method: method,
+		Params: params,
+	}
 }

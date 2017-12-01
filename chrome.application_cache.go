@@ -3,13 +3,12 @@ package chrome
 import (
 	"app/chrome/protocol"
 	"encoding/json"
-	applicationCache "app/chrome/application_cache"
 
 	log "github.com/Sirupsen/logrus"
 )
 
 /*
-ApplicationCache: https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/
+ApplicationCache - https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/
 EXPERIMENTAL
 */
 type ApplicationCache struct{}
@@ -18,8 +17,10 @@ type ApplicationCache struct{}
 Enable enables application cache domain notifications.
 */
 func (ApplicationCache) Enable(socket *Socket) error {
-	command := new(protocol.Command)
-	command.method = "ApplicationCache.enable"
+	command := &protocol.Command{
+		method: "ApplicationCache.enable",
+		params: nil,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -28,8 +29,10 @@ func (ApplicationCache) Enable(socket *Socket) error {
 Disable disables application cache domain notifications.
 */
 func (ApplicationCache) Disable(socket *Socket) error {
-	command := new(protocol.Command)
-	command.method = "ApplicationCache.disable"
+	command := &protocol.Command{
+		method: "ApplicationCache.disable",
+		params: nil,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -39,8 +42,10 @@ GetFramesWithManifests returns array of frame identifiers with manifest urls for
 containing a document associated with some application cache.
 */
 func (ApplicationCache) GetFramesWithManifests(socket *Socket) error {
-	command := new(protocol.Command)
-	command.method = "ApplicationCache.getFramesWithManifests"
+	command := &protocol.Command{
+		method: "ApplicationCache.getFramesWithManifests",
+		params: nil,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -48,10 +53,11 @@ func (ApplicationCache) GetFramesWithManifests(socket *Socket) error {
 /*
 GetManifestForFrame returns manifest URL for document in the given frame.
 */
-func (ApplicationCache) GetManifestForFrame(socket *Socket, params *applicationCache.GetManifestForFrameParams) error {
-	command := new(protocol.Command)
-	command.method = "ApplicationCache.getManifestForFrame"
-	command.params = params
+func (ApplicationCache) GetManifestForFrame(socket *Socket, params *application_cache.GetManifestForFrameParams) error {
+	command := &protocol.Command{
+		method: "ApplicationCache.getManifestForFrame",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -60,10 +66,11 @@ func (ApplicationCache) GetManifestForFrame(socket *Socket, params *applicationC
 GetApplicationCacheForFrame returns relevant application cache data for the document
 in given frame.
 */
-func (ApplicationCache) GetApplicationCacheForFrame(socket *Socket, params *applicationCache.GetApplicationCacheForFrameParams) error {
-	command := new(protocol.Command)
-	command.method = "ApplicationCache.getManifestForFrame"
-	command.params = params
+func (ApplicationCache) GetApplicationCacheForFrame(socket *Socket, params *application_cache.GetApplicationCacheForFrameParams) error {
+	command := &protocol.Command{
+		method: "ApplicationCache.getManifestForFrame",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -72,17 +79,17 @@ func (ApplicationCache) GetApplicationCacheForFrame(socket *Socket, params *appl
 OnApplicationCacheStatusUpdated adds a handler to the ApplicationCache.applicationCacheStatusUpdated
 event.
 */
-func OnApplicationCacheStatusUpdated(socket *Socket, callback func(event *applicationCache.ApplicationCacheStatusUpdatedEvent)) error {
+func (ApplicationCache) OnApplicationCacheStatusUpdated(socket *Socket, callback func(event *application_cache.ApplicationCacheStatusUpdatedEvent)) error {
 	handler := protocol.NewEventHandler(
 		"ApplicationCache.applicationCacheStatusUpdated",
 		func(name string, params []byte) {
-			event := new(applicationCache.ApplicationCacheStatusUpdatedEvent)
+			event := &application_cache.ApplicationCacheStatusUpdatedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
 			}
-		}
+		},
 	)
 	socket.AddEventHandler(handler)
 	return command.Err

@@ -28,7 +28,7 @@ type Tab struct {
 }
 
 /*
-New spawns a new tab and returns a reference to it
+NewTab spawns a new tab and returns a reference to it
 */
 func NewTab(uri string) (*Tab, error) {
 	if "" == uri {
@@ -42,7 +42,7 @@ func NewTab(uri string) (*Tab, error) {
 		return nil, err
 	}
 
-	tab := new(Tab)
+	tab := &Tab{}
 	_, err = browser.Cmd(fmt.Sprintf("/json/new?%s", url.QueryEscape(uri)), url.Values{}, tab)
 	if nil != err {
 		return nil, err
@@ -96,6 +96,9 @@ func (command *tabCommand) Run(socket *Socket) error {
 	return command.err
 }
 
+/*
+SendCommand sends a command to the tab.
+*/
 func (tab *Tab) SendCommand(cmd string, args interface{}) {
 	command := &tabCommand{}
 	command.method = cmd
@@ -127,9 +130,8 @@ func (tab *Tab) Close() (interface{}, error) {
 }
 
 /*
-RenderScreenshot takes a screenshot of the referenced tab
+RenderScreenshots takes a screenshot of the referenced tab
 */
-//func (tab *Tab) RenderScreenshot(format string, width, height int, maxWait int, handler func(result SocketScreenshotResult)) {
 func RenderScreenshots(params url.Values, handle func(results []SocketScreenshotResult)) {
 	var takeScreenshot func(tab *Tab) SocketScreenshotResult
 	takeScreenshot = func(tab *Tab) SocketScreenshotResult {
@@ -210,6 +212,9 @@ func RenderScreenshots(params url.Values, handle func(results []SocketScreenshot
 	handle(results)
 }
 
+/*
+RenderScreenshotsTest test func
+*/
 func RenderScreenshotsTest(params url.Values, handle func(results []SocketResult)) {
 	takeScreenshot := func(tab *Tab) SocketResult {
 		log.Debugf("Screenshot params: %v", params)

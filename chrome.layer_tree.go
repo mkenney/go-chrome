@@ -1,22 +1,26 @@
 package chrome
 
 import (
-	lt "app/chrome/layer_tree"
 	"app/chrome/protocol"
+	"encoding/json"
+
+	log "github.com/Sirupsen/logrus"
 )
 
 /*
-LayerTree domain
+LayerTree - https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/
+EXPERIMENTAL
 */
 type LayerTree struct{}
 
 /*
 CompositingReasons provides the reasons why the given layer was composited.
 */
-func (LayerTree) CompositingReasons(socket *Socket, params *lt.CompositingReasonsParams) error {
-	command := new(protocol.Command)
-	command.method = "LayerTree.compositingReasons"
-	command.params = params
+func (LayerTree) CompositingReasons(socket *Socket, params *layer_tree.CompositingReasonsParams) error {
+	command := &protocol.Command{
+		method: "LayerTree.compositingReasons",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -25,9 +29,10 @@ func (LayerTree) CompositingReasons(socket *Socket, params *lt.CompositingReason
 Disable disables compositing tree inspection.
 */
 func (LayerTree) Disable(socket *Socket) error {
-	command := new(protocol.Command)
-	command.method = "LayerTree.disable"
-	command.params = params
+	command := &protocol.Command{
+		method: "LayerTree.disable",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -36,9 +41,10 @@ func (LayerTree) Disable(socket *Socket) error {
 Enable enables compositing tree inspection.
 */
 func (LayerTree) Enable(socket *Socket) error {
-	command := new(protocol.Command)
-	command.method = "LayerTree.enable"
-	command.params = params
+	command := &protocol.Command{
+		method: "LayerTree.enable",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -46,10 +52,11 @@ func (LayerTree) Enable(socket *Socket) error {
 /*
 LoadSnapshot returns the snapshot identifier.
 */
-func (LayerTree) LoadSnapshot(socket *Socket, params *lt.LoadSnapshotParams) error {
-	command := new(protocol.Command)
-	command.method = "LayerTree.loadSnapshot"
-	command.params = params
+func (LayerTree) LoadSnapshot(socket *Socket, params *layer_tree.LoadSnapshotParams) error {
+	command := &protocol.Command{
+		method: "LayerTree.loadSnapshot",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -57,10 +64,11 @@ func (LayerTree) LoadSnapshot(socket *Socket, params *lt.LoadSnapshotParams) err
 /*
 MakeSnapshot returns the layer snapshot identifier.
 */
-func (LayerTree) MakeSnapshot(socket *Socket, params *lt.MakeSnapshotParams) error {
-	command := new(protocol.Command)
-	command.method = "LayerTree.makeSnapshot"
-	command.params = params
+func (LayerTree) MakeSnapshot(socket *Socket, params *layer_tree.MakeSnapshotParams) error {
+	command := &protocol.Command{
+		method: "LayerTree.makeSnapshot",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -68,10 +76,11 @@ func (LayerTree) MakeSnapshot(socket *Socket, params *lt.MakeSnapshotParams) err
 /*
 ProfileSnapshot profiles a snapshot.
 */
-func (LayerTree) ProfileSnapshot(socket *Socket, params *lt.ProfileSnapshotParams) error {
-	command := new(protocol.Command)
-	command.method = "LayerTree.profileSnapshot"
-	command.params = params
+func (LayerTree) ProfileSnapshot(socket *Socket, params *layer_tree.ProfileSnapshotParams) error {
+	command := &protocol.Command{
+		method: "LayerTree.profileSnapshot",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -79,10 +88,11 @@ func (LayerTree) ProfileSnapshot(socket *Socket, params *lt.ProfileSnapshotParam
 /*
 ReleaseSnapshot releases layer snapshot captured by the back-end.
 */
-func (LayerTree) ReleaseSnapshot(socket *Socket, params *lt.ReleaseSnapshotParams) error {
-	command := new(protocol.Command)
-	command.method = "LayerTree.releaseSnapshot"
-	command.params = params
+func (LayerTree) ReleaseSnapshot(socket *Socket, params *layer_tree.ReleaseSnapshotParams) error {
+	command := &protocol.Command{
+		method: "LayerTree.releaseSnapshot",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -90,10 +100,11 @@ func (LayerTree) ReleaseSnapshot(socket *Socket, params *lt.ReleaseSnapshotParam
 /*
 ReplaySnapshot replays the layer snapshot and returns the resulting bitmap.
 */
-func (LayerTree) ReplaySnapshot(socket *Socket, params *lt.ReplaySnapshotParams) error {
-	command := new(protocol.Command)
-	command.method = "LayerTree.replaySnapshot"
-	command.params = params
+func (LayerTree) ReplaySnapshot(socket *Socket, params *layer_tree.ReplaySnapshotParams) error {
+	command := &protocol.Command{
+		method: "LayerTree.replaySnapshot",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -101,10 +112,11 @@ func (LayerTree) ReplaySnapshot(socket *Socket, params *lt.ReplaySnapshotParams)
 /*
 SnapshotCommandLog replays the layer snapshot and returns canvas log.
 */
-func (LayerTree) SnapshotCommandLog(socket *Socket, params *lt.SnapshotCommandLogParams) error {
-	command := new(protocol.Command)
-	command.method = "LayerTree.snapshotCommandLog"
-	command.params = params
+func (LayerTree) SnapshotCommandLog(socket *Socket, params *layer_tree.SnapshotCommandLogParams) error {
+	command := &protocol.Command{
+		method: "LayerTree.snapshotCommandLog",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -113,17 +125,17 @@ func (LayerTree) SnapshotCommandLog(socket *Socket, params *lt.SnapshotCommandLo
 OnLayerPainted adds a handler to the DOM.layerPainted event. DOM.layerPainted fires when the layer
 is painted.
 */
-func (LayerTree) OnLayerPainted(socket *Socket, callback func(event *lt.LayerPaintedEvent)) error {
+func (LayerTree) OnLayerPainted(socket *Socket, callback func(event *layer_tree.LayerPaintedEvent)) error {
 	handler := protocol.NewEventHandler(
 		"LayerTree.layerPainted",
 		func(name string, params []byte) {
-			event := new(heap.LayerPaintedEvent)
+			event := &layer_tree.LayerPaintedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
 			}
-		}
+		},
 	)
 	socket.AddEventHandler(handler)
 	return command.Err
@@ -133,17 +145,17 @@ func (LayerTree) OnLayerPainted(socket *Socket, callback func(event *lt.LayerPai
 OnLayerTreeDidChange adds a handler to the DOM.layerTreeDidChange event. DOM.layerTreeDidChange
 fires when the layer tree changes.
 */
-func (LayerTree) OnLayerTreeDidChange(socket *Socket, callback func(event *lt.LayerTreeDidChangeEvent)) error {
+func (LayerTree) OnLayerTreeDidChange(socket *Socket, callback func(event *layer_tree.LayerTreeDidChangeEvent)) error {
 	handler := protocol.NewEventHandler(
 		"LayerTree.layerTreeDidChange",
 		func(name string, params []byte) {
-			event := new(heap.LayerTreeDidChangeEvent)
+			event := &layer_tree.LayerTreeDidChangeEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
 			}
-		}
+		},
 	)
 	socket.AddEventHandler(handler)
 	return command.Err

@@ -1,12 +1,9 @@
 package chrome
 
-import (
-	cacheStorage "app/chrome/cache_storage"
-	"app/chrome/protocol"
-)
+import "app/chrome/protocol"
 
 /*
-CacheStorage: https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/
+CacheStorage - https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/
 EXPERIMENTAL
 */
 type CacheStorage struct{}
@@ -14,10 +11,11 @@ type CacheStorage struct{}
 /*
 RequestCacheNames requests cache names.
 */
-func (CacheStorage) RequestCacheNames(socket *Socket, params *cacheStorage.RequestCacheNamesParams) error {
-	command := new(protocol.Command)
-	command.method = "CacheStorage.requestCacheNames"
-	command.params = params
+func (CacheStorage) RequestCacheNames(socket *Socket, params *cache_storage.RequestCacheNamesParams) error {
+	command := &protocol.Command{
+		method: "CacheStorage.requestCacheNames",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -25,10 +23,11 @@ func (CacheStorage) RequestCacheNames(socket *Socket, params *cacheStorage.Reque
 /*
 RequestEntries requests data from cache.
 */
-func (CacheStorage) RequestEntries(socket *Socket, params *cacheStorage.RequestEntriesParams) error {
-	command := new(protocol.Command)
-	command.method = "CacheStorage.requestEntries"
-	command.params = params
+func (CacheStorage) RequestEntries(socket *Socket, params *cache_storage.RequestEntriesParams) error {
+	command := &protocol.Command{
+		method: "CacheStorage.requestEntries",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -36,10 +35,11 @@ func (CacheStorage) RequestEntries(socket *Socket, params *cacheStorage.RequestE
 /*
 DeleteCache deletes a cache.
 */
-func (CacheStorage) DeleteCache(socket *Socket, params *cacheStorage.DeleteCacheParams) error {
-	command := new(protocol.Command)
-	command.method = "CacheStorage.deleteCache"
-	command.params = params
+func (CacheStorage) DeleteCache(socket *Socket, params *cache_storage.DeleteCacheParams) error {
+	command := &protocol.Command{
+		method: "CacheStorage.deleteCache",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -47,10 +47,11 @@ func (CacheStorage) DeleteCache(socket *Socket, params *cacheStorage.DeleteCache
 /*
 DeleteEntry deletes a cache entry.
 */
-func (CacheStorage) DeleteEntry(socket *Socket, params *cacheStorage.DeleteEntryParams) error {
-	command := new(protocol.Command)
-	command.method = "CacheStorage.deleteEntry"
-	command.params = params
+func (CacheStorage) DeleteEntry(socket *Socket, params *cache_storage.DeleteEntryParams) error {
+	command := &protocol.Command{
+		method: "CacheStorage.deleteEntry",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -58,10 +59,11 @@ func (CacheStorage) DeleteEntry(socket *Socket, params *cacheStorage.DeleteEntry
 /*
 RequestCachedResponse fetches cache entry.
 */
-func (CacheStorage) RequestCachedResponse(socket *Socket, params *cacheStorage.RequestCachedResponseParams) error {
-	command := new(protocol.Command)
-	command.method = "CacheStorage.requestCachedResponse"
-	command.params = params
+func (CacheStorage) RequestCachedResponse(socket *Socket, params *cache_storage.RequestCachedResponseParams) error {
+	command := &protocol.Command{
+		method: "CacheStorage.requestCachedResponse",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }

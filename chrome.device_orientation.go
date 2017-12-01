@@ -1,22 +1,21 @@
 package chrome
 
-import (
-	do "app/chrome/device_orientation"
-	"app/chrome/protocol"
-)
+import "app/chrome/protocol"
 
 /*
-DeviceOrientation EXPERIMENTAL
+DeviceOrientation - https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/
+EXPERIMENTAL
 */
 type DeviceOrientation struct{}
 
 /*
 ClearDeviceOrientationOverride clears the overridden Device Orientation.
 */
-func (DeviceOrientation) ClearDeviceOrientationOverride(socket *Socket, params *do.ClearDeviceOrientationOverrideParams) error {
-	command := new(protocol.Command)
-	command.method = "DeviceOrientation.clearDeviceOrientationOverride"
-	command.params = params
+func (DeviceOrientation) ClearDeviceOrientationOverride(socket *Socket, params *device_orientation.ClearDeviceOrientationOverrideParams) error {
+	command := &protocol.Command{
+		method: "DeviceOrientation.clearDeviceOrientationOverride",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -24,10 +23,11 @@ func (DeviceOrientation) ClearDeviceOrientationOverride(socket *Socket, params *
 /*
 SetDeviceOrientationOverride overrides the Device Orientation.
 */
-func (DeviceOrientation) SetDeviceOrientationOverride(socket *Socket, params *do.SetDeviceOrientationOverrideParams) error {
-	command := new(protocol.Command)
-	command.method = "DeviceOrientation.setDeviceOrientationOverride"
-	command.params = params
+func (DeviceOrientation) SetDeviceOrientationOverride(socket *Socket, params *device_orientation.SetDeviceOrientationOverrideParams) error {
+	command := &protocol.Command{
+		method: "DeviceOrientation.setDeviceOrientationOverride",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }

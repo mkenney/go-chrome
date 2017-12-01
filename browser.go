@@ -41,7 +41,7 @@ type Version struct {
 var browserInstance *Browser
 
 /*
-New launches the Chrome process and returns the connected Browser struct
+Launch launches the Chrome process and returns the connected Browser struct
 */
 func Launch(port int, address, proxy, binary string) error {
 	if 0 == port {
@@ -92,11 +92,12 @@ func Launch(port int, address, proxy, binary string) error {
 		return err
 	}
 
-	browserInstance = new(Browser)
-	browserInstance.Output = output
-	browserInstance.Process = process
-	browserInstance.Address = address
-	browserInstance.Port = port
+	browserInstance = &Browser{
+		Address: address,
+		Output:  output,
+		Port:    port,
+		Process: process,
+	}
 	for i := 0; i < 3; i++ {
 		time.Sleep(time.Second)
 		if err = browserInstance.checkVersion(); err == nil {

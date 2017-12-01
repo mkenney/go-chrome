@@ -1,12 +1,15 @@
 package chrome
 
 import (
-	heap "app/chrome/heap_profiler"
 	"app/chrome/protocol"
+	"encoding/json"
+
+	log "github.com/Sirupsen/logrus"
 )
 
 /*
-HeapProfiler EXPERIMENTAL
+HeapProfiler - https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/
+EXPERIMENTAL
 */
 type HeapProfiler struct{}
 
@@ -14,8 +17,10 @@ type HeapProfiler struct{}
 Enable enables the HeapProfiler.
 */
 func (HeapProfiler) Enable(socket *Socket) error {
-	command := new(protocol.Command)
-	command.method = "HeapProfiler.enable"
+	command := &protocol.Command{
+		method: "HeapProfiler.enable",
+		params: nil,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -24,8 +29,10 @@ func (HeapProfiler) Enable(socket *Socket) error {
 Disable disables the HeapProfiler.
 */
 func (HeapProfiler) Disable(socket *Socket) error {
-	command := new(protocol.Command)
-	command.method = "HeapProfiler.disable"
+	command := &protocol.Command{
+		method: "HeapProfiler.disable",
+		params: nil,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -33,10 +40,11 @@ func (HeapProfiler) Disable(socket *Socket) error {
 /*
 StartTrackingHeapObjects EXPERIMENTAL
 */
-func (HeapProfiler) StartTrackingHeapObjects(socket *Socket, params *heap.StartTrackingHeapObjectsParams) error {
-	command := new(protocol.Command)
-	command.method = "HeapProfiler.startTrackingHeapObjects"
-	command.params = params
+func (HeapProfiler) StartTrackingHeapObjects(socket *Socket, params *heap_profiler.StartTrackingHeapObjectsParams) error {
+	command := &protocol.Command{
+		method: "HeapProfiler.startTrackingHeapObjects",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -44,10 +52,11 @@ func (HeapProfiler) StartTrackingHeapObjects(socket *Socket, params *heap.StartT
 /*
 StopTrackingHeapObjects EXPERIMENTAL
 */
-func (HeapProfiler) StopTrackingHeapObjects(socket *Socket, params *heap.StopTrackingHeapObjectsParams) error {
-	command := new(protocol.Command)
-	command.method = "HeapProfiler.stopTrackingHeapObjects"
-	command.params = params
+func (HeapProfiler) StopTrackingHeapObjects(socket *Socket, params *heap_profiler.StopTrackingHeapObjectsParams) error {
+	command := &protocol.Command{
+		method: "HeapProfiler.stopTrackingHeapObjects",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -55,10 +64,11 @@ func (HeapProfiler) StopTrackingHeapObjects(socket *Socket, params *heap.StopTra
 /*
 TakeHeapSnapshot EXPERIMENTAL
 */
-func (HeapProfiler) TakeHeapSnapshot(socket *Socket, params *heap.TakeHeapSnapshotParams) error {
-	command := new(protocol.Command)
-	command.method = "HeapProfiler.takeHeapSnapshot"
-	command.params = params
+func (HeapProfiler) TakeHeapSnapshot(socket *Socket, params *heap_profiler.TakeHeapSnapshotParams) error {
+	command := &protocol.Command{
+		method: "HeapProfiler.takeHeapSnapshot",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -67,8 +77,10 @@ func (HeapProfiler) TakeHeapSnapshot(socket *Socket, params *heap.TakeHeapSnapsh
 CollectGarbage EXPERIMENTAL
 */
 func (HeapProfiler) CollectGarbage(socket *Socket) error {
-	command := new(protocol.Command)
-	command.method = "HeapProfiler.collectGarbage"
+	command := &protocol.Command{
+		method: "HeapProfiler.collectGarbage",
+		params: nil,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -76,10 +88,11 @@ func (HeapProfiler) CollectGarbage(socket *Socket) error {
 /*
 GetObjectByHeapObjectID EXPERIMENTAL
 */
-func (HeapProfiler) GetObjectByHeapObjectID(socket *Socket, params *heap.GetObjectByHeapObjectIDParams) error {
-	command := new(protocol.Command)
-	command.method = "HeapProfiler.getObjectByHeapObjectId"
-	command.params = params
+func (HeapProfiler) GetObjectByHeapObjectID(socket *Socket, params *heap_profiler.GetObjectByHeapObjectIDParams) error {
+	command := &protocol.Command{
+		method: "HeapProfiler.getObjectByHeapObjectId",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -88,10 +101,11 @@ func (HeapProfiler) GetObjectByHeapObjectID(socket *Socket, params *heap.GetObje
 AddInspectedHeapObject enables console to refer to the node with given id via $x (see Command Line
 API for more details $x functions).
 */
-func (HeapProfiler) AddInspectedHeapObject(socket *Socket, params *heap.AddInspectedHeapObjectParams) error {
-	command := new(protocol.Command)
-	command.method = "HeapProfiler.addInspectedHeapObject"
-	command.params = params
+func (HeapProfiler) AddInspectedHeapObject(socket *Socket, params *heap_profiler.AddInspectedHeapObjectParams) error {
+	command := &protocol.Command{
+		method: "HeapProfiler.addInspectedHeapObject",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -99,10 +113,11 @@ func (HeapProfiler) AddInspectedHeapObject(socket *Socket, params *heap.AddInspe
 /*
 GetHeapObjectID EXPERIMENTAL
 */
-func (HeapProfiler) GetHeapObjectID(socket *Socket, params *heap.GetHeapObjectIDParams) error {
-	command := new(protocol.Command)
-	command.method = "HeapProfiler.getHeapObjectID"
-	command.params = params
+func (HeapProfiler) GetHeapObjectID(socket *Socket, params *heap_profiler.GetHeapObjectIDParams) error {
+	command := &protocol.Command{
+		method: "HeapProfiler.getHeapObjectID",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -110,10 +125,11 @@ func (HeapProfiler) GetHeapObjectID(socket *Socket, params *heap.GetHeapObjectID
 /*
 StartSampling EXPERIMENTAL
 */
-func (HeapProfiler) StartSampling(socket *Socket, params *heap.StartSamplingParams) error {
-	command := new(protocol.Command)
-	command.method = "HeapProfiler.startSampling"
-	command.params = params
+func (HeapProfiler) StartSampling(socket *Socket, params *heap_profiler.StartSamplingParams) error {
+	command := &protocol.Command{
+		method: "HeapProfiler.startSampling",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -121,10 +137,11 @@ func (HeapProfiler) StartSampling(socket *Socket, params *heap.StartSamplingPara
 /*
 StopSampling EXPERIMENTAL
 */
-func (HeapProfiler) StopSampling(socket *Socket, params *heap.StopSamplingParams) error {
-	command := new(protocol.Command)
-	command.method = "HeapProfiler.stopSampling"
-	command.params = params
+func (HeapProfiler) StopSampling(socket *Socket, params *heap_profiler.StopSamplingParams) error {
+	command := &protocol.Command{
+		method: "HeapProfiler.stopSampling",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -132,29 +149,30 @@ func (HeapProfiler) StopSampling(socket *Socket, params *heap.StopSamplingParams
 /*
 GetSamplingProfile EXPERIMENTAL
 */
-func (HeapProfiler) GetSamplingProfile(socket *Socket, params *heap.GetSamplingProfileParams) error {
-	command := new(protocol.Command)
-	command.method = "HeapProfiler.getSamplingProfile"
-	command.params = params
+func (HeapProfiler) GetSamplingProfile(socket *Socket, params *heap_profiler.GetSamplingProfileParams) error {
+	command := &protocol.Command{
+		method: "HeapProfiler.getSamplingProfile",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
 
 /*
-OnOnAddHeapSnapshotChunk adds a handler to the HeapProfiler.OnAddHeapSnapshotChunk event.
+OnAddHeapSnapshotChunk adds a handler to the HeapProfiler.AddHeapSnapshotChunk event.
 EXPERIMENTAL
 */
-func (HeapProfiler) OnAddHeapSnapshotChunk(socket *Socket, callback func(event *heap.AddHeapSnapshotChunkEvent)) error {
+func (HeapProfiler) OnAddHeapSnapshotChunk(socket *Socket, callback func(event *heap_profiler.AddHeapSnapshotChunkEvent)) error {
 	handler := protocol.NewEventHandler(
 		"HeapProfiler.addHeapSnapshotChunk",
 		func(name string, params []byte) {
-			event := new(heap.AddHeapSnapshotChunkEvent)
+			event := &heap_profiler.AddHeapSnapshotChunkEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
 			}
-		}
+		},
 	)
 	socket.AddEventHandler(handler)
 	return command.Err
@@ -163,17 +181,17 @@ func (HeapProfiler) OnAddHeapSnapshotChunk(socket *Socket, callback func(event *
 /*
 OnResetProfiles adds a handler to the HeapProfiler.ResetProfiles event. EXPERIMENTAL
 */
-func (HeapProfiler) OnResetProfiles(socket *Socket, callback func(event *heap.ResetProfilesEvent)) error {
+func (HeapProfiler) OnResetProfiles(socket *Socket, callback func(event *heap_profiler.ResetProfilesEvent)) error {
 	handler := protocol.NewEventHandler(
 		"HeapProfiler.resetProfiles",
 		func(name string, params []byte) {
-			event := new(heap.ResetProfilesEvent)
+			event := &heap_profiler.ResetProfilesEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
 			}
-		}
+		},
 	)
 	socket.AddEventHandler(handler)
 	return command.Err
@@ -183,17 +201,17 @@ func (HeapProfiler) OnResetProfiles(socket *Socket, callback func(event *heap.Re
 OnReportHeapSnapshotProgress adds a handler to the DOM.ReportHeapSnapshotProgress event.
 EXPERIMENTAL
 */
-func (HeapProfiler) OnReportHeapSnapshotProgress(socket *Socket, callback func(event *heap.ReportHeapSnapshotProgressEvent)) error {
+func (HeapProfiler) OnReportHeapSnapshotProgress(socket *Socket, callback func(event *heap_profiler.ReportHeapSnapshotProgressEvent)) error {
 	handler := protocol.NewEventHandler(
 		"HeapProfiler.reportHeapSnapshotProgress",
 		func(name string, params []byte) {
-			event := new(heap.ReportHeapSnapshotProgressEvent)
+			event := &heap_profiler.ReportHeapSnapshotProgressEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
 			}
-		}
+		},
 	)
 	socket.AddEventHandler(handler)
 	return command.Err
@@ -205,17 +223,17 @@ heap objects tracking has been started then backend regularly sends a current va
 object id and corresponding timestamp. If the were changes in the heap since last event then one or
 more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
 */
-func (HeapProfiler) OnLastSeenObjectID(socket *Socket, callback func(event *heap.LastSeenObjectIDEvent)) error {
+func (HeapProfiler) OnLastSeenObjectID(socket *Socket, callback func(event *heap_profiler.LastSeenObjectIDEvent)) error {
 	handler := protocol.NewEventHandler(
 		"HeapProfiler.lastSeenObjectID",
 		func(name string, params []byte) {
-			event := new(heap.LastSeenObjectIDEvent)
+			event := &heap_profiler.LastSeenObjectIDEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
 			}
-		}
+		},
 	)
 	socket.AddEventHandler(handler)
 	return command.Err
@@ -225,17 +243,17 @@ func (HeapProfiler) OnLastSeenObjectID(socket *Socket, callback func(event *heap
 OnHeapStatsUpdate adds a handler to the DOM.heapStatsUpdate event. DOM.heapStatsUpdate fires if heap
 objects tracking has been started then backend may send update for one or more fragments.
 */
-func (HeapProfiler) OnHeapStatsUpdate(socket *Socket, callback func(event *heap.HeapStatsUpdateEvent)) error {
+func (HeapProfiler) OnHeapStatsUpdate(socket *Socket, callback func(event *heap_profiler.HeapStatsUpdateEvent)) error {
 	handler := protocol.NewEventHandler(
 		"HeapProfiler.heapStatsUpdate",
 		func(name string, params []byte) {
-			event := new(heap.HeapStatsUpdateEvent)
+			event := &heap_profiler.HeapStatsUpdateEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
 			}
-		}
+		},
 	)
 	socket.AddEventHandler(handler)
 	return command.Err

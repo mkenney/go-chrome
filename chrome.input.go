@@ -1,12 +1,9 @@
 package chrome
 
-import (
-	input "app/chrome/input"
-	"app/chrome/protocol"
-)
+import "app/chrome/protocol"
 
 /*
-Input domain
+Input - https://chromedevtools.github.io/devtools-protocol/tot/Input/
 */
 type Input struct{}
 
@@ -14,9 +11,10 @@ type Input struct{}
 DispatchKeyEvent dispatches a key event to the page.
 */
 func (Input) DispatchKeyEvent(socket *Socket, params *input.DispatchKeyEventParams) error {
-	command := new(protocol.Command)
-	command.method = "Input.dispatchKeyEvent"
-	command.params = params
+	command := &protocol.Command{
+		method: "Input.dispatchKeyEvent",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -25,9 +23,10 @@ func (Input) DispatchKeyEvent(socket *Socket, params *input.DispatchKeyEventPara
 DispatchMouseEvent dispatches a mouse event to the page.
 */
 func (Input) DispatchMouseEvent(socket *Socket, params *input.DispatchMouseEventParams) error {
-	command := new(protocol.Command)
-	command.method = "Input.dispatchMouseEvent"
-	command.params = params
+	command := &protocol.Command{
+		method: "Input.dispatchMouseEvent",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -36,9 +35,10 @@ func (Input) DispatchMouseEvent(socket *Socket, params *input.DispatchMouseEvent
 DispatchTouchEvent dispatches a touch event to the page.
 */
 func (Input) DispatchTouchEvent(socket *Socket, params *input.DispatchTouchEventParams) error {
-	command := new(protocol.Command)
-	command.method = "Input.dispatchTouchEvent"
-	command.params = params
+	command := &protocol.Command{
+		method: "Input.dispatchTouchEvent",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -47,9 +47,10 @@ func (Input) DispatchTouchEvent(socket *Socket, params *input.DispatchTouchEvent
 EmulateTouchFromMouseEvent emulates touch event from the mouse event parameters. EXPERIMENTAL
 */
 func (Input) EmulateTouchFromMouseEvent(socket *Socket, params *input.EmulateTouchFromMouseEventParams) error {
-	command := new(protocol.Command)
-	command.method = "Input.emulateTouchFromMouseEvent"
-	command.params = params
+	command := &protocol.Command{
+		method: "Input.emulateTouchFromMouseEvent",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -58,9 +59,10 @@ func (Input) EmulateTouchFromMouseEvent(socket *Socket, params *input.EmulateTou
 SetIgnoreInputEvents ignores input events (useful while auditing page).
 */
 func (Input) SetIgnoreInputEvents(socket *Socket, params *input.SetIgnoreInputEventsParams) error {
-	command := new(protocol.Command)
-	command.method = "Input.setIgnoreInputEvents"
-	command.params = params
+	command := &protocol.Command{
+		method: "Input.setIgnoreInputEvents",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -70,9 +72,10 @@ SynthesizePinchGesture synthesizes a pinch gesture over a time period by issuing
 events. EXPERIMENTAL
 */
 func (Input) SynthesizePinchGesture(socket *Socket, params *input.SynthesizePinchGestureParams) error {
-	command := new(protocol.Command)
-	command.method = "Input.synthesizePinchGesture"
-	command.params = params
+	command := &protocol.Command{
+		method: "Input.synthesizePinchGesture",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -82,9 +85,10 @@ SynthesizeScrollGesture synthesizes a scroll gesture over a time period by issui
 events. EXPERIMENTAL
 */
 func (Input) SynthesizeScrollGesture(socket *Socket, params *input.SynthesizeScrollGestureParams) error {
-	command := new(protocol.Command)
-	command.method = "Input.synthesizeScrollGesture"
-	command.params = params
+	command := &protocol.Command{
+		method: "Input.synthesizeScrollGesture",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }
@@ -94,9 +98,10 @@ SynthesizeTapGesture synthesizes a tap gesture over a time period by issuing app
 events. EXPERIMENTAL
 */
 func (Input) SynthesizeTapGesture(socket *Socket, params *input.SynthesizeTapGestureParams) error {
-	command := new(protocol.Command)
-	command.method = "Input.synthesizeTapGesture"
-	command.params = params
+	command := &protocol.Command{
+		method: "Input.synthesizeTapGesture",
+		params: params,
+	}
 	socket.SendCommand(command)
 	return command.Err
 }

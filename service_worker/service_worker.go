@@ -20,7 +20,7 @@ type ServiceWorkerRegistration struct {
 }
 
 /*
-ServiceWorkerVersionRunningStatus
+ServiceWorkerVersionRunningStatus - Allowed values: stopped, starting, running, stopping.
 */
 type ServiceWorkerVersionRunningStatus int
 
@@ -48,7 +48,8 @@ func (a ServiceWorkerVersionRunningStatus) String() string {
 }
 
 /*
-ServiceWorkerVersionStatus
+ServiceWorkerVersionStatus - Allowed values: new, installing, installed, activating, activated,
+redundant.
 */
 type ServiceWorkerVersionStatus int
 

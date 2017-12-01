@@ -1,7 +1,7 @@
 package Target
 
 /*
-TargetID
+TargetID is the target ID.
 */
 type TargetID string
 
@@ -16,7 +16,7 @@ BrowserContextID is EXPERIMENTAL
 type BrowserContextID string
 
 /*
-TargetInfo
+TargetInfo holds the target info
 */
 type TargetInfo struct {
 	// desc.

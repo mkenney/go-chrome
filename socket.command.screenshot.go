@@ -71,7 +71,7 @@ func (cmd *SocketScreenshotCmd) Run(socket *Socket) error {
 }
 
 /*
-Screenshot tells the socket to capture a screenshot of the current page
+ScreenshotCommand tells the socket to capture a screenshot of the current page
 */
 func ScreenshotCommand(socket *Socket, handler func(result interface{})) {
 	OnLoadEvent(socket, func(evt *LoadEvent) {
