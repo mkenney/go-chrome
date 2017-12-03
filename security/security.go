@@ -10,6 +10,60 @@ CertificateID is an internal certificate ID value.
 type CertificateID int
 
 /*
+HandleCertificateErrorParams represents Security.handleCertificateError parameters.
+*/
+type HandleCertificateErrorParams struct {
+	// The ID of the event.
+	EventID int `json:"eventId"`
+
+	// The action to take on the certificate error.
+	Action CertificateErrorAction `json:"action"`
+}
+
+/*
+SetOverrideCertificateErrorsParams represents Security.setOverrideCertificateErrors parameters.
+*/
+type SetOverrideCertificateErrorsParams struct {
+	// If true, certificate errors will be overridden.
+	Override bool `json:"override"`
+}
+
+/*
+CertificateErrorEvent represents Security.certificateError event data.
+*/
+type CertificateErrorEvent struct {
+	// The ID of the event.
+	EventID int `json:"eventId"`
+
+	// The type of the error.
+	ErrorType string `json:"errorType"`
+
+	// The url that was requested.
+	RequestURL string `json:"requestURL"`
+}
+
+/*
+SecurityStateChangedEvent represents Security.securityStateChanged event data.
+*/
+type SecurityStateChangedEvent struct {
+	// Security state.
+	SecurityState SecurityState `json:"securityState"`
+
+	// True if the page was loaded over cryptographic transport such as HTTPS.
+	SchemeIsCryptographic bool `json:"schemeIsCryptographic"`
+
+	// List of explanations for the security state. If the overall security state is `insecure` or
+	// `warning`, at least one corresponding explanation should be included.
+	Explanations []SecurityStateExplanation `json:"explanations"`
+
+	// Information about insecure content on the page.
+	InsecureContentStatus InsecureContentStatus `json:"insecureContentStatus"`
+
+	// Optional. Overrides user-visible description of the state.
+	Summary string `json:"summary,omitempty"`
+}
+
+/*
 MixedContentType is a description of mixed content (HTTP resources on HTTPS pages), as defined by
 https://www.w3.org/TR/mixed-content/#categories
 */

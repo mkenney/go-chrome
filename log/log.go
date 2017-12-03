@@ -6,6 +6,22 @@ import (
 )
 
 /*
+StartViolationsReportParams represents LayerTree.startViolationsReport parameters.
+*/
+type StartViolationsReportParams struct {
+	// Configuration for violations.
+	Config []ViolationSetting `json:"config"`
+}
+
+/*
+EntryAddedEvent represents LayerTree.entryAdded event data.
+*/
+type EntryAddedEvent struct {
+	// The entry.
+	Entry LogEntry `json:"entry"`
+}
+
+/*
 LogEntry is a log entry.
 */
 type LogEntry struct {

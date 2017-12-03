@@ -5,6 +5,98 @@ import (
 )
 
 /*
+ClearDataForOriginParams represents Storage.clearDataForOrigin parameters.
+*/
+type ClearDataForOriginParams struct {
+	// Security origin.
+	Origin string `json:"origin"`
+
+	// Comma separated origin names.
+	StorageTypes string `json:"storageTypes"`
+}
+
+/*
+GetUsageAndQuotaParams represents Storage.getUsageAndQuota parameters.
+*/
+type GetUsageAndQuotaParams struct {
+	// Security origin.
+	Origin string `json:"origin"`
+}
+
+/*
+TrackCacheStorageForOriginParams represents Storage.trackCacheStorageForOrigin parameters.
+*/
+type TrackCacheStorageForOriginParams struct {
+	// Security origin.
+	Origin string `json:"origin"`
+}
+
+/*
+TrackIndexedDBForOriginParams represents Storage.trackIndexedDBForOrigin parameters.
+*/
+type TrackIndexedDBForOriginParams struct {
+	// Security origin.
+	Origin string `json:"origin"`
+}
+
+/*
+UntrackCacheStorageForOriginParams represents Storage.untrackCacheStorageForOrigin parameters.
+*/
+type UntrackCacheStorageForOriginParams struct {
+	// Security origin.
+	Origin string `json:"origin"`
+}
+
+/*
+UntrackIndexedDBForOriginParams represents Storage.untrackIndexedDBForOrigin parameters.
+*/
+type UntrackIndexedDBForOriginParams struct {
+	// Security origin.
+	Origin string `json:"origin"`
+}
+
+/*
+cacheStorageContentUpdatedEvent represents Storage.cacheStorageContentUpdated event data.
+*/
+type cacheStorageContentUpdatedEvent struct {
+	// Origin to update.
+	Origin string `json:"origin"`
+
+	// Name of cache in origin.
+	CacheName string `json:"cacheName"`
+}
+
+/*
+CacheStorageListUpdatedEvent represents Storage.cacheStorageListUpdated event data.
+*/
+type CacheStorageListUpdatedEvent struct {
+	// Origin to update.
+	Origin string `json:"origin"`
+}
+
+/*
+IndexedDBContentUpdatedEvent represents Storage.indexedDBContentUpdated event data.
+*/
+type IndexedDBContentUpdatedEvent struct {
+	// Origin to update.
+	Origin string `json:"origin"`
+
+	// Database to update.
+	DatabaseName string `json:"databaseName"`
+
+	// ObjectStore to update.
+	ObjectStoreName string `json:"objectStoreName"`
+}
+
+/*
+IndexedDBListUpdatedEvent represents Storage.indexedDBListUpdated event data.
+*/
+type IndexedDBListUpdatedEvent struct {
+	// Origin to update.
+	Origin string `json:"origin"`
+}
+
+/*
 StorageType is an enum of possible storage types.
 */
 type StorageType int

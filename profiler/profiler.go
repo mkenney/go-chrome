@@ -1,8 +1,59 @@
 package Profiler
 
 import (
+	Debugger "app/chrome/debugger"
 	Runtime "app/chrome/runtime"
 )
+
+/*
+SetSamplingIntervalParams represents Profiler.setSamplingInterval parameters.
+*/
+type SetSamplingIntervalParams struct {
+	// New sampling interval in microseconds.
+	Interval int `json:"interval"`
+}
+
+/*
+StartPreciseCoverageParams represents Profiler.startPreciseCoverage parameters.
+*/
+type StartPreciseCoverageParams struct {
+	// Collect accurate call counts beyond simple 'covered' or 'not covered'.
+	CallCount bool `json:"callCount"`
+
+	// Collect block-based coverage.
+	Detailed bool `json:"detailed"`
+}
+
+/*
+ConsoleProfileStartedEvent represents Overlay.consoleProfileStarted event data.
+*/
+type ConsoleProfileStartedEvent struct {
+	// Profile ID.
+	ID string `json:"id"`
+
+	// Location of console.profile().
+	Location Debugger.Location `json:"location"`
+
+	// Profile title passed as an argument to console.profile().
+	Title string `json:"title"`
+}
+
+/*
+ConsoleProfileFinishedEvent represents Overlay.consoleProfileFinished event data.
+*/
+type ConsoleProfileFinishedEvent struct {
+	// Profile ID.
+	ID string `json:"id"`
+
+	// Location of console.profileEnd().
+	Location Debugger.Location `json:"location"`
+
+	// Profile data.
+	Profile Profile `json:"profile"`
+
+	// Profile title passed as an argument to console.profile().
+	Title string `json:"title"`
+}
 
 /*
 ProfileNode holds callsite information, execution statistics and child nodes.

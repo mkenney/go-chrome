@@ -79,7 +79,7 @@ type ReplaySnapshotParams struct {
 }
 
 /*
-LayerPaintedEvent represents DOM.layerPainted event data.
+LayerPaintedEvent represents LayerTree.layerPainted event data.
 */
 type LayerPaintedEvent struct {
 	// The ID of the painted layer.
@@ -90,7 +90,7 @@ type LayerPaintedEvent struct {
 }
 
 /*
-LayerPaintedEvent represents DOM.layerPainted event data.
+LayerPaintedEvent represents LayerTree.layerPainted event data.
 */
 type LayerPaintedEvent struct {
 	// Layer tree, absent if not in the comspositing mode.

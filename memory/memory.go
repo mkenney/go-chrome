@@ -5,6 +5,32 @@ import (
 )
 
 /*
+GetDOMCountersParams represents Memory.getDOMCounters parameters.
+*/
+type GetDOMCountersParams struct {
+	Documents        int `json:"documents"`
+	Nodes            int `json:"nodes"`
+	JsEventListeners int `json:"jsEventListeners"`
+}
+
+/*
+SetPressureNotificationsSuppressedParams represents Memory.setPressureNotificationsSuppressed
+parameters.
+*/
+type SetPressureNotificationsSuppressedParams struct {
+	// If true, memory pressure notifications will be suppressed.
+	Suppressed bool `json:"suppressed"`
+}
+
+/*
+SimulatePressureNotificationParams represents Memory.simulatePressureNotification parameters.
+*/
+type SimulatePressureNotificationParams struct {
+	// Memory pressure level of the notification.
+	Level PressureLevel `json:"level"`
+}
+
+/*
 PressureLevel is the memory pressure level.
 */
 type PressureLevel int

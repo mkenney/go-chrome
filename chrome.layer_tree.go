@@ -122,7 +122,7 @@ func (LayerTree) SnapshotCommandLog(socket *Socket, params *layer_tree.SnapshotC
 }
 
 /*
-OnLayerPainted adds a handler to the DOM.layerPainted event. DOM.layerPainted fires when the layer
+OnLayerPainted adds a handler to the LayerTree.layerPainted event. LayerTree.layerPainted fires when the layer
 is painted.
 */
 func (LayerTree) OnLayerPainted(socket *Socket, callback func(event *layer_tree.LayerPaintedEvent)) error {
@@ -142,7 +142,7 @@ func (LayerTree) OnLayerPainted(socket *Socket, callback func(event *layer_tree.
 }
 
 /*
-OnLayerTreeDidChange adds a handler to the DOM.layerTreeDidChange event. DOM.layerTreeDidChange
+OnLayerTreeDidChange adds a handler to the LayerTree.layerTreeDidChange event. LayerTree.layerTreeDidChange
 fires when the layer tree changes.
 */
 func (LayerTree) OnLayerTreeDidChange(socket *Socket, callback func(event *layer_tree.LayerTreeDidChangeEvent)) error {

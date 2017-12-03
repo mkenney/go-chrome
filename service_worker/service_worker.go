@@ -6,6 +6,119 @@ import (
 )
 
 /*
+DeliverPushMessageParams represents ServiceWorker.deliverPushMessage parameters.
+*/
+type DeliverPushMessageParams struct {
+	// Origin.
+	Origin string `json:"origin"`
+
+	// Registration ID.
+	RegistrationID string `json:"registrationId"`
+
+	// Data.
+	Data string `json:"data"`
+}
+
+/*
+DispatchSyncEventParams represents ServiceWorker.dispatchSyncEvent parameters.
+*/
+type DispatchSyncEventParams struct {
+	// Origin.
+	Origin string `json:"origin"`
+
+	// Registration ID.
+	RegistrationID string `json:"registrationId"`
+
+	// Tag.
+	Tag string `json:"tag"`
+
+	// Last chance.
+	LastChance bool `json:"lastChance"`
+}
+
+/*
+InspectWorkerParams represents ServiceWorker.inspectWorker parameters.
+*/
+type InspectWorkerParams struct {
+	// Version ID.
+	VersionID string `json:"versionId"`
+}
+
+/*
+SetForceUpdateOnPageLoadParams represents ServiceWorker.setForceUpdateOnPageLoad parameters.
+*/
+type SetForceUpdateOnPageLoadParams struct {
+	// Force update on page load.
+	ForceUpdateOnPageLoad bool `json:"forceUpdateOnPageLoad"`
+}
+
+/*
+SkipWaitingParams represents ServiceWorker.skipWaiting parameters.
+*/
+type SkipWaitingParams struct {
+	// Scope URL.
+	ScopeURL string `json:"scopeURL"`
+}
+
+/*
+StartWorkerParams represents ServiceWorker.startWorker parameters.
+*/
+type StartWorkerParams struct {
+	// Scope URL.
+	ScopeURL string `json:"scopeURL"`
+}
+
+/*
+StopWorkerParams represents ServiceWorker.stopWorker parameters.
+*/
+type StopWorkerParams struct {
+	// Version ID.
+	VersionID string `json:"versionId"`
+}
+
+/*
+UnregisterParams represents ServiceWorker.unregister parameters.
+*/
+type UnregisterParams struct {
+	// Scope URL.
+	ScopeURL string `json:"scopeURL"`
+}
+
+/*
+UpdateRegistrationParams represents ServiceWorker.updateRegistration parameters.
+*/
+type UpdateRegistrationParams struct {
+	// Scope URL.
+	ScopeURL string `json:"scopeURL"`
+}
+
+/*
+WorkerErrorReportedEvent represents ServiceWorker.workerErrorReported event data.
+*/
+type WorkerErrorReportedEvent struct {
+	// Error message.
+	ErrorMessage ServiceWorkerErrorMessage `json:"errorMessage"`
+}
+
+/*
+WorkerRegistrationUpdatedEvent represents ServiceWorker.workerRegistrationUpdated event data.
+*/
+type WorkerRegistrationUpdatedEvent struct {
+	// Registrations.
+	Registrations []ServiceWorkerRegistration `json:"registrations"`
+}
+
+/*
+WorkerVersionUpdatedEvent represents ServiceWorker.workerVersionUpdated event data.
+*/
+type WorkerVersionUpdatedEvent struct {
+	// Versions.
+	Versions []ServiceWorkerVersion `json:"versions"`
+}
+
+////////////////
+
+/*
 ServiceWorkerRegistration is a ServiceWorker registration.
 */
 type ServiceWorkerRegistration struct {

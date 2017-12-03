@@ -8,6 +8,565 @@ import (
 )
 
 /*
+CanClearBrowserCacheParams represents Network.canClearBrowserCache parameters.
+*/
+type CanClearBrowserCacheParams struct {
+	// True if browser cache can be cleared.
+	Result bool `json:"result"`
+}
+
+/*
+CanClearBrowserCookiesParams represents Network.canClearBrowserCookies parameters.
+*/
+type CanClearBrowserCookiesParams struct {
+	// True if browser cookies can be cleared.
+	Result bool `json:"result"`
+}
+
+/*
+CanEmulateNetworkConditionsParams represents Network.canEmulateNetworkConditions parameters.
+*/
+type CanEmulateNetworkConditionsParams struct {
+	// True if emulation of network conditions is supported.
+	Result bool `json:"result"`
+}
+
+/*
+ContinueInterceptedRequestParams represents Network.continueInterceptedRequest parameters.
+*/
+type ContinueInterceptedRequestParams struct {
+	// The interception ID.
+	InterceptionID InterceptionID `json:"interceptionId"`
+
+	// Optional. If set this causes the request to fail with the given reason. Passing `Aborted` for
+	// requests marked with `isNavigationRequest` also cancels the navigation. Must not be set in
+	// response to an AuthChallenge.
+	ErrorReason ErrorReason `json:"errorReason,omitempty"`
+
+	// Optional. If set the requests completes using with the provided base64 encoded raw response,
+	// including HTTP status line and headers etc... Must not be set in response to an
+	// AuthChallenge.
+	RawResponse string `json:"rawResponse,omitempty"`
+
+	// IOptional. f set the request url will be modified in a way that's not observable by page.
+	// Must not be set in response to an AuthChallenge.
+	URL string `json:"url,omitempty"`
+
+	// Optional. If set this allows the request method to be overridden. Must not be set in response
+	// to an AuthChallenge.
+	Method string `json:"method,omitempty"`
+
+	// Optional. If set this allows postData to be set. Must not be set in response to an
+	// AuthChallenge.
+	PostData string `json:"postData,omitempty"`
+
+	// Optional. If set this allows the request headers to be changed. Must not be set in response
+	// to an AuthChallenge.
+	Headers Headers `json:"headers,omitempty"`
+
+	// Optional. Response to a requestIntercepted with an AuthChallenge. Must not be set otherwise.
+	AuthChallengeResponse AuthChallengeResponse `json:"authChallengeResponse,omitempty"`
+}
+
+/*
+DeleteCookiesParams represents Network.deleteCookies parameters.
+*/
+type DeleteCookiesParams struct {
+	// Name of the cookies to remove.
+	Name string `json:"name"`
+
+	// Optional. If specified, deletes all the cookies with the given name where domain and path
+	// match provided URL.
+	URL string `json:"url,omitempty"`
+
+	// Optional. If specified, deletes only cookies with the exact domain.
+	Domain string `json:"domain,omitempty"`
+
+	// Optional. If specified, deletes only cookies with the exact path.
+	Path string `json:"path,omitempty"`
+}
+
+/*
+EmulateNetworkConditionsParams represents Network.emulateNetworkConditions parameters.
+*/
+type EmulateNetworkConditionsParams struct {
+	// True to emulate internet disconnection.
+	Offline bool `json:"offline"`
+
+	// Minimum latency from request sent to response headers received (ms).
+	Latency float64 `json:"latency"`
+
+	// Maximal aggregated download throughput (bytes/sec). -1 disables download throttling.
+	DownloadThroughput float64 `json:"downloadThroughput"`
+
+	// Maximal aggregated upload throughput (bytes/sec). -1 disables upload throttling.
+	UploadThroughput float64 `json:"uploadThroughput"`
+
+	// Optional. Connection type if known.
+	ConnectionType ConnectionType `json:"connectionType,omitempty"`
+}
+
+/*
+EnableParams represents Network.enable parameters.
+*/
+type EnableParams struct {
+	// Optional. Buffer size in bytes to use when preserving network payloads (XHRs, etc).
+	// EXPERIMENTAL
+	MaxTotalBufferSize int `json:"maxTotalBufferSize,omitempty"`
+
+	// Optional. Per-resource buffer size in bytes to use when preserving network payloads (XHRs,
+	// etc). EXPERIMENTAL
+	MaxResourceBufferSize int `json:"maxResourceBufferSize,omitempty"`
+}
+
+/*
+GetAllCookiesParams represents Network.getAllCookies parameters.
+*/
+type GetAllCookiesParams struct {
+	// Array of cookie objects.
+	Cookies []Cookie `json:"cookies"`
+}
+
+/*
+GetCertificateParams represents Network.getCertificate parameters.
+*/
+type GetCertificateParams struct {
+	// Origin to get certificate for.
+	Origin string `json:"origin"`
+}
+
+/*
+GetCookiesParams represents Network.getCookies parameters.
+*/
+type GetCookiesParams struct {
+	// Optional. The list of URLs for which applicable cookies will be fetched.
+	URLs []string `json:"urls,omitempty"`
+}
+
+/*
+GetResponseBodyParams represents Network.getResponseBody parameters.
+*/
+type GetResponseBodyParams struct {
+	// Identifier of the network request to get content for.
+	RequestID RequestID `json:"requestId"`
+}
+
+/*
+GetResponseBodyForInterceptionParams represents Network.getResponseBodyForInterception parameters.
+*/
+type GetResponseBodyForInterceptionParams struct {
+	// Identifier for the intercepted request to get body for.
+	InterceptionID InterceptionID `json:"interceptionId"`
+}
+
+/*
+ReplayXHRParams represents Network.replayXHR parameters.
+*/
+type ReplayXHRParams struct {
+	// Identifier of XHR to replay.
+	RequestID RequestID `json:"requestId"`
+}
+
+/*
+SearchInResponseBodyParams represents Network.searchInResponseBody parameters.
+*/
+type SearchInResponseBodyParams struct {
+	// Identifier of the network response to search.
+	RequestID RequestID `json:"requestId"`
+
+	// String to search for.
+	Query string `json:"query"`
+
+	// Optional. If true, search is case sensitive.
+	CaseSensitive bool `json:"caseSensitive,omitempty"`
+
+	// Optional. If true, treats string parameter as regex.
+	IsRegex bool `json:"isRegex,omitempty"`
+}
+
+/*
+SetBlockedURLsParams represents Network.setBlockedURLs parameters.
+*/
+type SetBlockedURLsParams struct {
+	// URL patterns to block. Wildcards ('*') are allowed.
+	URLs []string `json:"urls"`
+}
+
+/*
+SetBypassServiceWorkerParams represents Network.setBypassServiceWorker parameters.
+*/
+type SetBypassServiceWorkerParams struct {
+	// Bypass service worker and load from network.
+	Bypass bool `json:"bypass"`
+}
+
+/*
+SetCacheDisabledParams represents Network.setCacheDisabled parameters.
+*/
+type SetCacheDisabledParams struct {
+	// Cache disabled state.
+	CacheDisabled bool `json:"cacheDisabled"`
+}
+
+/*
+SetCookieParams represents Network.setCookie parameters.
+*/
+type SetCookieParams struct {
+	// Cookie name.
+	Name string `json:"name"`
+
+	// Cookie value.
+	Value string `json:"value"`
+
+	// Optional. The request-URI to associate with the setting of the cookie. This value can affect
+	// the default domain and path values of the created cookie.
+	URL string `json:"url,omitempty"`
+
+	// Optional. Cookie domain.
+	Domain string `json:"domain,omitempty"`
+
+	// Optional. Cookie path.
+	Path string `json:"path,omitempty"`
+
+	// Optional. True if cookie is secure.
+	Secure bool `json:"secure,omitempty"`
+
+	// Optional. True if cookie is http-only.
+	HTTPOnly bool `json:"httpOnly,omitempty"`
+
+	// Optional. Cookie SameSite type.
+	SameSite CookieSameSite `json:"sameSite,omitempty"`
+
+	// Optional. Cookie expiration date, session cookie if not set.
+	Expires TimeSinceEpoch `json:"expires,omitempty"`
+}
+
+/*
+SetCookiesParams represents Network.setCookies parameters.
+*/
+type SetCookiesParams struct {
+	// Cookies to be set.
+	Cookies []CookieParam `json:"cookies"`
+}
+
+/*
+SetDataSizeLimitsForTestParams represents Network.setDataSizeLimitsForTest parameters.
+*/
+type SetDataSizeLimitsForTestParams struct {
+	// Maximum total buffer size.
+	MaxTotalSize int `json:"maxTotalSize"`
+
+	// Maximum per-resource size.
+	MaxResourceSize int `json:"maxResourceSize"`
+}
+
+/*
+SetExtraHTTPHeadersParams represents Network.setExtraHTTPHeaders parameters.
+*/
+type SetExtraHTTPHeadersParams struct {
+	// Map with extra HTTP headers.
+	Headers Headers `json:"headers"`
+}
+
+/*
+SetRequestInterceptionParams represents Network.setRequestInterception parameters.
+*/
+type SetRequestInterceptionParams struct {
+	// Requests matching any of these patterns will be forwarded and wait for the corresponding
+	// continueInterceptedRequest call.
+	Patterns []RequestPattern `json:"patterns"`
+}
+
+/*
+SetUserAgentOverrideParams represents Network.setUserAgentOverride parameters.
+*/
+type SetUserAgentOverrideParams struct {
+	// User agent to use.
+	UserAgent string `json:"userAgent"`
+}
+
+/*
+DataReceivedEvent represents Network.dataReceived event data.
+*/
+type DataReceivedEvent struct {
+	// Request identifier.
+	RequestID RequestID `json:"requestId"`
+
+	// Timestamp.
+	Timestamp MonotonicTime `json:"timestamp"`
+
+	// Data chunk length.
+	DataLength int `json:"dataLength"`
+
+	// Actual bytes received (might be less than dataLength for compressed encodings).
+	EncodedDataLength int `json:"encodedDataLength"`
+}
+
+/*
+EventSourceMessageReceivedEvent represents Network.eventSourceMessageReceived event data.
+*/
+type EventSourceMessageReceivedEvent struct {
+	// Request identifier.
+	RequestID RequestID `json:"requestId"`
+
+	// Timestamp.
+	Timestamp MonotonicTime `json:"timestamp"`
+
+	// Message type.
+	EventName string `json:"eventName"`
+
+	// Message identifier.
+	EventID string `json:"eventId"`
+
+	// Message content.
+	Data string `json:"data"`
+}
+
+/*
+LoadingFailedEvent represents Network.loadingFailed event data.
+*/
+type LoadingFailedEvent struct {
+	// Request identifier.
+	RequestID RequestID `json:"requestId"`
+
+	// Timestamp.
+	Timestamp MonotonicTime `json:"timestamp"`
+
+	// Resource type.
+	Type Page.ResourceType `json:"type"`
+
+	// User friendly error message.
+	ErrorText string `json:"errorText"`
+
+	// Optional. True if loading was canceled.
+	Canceled bool `json:"canceled,omitempty"`
+
+	// Optional. The reason why loading was blocked, if any.
+	BlockedReason BlockedReason `json:"blockedReason,omitempty"`
+}
+
+/*
+LoadingFinishedEvent represents Network.loadingFinished event data.
+*/
+type LoadingFinishedEvent struct {
+	// Request identifier.
+	RequestID RequestID `json:"requestId"`
+
+	// Timestamp.
+	Timestamp MonotonicTime `json:"timestamp"`
+
+	// Total number of bytes received for this request.
+	EncodedDataLength float64 `json:"encodedDataLength"`
+}
+
+/*
+RequestInterceptedEvent represents Network.requestIntercepted event data.
+*/
+type RequestInterceptedEvent struct {
+	// Each request the page makes will have a unique id, however if any redirects are encountered
+	// while processing that fetch, they will be reported with the same id as the original fetch.
+	// Likewise if HTTP authentication is needed then the same fetch id will be used.
+	InterceptionID InterceptionID `json:"interceptionId"`
+
+	// desc.
+	Request Request `json:"request"`
+
+	// The ID of the frame that initiated the request.
+	FrameID Page.FrameID `json:"frameId"`
+
+	// How the requested resource will be used.
+	ResourceType Page.ResourceType `json:"resourceType"`
+
+	// Whether this is a navigation request, which can abort the navigation completely.
+	IsNavigationRequest bool `json:"isNavigationRequest"`
+
+	// Optional. Redirect location, only sent if a redirect was intercepted.
+	RedirectURL string `json:"redirectUrl,omitempty"`
+
+	// Optional. Details of the Authorization Challenge encountered. If this is set then
+	// continueInterceptedRequest must contain an authChallengeResponse.
+	AuthChallenge AuthChallenge `json:"authChallenge,omitempty"`
+
+	// Optional. Response error if intercepted at response stage or if redirect occurred while
+	// intercepting request.
+	ResponseErrorReason ErrorReason `json:"responseErrorReason,omitempty"`
+
+	// Optional. Response code if intercepted at response stage or if redirect occurred while
+	// intercepting request or auth retry occurred.
+	ResponseStatusCode int `json:"responseStatusCode,omitempty"`
+
+	// Optional. Response headers if intercepted at the response stage or if redirect occurred while
+	// intercepting request or auth retry occurred.
+	ResponseHeaders Headers `json:"responseHeaders,omitempty"`
+}
+
+/*
+RequestServedFromCacheEvent represents Network.requestServedFromCache event data.
+*/
+type RequestServedFromCacheEvent struct {
+	// Request identifier.
+	RequestID RequestID `json:"requestId"`
+}
+
+/*
+RequestWillBeSentEvent represents Network.requestWillBeSent event data.
+*/
+type RequestWillBeSentEvent struct {
+	// Request identifier.
+	RequestID RequestID `json:"requestId"`
+
+	// Loader identifier. Empty string if the request is fetched from worker.
+	LoaderID LoaderID `json:"loaderId"`
+
+	// URL of the document this request is loaded for.
+	DocumentURL string `json:"documentURL"`
+
+	// Request data.
+	Request Request `json:"request"`
+
+	// Timestamp.
+	Timestamp MonotonicTime `json:"timestamp"`
+
+	// Timestamp.
+	WallTime TimeSinceEpoch `json:"wallTime"`
+
+	// Request initiator.
+	Initiator Initiator `json:"initiator"`
+
+	// Redirect response data.
+	RedirectResponse Response `json:"redirectResponse"`
+
+	// Optional. Type of this resource.
+	Type Page.ResourceType `json:"type,omitempty"`
+
+	// Optional. Frame identifier.
+	FrameID Page.FrameID `json:"frameId,omitempty"`
+}
+
+/*
+ResourceChangedPriorityEvent represents Network.resourceChangedPriority event data.
+*/
+type ResourceChangedPriorityEvent struct {
+	// Request identifier.
+	RequestID RequestID `json:"requestId"`
+
+	// New priority.
+	NewPriority ResourcePriority `json:"newPriority"`
+
+	// Timestamp.
+	Timestamp MonotonicTime `json:"timestamp"`
+}
+
+/*
+ResponseReceivedEvent represents Network.responseReceived event data.
+*/
+type ResponseReceivedEvent struct {
+	// Request identifier.
+	RequestID RequestID `json:"requestId"`
+
+	// Loader identifier. Empty string if the request is fetched from worker.
+	LoaderID LoaderID `json:"loaderId"`
+
+	// Timestamp.
+	Timestamp MonotonicTime `json:"timestamp"`
+
+	// Resource type.
+	Type Page.ResourceType `json:"type"`
+
+	// Response data.
+	Response Response `json:"response"`
+
+	// Optional. Frame identifier.
+	FrameID Page.FrameID `json:"frameId,omitempty"`
+}
+
+/*
+WebSocketClosedEvent represents Network.webSocketClosed event data.
+*/
+type WebSocketClosedEvent struct {
+	// Request identifier.
+	RequestID RequestID `json:"requestId"`
+
+	// Timestamp.
+	Timestamp MonotonicTime `json:"timestamp"`
+}
+
+/*
+WebSocketCreatedEvent represents Network.webSocketCreated event data.
+*/
+type WebSocketCreatedEvent struct {
+	// Request identifier.
+	RequestID RequestID `json:"requestId"`
+
+	// Timestamp.
+	Timestamp MonotonicTime `json:"timestamp"`
+
+	// Optional. WebSocket frame error message.
+	ErrorMessage string `json:"errorMessage,omitempty"`
+}
+
+/*
+WebSocketFrameReceivedEvent represents Network.webSocketFrameReceived event data.
+*/
+type WebSocketFrameReceivedEvent struct {
+	// Request identifier.
+	RequestID RequestID `json:"requestId"`
+
+	// Timestamp.
+	Timestamp MonotonicTime `json:"timestamp"`
+
+	// WebSocket response data.
+	Response WebSocketFrame `json:"response"`
+}
+
+/*
+WebSocketFrameSentEvent represents Network.webSocketFrameSent event data.
+*/
+type WebSocketFrameSentEvent struct {
+	// Request identifier.
+	RequestID RequestID `json:"requestId"`
+
+	// Timestamp.
+	Timestamp MonotonicTime `json:"timestamp"`
+
+	// WebSocket response data.
+	Response WebSocketFrame `json:"response"`
+}
+
+/*
+WebSocketHandshakeResponseReceivedEvent represents Network.webSocketHandshakeResponseReceived event
+data.
+*/
+type WebSocketHandshakeResponseReceivedEvent struct {
+	// Request identifier.
+	RequestID RequestID `json:"requestId"`
+
+	// Timestamp.
+	Timestamp MonotonicTime `json:"timestamp"`
+
+	// WebSocket response data.
+	Response WebSocketFrame `json:"response"`
+}
+
+/*
+WebSocketWillSendHandshakeRequestEvent represents Network.webSocketWillSendHandshakeRequest event
+data.
+*/
+type WebSocketWillSendHandshakeRequestEvent struct {
+	// Request identifier.
+	RequestID RequestID `json:"requestId"`
+
+	// Timestamp.
+	Timestamp MonotonicTime `json:"timestamp"`
+
+	// UTC Timestamp.
+	WallTime TimeSinceEpoch `json:"wallTime"`
+
+	// WebSocket request data.
+	Request WebSocketRequest `json:"request"`
+}
+
+/*
 LoaderID is the Unique loader identifier.
 */
 type LoaderID string

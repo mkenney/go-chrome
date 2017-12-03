@@ -5,6 +5,278 @@ import (
 )
 
 /*
+EvaluateParams represents Runtime.evaluate parameters.
+*/
+type EvaluateParams struct {
+	// Expression to evaluate.
+	Expression string `json:"expression"`
+
+	// Optional. Symbolic group name that can be used to release multiple objects.
+	ObjectGroup string `json:"objectGroup,omitempty"`
+
+	// Optional. Determines whether Command Line API should be available during the evaluation.
+	IncludeCommandLineAPI bool `json:"includeCommandLineAPI,omitempty"`
+
+	// Optional. In silent mode exceptions thrown during evaluation are not reported and do not pause
+	// execution. Overrides setPauseOnException state.
+	Silent bool `json:"silent,omitempty"`
+
+	// Optional. Specifies in which execution context to perform evaluation. If the parameter is omitted the
+	// evaluation will be performed in the context of the inspected page.
+	ContextID ExecutionContextID `json:"contextId,omitempty"`
+
+	// Optional. Whether the result is expected to be a JSON object that should be sent by value.
+	ReturnByValue bool `json:"returnByValue,omitempty"`
+
+	// Optional. Whether preview should be generated for the result. EXPERIMENTAL
+	GeneratePreview bool `json:"generatePreview,omitempty"`
+
+	// Optional. Whether execution should be treated as initiated by user in the UI.
+	UserGesture bool `json:"userGesture,omitempty"`
+
+	// Optional. Whether execution should await for resulting value and return once awaited promise is
+	// resolved.
+	AwaitPromise bool `json:"awaitPromise,omitempty"`
+}
+
+/*
+AwaitPromiseParams represents Runtime.awaitPromise parameters.
+*/
+type AwaitPromiseParams struct {
+	// Identifier of the promise.
+	PromiseObjectID RemoteObjectID `json:"promiseObjectId"`
+
+	// Optional. Whether the result is expected to be a JSON object that should be sent by value.
+	ReturnByValue bool `json:"returnByValue,omitempty"`
+
+	// Optional. Whether preview should be generated for the result.
+	GeneratePreview bool `json:"generatePreview,omitempty"`
+}
+
+/*
+CallFunctionOnParams represents Runtime.callFunctionOn parameters.
+*/
+type CallFunctionOnParams struct {
+	// Declaration of the function to call.
+	FunctionDeclaration string `json:"functionDeclaration"`
+
+	// Optional. Identifier of the object to call function on. Either objectID or executionContextID
+	// should be specified.
+	ObjectID RemoteObjectID `json:"objectId,omitempty"`
+
+	// Optional. Call arguments. All call arguments must belong to the same JavaScript world as the
+	// target object.
+	Arguments []CallArgument `json:"arguments,omitempty"`
+
+	// Optional. In silent mode exceptions thrown during evaluation are not reported and do not
+	// pause execution. Overrides setPauseOnException state.
+	Silent bool `json:"silent,omitempty"`
+
+	// Whether the result is expected to be a JSON object which should be sent by value.
+	ReturnByValue bool `json:"returnByValue,omitempty"`
+
+	// Optional. Whether preview should be generated for the result. EXPERIMENTAL
+	GeneratePreview bool `json:"generatePreview,omitempty"`
+
+	// Optional. Whether execution should be treated as initiated by user in the UI.
+	UserGesture bool `json:"userGesture,omitempty"`
+
+	// Optional. Whether execution should await for resulting value and return once awaited promise
+	// is resolved.
+	AwaitPromise bool `json:"awaitPromise,omitempty"`
+
+	// Optional. Specifies execution context which global object will be used to call function on.
+	// Either executionContextID or objectID should be specified.
+	ExecutionContextID ExecutionContextID `json:"executionContextId,omitempty"`
+
+	// Optional. Symbolic group name that can be used to release multiple objects. If objectGroup is
+	// not specified and objectID is, objectGroup will be inherited from object.
+	ObjectGroup string `json:"objectGroup,omitempty"`
+}
+
+/*
+GetPropertiesParams represents Runtime.getProperties parameters.
+*/
+type GetPropertiesParams struct {
+	// Identifier of the object to return properties for.
+	ObjectID RemoteObjectID `json:"objectId"`
+
+	// Optional. If true, returns properties belonging only to the element itself, not to its
+	// prototype chain.
+	OwnProperties bool `json:"ownProperties,omitempty"`
+
+	// Optional. If true, returns accessor properties (with getter/setter) only; internal properties
+	// are not returned either. EXPERIMENTAL
+	AccessorPropertiesOnly bool `json:"accessorPropertiesOnly,omitempty"`
+
+	// Optional. Whether preview should be generated for the results. EXPERIMENTAL
+	GeneratePreview bool `json:"generatePreview,omitempty"`
+}
+
+/*
+ReleaseObjectParams represents Runtime.releaseObject parameters.
+*/
+type ReleaseObjectParams struct {
+	// Identifier of the object to release.
+	ObjectID RemoteObjectID `json:"objectId"`
+}
+
+/*
+ReleaseObjectGroupParams represents Runtime.releaseObjectGroup parameters.
+*/
+type ReleaseObjectGroupParams struct {
+	// Symbolic object group name.
+	ObjectGroup string `json:"objectGroup"`
+}
+
+/*
+CompileScriptParams represents Runtime.compileScript parameters.
+*/
+type CompileScriptParams struct {
+	// Expression to compile.
+	Expression string `json:"expression"`
+
+	// Source url to be set for the script.
+	SourceURL string `json:"sourceURL"`
+
+	// Specifies whether the compiled script should be persisted.
+	PersistScript bool `json:"persistScript"`
+
+	// Optional. Specifies in which execution context to perform script run. If the parameter is
+	// omitted the evaluation will be performed in the context of the inspected page.
+	ExecutionContextID ExecutionContextID `json:"executionContextId,omitempty"`
+}
+
+/*
+RunScriptParams represents Runtime.runScript parameters.
+*/
+type RunScriptParams struct {
+	// ID of the script to run.
+	ScriptID ScriptID `json:"scriptId"`
+
+	// Optional. Specifies in which execution context to perform script run. If the parameter is
+	// omitted the evaluation will be performed in the context of the inspected page.
+	ExecutionContextID ExecutionContextID `json:"executionContextId,omitempty"`
+
+	// Optional. Symbolic group name that can be used to release multiple objects.
+	ObjectGroup string `json:"objectGroup,omitempty"`
+
+	// Optional. In silent mode exceptions thrown during evaluation are not reported and do not
+	// pause execution. Overrides setPauseOnException state.
+	Silent bool `json:"silent,omitempty"`
+
+	// Optional. Determines whether Command Line API should be available during the evaluation.
+	IncludeCommandLineAPI bool `json:"includeCommandLineAPI,omitempty"`
+
+	// Optional. Whether the result is expected to be a JSON object which should be sent by value.
+	ReturnByValue bool `json:"returnByValue,omitempty"`
+
+	// Optional. Whether preview should be generated for the result.
+	GeneratePreview bool `json:"generatePreview,omitempty"`
+
+	// Optional. Whether execution should await for resulting value and return once awaited promise
+	// is resolved.
+	AwaitPromise bool `json:"awaitPromise,omitempty"`
+}
+
+/*
+QueryObjectsParams represents Runtime.queryObjects parameters.
+*/
+type QueryObjectsParams struct {
+	// Identifier of the prototype to return objects for.
+	PrototypeObjectID RemoteObjectID `json:"prototypeObjectId"`
+}
+
+/*
+GlobalLexicalScopeNamesParams represents Runtime.globalLexicalScopeNames parameters.
+*/
+type GlobalLexicalScopeNamesParams struct {
+	// Optional. Specifies in which execution context to lookup global scope variables.
+	ExecutionContextID ExecutionContextID `json:"executionContextId,omitempty"`
+}
+
+/*
+ExecutionContextCreatedEvent represents Runtime.executionContextCreated event data.
+*/
+type ExecutionContextCreatedEvent struct {
+	// A newly created execution context.
+	Context ExecutionContextDescription `json:"context"`
+}
+
+/*
+ExecutionContextDestroyedEvent represents Runtime.executionContextDestroyed event data.
+*/
+type ExecutionContextDestroyedEvent struct {
+	// ID of the destroyed context.
+	ExecutionContextID ExecutionContextID `json:"executionContextId"`
+}
+
+/*
+ExecutionContextsClearedEvent represents Runtime.executionContextsCleared event data.
+*/
+type ExecutionContextsClearedEvent struct{}
+
+/*
+ExceptionThrownEvent represents Runtime.exceptionThrown event data.
+*/
+type ExceptionThrownEvent struct {
+	// Timestamp of the exception.
+	Timestamp Timestamp `json:"timestamp"`
+
+	// Exception details.
+	ExceptionDetails ExceptionDetails `json:"exceptionDetails"`
+}
+
+/*
+ExceptionRevokedEvent represents Runtime.exceptionRevoked event data.
+*/
+type ExceptionRevokedEvent struct {
+	// Reason describing why exception was revoked.
+	Reason string `json:"reason"`
+
+	// The ID of revoked exception, as reported in exceptionThrown.
+	ExceptionID int `json:"exceptionId"`
+}
+
+/*
+ConsoleAPICalledEvent represents Runtime.consoleAPICalled event data.
+*/
+type ConsoleAPICalledEvent struct {
+	// Type of the call. Allowed values: log, debug, info, error, warning, dir, dirxml, table,
+	// trace, clear, startGroup, startGroupCollapsed, endGroup, assert, profile, profileEnd, count,
+	// timeEnd.
+	Type string `json:"type"`
+
+	// Call arguments.
+	Args []RemoteObject `json:"args"`
+
+	// Identifier of the context where the call was made.
+	ExecutionContextID ExecutionContextID `json:"executionContextId"`
+
+	// Call timestamp.
+	Timestamp Timestamp `json:"timestamp"`
+
+	// Optional. Stack trace captured when the call was made.
+	StackTrace StackTrace `json:"stackTrace,omitempty"`
+
+	// Optional. Console context descriptor for calls on non-default console context (not
+	// console.*): 'anonymous#unique-logger-id' for call on unnamed context, 'name#unique-logger-id'
+	// for call on named context. EXPERIMENTAL
+	Context string `json:"context,omitempty"`
+}
+
+/*
+InspectRequestedEvent represents Runtime.inspectRequested event data.
+*/
+type InspectRequestedEvent struct {
+	// Remote object.
+	Object RemoteObject `json:"object"`
+
+	// Hints.
+	Hints map[string]string `json:"hints"`
+}
+
+/*
 ScriptID is a unique script identifier.
 */
 type ScriptID string
@@ -68,10 +340,10 @@ type RemoteObject struct {
 	ObjectID RemoteObjectID `json:"objectId,omitempty"`
 
 	// Optional. Preview containing abbreviated property values. Specified for object type values
-	// only. EXPERIMENTAL.
+	// only. EXPERIMENTAL
 	Preview ObjectPreview `json:"preview,omitempty"`
 
-	// Optional. EXPERIMENTAL.
+	// Optional. EXPERIMENTAL
 	CustomPreview CustomPreview `json:"customPreview,omitempty"`
 }
 
@@ -307,7 +579,7 @@ type StackTrace struct {
 	Parent *StackTrace `json:"parent,omitempty"`
 
 	// Optional. Asynchronous JavaScript stack trace that preceded this stack, if available.
-	// EXPERIMENTAL.
+	// EXPERIMENTAL
 	ParentID StackTraceID `json:"parentId,omitempty"`
 }
 
