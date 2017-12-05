@@ -96,7 +96,6 @@ RunIfWaitingForDebugger tells inspected instance to run if it was waiting for de
 func (Runtime) RunIfWaitingForDebugger(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Runtime.runIfWaitingForDebugger",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -110,7 +109,6 @@ context.
 func (Runtime) Enable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Runtime.enable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -122,7 +120,6 @@ Disable disables reporting of execution contexts creation.
 func (Runtime) Disable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Runtime.disable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -134,7 +131,6 @@ DiscardConsoleEntries discards collected exceptions and console API calls.
 func (Runtime) DiscardConsoleEntries(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Runtime.discardConsoleEntries",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -146,7 +142,6 @@ SetCustomObjectFormatterEnabled EXPERIMENTAL
 func (Runtime) SetCustomObjectFormatterEnabled(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Runtime.setCustomObjectFormatterEnabled",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -204,7 +199,7 @@ func (Runtime) GlobalLexicalScopeNames(socket *Socket, params *runtime.GlobalLex
 OnExecutionContextCreated adds a handler to the Runtime.executionContextCreated event.
 Runtime.executionContextCreated fires when a new execution context is created.
 */
-func (Runtime) OnExecutionContextCreated(socket *Socket, callback func(event *runtime.ExecutionContextCreatedEvent)) error {
+func (Runtime) OnExecutionContextCreated(socket *Socket, callback func(event *runtime.ExecutionContextCreatedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Runtime.executionContextCreated",
 		func(name string, params []byte) {
@@ -217,14 +212,13 @@ func (Runtime) OnExecutionContextCreated(socket *Socket, callback func(event *ru
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnExecutionContextDestroyed adds a handler to the Runtime.executionContextDestroyed event.
 Runtime.executionContextDestroyed fires when execution context is destroyed.
 */
-func (Runtime) OnExecutionContextDestroyed(socket *Socket, callback func(event *runtime.ExecutionContextDestroyedEvent)) error {
+func (Runtime) OnExecutionContextDestroyed(socket *Socket, callback func(event *runtime.ExecutionContextDestroyedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Runtime.executionContextDestroyed",
 		func(name string, params []byte) {
@@ -237,14 +231,13 @@ func (Runtime) OnExecutionContextDestroyed(socket *Socket, callback func(event *
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnExecutionContextsCleared adds a handler to the Runtime.executionContextsCleared event.
 Runtime.executionContextsCleared fires when all executionContexts were cleared in browser.
 */
-func (Runtime) OnExecutionContextsCleared(socket *Socket, callback func(event *runtime.ExecutionContextsClearedEvent)) error {
+func (Runtime) OnExecutionContextsCleared(socket *Socket, callback func(event *runtime.ExecutionContextsClearedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Runtime.executionContextsCleared",
 		func(name string, params []byte) {
@@ -257,14 +250,13 @@ func (Runtime) OnExecutionContextsCleared(socket *Socket, callback func(event *r
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnExceptionThrown adds a handler to the Runtime.exceptionThrown event. Runtime.exceptionThrown fires
 when an exception is thrown and is unhandled.
 */
-func (Runtime) OnExceptionThrown(socket *Socket, callback func(event *runtime.ExceptionThrownEvent)) error {
+func (Runtime) OnExceptionThrown(socket *Socket, callback func(event *runtime.ExceptionThrownEvent)) {
 	handler := protocol.NewEventHandler(
 		"Runtime.exceptionThrown",
 		func(name string, params []byte) {
@@ -277,14 +269,13 @@ func (Runtime) OnExceptionThrown(socket *Socket, callback func(event *runtime.Ex
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnExceptionRevoked adds a handler to the Runtime.exceptionRevoked event. Runtime.exceptionRevoked
 fires when an unhandled exception is revoked.
 */
-func (Runtime) OnExceptionRevoked(socket *Socket, callback func(event *runtime.ExceptionRevokedEvent)) error {
+func (Runtime) OnExceptionRevoked(socket *Socket, callback func(event *runtime.ExceptionRevokedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Runtime.exceptionRevoked",
 		func(name string, params []byte) {
@@ -297,14 +288,13 @@ func (Runtime) OnExceptionRevoked(socket *Socket, callback func(event *runtime.E
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnConsoleAPICalled adds a handler to the Runtime.consoleAPICalled event. Runtime.consoleAPICalled
 fires when the console API is called.
 */
-func (Runtime) OnConsoleAPICalled(socket *Socket, callback func(event *runtime.ConsoleAPICalledEvent)) error {
+func (Runtime) OnConsoleAPICalled(socket *Socket, callback func(event *runtime.ConsoleAPICalledEvent)) {
 	handler := protocol.NewEventHandler(
 		"Runtime.consoleAPICalled",
 		func(name string, params []byte) {
@@ -317,7 +307,6 @@ func (Runtime) OnConsoleAPICalled(socket *Socket, callback func(event *runtime.C
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
@@ -325,7 +314,7 @@ OnInspectRequested adds a handler to the Runtime.inspectRequested event. Runtime
 fires when an object should be inspected (for example, as a result of inspect() command line API
 call).
 */
-func (Runtime) OnInspectRequested(socket *Socket, callback func(event *runtime.InspectRequestedEvent)) error {
+func (Runtime) OnInspectRequested(socket *Socket, callback func(event *runtime.InspectRequestedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Runtime.inspectRequested",
 		func(name string, params []byte) {
@@ -338,5 +327,4 @@ func (Runtime) OnInspectRequested(socket *Socket, callback func(event *runtime.I
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }

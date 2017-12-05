@@ -41,7 +41,7 @@ func (Tethering) Unbind(socket *Socket, params *tethering.UnbindParams) error {
 OnAccepted adds a handler to the Tethering.accepted event. Tethering.accepted fires when a port was
 successfully bound and got a specified connection id.
 */
-func (Tethering) OnAccepted(socket *Socket, callback func(event *tethering.AcceptedEvent)) error {
+func (Tethering) OnAccepted(socket *Socket, callback func(event *tethering.AcceptedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Tethering.accepted",
 		func(name string, params []byte) {
@@ -54,5 +54,4 @@ func (Tethering) OnAccepted(socket *Socket, callback func(event *tethering.Accep
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }

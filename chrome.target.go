@@ -192,7 +192,7 @@ Target.detachedFromTarget fires when detached from target for any reason (includ
 `detachFromTarget` command). Can be issued multiple times per target if multiple sessions have been
 attached to it. EXPERIMENTAL
 */
-func (Target) OnDetachedFromTarget(socket *Socket, callback func(event *target.DetachedFromTargetEvent)) error {
+func (Target) OnDetachedFromTarget(socket *Socket, callback func(event *target.DetachedFromTargetEvent)) {
 	handler := protocol.NewEventHandler(
 		"Target.detachedFromTarget",
 		func(name string, params []byte) {
@@ -205,7 +205,6 @@ func (Target) OnDetachedFromTarget(socket *Socket, callback func(event *target.D
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
@@ -213,7 +212,7 @@ OnReceivedMessageFromTarget adds a handler to the Target.receivedMessageFromTarg
 Target.receivedMessageFromTarget fires when a new protocol message received from the session (as
 reported in `attachedToTarget` event).
 */
-func (Target) OnReceivedMessageFromTarget(socket *Socket, callback func(event *target.ReceivedMessageFromTargetEvent)) error {
+func (Target) OnReceivedMessageFromTarget(socket *Socket, callback func(event *target.ReceivedMessageFromTargetEvent)) {
 	handler := protocol.NewEventHandler(
 		"Target.receivedMessageFromTarget",
 		func(name string, params []byte) {
@@ -226,14 +225,13 @@ func (Target) OnReceivedMessageFromTarget(socket *Socket, callback func(event *t
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnTargetCreated adds a handler to the Target.targetCreated event. Target.targetCreated fires when a
 possible inspection target is created.
 */
-func (Target) OnTargetCreated(socket *Socket, callback func(event *target.TargetCreatedEvent)) error {
+func (Target) OnTargetCreated(socket *Socket, callback func(event *target.TargetCreatedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Target.targetCreated",
 		func(name string, params []byte) {
@@ -246,14 +244,13 @@ func (Target) OnTargetCreated(socket *Socket, callback func(event *target.Target
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnTargetDestroyed adds a handler to the Target.targetDestroyed event. Target.targetDestroyed fires
 when a a target is destroyed.
 */
-func (Target) OnTargetDestroyed(socket *Socket, callback func(event *target.TargetDestroyedEvent)) error {
+func (Target) OnTargetDestroyed(socket *Socket, callback func(event *target.TargetDestroyedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Target.targetDestroyed",
 		func(name string, params []byte) {
@@ -266,7 +263,6 @@ func (Target) OnTargetDestroyed(socket *Socket, callback func(event *target.Targ
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
@@ -274,7 +270,7 @@ OnTargetInfoChanged adds a handler to the Target.targetInfoChanged event. Target
 fires when some information about a target has changed. This only happens between `targetCreated`
 and `targetDestroyed`.
 */
-func (Target) OnTargetInfoChanged(socket *Socket, callback func(event *target.TargetInfoChangedEvent)) error {
+func (Target) OnTargetInfoChanged(socket *Socket, callback func(event *target.TargetInfoChangedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Target.targetInfoChanged",
 		func(name string, params []byte) {
@@ -287,5 +283,4 @@ func (Target) OnTargetInfoChanged(socket *Socket, callback func(event *target.Ta
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }

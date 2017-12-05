@@ -19,7 +19,6 @@ Enable enables the HeapProfiler.
 func (HeapProfiler) Enable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "HeapProfiler.enable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -31,7 +30,6 @@ Disable disables the HeapProfiler.
 func (HeapProfiler) Disable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "HeapProfiler.disable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -79,7 +77,6 @@ CollectGarbage EXPERIMENTAL
 func (HeapProfiler) CollectGarbage(socket *Socket) error {
 	command := &protocol.Command{
 		method: "HeapProfiler.collectGarbage",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -162,7 +159,7 @@ func (HeapProfiler) GetSamplingProfile(socket *Socket, params *heap_profiler.Get
 OnAddHeapSnapshotChunk adds a handler to the HeapProfiler.AddHeapSnapshotChunk event.
 EXPERIMENTAL
 */
-func (HeapProfiler) OnAddHeapSnapshotChunk(socket *Socket, callback func(event *heap_profiler.AddHeapSnapshotChunkEvent)) error {
+func (HeapProfiler) OnAddHeapSnapshotChunk(socket *Socket, callback func(event *heap_profiler.AddHeapSnapshotChunkEvent)) {
 	handler := protocol.NewEventHandler(
 		"HeapProfiler.addHeapSnapshotChunk",
 		func(name string, params []byte) {
@@ -175,13 +172,12 @@ func (HeapProfiler) OnAddHeapSnapshotChunk(socket *Socket, callback func(event *
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnResetProfiles adds a handler to the HeapProfiler.ResetProfiles event. EXPERIMENTAL
 */
-func (HeapProfiler) OnResetProfiles(socket *Socket, callback func(event *heap_profiler.ResetProfilesEvent)) error {
+func (HeapProfiler) OnResetProfiles(socket *Socket, callback func(event *heap_profiler.ResetProfilesEvent)) {
 	handler := protocol.NewEventHandler(
 		"HeapProfiler.resetProfiles",
 		func(name string, params []byte) {
@@ -194,14 +190,13 @@ func (HeapProfiler) OnResetProfiles(socket *Socket, callback func(event *heap_pr
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnReportHeapSnapshotProgress adds a handler to the DOM.ReportHeapSnapshotProgress event.
 EXPERIMENTAL
 */
-func (HeapProfiler) OnReportHeapSnapshotProgress(socket *Socket, callback func(event *heap_profiler.ReportHeapSnapshotProgressEvent)) error {
+func (HeapProfiler) OnReportHeapSnapshotProgress(socket *Socket, callback func(event *heap_profiler.ReportHeapSnapshotProgressEvent)) {
 	handler := protocol.NewEventHandler(
 		"HeapProfiler.reportHeapSnapshotProgress",
 		func(name string, params []byte) {
@@ -214,7 +209,6 @@ func (HeapProfiler) OnReportHeapSnapshotProgress(socket *Socket, callback func(e
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
@@ -223,7 +217,7 @@ heap objects tracking has been started then backend regularly sends a current va
 object id and corresponding timestamp. If the were changes in the heap since last event then one or
 more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
 */
-func (HeapProfiler) OnLastSeenObjectID(socket *Socket, callback func(event *heap_profiler.LastSeenObjectIDEvent)) error {
+func (HeapProfiler) OnLastSeenObjectID(socket *Socket, callback func(event *heap_profiler.LastSeenObjectIDEvent)) {
 	handler := protocol.NewEventHandler(
 		"HeapProfiler.lastSeenObjectID",
 		func(name string, params []byte) {
@@ -236,14 +230,13 @@ func (HeapProfiler) OnLastSeenObjectID(socket *Socket, callback func(event *heap
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnHeapStatsUpdate adds a handler to the DOM.heapStatsUpdate event. DOM.heapStatsUpdate fires if heap
 objects tracking has been started then backend may send update for one or more fragments.
 */
-func (HeapProfiler) OnHeapStatsUpdate(socket *Socket, callback func(event *heap_profiler.HeapStatsUpdateEvent)) error {
+func (HeapProfiler) OnHeapStatsUpdate(socket *Socket, callback func(event *heap_profiler.HeapStatsUpdateEvent)) {
 	handler := protocol.NewEventHandler(
 		"HeapProfiler.heapStatsUpdate",
 		func(name string, params []byte) {
@@ -256,5 +249,4 @@ func (HeapProfiler) OnHeapStatsUpdate(socket *Socket, callback func(event *heap_
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }

@@ -14,7 +14,6 @@ Enable enables storage tracking, storage events will now be delivered to the cli
 func (DOMStorage) Enable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "DOMStorage.enable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -26,7 +25,6 @@ Disable disables storage tracking, prevents storage events from being sent to th
 func (DOMStorage) Disable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "DOMStorage.disable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err

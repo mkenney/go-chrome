@@ -11,59 +11,70 @@ type Browser struct{}
 /*
 Close closes the browser gracefully.
 */
-func (Browser) Close(socket *Socket) error {
+func (Browser) Close(
+	socket *Socket,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Browser.close",
-		params: nil,
 	}
 	socket.SendCommand(command)
-	return command.Err
-}
-
-/*
-GetWindowForTarget gets the browser window that contains the devtools target. EXPERIMENTAL
-*/
-func (Browser) GetWindowForTarget(socket *Socket, params *browser.GetWindowForTargetParams) error {
-	command := &protocol.Command{
-		method: "Browser.getWindowForTarget",
-		params: params,
-	}
-	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 GetVersion returns version information.
 */
-func (Browser) GetVersion(socket *Socket) error {
+func (Browser) GetVersion(
+	socket *Socket,
+) (browser.GetVersionResult, error) {
 	command := &protocol.Command{
 		method: "Browser.getVersion",
-		params: nil,
 	}
 	socket.SendCommand(command)
-	return command.Err
-}
-
-/*
-SetWindowBounds sets the position and/or size of the browser window. EXPERIMENTAL
-*/
-func (Browser) SetWindowBounds(socket *Socket, params *browser.SetWindowBoundsParams) error {
-	command := &protocol.Command{
-		method: "Browser.setWindowBounds",
-		params: params,
-	}
-	socket.SendCommand(command)
-	return command.Err
+	return command.Result.(browser.GetVersionResult), command.Err
 }
 
 /*
 GetWindowBounds sets the position and/or size of the browser window. EXPERIMENTAL
 */
-func (Browser) GetWindowBounds(socket *Socket, params *browser.GetWindowBoundsParams) error {
+func (Browser) GetWindowBounds(
+	socket *Socket,
+	params *browser.GetWindowBoundsParams,
+) (browser.GetWindowBoundsResult, error) {
 	command := &protocol.Command{
 		method: "Browser.getWindowBounds",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return command.Result.(browser.GetWindowBoundsResult), command.Err
+}
+
+/*
+GetWindowForTarget gets the browser window that contains the devtools target. EXPERIMENTAL
+*/
+func (Browser) GetWindowForTarget(
+	socket *Socket,
+	params *browser.GetWindowForTargetParams,
+) (browser.GetWindowForTargetResult, error) {
+	command := &protocol.Command{
+		method: "Browser.getWindowForTarget",
+		params: params,
+	}
+	socket.SendCommand(command)
+	return command.Result.(browser.GetWindowForTargetResult), command.Err
+}
+
+/*
+SetWindowBounds sets the position and/or size of the browser window. EXPERIMENTAL
+*/
+func (Browser) SetWindowBounds(
+	socket *Socket,
+	params *browser.SetWindowBoundsParams,
+) (browser.SetWindowBoundsResult, error) {
+	command := &protocol.Command{
+		method: "Browser.setWindowBounds",
+		params: params,
+	}
+	socket.SendCommand(command)
+	return command.Result.(browser.SetWindowBoundsResult), command.Err
 }

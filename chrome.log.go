@@ -20,7 +20,6 @@ Clear clears the log.
 func (Log) Clear(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Log.clear",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -32,7 +31,6 @@ Disable disables log domain, prevents further log entries from being reported to
 func (Log) Disable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Log.disable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -45,7 +43,6 @@ Enable enables log domain, sends the entries collected so far to the client by m
 func (Log) Enable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Log.enable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -69,7 +66,6 @@ StopViolationsReport stops violation reporting.
 func (Log) StopViolationsReport(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Log.stopViolationsReport",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -79,7 +75,7 @@ func (Log) StopViolationsReport(socket *Socket) error {
 OnEntryAdded adds a handler to the Log.entryAdded event. Log.entryAdded fires when a new message is
 logged.
 */
-func (Log) OnEntryAdded(socket *Socket, callback func(event *chrome_log.EntryAddedEvent)) error {
+func (Log) OnEntryAdded(socket *Socket, callback func(event *chrome_log.EntryAddedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Log.entryAdded",
 		func(name string, params []byte) {
@@ -92,5 +88,4 @@ func (Log) OnEntryAdded(socket *Socket, callback func(event *chrome_log.EntryAdd
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }

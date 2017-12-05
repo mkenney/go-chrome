@@ -14,9 +14,9 @@ type GetEncodedResponseParams struct {
 	// The encoding to use. Allowed values: webp, jpeg, png.
 	Encoding string `json:"encoding"`
 
-	// The quality of the encoding (0-1). (defaults to 1).
-	Quality float64 `json:"quality"`
+	// Optional. The quality of the encoding (0-1). (defaults to 1).
+	Quality float64 `json:"quality,omitempty"`
 
-	// Whether to only return the size information (defaults to false).
-	SizeOnly bool `json:"sizeOnly"`
+	// Optional Whether to only return the size information (defaults to false).
+	SizeOnly bool `json:"sizeOnly,omitempty"`
 }

@@ -28,7 +28,6 @@ PrepareForLeakDetection EXPERIMENTAL
 func (Memory) PrepareForLeakDetection(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Memory.prepareForLeakDetection",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err

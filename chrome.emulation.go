@@ -33,7 +33,6 @@ ClearDeviceMetricsOverride clears the overriden device metrics.
 func (Emulation) ClearDeviceMetricsOverride(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Emulation.clearDeviceMetricsOverride",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -45,7 +44,6 @@ ResetPageScaleFactor requests that page scale factor is reset to initial values.
 func (Emulation) ResetPageScaleFactor(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Emulation.resetPageScaleFactor",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -108,7 +106,6 @@ ClearGeolocationOverride clears the overriden Geolocation Position and Error.
 func (Emulation) ClearGeolocationOverride(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Emulation.clearGeolocationOverride",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -168,7 +165,6 @@ CanEmulate tells whether emulation is supported.
 func (Emulation) CanEmulate(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Emulation.canEmulate",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -218,7 +214,7 @@ OnVirtualTimeBudgetExpired adds a handler to the Emulation.virtualTimeBudgetExpi
 Emulation.virtualTimeBudgetExpired fires after the virtual time budget for the current
 VirtualTimePolicy has run out. EXPERIMENTAL
 */
-func (Emulation) OnVirtualTimeBudgetExpired(socket *Socket, callback func(event *emulation.VirtualTimeBudgetExpiredEvent)) error {
+func (Emulation) OnVirtualTimeBudgetExpired(socket *Socket, callback func(event *emulation.VirtualTimeBudgetExpiredEvent)) {
 	handler := protocol.NewEventHandler(
 		"Emulation.virtualTimeBudgetExpired",
 		func(name string, params []byte) {
@@ -231,14 +227,13 @@ func (Emulation) OnVirtualTimeBudgetExpired(socket *Socket, callback func(event 
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnVirtualTimeAdvanced adds a handler to the Emulation.virtualTimeAdvanced event.
 Emulation.virtualTimeAdvanced fires after the virtual time has advanced. EXPERIMENTAL
 */
-func (Emulation) OnVirtualTimeAdvanced(socket *Socket, callback func(event *emulation.VirtualTimeAdvancedEvent)) error {
+func (Emulation) OnVirtualTimeAdvanced(socket *Socket, callback func(event *emulation.VirtualTimeAdvancedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Emulation.virtualTimeAdvanced",
 		func(name string, params []byte) {
@@ -251,14 +246,13 @@ func (Emulation) OnVirtualTimeAdvanced(socket *Socket, callback func(event *emul
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnVirtualTimePaused adds a handler to the Emulation.virtualTimePaused event.
 Emulation.virtualTimePaused fires after the virtual time has paused. EXPERIMENTAL
 */
-func (Emulation) OnVirtualTimePaused(socket *Socket, callback func(event *emulation.VirtualTimePausedEvent)) error {
+func (Emulation) OnVirtualTimePaused(socket *Socket, callback func(event *emulation.VirtualTimePausedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Emulation.virtualTimePaused",
 		func(name string, params []byte) {
@@ -271,5 +265,4 @@ func (Emulation) OnVirtualTimePaused(socket *Socket, callback func(event *emulat
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }

@@ -90,7 +90,7 @@ func (Storage) UntrackIndexedDBForOrigin(socket *Socket, params *storage.Untrack
 OnCacheStorageContentUpdated adds a handler to the Storage.cacheStorageContentUpdated event.
 Storage.cacheStorageContentUpdated fires when a cache's contents have been modified.
 */
-func (Storage) OnCacheStorageContentUpdated(socket *Socket, callback func(event *storage.CacheStorageContentUpdatedEvent)) error {
+func (Storage) OnCacheStorageContentUpdated(socket *Socket, callback func(event *storage.CacheStorageContentUpdatedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Storage.cacheStorageContentUpdated",
 		func(name string, params []byte) {
@@ -103,14 +103,13 @@ func (Storage) OnCacheStorageContentUpdated(socket *Socket, callback func(event 
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnCacheStorageListUpdated adds a handler to the Storage.cacheStorageListUpdated event.
 Storage.cacheStorageListUpdated fires when cache has been added/deleted.
 */
-func (Storage) OnCacheStorageListUpdated(socket *Socket, callback func(event *storage.CacheStorageListUpdatedEvent)) error {
+func (Storage) OnCacheStorageListUpdated(socket *Socket, callback func(event *storage.CacheStorageListUpdatedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Storage.cacheStorageListUpdated",
 		func(name string, params []byte) {
@@ -123,14 +122,13 @@ func (Storage) OnCacheStorageListUpdated(socket *Socket, callback func(event *st
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnIndexedDBContentUpdated adds a handler to the Storage.indexedDBContentUpdated event.
 Storage.indexedDBContentUpdated fires when the origin's IndexedDB object store has been modified.
 */
-func (Storage) OnIndexedDBContentUpdated(socket *Socket, callback func(event *storage.IndexedDBContentUpdatedEvent)) error {
+func (Storage) OnIndexedDBContentUpdated(socket *Socket, callback func(event *storage.IndexedDBContentUpdatedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Storage.indexedDBContentUpdated",
 		func(name string, params []byte) {
@@ -143,14 +141,13 @@ func (Storage) OnIndexedDBContentUpdated(socket *Socket, callback func(event *st
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnIndexedDBListUpdated adds a handler to the Storage.indexedDBListUpdated event.
 Storage.indexedDBListUpdated fires when the origin's IndexedDB database list has been modified.
 */
-func (Storage) OnIndexedDBListUpdated(socket *Socket, callback func(event *storage.IndexedDBListUpdatedEvent)) error {
+func (Storage) OnIndexedDBListUpdated(socket *Socket, callback func(event *storage.IndexedDBListUpdatedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Storage.indexedDBListUpdated",
 		func(name string, params []byte) {
@@ -163,5 +160,4 @@ func (Storage) OnIndexedDBListUpdated(socket *Socket, callback func(event *stora
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }

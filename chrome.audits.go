@@ -12,11 +12,14 @@ type Audits struct{}
 GetEncodedResponse returns the response body and size if it were re-encoded with the specified
 settings. Only applies to images.
 */
-func (Audits) GetEncodedResponse(socket *Socket, params *audits.GetEncodedResponseParams) error {
+func (Audits) GetEncodedResponse(
+	socket *Socket,
+	params *audits.GetEncodedResponseParams,
+) (audits.GetEncodedResponseResult, error) {
 	command := &protocol.Command{
 		method: "Audits.getEncodedResponse",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return command.Result.(audits.GetEncodedResponseResult), command.Err
 }

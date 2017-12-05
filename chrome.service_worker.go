@@ -31,7 +31,6 @@ Disable EXPERIMENTAL
 func (ServiceWorker) Disable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "ServiceWorker.disable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -55,7 +54,6 @@ Enable EXPERIMENTAL
 func (ServiceWorker) Enable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "ServiceWorker.enable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -115,7 +113,6 @@ StopAllWorkers EXPERIMENTAL
 func (ServiceWorker) StopAllWorkers(socket *Socket) error {
 	command := &protocol.Command{
 		method: "ServiceWorker.stopAllWorkers",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -160,7 +157,7 @@ func (ServiceWorker) UpdateRegistration(socket *Socket, params *service_worker.U
 /*
 OnWorkerErrorReported EXPERIMENTAL
 */
-func (ServiceWorker) OnWorkerErrorReported(socket *Socket, callback func(event *service_worker.WorkerErrorReportedEvent)) error {
+func (ServiceWorker) OnWorkerErrorReported(socket *Socket, callback func(event *service_worker.WorkerErrorReportedEvent)) {
 	handler := protocol.NewEventHandler(
 		"ServiceWorker.workerErrorReported",
 		func(name string, params []byte) {
@@ -173,13 +170,12 @@ func (ServiceWorker) OnWorkerErrorReported(socket *Socket, callback func(event *
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnWorkerRegistrationUpdated EXPERIMENTAL
 */
-func (ServiceWorker) OnWorkerRegistrationUpdated(socket *Socket, callback func(event *service_worker.WorkerRegistrationUpdatedEvent)) error {
+func (ServiceWorker) OnWorkerRegistrationUpdated(socket *Socket, callback func(event *service_worker.WorkerRegistrationUpdatedEvent)) {
 	handler := protocol.NewEventHandler(
 		"ServiceWorker.workerRegistrationUpdated",
 		func(name string, params []byte) {
@@ -192,13 +188,12 @@ func (ServiceWorker) OnWorkerRegistrationUpdated(socket *Socket, callback func(e
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnWorkerVersionUpdated EXPERIMENTAL
 */
-func (ServiceWorker) OnWorkerVersionUpdated(socket *Socket, callback func(event *service_worker.WorkerVersionUpdatedEvent)) error {
+func (ServiceWorker) OnWorkerVersionUpdated(socket *Socket, callback func(event *service_worker.WorkerVersionUpdatedEvent)) {
 	handler := protocol.NewEventHandler(
 		"ServiceWorker.workerVersionUpdated",
 		func(name string, params []byte) {
@@ -211,5 +206,4 @@ func (ServiceWorker) OnWorkerVersionUpdated(socket *Socket, callback func(event 
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }

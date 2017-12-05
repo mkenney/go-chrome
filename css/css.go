@@ -7,97 +7,6 @@ import (
 )
 
 /*
-GetMatchedStylesForNodeParams represents CSS.getMatchedStylesForNode parameters.
-*/
-type GetMatchedStylesForNodeParams struct {
-	NodeID DOM.NodeID `json:"nodeId"`
-}
-
-/*
-GetInlineStylesForNodeParams represents CSS.getInlineStylesForNode parameters.
-*/
-type GetInlineStylesForNodeParams struct {
-	NodeID DOM.NodeID `json:"nodeId"`
-}
-
-/*
-GetComputedStyleForNodeParams represents CSS.getComputedStyleForNode parameters.
-*/
-type GetComputedStyleForNodeParams struct {
-	NodeID DOM.NodeID `json:"nodeId"`
-}
-
-/*
-GetPlatformFontsForNodeParams represents CSS.getPlatformFontsForNode parameters.
-*/
-type GetPlatformFontsForNodeParams struct {
-	NodeID DOM.NodeID `json:"nodeId"`
-}
-
-/*
-GetStyleSheetTextParams represents CSS.getStyleSheetText parameters.
-*/
-type GetStyleSheetTextParams struct {
-	StyleSheetID StyleSheetID `json:"styleSheetId"`
-}
-
-/*
-CollectClassNamesParams represents CSS.collectClassNames parameters.
-*/
-type CollectClassNamesParams struct {
-	StyleSheetID StyleSheetID `json:"styleSheetId"`
-}
-
-/*
-SetStyleSheetTextParams represents CSS.setStyleSheetText parameters.
-*/
-type SetStyleSheetTextParams struct {
-	StyleSheetID StyleSheetID `json:"styleSheetId"`
-	Text         string       `json:"text"`
-}
-
-/*
-SetRuleSelectorParams represents CSS.setRuleSelector parameters.
-*/
-type SetRuleSelectorParams struct {
-	StyleSheetID StyleSheetID `json:"styleSheetId"`
-	Range        SourceRange  `json:"range"`
-	Selector     string       `json:"selector"`
-}
-
-/*
-SetKeyframeKeyParams represents CSS.setKeyframeKey parameters.
-*/
-type SetKeyframeKeyParams struct {
-	StyleSheetID StyleSheetID `json:"styleSheetId"`
-	Range        SourceRange  `json:"range"`
-	Selector     string       `json:"selector"`
-}
-
-/*
-SetStyleTextsParams represents CSS.setStyleTexts parameters.
-*/
-type SetStyleTextsParams struct {
-	Edits []*StyleDeclarationEdit `json:"edits"`
-}
-
-/*
-SetMediaTextParams represents CSS.setMediaText parameters.
-*/
-type SetMediaTextParams struct {
-	StyleSheetID StyleSheetID `json:"styleSheetId"`
-	Range        SourceRange  `json:"range"`
-	Text         string       `json:"text"`
-}
-
-/*
-CreateStyleSheetParams represents CSS.createStyleSheet parameters.
-*/
-type CreateStyleSheetParams struct {
-	FrameID Page.FrameID `json:"frameId"`
-}
-
-/*
 AddRuleParams represents CSS.addRule parameters.
 */
 type AddRuleParams struct {
@@ -109,6 +18,44 @@ type AddRuleParams struct {
 
 	// Text position of a new rule in the target style sheet.
 	Location SourceRange `json:"location"`
+}
+
+/*
+AddRuleResult represents the result of calls to CSS.addRule.
+*/
+type AddRuleResult struct {
+	// The newly created rule.
+	Rule CSSRule `json:"rule"`
+}
+
+/*
+CollectClassNamesParams represents CSS.collectClassNames parameters.
+*/
+type CollectClassNamesParams struct {
+	StyleSheetID StyleSheetID `json:"styleSheetId"`
+}
+
+/*
+CollectClassNamesResult represents the result of calls to CSS.collectClassNames.
+*/
+type CollectClassNamesResult struct {
+	// Class name list.
+	ClassNames []string `json:"classNames"`
+}
+
+/*
+CreateStyleSheetParams represents CSS.createStyleSheet parameters.
+*/
+type CreateStyleSheetParams struct {
+	FrameID Page.FrameID `json:"frameId"`
+}
+
+/*
+CreateStyleSheetResult represents the result of calls to CSS.createStyleSheet.
+*/
+type CreateStyleSheetResult struct {
+	// Identifier of the created "via-inspector" stylesheet.
+	StyleSheetID StyleSheetID `json:"styleSheetId"`
 }
 
 /*
@@ -124,10 +71,141 @@ type ForcePseudoStateParams struct {
 }
 
 /*
+GetBackgroundColorsParams represents CSS.getBackgroundColors parameters.
+*/
+type GetBackgroundColorsParams struct {
+	// Id of the node to get background colors for.
+	NodeID DOM.NodeID `json:"nodeId"`
+}
+
+/*
+GetBackgroundColorsResult represents the result of calls to CSS.getBackgroundColors.
+*/
+type GetBackgroundColorsResult struct {
+	// Optional. The range of background colors behind this element, if it contains any visible
+	// text. If no visible text is present, this will be undefined. In the case of a flat background
+	// color, this will consist of simply that color. In the case of a gradient, this will consist
+	// of each of the color stops. For anything more complicated, this will be an empty array.
+	// Images will be ignored (as if the image had failed to load).
+	BackgroundColors []string `json:"backgroundColors,omitempty"`
+
+	// Optional. The computed font size for this node, as a CSS computed value string (e.g. '12px').
+	ComputedFontSize string `json:"computedFontSize,omitempty"`
+
+	// Optional. The computed font weight for this node, as a CSS computed value string (e.g.
+	// 'normal' or '100').
+	ComputedFontWeight string `json:"computedFontWeight,omitempty"`
+
+	// Optional. The computed font size for the document body, as a computed CSS value string (e.g.
+	// '16px').
+	ComputedBodyFontSize string `json:"computedBodyFontSize,omitempty"`
+}
+
+/*
+GetComputedStyleForNodeParams represents CSS.getComputedStyleForNode parameters.
+*/
+type GetComputedStyleForNodeParams struct {
+	NodeID DOM.NodeID `json:"nodeId"`
+}
+
+/*
+GetComputedStyleForNodeResult represents the result of calls to CSS.getComputedStyleForNode.
+*/
+type GetComputedStyleForNodeResult struct {
+	// Computed style for the specified DOM node.
+	ComputedStyle []CSSComputedStyleProperty `json:"computedStyle"`
+}
+
+/*
+GetInlineStylesForNodeParams represents CSS.getInlineStylesForNode parameters.
+*/
+type GetInlineStylesForNodeParams struct {
+	NodeID DOM.NodeID `json:"nodeId"`
+}
+
+/*
+GetInlineStylesForNodeResult represents the result of calls to CSS.getInlineStylesForNode.
+*/
+type GetInlineStylesForNodeResult struct {
+	// Optional. Inline style for the specified DOM node.
+	InlineStyle CSSStyle `json:"inlineStyle,omitempty"`
+
+	// Optional. Attribute-defined element style (e.g. resulting from "width=20 height=100%").
+	AttributesStyle CSSStyle `json:"attributesStyle,omitempty"`
+}
+
+/*
+GetMatchedStylesForNodeParams represents CSS.getMatchedStylesForNode parameters.
+*/
+type GetMatchedStylesForNodeParams struct {
+	NodeID DOM.NodeID `json:"nodeId"`
+}
+
+/*
+GetMatchedStylesForNodeResult represents the result of calls to CSS.getMatchedStylesForNode.
+*/
+type GetMatchedStylesForNodeResult struct {
+	// Inline style for the specified DOM node.
+	InlineStyle CSSStyle `json:"inlineStyle,omitempty"`
+
+	// Attribute-defined element style (e.g. resulting from "width=20 height=100%").
+	AttributesStyle CSSStyle `json:"attributesStyle,omitempty"`
+
+	// CSS rules matching this node, from all applicable stylesheets.
+	MatchedCSSRules []RuleMatch `json:"matchedCSSRules,omitempty"`
+
+	// Pseudo style matches for this node.
+	PseudoElements []PseudoElementMatches `json:"pseudoElements,omitempty"`
+
+	// A chain of inherited styles (from the immediate node parent up to the DOM tree root).
+	Inherited []InheritedStyleEntry `json:"inherited,omitempty"`
+
+	// A list of CSS keyframed animations matching this node.
+	CSSKeyframesRules []CSSKeyframesRule `json:"cssKeyframesRules,omitempty"`
+}
+
+/*
 GetMediaQueriesParams represents CSS.getMediaQueries parameters.
 */
 type GetMediaQueriesParams struct {
 	Medias []*CSSMedia `json:"medias"`
+}
+
+/*
+GetMediaQueriesResult represents the result of calls to CSS.getMediaQueries.
+*/
+type GetMediaQueriesResult struct {
+	Medias []CSSMedia `json:"medias"`
+}
+
+/*
+GetPlatformFontsForNodeParams represents CSS.getPlatformFontsForNode parameters.
+*/
+type GetPlatformFontsForNodeParams struct {
+	NodeID DOM.NodeID `json:"nodeId"`
+}
+
+/*
+GetPlatformFontsForNodeResult represents the result of calls to CSS.getPlatformFontsForNode.
+*/
+type GetPlatformFontsForNodeResult struct {
+	// Usage statistics for every employed platform font.
+	Fonts []PlatformFontUsage `json:"fonts"`
+}
+
+/*
+GetStyleSheetTextParams represents CSS.getStyleSheetText parameters.
+*/
+type GetStyleSheetTextParams struct {
+	StyleSheetID StyleSheetID `json:"styleSheetId"`
+}
+
+/*
+GetStyleSheetTextResult represents the result of calls to CSS.getStyleSheetText.
+*/
+type GetStyleSheetTextResult struct {
+	// The stylesheet text.
+	Text string `json:"text"`
 }
 
 /*
@@ -141,17 +219,100 @@ type SetEffectivePropertyValueForNodeParams struct {
 }
 
 /*
-GetBackgroundColorsParams represents CSS.getBackgroundColors parameters.
+SetKeyframeKeyParams represents CSS.setKeyframeKey parameters.
 */
-type GetBackgroundColorsParams struct {
-	// Id of the node to get background colors for.
-	NodeID DOM.NodeID `json:"nodeId"`
+type SetKeyframeKeyParams struct {
+	StyleSheetID StyleSheetID `json:"styleSheetId"`
+	Range        SourceRange  `json:"range"`
+	Selector     string       `json:"selector"`
 }
 
 /*
-MediaQueryResultChangedEvent represents CSS.mediaQueryResultChanged event data.
+SetKeyframeKeyResult represents the result of calls to CSS.setKeyframeKey.
 */
-type MediaQueryResultChangedEvent struct{}
+type SetKeyframeKeyResult struct {
+	// The resulting key text after modification.
+	KeyText Value `json:"keyText"`
+}
+
+/*
+SetMediaTextParams represents CSS.setMediaText parameters.
+*/
+type SetMediaTextParams struct {
+	StyleSheetID StyleSheetID `json:"styleSheetId"`
+	Range        SourceRange  `json:"range"`
+	Text         string       `json:"text"`
+}
+
+/*
+SetMediaTextResult represents the result of calls to CSS.setMediaText.
+*/
+type SetMediaTextResult struct {
+	// The resulting CSS media rule after modification.
+	Media CSSMedia `json:"media"`
+}
+
+/*
+SetRuleSelectorParams represents CSS.setRuleSelector parameters.
+*/
+type SetRuleSelectorParams struct {
+	StyleSheetID StyleSheetID `json:"styleSheetId"`
+	Range        SourceRange  `json:"range"`
+	Selector     string       `json:"selector"`
+}
+
+/*
+SetRuleSelectorResult represents the result of calls to CSS.setRuleSelector.
+*/
+type SetRuleSelectorResult struct {
+	// The resulting selector list after modification.
+	SelectorList SelectorList `json:"selectorList"`
+}
+
+/*
+SetStyleSheetTextParams represents CSS.setStyleSheetText parameters.
+*/
+type SetStyleSheetTextParams struct {
+	StyleSheetID StyleSheetID `json:"styleSheetId"`
+	Text         string       `json:"text"`
+}
+
+/*
+SetStyleSheetTextResult represents the result of calls to CSS.setStyleSheetText.
+*/
+type SetStyleSheetTextResult struct {
+	// URL of source map associated with script (if any).
+	SourceMapURL string `json:"sourceMapURL"`
+}
+
+/*
+SetStyleTextsParams represents CSS.setStyleTexts parameters.
+*/
+type SetStyleTextsParams struct {
+	Edits []*StyleDeclarationEdit `json:"edits"`
+}
+
+/*
+SetStyleTextsResult represents the result of calls to CSS.setStyleTexts.
+*/
+type SetStyleTextsResult struct {
+	// The resulting styles after modification.
+	Styles []CSSStyle `json:"styles"`
+}
+
+/*
+StopRuleUsageTrackingResult represents the result of calls to CSS.stopRuleUsageTracking.
+*/
+type StopRuleUsageTrackingResult struct {
+	RuleUsage []RuleUsage `json:"ruleUsage"`
+}
+
+/*
+TakeCoverageDeltaResult represents the result of calls to CSS.takeCoverageDelta.
+*/
+type TakeCoverageDeltaResult struct {
+	Coverage []RuleUsage `json:"coverage"`
+}
 
 /*
 FontsUpdatedEvent represents CSS.fontsUpdated event data.
@@ -159,14 +320,33 @@ FontsUpdatedEvent represents CSS.fontsUpdated event data.
 type FontsUpdatedEvent struct{}
 
 /*
-StyleSheetChangedEvent represents CSS.styleSheetChanged event data.
+MediaQueryResultChangedEvent represents CSS.mediaQueryResultChanged event data.
 */
-type StyleSheetChangedEvent struct{}
+type MediaQueryResultChangedEvent struct{}
 
 /*
 StyleSheetAddedEvent represents CSS.styleSheetAdded event data.
 */
-type StyleSheetAddedEvent struct{}
+type StyleSheetAddedEvent struct {
+	// Added stylesheet metainfo.
+	Header CSSStyleSheetHeader `json:"header"`
+}
+
+/*
+StyleSheetChangedEvent represents CSS.styleSheetChanged event data.
+*/
+type StyleSheetChangedEvent struct {
+	// Identifier of the changed stylesheet.
+	StyleSheetID StyleSheetID `json:"styleSheetId"`
+}
+
+/*
+StyleSheetRemovedEvent represents CSS.styleSheetRemoved event data.
+*/
+type StyleSheetRemovedEvent struct {
+	// Identifier of the removed stylesheet.
+	StyleSheetID StyleSheetID `json:"styleSheetId"`
+}
 
 /*
 StyleSheetID is the ID of a stylesheet

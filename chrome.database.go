@@ -19,7 +19,6 @@ Enable enables database tracking, database events will now be delivered to the c
 func (Database) Enable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Database.enable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -31,7 +30,6 @@ Disable disables database tracking, prevents database events from being sent to 
 func (Database) Disable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Database.disable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -65,7 +63,7 @@ func (Database) ExecuteSQL(socket *Socket, params *database.ExecuteSQLParams) er
 OnAddDatabase adds a handler to the Database.addDatabase event. Database.addDatabase fires
 whenever a database is added
 */
-func (Database) OnAddDatabase(socket *Socket, callback func(event *database.AddDatabaseEvent)) error {
+func (Database) OnAddDatabase(socket *Socket, callback func(event *database.AddDatabaseEvent)) {
 	handler := protocol.NewEventHandler(
 		"Database.addDatabase",
 		func(name string, params []byte) {
@@ -78,5 +76,4 @@ func (Database) OnAddDatabase(socket *Socket, callback func(event *database.AddD
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }

@@ -18,7 +18,6 @@ Disable disables tracking security state changes.
 func (Security) Disable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Security.disable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -30,7 +29,6 @@ Enable tracking security state changes.
 func (Security) Enable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Security.enable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -68,7 +66,7 @@ fires when there is a certificate error. If overriding certificate errors is ena
 be handled with the handleCertificateError command. Note: this event does not fire if the
 certificate error has been allowed internally.
 */
-func (Security) OnCertificateError(socket *Socket, callback func(event *security.CertificateErrorEvent)) error {
+func (Security) OnCertificateError(socket *Socket, callback func(event *security.CertificateErrorEvent)) {
 	handler := protocol.NewEventHandler(
 		"Security.certificateError",
 		func(name string, params []byte) {
@@ -81,14 +79,13 @@ func (Security) OnCertificateError(socket *Socket, callback func(event *security
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnSecurityStateChanged adds a handler to the Security.securityStateChanged event.
 Security.securityStateChanged fires when the security state of the page changed.
 */
-func (Security) OnSecurityStateChanged(socket *Socket, callback func(event *security.SecurityStateChangedEvent)) error {
+func (Security) OnSecurityStateChanged(socket *Socket, callback func(event *security.SecurityStateChangedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Security.securityStateChanged",
 		func(name string, params []byte) {
@@ -101,5 +98,4 @@ func (Security) OnSecurityStateChanged(socket *Socket, callback func(event *secu
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }

@@ -5,18 +5,37 @@ import (
 )
 
 /*
-GetManifestForFrameParams represents ApplicationCache.getFramesWithManifests parameters
-*/
-type GetManifestForFrameParams struct {
-	// Identifier of the frame containing document whose manifest is retrieved.
-	FrameID Page.FrameID `json:"frameId"`
-}
-
-/*
 GetApplicationCacheForFrameParams represents ApplicationCache.getApplicationCacheForFrame parameters
 */
 type GetApplicationCacheForFrameParams struct {
 	// Identifier of the frame containing document whose application cache is retrieved.
+	FrameID Page.FrameID `json:"frameId"`
+}
+
+/*
+GetApplicationCacheForFrameResult represents the result of calls to
+ApplicationCache.getApplicationCacheForFrame.
+*/
+type GetApplicationCacheForFrameResult struct {
+	// Relevant application cache data for the document in given frame.
+	ApplicationCache ApplicationCache `json:"applicationCache"`
+}
+
+/*
+GetFramesWithManifestsResult represents the result of calls to
+ApplicationCache.getFramesWithManifests.
+*/
+type GetFramesWithManifestsResult struct {
+	// Array of frame identifiers with manifest urls for each frame containing a document associated
+	// with some application cache.
+	FrameIDs []FrameWithManifest `json:"frameIds"`
+}
+
+/*
+GetManifestForFrameParams represents ApplicationCache.getFramesWithManifests parameters
+*/
+type GetManifestForFrameParams struct {
+	// Identifier of the frame containing document whose manifest is retrieved.
 	FrameID Page.FrameID `json:"frameId"`
 }
 

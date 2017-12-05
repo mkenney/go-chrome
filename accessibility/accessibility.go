@@ -6,9 +6,7 @@ import (
 )
 
 /*
-PartialAXTreeParams are parameters for GetPartialAXTree.
-getPartialAXTree fetches the accessibility node and partial accessibility tree for this DOM node, if
-it exists.
+PartialAXTreeParams represents Accessibility.partialAXTree parameters.
 */
 type PartialAXTreeParams struct {
 	// ID of the node to get the partial accessibility tree for.
@@ -19,10 +17,13 @@ type PartialAXTreeParams struct {
 }
 
 /*
-PartialAXTreeResult is the AXNode objects for this DOM node, if it exists, plus its ancestors,
-siblings and children, if requested.
+PartialAXTreeResult represents the result of calls to Accessibility.partialAXTree.
 */
-type PartialAXTreeResult []*AXNode
+type PartialAXTreeResult struct {
+	// The `Accessibility.AXNode` for this DOM node, if it exists, plus its ancestors, siblings and
+	// children, if requested.
+	Nodes []AXNode `json:"nodes"`
+}
 
 /*
 AXNodeID is the unique accessibility node identifier.

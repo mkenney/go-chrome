@@ -26,7 +26,7 @@ type Command struct {
 	Err    error
 	Method string
 	Params interface{}
-	Result SocketResult
+	Result interface{}
 	WG     sync.WaitGroup
 }
 

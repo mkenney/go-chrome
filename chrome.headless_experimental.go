@@ -19,7 +19,6 @@ Enable enables headless events for the target.
 func (HeadlessExperimental) Enable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "HeadlessExperimental.enable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -31,7 +30,6 @@ Disable disables headless events for the target.
 func (HeadlessExperimental) Disable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "HeadlessExperimental.disable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -56,7 +54,7 @@ OnNeedsBeginFramesChanged adds a handler to the HeadlessExperimental.needsBeginF
 HeadlessExperimental.needsBeginFramesChanged fires when the target starts or stops needing
 BeginFrames.
 */
-func (HeadlessExperimental) OnNeedsBeginFramesChanged(socket *Socket, callback func(event *headless_experimental.NeedsBeginFramesChangedEvent)) error {
+func (HeadlessExperimental) OnNeedsBeginFramesChanged(socket *Socket, callback func(event *headless_experimental.NeedsBeginFramesChangedEvent)) {
 	handler := protocol.NewEventHandler(
 		"HeadlessExperimental.needsBeginFramesChanged",
 		func(name string, params []byte) {
@@ -69,7 +67,6 @@ func (HeadlessExperimental) OnNeedsBeginFramesChanged(socket *Socket, callback f
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
@@ -79,7 +76,7 @@ HeadlessExperimental.mainFrameReadyForScreenshots fires when the main frame has 
 frame to the browser. May only be fired while a BeginFrame is in flight. Before this event,
 screenshotting requests may fail.
 */
-func (HeadlessExperimental) OnMainFrameReadyForScreenshots(socket *Socket, callback func(event *headless_experimental.MainFrameReadyForScreenshotsEvent)) error {
+func (HeadlessExperimental) OnMainFrameReadyForScreenshots(socket *Socket, callback func(event *headless_experimental.MainFrameReadyForScreenshotsEvent)) {
 	handler := protocol.NewEventHandler(
 		"HeadlessExperimental.mainFrameReadyForScreenshots",
 		func(name string, params []byte) {
@@ -92,5 +89,4 @@ func (HeadlessExperimental) OnMainFrameReadyForScreenshots(socket *Socket, callb
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }

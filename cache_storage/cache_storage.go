@@ -1,28 +1,6 @@
 package CacheStorage
 
 /*
-RequestCacheNamesParams represents CacheStorage.requestCacheNames parameters.
-*/
-type RequestCacheNamesParams struct {
-	// Security origin.
-	SecurityOrigin string `json:"securityOrigin"`
-}
-
-/*
-RequestEntriesParams represents CacheStorage.requestEntries parameters.
-*/
-type RequestEntriesParams struct {
-	// ID of cache to get entries from.
-	CacheID CacheID `json:"cacheId"`
-
-	// Number of records to skip.
-	SkipCount int `json:"skipCount"`
-
-	// Number of records to fetch.
-	PageSize int `json:"pageSize"`
-}
-
-/*
 DeleteCacheParams represents CacheStorage.deleteCache parameters.
 */
 type DeleteCacheParams struct {
@@ -42,6 +20,22 @@ type DeleteEntryParams struct {
 }
 
 /*
+RequestCacheNamesParams represents CacheStorage.requestCacheNames parameters.
+*/
+type RequestCacheNamesParams struct {
+	// Security origin.
+	SecurityOrigin string `json:"securityOrigin"`
+}
+
+/*
+RequestCacheNamesResult represents the result of calls to CacheStorage.requestCacheNames.
+*/
+type RequestCacheNamesResult struct {
+	// Caches for the security origin.
+	Caches []Cache `json:"caches"`
+}
+
+/*
 RequestCachedResponseParams represents CacheStorage.requestCachedResponse parameters.
 */
 type RequestCachedResponseParams struct {
@@ -50,6 +44,39 @@ type RequestCachedResponseParams struct {
 
 	// URL spec of the request.
 	RequestURL string `json:"requestURL"`
+}
+
+/*
+RequestCachedResponseResult represents the result of calls to CacheStorage.requestCachedResponse.
+*/
+type RequestCachedResponseResult struct {
+	// Response read from the cache.
+	Response CachedResponse `json:"response"`
+}
+
+/*
+RequestEntriesParams represents CacheStorage.requestEntries parameters.
+*/
+type RequestEntriesParams struct {
+	// ID of cache to get entries from.
+	CacheID CacheID `json:"cacheId"`
+
+	// Number of records to skip.
+	SkipCount int `json:"skipCount"`
+
+	// Number of records to fetch.
+	PageSize int `json:"pageSize"`
+}
+
+/*
+RequestEntriesResult represents the result of calls to CacheStorage.requestEntries.
+*/
+type RequestEntriesResult struct {
+	// Array of object store data entries.
+	CacheDataEntries []DataEntry `json:"cacheDataEntries"`
+
+	// If true, there are more entries to fetch in the given range.
+	HasMore bool `json:"hasMore"`
 }
 
 /*

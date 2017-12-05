@@ -6,7 +6,44 @@ import (
 )
 
 /*
-GetWindowForTargetParams represents Browser.getWindowForTarget parameters
+GetVersionResult represents the result of calls to Browser.getVersion.
+*/
+type GetVersionResult struct {
+	// Protocol version.
+	ProtocolVersion string `json:"protocolVersion"`
+
+	// Product name.
+	Product string `json:"product"`
+
+	// Product revision.
+	Revision string `json:"revision"`
+
+	// User-Agent.
+	UserAgent string `json:"userAgent"`
+
+	// V8 version.
+	JSVersion string `json:"jsVersion"`
+}
+
+/*
+GetWindowBoundsParams represents Browser.getWindowBounds parameters.
+*/
+type GetWindowBoundsParams struct {
+	// Browser window id.
+	WindowID WindowID `json:"windowId"`
+}
+
+/*
+GetWindowBoundsResult represents the result of calls to Browser.getWindowBounds.
+*/
+type GetWindowBoundsResult struct {
+	// Bounds information of the window. When window state is 'minimized', the restored window
+	// position and size are returned.
+	Bounds Bounds `json:"bounds"`
+}
+
+/*
+GetWindowForTargetParams represents Browser.getWindowForTarget parameters.
 */
 type GetWindowForTargetParams struct {
 	// Devtools agent host id.
@@ -14,7 +51,19 @@ type GetWindowForTargetParams struct {
 }
 
 /*
-SetWindowBoundsParams represents Browser.setWindowBounds parameters
+GetWindowForTargetResult represents the result of calls to Browser.getWindowForTarget.
+*/
+type GetWindowForTargetResult struct {
+	// Browser window ID.
+	WindowID WindowID `json:"windowId"`
+
+	// Bounds information of the window. When window state is 'minimized', the restored window
+	// position and size are returned.
+	Bounds Bounds `json:"bounds"`
+}
+
+/*
+SetWindowBoundsParams represents Browser.setWindowBounds parameters.
 */
 type SetWindowBoundsParams struct {
 	// Browser window id.
@@ -26,11 +75,15 @@ type SetWindowBoundsParams struct {
 }
 
 /*
-GetWindowBoundsParams represents Browser.getWindowBounds parameters
+SetWindowBoundsResult represents the result of calls to Browser.setWindowBounds.
 */
-type GetWindowBoundsParams struct {
-	// Browser window id.
+type SetWindowBoundsResult struct {
+	// Browser window ID.
 	WindowID WindowID `json:"windowId"`
+
+	// New window bounds. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined
+	// with 'left', 'top', 'width' or 'height'. Leaves unspecified fields unchanged.
+	Bounds Bounds `json:"bounds"`
 }
 
 /*

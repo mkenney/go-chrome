@@ -12,11 +12,14 @@ type Accessibility struct{}
 GetPartialAXTree fetches the accessibility node and partial accessibility tree for this DOM node, if
 it exists.
 */
-func (Accessibility) GetPartialAXTree(socket *Socket, params *accessibility.PartialAXTreeParams) error {
+func (Accessibility) GetPartialAXTree(
+	socket *Socket,
+	params *accessibility.PartialAXTreeParams,
+) (accessibility.PartialAXTreeResult, error) {
 	command := &protocol.Command{
 		method: "Accessibility.getPartialAXTree",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return command.Result.(accessibility.PartialAXTreeResult), command.Err
 }

@@ -2,18 +2,35 @@ package Animation
 
 import (
 	DOM "app/chrome/dom"
+	Runtime "app/chrome/runtime"
 )
 
 /*
-GetCurrentTimeParams represents Animation.getCurrentTime parameters
+GetCurrentTimeParams represents Animation.getCurrentTime parameters.
 */
 type GetCurrentTimeParams struct {
-	// Playback rate for animations on page.
-	PlaybackRate int `json:"playbackRate"`
+	// ID of animation.
+	ID string `json:"id"`
 }
 
 /*
-ReleaseAnimationsParams represents Animation.releaseAnimations parameters
+GetCurrentTimeResult represents the result of calls to Animation.getCurrentTime.
+*/
+type GetCurrentTimeResult struct {
+	// ID of animation.
+	ID string `json:"id"`
+}
+
+/*
+GetPlaybackRateResult represents the result of calls to Animation.getPlaybackRate.
+*/
+type GetPlaybackRateResult struct {
+	// Playback rate for animations on page.
+	PlaybackRate float64 `json:"playbackRate"`
+}
+
+/*
+ReleaseAnimationsParams represents Animation.releaseAnimations parameters.
 */
 type ReleaseAnimationsParams struct {
 	// List of animation ids to seek.
@@ -21,7 +38,7 @@ type ReleaseAnimationsParams struct {
 }
 
 /*
-ResolveAnimationParams represents Animation.resolveAnimation parameters
+ResolveAnimationParams represents Animation.resolveAnimation parameters.
 */
 type ResolveAnimationParams struct {
 	// Animation ID.
@@ -29,7 +46,15 @@ type ResolveAnimationParams struct {
 }
 
 /*
-SeekAnimationsParams represents Animation.seekAnimations parameters
+ResolveAnimationResult represents the result of calls to Animation.resolveAnimation.
+*/
+type ResolveAnimationResult struct {
+	// Corresponding remote object.
+	RemoteObject Runtime.RemoteObject `json:"remoteObject"`
+}
+
+/*
+SeekAnimationsParams represents Animation.seekAnimations parameters.
 */
 type SeekAnimationsParams struct {
 	// List of animation ids to seek.
@@ -40,7 +65,7 @@ type SeekAnimationsParams struct {
 }
 
 /*
-SetPausedParams represents Animation.setPaused parameters
+SetPausedParams represents Animation.setPaused parameters.int16
 */
 type SetPausedParams struct {
 	// Animations to set the pause state of.
@@ -51,7 +76,7 @@ type SetPausedParams struct {
 }
 
 /*
-SetPlaybackRateParams represents Animation.setPlaybackRate parameters
+SetPlaybackRateParams represents Animation.setPlaybackRate parameters.
 */
 type SetPlaybackRateParams struct {
 	// Playback rate for animations on page.
@@ -59,7 +84,7 @@ type SetPlaybackRateParams struct {
 }
 
 /*
-SetTimingParams represents Animation.setTiming parameters
+SetTimingParams represents Animation.setTiming parameters.
 */
 type SetTimingParams struct {
 	// Animation ID.
@@ -73,7 +98,33 @@ type SetTimingParams struct {
 }
 
 /*
-Animation instance
+AnimationCanceledEvent represents Animation.animationCanceled event data.
+*/
+type AnimationCanceledEvent struct {
+	// ID of the animation that was cancelled.
+	ID string `json:"id"`
+}
+
+/*
+AnimationCreatedEvent represents Animation.animationCreated event data.
+*/
+type AnimationCreatedEvent struct {
+	// ID of the animation that was created.
+	ID string `json:"id"`
+}
+
+/*
+AnimationStartedEvent represents Animation.animationStarted event data.
+*/
+type AnimationStartedEvent struct {
+	// Animation that was started.
+	Animation Animation `json:"animation"`
+}
+
+////////////////
+
+/*
+Animation instance.
 */
 type Animation struct {
 	// Animation's id.

@@ -45,7 +45,6 @@ BringToFront brings page to front (activates tab).
 func (Page) BringToFront(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Page.bringToFront",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -81,7 +80,6 @@ Disable disables page domain notifications.
 func (Page) Disable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Page.disable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -93,7 +91,6 @@ Enable Ennables page domain notifications.
 func (Page) Enable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Page.enable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -374,7 +371,6 @@ StopLoading force the page stop all navigations and pending resource fetches.
 func (Page) StopLoading(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Page.stopLoading",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -386,7 +382,6 @@ StopScreencast stops sending each frame in the `screencastFrame`. EXPERIMENTAL
 func (Page) StopScreencast(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Page.stopScreencast",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -396,7 +391,7 @@ func (Page) StopScreencast(socket *Socket) error {
 OnDOMContentEventFired adds a handler to the Page.domContentEventFired event.
 Page.domContentEventFired fires when a content event occurs in the DOM.
 */
-func (Page) OnDOMContentEventFired(socket *Socket, callback func(event *page.DOMContentEventFiredEvent)) error {
+func (Page) OnDOMContentEventFired(socket *Socket, callback func(event *page.DOMContentEventFiredEvent)) {
 	handler := protocol.NewEventHandler(
 		"Page.domContentEventFired",
 		func(name string, params []byte) {
@@ -409,14 +404,13 @@ func (Page) OnDOMContentEventFired(socket *Socket, callback func(event *page.DOM
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnFrameAttached adds a handler to the Page.frameAttached event. Page.frameAttached fires when a
 frame has been attached to its parent.
 */
-func (Page) OnFrameAttached(socket *Socket, callback func(event *page.FrameAttachedEvent)) error {
+func (Page) OnFrameAttached(socket *Socket, callback func(event *page.FrameAttachedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Page.frameAttached",
 		func(name string, params []byte) {
@@ -429,7 +423,6 @@ func (Page) OnFrameAttached(socket *Socket, callback func(event *page.FrameAttac
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
@@ -437,7 +430,7 @@ OnFrameClearedScheduledNavigation adds a handler to the Page.frameClearedSchedul
 Page.frameClearedScheduledNavigation fires when a frame no longer has a scheduled navigation.
 EXPERIMENTAL
 */
-func (Page) OnFrameClearedScheduledNavigation(socket *Socket, callback func(event *page.FrameClearedScheduledNavigationEvent)) error {
+func (Page) OnFrameClearedScheduledNavigation(socket *Socket, callback func(event *page.FrameClearedScheduledNavigationEvent)) {
 	handler := protocol.NewEventHandler(
 		"Page.frameClearedScheduledNavigation",
 		func(name string, params []byte) {
@@ -450,14 +443,13 @@ func (Page) OnFrameClearedScheduledNavigation(socket *Socket, callback func(even
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnFrameDetached adds a handler to the Page.frameDetached event. Page.frameDetached fires when a
 frame has been detached from its parent.
 */
-func (Page) OnFrameDetached(socket *Socket, callback func(event *page.FrameDetachedEvent)) error {
+func (Page) OnFrameDetached(socket *Socket, callback func(event *page.FrameDetachedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Page.frameDetached",
 		func(name string, params []byte) {
@@ -470,14 +462,13 @@ func (Page) OnFrameDetached(socket *Socket, callback func(event *page.FrameDetac
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnFrameNavigated adds a handler to the Page.frameNavigated event. Page.frameNavigated fires once
 navigation of the frame has completed. Frame is now associated with the new loader.
 */
-func (Page) OnFrameNavigated(socket *Socket, callback func(event *page.FrameNavigatedEvent)) error {
+func (Page) OnFrameNavigated(socket *Socket, callback func(event *page.FrameNavigatedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Page.frameNavigated",
 		func(name string, params []byte) {
@@ -490,14 +481,13 @@ func (Page) OnFrameNavigated(socket *Socket, callback func(event *page.FrameNavi
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnFrameResized adds a handler to the Page.frameResized event. Page.frameResized fires when frame
 schedules a potential navigation. EXPERIMENTAL
 */
-func (Page) OnFrameResized(socket *Socket, callback func(event *page.FrameResizedEvent)) error {
+func (Page) OnFrameResized(socket *Socket, callback func(event *page.FrameResizedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Page.frameResized",
 		func(name string, params []byte) {
@@ -510,14 +500,13 @@ func (Page) OnFrameResized(socket *Socket, callback func(event *page.FrameResize
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnFrameStartedLoading adds a handler to the Page.frameStartedLoading event. Page.frameStartedLoading
 fires when frame has started loading. EXPERIMENTAL
 */
-func (Page) OnFrameStartedLoading(socket *Socket, callback func(event *page.FrameStartedLoadingEvent)) error {
+func (Page) OnFrameStartedLoading(socket *Socket, callback func(event *page.FrameStartedLoadingEvent)) {
 	handler := protocol.NewEventHandler(
 		"Page.frameStartedLoading",
 		func(name string, params []byte) {
@@ -530,14 +519,13 @@ func (Page) OnFrameStartedLoading(socket *Socket, callback func(event *page.Fram
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnFrameStoppedLoading adds a handler to the Page.frameStoppedLoading event. Page.frameStoppedLoading
 fires when frame has stopped loading. EXPERIMENTAL
 */
-func (Page) OnFrameStoppedLoading(socket *Socket, callback func(event *page.FrameStoppedLoadingEvent)) error {
+func (Page) OnFrameStoppedLoading(socket *Socket, callback func(event *page.FrameStoppedLoadingEvent)) {
 	handler := protocol.NewEventHandler(
 		"Page.frameStoppedLoading",
 		func(name string, params []byte) {
@@ -550,14 +538,13 @@ func (Page) OnFrameStoppedLoading(socket *Socket, callback func(event *page.Fram
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnInterstitialHidden adds a handler to the Page.interstitialHidden event. Page.interstitialHidden
 fires when interstitial page was hidden.
 */
-func (Page) OnInterstitialHidden(socket *Socket, callback func(event *page.InterstitialHiddenEvent)) error {
+func (Page) OnInterstitialHidden(socket *Socket, callback func(event *page.InterstitialHiddenEvent)) {
 	handler := protocol.NewEventHandler(
 		"Page.interstitialHidden",
 		func(name string, params []byte) {
@@ -570,14 +557,13 @@ func (Page) OnInterstitialHidden(socket *Socket, callback func(event *page.Inter
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnInterstitialShown adds a handler to the Page.interstitialShown event. Page.interstitialShown fires
 when interstitial page was shown.
 */
-func (Page) OnInterstitialShown(socket *Socket, callback func(event *page.InterstitialShownEvent)) error {
+func (Page) OnInterstitialShown(socket *Socket, callback func(event *page.InterstitialShownEvent)) {
 	handler := protocol.NewEventHandler(
 		"Page.interstitialShown",
 		func(name string, params []byte) {
@@ -590,7 +576,6 @@ func (Page) OnInterstitialShown(socket *Socket, callback func(event *page.Inters
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
@@ -598,7 +583,7 @@ OnJavascriptDialogClosed adds a handler to the Page.javascriptDialogClosed event
 Page.javascriptDialogClosed fires when a JavaScript initiated dialog (alert, confirm, prompt, or
 onbeforeunload) has been closed.
 */
-func (Page) OnJavascriptDialogClosed(socket *Socket, callback func(event *page.JavascriptDialogClosedEvent)) error {
+func (Page) OnJavascriptDialogClosed(socket *Socket, callback func(event *page.JavascriptDialogClosedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Page.javascriptDialogClosed",
 		func(name string, params []byte) {
@@ -611,7 +596,6 @@ func (Page) OnJavascriptDialogClosed(socket *Socket, callback func(event *page.J
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
@@ -619,7 +603,7 @@ OnJavascriptDialogOpening adds a handler to the Page.javascriptDialogOpening eve
 Page.javascriptDialogOpening fires when a JavaScript initiated dialog (alert, confirm, prompt, or
 onbeforeunload) is about to open.
 */
-func (Page) OnJavascriptDialogOpening(socket *Socket, callback func(event *page.JavascriptDialogOpeningEvent)) error {
+func (Page) OnJavascriptDialogOpening(socket *Socket, callback func(event *page.JavascriptDialogOpeningEvent)) {
 	handler := protocol.NewEventHandler(
 		"Page.javascriptDialogOpening",
 		func(name string, params []byte) {
@@ -632,14 +616,13 @@ func (Page) OnJavascriptDialogOpening(socket *Socket, callback func(event *page.
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnLifecycleEvent adds a handler to the Page.lifecycleEvent event. Page.lifecycleEvent fires for top
 level page lifecycle events such as navigation, load, paint, etc.
 */
-func (Page) OnLifecycleEvent(socket *Socket, callback func(event *page.LifecycleEventEvent)) error {
+func (Page) OnLifecycleEvent(socket *Socket, callback func(event *page.LifecycleEventEvent)) {
 	handler := protocol.NewEventHandler(
 		"Page.lifecycleEvent",
 		func(name string, params []byte) {
@@ -652,14 +635,13 @@ func (Page) OnLifecycleEvent(socket *Socket, callback func(event *page.Lifecycle
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnLoadEventFired adds a handler to the Page.loadEventFired event. Page.loadEventFired fires when the
 page has finished loading.
 */
-func (Page) OnLoadEventFired(socket *Socket, callback func(event *page.LoadEventFiredEvent)) error {
+func (Page) OnLoadEventFired(socket *Socket, callback func(event *page.LoadEventFiredEvent)) {
 	handler := protocol.NewEventHandler(
 		"Page.loadEventFired",
 		func(name string, params []byte) {
@@ -672,14 +654,13 @@ func (Page) OnLoadEventFired(socket *Socket, callback func(event *page.LoadEvent
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnScreencastFrame adds a handler to the Page.screencastFrame event. Page.screencastFrame fires when
 compressed image data is requested by the `startScreencast` method. EXPERIMENTAL
 */
-func (Page) OnScreencastFrame(socket *Socket, callback func(event *page.ScreencastFrameEvent)) error {
+func (Page) OnScreencastFrame(socket *Socket, callback func(event *page.ScreencastFrameEvent)) {
 	handler := protocol.NewEventHandler(
 		"Page.screencastFrame",
 		func(name string, params []byte) {
@@ -692,7 +673,6 @@ func (Page) OnScreencastFrame(socket *Socket, callback func(event *page.Screenca
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
@@ -700,7 +680,7 @@ OnScreencastVisibilityChanged adds a handler to the Page.screencastVisibilityCha
 Page.screencastVisibilityChanged fires when the page with currently enabled screencast was shown or
 hidden. EXPERIMENTAL
 */
-func (Page) OnScreencastVisibilityChanged(socket *Socket, callback func(event *page.ScreencastVisibilityChangedEvent)) error {
+func (Page) OnScreencastVisibilityChanged(socket *Socket, callback func(event *page.ScreencastVisibilityChangedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Page.screencastVisibilityChanged",
 		func(name string, params []byte) {
@@ -713,14 +693,13 @@ func (Page) OnScreencastVisibilityChanged(socket *Socket, callback func(event *p
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnWindowOpen adds a handler to the Page.windowOpen event. Page.windowOpen fires when a new window is
 going to be opened, via window.open(), link click, form submission, etc.
 */
-func (Page) OnWindowOpen(socket *Socket, callback func(event *page.WindowOpenEvent)) error {
+func (Page) OnWindowOpen(socket *Socket, callback func(event *page.WindowOpenEvent)) {
 	handler := protocol.NewEventHandler(
 		"Page.windowOpen",
 		func(name string, params []byte) {
@@ -733,5 +712,4 @@ func (Page) OnWindowOpen(socket *Socket, callback func(event *page.WindowOpenEve
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }

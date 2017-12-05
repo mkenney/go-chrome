@@ -125,7 +125,7 @@ func (LayerTree) SnapshotCommandLog(socket *Socket, params *layer_tree.SnapshotC
 OnLayerPainted adds a handler to the LayerTree.layerPainted event. LayerTree.layerPainted fires when the layer
 is painted.
 */
-func (LayerTree) OnLayerPainted(socket *Socket, callback func(event *layer_tree.LayerPaintedEvent)) error {
+func (LayerTree) OnLayerPainted(socket *Socket, callback func(event *layer_tree.LayerPaintedEvent)) {
 	handler := protocol.NewEventHandler(
 		"LayerTree.layerPainted",
 		func(name string, params []byte) {
@@ -138,14 +138,13 @@ func (LayerTree) OnLayerPainted(socket *Socket, callback func(event *layer_tree.
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnLayerTreeDidChange adds a handler to the LayerTree.layerTreeDidChange event. LayerTree.layerTreeDidChange
 fires when the layer tree changes.
 */
-func (LayerTree) OnLayerTreeDidChange(socket *Socket, callback func(event *layer_tree.LayerTreeDidChangeEvent)) error {
+func (LayerTree) OnLayerTreeDidChange(socket *Socket, callback func(event *layer_tree.LayerTreeDidChangeEvent)) {
 	handler := protocol.NewEventHandler(
 		"LayerTree.layerTreeDidChange",
 		func(name string, params []byte) {
@@ -158,5 +157,4 @@ func (LayerTree) OnLayerTreeDidChange(socket *Socket, callback func(event *layer
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }

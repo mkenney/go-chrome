@@ -56,7 +56,6 @@ ClearBrowserCache clears browser cache.
 func (Network) ClearBrowserCache(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Network.clearBrowserCache",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -68,7 +67,6 @@ ClearBrowserCookies clears browser cookies.
 func (Network) ClearBrowserCookies(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Network.clearBrowserCookies",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -107,7 +105,6 @@ Disable disables network tracking, prevents network events from being sent to th
 func (Network) Disable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Network.disable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -340,7 +337,7 @@ func (Network) SetUserAgentOverride(socket *Socket, params *netowrk.SetUserAgent
 OnDataReceived adds a handler to the Network.dataReceived event. Network.dataReceived fires when a
 data chunk was received over the network.
 */
-func (Network) OnDataReceived(socket *Socket, callback func(event *network.DataReceivedEvent)) error {
+func (Network) OnDataReceived(socket *Socket, callback func(event *network.DataReceivedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Network.dataReceived",
 		func(name string, params []byte) {
@@ -353,14 +350,13 @@ func (Network) OnDataReceived(socket *Socket, callback func(event *network.DataR
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnEventSourceMessageReceived adds a handler to the Network.eventSourceMessageReceived event.
 Network.eventSourceMessageReceived fires when EventSource message is received.
 */
-func (Network) OnEventSourceMessageReceived(socket *Socket, callback func(event *network.EventSourceMessageReceivedEvent)) error {
+func (Network) OnEventSourceMessageReceived(socket *Socket, callback func(event *network.EventSourceMessageReceivedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Network.eventSourceMessageReceived",
 		func(name string, params []byte) {
@@ -373,14 +369,13 @@ func (Network) OnEventSourceMessageReceived(socket *Socket, callback func(event 
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnLoadingFailed adds a handler to the Network.loadingFailed event. Network.loadingFailed fires when
 HTTP request has failed to load.
 */
-func (Network) OnLoadingFailed(socket *Socket, callback func(event *network.LoadingFailedEvent)) error {
+func (Network) OnLoadingFailed(socket *Socket, callback func(event *network.LoadingFailedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Network.loadingFailed",
 		func(name string, params []byte) {
@@ -393,14 +388,13 @@ func (Network) OnLoadingFailed(socket *Socket, callback func(event *network.Load
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnLoadingFinished adds a handler to the Network.loadingFinished event. Network.loadingFinished fires
 when HTTP request has finished loading.
 */
-func (Network) OnLoadingFinished(socket *Socket, callback func(event *network.LoadingFinishedEvent)) error {
+func (Network) OnLoadingFinished(socket *Socket, callback func(event *network.LoadingFinishedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Network.loadingFinished",
 		func(name string, params []byte) {
@@ -413,7 +407,6 @@ func (Network) OnLoadingFinished(socket *Socket, callback func(event *network.Lo
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
@@ -421,7 +414,7 @@ OnRequestIntercepted adds a handler to the Network.requestIntercepted event.
 Network.requestIntercepted fires when a HTTP request is intercepted and returns details, which must
 be either allowed, blocked, modified or mocked. EXPERIMENTAL
 */
-func (Network) OnRequestIntercepted(socket *Socket, callback func(event *network.RequestInterceptedEvent)) error {
+func (Network) OnRequestIntercepted(socket *Socket, callback func(event *network.RequestInterceptedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Network.requestIntercepted",
 		func(name string, params []byte) {
@@ -434,14 +427,13 @@ func (Network) OnRequestIntercepted(socket *Socket, callback func(event *network
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnRequestServedFromCache adds a handler to the Network.requestServedFromCache event.
 Network.requestServedFromCache fires when request ended up loading from cache.
 */
-func (Network) OnRequestServedFromCache(socket *Socket, callback func(event *network.RequestServedFromCacheEvent)) error {
+func (Network) OnRequestServedFromCache(socket *Socket, callback func(event *network.RequestServedFromCacheEvent)) {
 	handler := protocol.NewEventHandler(
 		"Network.requestServedFromCache",
 		func(name string, params []byte) {
@@ -454,14 +446,13 @@ func (Network) OnRequestServedFromCache(socket *Socket, callback func(event *net
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnRequestWillBeSent adds a handler to the Network.requestWillBeSent event.
 Network.requestWillBeSent fires when the page is about to send HTTP request.
 */
-func (Network) OnRequestWillBeSent(socket *Socket, callback func(event *network.RequestWillBeSentEvent)) error {
+func (Network) OnRequestWillBeSent(socket *Socket, callback func(event *network.RequestWillBeSentEvent)) {
 	handler := protocol.NewEventHandler(
 		"Network.requestWillBeSent",
 		func(name string, params []byte) {
@@ -474,14 +465,13 @@ func (Network) OnRequestWillBeSent(socket *Socket, callback func(event *network.
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnResourceChangedPriority adds a handler to the Network.resourceChangedPriority event.
 Network.resourceChangedPriority fires when resource loading priority is changed EXPERIMENTAL
 */
-func (Network) OnResourceChangedPriority(socket *Socket, callback func(event *network.ResourceChangedPriorityEvent)) error {
+func (Network) OnResourceChangedPriority(socket *Socket, callback func(event *network.ResourceChangedPriorityEvent)) {
 	handler := protocol.NewEventHandler(
 		"Network.resourceChangedPriority",
 		func(name string, params []byte) {
@@ -494,14 +484,13 @@ func (Network) OnResourceChangedPriority(socket *Socket, callback func(event *ne
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnResponseReceived adds a handler to the Network.responseReceived event. Network.responseReceived
 fires when HTTP response is available.
 */
-func (Network) OnResponseReceived(socket *Socket, callback func(event *network.ResponseReceivedEvent)) error {
+func (Network) OnResponseReceived(socket *Socket, callback func(event *network.ResponseReceivedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Network.responseReceived",
 		func(name string, params []byte) {
@@ -514,14 +503,13 @@ func (Network) OnResponseReceived(socket *Socket, callback func(event *network.R
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnWebSocketClosed adds a handler to the Network.webSocketClosed event. Network.webSocketClosed
 fires when WebSocket is closed.
 */
-func (Network) OnWebSocketClosed(socket *Socket, callback func(event *network.WebSocketClosedEvent)) error {
+func (Network) OnWebSocketClosed(socket *Socket, callback func(event *network.WebSocketClosedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Network.webSocketClosed",
 		func(name string, params []byte) {
@@ -534,14 +522,13 @@ func (Network) OnWebSocketClosed(socket *Socket, callback func(event *network.We
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnWebSocketCreated adds a handler to the Network.webSocketCreated event. Network.webSocketCreated
 fires upon WebSocket creation.
 */
-func (Network) OnWebSocketCreated(socket *Socket, callback func(event *network.WebSocketCreatedEvent)) error {
+func (Network) OnWebSocketCreated(socket *Socket, callback func(event *network.WebSocketCreatedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Network.webSocketCreated",
 		func(name string, params []byte) {
@@ -554,14 +541,13 @@ func (Network) OnWebSocketCreated(socket *Socket, callback func(event *network.W
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnWebSocketFrameReceived adds a handler to the Network.webSocketFrameReceived event.
 Network.webSocketFrameReceived fires when WebSocket frame is received.
 */
-func (Network) OnWebSocketFrameReceived(socket *Socket, callback func(event *network.WebSocketFrameReceivedEvent)) error {
+func (Network) OnWebSocketFrameReceived(socket *Socket, callback func(event *network.WebSocketFrameReceivedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Network.webSocketFrameReceived",
 		func(name string, params []byte) {
@@ -574,14 +560,13 @@ func (Network) OnWebSocketFrameReceived(socket *Socket, callback func(event *net
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnWebSocketFrameSent adds a handler to the Network.webSocketFrameSent event.
 Network.webSocketFrameSent fires when WebSocket frame is sent.
 */
-func (Network) OnWebSocketFrameSent(socket *Socket, callback func(event *network.WebSocketFrameSentEvent)) error {
+func (Network) OnWebSocketFrameSent(socket *Socket, callback func(event *network.WebSocketFrameSentEvent)) {
 	handler := protocol.NewEventHandler(
 		"Network.webSocketFrameSent",
 		func(name string, params []byte) {
@@ -594,7 +579,6 @@ func (Network) OnWebSocketFrameSent(socket *Socket, callback func(event *network
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
@@ -602,7 +586,7 @@ OnWebSocketHandshakeResponseReceived adds a handler to the
 Network.webSocketHandshakeResponseReceived event. Network.webSocketHandshakeResponseReceived fires
 when WebSocket handshake response becomes available.
 */
-func (Network) OnWebSocketHandshakeResponseReceived(socket *Socket, callback func(event *network.WebSocketHandshakeResponseReceivedEvent)) error {
+func (Network) OnWebSocketHandshakeResponseReceived(socket *Socket, callback func(event *network.WebSocketHandshakeResponseReceivedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Network.webSocketHandshakeResponseReceived",
 		func(name string, params []byte) {
@@ -615,7 +599,6 @@ func (Network) OnWebSocketHandshakeResponseReceived(socket *Socket, callback fun
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
@@ -623,7 +606,7 @@ OnWebSocketWillSendHandshakeRequest adds a handler to the
 Network.webSocketWillSendHandshakeRequest event. Network.webSocketWillSendHandshakeRequest fires
 when WebSocket is about to initiate handshake.
 */
-func (Network) OnWebSocketWillSendHandshakeRequest(socket *Socket, callback func(event *network.WebSocketWillSendHandshakeRequestEvent)) error {
+func (Network) OnWebSocketWillSendHandshakeRequest(socket *Socket, callback func(event *network.WebSocketWillSendHandshakeRequestEvent)) {
 	handler := protocol.NewEventHandler(
 		"Network.webSocketWillSendHandshakeRequest",
 		func(name string, params []byte) {
@@ -636,5 +619,4 @@ func (Network) OnWebSocketWillSendHandshakeRequest(socket *Socket, callback func
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }

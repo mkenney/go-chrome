@@ -26,7 +26,6 @@ Enable enables the DOM agent for the given page.
 func (DOM) Enable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "DOM.enable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -38,7 +37,6 @@ Disable disables the DOM agent for the given page.
 func (DOM) Disable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "DOM.disable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -338,7 +336,6 @@ Undo undoes the last performed action. EXPERIMENTAL
 func (DOM) Undo(socket *Socket) error {
 	command := &protocol.Command{
 		method: "DOM.undo",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -350,7 +347,6 @@ Redo re-does the last undone action. EXPERIMENTAL
 func (DOM) Redo(socket *Socket) error {
 	command := &protocol.Command{
 		method: "DOM.redo",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -362,7 +358,6 @@ MarkUndoableState marks last undoable state. EXPERIMENTAL
 func (DOM) MarkUndoableState(socket *Socket) error {
 	command := &protocol.Command{
 		method: "DOM.markUndoableState",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -445,7 +440,7 @@ func (DOM) DescribeNode(socket *Socket, params *dom.DescribeNodeParams) error {
 OnDocumentUpdated adds a handler to the DOM.documentUpdated event. DOM.documentUpdated
 fires when Document has been totally updated. Node IDs are no longer valid.
 */
-func (DOM) OnDocumentUpdated(socket *Socket, callback func(event *dom.DocumentUpdatedEvent)) error {
+func (DOM) OnDocumentUpdated(socket *Socket, callback func(event *dom.DocumentUpdatedEvent)) {
 	handler := protocol.NewEventHandler(
 		"DOM.documentUpdated",
 		func(name string, params []byte) {
@@ -458,7 +453,6 @@ func (DOM) OnDocumentUpdated(socket *Socket, callback func(event *dom.DocumentUp
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
@@ -466,7 +460,7 @@ OnSetChildNodes adds a handler to the DOM.setChildNodes event. DOM.setChildNodes
 when backend wants to provide client with the missing DOM structure. This happens upon most of the
 calls requesting node IDs.
 */
-func (DOM) OnSetChildNodes(socket *Socket, callback func(event *dom.SetChildNodesEvent)) error {
+func (DOM) OnSetChildNodes(socket *Socket, callback func(event *dom.SetChildNodesEvent)) {
 	handler := protocol.NewEventHandler(
 		"DOM.setChildNodes",
 		func(name string, params []byte) {
@@ -479,14 +473,13 @@ func (DOM) OnSetChildNodes(socket *Socket, callback func(event *dom.SetChildNode
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnAttributeModified adds a handler to the DOM.attributeModified event. DOM.attributeModified fires
 when Element's attribute is modified.
 */
-func (DOM) OnAttributeModified(socket *Socket, callback func(event *dom.AttributeModifiedEvent)) error {
+func (DOM) OnAttributeModified(socket *Socket, callback func(event *dom.AttributeModifiedEvent)) {
 	handler := protocol.NewEventHandler(
 		"DOM.attributeModified",
 		func(name string, params []byte) {
@@ -499,14 +492,13 @@ func (DOM) OnAttributeModified(socket *Socket, callback func(event *dom.Attribut
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnAttributeRemoved adds a handler to the DOM.attributeRemoved event. DOM.attributeRemoved fires when
 Element's attribute is modified.
 */
-func (DOM) OnAttributeRemoved(socket *Socket, callback func(event *dom.AttributeRemovedEvent)) error {
+func (DOM) OnAttributeRemoved(socket *Socket, callback func(event *dom.AttributeRemovedEvent)) {
 	handler := protocol.NewEventHandler(
 		"DOM.attributeRemoved",
 		func(name string, params []byte) {
@@ -519,14 +511,13 @@ func (DOM) OnAttributeRemoved(socket *Socket, callback func(event *dom.Attribute
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnInlineStyleInvalidated adds a handler to the DOM.inlineStyleInvalidated event.
 DOM.inlineStyleInvalidated fires when Element's attribute is removed.
 */
-func (DOM) OnInlineStyleInvalidated(socket *Socket, callback func(event *dom.InlineStyleInvalidatedEvent)) error {
+func (DOM) OnInlineStyleInvalidated(socket *Socket, callback func(event *dom.InlineStyleInvalidatedEvent)) {
 	handler := protocol.NewEventHandler(
 		"DOM.inlineStyleInvalidated",
 		func(name string, params []byte) {
@@ -539,14 +530,13 @@ func (DOM) OnInlineStyleInvalidated(socket *Socket, callback func(event *dom.Inl
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnCharacterDataModified adds a handler to the DOM.characterDataModified event.
 DOM.characterDataModified mirrors the DOMCharacterDataModified event.
 */
-func (DOM) OnCharacterDataModified(socket *Socket, callback func(event *dom.CharacterDataModifiedEvent)) error {
+func (DOM) OnCharacterDataModified(socket *Socket, callback func(event *dom.CharacterDataModifiedEvent)) {
 	handler := protocol.NewEventHandler(
 		"DOM.characterDataModified",
 		func(name string, params []byte) {
@@ -559,14 +549,13 @@ func (DOM) OnCharacterDataModified(socket *Socket, callback func(event *dom.Char
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnChildNodeCountUpdated adds a handler to the DOM.childNodeCountUpdated event.
 DOM.childNodeCountUpdated fires when Container's child node count has changed.
 */
-func (DOM) OnChildNodeCountUpdated(socket *Socket, callback func(event *dom.ChildNodeCountUpdatedEvent)) error {
+func (DOM) OnChildNodeCountUpdated(socket *Socket, callback func(event *dom.ChildNodeCountUpdatedEvent)) {
 	handler := protocol.NewEventHandler(
 		"DOM.childNodeCountUpdated",
 		func(name string, params []byte) {
@@ -579,14 +568,13 @@ func (DOM) OnChildNodeCountUpdated(socket *Socket, callback func(event *dom.Chil
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnChildNodeInserted adds a handler to the DOM.childNodeInserted event. DOM.childNodeInserted mirrors
 the DOMNodeInserted event.
 */
-func (DOM) OnChildNodeInserted(socket *Socket, callback func(event *dom.ChildNodeInsertedEvent)) error {
+func (DOM) OnChildNodeInserted(socket *Socket, callback func(event *dom.ChildNodeInsertedEvent)) {
 	handler := protocol.NewEventHandler(
 		"DOM.childNodeInserted",
 		func(name string, params []byte) {
@@ -599,14 +587,13 @@ func (DOM) OnChildNodeInserted(socket *Socket, callback func(event *dom.ChildNod
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnChildNodeRemoved adds a handler to the DOM.childNodeRemoved event.DOM.childNodeRemoved mirrors the
 DOMNodeRemoved event.
 */
-func (DOM) OnChildNodeRemoved(socket *Socket, callback func(event *dom.ChildNodeRemovedEvent)) error {
+func (DOM) OnChildNodeRemoved(socket *Socket, callback func(event *dom.ChildNodeRemovedEvent)) {
 	handler := protocol.NewEventHandler(
 		"DOM.childNodeRemoved",
 		func(name string, params []byte) {
@@ -619,14 +606,13 @@ func (DOM) OnChildNodeRemoved(socket *Socket, callback func(event *dom.ChildNode
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnShadowRootPushed adds a handler to the DOM.shadowRootPushed event. DOM.shadowRootPushed fires when
 shadow root is pushed into the element. EXPERIMENTAL
 */
-func (DOM) OnShadowRootPushed(socket *Socket, callback func(event *dom.ShadowRootPushedEvent)) error {
+func (DOM) OnShadowRootPushed(socket *Socket, callback func(event *dom.ShadowRootPushedEvent)) {
 	handler := protocol.NewEventHandler(
 		"DOM.shadowRootPushed",
 		func(name string, params []byte) {
@@ -639,14 +625,13 @@ func (DOM) OnShadowRootPushed(socket *Socket, callback func(event *dom.ShadowRoo
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnShadowRootPopped adds a handler to the DOM.shadowRootPopped event. DOM.shadowRootPopped fires when
 shadow root is popped from the element. EXPERIMENTAL
 */
-func (DOM) OnShadowRootPopped(socket *Socket, callback func(event *dom.ShadowRootPoppedEvent)) error {
+func (DOM) OnShadowRootPopped(socket *Socket, callback func(event *dom.ShadowRootPoppedEvent)) {
 	handler := protocol.NewEventHandler(
 		"DOM.shadowRootPopped",
 		func(name string, params []byte) {
@@ -659,14 +644,13 @@ func (DOM) OnShadowRootPopped(socket *Socket, callback func(event *dom.ShadowRoo
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnPseudoElementAdded adds a handler to the DOM.pseudoElementAdded event. DOM.pseudoElementAdded
 fires when a pseudo element is added to an element. EXPERIMENTAL
 */
-func (DOM) OnPseudoElementAdded(socket *Socket, callback func(event *dom.PseudoElementAddedEvent)) error {
+func (DOM) OnPseudoElementAdded(socket *Socket, callback func(event *dom.PseudoElementAddedEvent)) {
 	handler := protocol.NewEventHandler(
 		"DOM.pseudoElementAdded",
 		func(name string, params []byte) {
@@ -679,14 +663,13 @@ func (DOM) OnPseudoElementAdded(socket *Socket, callback func(event *dom.PseudoE
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnPseudoElementRemoved adds a handler to the DOM.pseudoElementRemoved event.
 DOM.pseudoElementRemoved fires when a pseudo element is removed from an element. EXPERIMENTAL
 */
-func (DOM) OnPseudoElementRemoved(socket *Socket, callback func(event *dom.PseudoElementRemovedEvent)) error {
+func (DOM) OnPseudoElementRemoved(socket *Socket, callback func(event *dom.PseudoElementRemovedEvent)) {
 	handler := protocol.NewEventHandler(
 		"DOM.pseudoElementRemoved",
 		func(name string, params []byte) {
@@ -699,14 +682,13 @@ func (DOM) OnPseudoElementRemoved(socket *Socket, callback func(event *dom.Pseud
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnDistributedNodesUpdated adds a handler to the DOM.distributedNodesUpdated event.
 DOM.distributedNodesUpdated fires when distrubution is changed. EXPERIMENTAL
 */
-func (DOM) OnDistributedNodesUpdated(socket *Socket, callback func(event *dom.DistributedNodesUpdatedEvent)) error {
+func (DOM) OnDistributedNodesUpdated(socket *Socket, callback func(event *dom.DistributedNodesUpdatedEvent)) {
 	handler := protocol.NewEventHandler(
 		"DOM.distributedNodesUpdated",
 		func(name string, params []byte) {
@@ -719,5 +701,4 @@ func (DOM) OnDistributedNodesUpdated(socket *Socket, callback func(event *dom.Di
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }

@@ -38,7 +38,6 @@ Disable disables events from backend.
 func (IndexedDB) Disable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "IndexedDB.disable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -50,7 +49,6 @@ Enable enables events from backend.
 func (IndexedDB) Enable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "IndexedDB.enable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err

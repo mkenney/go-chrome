@@ -18,7 +18,6 @@ Disable disables collecting and reporting metrics.
 func (Performance) Disable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Performance.disable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -30,7 +29,6 @@ Enable enables collecting and reporting metrics.
 func (Performance) Enable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Performance.enable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -52,7 +50,7 @@ func (Overlay) GetMetrics(socket *Socket, params *performance.GetMetricsParams) 
 OnMetrics adds a handler to the Performance.metrics event. Performance.metrics returns current
 values of the metrics.
 */
-func (Overlay) OnMetrics(socket *Socket, callback func(event *performance.MetricsEvent)) error {
+func (Overlay) OnMetrics(socket *Socket, callback func(event *performance.MetricsEvent)) {
 	handler := protocol.NewEventHandler(
 		"Performance.metrics",
 		func(name string, params []byte) {
@@ -65,5 +63,4 @@ func (Overlay) OnMetrics(socket *Socket, callback func(event *performance.Metric
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }

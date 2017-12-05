@@ -21,7 +21,6 @@ enabled until the result for this command is received.
 func (Debugger) Enable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Debugger.enable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -33,7 +32,6 @@ Disable disables debugger for given page.
 func (Debugger) Disable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Debugger.disable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -145,7 +143,6 @@ StepOver steps over the statement.
 func (Debugger) StepOver(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Debugger.stepOver",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -169,7 +166,6 @@ StepOut steps out of the function call.
 func (Debugger) StepOut(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Debugger.stepOut",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -181,7 +177,6 @@ Pause stops on the next JavaScript statement.
 func (Debugger) Pause(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Debugger.pause",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -196,7 +191,6 @@ scheduled or another scheduleStepIntoAsync was called. EXPERIMENTAL
 func (Debugger) ScheduleStepIntoAsync(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Debugger.scheduleStepIntoAsync",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -208,7 +202,6 @@ Resume resumes JavaScript execution.
 func (Debugger) Resume(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Debugger.resume",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -372,7 +365,7 @@ OnScriptParsed adds a handler to the Debugger.ScriptParsed event. Debugger.Scrip
 virtual machine parses script. This event is also fired for all known and uncollected scripts upon
 enabling debugger.
 */
-func (Debugger) OnScriptParsed(socket *Socket, callback func(event *debugger.ScriptParsedEvent)) error {
+func (Debugger) OnScriptParsed(socket *Socket, callback func(event *debugger.ScriptParsedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Debugger.scriptParsed",
 		func(name string, params []byte) {
@@ -385,14 +378,13 @@ func (Debugger) OnScriptParsed(socket *Socket, callback func(event *debugger.Scr
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnScriptFailedToParse adds a handler to the Debugger.scriptFailedToParse event.
 Debugger.scriptFailedToParse fires when the virtual machine fails to parse the script.
 */
-func (Debugger) OnScriptFailedToParse(socket *Socket, callback func(event *debugger.ScriptFailedToParseEvent)) error {
+func (Debugger) OnScriptFailedToParse(socket *Socket, callback func(event *debugger.ScriptFailedToParseEvent)) {
 	handler := protocol.NewEventHandler(
 		"Debugger.scriptFailedToParse",
 		func(name string, params []byte) {
@@ -405,14 +397,13 @@ func (Debugger) OnScriptFailedToParse(socket *Socket, callback func(event *debug
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnBreakpointResolved adds a handler to the Debugger.breakpointResolved event.
 Debugger.breakpointResolved fires when breakpoint is resolved to an actual script and location.
 */
-func (Debugger) OnBreakpointResolved(socket *Socket, callback func(event *debugger.BreakpointResolvedEvent)) error {
+func (Debugger) OnBreakpointResolved(socket *Socket, callback func(event *debugger.BreakpointResolvedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Debugger.breakpointResolved",
 		func(name string, params []byte) {
@@ -425,14 +416,13 @@ func (Debugger) OnBreakpointResolved(socket *Socket, callback func(event *debugg
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnPaused adds a handler to the Debugger.paused event. Debugger.paused fires when the virtual machine
 stopped on breakpoint or exception or any other stop criteria.
 */
-func (Debugger) OnPaused(socket *Socket, callback func(event *debugger.PausedEvent)) error {
+func (Debugger) OnPaused(socket *Socket, callback func(event *debugger.PausedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Debugger.paused",
 		func(name string, params []byte) {
@@ -445,14 +435,13 @@ func (Debugger) OnPaused(socket *Socket, callback func(event *debugger.PausedEve
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnResumed adds a handler to the Debugger.resumed event. Debugger.resumed fires when the virtual
 machine resumes execution.
 */
-func (Debugger) OnResumed(socket *Socket, callback func(event *debugger.ResumedEvent)) error {
+func (Debugger) OnResumed(socket *Socket, callback func(event *debugger.ResumedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Debugger.resumed",
 		func(name string, params []byte) {
@@ -465,5 +454,4 @@ func (Debugger) OnResumed(socket *Socket, callback func(event *debugger.ResumedE
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }

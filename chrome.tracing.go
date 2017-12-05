@@ -19,7 +19,6 @@ End stops trace events collection.
 func (Tracing) End(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Tracing.end",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -77,7 +76,7 @@ func (Tracing) Start(socket *Socket, params *tracing.StartParams) error {
 OnBufferUsage adds a handler to the Tracing.bufferUsage event. Tracing.bufferUsage fires when a
 buffer is used.
 */
-func (Tracing) OnBufferUsage(socket *Socket, callback func(event *tracing.BufferUsageEvent)) error {
+func (Tracing) OnBufferUsage(socket *Socket, callback func(event *tracing.BufferUsageEvent)) {
 	handler := protocol.NewEventHandler(
 		"Tracing.bufferUsage",
 		func(name string, params []byte) {
@@ -90,7 +89,6 @@ func (Tracing) OnBufferUsage(socket *Socket, callback func(event *tracing.Buffer
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
@@ -98,7 +96,7 @@ OnDataCollected adds a handler to the Tracing.dataCollected event. Tracing.dataC
 tracing is stopped, collected events will be sent as a sequence of dataCollected events followed by
 tracingComplete event. Contains an bucket of collected trace events.
 */
-func (Tracing) OnDataCollected(socket *Socket, callback func(event *tracing.DataCollectedEvent)) error {
+func (Tracing) OnDataCollected(socket *Socket, callback func(event *tracing.DataCollectedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Tracing.dataCollected",
 		func(name string, params []byte) {
@@ -111,7 +109,6 @@ func (Tracing) OnDataCollected(socket *Socket, callback func(event *tracing.Data
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
@@ -119,7 +116,7 @@ OnTracingComplete adds a handler to the Tracing.tracingComplete event. Tracing.t
 tracing is stopped and there is no trace buffers pending flush, all data were delivered via
 dataCollected events.
 */
-func (Tracing) OnTracingComplete(socket *Socket, callback func(event *tracing.TracingCompleteEvent)) error {
+func (Tracing) OnTracingComplete(socket *Socket, callback func(event *tracing.TracingCompleteEvent)) {
 	handler := protocol.NewEventHandler(
 		"Tracing.tracingComplete",
 		func(name string, params []byte) {
@@ -132,5 +129,4 @@ func (Tracing) OnTracingComplete(socket *Socket, callback func(event *tracing.Tr
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }

@@ -19,7 +19,6 @@ Disable disables domain notifications.
 func (Overlay) Disable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Overlay.disable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -31,7 +30,6 @@ Enable enables domain notifications.
 func (Overlay) Enable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Overlay.enable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -55,7 +53,6 @@ HideHighlight hides any highlight.
 func (Overlay) HideHighlight(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Overlay.hideHighlight",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -202,7 +199,7 @@ OnInspectNodeRequested adds a handler to the Overlay.inspectNodeRequested event.
 Overlay.inspectNodeRequested fires when the node should be inspected. This happens after call to
 `setInspectMode` or when user manually inspects an element.
 */
-func (Overlay) OnInspectNodeRequested(socket *Socket, callback func(event *overlay.InspectNodeRequestedEvent)) error {
+func (Overlay) OnInspectNodeRequested(socket *Socket, callback func(event *overlay.InspectNodeRequestedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Overlay.inspectNodeRequested",
 		func(name string, params []byte) {
@@ -215,7 +212,6 @@ func (Overlay) OnInspectNodeRequested(socket *Socket, callback func(event *overl
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
@@ -223,7 +219,7 @@ OnNodeHighlightRequested adds a handler to the Overlay.nodeHighlightRequested ev
 Overlay.nodeHighlightRequested fires when the node should be highlighted. This happens after call to
 `setInspectMode`.
 */
-func (Overlay) OnNodeHighlightRequested(socket *Socket, callback func(event *overlay.NodeHighlightRequestedEvent)) error {
+func (Overlay) OnNodeHighlightRequested(socket *Socket, callback func(event *overlay.NodeHighlightRequestedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Overlay.nodeHighlightRequested",
 		func(name string, params []byte) {
@@ -236,14 +232,13 @@ func (Overlay) OnNodeHighlightRequested(socket *Socket, callback func(event *ove
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnScreenshotRequested adds a handler to the Overlay.screenshotRequested event.
 Overlay.screenshotRequested fires when user asks to capture screenshot of some area on the page.
 */
-func (Overlay) OnScreenshotRequested(socket *Socket, callback func(event *overlay.ScreenshotRequestedEvent)) error {
+func (Overlay) OnScreenshotRequested(socket *Socket, callback func(event *overlay.ScreenshotRequestedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Overlay.screenshotRequested",
 		func(name string, params []byte) {
@@ -256,5 +251,4 @@ func (Overlay) OnScreenshotRequested(socket *Socket, callback func(event *overla
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }

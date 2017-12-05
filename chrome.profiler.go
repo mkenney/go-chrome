@@ -19,7 +19,6 @@ Disable disables profiling.
 func (Profiler) Disable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Profiler.disable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -31,7 +30,6 @@ Enable enables profiling.
 func (Profiler) Enable(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Profiler.enable",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -56,7 +54,6 @@ Start starts profiling.
 func (Profiler) Start(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Profiler.start",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -68,7 +65,6 @@ Stop stops profiling.
 func (Profiler) Stop(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Profiler.stop",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -95,7 +91,6 @@ records and allows executing optimized code.
 func (Profiler) StopPreciseCoverage(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Profiler.stopPreciseCoverage",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -108,7 +103,6 @@ Precise code coverage needs to have started.
 func (Profiler) TakePreciseCoverage(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Profiler.takePreciseCoverage",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -121,7 +115,6 @@ incomplete due to garbage collection.
 func (Profiler) GetBestEffortCoverage(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Profiler.getBestEffortCoverage",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -133,7 +126,6 @@ StartTypeProfile enables type profile. EXPERIMENTAL
 func (Profiler) StartTypeProfile(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Profiler.startTypeProfile",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -146,7 +138,6 @@ EXPERIMENTAL
 func (Profiler) StopTypeProfile(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Profiler.stopTypeProfile",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -158,7 +149,6 @@ TakeTypeProfile collect type profile. EXPERIMENTAL
 func (Profiler) TakeTypeProfile(socket *Socket) error {
 	command := &protocol.Command{
 		method: "Profiler.takeTypeProfile",
-		params: nil,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -169,7 +159,7 @@ OnConsoleProfileStarted adds a handler to the Profiler.consoleProfileStarted eve
 Profiler.consoleProfileStarted fires when new profile recording is started using console.profile()
 call.
 */
-func (Profiler) OnConsoleProfileStarted(socket *Socket, callback func(event *profiler.ConsoleProfileStartedEvent)) error {
+func (Profiler) OnConsoleProfileStarted(socket *Socket, callback func(event *profiler.ConsoleProfileStartedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Profiler.consoleProfileStarted",
 		func(name string, params []byte) {
@@ -182,14 +172,13 @@ func (Profiler) OnConsoleProfileStarted(socket *Socket, callback func(event *pro
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
 
 /*
 OnConsoleProfileFinished adds a handler to the Profiler.consoleProfileFinished event.
 Profiler.consoleProfileFinished fires when profile recording finishes.
 */
-func (Profiler) OnConsoleProfileFinished(socket *Socket, callback func(event *profiler.ConsoleProfileFinishedEvent)) error {
+func (Profiler) OnConsoleProfileFinished(socket *Socket, callback func(event *profiler.ConsoleProfileFinishedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Profiler.consoleProfileFinished",
 		func(name string, params []byte) {
@@ -202,5 +191,4 @@ func (Profiler) OnConsoleProfileFinished(socket *Socket, callback func(event *pr
 		},
 	)
 	socket.AddEventHandler(handler)
-	return command.Err
 }
