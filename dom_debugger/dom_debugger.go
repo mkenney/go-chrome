@@ -7,14 +7,27 @@ import (
 )
 
 /*
-SetDOMBreakpointParams represents DOMDebugger.setDOMBreakpoint parameters.
+GetEventListenersParams represents DOMDebugger.getEventListeners parameters.
 */
-type SetDOMBreakpointParams struct {
-	// ID of the node to set breakpoint on.
-	NodeID DOM.NodeID `json:"nodeId"`
+type GetEventListenersParams struct {
+	// ID of the object to return listeners for.
+	ObjectID Runtime.RemoteObjectID `json:"objectId"`
 
-	// Type of the operation to stop upon.
-	Type DOMBreakpointType `json:"type"`
+	// Optional. The maximum depth at which Node children should be retrieved, defaults to 1. Use -1
+	// for the entire subtree or provide an integer larger than 0.
+	Depth int `json:"depth,omitempty"`
+
+	// Optional. Whether or not iframes and shadow roots should be traversed when returning the
+	// subtree (default is false). Reports listeners for all contexts if pierce is enabled.
+	Pierce bool `json:"pierce,omitempty"`
+}
+
+/*
+GetEventListenersResult represents the result of calls to DOMDebugger.getEventListeners.
+*/
+type GetEventListenersResult struct {
+	// Array of relevant listeners.
+	Listeners []EventListener `json:"listeners"`
 }
 
 /*
@@ -25,6 +38,44 @@ type RemoveDOMBreakpointParams struct {
 	NodeID DOM.NodeID `json:"nodeId"`
 
 	// Type of the breakpoint to remove.
+	Type DOMBreakpointType `json:"type"`
+}
+
+/*
+RemoveEventListenerBreakpointParams represents DOMDebugger.removeEventListenerBreakpoint parameters.
+*/
+type RemoveEventListenerBreakpointParams struct {
+	// Event name.
+	EventName string `json:"eventName"`
+
+	// Optional. EventTarget interface name. EXPERIMENTAL
+	TargetName string `json:"targetName,omitempty"`
+}
+
+/*
+RemoveInstrumentationBreakpointParams represents DOMDebugger.removeInstrumentationBreakpoint parameters.
+*/
+type RemoveInstrumentationBreakpointParams struct {
+	// Instrumentation name to stop on.
+	EventName string `json:"eventName"`
+}
+
+/*
+RemoveXHRBreakpointParams represents DOMDebugger.removeXHRBreakpoint parameters.
+*/
+type RemoveXHRBreakpointParams struct {
+	// Resource URL substring.
+	URL string `json:"url"`
+}
+
+/*
+SetDOMBreakpointParams represents DOMDebugger.setDOMBreakpoint parameters.
+*/
+type SetDOMBreakpointParams struct {
+	// ID of the node to set breakpoint on.
+	NodeID DOM.NodeID `json:"nodeId"`
+
+	// Type of the operation to stop upon.
 	Type DOMBreakpointType `json:"type"`
 }
 
@@ -41,28 +92,9 @@ type SetEventListenerBreakpointParams struct {
 }
 
 /*
-RemoveEventListenerBreakpointParams represents DOMDebugger.removeEventListenerBreakpoint parameters.
-*/
-type RemoveEventListenerBreakpointParams struct {
-	// Event name.
-	EventName string `json:"eventName"`
-
-	// Optional. EventTarget interface name. EXPERIMENTAL
-	TargetName string `json:"targetName,omitempty"`
-}
-
-/*
 SetInstrumentationBreakpointParams represents DOMDebugger.setInstrumentationBreakpoint parameters.
 */
 type SetInstrumentationBreakpointParams struct {
-	// Instrumentation name to stop on.
-	EventName string `json:"eventName"`
-}
-
-/*
-RemoveInstrumentationBreakpointParams represents DOMDebugger.removeInstrumentationBreakpoint parameters.
-*/
-type RemoveInstrumentationBreakpointParams struct {
 	// Instrumentation name to stop on.
 	EventName string `json:"eventName"`
 }
@@ -73,30 +105,6 @@ SetXHRBreakpointParams represents DOMDebugger.setXHRBreakpoint parameters.
 type SetXHRBreakpointParams struct {
 	// Resource URL substring. All XHRs having this substring in the URL will get stopped upon.
 	URL string `json:"url"`
-}
-
-/*
-RemoveXHRBreakpointParams represents DOMDebugger.removeXHRBreakpoint parameters.
-*/
-type RemoveXHRBreakpointParams struct {
-	// Resource URL substring.
-	URL string `json:"url"`
-}
-
-/*
-GetEventListenersParams represents DOMDebugger.getEventListeners parameters.
-*/
-type GetEventListenersParams struct {
-	// ID of the object to return listeners for.
-	ObjectID Runtime.RemoteObjectID `json:"objectId"`
-
-	// Optional. The maximum depth at which Node children should be retrieved, defaults to 1. Use -1
-	// for the entire subtree or provide an integer larger than 0.
-	Depth int `json:"depth,omitempty"`
-
-	// Optional. Whether or not iframes and shadow roots should be traversed when returning the
-	// subtree (default is false). Reports listeners for all contexts if pierce is enabled.
-	Pierce bool `json:"pierce,omitempty"`
 }
 
 /*

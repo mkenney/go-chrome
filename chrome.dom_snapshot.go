@@ -13,11 +13,14 @@ Returns a document snapshot, including the full DOM tree of the root node (inclu
 template contents, and imported documents) in a flattened array, as well as layout and white-listed
 computed style information for the nodes. Shadow DOM in the returned DOM tree is flattened.
 */
-func (DOMSnapshot) GetSnapshot(socket *Socket, params *dom_snapshot.GetSnapshotParams) error {
+func (DOMSnapshot) GetSnapshot(
+	socket *Socket,
+	params *dom_snapshot.GetSnapshotParams,
+) (dom_snapshot.GetSnapshotResult, error) {
 	command := &protocol.Command{
 		method: "DOMSnapshot.getSnapshot",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return command.Result.(dom_snapshot.GetSnapshotResult), command.Err
 }

@@ -1,6 +1,28 @@
 package Database
 
 /*
+ExecuteSQLParams represents Database.executeSQL parameters.
+*/
+type ExecuteSQLParams struct {
+	DatabaseID DatabaseID `json:"databaseId"`
+	Query      string     `json:"query"`
+}
+
+/*
+ExecuteSQLResult represents the result of calls to Database.executeSQL.
+*/
+type ExecuteSQLResult struct {
+	// Column names.
+	ColumnNames []string `json:"columnNames"`
+
+	// Values.
+	Values []interface{} `json:"values"`
+
+	// Error, if any.
+	SQLError Error `json:"sqlError"`
+}
+
+/*
 GetDatabaseTableNamesParams represents Database.getDatabaseTableNames parameters.
 */
 type GetDatabaseTableNamesParams struct {
@@ -8,11 +30,11 @@ type GetDatabaseTableNamesParams struct {
 }
 
 /*
-ExecuteSQLParams represents Database.executeSQL parameters.
+GetDatabaseTableNamesResult represents the result of calls to Database.getDatabaseTableNames.
 */
-type ExecuteSQLParams struct {
-	DatabaseID DatabaseID `json:"databaseId"`
-	Query      string     `json:"query"`
+type GetDatabaseTableNamesResult struct {
+	// Table names.
+	TableNames []string `json:"tableNames"`
 }
 
 /*

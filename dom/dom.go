@@ -7,6 +7,136 @@ import (
 )
 
 /*
+CollectClassNamesFromSubtreeParams represents DOM.collectClassNamesFromSubtree parameters.
+*/
+type CollectClassNamesFromSubtreeParams struct {
+	// ID of the node to collect class names.
+	NodeID NodeID `json:"nodeId"`
+}
+
+/*
+collectClassNamesFromSubtreeResult represents the result of calls to
+DOM.collectClassNamesFromSubtree.
+*/
+type collectClassNamesFromSubtreeResult struct {
+	// Class name list.
+	ClassNames []string `json:"classNames"`
+}
+
+/*
+CopyToParams represents DOM.copyTo parameters.
+*/
+type CopyToParams struct {
+	// ID of the node to copy.
+	NodeID NodeID `json:"nodeId"`
+
+	// ID of the element to drop the copy into.
+	TargetNodeID NodeID `json:"targetNodeId"`
+
+	// Optional. Drop the copy before this node (if absent, the copy becomes the last child of
+	// targetNodeId).
+	InsertBeforeNodeID NodeID `json:"insertBeforeNodeId,omitempty"`
+}
+
+/*
+CopyToResult represents the result of calls to DOM.copyTo.
+*/
+type CopyToResult struct {
+	// ID of the new cloned node.
+	NodeID NodeID `json:"nodeId"`
+}
+
+/*
+DescribeNodeParams represents DOM.describeNode parameters.
+*/
+type DescribeNodeParams struct {
+	// Optional. ID of the node.
+	NodeID NodeID `json:"nodeId,omitempty"`
+
+	// Optional. ID of the backend node.
+	BackendNodeID BackendNodeID `json:"backendNodeId,omitempty"`
+
+	// Optional. JavaScript object ID of the node wrapper.
+	ObjectID Runtime.RemoteObjectID `json:"objectId,omitempty"`
+
+	// Optional. The maximum depth at which children should be retrieved, defaults to 1. Use -1 for
+	// the entire subtree or provide an integer larger than 0.
+	Depth int `json:"depth,omitempty"`
+
+	// Optional. Whether or not iframes and shadow roots should be traversed when returning the
+	// subtree (default is false).
+	Pierce bool `json:"pierce,omitempty"`
+}
+
+/*
+DescribeNodeResult represents the result of calls to DOM.describeNode.
+*/
+type DescribeNodeResult struct {
+	// ID of the new cloned node.
+	NodeID NodeID `json:"nodeId"`
+}
+
+/*
+DiscardSearchResultsParams represents DOM.discardSearchResults parameters.
+*/
+type DiscardSearchResultsParams struct {
+	// Node description.
+	Node Node `json:"node"`
+}
+
+/*
+FocusParams represents DOM.focus parameters.
+*/
+type FocusParams struct {
+	// Optional. ID of the node.
+	NodeID NodeID `json:"nodeId,omitempty"`
+
+	// Optional. ID of the backend node.
+	BackendNodeID BackendNodeID `json:"backendNodeId,omitempty"`
+
+	// Optional. JavaScript object ID of the node wrapper.
+	ObjectID Runtime.RemoteObjectID `json:"objectId,omitempty"`
+}
+
+/*
+GetAttributesParams represents DOM.getAttributes parameters.
+*/
+type GetAttributesParams struct {
+	// ID  of the node to retrieve attibutes for.
+	NodeID NodeID `json:"nodeId"`
+}
+
+/*
+GetAttributesResult represents the result of calls to DOM.getAttributes.
+*/
+type GetAttributesResult struct {
+	// An interleaved array of node attribute names and values.
+	Attributes []string `json:"attributes"`
+}
+
+/*
+GetBoxModelParams represents DOM.getBoxModel parameters.
+*/
+type GetBoxModelParams struct {
+	// Optional. ID of the node.
+	NodeID NodeID `json:"nodeId,omitempty"`
+
+	// Optional. ID of the backend node.
+	BackendNodeID BackendNodeID `json:"backendNodeId,omitempty"`
+
+	// Optional. JavaScript object ID of the node wrapper.
+	ObjectID Runtime.RemoteObjectID `json:"objectId,omitempty"`
+}
+
+/*
+GetBoxModelResult represents the result of calls to DOM.getBoxModel.
+*/
+type GetBoxModelResult struct {
+	// Box model for the node.
+	Model BoxModel `json:"model"`
+}
+
+/*
 GetDocumentParams represents DOM.getDocument parameters.
 */
 type GetDocumentParams struct {
@@ -20,6 +150,14 @@ type GetDocumentParams struct {
 }
 
 /*
+GetDocumentResult represents the result of calls to DOM.getDocument.
+*/
+type GetDocumentResult struct {
+	// Resulting node.
+	Root Node `json:"root"`
+}
+
+/*
 GetFlattenedDocumentParams represents DOM.getFlattenedDocument parameters.
 */
 type GetFlattenedDocumentParams struct {
@@ -30,6 +168,233 @@ type GetFlattenedDocumentParams struct {
 	// Optional. Whether or not iframes and shadow roots should be traversed when returning the
 	// subtree (default is false).
 	Pierce bool `json:"pierce,omitempty"`
+}
+
+/*
+GetFlattenedDocumentResult represents the result of calls to DOM.getFlattenedDocument.
+*/
+type GetFlattenedDocumentResult struct {
+	// Resulting nodes.
+	Nodes []Node `json:"nodes"`
+}
+
+/*
+GetNodeForLocationParams represents DOM.getNodeForLocation parameters.
+*/
+type GetNodeForLocationParams struct {
+	// X coordinate.
+	X integer `json:"x"`
+
+	// Y coordinate.
+	Y integer `json:"y"`
+
+	// Optional. False to skip to the nearest non-UA shadow root ancestor (default: false).
+	IncludeUserAgentShadowDOM boolean `json:"includeUserAgentShadowDOM,omitempty"`
+}
+
+/*
+GetNodeForLocationResult represents the result of calls to DOM.getNodeForLocation.
+*/
+type GetNodeForLocationResult struct {
+	// ID of the node at given coordinates.
+	NodeID NodeID `json:"nodeId"`
+}
+
+/*
+GetOuterHTMLParams represents DOM.getOuterHTML parameters.
+*/
+type GetOuterHTMLParams struct {
+	// Optional. ID of the node.
+	NodeID NodeID `json:"nodeId,omitempty"`
+
+	// Optional. ID of the backend node.
+	BackendNodeID BackendNodeID `json:"backendNodeId,omitempty"`
+
+	// Optional. JavaScript object ID of the node wrapper.
+	ObjectID Runtime.RemoteObjectID `json:"objectId,omitempty"`
+}
+
+/*
+GetOuterHTMLResult represents the result of calls to DOM.getOuterHTML.
+*/
+type GetOuterHTMLResult struct {
+	// Outer HTML markup.
+	OuterHTML string `json:"outerHTML"`
+}
+
+/*
+GetRelayoutBoundaryParams represents DOM.getRelayoutBoundary parameters.
+*/
+type GetRelayoutBoundaryParams struct {
+	// ID of the node.
+	NodeID NodeID `json:"nodeId"`
+}
+
+/*
+GetRelayoutBoundaryResult represents the result of calls to DOM.getRelayoutBoundary.
+*/
+type GetRelayoutBoundaryResult struct {
+	// Relayout boundary node ID for the given node.
+	NodeID NodeID `json:"nodeId"`
+}
+
+/*
+GetSearchResultsParams represents DOM.getSearchResults parameters.
+*/
+type GetSearchResultsParams struct {
+	// Unique search session identifier.
+	SearchID string `json:"searchId"`
+
+	// Start index of the search result to be returned.
+	FromIndex integer `json:"fromIndex"`
+
+	// End index of the search result to be returned.
+	ToIndex integer `json:"toIndex"`
+}
+
+/*
+GetSearchResultsResult represents the result of calls to DOM.getSearchResults.
+*/
+type GetSearchResultsResult struct {
+	// IDs of the search result nodes.
+	NodeIDs []NodeID `json:"nodeIds"`
+}
+
+/*
+MoveToParams represents DOM.moveTo parameters.
+*/
+type MoveToParams struct {
+	// ID of the node to move.
+	NodeID NodeID `json:"nodeId"`
+
+	// ID of the element to drop the moved node into.
+	TargetNodeID NodeID `json:"targetNodeId"`
+
+	// Optional. Drop node before this one (if absent, the moved node becomes the last child of
+	// targetNodeId).
+	InsertBeforeNodeID NodeID `json:"insertBeforeNodeId,omitempty"`
+}
+
+/*
+MoveToResult represents the result of calls to DOM.moveTo.
+*/
+type MoveToResult struct {
+	// New ID of the moved node.
+	NodeID NodeID `json:"nodeId"`
+}
+
+/*
+PerformSearchParams represents DOM.performSearch parameters.
+*/
+type PerformSearchParams struct {
+	// Plain text or query selector or XPath search query.
+	Query string `json:"query"`
+
+	// Optional. True to search in user agent shadow DOM.
+	IncludeUserAgentShadowDOM bool `json:"includeUserAgentShadowDOM,omitempty"`
+}
+
+/*
+PerformSearchResult represents the result of calls to DOM.performSearch.
+*/
+type PerformSearchResult struct {
+	// Unique search session identifier.
+	SearchID string `json:"searchId"`
+
+	// Number of search results.
+	ResultCount int `json:"resultCount"`
+}
+
+/*
+PushNodeByPathToFrontendParams represents DOM.pushNodeByPathToFrontend parameters.
+*/
+type PushNodeByPathToFrontendParams struct {
+	// Path to node in the proprietary format.
+	Path string `json:"path"`
+}
+
+/*
+PushNodeByPathToFrontendResult represents the result of calls to DOM.pushNodeByPathToFrontend.
+*/
+type PushNodeByPathToFrontendResult struct {
+	// ID of the node for given path.
+	NodeID NodeID `json:"nodeId"`
+}
+
+/*
+PushNodesByBackendIDsToFrontendParams represents DOM.pushNodesByBackendIdsToFrontend
+parameters.
+*/
+type PushNodesByBackendIDsToFrontendParams struct {
+	// The array of backend node IDs.
+	BackendNodeIDs []BackendNodeID `json:"backendNodeIds"`
+}
+
+/*
+PushNodesByBackendIdsToFrontendResult represents the result of calls to
+DOM.pushNodesByBackendIdsToFrontend.
+*/
+type PushNodesByBackendIdsToFrontendResult struct {
+	// The array of IDs of pushed nodes that correspond to the backend IDs specified in
+	// backendNodeIDs.
+	NodeIDs []NodeId `json:"nodeIds"`
+}
+
+/*
+QuerySelectorParams represents DOM.querySelector parameters.
+*/
+type QuerySelectorParams struct {
+	// ID of the node to query.
+	NodeID NodeID `json:"nodeId"`
+
+	// Selector string.
+	Selector string `json:"selector"`
+}
+
+/*
+QuerySelectorResult represents the result of calls to DOM.querySelector.
+*/
+type QuerySelectorResult struct {
+	// Query selector result.
+	NodeID NodeID `json:"nodeId"`
+}
+
+/*
+QuerySelectorAllParams represents DOM.querySelectorAll parameters.
+*/
+type QuerySelectorAllParams struct {
+	// ID of the node to query upon.
+	NodeID NodeID `json:"nodeId"`
+
+	// Selector string.
+	Selector string `json:"selector"`
+}
+
+/*
+RemoveAttributeParams represents DOM.removeAttribute parameters.
+*/
+type RemoveAttributeParams struct {
+	// ID of the element to remove attribute from.
+	NodeID NodeID `json:"nodeId"`
+
+	// Name of the attribute to remove.
+	Name string `json:"name"`
+}
+
+/*
+QuerySelectorAllResult represents the result of calls to DOM.querySelectorAll.
+*/
+type QuerySelectorAllResult struct {
+	// Query selector result.
+	NodeIDs []NodeID `json:"nodeIds"`
+}
+
+/*
+RemoveNodeParams represents DOM.removeNode parameters.
+*/
+type RemoveNodeParams struct {
+	// ID of the node to remove.
+	NodeID NodeID `json:"nodeId"`
 }
 
 /*
@@ -49,44 +414,41 @@ type RequestChildNodesParams struct {
 }
 
 /*
-QuerySelectorParams represents DOM.querySelector parameters.
+RequestNodeParams represents DOM.requestNode parameters.
 */
-type QuerySelectorParams struct {
-	// ID of the node to query.
-	NodeID NodeID `json:"nodeId"`
-
-	// Selector string.
-	Selector string `json:"selector"`
+type RequestNodeParams struct {
+	// JavaScript object ID to convert into node.
+	ObjectID Runtime.RemoteObjectID `json:"objectId"`
 }
 
 /*
-SetNodeNameParams represents DOM.setNodeName parameters.
+RequestNodeResult represents the result of calls to DOM.requestNode.
 */
-type SetNodeNameParams struct {
-	// ID of the node to set name for.
+type RequestNodeResult struct {
+	// Node ID for given object.
 	NodeID NodeID `json:"nodeId"`
-
-	// New node name.
-	Name string `json:"name"`
 }
 
 /*
-SetNodeValueParams represents DOM.setNodeValue parameters.
+ResolveNodeParams represents DOM.resolveNode parameters.
 */
-type SetNodeValueParams struct {
-	// ID of the node to set value for.
-	NodeID NodeID `json:"nodeId"`
+type ResolveNodeParams struct {
+	// Optional. ID of the node to resolve.
+	NodeID NodeID `json:"nodeId,omitempty"`
 
-	// New node value.
-	Value string `json:"value"`
+	// Optional. Backend identifier of the node to resolve.
+	BackendNodeID BackendNodeID `json:"backendNodeId,omitempty"`
+
+	// Optional. Symbolic group name that can be used to release multiple objects.
+	ObjectGroup string `json:"objectGroup,omitempty"`
 }
 
 /*
-RemoveNodeParams represents DOM.removeNode parameters.
+ResolveNodeResult represents the result of calls to DOM.resolveNode.
 */
-type RemoveNodeParams struct {
-	// ID of the node to remove.
-	NodeID NodeID `json:"nodeId"`
+type ResolveNodeResult struct {
+	// JavaScript object wrapper for given node.
+	Object Runtime.RemoteObject `json:"object"`
 }
 
 /*
@@ -119,174 +481,6 @@ type SetAttributesAsTextParams struct {
 }
 
 /*
-RemoveAttributeParams represents DOM.removeAttribute parameters.
-*/
-type RemoveAttributeParams struct {
-	// ID of the element to remove attribute from.
-	NodeID NodeID `json:"nodeId"`
-
-	// Name of the attribute to remove.
-	Name string `json:"name"`
-}
-
-/*
-GetOuterHTMLParams represents DOM.getOuterHTML parameters.
-*/
-type GetOuterHTMLParams struct {
-	// Optional. ID of the node.
-	NodeID NodeID `json:"nodeId,omitempty"`
-
-	// Optional. ID of the backend node.
-	BackendNodeID BackendNodeID `json:"backendNodeId,omitempty"`
-
-	// Optional. JavaScript object ID of the node wrapper.
-	ObjectID Runtime.RemoteObjectID `json:"objectId,omitempty"`
-}
-
-/*
-SetOuterHTMLParams represents DOM.setOuterHTML parameters.
-*/
-type SetOuterHTMLParams struct {
-	// ID of the node to set markup for.
-	NodeID NodeID `json:"nodeId"`
-
-	// Outer HTML markup to set.
-	OuterHTML string `json:"outerHTML"`
-}
-
-/*
-PerformSearchParams represents DOM.performSearch parameters.
-*/
-type PerformSearchParams struct {
-	// Plain text or query selector or XPath search query.
-	Query string `json:"query"`
-
-	// Optional. True to search in user agent shadow DOM.
-	IncludeUserAgentShadowDOM bool `json:"includeUserAgentShadowDOM,omitempty"`
-}
-
-/*
-GetSearchResultsParams represents DOM.getSearchResults parameters.
-*/
-type GetSearchResultsParams struct {
-	// Unique search session identifier.
-	SearchID string `json:"searchId"`
-
-	// Start index of the search result to be returned.
-	FromIndex integer `json:"fromIndex"`
-
-	// End index of the search result to be returned.
-	ToIndex integer `json:"toIndex"`
-}
-
-/*
-DiscardSearchResultsParams represents DOM.discardSearchResults parameters.
-*/
-type DiscardSearchResultsParams struct {
-	// Unique search session identifier.
-	SearchID string `json:"searchId"`
-}
-
-/*
-RequestNodeParams represents DOM.requestNode parameters.
-*/
-type RequestNodeParams struct {
-	// JavaScript object ID to convert into node.
-	objectID Runtime.RemoteObjectID `json:"objectId"`
-}
-
-/*
-PushNodeByPathToFrontendParams represents DOM.pushNodeByPathToFrontend parameters.
-*/
-type PushNodeByPathToFrontendParams struct {
-	// Path to node in the proprietary format.
-	Path string `json:"path"`
-}
-
-/*
-PushNodesByBackendIDsToFrontendParams represents DOM.pushNodesByBackendIdsToFrontend
-parameters.
-*/
-type PushNodesByBackendIDsToFrontendParams struct {
-	// The array of backend node IDs.
-	backendNodeIDs []BackendNodeID `json:"backendNodeIds"`
-}
-
-/*
-SetInspectedNodeParams represents DOM.setInspectedNode parameters.
-*/
-type SetInspectedNodeParams struct {
-	// DOM node ID to be accessible by means of $x command line API.
-	NodeID NodeID `json:"nodeId"`
-}
-
-/*
-ResolveNodeParams represents DOM.resolveNode parameters.
-*/
-type ResolveNodeParams struct {
-	// Optional. ID of the node to resolve.
-	NodeID NodeID `json:"nodeId,omitempty"`
-
-	// Optional. Backend identifier of the node to resolve.
-	BackendNodeID BackendNodeID `json:"backendNodeId,omitempty"`
-
-	// Optional. Symbolic group name that can be used to release multiple objects.
-	ObjectGroup string `json:"objectGroup,omitempty"`
-}
-
-/*
-GetAttributesParams represents DOM.getAttributes parameters.
-*/
-type GetAttributesParams struct {
-	// ID  of the node to retrieve attibutes for.
-	NodeID NodeID `json:"nodeId"`
-}
-
-/*
-CopyToParams represents DOM.copyTo parameters.
-*/
-type CopyToParams struct {
-	// ID of the node to copy.
-	NodeID NodeID `json:"nodeId"`
-
-	// ID of the element to drop the copy into.
-	TargetNodeID NodeID `json:"targetNodeId"`
-
-	// Optional. Drop the copy before this node (if absent, the copy becomes the last child of
-	// targetNodeId).
-	InsertBeforeNodeID NodeID `json:"insertBeforeNodeId,omitempty"`
-}
-
-/*
-MoveToParams represents DOM.moveTo parameters.
-*/
-type MoveToParams struct {
-	// ID of the node to move.
-	NodeID NodeID `json:"nodeId"`
-
-	// ID of the element to drop the moved node into.
-	TargetNodeID NodeID `json:"targetNodeId"`
-
-	// Optional. Drop node before this one (if absent, the moved node becomes the last child of
-	// targetNodeId).
-	InsertBeforeNodeID NodeID `json:"insertBeforeNodeId,omitempty"`
-}
-
-/*
-FocusParams represents DOM.focus parameters.
-*/
-type FocusParams struct {
-	// Optional. ID of the node.
-	NodeID NodeID `json:"nodeId,omitempty"`
-
-	// Optional. ID of the backend node.
-	BackendNodeID BackendNodeID `json:"backendNodeId,omitempty"`
-
-	// Optional. JavaScript object ID of the node wrapper.
-	ObjectID Runtime.RemoteObjectID `json:"objectId,omitempty"`
-}
-
-/*
 SetFileInputFilesParams represents DOM.setFileInputFiles parameters.
 */
 type SetFileInputFilesParams struct {
@@ -304,77 +498,52 @@ type SetFileInputFilesParams struct {
 }
 
 /*
-GetBoxModelParams represents DOM.getBoxModel parameters.
+SetInspectedNodeParams represents DOM.setInspectedNode parameters.
 */
-type GetBoxModelParams struct {
-	// Optional. ID of the node.
-	NodeID NodeID `json:"nodeId,omitempty"`
-
-	// Optional. ID of the backend node.
-	BackendNodeID BackendNodeID `json:"backendNodeId,omitempty"`
-
-	// Optional. JavaScript object ID of the node wrapper.
-	ObjectID Runtime.RemoteObjectID `json:"objectId,omitempty"`
-}
-
-/*
-GetNodeForLocationParams represents DOM.getNodeForLocation parameters.
-*/
-type GetNodeForLocationParams struct {
-	// X coordinate.
-	X integer `json:"x"`
-
-	// Y coordinate.
-	Y integer `json:"y"`
-
-	// Optional. False to skip to the nearest non-UA shadow root ancestor (default: false).
-	IncludeUserAgentShadowDOM boolean `json:"includeUserAgentShadowDOM,omitempty"`
-}
-
-/*
-GetRelayoutBoundaryParams represents DOM.getRelayoutBoundary parameters.
-*/
-type GetRelayoutBoundaryParams struct {
-	// ID of the node.
+type SetInspectedNodeParams struct {
+	// DOM node ID to be accessible by means of $x command line API.
 	NodeID NodeID `json:"nodeId"`
 }
 
 /*
-DescribeNodeParams represents DOM.describeNode parameters.
+SetNodeNameParams represents DOM.setNodeName parameters.
 */
-type DescribeNodeParams struct {
-	// Optional. ID of the node.
-	NodeID NodeID `json:"nodeId,omitempty"`
+type SetNodeNameParams struct {
+	// ID of the node to set name for.
+	NodeID NodeID `json:"nodeId"`
 
-	// Optional. ID of the backend node.
-	BackendNodeID BackendNodeID `json:"backendNodeId,omitempty"`
-
-	// Optional. JavaScript object ID of the node wrapper.
-	ObjectID Runtime.RemoteObjectID `json:"objectId,omitempty"`
-
-	// Optional. The maximum depth at which children should be retrieved, defaults to 1. Use -1 for
-	// the entire subtree or provide an integer larger than 0.
-	Depth int `json:"depth,omitempty"`
-
-	// Optional. Whether or not iframes and shadow roots should be traversed when returning the
-	// subtree (default is false).
-	Pierce bool `json:"pierce,omitempty"`
+	// New node name.
+	Name string `json:"name"`
 }
 
 /*
-DocumentUpdatedEvent represents DOM.documentUpdated event data.
+SetNodeNameResult represents the result of calls to DOM.setNodeName.
 */
-type DocumentUpdatedEvent struct{}
+type SetNodeNameResult struct {
+	// New node's ID.
+	NodeID NodeID `json:"nodeId"`
+}
 
 /*
-SetChildNodesEvent represents DOM.setChildNodes event data.
+SetNodeValueParams represents DOM.setNodeValue parameters.
 */
-type SetChildNodesEvent struct {
-	// Parent node ID to populate with children.
-	ParentID NodeID `json:"parentId"`
+type SetNodeValueParams struct {
+	// ID of the node to set value for.
+	NodeID NodeID `json:"nodeId"`
 
-	// Child nodes array.
-	Nodes []*Node `json:"nodes"`
+	// New node value.
+	Value string `json:"value"`
+}
+
+/*
+SetOuterHTMLParams represents DOM.setOuterHTML parameters.
+*/
+type SetOuterHTMLParams struct {
+	// ID of the node to set markup for.
+	NodeID NodeID `json:"nodeId"`
+
+	// Outer HTML markup to set.
+	OuterHTML string `json:"outerHTML"`
 }
 
 /*
@@ -400,14 +569,6 @@ type AttributeRemovedEvent struct {
 
 	// Attribute name.
 	Name string `json:"name"`
-}
-
-/*
-InlineStyleInvalidatedEvent represents DOM.inlineStyleInvalidated event data.
-*/
-type InlineStyleInvalidatedEvent struct {
-	// IDs of the nodes for which the inline styles have been invalidated.
-	NodeIDs []NodeID `json:"nodeIds"`
 }
 
 /*
@@ -461,25 +622,27 @@ type ChildNodeRemovedEvent struct {
 }
 
 /*
-ShadowRootPushedEvent represents DOM.shadowRootPushed event data.
+DistributedNodesUpdatedEvent represents DOM.distributedNodesUpdated event data.
 */
-type ShadowRootPushedEvent struct {
-	// Host element ID.
-	HostID NodeID `json:"hostId"`
+type DistributedNodesUpdatedEvent struct {
+	// Insertion point where distrubuted nodes were updated.
+	InsertionPointID NodeID `json:"insertionPointId"`
 
-	// Shadow root.
-	Root Node `json:"root"`
+	// Distributed nodes for given insertion point.
+	DistributedNodes []*BackendNode `json:"distributedNodes"`
 }
 
 /*
-ShadowRootPoppedEvent represents DOM.shadowRootPopped event data.
+DocumentUpdatedEvent represents DOM.documentUpdated event data.
 */
-type ShadowRootPoppedEvent struct {
-	// Host element ID.
-	HostID NodeID `json:"hostId"`
+type DocumentUpdatedEvent struct{}
 
-	// Shadow root ID.
-	RootID NodeID `json:"rootId"`
+/*
+InlineStyleInvalidatedEvent represents DOM.inlineStyleInvalidated event data.
+*/
+type InlineStyleInvalidatedEvent struct {
+	// IDs of the nodes for which the inline styles have been invalidated.
+	NodeIDs []NodeID `json:"nodeIds"`
 }
 
 /*
@@ -505,14 +668,36 @@ type PseudoElementRemovedEvent struct {
 }
 
 /*
-DistributedNodesUpdatedEvent represents DOM.distributedNodesUpdated event data.
+SetChildNodesEvent represents DOM.setChildNodes event data.
 */
-type DistributedNodesUpdatedEvent struct {
-	// Insertion point where distrubuted nodes were updated.
-	InsertionPointID NodeID `json:"insertionPointId"`
+type SetChildNodesEvent struct {
+	// Parent node ID to populate with children.
+	ParentID NodeID `json:"parentId"`
 
-	// Distributed nodes for given insertion point.
-	DistributedNodes []*BackendNode `json:"distributedNodes"`
+	// Child nodes array.
+	Nodes []*Node `json:"nodes"`
+}
+
+/*
+ShadowRootPoppedEvent represents DOM.shadowRootPopped event data.
+*/
+type ShadowRootPoppedEvent struct {
+	// Host element ID.
+	HostID NodeID `json:"hostId"`
+
+	// Shadow root ID.
+	RootID NodeID `json:"rootId"`
+}
+
+/*
+ShadowRootPushedEvent represents DOM.shadowRootPushed event data.
+*/
+type ShadowRootPushedEvent struct {
+	// Host element ID.
+	HostID NodeID `json:"hostId"`
+
+	// Shadow root.
+	Root Node `json:"root"`
 }
 
 /*

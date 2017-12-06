@@ -15,12 +15,10 @@ type GetDOMStorageItemsParams struct {
 }
 
 /*
-SetDOMStorageItemParams represents DOMStorage.setDOMStorageItem parameters.
+GetDOMStorageItemsResult represents the result of calls to DOMStorage.getDOMStorageItems.
 */
-type SetDOMStorageItemParams struct {
-	StorageID StorageID `json:"storageId"`
-	Key       string    `json:"key"`
-	Value     string    `json:"value"`
+type GetDOMStorageItemsResult struct {
+	Entries []Item `json:"entries"`
 }
 
 /*
@@ -29,6 +27,15 @@ RemoveDOMStorageItemParams represents DOMStorage.removeDOMStorageItem parameters
 type RemoveDOMStorageItemParams struct {
 	StorageID StorageID `json:"storageId"`
 	Key       string    `json:"key"`
+}
+
+/*
+SetDOMStorageItemParams represents DOMStorage.setDOMStorageItem parameters.
+*/
+type SetDOMStorageItemParams struct {
+	StorageID StorageID `json:"storageId"`
+	Key       string    `json:"key"`
+	Value     string    `json:"value"`
 }
 
 /*
