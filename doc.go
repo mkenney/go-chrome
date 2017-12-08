@@ -17,18 +17,17 @@ JavaScript API.
 Protocol API Docs
 
 The latest (tip-of-tree) protocol (tot)
+
 It changes frequently and can break at any time. However it captures the full capabilities of the
 Protocol, whereas the stable release is a subset. There is no backwards compatibility support
 guaranteed for the capabilities it introduces.
 
 Resources
 
-Consider subscribing to the chrome-debugging-protocol mailing list.
-
-The devtools-protocol repo issue tracker can also be used for concerns with the protocol. It also
-hosts the canonical copy of the json files.
-
-Useful: Getting Started with Headless Chrome and the Headless Chromium readme.
+* chrome-debugging-protocol mailing list https://groups.google.com/d/forum/chrome-debugging-protocol
+* devtools-protocol repo issue tracker https://github.com/chromedevtools/devtools-protocol
+* Getting Started with Headless Chrome https://developers.google.com/web/updates/2017/04/headless-chrome
+* Headless Chromium readme https://chromium.googlesource.com/chromium/src/+/lkgr/headless/README.md
 
 The chrome-remote-interface node module is recommended, and its wiki and issue tracker are full of
 useful recipes.
