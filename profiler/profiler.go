@@ -25,6 +25,41 @@ type StartPreciseCoverageParams struct {
 }
 
 /*
+StartPreciseCoverageResult represents the result of calls to Profiler.startPreciseCoverage.
+*/
+type StartPreciseCoverageResult struct {
+	// Collect accurate call counts beyond simple 'covered' or 'not covered'.
+	CallCount bool `json:"callCount"`
+
+	// Collect block-based coverage.
+	Detailed bool `json:"detailed"`
+}
+
+/*
+StopResult represents the result of calls to Profiler.stop.
+*/
+type StopResult struct {
+	// Recorded profile.
+	Profile Profile `json:"profile"`
+}
+
+/*
+TakePreciseCoverageResult represents the result of calls to Profiler.takePreciseCoverage.
+*/
+type TakePreciseCoverageResult struct {
+	// Coverage data for the current isolate.
+	Result []ScriptCoverage `json:"result"`
+}
+
+/*
+TakeTypeProfileResult represents the result of calls to Profiler.takeTypeProfile.
+*/
+type TakeTypeProfileResult struct {
+	// Type profile for all scripts since startTypeProfile() was turned on.
+	Result []ScriptTypeProfile `json:"result"`
+}
+
+/*
 ConsoleProfileStartedEvent represents Overlay.consoleProfileStarted event data.
 */
 type ConsoleProfileStartedEvent struct {

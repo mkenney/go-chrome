@@ -1,15 +1,8 @@
 package HeadlessExperimental
 
-/*
-ScreenshotParams represents encoding options for a screenshot.
-*/
-type ScreenshotParams struct {
-	// Optional. Image compression format (defaults to png). Allowed values: jpeg, png.
-	Format string `json:"format,omitempty"`
-
-	// Optional. Compression quality from range [0..100] (jpeg only).
-	Quality int `json:"quality,omitempty"`
-}
+import (
+	Runtime "app/chrome/runtime"
+)
 
 /*
 BeginFrameParams represents HeadlessExperimental.beginFrame parameters.
@@ -33,6 +26,21 @@ type BeginFrameParams struct {
 }
 
 /*
+BeginFrameResult represents the result of calls to HeadlessExperimental.beginFrame.
+*/
+type BeginFrameResult struct {
+	// Whether the BeginFrame resulted in damage and, thus, a new frame was committed to the
+	// display.
+	HasDamage bool `json:"hasDamage"`
+
+	// Whether the main frame submitted a new display frame in response to this BeginFrame.
+	MainFrameContentUpdated bool `json:"mainFrameContentUpdated"`
+
+	// Base64-encoded image data of the screenshot, if one was requested and successfully taken.
+	ScreenshotData string `json:"screenshotData"`
+}
+
+/*
 NeedsBeginFramesChangedEvent represents HeadlessExperimental.needsBeginFramesChanged event data.
 */
 type NeedsBeginFramesChangedEvent struct {
@@ -45,3 +53,14 @@ MainFrameReadyForScreenshotsEvent represents HeadlessExperimental.mainFrameReady
 data.
 */
 type MainFrameReadyForScreenshotsEvent struct{}
+
+/*
+ScreenshotParams represents encoding options for a screenshot.
+*/
+type ScreenshotParams struct {
+	// Optional. Image compression format (defaults to png). Allowed values: jpeg, png.
+	Format string `json:"format,omitempty"`
+
+	// Optional. Compression quality from range [0..100] (jpeg only).
+	Quality int `json:"quality,omitempty"`
+}

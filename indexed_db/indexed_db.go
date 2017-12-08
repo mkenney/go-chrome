@@ -59,6 +59,17 @@ type RequestDataParams struct {
 }
 
 /*
+RequestDataResult represents the result of calls to IndexedDB.requestData.
+*/
+type RequestDataResult struct {
+	// Array of object store data entries.
+	ObjectStoreDataEntries []DataEntry `json:"objectStoreDataEntries"`
+
+	// If true, there are more entries to fetch in the given range.
+	HasMore bool `json:"hasMore"`
+}
+
+/*
 RequestDatabaseParams represents IndexedDB.requestDatabase parameters.
 */
 type RequestDatabaseParams struct {
@@ -70,11 +81,27 @@ type RequestDatabaseParams struct {
 }
 
 /*
+RequestDatabaseResult represents the result of calls to IndexedDB.requestDatabase.
+*/
+type RequestDatabaseResult struct {
+	// Database with an array of object stores.
+	DatabaseWithObjectStores DatabaseWithObjectStores `json:"databaseWithObjectStores"`
+}
+
+/*
 RequestDatabaseNamesParams represents IndexedDB.requestDatabaseNames parameters.
 */
 type RequestDatabaseNamesParams struct {
 	// Security origin.
 	SecurityOrigin string `json:"securityOrigin"`
+}
+
+/*
+RequestDatabaseNamesResult represents the result of calls to IndexedDB.requestDatabaseNames.
+*/
+type RequestDatabaseNamesResult struct {
+	// Database names for origin.
+	DatabaseNames []string `json:"databaseNames"`
 }
 
 /*

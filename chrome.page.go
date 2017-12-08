@@ -17,381 +17,464 @@ type Page struct{}
 AddScriptToEvaluateOnLoad is eprecated, please use addScriptToEvaluateOnNewDocument instead.
 EXPERIMENTAL DEPRECATED
 */
-func (Page) AddScriptToEvaluateOnLoad(socket *Socket, params *Page.AddScriptToEvaluateOnLoadParams) error {
+func (Page) AddScriptToEvaluateOnLoad(
+	socket *Socket,
+	params *Page.AddScriptToEvaluateOnLoadParams,
+) (Page.AddScriptToEvaluateOnLoadResult, error) {
 	command := &protocol.Command{
 		method: "Page.addScriptToEvaluateOnLoad",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return Page.AddScriptToEvaluateOnLoadResult, command.Err
 }
 
 /*
 AddScriptToEvaluateOnNewDocument evaluates given script in every frame upon creation (before loading
 frame's scripts).
 */
-func (Page) AddScriptToEvaluateOnNewDocument(socket *Socket, params *Page.AddScriptToEvaluateOnNewDocumentParams) error {
+func (Page) AddScriptToEvaluateOnNewDocument(
+	socket *Socket,
+	params *Page.AddScriptToEvaluateOnNewDocumentParams,
+) (Page.AddScriptToEvaluateOnNewDocumentResult, error) {
 	command := &protocol.Command{
 		method: "Page.addScriptToEvaluateOnNewDocument",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return Page.AddScriptToEvaluateOnNewDocumentResult, command.Err
 }
 
 /*
 BringToFront brings page to front (activates tab).
 */
-func (Page) BringToFront(socket *Socket) error {
+func (Page) BringToFront(
+	socket *Socket,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Page.bringToFront",
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 CaptureScreenshot capture a page screenshot.
 */
-func (Page) CaptureScreenshot(socket *Socket, params *Page.CaptureScreenshotParams) error {
+func (Page) CaptureScreenshot(
+	socket *Socket,
+	params *Page.CaptureScreenshotParams,
+) (Page.CaptureScreenshotResult, error) {
 	command := &protocol.Command{
 		method: "Page.CaptureScreenshot",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return Page.CaptureScreenshotResult, command.Err
 }
 
 /*
 CreateIsolatedWorld creates an isolated world for the given frame.
 */
-func (Page) CreateIsolatedWorld(socket *Socket, params *Page.CreateIsolatedWorldParams) error {
+func (Page) CreateIsolatedWorld(
+	socket *Socket,
+	params *Page.CreateIsolatedWorldParams,
+) (Page.CreateIsolatedWorldResult, error) {
 	command := &protocol.Command{
 		method: "Page.createIsolatedWorld",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return Page.CreateIsolatedWorldResult, command.Err
 }
 
 /*
 Disable disables page domain notifications.
 */
-func (Page) Disable(socket *Socket) error {
+func (Page) Disable(
+	socket *Socket,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Page.disable",
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 Enable Ennables page domain notifications.
 */
-func (Page) Enable(socket *Socket) error {
+func (Page) Enable(
+	socket *Socket,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Page.enable",
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 GetAppManifest gets the app manifest.
 */
-func (Page) GetAppManifest(socket *Socket, params *Page.GetAppManifestParams) error {
+func (Page) GetAppManifest(
+	socket *Socket,
+	params *Page.GetAppManifestParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Page.getAppManifest",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 GetFrameTree returns present frame tree structure.
 */
-func (Page) GetFrameTree(socket *Socket, params *Page.GetFrameTreeParams) error {
+func (Page) GetFrameTree(
+	socket *Socket,
+) (Page.GetFrameTreeResult, error) {
 	command := &protocol.Command{
 		method: "Page.getFrameTree",
-		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return Page.GetFrameTreeResult, command.Err
 }
 
 /*
 GetLayoutMetrics returns metrics relating to the layouting of the page, such as viewport
 bounds/scale.
 */
-func (Page) GetLayoutMetrics(socket *Socket, params *Page.GetLayoutMetricsParams) error {
+func (Page) GetLayoutMetrics(
+	socket *Socket,
+) (Page.GetLayoutMetricsResult, error) {
 	command := &protocol.Command{
 		method: "Page.getLayoutMetrics",
-		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return Page.GetLayoutMetricsResult, command.Err
 }
 
 /*
 GetNavigationHistory returns navigation history for the current page.
 */
-func (Page) GetNavigationHistory(socket *Socket, params *Page.GetNavigationHistoryParams) error {
+func (Page) GetNavigationHistory(
+	socket *Socket,
+) (Page.GetNavigationHistoryResult, error) {
 	command := &protocol.Command{
 		method: "Page.getNavigationHistory",
-		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return Page.GetNavigationHistoryResult, command.Err
 }
 
 /*
 GetResourceContent returns content of the given resource. EXPERIMENTAL
 */
-func (Page) GetResourceContent(socket *Socket, params *Page.GetResourceContentParams) error {
+func (Page) GetResourceContent(
+	socket *Socket,
+	params *Page.GetResourceContentParams,
+) (Page.GetResourceContentResult, error) {
 	command := &protocol.Command{
 		method: "Page.getResourceContent",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return Page.GetResourceContentResult, command.Err
 }
 
 /*
 GetResourceTree returns present frame / resource tree structure. EXPERIMENTAL
 */
-func (Page) GetResourceTree(socket *Socket, params *Page.GetResourceTreeParams) error {
+func (Page) GetResourceTree(
+	socket *Socket,
+) (Page.GetResourceTreeResult, error) {
 	command := &protocol.Command{
 		method: "Page.getResourceTree",
-		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return Page.GetResourceTreeResult, command.Err
 }
 
 /*
 HandleJavaScriptDialog accepts or dismisses a JavaScript initiated dialog (alert, confirm, prompt,
 or onbeforeunload).
 */
-func (Page) HandleJavaScriptDialog(socket *Socket, params *Page.HandleJavaScriptDialogParams) error {
+func (Page) HandleJavaScriptDialog(
+	socket *Socket,
+	params *Page.HandleJavaScriptDialogParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Page.handleJavaScriptDialog",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 Navigate navigates current page to the given URL.
 */
-func (Page) Navigate(socket *Socket, params *Page.NavigateParams) error {
+func (Page) Navigate(
+	socket *Socket,
+	params *Page.NavigateParams,
+) (Page.NavigateResult, error) {
 	command := &protocol.Command{
 		method: "Page.navigate",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return Page.NavigateResult, command.Err
 }
 
 /*
 NavigateToHistoryEntry navigates current page to the given history entry.
 */
-func (Page) NavigateToHistoryEntry(socket *Socket, params *Page.NavigateToHistoryEntryParams) error {
+func (Page) NavigateToHistoryEntry(
+	socket *Socket,
+	params *Page.NavigateToHistoryEntryParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Page.navigateToHistoryEntry",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 PrintToPDF print page as PDF.
 */
-func (Page) PrintToPDF(socket *Socket, params *Page.PrintToPDFParams) error {
+func (Page) PrintToPDF(
+	socket *Socket,
+	params *Page.PrintToPDFParams,
+) (Page.PrintToPDFResult, error) {
 	command := &protocol.Command{
 		method: "Page.printToPDF",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return Page.PrintToPDFResult, command.Err
 }
 
 /*
 Reload reloads given page optionally ignoring the cache.
 */
-func (Page) Reload(socket *Socket, params *Page.ReloadParams) error {
+func (Page) Reload(
+	socket *Socket,
+	params *Page.ReloadParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Page.reload",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 RemoveScriptToEvaluateOnLoad deprecated, please use removeScriptToEvaluateOnNewDocument instead.
 EXPERIMENTAL DEPRECATED
 */
-func (Page) RemoveScriptToEvaluateOnLoad(socket *Socket, params *Page.RemoveScriptToEvaluateOnLoadParams) error {
+func (Page) RemoveScriptToEvaluateOnLoad(
+	socket *Socket,
+	params *Page.RemoveScriptToEvaluateOnLoadParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Page.removeScriptToEvaluateOnLoad",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 RemoveScriptToEvaluateOnNewDocument removes given script from the list.
 */
-func (Page) RemoveScriptToEvaluateOnNewDocument(socket *Socket, params *Page.RemoveScriptToEvaluateOnNewDocumentParams) error {
+func (Page) RemoveScriptToEvaluateOnNewDocument(
+	socket *Socket,
+	params *Page.RemoveScriptToEvaluateOnNewDocumentParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Page.removeScriptToEvaluateOnNewDocument",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 RequestAppBanner EXPERIMENTAL
 */
-func (Page) RequestAppBanner(socket *Socket, params *Page.RequestAppBannerParams) error {
+func (Page) RequestAppBanner(
+	socket *Socket,
+	params *Page.RequestAppBannerParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Page.requestAppBanner",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 ScreencastFrameAck acknowledges that a screencast frame has been received by the frontend.
 EXPERIMENTAL
 */
-func (Page) ScreencastFrameAck(socket *Socket, params *Page.ScreencastFrameAckParams) error {
+func (Page) ScreencastFrameAck(
+	socket *Socket,
+	params *Page.ScreencastFrameAckParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Page.screencastFrameAck",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 SearchInResource searches for given string in resource content. EXPERIMENTAL
 */
-func (Page) SearchInResource(socket *Socket, params *Page.SearchInResourceParams) error {
+func (Page) SearchInResource(
+	socket *Socket,
+	params *Page.SearchInResourceParams,
+) (Page.SearchInResourceResult, error) {
 	command := &protocol.Command{
 		method: "Page.searchInResource",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return Page.SearchInResourceResult, command.Err
 }
 
 /*
 SetAdBlockingEnabled enable Chrome's experimental ad filter on all sites. EXPERIMENTAL
 */
-func (Page) SetAdBlockingEnabled(socket *Socket, params *Page.SetAdBlockingEnabledParams) error {
+func (Page) SetAdBlockingEnabled(
+	socket *Socket,
+	params *Page.SetAdBlockingEnabledParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Page.setAdBlockingEnabled",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 SetAutoAttachToCreatedPages controls whether browser will open a new inspector window for connected
 pages. EXPERIMENTAL
 */
-func (Page) SetAutoAttachToCreatedPages(socket *Socket, params *Page.SetAutoAttachToCreatedPagesParams) error {
+func (Page) SetAutoAttachToCreatedPages(
+	socket *Socket,
+	params *Page.SetAutoAttachToCreatedPagesParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Page.setAutoAttachToCreatedPages",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 SetDocumentContent sets given markup as the document's HTML.
 */
-func (Page) SetDocumentContent(socket *Socket, params *Page.SetDocumentContentParams) error {
+func (Page) SetDocumentContent(
+	socket *Socket,
+	params *Page.SetDocumentContentParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Page.setDocumentContent",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 SetDownloadBehavior sets the behavior when downloading a file. EXPERIMENTAL
 */
-func (Page) SetDownloadBehavior(socket *Socket, params *Page.SetDownloadBehaviorParams) error {
+func (Page) SetDownloadBehavior(
+	socket *Socket,
+	params *Page.SetDownloadBehaviorParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Page.setDownloadBehavior",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 SetLifecycleEventsEnabled controls whether page will emit lifecycle events. EXPERIMENTAL
 */
-func (Page) SetLifecycleEventsEnabled(socket *Socket, params *Page.SetLifecycleEventsEnabledParams) error {
+func (Page) SetLifecycleEventsEnabled(
+	socket *Socket,
+	params *Page.SetLifecycleEventsEnabledParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Page.setLifecycleEventsEnabled",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 StartScreencast starts sending each frame using the `screencastFrame` event. EXPERIMENTAL
 */
-func (Page) StartScreencast(socket *Socket, params *Page.StartScreencastParams) error {
+func (Page) StartScreencast(
+	socket *Socket,
+	params *Page.StartScreencastParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Page.startScreencast",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 StopLoading force the page stop all navigations and pending resource fetches.
 */
-func (Page) StopLoading(socket *Socket) error {
+func (Page) StopLoading(
+	socket *Socket,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Page.stopLoading",
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 StopScreencast stops sending each frame in the `screencastFrame`. EXPERIMENTAL
 */
-func (Page) StopScreencast(socket *Socket) error {
+func (Page) StopScreencast(
+	socket *Socket,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Page.stopScreencast",
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 OnDOMContentEventFired adds a handler to the Page.domContentEventFired event.
 Page.domContentEventFired fires when a content event occurs in the DOM.
 */
-func (Page) OnDOMContentEventFired(socket *Socket, callback func(event *page.DOMContentEventFiredEvent)) {
+func (Page) OnDOMContentEventFired(
+	socket *Socket,
+	callback func(event *page.DOMContentEventFiredEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Page.domContentEventFired",
 		func(name string, params []byte) {
@@ -410,7 +493,10 @@ func (Page) OnDOMContentEventFired(socket *Socket, callback func(event *page.DOM
 OnFrameAttached adds a handler to the Page.frameAttached event. Page.frameAttached fires when a
 frame has been attached to its parent.
 */
-func (Page) OnFrameAttached(socket *Socket, callback func(event *page.FrameAttachedEvent)) {
+func (Page) OnFrameAttached(
+	socket *Socket,
+	callback func(event *page.FrameAttachedEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Page.frameAttached",
 		func(name string, params []byte) {
@@ -430,7 +516,10 @@ OnFrameClearedScheduledNavigation adds a handler to the Page.frameClearedSchedul
 Page.frameClearedScheduledNavigation fires when a frame no longer has a scheduled navigation.
 EXPERIMENTAL
 */
-func (Page) OnFrameClearedScheduledNavigation(socket *Socket, callback func(event *page.FrameClearedScheduledNavigationEvent)) {
+func (Page) OnFrameClearedScheduledNavigation(
+	socket *Socket,
+	callback func(event *page.FrameClearedScheduledNavigationEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Page.frameClearedScheduledNavigation",
 		func(name string, params []byte) {
@@ -449,7 +538,10 @@ func (Page) OnFrameClearedScheduledNavigation(socket *Socket, callback func(even
 OnFrameDetached adds a handler to the Page.frameDetached event. Page.frameDetached fires when a
 frame has been detached from its parent.
 */
-func (Page) OnFrameDetached(socket *Socket, callback func(event *page.FrameDetachedEvent)) {
+func (Page) OnFrameDetached(
+	socket *Socket,
+	callback func(event *page.FrameDetachedEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Page.frameDetached",
 		func(name string, params []byte) {
@@ -468,7 +560,10 @@ func (Page) OnFrameDetached(socket *Socket, callback func(event *page.FrameDetac
 OnFrameNavigated adds a handler to the Page.frameNavigated event. Page.frameNavigated fires once
 navigation of the frame has completed. Frame is now associated with the new loader.
 */
-func (Page) OnFrameNavigated(socket *Socket, callback func(event *page.FrameNavigatedEvent)) {
+func (Page) OnFrameNavigated(
+	socket *Socket,
+	callback func(event *page.FrameNavigatedEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Page.frameNavigated",
 		func(name string, params []byte) {
@@ -487,7 +582,10 @@ func (Page) OnFrameNavigated(socket *Socket, callback func(event *page.FrameNavi
 OnFrameResized adds a handler to the Page.frameResized event. Page.frameResized fires when frame
 schedules a potential navigation. EXPERIMENTAL
 */
-func (Page) OnFrameResized(socket *Socket, callback func(event *page.FrameResizedEvent)) {
+func (Page) OnFrameResized(
+	socket *Socket,
+	callback func(event *page.FrameResizedEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Page.frameResized",
 		func(name string, params []byte) {
@@ -506,7 +604,10 @@ func (Page) OnFrameResized(socket *Socket, callback func(event *page.FrameResize
 OnFrameStartedLoading adds a handler to the Page.frameStartedLoading event. Page.frameStartedLoading
 fires when frame has started loading. EXPERIMENTAL
 */
-func (Page) OnFrameStartedLoading(socket *Socket, callback func(event *page.FrameStartedLoadingEvent)) {
+func (Page) OnFrameStartedLoading(
+	socket *Socket,
+	callback func(event *page.FrameStartedLoadingEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Page.frameStartedLoading",
 		func(name string, params []byte) {
@@ -525,7 +626,10 @@ func (Page) OnFrameStartedLoading(socket *Socket, callback func(event *page.Fram
 OnFrameStoppedLoading adds a handler to the Page.frameStoppedLoading event. Page.frameStoppedLoading
 fires when frame has stopped loading. EXPERIMENTAL
 */
-func (Page) OnFrameStoppedLoading(socket *Socket, callback func(event *page.FrameStoppedLoadingEvent)) {
+func (Page) OnFrameStoppedLoading(
+	socket *Socket,
+	callback func(event *page.FrameStoppedLoadingEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Page.frameStoppedLoading",
 		func(name string, params []byte) {
@@ -544,7 +648,10 @@ func (Page) OnFrameStoppedLoading(socket *Socket, callback func(event *page.Fram
 OnInterstitialHidden adds a handler to the Page.interstitialHidden event. Page.interstitialHidden
 fires when interstitial page was hidden.
 */
-func (Page) OnInterstitialHidden(socket *Socket, callback func(event *page.InterstitialHiddenEvent)) {
+func (Page) OnInterstitialHidden(
+	socket *Socket,
+	callback func(event *page.InterstitialHiddenEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Page.interstitialHidden",
 		func(name string, params []byte) {
@@ -563,7 +670,10 @@ func (Page) OnInterstitialHidden(socket *Socket, callback func(event *page.Inter
 OnInterstitialShown adds a handler to the Page.interstitialShown event. Page.interstitialShown fires
 when interstitial page was shown.
 */
-func (Page) OnInterstitialShown(socket *Socket, callback func(event *page.InterstitialShownEvent)) {
+func (Page) OnInterstitialShown(
+	socket *Socket,
+	callback func(event *page.InterstitialShownEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Page.interstitialShown",
 		func(name string, params []byte) {
@@ -583,7 +693,10 @@ OnJavascriptDialogClosed adds a handler to the Page.javascriptDialogClosed event
 Page.javascriptDialogClosed fires when a JavaScript initiated dialog (alert, confirm, prompt, or
 onbeforeunload) has been closed.
 */
-func (Page) OnJavascriptDialogClosed(socket *Socket, callback func(event *page.JavascriptDialogClosedEvent)) {
+func (Page) OnJavascriptDialogClosed(
+	socket *Socket,
+	callback func(event *page.JavascriptDialogClosedEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Page.javascriptDialogClosed",
 		func(name string, params []byte) {
@@ -603,7 +716,10 @@ OnJavascriptDialogOpening adds a handler to the Page.javascriptDialogOpening eve
 Page.javascriptDialogOpening fires when a JavaScript initiated dialog (alert, confirm, prompt, or
 onbeforeunload) is about to open.
 */
-func (Page) OnJavascriptDialogOpening(socket *Socket, callback func(event *page.JavascriptDialogOpeningEvent)) {
+func (Page) OnJavascriptDialogOpening(
+	socket *Socket,
+	callback func(event *page.JavascriptDialogOpeningEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Page.javascriptDialogOpening",
 		func(name string, params []byte) {
@@ -622,7 +738,10 @@ func (Page) OnJavascriptDialogOpening(socket *Socket, callback func(event *page.
 OnLifecycleEvent adds a handler to the Page.lifecycleEvent event. Page.lifecycleEvent fires for top
 level page lifecycle events such as navigation, load, paint, etc.
 */
-func (Page) OnLifecycleEvent(socket *Socket, callback func(event *page.LifecycleEventEvent)) {
+func (Page) OnLifecycleEvent(
+	socket *Socket,
+	callback func(event *page.LifecycleEventEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Page.lifecycleEvent",
 		func(name string, params []byte) {
@@ -641,7 +760,10 @@ func (Page) OnLifecycleEvent(socket *Socket, callback func(event *page.Lifecycle
 OnLoadEventFired adds a handler to the Page.loadEventFired event. Page.loadEventFired fires when the
 page has finished loading.
 */
-func (Page) OnLoadEventFired(socket *Socket, callback func(event *page.LoadEventFiredEvent)) {
+func (Page) OnLoadEventFired(
+	socket *Socket,
+	callback func(event *page.LoadEventFiredEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Page.loadEventFired",
 		func(name string, params []byte) {
@@ -660,7 +782,10 @@ func (Page) OnLoadEventFired(socket *Socket, callback func(event *page.LoadEvent
 OnScreencastFrame adds a handler to the Page.screencastFrame event. Page.screencastFrame fires when
 compressed image data is requested by the `startScreencast` method. EXPERIMENTAL
 */
-func (Page) OnScreencastFrame(socket *Socket, callback func(event *page.ScreencastFrameEvent)) {
+func (Page) OnScreencastFrame(
+	socket *Socket,
+	callback func(event *page.ScreencastFrameEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Page.screencastFrame",
 		func(name string, params []byte) {
@@ -680,7 +805,10 @@ OnScreencastVisibilityChanged adds a handler to the Page.screencastVisibilityCha
 Page.screencastVisibilityChanged fires when the page with currently enabled screencast was shown or
 hidden. EXPERIMENTAL
 */
-func (Page) OnScreencastVisibilityChanged(socket *Socket, callback func(event *page.ScreencastVisibilityChangedEvent)) {
+func (Page) OnScreencastVisibilityChanged(
+	socket *Socket,
+	callback func(event *page.ScreencastVisibilityChangedEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Page.screencastVisibilityChanged",
 		func(name string, params []byte) {
@@ -699,7 +827,10 @@ func (Page) OnScreencastVisibilityChanged(socket *Socket, callback func(event *p
 OnWindowOpen adds a handler to the Page.windowOpen event. Page.windowOpen fires when a new window is
 going to be opened, via window.open(), link click, form submission, etc.
 */
-func (Page) OnWindowOpen(socket *Socket, callback func(event *page.WindowOpenEvent)) {
+func (Page) OnWindowOpen(
+	socket *Socket,
+	callback func(event *page.WindowOpenEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Page.windowOpen",
 		func(name string, params []byte) {

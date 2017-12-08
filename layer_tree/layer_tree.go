@@ -13,6 +13,14 @@ type CompositingReasonsParams struct {
 }
 
 /*
+CompositingReasonsResult represents the result of calls to LayerTree.compositingReasons.
+*/
+type CompositingReasonsResult struct {
+	// A list of strings specifying reasons for the given layer to become composited.
+	CompositingReasons []string `json:"compositingReasons"`
+}
+
+/*
 LoadSnapshotParams represents LayerTree.loadSnapshot parameters.
 */
 type LoadSnapshotParams struct {
@@ -21,11 +29,27 @@ type LoadSnapshotParams struct {
 }
 
 /*
+LoadSnapshotResult represents the result of calls to LayerTree.loadSnapshot.
+*/
+type LoadSnapshotResult struct {
+	// The ID of the snapshot.
+	SnapshotID SnapshotID `json:"snapshotId"`
+}
+
+/*
 MakeSnapshotParams represents LayerTree.makeSnapshot parameters.
 */
 type MakeSnapshotParams struct {
 	// The ID of the layer.
 	LayerID LayerID `json:"layerId"`
+}
+
+/*
+MakeSnapshotResult represents the result of calls to LayerTree.makeSnapshot.
+*/
+type MakeSnapshotResult struct {
+	// The ID of the layer snapshot.
+	SnapshotID SnapshotID `json:"snapshotId"`
 }
 
 /*
@@ -43,6 +67,14 @@ type ProfileSnapshotParams struct {
 
 	// Optional. The clip rectangle to apply when replaying the snapshot.
 	ClipRect DOM.Rect `json:"clipRect,omitempty"`
+}
+
+/*
+ProfileSnapshotResult represents the result of calls to LayerTree.profileSnapshot.
+*/
+type ProfileSnapshotResult struct {
+	// The array of paint profiles, one per run.
+	Timings []PaintProfile `json:"timings"`
 }
 
 /*
@@ -71,11 +103,27 @@ type ReplaySnapshotParams struct {
 }
 
 /*
-ReplaySnapshotParams represents LayerTree.replaySnapshot parameters.
+ReplaySnapshotResult represents the result of calls to LayerTree.replaySnapshot.
 */
-type ReplaySnapshotParams struct {
+type ReplaySnapshotResult struct {
+	// A data: URL for resulting image.
+	DataURL string `json:"dataURL"`
+}
+
+/*
+SnapshotCommandLogParams represents LayerTree.snapshotCommandLog parameters.
+*/
+type SnapshotCommandLogParams struct {
 	// The ID of the layer snapshot.
 	SnapshotID SnapshotID `json:"snapshotId"`
+}
+
+/*
+SnapshotCommandLogResult represents the result of calls to LayerTree.snapshotCommandLog.
+*/
+type SnapshotCommandLogResult struct {
+	// The array of canvas function calls.
+	CommandLog []map[string]string `json:"commandLog"`
 }
 
 /*

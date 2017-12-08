@@ -5,11 +5,71 @@ import (
 )
 
 /*
+AddInspectedHeapObjectParams represents HeapProfiler.addInspectedHeapObject parameters.
+*/
+type AddInspectedHeapObjectParams struct {
+	// Heap snapshot object ID to be accessible by means of $x command line API.
+	HeapObjectID HeapSnapshotObjectID `json:"heapObjectId"`
+}
+
+/*
+GetHeapObjectIDParams represents HeapProfiler.getHeapObjectId parameters.
+*/
+type GetHeapObjectIDParams struct {
+	// Identifier of the object to get heap object ID for.
+	ObjectID Runtime.RemoteObjectID `json:"objectId"`
+}
+
+/*
+GetHeapObjectIDResult represents the result of calls to HeapProfiler.getHeapObjectId.
+*/
+type GetHeapObjectIDResult struct {
+	// Evaluation result.
+	Result Runtime.RemoteObject `json:"result"`
+}
+
+/*
+GetObjectByHeapObjectIDParams represents HeapProfiler.getObjectByHeapObjectId parameters.
+*/
+type GetObjectByHeapObjectIDParams struct {
+	// desc.
+	ObjectID HeapSnapshotObjectID `json:"objectId"`
+
+	// Optional. Symbolic group name that can be used to release multiple objects.
+	ObjectGroup string `json:"objectGroup,omitempty"`
+}
+
+/*
+GetSamplingProfileParams represents HeapProfiler.getSamplingProfile parameters.
+*/
+type GetSamplingProfileParams struct {
+	// Return the sampling profile being collected.
+	Profile SamplingHeapProfile `json:"profile"`
+}
+
+/*
+StartSamplingParams represents HeapProfiler.startSampling parameters.
+*/
+type StartSamplingParams struct {
+	// Optional. Average sample interval in bytes. Poisson distribution is used for the intervals.
+	// The default value is 32768 bytes.
+	SamplingInterval int `json:"samplingInterval,omitempty"`
+}
+
+/*
 StartTrackingHeapObjectsParams represents HeapProfiler.startTrackingHeapObjects parameters.
 */
 type StartTrackingHeapObjectsParams struct {
 	// Optional.
 	TrackAllocations bool `json:"trackAllocations,omitempty"`
+}
+
+/*
+StopSamplingParams represents HeapProfiler.stopSampling parameters.
+*/
+type StopSamplingParams struct {
+	// Recorded sampling heap profile.
+	Profile SamplingHeapProfile `json:"profile"`
 }
 
 /*
@@ -31,58 +91,6 @@ type TakeHeapSnapshotParams struct {
 }
 
 /*
-GetObjectByHeapObjectIDParams represents HeapProfiler.getObjectByHeapObjectId parameters.
-*/
-type GetObjectByHeapObjectIDParams struct {
-	// desc.
-	ObjectID HeapSnapshotObjectID `json:"objectId"`
-
-	// Optional. Symbolic group name that can be used to release multiple objects.
-	ObjectGroup string `json:"objectGroup,omitempty"`
-}
-
-/*
-AddInspectedHeapObjectParams represents HeapProfiler.addInspectedHeapObject parameters.
-*/
-type AddInspectedHeapObjectParams struct {
-	// Heap snapshot object ID to be accessible by means of $x command line API.
-	HeapObjectID HeapSnapshotObjectID `json:"heapObjectId"`
-}
-
-/*
-GetHeapObjectIDParams represents HeapProfiler.getHeapObjectId parameters.
-*/
-type GetHeapObjectIDParams struct {
-	// Identifier of the object to get heap object ID for.
-	ObjectID Runtime.RemoteObjectID `json:"objectId"`
-}
-
-/*
-StartSamplingParams represents HeapProfiler.startSampling parameters.
-*/
-type StartSamplingParams struct {
-	// Optional. Average sample interval in bytes. Poisson distribution is used for the intervals.
-	// The default value is 32768 bytes.
-	SamplingInterval int `json:"samplingInterval,omitempty"`
-}
-
-/*
-StopSamplingParams represents HeapProfiler.stopSampling parameters.
-*/
-type StopSamplingParams struct {
-	// Recorded sampling heap profile.
-	Profile SamplingHeapProfile `json:"profile"`
-}
-
-/*
-GetSamplingProfileParams represents HeapProfiler.getSamplingProfile parameters.
-*/
-type GetSamplingProfileParams struct {
-	// Return the sampling profile being collected.
-	Profile SamplingHeapProfile `json:"profile"`
-}
-
-/*
 AddHeapSnapshotChunkEvent represents DOM.addHeapSnapshotChunk event data.
 */
 type AddHeapSnapshotChunkEvent struct {
@@ -90,9 +98,25 @@ type AddHeapSnapshotChunkEvent struct {
 }
 
 /*
-ResetProfilesEvent represents DOM.resetProfiles event data.
+HeapStatsUpdateEvent represents DOM.heapStatsUpdate event data.
 */
-type ResetProfilesEvent struct{}
+type HeapStatsUpdateEvent struct {
+	// An array of triplets. Each triplet describes a fragment. The first integer is the fragment
+	// index, the second integer is a total count of objects for the fragment, the third integer is
+	// a total size of the objects for the fragment.
+	StatsUpdate []int `json:"statsUpdate"`
+}
+
+/*
+LastSeenObjectIDEvent represents DOM.lastSeenObjectId event data.
+*/
+type LastSeenObjectIDEvent struct {
+	//
+	LastSeenObjectID int `json:"lastSeenObjectId"`
+
+	//
+	Timestamp int `json:"timestamp"`
+}
 
 /*
 ReportHeapSnapshotProgressEvent represents DOM.reportHeapSnapshotProgress event data.
@@ -109,25 +133,9 @@ type ReportHeapSnapshotProgressEvent struct {
 }
 
 /*
-LastSeenObjectIDEvent represents DOM.lastSeenObjectId event data.
+ResetProfilesEvent represents DOM.resetProfiles event data.
 */
-type LastSeenObjectIDEvent struct {
-	//
-	LastSeenObjectID int `json:"lastSeenObjectId"`
-
-	//
-	Timestamp int `json:"timestamp"`
-}
-
-/*
-HeapStatsUpdateEvent represents DOM.heapStatsUpdate event data.
-*/
-type HeapStatsUpdateEvent struct {
-	// An array of triplets. Each triplet describes a fragment. The first integer is the fragment
-	// index, the second integer is a total count of objects for the fragment, the third integer is
-	// a total size of the objects for the fragment.
-	StatsUpdate []int `json:"statsUpdate"`
-}
+type ResetProfilesEvent struct{}
 
 /*
 HeapSnapshotObjectID is the heap snapshot object id.

@@ -1,6 +1,7 @@
 package Page
 
 import (
+	Debugger "app/chrome/debugger"
 	Runtime "app/chrome/runtime"
 	"fmt"
 )
@@ -13,11 +14,28 @@ type AddScriptToEvaluateOnLoadParams struct {
 }
 
 /*
+AddScriptToEvaluateOnLoadResult represents the result of calls to Page.addScriptToEvaluateOnLoad.
+*/
+type AddScriptToEvaluateOnLoadResult struct {
+	// Identifier of the added script.
+	Identifier ScriptIdentifier `json:"identifier"`
+}
+
+/*
 AddScriptToEvaluateOnNewDocumentParams represents Page.addScriptToEvaluateOnNewDocument
 parameters.
 */
 type AddScriptToEvaluateOnNewDocumentParams struct {
 	Source string `json:"source"`
+}
+
+/*
+AddScriptToEvaluateOnNewDocumentResult represents the result of calls to
+Page.addScriptToEvaluateOnNewDocument.
+*/
+type AddScriptToEvaluateOnNewDocumentResult struct {
+	// Identifier of the added script.
+	Identifier ScriptIdentifier `json:"identifier"`
 }
 
 /*
@@ -38,6 +56,14 @@ type CaptureScreenshotParams struct {
 }
 
 /*
+CaptureScreenshotResult represents the result of calls to Page.captureScreenshot.
+*/
+type CaptureScreenshotResult struct {
+	// Base64-encoded image data.
+	Data string `json:"data"`
+}
+
+/*
 CreateIsolatedWorldParams represents Page.createIsolatedWorld parameters.
 */
 type CreateIsolatedWorldParams struct {
@@ -50,6 +76,14 @@ type CreateIsolatedWorldParams struct {
 	// Optional. Whether or not universal access should be granted to the isolated world. This is a
 	// powerful option, use with caution.
 	GrantUniveralAccess bool `json:"grantUniveralAccess,omitempty"`
+}
+
+/*
+CreateIsolatedWorldResult represents the result of calls to Page.createIsolatedWorld.
+*/
+type CreateIsolatedWorldResult struct {
+	// Execution context of the isolated world.
+	ExecutionContextID Runtime.ExecutionContextID `json:"executionContextId"`
 }
 
 /*
@@ -67,17 +101,17 @@ type GetAppManifestParams struct {
 }
 
 /*
-GetFrameTreeParams represents Page.getFrameTree parameters.
+GetFrameTreeResult represents the result of calls to Page.getFrameTree.
 */
-type GetFrameTreeParams struct {
+type GetFrameTreeResult struct {
 	// Present frame tree structure.
 	FrameTree FrameTree `json:"frameTree"`
 }
 
 /*
-GetLayoutMetricsParams represents Page.getLayoutMetrics parameters.
+GetLayoutMetricsResult represents the result of calls to Page.getLayoutMetrics.
 */
-type GetLayoutMetricsParams struct {
+type GetLayoutMetricsResult struct {
 	// Metrics relating to the layout viewport.
 	LayoutViewport LayoutViewport `json:"layoutViewport"`
 
@@ -89,9 +123,9 @@ type GetLayoutMetricsParams struct {
 }
 
 /*
-GetNavigationHistoryParams represents Page.getNavigationHistory parameters.
+GetNavigationHistoryResult represents the result of calls to Page.getNavigationHistory.
 */
-type GetNavigationHistoryParams struct {
+type GetNavigationHistoryResult struct {
 	// Index of the current navigation history entry.
 	CurrentIndex int `json:"currentIndex"`
 
@@ -111,9 +145,20 @@ type GetResourceContentParams struct {
 }
 
 /*
-GetResourceTreeParams represents Page.getResourceTree parameters.
+GetResourceContentResult represents the result of calls to Page.getResourceContent.
 */
-type GetResourceTreeParams struct {
+type GetResourceContentResult struct {
+	// Resource content.
+	Content string `json:"content"`
+
+	// True, if content was served as base64.
+	Base64Encoded bool `json:"base64Encoded"`
+}
+
+/*
+GetResourceTreeResult represents the result of calls to Page.getResourceTree.
+*/
+type GetResourceTreeResult struct {
 	// Present frame / resource tree structure.
 	FrameTree FrameResourceTree `json:"frameTree"`
 }
@@ -142,6 +187,20 @@ type NavigateParams struct {
 
 	// Optional. Intended transition type.
 	TransitionType TransitionType `json:"transitionType,omitempty"`
+}
+
+/*
+NavigateResult represents the result of calls to Page.navigate.
+*/
+type NavigateResult struct {
+	// Frame ID that has navigated (or failed to navigate).
+	FrameID FrameID `json:"frameId"`
+
+	// Loader identifier.
+	LoaderID LoaderID `json:"loaderId"`
+
+	// User friendly error message, present if and only if navigation has failed.
+	ErrorText string `json:"errorText"`
 }
 
 /*
@@ -193,6 +252,14 @@ type PrintToPDFParams struct {
 	// Optional. Whether to silently ignore invalid but successfully parsed page ranges, such as
 	// '3-2'. Defaults to false.
 	IgnoreInvalidPageRanges bool `json:"ignoreInvalidPageRanges,omitempty"`
+}
+
+/*
+PrintToPDFResult represents the result of calls to Page.printToPDF.
+*/
+type PrintToPDFResult struct {
+	// Base64-encoded pdf data.
+	Data string `json:"data"`
 }
 
 /*
@@ -253,6 +320,14 @@ type SearchInResourceParams struct {
 
 	// Optional. If true, treats string parameter as regex.
 	IsRegex bool `json:"isRegex,omitempty"`
+}
+
+/*
+SearchInResourceResult represents the result of calls to Page.searchInResource.
+*/
+type SearchInResourceResult struct {
+	// List of search matches.
+	Result []Debugger.SearchMatch `json:"result"`
 }
 
 /*

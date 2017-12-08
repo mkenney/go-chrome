@@ -8,25 +8,25 @@ import (
 )
 
 /*
-CanClearBrowserCacheParams represents Network.canClearBrowserCache parameters.
+CanClearBrowserCacheResult represents the result of calls to Network.canClearBrowserCache.
 */
-type CanClearBrowserCacheParams struct {
+type CanClearBrowserCacheResult struct {
 	// True if browser cache can be cleared.
 	Result bool `json:"result"`
 }
 
 /*
-CanClearBrowserCookiesParams represents Network.canClearBrowserCookies parameters.
+CanClearBrowserCookiesResult represents the result of calls to Network.canClearBrowserCookies.
 */
-type CanClearBrowserCookiesParams struct {
+type CanClearBrowserCookiesResult struct {
 	// True if browser cookies can be cleared.
 	Result bool `json:"result"`
 }
 
 /*
-CanEmulateNetworkConditionsParams represents Network.canEmulateNetworkConditions parameters.
+CanEmulateNetworkConditionsResult represents the result of calls to Network.canEmulateNetworkConditions.
 */
-type CanEmulateNetworkConditionsParams struct {
+type CanEmulateNetworkConditionsResult struct {
 	// True if emulation of network conditions is supported.
 	Result bool `json:"result"`
 }
@@ -120,9 +120,9 @@ type EnableParams struct {
 }
 
 /*
-GetAllCookiesParams represents Network.getAllCookies parameters.
+GetAllCookiesResult represents the result of calls to Network.getAllCookies.
 */
-type GetAllCookiesParams struct {
+type GetAllCookiesResult struct {
 	// Array of cookie objects.
 	Cookies []Cookie `json:"cookies"`
 }
@@ -136,11 +136,26 @@ type GetCertificateParams struct {
 }
 
 /*
+GetCertificateResult represents the result of calls to Network.getCertificate.
+*/
+type GetCertificateResult struct {
+	TableNames []string `json:"tableNames"`
+}
+
+/*
 GetCookiesParams represents Network.getCookies parameters.
 */
 type GetCookiesParams struct {
 	// Optional. The list of URLs for which applicable cookies will be fetched.
 	URLs []string `json:"urls,omitempty"`
+}
+
+/*
+GetCookiesResult represents the result of calls to Network.getCookies.
+*/
+type GetCookiesResult struct {
+	// Array of cookie objects.
+	Cookies []Cookie `json:"cookies"`
 }
 
 /*
@@ -152,11 +167,34 @@ type GetResponseBodyParams struct {
 }
 
 /*
+GetResponseBodyResult represents the result of calls to Network.getResponseBody.
+*/
+type GetResponseBodyResult struct {
+	// Response body.
+	Body string `json:"body"`
+
+	// True, if content was sent as base64.
+	Base64Encoded bool `json:"base64Encoded"`
+}
+
+/*
 GetResponseBodyForInterceptionParams represents Network.getResponseBodyForInterception parameters.
 */
 type GetResponseBodyForInterceptionParams struct {
 	// Identifier for the intercepted request to get body for.
 	InterceptionID InterceptionID `json:"interceptionId"`
+}
+
+/*
+GetResponseBodyForInterceptionResult represents the result of calls to
+Network.getResponseBodyForInterception.
+*/
+type GetResponseBodyForInterceptionResult struct {
+	// Response body.
+	Body string `json:"body"`
+
+	// True, if content was sent as base64.
+	Base64Encoded bool `json:"base64Encoded"`
 }
 
 /*
@@ -182,6 +220,14 @@ type SearchInResponseBodyParams struct {
 
 	// Optional. If true, treats string parameter as regex.
 	IsRegex bool `json:"isRegex,omitempty"`
+}
+
+/*
+SearchInResponseBodyResult represents the result of calls to Network.searchInResponseBody.
+*/
+type SearchInResponseBodyResult struct {
+	// List of search matches.
+	Result []Debugger.SearchMatch `json:"result"`
 }
 
 /*
@@ -239,6 +285,14 @@ type SetCookieParams struct {
 
 	// Optional. Cookie expiration date, session cookie if not set.
 	Expires TimeSinceEpoch `json:"expires,omitempty"`
+}
+
+/*
+SetCookieResult represents the result of calls to Network.setCookie.
+*/
+type SetCookieResult struct {
+	// True if successfully set cookie.
+	Success bool `json:"success"`
 }
 
 /*

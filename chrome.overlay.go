@@ -16,182 +16,224 @@ type Overlay struct{}
 /*
 Disable disables domain notifications.
 */
-func (Overlay) Disable(socket *Socket) error {
+func (Overlay) Disable(
+	socket *Socket,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Overlay.disable",
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 Enable enables domain notifications.
 */
-func (Overlay) Enable(socket *Socket) error {
+func (Overlay) Enable(
+	socket *Socket,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Overlay.enable",
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 GetHighlightObjectForTest is for testing.
 */
-func (Overlay) GetHighlightObjectForTest(socket *Socket, params *overlay.GetHighlightObjectForTestParams) error {
+func (Overlay) GetHighlightObjectForTest(
+	socket *Socket,
+	params *overlay.GetHighlightObjectForTestParams,
+) (overlay.GetHighlightObjectForTestResult, error) {
 	command := &protocol.Command{
 		method: "Overlay.getHighlightObjectForTest",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return overlay.GetHighlightObjectForTestResult, command.Err
 }
 
 /*
 HideHighlight hides any highlight.
 */
-func (Overlay) HideHighlight(socket *Socket) error {
+func (Overlay) HideHighlight(
+	socket *Socket,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Overlay.hideHighlight",
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 HighlightFrame highlights owner element of the frame with given ID.
 */
-func (Overlay) HighlightFrame(socket *Socket, params *overlay.HighlightFrameParams) error {
+func (Overlay) HighlightFrame(
+	socket *Socket,
+	params *overlay.HighlightFrameParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Overlay.highlightFrame",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 HighlightNode highlights DOM node with given ID or with the given JavaScript object wrapper. Either
 nodeID or objectID must be specified.
 */
-func (Overlay) HighlightNode(socket *Socket, params *overlay.HighlightNodeParams) error {
+func (Overlay) HighlightNode(
+	socket *Socket,
+	params *overlay.HighlightNodeParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Overlay.highlightNode",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 HighlightQuad highlights given quad. Coordinates are absolute with respect to the main frame
 viewport.
 */
-func (Overlay) HighlightQuad(socket *Socket, params *overlay.HighlightQuadParams) error {
+func (Overlay) HighlightQuad(
+	socket *Socket,
+	params *overlay.HighlightQuadParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Overlay.highlightQuad",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 HighlightRect highlights given rectangle. Coordinates are absolute with respect to the main frame
 viewport.
 */
-func (Overlay) HighlightRect(socket *Socket, params *overlay.HighlightRectParams) error {
+func (Overlay) HighlightRect(
+	socket *Socket,
+	params *overlay.HighlightRectParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Overlay.highlightRect",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 SetInspectMode enters the 'inspect' mode. In this mode, elements that user is hovering over are
 highlighted. Backend then generates 'inspectNodeRequested' event upon element selection.
 */
-func (Overlay) SetInspectMode(socket *Socket, params *overlay.SetInspectModeParams) error {
+func (Overlay) SetInspectMode(
+	socket *Socket,
+	params *overlay.SetInspectModeParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Overlay.setInspectMode",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 SetPausedInDebuggerMessage sets the paused message
 */
-func (Overlay) SetPausedInDebuggerMessage(socket *Socket, params *overlay.SetPausedInDebuggerMessageParams) error {
+func (Overlay) SetPausedInDebuggerMessage(
+	socket *Socket,
+	params *overlay.SetPausedInDebuggerMessageParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Overlay.setPausedInDebuggerMessage",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 SetShowDebugBorders requests that backend shows debug borders on layers.
 */
-func (Overlay) SetShowDebugBorders(socket *Socket, params *overlay.SetShowDebugBordersParams) error {
+func (Overlay) SetShowDebugBorders(
+	socket *Socket,
+	params *overlay.SetShowDebugBordersParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Overlay.setShowDebugBorders",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 SetShowFPSCounter requests that backend shows the FPS counter.
 */
-func (Overlay) SetShowFPSCounter(socket *Socket, params *overlay.SetShowFPSCounterParams) error {
+func (Overlay) SetShowFPSCounter(
+	socket *Socket,
+	params *overlay.SetShowFPSCounterParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Overlay.setShowFPSCounter",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 SetShowScrollBottleneckRects requests that backend shows scroll bottleneck rects.
 */
-func (Overlay) SetShowScrollBottleneckRects(socket *Socket, params *overlay.SetShowScrollBottleneckRectsParams) error {
+func (Overlay) SetShowScrollBottleneckRects(
+	socket *Socket,
+	params *overlay.SetShowScrollBottleneckRectsParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Overlay.setShowScrollBottleneckRects",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 SetShowViewportSizeOnResize paints viewport size upon main frame resize.
 */
-func (Overlay) SetShowViewportSizeOnResize(socket *Socket, params *overlay.SetShowViewportSizeOnResizeParams) error {
+func (Overlay) SetShowViewportSizeOnResize(
+	socket *Socket,
+	params *overlay.SetShowViewportSizeOnResizeParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Overlay.setShowViewportSizeOnResize",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 SetSuspended sets the suspended state
 */
-func (Overlay) SetSuspended(socket *Socket, params *overlay.SetSuspendedParams) error {
+func (Overlay) SetSuspended(
+	socket *Socket,
+	params *overlay.SetSuspendedParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Overlay.setSuspended",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
@@ -199,7 +241,10 @@ OnInspectNodeRequested adds a handler to the Overlay.inspectNodeRequested event.
 Overlay.inspectNodeRequested fires when the node should be inspected. This happens after call to
 `setInspectMode` or when user manually inspects an element.
 */
-func (Overlay) OnInspectNodeRequested(socket *Socket, callback func(event *overlay.InspectNodeRequestedEvent)) {
+func (Overlay) OnInspectNodeRequested(
+	socket *Socket,
+	callback func(event *overlay.InspectNodeRequestedEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Overlay.inspectNodeRequested",
 		func(name string, params []byte) {
@@ -219,7 +264,10 @@ OnNodeHighlightRequested adds a handler to the Overlay.nodeHighlightRequested ev
 Overlay.nodeHighlightRequested fires when the node should be highlighted. This happens after call to
 `setInspectMode`.
 */
-func (Overlay) OnNodeHighlightRequested(socket *Socket, callback func(event *overlay.NodeHighlightRequestedEvent)) {
+func (Overlay) OnNodeHighlightRequested(
+	socket *Socket,
+	callback func(event *overlay.NodeHighlightRequestedEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Overlay.nodeHighlightRequested",
 		func(name string, params []byte) {
@@ -238,7 +286,10 @@ func (Overlay) OnNodeHighlightRequested(socket *Socket, callback func(event *ove
 OnScreenshotRequested adds a handler to the Overlay.screenshotRequested event.
 Overlay.screenshotRequested fires when user asks to capture screenshot of some area on the page.
 */
-func (Overlay) OnScreenshotRequested(socket *Socket, callback func(event *overlay.ScreenshotRequestedEvent)) {
+func (Overlay) OnScreenshotRequested(
+	socket *Socket,
+	callback func(event *overlay.ScreenshotRequestedEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Overlay.screenshotRequested",
 		func(name string, params []byte) {

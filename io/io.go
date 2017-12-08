@@ -1,5 +1,9 @@
 package IO
 
+import (
+	Runtime "app/chrome/runtime"
+)
+
 /*
 CloseParams represents IO.close parameters.
 */
@@ -24,11 +28,33 @@ type ReadParams struct {
 }
 
 /*
+ReadResult represents the result of calls to IO.read.
+*/
+type ReadResult struct {
+	// Set if the data is base64-encoded.
+	Base64Encoded bool `json:"base64Encoded"`
+
+	// Data that were read.
+	Data string `json:"data"`
+
+	// Set if the end-of-file condition occured while reading.
+	EOF bool `json:"eof"`
+}
+
+/*
 ResolveBlobParams represents IO.resolveBlob parameters.
 */
 type ResolveBlobParams struct {
 	// Object ID of a Blob object wrapper.
 	ObjectID Runtime.RemoteObjectID `json:"objectId"`
+}
+
+/*
+ResolveBlobResult represents the result of calls to IO.resolveBlob.
+*/
+type ResolveBlobResult struct {
+	// UUID of the specified Blob.
+	UUID string `json:"uuid"`
 }
 
 /*

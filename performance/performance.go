@@ -12,9 +12,9 @@ type Metric struct {
 }
 
 /*
-GetMetricsParams represents Performance.getMetrics parameters.
+GetMetricsResult represents the result of calls to Performance.getMetrics.
 */
-type GetMetricsParams struct {
+type GetMetricsResult struct {
 	// Current values for run-time metrics.
 	Metrics []Metric `json:"metrics"`
 }

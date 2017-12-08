@@ -15,6 +15,14 @@ type GetHighlightObjectForTestParams struct {
 }
 
 /*
+GetHighlightObjectForTestResult represents the result of calls to Overlay.getHighlightObjectForTest.
+*/
+type GetHighlightObjectForTestResult struct {
+	// Highlight data for the node.
+	Highlight map[string]string `json:"highlight"`
+}
+
+/*
 HighlightFrameParams represents Overlay.highlightFrame parameters.
 */
 type HighlightFrameParams struct {
