@@ -24,10 +24,10 @@ guaranteed for the capabilities it introduces.
 
 Resources
 
-* chrome-debugging-protocol mailing list https://groups.google.com/d/forum/chrome-debugging-protocol
-* devtools-protocol repo issue tracker https://github.com/chromedevtools/devtools-protocol
-* Getting Started with Headless Chrome https://developers.google.com/web/updates/2017/04/headless-chrome
-* Headless Chromium readme https://chromium.googlesource.com/chromium/src/+/lkgr/headless/README.md
+ * chrome-debugging-protocol mailing list https://groups.google.com/d/forum/chrome-debugging-protocol
+ * devtools-protocol repo issue tracker https://github.com/chromedevtools/devtools-protocol
+ * Getting Started with Headless Chrome https://developers.google.com/web/updates/2017/04/headless-chrome
+ * Headless Chromium readme https://chromium.googlesource.com/chromium/src/+/lkgr/headless/README.md
 
 The chrome-remote-interface node module is recommended, and its wiki and issue tracker are full of
 useful recipes.
