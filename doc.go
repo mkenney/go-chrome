@@ -2,7 +2,11 @@
 Package chrome aims to be a complete Chrome DevTools Protocol Viewer implementation
 https://chromedevtools.github.io/devtools-protocol/
 
-From the documentation:
+Work in progress
+
+You should probably ignore this for now
+
+From the official documentation
 
 The Chrome DevTools Protocol allows for tools to instrument, inspect, debug and profile Chromium,
 Chrome and other Blink-based browsers. Many existing projects currently use the protocol. The Chrome
