@@ -106,7 +106,7 @@ type DispatchTouchEventParams struct {
 
 	// Optional. Bit field representing pressed modifier keys. Alt=1, Ctrl=2, Meta/Command=4,
 	// Shift=8 (default: 0).
-	Modifiers integer `json:"modifiers,omitempty"`
+	Modifiers int `json:"modifiers,omitempty"`
 
 	// Optional. Time at which the event occurred.
 	Timestamp TimeSinceEpoch `json:"timestamp,omitempty"`
@@ -120,10 +120,10 @@ type EmulateTouchFromMouseEventParams struct {
 	Type string `json:"type"`
 
 	// X coordinate of the mouse pointer in DIP.
-	X integer `json:"x"`
+	X int `json:"x"`
 
 	// Y coordinate of the mouse pointer in DIP.
-	Y integer `json:"y"`
+	Y int `json:"y"`
 
 	// Time at which the event occurred.
 	Timestamp TimeSinceEpoch `json:"timestamp"`
@@ -158,10 +158,10 @@ SynthesizePinchGestureParams represents Input.synthesizePinchGesture parameters.
 */
 type SynthesizePinchGestureParams struct {
 	// X coordinate of the start of the gesture in CSS pixels.
-	X number `json:"x"`
+	X float64 `json:"x"`
 
 	// Y coordinate of the start of the gesture in CSS pixels.
-	Y number `json:"y"`
+	Y float64 `json:"y"`
 
 	// Relative scale factor after zooming (>1.0 zooms in, <1.0 zooms out).
 	ScaleFactor int `json:"scaleFactor"`

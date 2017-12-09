@@ -50,8 +50,8 @@ type Socket struct {
 	cmdID      int
 	cmdMutex   sync.Mutex
 	eventMutex sync.Mutex
-	events     map[string][]EventHandlerInterface // key is event name.
-	commands   map[int]CommandIface               // key is id.
+	events     map[string][]protocol.EventHandlerInterface // key is event name.
+	commands   map[int]protocol.CommandIface               // key is id.
 	conn       *websocket.Conn
 }
 

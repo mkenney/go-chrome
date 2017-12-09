@@ -15,9 +15,9 @@ import (
 )
 
 /*
-Browser is a struct that manages the Chrome process
+Chrome is a struct that manages the Chrome process
 */
-type Browser struct {
+type Chrome struct {
 	Address string
 	Output  *os.File
 	Port    int
@@ -38,10 +38,10 @@ type Version struct {
 	WebSocketDebuggerURL string `json:"webSocketDebuggerUrl"`
 }
 
-var browserInstance *Browser
+var browserInstance *Chrome
 
 /*
-Launch launches the Chrome process and returns the connected Browser struct
+Launch launches the Chrome process and returns the connected Chrome struct
 */
 func Launch(port int, address, proxy, binary string) error {
 	if 0 == port {
@@ -92,7 +92,7 @@ func Launch(port int, address, proxy, binary string) error {
 		return err
 	}
 
-	browserInstance = &Browser{
+	browserInstance = &Chrome{
 		Address: address,
 		Output:  output,
 		Port:    port,
@@ -112,9 +112,9 @@ func Launch(port int, address, proxy, binary string) error {
 }
 
 /*
-GetBrowser returns the current Chrome process
+GetChrome returns the current Chrome process
 */
-func GetBrowser() (*Browser, error) {
+func GetChrome() (*Chrome, error) {
 	if nil == browserInstance {
 		err := Launch(0, "", "", "")
 		if nil != err {
@@ -127,7 +127,7 @@ func GetBrowser() (*Browser, error) {
 /*
 Close ends the Chrome process and cleans up
 */
-func (b *Browser) Close() error {
+func (b *Chrome) Close() error {
 	if b.Process != nil {
 		if err := b.Process.Signal(os.Interrupt); err != nil {
 			return err
@@ -148,7 +148,7 @@ func (b *Browser) Close() error {
 NewSocket returns a new websocket connected to the Chrome instance for sending
 commands through
 */
-func (b *Browser) NewSocket() (*Socket, error) {
+func (b *Chrome) NewSocket() (*Socket, error) {
 	tabs, err := b.GetTabs()
 	if nil != err {
 		log.Fatal(err)
@@ -160,7 +160,7 @@ func (b *Browser) NewSocket() (*Socket, error) {
 GetTab returns a web socket connected to an existing tab in the chrome instance
 for sending commands
 */
-func (b *Browser) GetTab(tabID string) (tab *Tab, err error) {
+func (b *Chrome) GetTab(tabID string) (tab *Tab, err error) {
 	for _, tab = range b.Tabs {
 		if tab.ID == tabID {
 			return tab, nil
@@ -174,16 +174,16 @@ func (b *Browser) GetTab(tabID string) (tab *Tab, err error) {
 GetTabs returns an array of Tab structs representing open tabs in the Chrome
 instance
 */
-func (b *Browser) GetTabs() ([]*Tab, error) {
+func (b *Chrome) GetTabs() ([]*Tab, error) {
 	_, err := b.Cmd("/json/list", url.Values{}, &b.Tabs)
 	return b.Tabs, err
 }
 
-func (b *Browser) checkVersion() error {
+func (b *Chrome) checkVersion() error {
 	if _, err := b.Cmd("/json/version", url.Values{}, &b.Version); err != nil {
 		return err
 	}
-	log.Infof("Browser protocol version: %s", b.Version.ProtocolVersion)
+	log.Infof("Chrome protocol version: %s", b.Version.ProtocolVersion)
 	return nil
 }
 
@@ -191,7 +191,7 @@ func (b *Browser) checkVersion() error {
 Cmd queries the developer tools endpoints and returns JSON data in the
 provided struct
 */
-func (b *Browser) Cmd(path string, params url.Values, msg interface{}) (interface{}, error) {
+func (b *Chrome) Cmd(path string, params url.Values, msg interface{}) (interface{}, error) {
 	if len(params) > 0 {
 		path += fmt.Sprintf("?%s", params.Encode())
 	}

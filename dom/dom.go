@@ -183,13 +183,13 @@ GetNodeForLocationParams represents DOM.getNodeForLocation parameters.
 */
 type GetNodeForLocationParams struct {
 	// X coordinate.
-	X integer `json:"x"`
+	X int `json:"x"`
 
 	// Y coordinate.
-	Y integer `json:"y"`
+	Y int `json:"y"`
 
 	// Optional. False to skip to the nearest non-UA shadow root ancestor (default: false).
-	IncludeUserAgentShadowDOM boolean `json:"includeUserAgentShadowDOM,omitempty"`
+	IncludeUserAgentShadowDOM bool `json:"includeUserAgentShadowDOM,omitempty"`
 }
 
 /*
@@ -246,10 +246,10 @@ type GetSearchResultsParams struct {
 	SearchID string `json:"searchId"`
 
 	// Start index of the search result to be returned.
-	FromIndex integer `json:"fromIndex"`
+	FromIndex int `json:"fromIndex"`
 
 	// End index of the search result to be returned.
-	ToIndex integer `json:"toIndex"`
+	ToIndex int `json:"toIndex"`
 }
 
 /*
