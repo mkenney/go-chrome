@@ -27,7 +27,7 @@ func (HeadlessExperimental) BeginFrame(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return headless_experimental.BeginFrameResult, command.Err
+	return command.Result.(headless_experimental.BeginFrameResult), command.Err
 }
 
 /*

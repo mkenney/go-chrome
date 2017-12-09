@@ -13,11 +13,13 @@ type SystemInfo struct{}
 /*
 GetInfo returns information about the system.
 */
-func (SystemInfo) GetInfo(socket *Socket, params *system_info.GetInfoParams) error {
+func (SystemInfo) GetInfo(
+	socket *Socket,
+) (system_info.GetInfoResult, error) {
 	command := &protocol.Command{
 		method: "SystemInfo.getInfo",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return command.Result.(system_info.GetInfoResult), command.Err
 }

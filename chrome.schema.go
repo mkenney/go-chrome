@@ -13,10 +13,12 @@ type Schema struct{}
 /*
 GetDomains returns supported domains.
 */
-func (Schema) GetDomains(socket *Socket) error {
+func (Schema) GetDomains(
+	socket *Socket,
+) (schema.GetDomainsResult, error) {
 	command := &protocol.Command{
 		method: "Schema.getDomains",
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return command.Result.(schema.GetDomainsResult), command.Err
 }

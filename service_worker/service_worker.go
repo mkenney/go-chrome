@@ -116,8 +116,6 @@ type WorkerVersionUpdatedEvent struct {
 	Versions []ServiceWorkerVersion `json:"versions"`
 }
 
-////////////////
-
 /*
 ServiceWorkerRegistration is a ServiceWorker registration.
 */

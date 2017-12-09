@@ -20,7 +20,7 @@ func (IndexedDB) ClearObjectStore(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return indexed_db.ClearObjectStoreResult, command.Err
+	return command.Result.(indexed_db.ClearObjectStoreResult), command.Err
 }
 
 /*
@@ -76,7 +76,7 @@ func (IndexedDB) RequestData(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return indexed_db.RequestDataResult, command.Err
+	return command.Result.(indexed_db.RequestDataResult), command.Err
 }
 
 /*
@@ -91,7 +91,7 @@ func (IndexedDB) RequestDatabase(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return indexed_db.RequestDatabaseResult, command.Err
+	return command.Result.(indexed_db.RequestDatabaseResult), command.Err
 }
 
 /*
@@ -106,5 +106,5 @@ func (IndexedDB) RequestDatabaseNames(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return indexed_db.RequestDatabaseNamesResult, command.Err
+	return command.Result.(indexed_db.RequestDatabaseNamesResult), command.Err
 }

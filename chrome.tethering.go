@@ -16,32 +16,41 @@ type Tethering struct{}
 /*
 Bind requests browser port binding.
 */
-func (Tethering) Bind(socket *Socket, params *tethering.BindParams) error {
+func (Tethering) Bind(
+	socket *Socket,
+	params *tethering.BindParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Tethering.bind",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 Unbind requests browser port unbinding.
 */
-func (Tethering) Unbind(socket *Socket, params *tethering.UnbindParams) error {
+func (Tethering) Unbind(
+	socket *Socket,
+	params *tethering.UnbindParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Tethering.unbind",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 OnAccepted adds a handler to the Tethering.accepted event. Tethering.accepted fires when a port was
 successfully bound and got a specified connection id.
 */
-func (Tethering) OnAccepted(socket *Socket, callback func(event *tethering.AcceptedEvent)) {
+func (Tethering) OnAccepted(
+	socket *Socket,
+	callback func(event *tethering.AcceptedEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Tethering.accepted",
 		func(name string, params []byte) {

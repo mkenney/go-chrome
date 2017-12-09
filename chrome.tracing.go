@@ -16,67 +16,80 @@ type Tracing struct{}
 /*
 End stops trace events collection.
 */
-func (Tracing) End(socket *Socket) error {
+func (Tracing) End(
+	socket *Socket,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Tracing.end",
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 GetCategories gets supported tracing categories.
 */
-func (Tracing) GetCategories(socket *Socket, params *tracing.GetCategoriesParams) error {
+func (Tracing) GetCategories(
+	socket *Socket,
+) (tracing.GetCategoriesResult, error) {
 	command := &protocol.Command{
 		method: "Tracing.getCategories",
-		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return command.Result.(tracing.GetCategoriesResult), command.Err
 }
 
 /*
 RecordClockSyncMarker records a clock sync marker in the trace.
 */
-func (Tracing) RecordClockSyncMarker(socket *Socket, params *tracing.RecordClockSyncMarkerParams) error {
+func (Tracing) RecordClockSyncMarker(
+	socket *Socket,
+	params *tracing.RecordClockSyncMarkerParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Tracing.recordClockSyncMarker",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 RequestMemoryDump requests a global memory dump.
 */
-func (Tracing) RequestMemoryDump(socket *Socket, params *tracing.RequestMemoryDumpParams) error {
+func (Tracing) RequestMemoryDump(
+	socket *Socket,
+) (tracing.GetCategoriesResult, error) {
 	command := &protocol.Command{
 		method: "Tracing.requestMemoryDump",
-		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return command.Result.(tracing.GetCategoriesResult), command.Err
 }
 
 /*
 Start starts trace events collection.
 */
-func (Tracing) Start(socket *Socket, params *tracing.StartParams) error {
+func (Tracing) Start(
+	socket *Socket,
+	params *tracing.StartParams,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Tracing.start",
 		params: params,
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 OnBufferUsage adds a handler to the Tracing.bufferUsage event. Tracing.bufferUsage fires when a
 buffer is used.
 */
-func (Tracing) OnBufferUsage(socket *Socket, callback func(event *tracing.BufferUsageEvent)) {
+func (Tracing) OnBufferUsage(
+	socket *Socket,
+	callback func(event *tracing.BufferUsageEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Tracing.bufferUsage",
 		func(name string, params []byte) {
@@ -96,7 +109,10 @@ OnDataCollected adds a handler to the Tracing.dataCollected event. Tracing.dataC
 tracing is stopped, collected events will be sent as a sequence of dataCollected events followed by
 tracingComplete event. Contains an bucket of collected trace events.
 */
-func (Tracing) OnDataCollected(socket *Socket, callback func(event *tracing.DataCollectedEvent)) {
+func (Tracing) OnDataCollected(
+	socket *Socket,
+	callback func(event *tracing.DataCollectedEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Tracing.dataCollected",
 		func(name string, params []byte) {
@@ -116,7 +132,10 @@ OnTracingComplete adds a handler to the Tracing.tracingComplete event. Tracing.t
 tracing is stopped and there is no trace buffers pending flush, all data were delivered via
 dataCollected events.
 */
-func (Tracing) OnTracingComplete(socket *Socket, callback func(event *tracing.TracingCompleteEvent)) {
+func (Tracing) OnTracingComplete(
+	socket *Socket,
+	callback func(event *tracing.TracingCompleteEvent),
+) {
 	handler := protocol.NewEventHandler(
 		"Tracing.tracingComplete",
 		func(name string, params []byte) {

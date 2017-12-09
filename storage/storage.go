@@ -24,6 +24,20 @@ type GetUsageAndQuotaParams struct {
 }
 
 /*
+GetUsageAndQuotaResult represents the result of calls to Storage.getUsageAndQuota.
+*/
+type GetUsageAndQuotaResult struct {
+	// Storage usage (bytes).
+	Usage float64 `json:"usage"`
+
+	// Storage quota (bytes).
+	Quota float64 `json:"quota"`
+
+	// Storage usage per type (bytes).
+	UsageBreakdown []UsageForType `json:"usageBreakdown"`
+}
+
+/*
 TrackCacheStorageForOriginParams represents Storage.trackCacheStorageForOrigin parameters.
 */
 type TrackCacheStorageForOriginParams struct {

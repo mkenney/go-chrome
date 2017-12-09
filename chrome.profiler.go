@@ -50,7 +50,7 @@ func (Profiler) GetBestEffortCoverage(
 		method: "Profiler.getBestEffortCoverage",
 	}
 	socket.SendCommand(command)
-	return Profiler.GetBestEffortCoverageResult, command.Err
+	return command.Result.(Profiler.GetBestEffortCoverageResult), command.Err
 }
 
 /*
@@ -122,7 +122,7 @@ func (Profiler) Stop(
 		method: "Profiler.stop",
 	}
 	socket.SendCommand(command)
-	return Profiler.StopResult, command.Err
+	return command.Result.(Profiler.StopResult), command.Err
 }
 
 /*
@@ -164,7 +164,7 @@ func (Profiler) TakePreciseCoverage(
 		method: "Profiler.takePreciseCoverage",
 	}
 	socket.SendCommand(command)
-	return Profiler.TakePreciseCoverageResult, command.Err
+	return command.Result.(Profiler.TakePreciseCoverageResult), command.Err
 }
 
 /*
@@ -177,7 +177,7 @@ func (Profiler) TakeTypeProfile(
 		method: "Profiler.takeTypeProfile",
 	}
 	socket.SendCommand(command)
-	return Profiler.TakeTypeProfileResult, command.Err
+	return command.Result.(Profiler.TakeTypeProfileResult), command.Err
 }
 
 /*

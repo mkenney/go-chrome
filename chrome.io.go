@@ -38,7 +38,7 @@ func (IO) Read(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return io.ReadResult, command.Err
+	return command.Result.(io.ReadResult), command.Err
 }
 
 /*
@@ -53,5 +53,5 @@ func (IO) ResolveBlob(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return io.ResolveBlobResult, command.Err
+	return command.Result.(io.ResolveBlobResult), command.Err
 }

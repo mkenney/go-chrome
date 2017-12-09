@@ -24,7 +24,7 @@ func (Network) CanClearBrowserCache(
 		method: "Network.canClearBrowserCache",
 	}
 	socket.SendCommand(command)
-	return netowrk.CanClearBrowserCacheResult, command.Err
+	return command.Result.(netowrk.CanClearBrowserCacheResult), command.Err
 }
 
 /*
@@ -37,7 +37,7 @@ func (Network) CanClearBrowserCookies(
 		method: "Network.canClearBrowserCookies",
 	}
 	socket.SendCommand(command)
-	return netowrk.CanClearBrowserCookiesResult, command.Err
+	return command.Result.(netowrk.CanClearBrowserCookiesResult), command.Err
 }
 
 /*
@@ -50,7 +50,7 @@ func (Network) CanEmulateNetworkConditions(
 		method: "Network.canEmulateNetworkConditions",
 	}
 	socket.SendCommand(command)
-	return netowrk.CanEmulateNetworkConditionsResult, command.Err
+	return command.Result.(netowrk.CanEmulateNetworkConditionsResult), command.Err
 }
 
 /*
@@ -166,7 +166,7 @@ func (Network) GetAllCookies(
 		method: "Network.getAllCookies",
 	}
 	socket.SendCommand(command)
-	return netowrk.GetAllCookiesResult, command.Err
+	return command.Result.(netowrk.GetAllCookiesResult), command.Err
 }
 
 /*
@@ -181,7 +181,7 @@ func (Network) GetCertificate(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return netowrk.GetCertificateResult, command.Err
+	return command.Result.(netowrk.GetCertificateResult), command.Err
 }
 
 /*
@@ -197,7 +197,7 @@ func (Network) GetCookies(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return netowrk.GetCookiesResult, command.Err
+	return command.Result.(netowrk.GetCookiesResult), command.Err
 }
 
 /*
@@ -212,7 +212,7 @@ func (Network) GetResponseBody(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return netowrk.GetResponseBodyResult, command.Err
+	return command.Result.(netowrk.GetResponseBodyResult), command.Err
 }
 
 /*
@@ -228,7 +228,7 @@ func (Network) GetResponseBodyForInterception(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return netowrk.GetResponseBodyForInterceptionResult, command.Err
+	return command.Result.(netowrk.GetResponseBodyForInterceptionResult), command.Err
 }
 
 /*
@@ -260,7 +260,7 @@ func (Network) SearchInResponseBody(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return netowrk.SearchInResponseBodyResult, command.Err
+	return command.Result.(netowrk.SearchInResponseBodyResult), command.Err
 }
 
 /*
@@ -320,7 +320,7 @@ func (Network) SetCookie(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return netowrk.SetCookieResult, command.Err
+	return command.Result.(netowrk.SetCookieResult), command.Err
 }
 
 /*

@@ -51,7 +51,7 @@ func (Overlay) GetHighlightObjectForTest(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return overlay.GetHighlightObjectForTestResult, command.Err
+	return command.Result.(overlay.GetHighlightObjectForTestResult), command.Err
 }
 
 /*

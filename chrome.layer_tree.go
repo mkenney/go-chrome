@@ -25,7 +25,7 @@ func (LayerTree) CompositingReasons(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return layer_tree.CompositingReasonsResult, command.Err
+	return command.Result.(layer_tree.CompositingReasonsResult), command.Err
 }
 
 /*
@@ -68,7 +68,7 @@ func (LayerTree) LoadSnapshot(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return layer_tree.LoadSnapshotResult, command.Err
+	return command.Result.(layer_tree.LoadSnapshotResult), command.Err
 }
 
 /*
@@ -83,7 +83,7 @@ func (LayerTree) MakeSnapshot(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return layer_tree.MakeSnapshotResult, command.Err
+	return command.Result.(layer_tree.MakeSnapshotResult), command.Err
 }
 
 /*
@@ -98,7 +98,7 @@ func (LayerTree) ProfileSnapshot(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return layer_tree.ProfileSnapshotResult, command.Err
+	return command.Result.(layer_tree.ProfileSnapshotResult), command.Err
 }
 
 /*
@@ -128,7 +128,7 @@ func (LayerTree) ReplaySnapshot(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return layer_tree.ReplaySnapshotResult, command.Err
+	return command.Result.(layer_tree.ReplaySnapshotResult), command.Err
 }
 
 /*
@@ -143,7 +143,7 @@ func (LayerTree) SnapshotCommandLog(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return layer_tree.SnapshotCommandLogResult, command.Err
+	return command.Result.(layer_tree.SnapshotCommandLogResult), command.Err
 }
 
 /*

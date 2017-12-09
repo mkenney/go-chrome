@@ -26,7 +26,7 @@ func (Page) AddScriptToEvaluateOnLoad(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return Page.AddScriptToEvaluateOnLoadResult, command.Err
+	return command.Result.(Page.AddScriptToEvaluateOnLoadResult), command.Err
 }
 
 /*
@@ -42,7 +42,7 @@ func (Page) AddScriptToEvaluateOnNewDocument(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return Page.AddScriptToEvaluateOnNewDocumentResult, command.Err
+	return command.Result.(Page.AddScriptToEvaluateOnNewDocumentResult), command.Err
 }
 
 /*
@@ -70,7 +70,7 @@ func (Page) CaptureScreenshot(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return Page.CaptureScreenshotResult, command.Err
+	return command.Result.(Page.CaptureScreenshotResult), command.Err
 }
 
 /*
@@ -85,7 +85,7 @@ func (Page) CreateIsolatedWorld(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return Page.CreateIsolatedWorldResult, command.Err
+	return command.Result.(Page.CreateIsolatedWorldResult), command.Err
 }
 
 /*
@@ -139,7 +139,7 @@ func (Page) GetFrameTree(
 		method: "Page.getFrameTree",
 	}
 	socket.SendCommand(command)
-	return Page.GetFrameTreeResult, command.Err
+	return command.Result.(Page.GetFrameTreeResult), command.Err
 }
 
 /*
@@ -153,7 +153,7 @@ func (Page) GetLayoutMetrics(
 		method: "Page.getLayoutMetrics",
 	}
 	socket.SendCommand(command)
-	return Page.GetLayoutMetricsResult, command.Err
+	return command.Result.(Page.GetLayoutMetricsResult), command.Err
 }
 
 /*
@@ -166,7 +166,7 @@ func (Page) GetNavigationHistory(
 		method: "Page.getNavigationHistory",
 	}
 	socket.SendCommand(command)
-	return Page.GetNavigationHistoryResult, command.Err
+	return command.Result.(Page.GetNavigationHistoryResult), command.Err
 }
 
 /*
@@ -181,7 +181,7 @@ func (Page) GetResourceContent(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return Page.GetResourceContentResult, command.Err
+	return command.Result.(Page.GetResourceContentResult), command.Err
 }
 
 /*
@@ -194,7 +194,7 @@ func (Page) GetResourceTree(
 		method: "Page.getResourceTree",
 	}
 	socket.SendCommand(command)
-	return Page.GetResourceTreeResult, command.Err
+	return command.Result.(Page.GetResourceTreeResult), command.Err
 }
 
 /*
@@ -225,7 +225,7 @@ func (Page) Navigate(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return Page.NavigateResult, command.Err
+	return command.Result.(Page.NavigateResult), command.Err
 }
 
 /*
@@ -255,7 +255,7 @@ func (Page) PrintToPDF(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return Page.PrintToPDFResult, command.Err
+	return command.Result.(Page.PrintToPDFResult), command.Err
 }
 
 /*
@@ -347,7 +347,7 @@ func (Page) SearchInResource(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return Page.SearchInResourceResult, command.Err
+	return command.Result.(Page.SearchInResourceResult), command.Err
 }
 
 /*

@@ -5,41 +5,6 @@ import (
 )
 
 /*
-EvaluateParams represents Runtime.evaluate parameters.
-*/
-type EvaluateParams struct {
-	// Expression to evaluate.
-	Expression string `json:"expression"`
-
-	// Optional. Symbolic group name that can be used to release multiple objects.
-	ObjectGroup string `json:"objectGroup,omitempty"`
-
-	// Optional. Determines whether Command Line API should be available during the evaluation.
-	IncludeCommandLineAPI bool `json:"includeCommandLineAPI,omitempty"`
-
-	// Optional. In silent mode exceptions thrown during evaluation are not reported and do not pause
-	// execution. Overrides setPauseOnException state.
-	Silent bool `json:"silent,omitempty"`
-
-	// Optional. Specifies in which execution context to perform evaluation. If the parameter is omitted the
-	// evaluation will be performed in the context of the inspected page.
-	ContextID ExecutionContextID `json:"contextId,omitempty"`
-
-	// Optional. Whether the result is expected to be a JSON object that should be sent by value.
-	ReturnByValue bool `json:"returnByValue,omitempty"`
-
-	// Optional. Whether preview should be generated for the result. EXPERIMENTAL
-	GeneratePreview bool `json:"generatePreview,omitempty"`
-
-	// Optional. Whether execution should be treated as initiated by user in the UI.
-	UserGesture bool `json:"userGesture,omitempty"`
-
-	// Optional. Whether execution should await for resulting value and return once awaited promise is
-	// resolved.
-	AwaitPromise bool `json:"awaitPromise,omitempty"`
-}
-
-/*
 AwaitPromiseParams represents Runtime.awaitPromise parameters.
 */
 type AwaitPromiseParams struct {
@@ -51,6 +16,17 @@ type AwaitPromiseParams struct {
 
 	// Optional. Whether preview should be generated for the result.
 	GeneratePreview bool `json:"generatePreview,omitempty"`
+}
+
+/*
+AwaitPromiseResult represents the result of calls to Runtime.awaitPromise.
+*/
+type AwaitPromiseResult struct {
+	// Promise result. Will contain rejected value if promise was rejected.
+	Result RemoteObject `json:"result"`
+
+	// Exception details if stack strace is available.
+	ExceptionDetails ExceptionDetails `json:"exceptionDetails"`
 }
 
 /*
@@ -95,6 +71,92 @@ type CallFunctionOnParams struct {
 }
 
 /*
+CallFunctionOnResult represents the result of calls to Runtime.callFunctionOn.
+*/
+type CallFunctionOnResult struct {
+	// Call result.
+	Result RemoteObject `json:"result"`
+
+	// Exception details.
+	ExceptionDetails ExceptionDetails `json:"exceptionDetails"`
+}
+
+/*
+CompileScriptParams represents Runtime.compileScript parameters.
+*/
+type CompileScriptParams struct {
+	// Expression to compile.
+	Expression string `json:"expression"`
+
+	// Source url to be set for the script.
+	SourceURL string `json:"sourceURL"`
+
+	// Specifies whether the compiled script should be persisted.
+	PersistScript bool `json:"persistScript"`
+
+	// Optional. Specifies in which execution context to perform script run. If the parameter is
+	// omitted the evaluation will be performed in the context of the inspected page.
+	ExecutionContextID ExecutionContextID `json:"executionContextId,omitempty"`
+}
+
+/*
+CompileScriptResult represents the result of calls to Runtime.compileScript.
+*/
+type CompileScriptResult struct {
+	// ID of the script.
+	ScriptID ScriptID `json:"scriptId"`
+
+	// Exception details.
+	ExceptionDetails ExceptionDetails `json:"exceptionDetails"`
+}
+
+/*
+EvaluateParams represents Runtime.evaluate parameters.
+*/
+type EvaluateParams struct {
+	// Expression to evaluate.
+	Expression string `json:"expression"`
+
+	// Optional. Symbolic group name that can be used to release multiple objects.
+	ObjectGroup string `json:"objectGroup,omitempty"`
+
+	// Optional. Determines whether Command Line API should be available during the evaluation.
+	IncludeCommandLineAPI bool `json:"includeCommandLineAPI,omitempty"`
+
+	// Optional. In silent mode exceptions thrown during evaluation are not reported and do not pause
+	// execution. Overrides setPauseOnException state.
+	Silent bool `json:"silent,omitempty"`
+
+	// Optional. Specifies in which execution context to perform evaluation. If the parameter is omitted the
+	// evaluation will be performed in the context of the inspected page.
+	ContextID ExecutionContextID `json:"contextId,omitempty"`
+
+	// Optional. Whether the result is expected to be a JSON object that should be sent by value.
+	ReturnByValue bool `json:"returnByValue,omitempty"`
+
+	// Optional. Whether preview should be generated for the result. EXPERIMENTAL
+	GeneratePreview bool `json:"generatePreview,omitempty"`
+
+	// Optional. Whether execution should be treated as initiated by user in the UI.
+	UserGesture bool `json:"userGesture,omitempty"`
+
+	// Optional. Whether execution should await for resulting value and return once awaited promise is
+	// resolved.
+	AwaitPromise bool `json:"awaitPromise,omitempty"`
+}
+
+/*
+EvaluateResult represents the result of calls to Runtime.evaluate.
+*/
+type EvaluateResult struct {
+	// Evaluation result.
+	Result RemoteObject `json:"result"`
+
+	// Exception details.
+	ExceptionDetails ExceptionDetails `json:"exceptionDetails"`
+}
+
+/*
 GetPropertiesParams represents Runtime.getProperties parameters.
 */
 type GetPropertiesParams struct {
@@ -114,6 +176,51 @@ type GetPropertiesParams struct {
 }
 
 /*
+GetPropertiesResult represents the result of calls to Runtime.getProperties.
+*/
+type GetPropertiesResult struct {
+	// Object properties.
+	Result []PropertyDescriptor `json:"result"`
+
+	// Internal object properties (only of the element itself).
+	InternalProperties []InternalPropertyDescriptor `json:"internalProperties"`
+
+	// Exception details.
+	ExceptionDetails ExceptionDetails `json:"exceptionDetails"`
+}
+
+/*
+GlobalLexicalScopeNamesParams represents Runtime.globalLexicalScopeNames parameters.
+*/
+type GlobalLexicalScopeNamesParams struct {
+	// Optional. Specifies in which execution context to lookup global scope variables.
+	ExecutionContextID ExecutionContextID `json:"executionContextId,omitempty"`
+}
+
+/*
+GlobalLexicalScopeNamesResult represents the result of calls to Runtime.globalLexicalScopeNames.
+*/
+type GlobalLexicalScopeNamesResult struct {
+	names []string `json:"names"`
+}
+
+/*
+QueryObjectsParams represents Runtime.queryObjects parameters.
+*/
+type QueryObjectsParams struct {
+	// Identifier of the prototype to return objects for.
+	PrototypeObjectID RemoteObjectID `json:"prototypeObjectId"`
+}
+
+/*
+QueryObjectsResult represents the result of calls to Runtime.queryObjects.
+*/
+type QueryObjectsResult struct {
+	// Identifier of the object to release.
+	ObjectID RemoteObjectID `json:"objectId"`
+}
+
+/*
 ReleaseObjectParams represents Runtime.releaseObject parameters.
 */
 type ReleaseObjectParams struct {
@@ -127,24 +234,6 @@ ReleaseObjectGroupParams represents Runtime.releaseObjectGroup parameters.
 type ReleaseObjectGroupParams struct {
 	// Symbolic object group name.
 	ObjectGroup string `json:"objectGroup"`
-}
-
-/*
-CompileScriptParams represents Runtime.compileScript parameters.
-*/
-type CompileScriptParams struct {
-	// Expression to compile.
-	Expression string `json:"expression"`
-
-	// Source url to be set for the script.
-	SourceURL string `json:"sourceURL"`
-
-	// Specifies whether the compiled script should be persisted.
-	PersistScript bool `json:"persistScript"`
-
-	// Optional. Specifies in which execution context to perform script run. If the parameter is
-	// omitted the evaluation will be performed in the context of the inspected page.
-	ExecutionContextID ExecutionContextID `json:"executionContextId,omitempty"`
 }
 
 /*
@@ -180,62 +269,22 @@ type RunScriptParams struct {
 }
 
 /*
-QueryObjectsParams represents Runtime.queryObjects parameters.
+RunScriptResult represents the result of calls to Runtime.runScript.
 */
-type QueryObjectsParams struct {
-	// Identifier of the prototype to return objects for.
-	PrototypeObjectID RemoteObjectID `json:"prototypeObjectId"`
+type RunScriptResult struct {
+	// Identifier of the object to release.
+	ObjectID RemoteObjectID `json:"objectId"`
 }
 
 /*
-GlobalLexicalScopeNamesParams represents Runtime.globalLexicalScopeNames parameters.
+SetCustomObjectFormatterEnabledParams represents Runtime.setCustomObjectFormatterEnabled parameters.
 */
-type GlobalLexicalScopeNamesParams struct {
-	// Optional. Specifies in which execution context to lookup global scope variables.
-	ExecutionContextID ExecutionContextID `json:"executionContextId,omitempty"`
-}
-
-/*
-ExecutionContextCreatedEvent represents Runtime.executionContextCreated event data.
-*/
-type ExecutionContextCreatedEvent struct {
-	// A newly created execution context.
-	Context ExecutionContextDescription `json:"context"`
-}
-
-/*
-ExecutionContextDestroyedEvent represents Runtime.executionContextDestroyed event data.
-*/
-type ExecutionContextDestroyedEvent struct {
-	// ID of the destroyed context.
-	ExecutionContextID ExecutionContextID `json:"executionContextId"`
-}
-
-/*
-ExecutionContextsClearedEvent represents Runtime.executionContextsCleared event data.
-*/
-type ExecutionContextsClearedEvent struct{}
-
-/*
-ExceptionThrownEvent represents Runtime.exceptionThrown event data.
-*/
-type ExceptionThrownEvent struct {
-	// Timestamp of the exception.
-	Timestamp Timestamp `json:"timestamp"`
+type SetCustomObjectFormatterEnabledParams struct {
+	// Run result.
+	Result RemoteObject `json:"result"`
 
 	// Exception details.
 	ExceptionDetails ExceptionDetails `json:"exceptionDetails"`
-}
-
-/*
-ExceptionRevokedEvent represents Runtime.exceptionRevoked event data.
-*/
-type ExceptionRevokedEvent struct {
-	// Reason describing why exception was revoked.
-	Reason string `json:"reason"`
-
-	// The ID of revoked exception, as reported in exceptionThrown.
-	ExceptionID int `json:"exceptionId"`
 }
 
 /*
@@ -264,6 +313,49 @@ type ConsoleAPICalledEvent struct {
 	// for call on named context. EXPERIMENTAL
 	Context string `json:"context,omitempty"`
 }
+
+/*
+ExceptionRevokedEvent represents Runtime.exceptionRevoked event data.
+*/
+type ExceptionRevokedEvent struct {
+	// Reason describing why exception was revoked.
+	Reason string `json:"reason"`
+
+	// The ID of revoked exception, as reported in exceptionThrown.
+	ExceptionID int `json:"exceptionId"`
+}
+
+/*
+ExceptionThrownEvent represents Runtime.exceptionThrown event data.
+*/
+type ExceptionThrownEvent struct {
+	// Timestamp of the exception.
+	Timestamp Timestamp `json:"timestamp"`
+
+	// Exception details.
+	ExceptionDetails ExceptionDetails `json:"exceptionDetails"`
+}
+
+/*
+ExecutionContextCreatedEvent represents Runtime.executionContextCreated event data.
+*/
+type ExecutionContextCreatedEvent struct {
+	// A newly created execution context.
+	Context ExecutionContextDescription `json:"context"`
+}
+
+/*
+ExecutionContextDestroyedEvent represents Runtime.executionContextDestroyed event data.
+*/
+type ExecutionContextDestroyedEvent struct {
+	// ID of the destroyed context.
+	ExecutionContextID ExecutionContextID `json:"executionContextId"`
+}
+
+/*
+ExecutionContextsClearedEvent represents Runtime.executionContextsCleared event data.
+*/
+type ExecutionContextsClearedEvent struct{}
 
 /*
 InspectRequestedEvent represents Runtime.inspectRequested event data.

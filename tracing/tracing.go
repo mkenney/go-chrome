@@ -5,9 +5,9 @@ import (
 )
 
 /*
-GetCategoriesParams represents Tracing.getCategories parameters.
+GetCategoriesResult represents the result of calls to Tracing.getCategories.
 */
-type GetCategoriesParams struct {
+type GetCategoriesResult struct {
 	// A list of supported tracing categories.
 	Categories []string `json:"categories"`
 }
@@ -21,9 +21,9 @@ type RecordClockSyncMarkerParams struct {
 }
 
 /*
-RequestMemoryDumpParams represents Tracing.requestMemoryDump parameters.
+RequestMemoryDumpResult represents the result of calls to Tracing.requestMemoryDump.
 */
-type RequestMemoryDumpParams struct {
+type RequestMemoryDumpResult struct {
 	// GUID of the resulting global memory dump.
 	DumpGUID string `json:"dumpGuid"`
 

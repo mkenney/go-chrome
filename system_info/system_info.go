@@ -1,9 +1,9 @@
 package SystemInfo
 
 /*
-GetInfoParams represents Overlay.getInfo parameters.
+GetInfoResult represents the result of calls to SystemInfo.getInfo.
 */
-type GetInfoParams struct {
+type GetInfoResult struct {
 	// Information about the GPUs on the system.
 	Gpu GPUInfo `json:"gpu"`
 
@@ -19,8 +19,6 @@ type GetInfoParams struct {
 	// supported.
 	CommandLine string `json:"commandLine"`
 }
-
-/////////////////
 
 /*
 GPUDevice describes a single graphics processor (GPU).

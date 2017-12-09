@@ -25,9 +25,16 @@ type CloseTargetParams struct {
 }
 
 /*
-CreateBrowserContextParams represents Target.createBrowserContext parameters.
+closeTargetResult represents the result of calls to Target.closeTarget.
 */
-type CreateBrowserContextParams struct {
+type closeTargetResult struct {
+	Success bool `json:"success"`
+}
+
+/*
+CreateBrowserContextResult represents the result of calls to Target.createBrowserContext.
+*/
+type CreateBrowserContextResult struct {
 	// The ID of the context created.
 	BrowserContextID BrowserContextID `json:"browserContextId"`
 }
@@ -54,6 +61,14 @@ type CreateTargetParams struct {
 }
 
 /*
+CreateTargetResult represents the result of calls to Target.createTarget.
+*/
+type CreateTargetResult struct {
+	// The ID of the page opened.
+	TargetID TargetID `json:"targetId"`
+}
+
+/*
 DetachFromTargetParams represents Target.detachFromTarget parameters.
 */
 type DetachFromTargetParams struct {
@@ -73,11 +88,26 @@ type DisposeBrowserContextParams struct {
 }
 
 /*
+DisposeBrowserContextResult represents the result of calls to Target.disposeBrowserContext.
+*/
+type DisposeBrowserContextResult struct {
+	Success bool `json:"success"`
+}
+
+/*
 GetTargetInfoParams represents Target.getTargetInfo parameters.
 */
 type GetTargetInfoParams struct {
 	// Target ID.
 	TargetID TargetID `json:"targetId"`
+}
+
+/*
+GetTargetInfoResult represents the result of calls to Target.getTargetInfo.
+*/
+type GetTargetInfoResult struct {
+	// The list of targets.
+	TargetInfos []TargetInfo `json:"targetInfos"`
 }
 
 /*

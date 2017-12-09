@@ -6,47 +6,29 @@ import (
 )
 
 /*
-SetDeviceMetricsOverrideParams represents Emulation.setDeviceMetricsOverride parameters.
+CanEmulateResult represents the result of calls to Emulation.canEmulate.
 */
-type SetDeviceMetricsOverrideParams struct {
-	// Overriding width value in pixels (minimum 0, maximum 10000000). 0 disables the override.
-	Width int `json:"width"`
+type CanEmulateResult struct {
+	// True if emulation is supported.
+	Result bool `json:"result"`
+}
 
-	// Overriding height value in pixels (minimum 0, maximum 10000000). 0 disables the override.
-	Height int `json:"height"`
+/*
+SetCPUThrottlingRateParams represents Emulation.setCPUThrottlingRate parameters.
+*/
+type SetCPUThrottlingRateParams struct {
+	// Throttling rate as a slowdown factor (1 is no throttle, 2 is 2x slowdown, etc).
+	rate int `json:"rate"`
+}
 
-	// Overriding device scale factor value. 0 disables the override.
-	DeviceScaleFactor int `json:"deviceScaleFactor"`
-
-	// Whether to emulate mobile device. This includes viewport meta tag, overlay scrollbars, text
-	// autosizing and more.
-	Mobile bool `json:"mobile"`
-
-	// Scale to apply to resulting view image. EXPERIMENTAL
-	Scale int `json:"scale"`
-
-	// Overriding screen width value in pixels (minimum 0, maximum 10000000). EXPERIMENTAL
-	ScreenWidth int `json:"screenWidth"`
-
-	// Overriding screen height value in pixels (minimum 0, maximum 10000000). EXPERIMENTAL
-	ScreenHeight int `json:"screenHeight"`
-
-	// Overriding view X position on screen in pixels (minimum 0, maximum 10000000). EXPERIMENTAL
-	PositionX int `json:"positionX"`
-
-	// Overriding view Y position on screen in pixels (minimum 0, maximum 10000000). EXPERIMENTAL
-	PositionY int `json:"positionY"`
-
-	// Do not set visible view size, rely upon explicit setVisibleSize call. EXPERIMENTAL
-	DontSetVisibleSize bool `json:"dontSetVisibleSize"`
-
-	// Screen orientation override.
-	ScreenOrientation ScreenOrientation `json:"screenOrientation"`
-
-	// If set, the visible area of the page will be overridden to this viewport. This viewport
-	// change is not observed by the page, e.g. viewport-relative elements do not change positions.
-	// EXPERIMENTAL
-	Viewport Page.Viewport `json:"viewport"`
+/*
+SetDefaultBackgroundColorOverrideParams represents Emulation.setDefaultBackgroundColorOverride
+parameters.
+*/
+type SetDefaultBackgroundColorOverrideParams struct {
+	// RGBA of the default background color. If not specified, any existing override will be
+	// cleared.
+	Color DOM.RGBA `json:"color"`
 }
 
 /*
@@ -91,58 +73,6 @@ type SetDeviceMetricsOverrideParams struct {
 	// change is not observed by the page, e.g. viewport-relative elements do not change positions.
 	// EXPERIMENTAL
 	Viewport Page.Viewport `json:"viewport"`
-}
-
-/*
-SetPageScaleFactorParams represents Emulation.setPageScaleFactor parameters.
-*/
-type SetPageScaleFactorParams struct {
-	// Page scale factor.
-	PageScaleFactor int `json:"pageScaleFactor"`
-}
-
-/*
-SetVisibleSizeParams represents Emulation.setVisibleSize parameters.
-*/
-type SetVisibleSizeParams struct {
-	// Frame width (DIP).
-	Width int `json:"width"`
-
-	// Frame height (DIP).
-	Height int `json:"height"`
-}
-
-/*
-SetScriptExecutionDisabledParams represents Emulation.setScriptExecutionDisabled parameters.
-*/
-type SetScriptExecutionDisabledParams struct {
-	// Whether script execution should be disabled in the page.
-	Value bool `json:"value"`
-}
-
-/*
-SetGeolocationOverrideParams represents Emulation.setGeolocationOverride parameters.
-*/
-type SetGeolocationOverrideParams struct {
-	// Mock latitude.
-	Latitude int `json:"latitude"`
-
-	// Mock longitude.
-	Longitude int `json:"longitude"`
-
-	// Mock accuracy.
-	Accuracy int `json:"accuracy"`
-}
-
-/*
-SetTouchEmulationEnabledParams represents Emulation.setTouchEmulationEnabled parameters.
-*/
-type SetTouchEmulationEnabledParams struct {
-	// Whether the touch event emulation should be enabled.
-	Enabled bool `json:"enabled"`
-
-	// Maximum touch points supported. Defaults to one.
-	MaxTouchPoints int `json:"maxTouchPoints"`
 }
 
 /*
@@ -166,11 +96,52 @@ type SetEmulatedMediaParams struct {
 }
 
 /*
-SetCPUThrottlingRateParams represents Emulation.setCPUThrottlingRate parameters.
+SetGeolocationOverrideParams represents Emulation.setGeolocationOverride parameters.
 */
-type SetCPUThrottlingRateParams struct {
-	// Throttling rate as a slowdown factor (1 is no throttle, 2 is 2x slowdown, etc).
-	rate int `json:"rate"`
+type SetGeolocationOverrideParams struct {
+	// Mock latitude.
+	Latitude int `json:"latitude"`
+
+	// Mock longitude.
+	Longitude int `json:"longitude"`
+
+	// Mock accuracy.
+	Accuracy int `json:"accuracy"`
+}
+
+/*
+SetNavigatorOverridesParams represents Emulation.setNavigatorOverrides parameters.
+*/
+type SetNavigatorOverridesParams struct {
+	// The platform navigator.platform should return.
+	Platform string `json:"platform"`
+}
+
+/*
+SetPageScaleFactorParams represents Emulation.setPageScaleFactor parameters.
+*/
+type SetPageScaleFactorParams struct {
+	// Page scale factor.
+	PageScaleFactor int `json:"pageScaleFactor"`
+}
+
+/*
+SetScriptExecutionDisabledParams represents Emulation.setScriptExecutionDisabled parameters.
+*/
+type SetScriptExecutionDisabledParams struct {
+	// Whether script execution should be disabled in the page.
+	Value bool `json:"value"`
+}
+
+/*
+SetTouchEmulationEnabledParams represents Emulation.setTouchEmulationEnabled parameters.
+*/
+type SetTouchEmulationEnabledParams struct {
+	// Whether the touch event emulation should be enabled.
+	Enabled bool `json:"enabled"`
+
+	// Maximum touch points supported. Defaults to one.
+	MaxTouchPoints int `json:"maxTouchPoints"`
 }
 
 /*
@@ -190,27 +161,15 @@ type SetVirtualTimePolicyParams struct {
 }
 
 /*
-SetNavigatorOverridesParams represents Emulation.setNavigatorOverrides parameters.
+SetVisibleSizeParams represents Emulation.setVisibleSize parameters.
 */
-type SetNavigatorOverridesParams struct {
-	// The platform navigator.platform should return.
-	Platform string `json:"platform"`
-}
+type SetVisibleSizeParams struct {
+	// Frame width (DIP).
+	Width int `json:"width"`
 
-/*
-SetDefaultBackgroundColorOverrideParams represents Emulation.setDefaultBackgroundColorOverride
-parameters.
-*/
-type SetDefaultBackgroundColorOverrideParams struct {
-	// RGBA of the default background color. If not specified, any existing override will be
-	// cleared.
-	Color DOM.RGBA `json:"color"`
+	// Frame height (DIP).
+	Height int `json:"height"`
 }
-
-/*
-VirtualTimeBudgetExpiredEvent represents Emulation.virtualTimeBudgetExpired event data.
-*/
-type VirtualTimeBudgetExpiredEvent struct{}
 
 /*
 VirtualTimeAdvancedEvent represents Emulation.virtualTimeAdvanced event data.
@@ -219,6 +178,11 @@ type VirtualTimeAdvancedEvent struct {
 	// The amount of virtual time that has elapsed in milliseconds since virtual time was first enabled.
 	VirtualTimeElapsed int `json:"virtualTimeElapsed"`
 }
+
+/*
+VirtualTimeBudgetExpiredEvent represents Emulation.virtualTimeBudgetExpired event data.
+*/
+type VirtualTimeBudgetExpiredEvent struct{}
 
 /*
 VirtualTimePausedEvent represents Emulation.virtualTimePaused event data.

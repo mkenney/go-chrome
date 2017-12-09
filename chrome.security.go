@@ -15,23 +15,27 @@ type Security struct{}
 /*
 Disable disables tracking security state changes.
 */
-func (Security) Disable(socket *Socket) error {
+func (Security) Disable(
+	socket *Socket,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Security.disable",
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*
 Enable tracking security state changes.
 */
-func (Security) Enable(socket *Socket) error {
+func (Security) Enable(
+	socket *Socket,
+) (nil, error) {
 	command := &protocol.Command{
 		method: "Security.enable",
 	}
 	socket.SendCommand(command)
-	return command.Err
+	return nil, command.Err
 }
 
 /*

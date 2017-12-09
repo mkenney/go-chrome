@@ -80,7 +80,7 @@ func (HeapProfiler) GetHeapObjectID(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return heap_profiler.GetHeapObjectIDResult, command.Err
+	return command.Result.(heap_profiler.GetHeapObjectIDResult), command.Err
 }
 
 /*
@@ -95,7 +95,7 @@ func (HeapProfiler) GetObjectByHeapObjectID(
 		params: params,
 	}
 	socket.SendCommand(command)
-	return heap_profiler.GetObjectByHeapObjectIDResult, command.Err
+	return command.Result.(heap_profiler.GetObjectByHeapObjectIDResult), command.Err
 }
 
 /*
