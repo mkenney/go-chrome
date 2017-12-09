@@ -1,6 +1,9 @@
 package chrome
 
-import "app/chrome/protocol"
+import (
+	cache_storage "app/chrome/cache_storage"
+	"app/chrome/protocol"
+)
 
 /*
 CacheStorage - https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/
@@ -14,13 +17,13 @@ DeleteCache deletes a cache.
 func (CacheStorage) DeleteCache(
 	socket *Socket,
 	params *cache_storage.DeleteCacheParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "CacheStorage.deleteCache",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -29,13 +32,13 @@ DeleteEntry deletes a cache entry.
 func (CacheStorage) DeleteEntry(
 	socket *Socket,
 	params *cache_storage.DeleteEntryParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "CacheStorage.deleteEntry",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*

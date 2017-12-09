@@ -1,6 +1,7 @@
 package chrome
 
 import (
+	headless_experimental "app/chrome/headless_experimental"
 	"app/chrome/protocol"
 	"encoding/json"
 
@@ -35,12 +36,12 @@ Disable disables headless events for the target.
 */
 func (HeadlessExperimental) Disable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "HeadlessExperimental.disable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -48,12 +49,12 @@ Enable enables headless events for the target.
 */
 func (HeadlessExperimental) Enable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "HeadlessExperimental.enable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*

@@ -1,6 +1,9 @@
 package chrome
 
-import "app/chrome/protocol"
+import (
+	dom_storage "app/chrome/dom_storage"
+	"app/chrome/protocol"
+)
 
 /*
 DOMStorage - https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/
@@ -14,13 +17,13 @@ Clear clears  a stored item.
 func (DOMStorage) Clear(
 	socket *Socket,
 	params *dom_storage.ClearParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOMStorage.clear",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -28,12 +31,12 @@ Disable disables storage tracking, prevents storage events from being sent to th
 */
 func (DOMStorage) Disable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOMStorage.disable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -41,12 +44,12 @@ Enable enables storage tracking, storage events will now be delivered to the cli
 */
 func (DOMStorage) Enable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOMStorage.enable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -70,13 +73,13 @@ RemoveDOMStorageItem removes  a stored item.
 func (DOMStorage) RemoveDOMStorageItem(
 	socket *Socket,
 	params *dom_storage.RemoveDOMStorageItemParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOMStorage.removeDOMStorageItem",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -85,11 +88,11 @@ SetDOMStorageItem sets a stored item.
 func (DOMStorage) SetDOMStorageItem(
 	socket *Socket,
 	params *dom_storage.SetDOMStorageItemParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOMStorage.setDOMStorageItem",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }

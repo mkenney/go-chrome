@@ -1,6 +1,9 @@
 package chrome
 
-import "app/chrome/protocol"
+import (
+	indexed_db "app/chrome/indexed_db"
+	"app/chrome/protocol"
+)
 
 /*
 IndexedDB - https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/
@@ -14,13 +17,13 @@ ClearObjectStore clears all entries from an object store.
 func (IndexedDB) ClearObjectStore(
 	socket *Socket,
 	params *indexed_db.ClearObjectStoreParams,
-) (indexed_db.ClearObjectStoreResult, error) {
+) error {
 	command := &protocol.Command{
 		Method: "IndexedDB.clearObjectStore",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(indexed_db.ClearObjectStoreResult), command.Err
+	return command.Err
 }
 
 /*
@@ -29,13 +32,13 @@ DeleteDatabase deletes a database.
 func (IndexedDB) DeleteDatabase(
 	socket *Socket,
 	params *indexed_db.DeleteDatabaseParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "IndexedDB.deleteDatabase",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -43,12 +46,12 @@ Disable disables events from backend.
 */
 func (IndexedDB) Disable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "IndexedDB.disable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -56,12 +59,12 @@ Enable enables events from backend.
 */
 func (IndexedDB) Enable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "IndexedDB.enable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*

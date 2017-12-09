@@ -1,6 +1,7 @@
 package chrome
 
 import (
+	animation "app/chrome/animation"
 	"app/chrome/protocol"
 	"encoding/json"
 
@@ -18,12 +19,12 @@ Disable animation domain notifications.
 */
 func (Animation) Disable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Animation.disable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -31,12 +32,12 @@ Enable animation domain notifications.
 */
 func (Animation) Enable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Animation.enable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -51,7 +52,7 @@ func (Animation) GetCurrentTime(
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(protocol.GetCurrentTimeResult), command.Err
+	return command.Result.(animation.GetCurrentTimeResult), command.Err
 }
 
 /*
@@ -64,7 +65,7 @@ func (Animation) GetPlaybackRate(
 		Method: "Animation.getPlaybackRate",
 	}
 	socket.SendCommand(command)
-	return command.Result.(protocol.GetPlaybackRateResult), command.Err
+	return command.Result.(animation.GetPlaybackRateResult), command.Err
 }
 
 /*
@@ -73,13 +74,13 @@ ReleaseAnimations releases a set of animations to no longer be manipulated.
 func (Animation) ReleaseAnimations(
 	socket *Socket,
 	params *animation.ReleaseAnimationsParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Animation.releaseAnimations",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -94,7 +95,7 @@ func (Animation) ResolveAnimation(
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(protocol.ResolveAnimationResult), command.Err
+	return command.Result.(animation.ResolveAnimationResult), command.Err
 }
 
 /*
@@ -103,13 +104,13 @@ SeekAnimations seeks a set of animations to a particular time within each animat
 func (Animation) SeekAnimations(
 	socket *Socket,
 	params *animation.SeekAnimationsParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Animation.seekAnimations",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -118,13 +119,13 @@ SetPaused sets the paused state of a set of animations.
 func (Animation) SetPaused(
 	socket *Socket,
 	params *animation.SetPausedParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Animation.setPaused",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -133,13 +134,13 @@ SetPlaybackRate sets the playback rate of the document timeline.
 func (Animation) SetPlaybackRate(
 	socket *Socket,
 	params *animation.SetPlaybackRateParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Animation.setPlaybackRate",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -148,13 +149,13 @@ SetTiming sets the timing of an animation node.
 func (Animation) SetTiming(
 	socket *Socket,
 	params *animation.SetTimingParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Animation.setTiming",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*

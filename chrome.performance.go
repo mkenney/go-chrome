@@ -1,6 +1,7 @@
 package chrome
 
 import (
+	performance "app/chrome/performance"
 	"app/chrome/protocol"
 	"encoding/json"
 
@@ -17,12 +18,12 @@ Disable disables collecting and reporting metrics.
 */
 func (Performance) Disable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Performance.disable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -30,12 +31,12 @@ Enable enables collecting and reporting metrics.
 */
 func (Performance) Enable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Performance.enable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -43,14 +44,12 @@ GetMetrics retrieves current values of run-time metrics.
 */
 func (Overlay) GetMetrics(
 	socket *Socket,
-	params *performance.GetMetricsParams,
-) (nil, error) {
+) (performance.GetMetricsResult, error) {
 	command := &protocol.Command{
 		Method: "Performance.getMetrics",
-		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Result.(performance.GetMetricsResult), command.Err
 }
 
 /*

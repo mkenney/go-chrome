@@ -2,6 +2,7 @@ package chrome
 
 import (
 	"app/chrome/protocol"
+	tethering "app/chrome/tethering"
 	"encoding/json"
 
 	log "github.com/Sirupsen/logrus"
@@ -19,13 +20,13 @@ Bind requests browser port binding.
 func (Tethering) Bind(
 	socket *Socket,
 	params *tethering.BindParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Tethering.bind",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -34,13 +35,13 @@ Unbind requests browser port unbinding.
 func (Tethering) Unbind(
 	socket *Socket,
 	params *tethering.UnbindParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Tethering.unbind",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*

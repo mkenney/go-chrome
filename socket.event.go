@@ -9,7 +9,7 @@ import (
 /*
 AddEventHandler adds an event handler to the socket
 */
-func (socket *Socket) AddEventHandler(event protocol.EventInterface) {
+func (socket *Socket) AddEventHandler(event *protocol.EventHandler) {
 	socket.eventMutex.Lock()
 	defer socket.eventMutex.Unlock()
 
@@ -24,13 +24,13 @@ func (socket *Socket) AddEventHandler(event protocol.EventInterface) {
 /*
 RemoveEventHandler removes an event handler from the socket
 */
-func (socket *Socket) RemoveEventHandler(event protocol.EventInterface) {
+func (socket *Socket) RemoveEventHandler(event *protocol.EventHandler) {
 	socket.eventMutex.Lock()
 	defer socket.eventMutex.Unlock()
 
 	events := socket.events[event.Name()]
 	for i, evt := range events {
-		if evt == sink {
+		if evt == event {
 			evtCount := len(events)
 			events[i] = events[evtCount-1]
 			socket.events[event.Name()] = events[:evtCount-1]

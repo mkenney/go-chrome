@@ -2,6 +2,7 @@ package chrome
 
 import (
 	"app/chrome/protocol"
+	runtime "app/chrome/runtime"
 	"encoding/json"
 
 	log "github.com/Sirupsen/logrus"
@@ -67,12 +68,12 @@ Disable disables reporting of execution contexts creation.
 */
 func (Runtime) Disable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Runtime.disable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -80,12 +81,12 @@ DiscardConsoleEntries discards collected exceptions and console API calls.
 */
 func (Runtime) DiscardConsoleEntries(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Runtime.discardConsoleEntries",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -95,12 +96,12 @@ context.
 */
 func (Runtime) Enable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Runtime.enable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -170,13 +171,13 @@ ReleaseObject releases remote object with given id.
 func (Runtime) ReleaseObject(
 	socket *Socket,
 	params *runtime.ReleaseObjectParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Runtime.releaseObject",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -185,13 +186,13 @@ ReleaseObjectGroup releases all remote objects that belong to a given group.
 func (Runtime) ReleaseObjectGroup(
 	socket *Socket,
 	params *runtime.ReleaseObjectGroupParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Runtime.releaseObjectGroup",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -199,12 +200,12 @@ RunIfWaitingForDebugger tells inspected instance to run if it was waiting for de
 */
 func (Runtime) RunIfWaitingForDebugger(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Runtime.runIfWaitingForDebugger",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -228,13 +229,13 @@ SetCustomObjectFormatterEnabled EXPERIMENTAL
 func (Runtime) SetCustomObjectFormatterEnabled(
 	socket *Socket,
 	params *runtime.SetCustomObjectFormatterEnabledParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Runtime.setCustomObjectFormatterEnabled",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*

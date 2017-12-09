@@ -1,6 +1,7 @@
 package chrome
 
 import (
+	layer_tree "app/chrome/layer_tree"
 	"app/chrome/protocol"
 	"encoding/json"
 
@@ -33,13 +34,12 @@ Disable disables compositing tree inspection.
 */
 func (LayerTree) Disable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "LayerTree.disable",
-		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -47,13 +47,12 @@ Enable enables compositing tree inspection.
 */
 func (LayerTree) Enable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "LayerTree.enable",
-		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -107,13 +106,13 @@ ReleaseSnapshot releases layer snapshot captured by the back-end.
 func (LayerTree) ReleaseSnapshot(
 	socket *Socket,
 	params *layer_tree.ReleaseSnapshotParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "LayerTree.releaseSnapshot",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*

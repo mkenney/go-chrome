@@ -282,10 +282,10 @@ type RemoveScriptToEvaluateOnLoadParams struct {
 }
 
 /*
-removeScriptToEvaluateOnNewDocumentParams represents Page.removeScriptToEvaluateOnNewDocument
+RemoveScriptToEvaluateOnNewDocumentParams represents Page.removeScriptToEvaluateOnNewDocument
 parameters.
 */
-type removeScriptToEvaluateOnNewDocumentParams struct {
+type RemoveScriptToEvaluateOnNewDocumentParams struct {
 	Identifier ScriptIdentifier `json:"identifier"`
 }
 
@@ -444,6 +444,11 @@ type FrameNavigatedEvent struct {
 	// Frame object.
 	Frame Frame `json:"frame"`
 }
+
+/*
+FrameResizedEvent represents Page.frameResized event data.
+*/
+type FrameResizedEvent struct{}
 
 /*
 FrameScheduledNavigationEvent represents Page.frameScheduledNavigation event data.

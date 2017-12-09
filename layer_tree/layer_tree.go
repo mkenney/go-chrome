@@ -138,11 +138,11 @@ type LayerPaintedEvent struct {
 }
 
 /*
-LayerPaintedEvent represents LayerTree.layerPainted event data.
+LayerTreeDidChangeEvent represents LayerTree.layerTreeDidChange event data.
 */
-type LayerPaintedEvent struct {
-	// Layer tree, absent if not in the comspositing mode.
-	Layers []Layer `json:"layers"`
+type LayerTreeDidChangeEvent struct {
+	// Optional. Layer tree, absent if not in the comspositing mode.
+	Layers []Layer `json:"layers,omitempty"`
 }
 
 /*

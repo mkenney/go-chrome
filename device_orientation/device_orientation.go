@@ -1,10 +1,10 @@
 package DeviceOrientation
 
 /*
-setDeviceOrientationOverrideParams represents DeviceOrientation.setDeviceOrientationOverride
+SetDeviceOrientationOverrideParams represents DeviceOrientation.setDeviceOrientationOverride
 parameters.
 */
-type setDeviceOrientationOverrideParams struct {
+type SetDeviceOrientationOverrideParams struct {
 	// Mock alpha.
 	Alpha float64 `json:"alpha"`
 

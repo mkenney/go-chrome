@@ -1,6 +1,9 @@
 package chrome
 
-import "app/chrome/protocol"
+import (
+	audits "app/chrome/audits"
+	"app/chrome/protocol"
+)
 
 /*
 Audits - https://chromedevtools.github.io/devtools-protocol/tot/Audits/

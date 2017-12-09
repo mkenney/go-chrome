@@ -1,6 +1,7 @@
 package chrome
 
 import (
+	dom "app/chrome/dom"
 	"app/chrome/protocol"
 	"encoding/json"
 
@@ -73,12 +74,12 @@ Disable disables the DOM agent for the given page.
 */
 func (DOM) Disable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOM.disable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -88,13 +89,13 @@ should no longer be called for that search. EXPERIMENTAL
 func (DOM) DiscardSearchResults(
 	socket *Socket,
 	params *dom.DiscardSearchResultsParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOM.discardSearchResults",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -102,12 +103,12 @@ Enable enables the DOM agent for the given page.
 */
 func (DOM) Enable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOM.enable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -116,13 +117,13 @@ Focus focuses the given element.
 func (DOM) Focus(
 	socket *Socket,
 	params *dom.FocusParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOM.focus",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -251,12 +252,12 @@ MarkUndoableState marks last undoable state. EXPERIMENTAL
 */
 func (DOM) MarkUndoableState(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOM.markUndoableState",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -357,12 +358,12 @@ Redo re-does the last undone action. EXPERIMENTAL
 */
 func (DOM) Redo(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOM.redo",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -371,13 +372,13 @@ RemoveAttribute removes attribute with given name from an element with given id.
 func (DOM) RemoveAttribute(
 	socket *Socket,
 	params *dom.RemoveAttributeParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOM.removeAttribute",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -386,13 +387,13 @@ RemoveNode removes the specified node.
 func (DOM) RemoveNode(
 	socket *Socket,
 	params *dom.RemoveNodeParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOM.removeNode",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -403,13 +404,13 @@ to the specified depth.
 func (DOM) RequestChildNodes(
 	socket *Socket,
 	params *dom.RequestChildNodesParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOM.requestChildNodes",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -450,13 +451,13 @@ SetAttributeValue sets attribute for an element with given id.
 func (DOM) SetAttributeValue(
 	socket *Socket,
 	params *dom.SetAttributeValueParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOM.setAttributeValue",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -466,13 +467,13 @@ some existing attribute value and types in several attribute name/value pairs.
 func (DOM) SetAttributesAsText(
 	socket *Socket,
 	params *dom.SetAttributesAsTextParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOM.setAttributesAsText",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -481,13 +482,13 @@ SetFileInputFiles sets files for the given file input element.
 func (DOM) SetFileInputFiles(
 	socket *Socket,
 	params *dom.SetFileInputFilesParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOM.setFileInputFiles",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -497,13 +498,13 @@ more details $x functions). EXPERIMENTAL
 func (DOM) SetInspectedNode(
 	socket *Socket,
 	params *dom.SetInspectedNodeParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOM.setInspectedNode",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -527,13 +528,13 @@ SetNodeValue sets node value for the specified node.
 func (DOM) SetNodeValue(
 	socket *Socket,
 	params *dom.SetNodeValueParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOM.setNodeValue",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -542,13 +543,13 @@ SetOuterHTML sets node HTML markup, returns new node id.
 func (DOM) SetOuterHTML(
 	socket *Socket,
 	params *dom.SetOuterHTMLParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOM.setOuterHTML",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -556,12 +557,12 @@ Undo undoes the last performed action. EXPERIMENTAL
 */
 func (DOM) Undo(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DOM.undo",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*

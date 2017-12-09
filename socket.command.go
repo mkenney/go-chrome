@@ -16,16 +16,16 @@ socket connection and the mutex is unlocked. The command is stored using the cou
 Id. When the command is executed and the socket responds, handleCmd() is executed to generate a
 response.
 */
-func (socket *Socket) SendCommand(command protocol.CommandIface) int {
+func (socket *Socket) SendCommand(command *protocol.Command) int {
 	command.WG.Add(1)
 	socket.cmdMutex.Lock()
 	defer socket.cmdMutex.Unlock()
 
 	socket.cmdID++
 	payload := &protocol.CommandPayload{
-		socket.cmdID,
-		command.Method,
-		command.Params,
+		ID:     socket.cmdID,
+		Method: command.Method,
+		Params: command.Params,
 	}
 	tmp, _ := json.Marshal(payload)
 	log.Debugf("Sending %#v", string(tmp))

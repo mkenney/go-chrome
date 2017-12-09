@@ -1,6 +1,7 @@
 package chrome
 
 import (
+	application_cache "app/chrome/application_cache"
 	"app/chrome/protocol"
 	"encoding/json"
 
@@ -18,12 +19,12 @@ Enable enables application cache domain notifications.
 */
 func (ApplicationCache) Enable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "ApplicationCache.enable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -31,12 +32,12 @@ Disable disables application cache domain notifications.
 */
 func (ApplicationCache) Disable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "ApplicationCache.disable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -52,7 +53,7 @@ func (ApplicationCache) GetApplicationCacheForFrame(
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(protocol.GetApplicationCacheForFrameResult), command.Err
+	return command.Result.(application_cache.GetApplicationCacheForFrameResult), command.Err
 }
 
 /*
@@ -66,7 +67,7 @@ func (ApplicationCache) GetFramesWithManifests(
 		Method: "ApplicationCache.getFramesWithManifests",
 	}
 	socket.SendCommand(command)
-	return command.Result.(protocol.GetFramesWithManifestsResult), command.Err
+	return command.Result.(application_cache.GetFramesWithManifestsResult), command.Err
 }
 
 /*
@@ -81,7 +82,7 @@ func (ApplicationCache) GetManifestForFrame(
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(protocol.GetManifestForFrameResult), command.Err
+	return command.Result.(application_cache.GetManifestForFrameResult), command.Err
 }
 
 /*

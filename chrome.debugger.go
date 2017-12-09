@@ -1,6 +1,7 @@
 package chrome
 
 import (
+	debugger "app/chrome/debugger"
 	"app/chrome/protocol"
 	"encoding/json"
 
@@ -20,13 +21,13 @@ ContinueToLocation continues execution until specific location is reached.
 func (Debugger) ContinueToLocation(
 	socket *Socket,
 	params *debugger.ContinueToLocationParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Debugger.continueToLocation",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -34,12 +35,12 @@ Disable disables debugger for given page.
 */
 func (Debugger) Disable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Debugger.disable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -48,12 +49,12 @@ enabled until the result for this command is received.
 */
 func (Debugger) Enable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Debugger.enable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -122,12 +123,12 @@ Pause stops on the next JavaScript statement.
 */
 func (Debugger) Pause(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Debugger.pause",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -136,13 +137,13 @@ PauseOnAsyncCall EXPERIMENTAL
 func (Debugger) PauseOnAsyncCall(
 	socket *Socket,
 	params *debugger.PauseOnAsyncCallParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Debugger.pauseOnAsyncCall",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -151,13 +152,13 @@ RemoveBreakpoint removes JavaScript breakpoint.
 func (Debugger) RemoveBreakpoint(
 	socket *Socket,
 	params *debugger.RemoveBreakpointParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Debugger.removeBreakpoint",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -180,12 +181,12 @@ Resume resumes JavaScript execution.
 */
 func (Debugger) Resume(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Debugger.resume",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -196,12 +197,12 @@ scheduled or another scheduleStepIntoAsync was called. EXPERIMENTAL
 */
 func (Debugger) ScheduleStepIntoAsync(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Debugger.scheduleStepIntoAsync",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -225,13 +226,13 @@ SetAsyncCallStackDepth enables or disables async call stacks tracking.
 func (Debugger) SetAsyncCallStackDepth(
 	socket *Socket,
 	params *debugger.SetAsyncCallStackDepthParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Debugger.setAsyncCallStackDepth",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -243,13 +244,13 @@ EXPERIMENTAL
 func (Debugger) SetBlackboxPatterns(
 	socket *Socket,
 	params *debugger.SetBlackboxPatternsParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Debugger.setBlackboxPatterns",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -261,13 +262,13 @@ isn't blackboxed. Array should be sorted.
 func (Debugger) SetBlackboxedRanges(
 	socket *Socket,
 	params *debugger.SetBlackboxedRangesParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Debugger.setBlackboxedRanges",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -309,13 +310,13 @@ SetBreakpointsActive activates / deactivates all breakpoints on the page.
 func (Debugger) SetBreakpointsActive(
 	socket *Socket,
 	params *debugger.SetBreakpointsActiveParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Debugger.setBreakpointsActive",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -325,13 +326,13 @@ uncaught exceptions or no exceptions. Initial pause on exceptions state is none.
 func (Debugger) SetPauseOnExceptions(
 	socket *Socket,
 	params *debugger.SetPauseOnExceptionsParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Debugger.setPauseOnExceptions",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -341,13 +342,13 @@ EXPERIMENTAL
 func (Debugger) SetReturnValue(
 	socket *Socket,
 	params *debugger.SetReturnValueParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Debugger.setReturnValue",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -371,13 +372,13 @@ SetSkipAllPauses makes page not interrupt on any pauses (breakpoint, exception, 
 func (Debugger) SetSkipAllPauses(
 	socket *Socket,
 	params *debugger.SetSkipAllPausesParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Debugger.setSkipAllPauses",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -387,13 +388,13 @@ must be mutated manually.
 func (Debugger) SetVariableValue(
 	socket *Socket,
 	params *debugger.SetVariableValueParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Debugger.setVariableValue",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -402,13 +403,13 @@ StepInto steps into the function call.
 func (Debugger) StepInto(
 	socket *Socket,
 	params *debugger.StepIntoParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Debugger.stepInto",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -416,12 +417,12 @@ StepOut steps out of the function call.
 */
 func (Debugger) StepOut(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Debugger.stepOut",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -429,12 +430,12 @@ StepOver steps over the statement.
 */
 func (Debugger) StepOver(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Debugger.stepOver",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*

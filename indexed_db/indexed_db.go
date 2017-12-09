@@ -5,9 +5,9 @@ import (
 )
 
 /*
-clearObjectStoreParams represents IndexedDB.clearObjectStore parameters.
+ClearObjectStoreParams represents IndexedDB.clearObjectStore parameters.
 */
-type clearObjectStoreParams struct {
+type ClearObjectStoreParams struct {
 	// Security origin.
 	SecurityOrigin string `json:"securityOrigin"`
 

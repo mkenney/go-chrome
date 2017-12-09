@@ -20,3 +20,17 @@ type GetEncodedResponseParams struct {
 	// Optional Whether to only return the size information (defaults to false).
 	SizeOnly bool `json:"sizeOnly,omitempty"`
 }
+
+/*
+GetEncodedResponseResult represents the result of calls to Audits.getEncodedResponse.
+*/
+type GetEncodedResponseResult struct {
+	// Optional. The encoded body as a base64 string. Omitted if sizeOnly is true.
+	Body string `json:"body,omitempty"`
+
+	// Size before re-encoding.
+	OriginalSize int `json:"originalSize"`
+
+	// Size after re-encoding.
+	EncodedSize int `json:"encodedSize"`
+}

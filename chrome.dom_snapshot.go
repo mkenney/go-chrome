@@ -1,6 +1,9 @@
 package chrome
 
-import "app/chrome/protocol"
+import (
+	dom_snapshot "app/chrome/dom_snapshot"
+	"app/chrome/protocol"
+)
 
 /*
 DOMSnapshot facilitates obtaining document snapshots with DOM, layout, and style information.

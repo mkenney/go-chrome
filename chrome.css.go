@@ -1,6 +1,7 @@
 package chrome
 
 import (
+	css "app/chrome/css"
 	"app/chrome/protocol"
 	"encoding/json"
 
@@ -61,7 +62,7 @@ func (CSS) CreateStyleSheet(
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result(css.CreateStyleSheetResult), command.Err
+	return command.Result.(css.CreateStyleSheetResult), command.Err
 }
 
 /*
@@ -69,12 +70,12 @@ Disable disables the CSS agent for the given page.
 */
 func (CSS) Disable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "CSS.disable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -83,12 +84,12 @@ been enabled until the result of this command is received.
 */
 func (CSS) Enable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "CSS.enable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -98,13 +99,13 @@ is computed by the browser.
 func (CSS) ForcePseudoState(
 	socket *Socket,
 	params *css.ForcePseudoStateParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "CSS.forcePseudoState",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -174,13 +175,13 @@ GetMediaQueries returns all media queries parsed by the rendering engine.
 func (CSS) GetMediaQueries(
 	socket *Socket,
 	params *css.GetMediaQueriesParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "CSS.getMediaQueries",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -221,13 +222,13 @@ sets the new value for that property.
 func (CSS) SetEffectivePropertyValueForNode(
 	socket *Socket,
 	params *css.SetEffectivePropertyValueForNodeParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "CSS.setEffectivePropertyValueForNode",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -310,7 +311,7 @@ StartRuleUsageTracking enables the selector recording.
 */
 func (CSS) StartRuleUsageTracking(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "CSS.startRuleUsageTracking",
 	}

@@ -2,6 +2,7 @@ package chrome
 
 import (
 	"app/chrome/protocol"
+	tracing "app/chrome/tracing"
 	"encoding/json"
 
 	log "github.com/Sirupsen/logrus"
@@ -18,12 +19,12 @@ End stops trace events collection.
 */
 func (Tracing) End(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Tracing.end",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -45,13 +46,13 @@ RecordClockSyncMarker records a clock sync marker in the trace.
 func (Tracing) RecordClockSyncMarker(
 	socket *Socket,
 	params *tracing.RecordClockSyncMarkerParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Tracing.recordClockSyncMarker",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -73,13 +74,13 @@ Start starts trace events collection.
 func (Tracing) Start(
 	socket *Socket,
 	params *tracing.StartParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Tracing.start",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -116,7 +117,7 @@ func (Tracing) OnDataCollected(
 	handler := protocol.NewEventHandler(
 		"Tracing.dataCollected",
 		func(name string, params []byte) {
-			event := &tracing.BufferUsageEvent{}
+			event := &tracing.DataCollectedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {

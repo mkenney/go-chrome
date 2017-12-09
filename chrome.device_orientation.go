@@ -1,6 +1,9 @@
 package chrome
 
-import "app/chrome/protocol"
+import (
+	device_orientation "app/chrome/device_orientation"
+	"app/chrome/protocol"
+)
 
 /*
 DeviceOrientation - https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/
@@ -13,14 +16,12 @@ ClearDeviceOrientationOverride clears the overridden Device Orientation.
 */
 func (DeviceOrientation) ClearDeviceOrientationOverride(
 	socket *Socket,
-	params *device_orientation.ClearDeviceOrientationOverrideParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DeviceOrientation.clearDeviceOrientationOverride",
-		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -29,11 +30,11 @@ SetDeviceOrientationOverride overrides the Device Orientation.
 func (DeviceOrientation) SetDeviceOrientationOverride(
 	socket *Socket,
 	params *device_orientation.SetDeviceOrientationOverrideParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "DeviceOrientation.setDeviceOrientationOverride",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }

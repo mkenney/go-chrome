@@ -1,6 +1,9 @@
 package chrome
 
-import "app/chrome/protocol"
+import (
+	accessibility "app/chrome/accessibility"
+	"app/chrome/protocol"
+)
 
 /*
 Accessibility - https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/

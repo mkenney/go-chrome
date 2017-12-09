@@ -1,6 +1,9 @@
 package chrome
 
-import "app/chrome/protocol"
+import (
+	browser "app/chrome/browser"
+	"app/chrome/protocol"
+)
 
 /*
 Browser - https://chromedevtools.github.io/devtools-protocol/tot/Browser/
@@ -13,12 +16,12 @@ Close closes the browser gracefully.
 */
 func (Browser) Close(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Browser.close",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*

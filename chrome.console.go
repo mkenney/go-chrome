@@ -1,6 +1,7 @@
 package chrome
 
 import (
+	console "app/chrome/console"
 	"app/chrome/protocol"
 	"encoding/json"
 
@@ -18,13 +19,12 @@ ClearMessages does nothing.
 */
 func (Console) ClearMessages(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Console.clearMessages",
 	}
-	command.method = "Console.clearMessages"
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -33,13 +33,12 @@ client.
 */
 func (Console) Disable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Console.disable",
 	}
-	command.method = "Console.disable"
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -48,13 +47,12 @@ messageAdded notification.
 */
 func (Console) Enable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Console.enable",
 	}
-	command.method = "Console.enable"
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*

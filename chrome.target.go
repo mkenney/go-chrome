@@ -2,6 +2,7 @@ package chrome
 
 import (
 	"app/chrome/protocol"
+	target "app/chrome/target"
 	"encoding/json"
 
 	log "github.com/Sirupsen/logrus"
@@ -19,13 +20,13 @@ ActivateTarget activates (focuses) the target.
 func (Target) ActivateTarget(
 	socket *Socket,
 	params *target.ActivateTargetParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Target.activateTarget",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -34,13 +35,13 @@ AttachToTarget attaches to the target with given id.
 func (Target) AttachToTarget(
 	socket *Socket,
 	params *target.AttachToTargetParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Target.attachToTarget",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -48,6 +49,7 @@ CloseTarget closes the target. If the target is a page that gets closed too.
 */
 func (Target) CloseTarget(
 	socket *Socket,
+	params *target.CloseTargetParams,
 ) (target.CloseTargetResult, error) {
 	command := &protocol.Command{
 		Method: "Target.closeTarget",
@@ -91,13 +93,13 @@ DetachFromTarget detaches session with given id.
 func (Target) DetachFromTarget(
 	socket *Socket,
 	params *target.DetachFromTargetParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Target.detachFromTarget",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -106,13 +108,13 @@ DisposeBrowserContext deletes a BrowserContext, will fail of any open page uses 
 func (Target) DisposeBrowserContext(
 	socket *Socket,
 	params *target.DisposeBrowserContextParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Target.disposeBrowserContext",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -136,13 +138,13 @@ GetTargets retrieves a list of available targets.
 func (Target) GetTargets(
 	socket *Socket,
 	params *target.GetTargetsParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Target.getTargets",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -151,13 +153,13 @@ SendMessageToTarget sends protocol message over session with given id.
 func (Target) SendMessageToTarget(
 	socket *Socket,
 	params *target.SendMessageToTargetParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Target.sendMessageToTarget",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -166,13 +168,13 @@ SetAttachToFrames EXPERIMENTAL
 func (Target) SetAttachToFrames(
 	socket *Socket,
 	params *target.SetAttachToFramesParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Target.setAttachToFrames",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -183,13 +185,13 @@ off, automatically detaches from all currently attached targets. EXPERIMENTAL
 func (Target) SetAutoAttach(
 	socket *Socket,
 	params *target.SetAutoAttachParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Target.setAutoAttach",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -199,13 +201,13 @@ SetDiscoverTargets controls whether to discover available targets and notify via
 func (Target) SetDiscoverTargets(
 	socket *Socket,
 	params *target.SetDiscoverTargetsParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Target.setDiscoverTargets",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -215,13 +217,13 @@ was set to `true`. EXPERIMENTAL
 func (Target) SetRemoteLocations(
 	socket *Socket,
 	params *target.SetRemoteLocationsParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Target.setRemoteLocations",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*

@@ -1,6 +1,7 @@
 package chrome
 
 import (
+	heap_profiler "app/chrome/heap_profiler"
 	"app/chrome/protocol"
 	"encoding/json"
 
@@ -20,13 +21,13 @@ API for more details $x functions).
 func (HeapProfiler) AddInspectedHeapObject(
 	socket *Socket,
 	params *heap_profiler.AddInspectedHeapObjectParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "HeapProfiler.addInspectedHeapObject",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -34,12 +35,12 @@ CollectGarbage EXPERIMENTAL
 */
 func (HeapProfiler) CollectGarbage(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "HeapProfiler.collectGarbage",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -47,12 +48,12 @@ Disable disables the HeapProfiler.
 */
 func (HeapProfiler) Disable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "HeapProfiler.disable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -60,12 +61,12 @@ Enable enables the HeapProfiler.
 */
 func (HeapProfiler) Enable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "HeapProfiler.enable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -104,13 +105,13 @@ GetSamplingProfile EXPERIMENTAL
 func (HeapProfiler) GetSamplingProfile(
 	socket *Socket,
 	params *heap_profiler.GetSamplingProfileParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "HeapProfiler.getSamplingProfile",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -119,13 +120,13 @@ StartSampling EXPERIMENTAL
 func (HeapProfiler) StartSampling(
 	socket *Socket,
 	params *heap_profiler.StartSamplingParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "HeapProfiler.startSampling",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -134,13 +135,13 @@ StartTrackingHeapObjects EXPERIMENTAL
 func (HeapProfiler) StartTrackingHeapObjects(
 	socket *Socket,
 	params *heap_profiler.StartTrackingHeapObjectsParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "HeapProfiler.startTrackingHeapObjects",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -149,13 +150,13 @@ StopSampling EXPERIMENTAL
 func (HeapProfiler) StopSampling(
 	socket *Socket,
 	params *heap_profiler.StopSamplingParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "HeapProfiler.stopSampling",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -164,13 +165,13 @@ StopTrackingHeapObjects EXPERIMENTAL
 func (HeapProfiler) StopTrackingHeapObjects(
 	socket *Socket,
 	params *heap_profiler.StopTrackingHeapObjectsParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "HeapProfiler.stopTrackingHeapObjects",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -179,13 +180,13 @@ TakeHeapSnapshot EXPERIMENTAL
 func (HeapProfiler) TakeHeapSnapshot(
 	socket *Socket,
 	params *heap_profiler.TakeHeapSnapshotParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "HeapProfiler.takeHeapSnapshot",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*

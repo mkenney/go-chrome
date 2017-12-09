@@ -3,6 +3,7 @@ package Overlay
 import (
 	DOM "app/chrome/dom"
 	Page "app/chrome/page"
+	Runtime "app/chrome/runtime"
 	"fmt"
 )
 
@@ -68,9 +69,9 @@ type HighlightQuadParams struct {
 }
 
 /*
-HighlightQuadParams represents Overlay.highlightQuad parameters.
+HighlightRectParams represents Overlay.highlightRect parameters.
 */
-type HighlightQuadParams struct {
+type HighlightRectParams struct {
 	// X coordinate.
 	X int `json:"x"`
 

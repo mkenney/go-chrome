@@ -1,6 +1,7 @@
 package chrome
 
 import (
+	emulation "app/chrome/emulation"
 	"app/chrome/protocol"
 	"encoding/json"
 
@@ -31,12 +32,12 @@ ClearDeviceMetricsOverride clears the overridden device metrics.
 */
 func (Emulation) ClearDeviceMetricsOverride(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Emulation.clearDeviceMetricsOverride",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -44,12 +45,12 @@ ClearGeolocationOverride clears the overridden Geolocation Position and Error.
 */
 func (Emulation) ClearGeolocationOverride(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Emulation.clearGeolocationOverride",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -57,12 +58,12 @@ ResetPageScaleFactor requests that page scale factor is reset to initial values.
 */
 func (Emulation) ResetPageScaleFactor(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Emulation.resetPageScaleFactor",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -71,13 +72,13 @@ SetCPUThrottlingRate enables CPU throttling to emulate slow CPUs. EXPERIMENTAL
 func (Emulation) SetCPUThrottlingRate(
 	socket *Socket,
 	params *emulation.SetCPUThrottlingRateParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Emulation.setCPUThrottlingRate",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -87,13 +88,13 @@ frame. This override is used if the content does not specify one.
 func (Emulation) SetDefaultBackgroundColorOverride(
 	socket *Socket,
 	params *emulation.SetDefaultBackgroundColorOverrideParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Emulation.setDefaultBackgroundColorOverride",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -104,13 +105,13 @@ related CSS media query results).
 func (Emulation) SetDeviceMetricsOverride(
 	socket *Socket,
 	params *emulation.SetDeviceMetricsOverrideParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Emulation.setDeviceMetricsOverride",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -119,13 +120,13 @@ SetEmitTouchEventsForMouse enables touch events using a mouse. EXPERIMENTAL
 func (Emulation) SetEmitTouchEventsForMouse(
 	socket *Socket,
 	params *emulation.SetEmitTouchEventsForMouseParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Emulation.setEmitTouchEventsForMouse",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -134,13 +135,13 @@ SetEmulatedMedia emulates the given media for CSS media queries.
 func (Emulation) SetEmulatedMedia(
 	socket *Socket,
 	params *emulation.SetEmulatedMediaParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Emulation.setEmulatedMedia",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -150,13 +151,13 @@ emulates position unavailable.
 func (Emulation) SetGeolocationOverride(
 	socket *Socket,
 	params *emulation.SetGeolocationOverrideParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Emulation.setGeolocationOverride",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -165,13 +166,13 @@ SetNavigatorOverrides overrides value returned by the javascript navigator objec
 func (Emulation) SetNavigatorOverrides(
 	socket *Socket,
 	params *emulation.SetNavigatorOverridesParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Emulation.setNavigatorOverrides",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -180,13 +181,13 @@ SetPageScaleFactor sets a specified page scale factor. EXPERIMENTAL
 func (Emulation) SetPageScaleFactor(
 	socket *Socket,
 	params *emulation.SetPageScaleFactorParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Emulation.setPageScaleFactor",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -195,13 +196,13 @@ SetScriptExecutionDisabled switches script execution in the page.
 func (Emulation) SetScriptExecutionDisabled(
 	socket *Socket,
 	params *emulation.SetScriptExecutionDisabledParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Emulation.setScriptExecutionDisabled",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -210,13 +211,13 @@ SetTouchEmulationEnabled enables touch on platforms which do not support it.
 func (Emulation) SetTouchEmulationEnabled(
 	socket *Socket,
 	params *emulation.SetTouchEmulationEnabledParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Emulation.setTouchEmulationEnabled",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -227,13 +228,13 @@ EXPERIMENTAL
 func (Emulation) SetVirtualTimePolicy(
 	socket *Socket,
 	params *emulation.SetVirtualTimePolicyParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Emulation.setVirtualTimePolicy",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -244,13 +245,13 @@ supported on Android. EXPERIMENTAL DEPRECATED
 func (Emulation) SetVisibleSize(
 	socket *Socket,
 	params *emulation.SetVisibleSizeParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Emulation.setVisibleSize",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -287,7 +288,7 @@ func (Emulation) OnVirtualTimeBudgetExpired(
 	handler := protocol.NewEventHandler(
 		"Emulation.virtualTimeBudgetExpired",
 		func(name string, params []byte) {
-			event := &emulation.ResumedEvent{}
+			event := &emulation.VirtualTimeBudgetExpiredEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {

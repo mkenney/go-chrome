@@ -70,9 +70,9 @@ type UntrackIndexedDBForOriginParams struct {
 }
 
 /*
-cacheStorageContentUpdatedEvent represents Storage.cacheStorageContentUpdated event data.
+CacheStorageContentUpdatedEvent represents Storage.cacheStorageContentUpdated event data.
 */
-type cacheStorageContentUpdatedEvent struct {
+type CacheStorageContentUpdatedEvent struct {
 	// Origin to update.
 	Origin string `json:"origin"`
 

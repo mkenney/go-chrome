@@ -2,6 +2,7 @@ package chrome
 
 import (
 	"app/chrome/protocol"
+	system_info "app/chrome/system_info"
 )
 
 /*
@@ -18,7 +19,6 @@ func (SystemInfo) GetInfo(
 ) (system_info.GetInfoResult, error) {
 	command := &protocol.Command{
 		Method: "SystemInfo.getInfo",
-		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(system_info.GetInfoResult), command.Err

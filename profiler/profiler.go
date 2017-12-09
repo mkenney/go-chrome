@@ -6,6 +6,14 @@ import (
 )
 
 /*
+GetBestEffortCoverageResult represents the result of calls to Profiler.getBestEffortCoverage.
+*/
+type GetBestEffortCoverageResult struct {
+	// Coverage data for the current isolate.
+	Result []ScriptCoverage `json:"result"`
+}
+
+/*
 SetSamplingIntervalParams represents Profiler.setSamplingInterval parameters.
 */
 type SetSamplingIntervalParams struct {

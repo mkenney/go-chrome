@@ -25,9 +25,9 @@ type CloseTargetParams struct {
 }
 
 /*
-closeTargetResult represents the result of calls to Target.closeTarget.
+CloseTargetResult represents the result of calls to Target.closeTarget.
 */
-type closeTargetResult struct {
+type CloseTargetResult struct {
 	Success bool `json:"success"`
 }
 

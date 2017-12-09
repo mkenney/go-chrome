@@ -24,8 +24,8 @@ type GetHeapObjectIDParams struct {
 GetHeapObjectIDResult represents the result of calls to HeapProfiler.getHeapObjectId.
 */
 type GetHeapObjectIDResult struct {
-	// Evaluation result.
-	Result Runtime.RemoteObject `json:"result"`
+	// ID of the heap snapshot object corresponding to the passed remote object id.
+	HeapSnapshotObjectID HeapSnapshotObjectID `json:"heapSnapshotObjectId"`
 }
 
 /*
@@ -37,6 +37,14 @@ type GetObjectByHeapObjectIDParams struct {
 
 	// Optional. Symbolic group name that can be used to release multiple objects.
 	ObjectGroup string `json:"objectGroup,omitempty"`
+}
+
+/*
+GetObjectByHeapObjectIDResult represents the result of calls to HeapProfiler.getObjectByHeapObjectId.
+*/
+type GetObjectByHeapObjectIDResult struct {
+	// Evaluation result.
+	Result Runtime.RemoteObject `json:"result"`
 }
 
 /*

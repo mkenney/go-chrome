@@ -2,6 +2,7 @@ package chrome
 
 import (
 	"app/chrome/protocol"
+	security "app/chrome/security"
 	"encoding/json"
 
 	log "github.com/Sirupsen/logrus"
@@ -17,12 +18,12 @@ Disable disables tracking security state changes.
 */
 func (Security) Disable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Security.disable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -30,18 +31,21 @@ Enable tracking security state changes.
 */
 func (Security) Enable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Security.enable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
 HandleCertificateError handles a certificate error that fired a certificateError event.
 */
-func (Security) HandleCertificateError(socket *Socket, params *security.HandleCertificateErrorParams) error {
+func (Security) HandleCertificateError(
+	socket *Socket,
+	params *security.HandleCertificateErrorParams,
+) error {
 	command := &protocol.Command{
 		Method: "Security.handleCertificateError",
 		Params: params,
@@ -55,7 +59,10 @@ SetOverrideCertificateErrors enables/disables overriding certificate errors. If 
 certificate error events need to be handled by the DevTools client and should be answered with
 handleCertificateError commands.
 */
-func (Security) SetOverrideCertificateErrors(socket *Socket, params *security.SetOverrideCertificateErrorsParams) error {
+func (Security) SetOverrideCertificateErrors(
+	socket *Socket,
+	params *security.SetOverrideCertificateErrorsParams,
+) error {
 	command := &protocol.Command{
 		Method: "Security.setOverrideCertificateErrors",
 		Params: params,

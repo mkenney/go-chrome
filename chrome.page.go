@@ -1,6 +1,7 @@
 package chrome
 
 import (
+	page "app/chrome/page"
 	"app/chrome/protocol"
 	"encoding/json"
 
@@ -19,14 +20,14 @@ EXPERIMENTAL DEPRECATED
 */
 func (Page) AddScriptToEvaluateOnLoad(
 	socket *Socket,
-	params *Page.AddScriptToEvaluateOnLoadParams,
-) (Page.AddScriptToEvaluateOnLoadResult, error) {
+	params *page.AddScriptToEvaluateOnLoadParams,
+) (page.AddScriptToEvaluateOnLoadResult, error) {
 	command := &protocol.Command{
 		Method: "Page.addScriptToEvaluateOnLoad",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(Page.AddScriptToEvaluateOnLoadResult), command.Err
+	return command.Result.(page.AddScriptToEvaluateOnLoadResult), command.Err
 }
 
 /*
@@ -35,14 +36,14 @@ frame's scripts).
 */
 func (Page) AddScriptToEvaluateOnNewDocument(
 	socket *Socket,
-	params *Page.AddScriptToEvaluateOnNewDocumentParams,
-) (Page.AddScriptToEvaluateOnNewDocumentResult, error) {
+	params *page.AddScriptToEvaluateOnNewDocumentParams,
+) (page.AddScriptToEvaluateOnNewDocumentResult, error) {
 	command := &protocol.Command{
 		Method: "Page.addScriptToEvaluateOnNewDocument",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(Page.AddScriptToEvaluateOnNewDocumentResult), command.Err
+	return command.Result.(page.AddScriptToEvaluateOnNewDocumentResult), command.Err
 }
 
 /*
@@ -50,12 +51,12 @@ BringToFront brings page to front (activates tab).
 */
 func (Page) BringToFront(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Page.bringToFront",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -63,14 +64,14 @@ CaptureScreenshot capture a page screenshot.
 */
 func (Page) CaptureScreenshot(
 	socket *Socket,
-	params *Page.CaptureScreenshotParams,
-) (Page.CaptureScreenshotResult, error) {
+	params *page.CaptureScreenshotParams,
+) (page.CaptureScreenshotResult, error) {
 	command := &protocol.Command{
 		Method: "Page.CaptureScreenshot",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(Page.CaptureScreenshotResult), command.Err
+	return command.Result.(page.CaptureScreenshotResult), command.Err
 }
 
 /*
@@ -78,14 +79,14 @@ CreateIsolatedWorld creates an isolated world for the given frame.
 */
 func (Page) CreateIsolatedWorld(
 	socket *Socket,
-	params *Page.CreateIsolatedWorldParams,
-) (Page.CreateIsolatedWorldResult, error) {
+	params *page.CreateIsolatedWorldParams,
+) (page.CreateIsolatedWorldResult, error) {
 	command := &protocol.Command{
 		Method: "Page.createIsolatedWorld",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(Page.CreateIsolatedWorldResult), command.Err
+	return command.Result.(page.CreateIsolatedWorldResult), command.Err
 }
 
 /*
@@ -93,12 +94,12 @@ Disable disables page domain notifications.
 */
 func (Page) Disable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Page.disable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -106,12 +107,12 @@ Enable Ennables page domain notifications.
 */
 func (Page) Enable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Page.enable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -119,14 +120,14 @@ GetAppManifest gets the app manifest.
 */
 func (Page) GetAppManifest(
 	socket *Socket,
-	params *Page.GetAppManifestParams,
-) (nil, error) {
+	params *page.GetAppManifestParams,
+) error {
 	command := &protocol.Command{
 		Method: "Page.getAppManifest",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -134,12 +135,12 @@ GetFrameTree returns present frame tree structure.
 */
 func (Page) GetFrameTree(
 	socket *Socket,
-) (Page.GetFrameTreeResult, error) {
+) (page.GetFrameTreeResult, error) {
 	command := &protocol.Command{
 		Method: "Page.getFrameTree",
 	}
 	socket.SendCommand(command)
-	return command.Result.(Page.GetFrameTreeResult), command.Err
+	return command.Result.(page.GetFrameTreeResult), command.Err
 }
 
 /*
@@ -148,12 +149,12 @@ bounds/scale.
 */
 func (Page) GetLayoutMetrics(
 	socket *Socket,
-) (Page.GetLayoutMetricsResult, error) {
+) (page.GetLayoutMetricsResult, error) {
 	command := &protocol.Command{
 		Method: "Page.getLayoutMetrics",
 	}
 	socket.SendCommand(command)
-	return command.Result.(Page.GetLayoutMetricsResult), command.Err
+	return command.Result.(page.GetLayoutMetricsResult), command.Err
 }
 
 /*
@@ -161,12 +162,12 @@ GetNavigationHistory returns navigation history for the current page.
 */
 func (Page) GetNavigationHistory(
 	socket *Socket,
-) (Page.GetNavigationHistoryResult, error) {
+) (page.GetNavigationHistoryResult, error) {
 	command := &protocol.Command{
 		Method: "Page.getNavigationHistory",
 	}
 	socket.SendCommand(command)
-	return command.Result.(Page.GetNavigationHistoryResult), command.Err
+	return command.Result.(page.GetNavigationHistoryResult), command.Err
 }
 
 /*
@@ -174,14 +175,14 @@ GetResourceContent returns content of the given resource. EXPERIMENTAL
 */
 func (Page) GetResourceContent(
 	socket *Socket,
-	params *Page.GetResourceContentParams,
-) (Page.GetResourceContentResult, error) {
+	params *page.GetResourceContentParams,
+) (page.GetResourceContentResult, error) {
 	command := &protocol.Command{
 		Method: "Page.getResourceContent",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(Page.GetResourceContentResult), command.Err
+	return command.Result.(page.GetResourceContentResult), command.Err
 }
 
 /*
@@ -189,12 +190,12 @@ GetResourceTree returns present frame / resource tree structure. EXPERIMENTAL
 */
 func (Page) GetResourceTree(
 	socket *Socket,
-) (Page.GetResourceTreeResult, error) {
+) (page.GetResourceTreeResult, error) {
 	command := &protocol.Command{
 		Method: "Page.getResourceTree",
 	}
 	socket.SendCommand(command)
-	return command.Result.(Page.GetResourceTreeResult), command.Err
+	return command.Result.(page.GetResourceTreeResult), command.Err
 }
 
 /*
@@ -203,14 +204,14 @@ or onbeforeunload).
 */
 func (Page) HandleJavaScriptDialog(
 	socket *Socket,
-	params *Page.HandleJavaScriptDialogParams,
-) (nil, error) {
+	params *page.HandleJavaScriptDialogParams,
+) error {
 	command := &protocol.Command{
 		Method: "Page.handleJavaScriptDialog",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -218,14 +219,14 @@ Navigate navigates current page to the given URL.
 */
 func (Page) Navigate(
 	socket *Socket,
-	params *Page.NavigateParams,
-) (Page.NavigateResult, error) {
+	params *page.NavigateParams,
+) (page.NavigateResult, error) {
 	command := &protocol.Command{
 		Method: "Page.navigate",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(Page.NavigateResult), command.Err
+	return command.Result.(page.NavigateResult), command.Err
 }
 
 /*
@@ -233,14 +234,14 @@ NavigateToHistoryEntry navigates current page to the given history entry.
 */
 func (Page) NavigateToHistoryEntry(
 	socket *Socket,
-	params *Page.NavigateToHistoryEntryParams,
-) (nil, error) {
+	params *page.NavigateToHistoryEntryParams,
+) error {
 	command := &protocol.Command{
 		Method: "Page.navigateToHistoryEntry",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -248,14 +249,14 @@ PrintToPDF print page as PDF.
 */
 func (Page) PrintToPDF(
 	socket *Socket,
-	params *Page.PrintToPDFParams,
-) (Page.PrintToPDFResult, error) {
+	params *page.PrintToPDFParams,
+) (page.PrintToPDFResult, error) {
 	command := &protocol.Command{
 		Method: "Page.printToPDF",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(Page.PrintToPDFResult), command.Err
+	return command.Result.(page.PrintToPDFResult), command.Err
 }
 
 /*
@@ -263,14 +264,14 @@ Reload reloads given page optionally ignoring the cache.
 */
 func (Page) Reload(
 	socket *Socket,
-	params *Page.ReloadParams,
-) (nil, error) {
+	params *page.ReloadParams,
+) error {
 	command := &protocol.Command{
 		Method: "Page.reload",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -279,14 +280,14 @@ EXPERIMENTAL DEPRECATED
 */
 func (Page) RemoveScriptToEvaluateOnLoad(
 	socket *Socket,
-	params *Page.RemoveScriptToEvaluateOnLoadParams,
-) (nil, error) {
+	params *page.RemoveScriptToEvaluateOnLoadParams,
+) error {
 	command := &protocol.Command{
 		Method: "Page.removeScriptToEvaluateOnLoad",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -294,14 +295,14 @@ RemoveScriptToEvaluateOnNewDocument removes given script from the list.
 */
 func (Page) RemoveScriptToEvaluateOnNewDocument(
 	socket *Socket,
-	params *Page.RemoveScriptToEvaluateOnNewDocumentParams,
-) (nil, error) {
+	params *page.RemoveScriptToEvaluateOnNewDocumentParams,
+) error {
 	command := &protocol.Command{
 		Method: "Page.removeScriptToEvaluateOnNewDocument",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -309,14 +310,14 @@ RequestAppBanner EXPERIMENTAL
 */
 func (Page) RequestAppBanner(
 	socket *Socket,
-	params *Page.RequestAppBannerParams,
-) (nil, error) {
+	params *page.RequestAppBannerParams,
+) error {
 	command := &protocol.Command{
 		Method: "Page.requestAppBanner",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -325,14 +326,14 @@ EXPERIMENTAL
 */
 func (Page) ScreencastFrameAck(
 	socket *Socket,
-	params *Page.ScreencastFrameAckParams,
-) (nil, error) {
+	params *page.ScreencastFrameAckParams,
+) error {
 	command := &protocol.Command{
 		Method: "Page.screencastFrameAck",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -340,14 +341,14 @@ SearchInResource searches for given string in resource content. EXPERIMENTAL
 */
 func (Page) SearchInResource(
 	socket *Socket,
-	params *Page.SearchInResourceParams,
-) (Page.SearchInResourceResult, error) {
+	params *page.SearchInResourceParams,
+) (page.SearchInResourceResult, error) {
 	command := &protocol.Command{
 		Method: "Page.searchInResource",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(Page.SearchInResourceResult), command.Err
+	return command.Result.(page.SearchInResourceResult), command.Err
 }
 
 /*
@@ -355,14 +356,14 @@ SetAdBlockingEnabled enable Chrome's experimental ad filter on all sites. EXPERI
 */
 func (Page) SetAdBlockingEnabled(
 	socket *Socket,
-	params *Page.SetAdBlockingEnabledParams,
-) (nil, error) {
+	params *page.SetAdBlockingEnabledParams,
+) error {
 	command := &protocol.Command{
 		Method: "Page.setAdBlockingEnabled",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -371,14 +372,14 @@ pages. EXPERIMENTAL
 */
 func (Page) SetAutoAttachToCreatedPages(
 	socket *Socket,
-	params *Page.SetAutoAttachToCreatedPagesParams,
-) (nil, error) {
+	params *page.SetAutoAttachToCreatedPagesParams,
+) error {
 	command := &protocol.Command{
 		Method: "Page.setAutoAttachToCreatedPages",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -386,14 +387,14 @@ SetDocumentContent sets given markup as the document's HTML.
 */
 func (Page) SetDocumentContent(
 	socket *Socket,
-	params *Page.SetDocumentContentParams,
-) (nil, error) {
+	params *page.SetDocumentContentParams,
+) error {
 	command := &protocol.Command{
 		Method: "Page.setDocumentContent",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -401,14 +402,14 @@ SetDownloadBehavior sets the behavior when downloading a file. EXPERIMENTAL
 */
 func (Page) SetDownloadBehavior(
 	socket *Socket,
-	params *Page.SetDownloadBehaviorParams,
-) (nil, error) {
+	params *page.SetDownloadBehaviorParams,
+) error {
 	command := &protocol.Command{
 		Method: "Page.setDownloadBehavior",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -416,14 +417,14 @@ SetLifecycleEventsEnabled controls whether page will emit lifecycle events. EXPE
 */
 func (Page) SetLifecycleEventsEnabled(
 	socket *Socket,
-	params *Page.SetLifecycleEventsEnabledParams,
-) (nil, error) {
+	params *page.SetLifecycleEventsEnabledParams,
+) error {
 	command := &protocol.Command{
 		Method: "Page.setLifecycleEventsEnabled",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -431,14 +432,14 @@ StartScreencast starts sending each frame using the `screencastFrame` event. EXP
 */
 func (Page) StartScreencast(
 	socket *Socket,
-	params *Page.StartScreencastParams,
-) (nil, error) {
+	params *page.StartScreencastParams,
+) error {
 	command := &protocol.Command{
 		Method: "Page.startScreencast",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -446,12 +447,12 @@ StopLoading force the page stop all navigations and pending resource fetches.
 */
 func (Page) StopLoading(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Page.stopLoading",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -459,12 +460,12 @@ StopScreencast stops sending each frame in the `screencastFrame`. EXPERIMENTAL
 */
 func (Page) StopScreencast(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Page.stopScreencast",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*

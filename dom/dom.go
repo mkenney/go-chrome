@@ -15,10 +15,10 @@ type CollectClassNamesFromSubtreeParams struct {
 }
 
 /*
-collectClassNamesFromSubtreeResult represents the result of calls to
+CollectClassNamesFromSubtreeResult represents the result of calls to
 DOM.collectClassNamesFromSubtree.
 */
-type collectClassNamesFromSubtreeResult struct {
+type CollectClassNamesFromSubtreeResult struct {
 	// Class name list.
 	ClassNames []string `json:"classNames"`
 }
@@ -331,13 +331,13 @@ type PushNodesByBackendIDsToFrontendParams struct {
 }
 
 /*
-PushNodesByBackendIdsToFrontendResult represents the result of calls to
+PushNodesByBackendIDsToFrontendResult represents the result of calls to
 DOM.pushNodesByBackendIdsToFrontend.
 */
-type PushNodesByBackendIdsToFrontendResult struct {
+type PushNodesByBackendIDsToFrontendResult struct {
 	// The array of IDs of pushed nodes that correspond to the backend IDs specified in
 	// backendNodeIDs.
-	NodeIDs []NodeId `json:"nodeIds"`
+	NodeIDs []NodeID `json:"nodeIds"`
 }
 
 /*

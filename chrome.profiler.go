@@ -1,6 +1,7 @@
 package chrome
 
 import (
+	profiler "app/chrome/profiler"
 	"app/chrome/protocol"
 	"encoding/json"
 
@@ -18,12 +19,12 @@ Disable disables profiling.
 */
 func (Profiler) Disable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Profiler.disable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -31,12 +32,12 @@ Enable enables profiling.
 */
 func (Profiler) Enable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Profiler.enable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -45,12 +46,12 @@ incomplete due to garbage collection.
 */
 func (Profiler) GetBestEffortCoverage(
 	socket *Socket,
-) (Profiler.GetBestEffortCoverageResult, error) {
+) (profiler.GetBestEffortCoverageResult, error) {
 	command := &protocol.Command{
 		Method: "Profiler.getBestEffortCoverage",
 	}
 	socket.SendCommand(command)
-	return command.Result.(Profiler.GetBestEffortCoverageResult), command.Err
+	return command.Result.(profiler.GetBestEffortCoverageResult), command.Err
 }
 
 /*
@@ -59,14 +60,14 @@ recording started.
 */
 func (Profiler) SetSamplingInterval(
 	socket *Socket,
-	params *Profiler.SetSamplingIntervalParams,
-) (nil, error) {
+	params *profiler.SetSamplingIntervalParams,
+) error {
 	command := &protocol.Command{
 		Method: "Profiler.setSamplingInterval",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -74,12 +75,12 @@ Start starts profiling.
 */
 func (Profiler) Start(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Profiler.start",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -89,14 +90,14 @@ resets execution counters.
 */
 func (Profiler) StartPreciseCoverage(
 	socket *Socket,
-	params *Profiler.StartPreciseCoverageParams,
-) (nil, error) {
+	params *profiler.StartPreciseCoverageParams,
+) error {
 	command := &protocol.Command{
 		Method: "Profiler.startPreciseCoverage",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -104,12 +105,12 @@ StartTypeProfile enables type profile. EXPERIMENTAL
 */
 func (Profiler) StartTypeProfile(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Profiler.startTypeProfile",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -117,12 +118,12 @@ Stop stops profiling.
 */
 func (Profiler) Stop(
 	socket *Socket,
-) (Profiler.StopResult, error) {
+) (profiler.StopResult, error) {
 	command := &protocol.Command{
 		Method: "Profiler.stop",
 	}
 	socket.SendCommand(command)
-	return command.Result.(Profiler.StopResult), command.Err
+	return command.Result.(profiler.StopResult), command.Err
 }
 
 /*
@@ -131,12 +132,12 @@ records and allows executing optimized code.
 */
 func (Profiler) StopPreciseCoverage(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Profiler.stopPreciseCoverage",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -145,12 +146,12 @@ EXPERIMENTAL
 */
 func (Profiler) StopTypeProfile(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Profiler.stopTypeProfile",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -159,12 +160,12 @@ Precise code coverage needs to have started.
 */
 func (Profiler) TakePreciseCoverage(
 	socket *Socket,
-) (Profiler.TakePreciseCoverageResult, error) {
+) (profiler.TakePreciseCoverageResult, error) {
 	command := &protocol.Command{
 		Method: "Profiler.takePreciseCoverage",
 	}
 	socket.SendCommand(command)
-	return command.Result.(Profiler.TakePreciseCoverageResult), command.Err
+	return command.Result.(profiler.TakePreciseCoverageResult), command.Err
 }
 
 /*
@@ -172,12 +173,12 @@ TakeTypeProfile collect type profile. EXPERIMENTAL
 */
 func (Profiler) TakeTypeProfile(
 	socket *Socket,
-) (Profiler.TakeTypeProfileResult, error) {
+) (profiler.TakeTypeProfileResult, error) {
 	command := &protocol.Command{
 		Method: "Profiler.takeTypeProfile",
 	}
 	socket.SendCommand(command)
-	return command.Result.(Profiler.TakeTypeProfileResult), command.Err
+	return command.Result.(profiler.TakeTypeProfileResult), command.Err
 }
 
 /*

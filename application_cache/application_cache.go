@@ -40,6 +40,14 @@ type GetManifestForFrameParams struct {
 }
 
 /*
+GetManifestForFrameResult represents the result of calls to ApplicationCache.getManifestForFrame.
+*/
+type GetManifestForFrameResult struct {
+	// Manifest URL for document in the given frame.
+	ManifestURL string `json:"manifestURL"`
+}
+
+/*
 ApplicationCacheStatusUpdatedEvent represents ApplicationCache.applicationCacheStatusUpdated
 event data.
 */

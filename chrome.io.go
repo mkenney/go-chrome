@@ -17,13 +17,13 @@ Close closes the stream and discards any temporary backing storage.
 func (IO) Close(
 	socket *Socket,
 	params *io.CloseParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "IO.close",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*

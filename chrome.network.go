@@ -1,6 +1,7 @@
 package chrome
 
 import (
+	network "app/chrome/network"
 	"app/chrome/protocol"
 	"encoding/json"
 
@@ -19,12 +20,12 @@ CanClearBrowserCache tells whether clearing browser cache is supported. DEPRECAT
 */
 func (Network) CanClearBrowserCache(
 	socket *Socket,
-) (netowrk.CanClearBrowserCacheResult, error) {
+) (network.CanClearBrowserCacheResult, error) {
 	command := &protocol.Command{
 		Method: "Network.canClearBrowserCache",
 	}
 	socket.SendCommand(command)
-	return command.Result.(netowrk.CanClearBrowserCacheResult), command.Err
+	return command.Result.(network.CanClearBrowserCacheResult), command.Err
 }
 
 /*
@@ -32,12 +33,12 @@ CanClearBrowserCookies tells whether clearing browser cookies is supported. DEPR
 */
 func (Network) CanClearBrowserCookies(
 	socket *Socket,
-) (netowrk.CanClearBrowserCookiesResult, error) {
+) (network.CanClearBrowserCookiesResult, error) {
 	command := &protocol.Command{
 		Method: "Network.canClearBrowserCookies",
 	}
 	socket.SendCommand(command)
-	return command.Result.(netowrk.CanClearBrowserCookiesResult), command.Err
+	return command.Result.(network.CanClearBrowserCookiesResult), command.Err
 }
 
 /*
@@ -45,12 +46,12 @@ CanEmulateNetworkConditions tells whether emulation of network conditions is sup
 */
 func (Network) CanEmulateNetworkConditions(
 	socket *Socket,
-) (netowrk.CanEmulateNetworkConditionsResult, error) {
+) (network.CanEmulateNetworkConditionsResult, error) {
 	command := &protocol.Command{
 		Method: "Network.canEmulateNetworkConditions",
 	}
 	socket.SendCommand(command)
-	return command.Result.(netowrk.CanEmulateNetworkConditionsResult), command.Err
+	return command.Result.(network.CanEmulateNetworkConditionsResult), command.Err
 }
 
 /*
@@ -58,12 +59,12 @@ ClearBrowserCache clears browser cache.
 */
 func (Network) ClearBrowserCache(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Network.clearBrowserCache",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -71,12 +72,12 @@ ClearBrowserCookies clears browser cookies.
 */
 func (Network) ClearBrowserCookies(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Network.clearBrowserCookies",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -87,14 +88,14 @@ Network.requestIntercepted event will be sent with the same InterceptionID. EXPE
 */
 func (Network) ContinueInterceptedRequest(
 	socket *Socket,
-	params *netowrk.ContinueInterceptedRequestParams,
-) (nil, error) {
+	params *network.ContinueInterceptedRequestParams,
+) error {
 	command := &protocol.Command{
 		Method: "Network.continueInterceptedRequest",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -102,14 +103,14 @@ DeleteCookies deletes browser cookies with matching name and url or domain/path 
 */
 func (Network) DeleteCookies(
 	socket *Socket,
-	params *netowrk.DeleteCookiesParams,
-) (nil, error) {
+	params *network.DeleteCookiesParams,
+) error {
 	command := &protocol.Command{
 		Method: "Network.deleteCookies",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -117,12 +118,12 @@ Disable disables network tracking, prevents network events from being sent to th
 */
 func (Network) Disable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Network.disable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -130,14 +131,14 @@ EmulateNetworkConditions activates emulation of network conditions.
 */
 func (Network) EmulateNetworkConditions(
 	socket *Socket,
-	params *netowrk.EmulateNetworkConditionsParams,
-) (nil, error) {
+	params *network.EmulateNetworkConditionsParams,
+) error {
 	command := &protocol.Command{
 		Method: "Network.emulateNetworkConditions",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -145,14 +146,14 @@ Enable enables network tracking, network events will now be delivered to the cli
 */
 func (Network) Enable(
 	socket *Socket,
-	params *netowrk.EnableParams,
-) (nil, error) {
+	params *network.EnableParams,
+) error {
 	command := &protocol.Command{
 		Method: "Network.enable",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -161,12 +162,12 @@ cookie information in the `cookies` field.
 */
 func (Network) GetAllCookies(
 	socket *Socket,
-) (netowrk.GetAllCookiesResult, error) {
+) (network.GetAllCookiesResult, error) {
 	command := &protocol.Command{
 		Method: "Network.getAllCookies",
 	}
 	socket.SendCommand(command)
-	return command.Result.(netowrk.GetAllCookiesResult), command.Err
+	return command.Result.(network.GetAllCookiesResult), command.Err
 }
 
 /*
@@ -174,14 +175,14 @@ GetCertificate returns the DER-encoded certificate. EXPERIMENTAL
 */
 func (Network) GetCertificate(
 	socket *Socket,
-	params *netowrk.GetCertificateParams,
-) (netowrk.GetCertificateResult, error) {
+	params *network.GetCertificateParams,
+) (network.GetCertificateResult, error) {
 	command := &protocol.Command{
 		Method: "Network.getCertificate",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(netowrk.GetCertificateResult), command.Err
+	return command.Result.(network.GetCertificateResult), command.Err
 }
 
 /*
@@ -190,14 +191,14 @@ return detailed cookie information in the `cookies` field.
 */
 func (Network) GetCookies(
 	socket *Socket,
-	params *netowrk.GetCookiesParams,
-) (netowrk.GetCookiesResult, error) {
+	params *network.GetCookiesParams,
+) (network.GetCookiesResult, error) {
 	command := &protocol.Command{
 		Method: "Network.getCookies",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(netowrk.GetCookiesResult), command.Err
+	return command.Result.(network.GetCookiesResult), command.Err
 }
 
 /*
@@ -205,14 +206,14 @@ GetResponseBody returns content served for the given request.
 */
 func (Network) GetResponseBody(
 	socket *Socket,
-	params *netowrk.GetResponseBodyParams,
-) (netowrk.GetResponseBodyResult, error) {
+	params *network.GetResponseBodyParams,
+) (network.GetResponseBodyResult, error) {
 	command := &protocol.Command{
 		Method: "Network.getResponseBody",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(netowrk.GetResponseBodyResult), command.Err
+	return command.Result.(network.GetResponseBodyResult), command.Err
 }
 
 /*
@@ -221,14 +222,14 @@ EXPERIMENTAL
 */
 func (Network) GetResponseBodyForInterception(
 	socket *Socket,
-	params *netowrk.GetResponseBodyForInterceptionParams,
-) (netowrk.GetResponseBodyForInterceptionResult, error) {
+	params *network.GetResponseBodyForInterceptionParams,
+) (network.GetResponseBodyForInterceptionResult, error) {
 	command := &protocol.Command{
 		Method: "Network.getResponseBodyForInterception",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(netowrk.GetResponseBodyForInterceptionResult), command.Err
+	return command.Result.(network.GetResponseBodyForInterceptionResult), command.Err
 }
 
 /*
@@ -238,14 +239,14 @@ attribute, user, password. EXPERIMENTAL
 */
 func (Network) ReplayXHR(
 	socket *Socket,
-	params *netowrk.ReplayXHRParams,
-) (nil, error) {
+	params *network.ReplayXHRParams,
+) error {
 	command := &protocol.Command{
 		Method: "Network.replayXHR",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -253,14 +254,14 @@ SearchInResponseBody searches for given string in response content. EXPERIMENTAL
 */
 func (Network) SearchInResponseBody(
 	socket *Socket,
-	params *netowrk.SearchInResponseBodyParams,
-) (netowrk.SearchInResponseBodyResult, error) {
+	params *network.SearchInResponseBodyParams,
+) (network.SearchInResponseBodyResult, error) {
 	command := &protocol.Command{
 		Method: "Network.searchInResponseBody",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(netowrk.SearchInResponseBodyResult), command.Err
+	return command.Result.(network.SearchInResponseBodyResult), command.Err
 }
 
 /*
@@ -268,14 +269,14 @@ SetBlockedURLs blocks URLs from loading. EXPERIMENTAL
 */
 func (Network) SetBlockedURLs(
 	socket *Socket,
-	params *netowrk.SetBlockedURLsParams,
-) (nil, error) {
+	params *network.SetBlockedURLsParams,
+) error {
 	command := &protocol.Command{
 		Method: "Network.setBlockedURLs",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -283,14 +284,14 @@ SetBypassServiceWorker toggles ignoring of service worker for each request. EXPE
 */
 func (Network) SetBypassServiceWorker(
 	socket *Socket,
-	params *netowrk.SetBypassServiceWorkerParams,
-) (nil, error) {
+	params *network.SetBypassServiceWorkerParams,
+) error {
 	command := &protocol.Command{
 		Method: "Network.setBypassServiceWorker",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -298,14 +299,14 @@ SetCacheDisabled toggles ignoring cache for each request. If `true`, cache will 
 */
 func (Network) SetCacheDisabled(
 	socket *Socket,
-	params *netowrk.SetCacheDisabledParams,
-) (nil, error) {
+	params *network.SetCacheDisabledParams,
+) error {
 	command := &protocol.Command{
 		Method: "Network.setCacheDisabled",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -313,14 +314,14 @@ SetCookie sets a cookie with the given cookie data; may overwrite equivalent coo
 */
 func (Network) SetCookie(
 	socket *Socket,
-	params *netowrk.SetCookieParams,
-) (netowrk.SetCookieResult, error) {
+	params *network.SetCookieParams,
+) (network.SetCookieResult, error) {
 	command := &protocol.Command{
 		Method: "Network.setCookie",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(netowrk.SetCookieResult), command.Err
+	return command.Result.(network.SetCookieResult), command.Err
 }
 
 /*
@@ -328,14 +329,14 @@ SetCookies sets given cookies.
 */
 func (Network) SetCookies(
 	socket *Socket,
-	params *netowrk.SetCookiesParams,
-) (nil, error) {
+	params *network.SetCookiesParams,
+) error {
 	command := &protocol.Command{
 		Method: "Network.setCookies",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -343,14 +344,14 @@ SetDataSizeLimitsForTest is for testing. EXPERIMENTAL
 */
 func (Network) SetDataSizeLimitsForTest(
 	socket *Socket,
-	params *netowrk.SetDataSizeLimitsForTestParams,
-) (nil, error) {
+	params *network.SetDataSizeLimitsForTestParams,
+) error {
 	command := &protocol.Command{
 		Method: "Network.setDataSizeLimitsForTest",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -359,14 +360,14 @@ page.
 */
 func (Network) SetExtraHTTPHeaders(
 	socket *Socket,
-	params *netowrk.SetExtraHTTPHeadersParams,
-) (nil, error) {
+	params *network.SetExtraHTTPHeadersParams,
+) error {
 	command := &protocol.Command{
 		Method: "Network.setExtraHTTPHeaders",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -375,14 +376,14 @@ optionally resource types. EXPERIMENTAL
 */
 func (Network) SetRequestInterception(
 	socket *Socket,
-	params *netowrk.SetRequestInterceptionParams,
-) (nil, error) {
+	params *network.SetRequestInterceptionParams,
+) error {
 	command := &protocol.Command{
 		Method: "Network.setRequestInterception",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -390,14 +391,14 @@ SetUserAgentOverride allows overriding user agent with the given string.
 */
 func (Network) SetUserAgentOverride(
 	socket *Socket,
-	params *netowrk.SetUserAgentOverrideParams,
-) (nil, error) {
+	params *network.SetUserAgentOverrideParams,
+) error {
 	command := &protocol.Command{
 		Method: "Network.setUserAgentOverride",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*

@@ -19,12 +19,12 @@ Clear clears the log.
 */
 func (Log) Clear(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Log.clear",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -32,12 +32,12 @@ Disable disables log domain, prevents further log entries from being reported to
 */
 func (Log) Disable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Log.disable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -46,12 +46,12 @@ Enable enables log domain, sends the entries collected so far to the client by m
 */
 func (Log) Enable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Log.enable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -60,13 +60,13 @@ StartViolationsReport starts violation reporting.
 func (Log) StartViolationsReport(
 	socket *Socket,
 	params *chrome_log.StartViolationsReportParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Log.startViolationsReport",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -74,12 +74,12 @@ StopViolationsReport stops violation reporting.
 */
 func (Log) StopViolationsReport(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Log.stopViolationsReport",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*

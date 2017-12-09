@@ -1,6 +1,7 @@
 package chrome
 
 import (
+	database "app/chrome/database"
 	"app/chrome/protocol"
 	"encoding/json"
 
@@ -18,12 +19,12 @@ Disable disables database tracking, prevents database events from being sent to 
 */
 func (Database) Disable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Database.disable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -31,12 +32,12 @@ Enable enables database tracking, database events will now be delivered to the c
 */
 func (Database) Enable(
 	socket *Socket,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Database.enable",
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -45,13 +46,13 @@ ExecuteSQL executes a SQL query.
 func (Database) ExecuteSQL(
 	socket *Socket,
 	params *database.ExecuteSQLParams,
-) (debugger.ExecuteSQLResult, error) {
+) (database.ExecuteSQLResult, error) {
 	command := &protocol.Command{
 		Method: "Database.executeSQL",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return command.Result.(debugger.ExecuteSQLResult), command.Err
+	return command.Result.(database.ExecuteSQLResult), command.Err
 }
 
 /*
@@ -60,13 +61,13 @@ GetDatabaseTableNames gets database table names.
 func (Database) GetDatabaseTableNames(
 	socket *Socket,
 	params *database.GetDatabaseTableNamesParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Database.getDatabaseTableNames",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*

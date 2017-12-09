@@ -2,6 +2,7 @@ package chrome
 
 import (
 	"app/chrome/protocol"
+	schema "app/chrome/schema"
 )
 
 /*

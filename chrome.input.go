@@ -1,6 +1,9 @@
 package chrome
 
-import "app/chrome/protocol"
+import (
+	input "app/chrome/input"
+	"app/chrome/protocol"
+)
 
 /*
 Input - https://chromedevtools.github.io/devtools-protocol/tot/Input/
@@ -13,13 +16,13 @@ DispatchKeyEvent dispatches a key event to the page.
 func (Input) DispatchKeyEvent(
 	socket *Socket,
 	params *input.DispatchKeyEventParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Input.dispatchKeyEvent",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -28,13 +31,13 @@ DispatchMouseEvent dispatches a mouse event to the page.
 func (Input) DispatchMouseEvent(
 	socket *Socket,
 	params *input.DispatchMouseEventParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Input.dispatchMouseEvent",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -43,13 +46,13 @@ DispatchTouchEvent dispatches a touch event to the page.
 func (Input) DispatchTouchEvent(
 	socket *Socket,
 	params *input.DispatchTouchEventParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Input.dispatchTouchEvent",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -58,13 +61,13 @@ EmulateTouchFromMouseEvent emulates touch event from the mouse event parameters.
 func (Input) EmulateTouchFromMouseEvent(
 	socket *Socket,
 	params *input.EmulateTouchFromMouseEventParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Input.emulateTouchFromMouseEvent",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -73,13 +76,13 @@ SetIgnoreInputEvents ignores input events (useful while auditing page).
 func (Input) SetIgnoreInputEvents(
 	socket *Socket,
 	params *input.SetIgnoreInputEventsParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Input.setIgnoreInputEvents",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -89,13 +92,13 @@ events. EXPERIMENTAL
 func (Input) SynthesizePinchGesture(
 	socket *Socket,
 	params *input.SynthesizePinchGestureParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Input.synthesizePinchGesture",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -105,13 +108,13 @@ events. EXPERIMENTAL
 func (Input) SynthesizeScrollGesture(
 	socket *Socket,
 	params *input.SynthesizeScrollGestureParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Input.synthesizeScrollGesture",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }
 
 /*
@@ -121,11 +124,11 @@ events. EXPERIMENTAL
 func (Input) SynthesizeTapGesture(
 	socket *Socket,
 	params *input.SynthesizeTapGestureParams,
-) (nil, error) {
+) error {
 	command := &protocol.Command{
 		Method: "Input.synthesizeTapGesture",
 		Params: params,
 	}
 	socket.SendCommand(command)
-	return nil, command.Err
+	return command.Err
 }

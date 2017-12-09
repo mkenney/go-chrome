@@ -34,8 +34,8 @@ func NewSocket(tab *Tab) (*Socket, error) {
 
 	socket := &Socket{
 		conn:     webSocket,
-		commands: make(map[int]SocketCmdIface),
-		events:   make(map[string][]EventHandlerInterface),
+		commands: make(map[int]*protocol.Command),
+		events:   make(map[string][]*protocol.EventHandler),
 	}
 	go socket.Listen(tab)
 
@@ -50,8 +50,8 @@ type Socket struct {
 	cmdID      int
 	cmdMutex   sync.Mutex
 	eventMutex sync.Mutex
-	events     map[string][]protocol.EventHandlerInterface // key is event name.
-	commands   map[int]protocol.CommandIface               // key is id.
+	events     map[string][]*protocol.EventHandler // key is event name.
+	commands   map[int]*protocol.Command           // key is id.
 	conn       *websocket.Conn
 }
 
@@ -100,27 +100,28 @@ func (socket *Socket) Listen(tab *Tab) {
 	}
 }
 
-/*
-SendCommand sends a command payload to the socket
-*/
-func (socket *Socket) SendCommand(command protocol.CommandIface) int {
-	command.WG.Add(1)
-	socket.cmdMutex.Lock()
-	defer socket.cmdMutex.Unlock()
-
-	socket.cmdID++
-	payload := &protocol.CommandPayload{
-		socket.cmdID,
-		command.Method,
-		command.Params,
-	}
-	tmp, _ := json.Marshal(payload)
-	log.Debugf("Sending %#v", string(tmp))
-	if err := socket.conn.WriteJSON(payload); err != nil {
-		command.Done(nil, err)
-	}
-	socket.commands[payload.ID] = command
-
-	command.WG.Wait()
-	return payload.ID
-}
+///*
+//SendCommand sends a command payload to the socket
+//*/
+//func (socket *Socket) SendCommand(command protocol.CommandIface) int {
+//	command.WG.Add(1)
+//	socket.cmdMutex.Lock()
+//	defer socket.cmdMutex.Unlock()
+//
+//	socket.cmdID++
+//	payload := &protocol.CommandPayload{
+//		socket.cmdID,
+//		command.Method,
+//		command.Params,
+//	}
+//	tmp, _ := json.Marshal(payload)
+//	log.Debugf("Sending %#v", string(tmp))
+//	if err := socket.conn.WriteJSON(payload); err != nil {
+//		command.Done(nil, err)
+//	}
+//	socket.commands[payload.ID] = command
+//
+//	command.WG.Wait()
+//	return payload.ID
+//}
+//
