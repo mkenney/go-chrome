@@ -20,7 +20,7 @@ func (Console) ClearMessages(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Console.clearMessages",
+		Method: "Console.clearMessages",
 	}
 	command.method = "Console.clearMessages"
 	socket.SendCommand(command)
@@ -35,7 +35,7 @@ func (Console) Disable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Console.disable",
+		Method: "Console.disable",
 	}
 	command.method = "Console.disable"
 	socket.SendCommand(command)
@@ -50,7 +50,7 @@ func (Console) Enable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Console.enable",
+		Method: "Console.enable",
 	}
 	command.method = "Console.enable"
 	socket.SendCommand(command)

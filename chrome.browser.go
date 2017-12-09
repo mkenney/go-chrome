@@ -15,7 +15,7 @@ func (Browser) Close(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Browser.close",
+		Method: "Browser.close",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -28,7 +28,7 @@ func (Browser) GetVersion(
 	socket *Socket,
 ) (browser.GetVersionResult, error) {
 	command := &protocol.Command{
-		method: "Browser.getVersion",
+		Method: "Browser.getVersion",
 	}
 	socket.SendCommand(command)
 	return command.Result.(browser.GetVersionResult), command.Err
@@ -42,8 +42,8 @@ func (Browser) GetWindowBounds(
 	params *browser.GetWindowBoundsParams,
 ) (browser.GetWindowBoundsResult, error) {
 	command := &protocol.Command{
-		method: "Browser.getWindowBounds",
-		params: params,
+		Method: "Browser.getWindowBounds",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(browser.GetWindowBoundsResult), command.Err
@@ -57,8 +57,8 @@ func (Browser) GetWindowForTarget(
 	params *browser.GetWindowForTargetParams,
 ) (browser.GetWindowForTargetResult, error) {
 	command := &protocol.Command{
-		method: "Browser.getWindowForTarget",
-		params: params,
+		Method: "Browser.getWindowForTarget",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(browser.GetWindowForTargetResult), command.Err
@@ -72,8 +72,8 @@ func (Browser) SetWindowBounds(
 	params *browser.SetWindowBoundsParams,
 ) (browser.SetWindowBoundsResult, error) {
 	command := &protocol.Command{
-		method: "Browser.setWindowBounds",
-		params: params,
+		Method: "Browser.setWindowBounds",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(browser.SetWindowBoundsResult), command.Err

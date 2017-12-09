@@ -11,12 +11,6 @@ CommandIface is the interface definition for a socket command
 type CommandIface interface {
 	// Done handles the command result
 	Done(result []byte, err error)
-
-	// Method returns the name of the command
-	Method() string
-
-	// Params returns the command parameters to be used
-	Params() interface{}
 }
 
 /*
@@ -42,24 +36,10 @@ Done is a SocketCmdIface implementation
 */
 func (cmd *Command) Done(result []byte, err error) {
 	if err == nil {
-		err = json.Unmarshal(result, &cmd.result)
+		err = json.Unmarshal(result, &cmd.Result)
 	}
 	cmd.Err = err
 	cmd.WG.Done()
-}
-
-/*
-Method is a CommandIface implementation
-*/
-func (cmd *Command) Method() string {
-	return cmd.Method
-}
-
-/*
-Params is a CommandIface implementation
-*/
-func (cmd *Command) Params() (params interface{}) {
-	return cmd.Params
 }
 
 /*

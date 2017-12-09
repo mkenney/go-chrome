@@ -18,8 +18,8 @@ func (Memory) GetDOMCounters(
 	params *memory.GetDOMCountersParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Memory.getDOMCounters",
-		params: params,
+		Method: "Memory.getDOMCounters",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -32,7 +32,7 @@ func (Memory) PrepareForLeakDetection(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Memory.prepareForLeakDetection",
+		Method: "Memory.prepareForLeakDetection",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -47,8 +47,8 @@ func (Memory) SetPressureNotificationsSuppressed(
 	params *memory.SetPressureNotificationsSuppressedParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Memory.setPressureNotificationsSuppressed",
-		params: params,
+		Method: "Memory.setPressureNotificationsSuppressed",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -62,8 +62,8 @@ func (Memory) SimulatePressureNotification(
 	params *memory.SimulatePressureNotificationParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Memory.simulatePressureNotification",
-		params: params,
+		Method: "Memory.simulatePressureNotification",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

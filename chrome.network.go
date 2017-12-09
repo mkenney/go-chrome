@@ -21,7 +21,7 @@ func (Network) CanClearBrowserCache(
 	socket *Socket,
 ) (netowrk.CanClearBrowserCacheResult, error) {
 	command := &protocol.Command{
-		method: "Network.canClearBrowserCache",
+		Method: "Network.canClearBrowserCache",
 	}
 	socket.SendCommand(command)
 	return command.Result.(netowrk.CanClearBrowserCacheResult), command.Err
@@ -34,7 +34,7 @@ func (Network) CanClearBrowserCookies(
 	socket *Socket,
 ) (netowrk.CanClearBrowserCookiesResult, error) {
 	command := &protocol.Command{
-		method: "Network.canClearBrowserCookies",
+		Method: "Network.canClearBrowserCookies",
 	}
 	socket.SendCommand(command)
 	return command.Result.(netowrk.CanClearBrowserCookiesResult), command.Err
@@ -47,7 +47,7 @@ func (Network) CanEmulateNetworkConditions(
 	socket *Socket,
 ) (netowrk.CanEmulateNetworkConditionsResult, error) {
 	command := &protocol.Command{
-		method: "Network.canEmulateNetworkConditions",
+		Method: "Network.canEmulateNetworkConditions",
 	}
 	socket.SendCommand(command)
 	return command.Result.(netowrk.CanEmulateNetworkConditionsResult), command.Err
@@ -60,7 +60,7 @@ func (Network) ClearBrowserCache(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Network.clearBrowserCache",
+		Method: "Network.clearBrowserCache",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -73,7 +73,7 @@ func (Network) ClearBrowserCookies(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Network.clearBrowserCookies",
+		Method: "Network.clearBrowserCookies",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -90,8 +90,8 @@ func (Network) ContinueInterceptedRequest(
 	params *netowrk.ContinueInterceptedRequestParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Network.continueInterceptedRequest",
-		params: params,
+		Method: "Network.continueInterceptedRequest",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -105,8 +105,8 @@ func (Network) DeleteCookies(
 	params *netowrk.DeleteCookiesParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Network.deleteCookies",
-		params: params,
+		Method: "Network.deleteCookies",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -119,7 +119,7 @@ func (Network) Disable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Network.disable",
+		Method: "Network.disable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -133,8 +133,8 @@ func (Network) EmulateNetworkConditions(
 	params *netowrk.EmulateNetworkConditionsParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Network.emulateNetworkConditions",
-		params: params,
+		Method: "Network.emulateNetworkConditions",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -148,8 +148,8 @@ func (Network) Enable(
 	params *netowrk.EnableParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Network.enable",
-		params: params,
+		Method: "Network.enable",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -163,7 +163,7 @@ func (Network) GetAllCookies(
 	socket *Socket,
 ) (netowrk.GetAllCookiesResult, error) {
 	command := &protocol.Command{
-		method: "Network.getAllCookies",
+		Method: "Network.getAllCookies",
 	}
 	socket.SendCommand(command)
 	return command.Result.(netowrk.GetAllCookiesResult), command.Err
@@ -177,8 +177,8 @@ func (Network) GetCertificate(
 	params *netowrk.GetCertificateParams,
 ) (netowrk.GetCertificateResult, error) {
 	command := &protocol.Command{
-		method: "Network.getCertificate",
-		params: params,
+		Method: "Network.getCertificate",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(netowrk.GetCertificateResult), command.Err
@@ -193,8 +193,8 @@ func (Network) GetCookies(
 	params *netowrk.GetCookiesParams,
 ) (netowrk.GetCookiesResult, error) {
 	command := &protocol.Command{
-		method: "Network.getCookies",
-		params: params,
+		Method: "Network.getCookies",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(netowrk.GetCookiesResult), command.Err
@@ -208,8 +208,8 @@ func (Network) GetResponseBody(
 	params *netowrk.GetResponseBodyParams,
 ) (netowrk.GetResponseBodyResult, error) {
 	command := &protocol.Command{
-		method: "Network.getResponseBody",
-		params: params,
+		Method: "Network.getResponseBody",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(netowrk.GetResponseBodyResult), command.Err
@@ -224,8 +224,8 @@ func (Network) GetResponseBodyForInterception(
 	params *netowrk.GetResponseBodyForInterceptionParams,
 ) (netowrk.GetResponseBodyForInterceptionResult, error) {
 	command := &protocol.Command{
-		method: "Network.getResponseBodyForInterception",
-		params: params,
+		Method: "Network.getResponseBodyForInterception",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(netowrk.GetResponseBodyForInterceptionResult), command.Err
@@ -241,8 +241,8 @@ func (Network) ReplayXHR(
 	params *netowrk.ReplayXHRParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Network.replayXHR",
-		params: params,
+		Method: "Network.replayXHR",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -256,8 +256,8 @@ func (Network) SearchInResponseBody(
 	params *netowrk.SearchInResponseBodyParams,
 ) (netowrk.SearchInResponseBodyResult, error) {
 	command := &protocol.Command{
-		method: "Network.searchInResponseBody",
-		params: params,
+		Method: "Network.searchInResponseBody",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(netowrk.SearchInResponseBodyResult), command.Err
@@ -271,8 +271,8 @@ func (Network) SetBlockedURLs(
 	params *netowrk.SetBlockedURLsParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Network.setBlockedURLs",
-		params: params,
+		Method: "Network.setBlockedURLs",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -286,8 +286,8 @@ func (Network) SetBypassServiceWorker(
 	params *netowrk.SetBypassServiceWorkerParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Network.setBypassServiceWorker",
-		params: params,
+		Method: "Network.setBypassServiceWorker",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -301,8 +301,8 @@ func (Network) SetCacheDisabled(
 	params *netowrk.SetCacheDisabledParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Network.setCacheDisabled",
-		params: params,
+		Method: "Network.setCacheDisabled",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -316,8 +316,8 @@ func (Network) SetCookie(
 	params *netowrk.SetCookieParams,
 ) (netowrk.SetCookieResult, error) {
 	command := &protocol.Command{
-		method: "Network.setCookie",
-		params: params,
+		Method: "Network.setCookie",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(netowrk.SetCookieResult), command.Err
@@ -331,8 +331,8 @@ func (Network) SetCookies(
 	params *netowrk.SetCookiesParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Network.setCookies",
-		params: params,
+		Method: "Network.setCookies",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -346,8 +346,8 @@ func (Network) SetDataSizeLimitsForTest(
 	params *netowrk.SetDataSizeLimitsForTestParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Network.setDataSizeLimitsForTest",
-		params: params,
+		Method: "Network.setDataSizeLimitsForTest",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -362,8 +362,8 @@ func (Network) SetExtraHTTPHeaders(
 	params *netowrk.SetExtraHTTPHeadersParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Network.setExtraHTTPHeaders",
-		params: params,
+		Method: "Network.setExtraHTTPHeaders",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -378,8 +378,8 @@ func (Network) SetRequestInterception(
 	params *netowrk.SetRequestInterceptionParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Network.setRequestInterception",
-		params: params,
+		Method: "Network.setRequestInterception",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -393,8 +393,8 @@ func (Network) SetUserAgentOverride(
 	params *netowrk.SetUserAgentOverrideParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Network.setUserAgentOverride",
-		params: params,
+		Method: "Network.setUserAgentOverride",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

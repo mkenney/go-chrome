@@ -20,7 +20,7 @@ func (ApplicationCache) Enable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "ApplicationCache.enable",
+		Method: "ApplicationCache.enable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -33,7 +33,7 @@ func (ApplicationCache) Disable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "ApplicationCache.disable",
+		Method: "ApplicationCache.disable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -48,8 +48,8 @@ func (ApplicationCache) GetApplicationCacheForFrame(
 	params *application_cache.GetApplicationCacheForFrameParams,
 ) (application_cache.GetApplicationCacheForFrameResult, error) {
 	command := &protocol.Command{
-		method: "ApplicationCache.getManifestForFrame",
-		params: params,
+		Method: "ApplicationCache.getManifestForFrame",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(protocol.GetApplicationCacheForFrameResult), command.Err
@@ -63,7 +63,7 @@ func (ApplicationCache) GetFramesWithManifests(
 	socket *Socket,
 ) (application_cache.GetFramesWithManifestsResult, error) {
 	command := &protocol.Command{
-		method: "ApplicationCache.getFramesWithManifests",
+		Method: "ApplicationCache.getFramesWithManifests",
 	}
 	socket.SendCommand(command)
 	return command.Result.(protocol.GetFramesWithManifestsResult), command.Err
@@ -77,8 +77,8 @@ func (ApplicationCache) GetManifestForFrame(
 	params *application_cache.GetManifestForFrameParams,
 ) (application_cache.GetManifestForFrameResult, error) {
 	command := &protocol.Command{
-		method: "ApplicationCache.getManifestForFrame",
-		params: params,
+		Method: "ApplicationCache.getManifestForFrame",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(protocol.GetManifestForFrameResult), command.Err

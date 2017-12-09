@@ -22,8 +22,8 @@ func (Debugger) ContinueToLocation(
 	params *debugger.ContinueToLocationParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Debugger.continueToLocation",
-		params: params,
+		Method: "Debugger.continueToLocation",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -36,7 +36,7 @@ func (Debugger) Disable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Debugger.disable",
+		Method: "Debugger.disable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -50,7 +50,7 @@ func (Debugger) Enable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Debugger.enable",
+		Method: "Debugger.enable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -64,8 +64,8 @@ func (Debugger) EvaluateOnCallFrame(
 	params *debugger.EvaluateOnCallFrameParams,
 ) (debugger.EvaluateOnCallFrameResult, error) {
 	command := &protocol.Command{
-		method: "Debugger.evaluateOnCallFrame",
-		params: params,
+		Method: "Debugger.evaluateOnCallFrame",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(debugger.EvaluateOnCallFrameResult), command.Err
@@ -80,8 +80,8 @@ func (Debugger) GetPossibleBreakpoints(
 	params *debugger.GetPossibleBreakpointsParams,
 ) (debugger.GetPossibleBreakpointsResult, error) {
 	command := &protocol.Command{
-		method: "Debugger.getPossibleBreakpoints",
-		params: params,
+		Method: "Debugger.getPossibleBreakpoints",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(debugger.GetPossibleBreakpointsResult), command.Err
@@ -95,8 +95,8 @@ func (Debugger) GetScriptSource(
 	params *debugger.GetScriptSourceParams,
 ) (debugger.GetScriptSourceResult, error) {
 	command := &protocol.Command{
-		method: "Debugger.getScriptSource",
-		params: params,
+		Method: "Debugger.getScriptSource",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(debugger.GetScriptSourceResult), command.Err
@@ -110,8 +110,8 @@ func (Debugger) GetStackTrace(
 	params *debugger.GetStackTraceParams,
 ) (debugger.GetStackTraceResult, error) {
 	command := &protocol.Command{
-		method: "Debugger.getStackTrace",
-		params: params,
+		Method: "Debugger.getStackTrace",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(debugger.GetStackTraceResult), command.Err
@@ -124,7 +124,7 @@ func (Debugger) Pause(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Debugger.pause",
+		Method: "Debugger.pause",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -138,8 +138,8 @@ func (Debugger) PauseOnAsyncCall(
 	params *debugger.PauseOnAsyncCallParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Debugger.pauseOnAsyncCall",
-		params: params,
+		Method: "Debugger.pauseOnAsyncCall",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -153,8 +153,8 @@ func (Debugger) RemoveBreakpoint(
 	params *debugger.RemoveBreakpointParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Debugger.removeBreakpoint",
-		params: params,
+		Method: "Debugger.removeBreakpoint",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -168,8 +168,8 @@ func (Debugger) RestartFrame(
 	params *debugger.RestartFrameParams,
 ) (debugger.RestartFrameResult, error) {
 	command := &protocol.Command{
-		method: "Debugger.restartFrame",
-		params: params,
+		Method: "Debugger.restartFrame",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(debugger.RestartFrameResult), command.Err
@@ -182,7 +182,7 @@ func (Debugger) Resume(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Debugger.resume",
+		Method: "Debugger.resume",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -198,7 +198,7 @@ func (Debugger) ScheduleStepIntoAsync(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Debugger.scheduleStepIntoAsync",
+		Method: "Debugger.scheduleStepIntoAsync",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -212,8 +212,8 @@ func (Debugger) SearchInContent(
 	params *debugger.SearchInContentParams,
 ) (debugger.SearchInContentResult, error) {
 	command := &protocol.Command{
-		method: "Debugger.searchInContent",
-		params: params,
+		Method: "Debugger.searchInContent",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(debugger.SearchInContentResult), command.Err
@@ -227,8 +227,8 @@ func (Debugger) SetAsyncCallStackDepth(
 	params *debugger.SetAsyncCallStackDepthParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Debugger.setAsyncCallStackDepth",
-		params: params,
+		Method: "Debugger.setAsyncCallStackDepth",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -245,8 +245,8 @@ func (Debugger) SetBlackboxPatterns(
 	params *debugger.SetBlackboxPatternsParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Debugger.setBlackboxPatterns",
-		params: params,
+		Method: "Debugger.setBlackboxPatterns",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -263,8 +263,8 @@ func (Debugger) SetBlackboxedRanges(
 	params *debugger.SetBlackboxedRangesParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Debugger.setBlackboxedRanges",
-		params: params,
+		Method: "Debugger.setBlackboxedRanges",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -278,8 +278,8 @@ func (Debugger) SetBreakpoint(
 	params *debugger.SetBreakpointParams,
 ) (debugger.SetBreakpointResult, error) {
 	command := &protocol.Command{
-		method: "Debugger.setBreakpoint",
-		params: params,
+		Method: "Debugger.setBreakpoint",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(debugger.SetBreakpointResult), command.Err
@@ -296,8 +296,8 @@ func (Debugger) SetBreakpointByURL(
 	params *debugger.SetBreakpointByURLParams,
 ) (debugger.SetBreakpointByURLResult, error) {
 	command := &protocol.Command{
-		method: "Debugger.setBreakpointByUrl",
-		params: params,
+		Method: "Debugger.setBreakpointByUrl",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(debugger.SetBreakpointByURLResult), command.Err
@@ -311,8 +311,8 @@ func (Debugger) SetBreakpointsActive(
 	params *debugger.SetBreakpointsActiveParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Debugger.setBreakpointsActive",
-		params: params,
+		Method: "Debugger.setBreakpointsActive",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -327,8 +327,8 @@ func (Debugger) SetPauseOnExceptions(
 	params *debugger.SetPauseOnExceptionsParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Debugger.setPauseOnExceptions",
-		params: params,
+		Method: "Debugger.setPauseOnExceptions",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -343,8 +343,8 @@ func (Debugger) SetReturnValue(
 	params *debugger.SetReturnValueParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Debugger.setReturnValue",
-		params: params,
+		Method: "Debugger.setReturnValue",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -358,8 +358,8 @@ func (Debugger) SetScriptSource(
 	params *debugger.SetScriptSourceParams,
 ) (debugger.SetScriptSourceResult, error) {
 	command := &protocol.Command{
-		method: "Debugger.setScriptSource",
-		params: params,
+		Method: "Debugger.setScriptSource",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(debugger.SetScriptSourceResult), command.Err
@@ -373,8 +373,8 @@ func (Debugger) SetSkipAllPauses(
 	params *debugger.SetSkipAllPausesParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Debugger.setSkipAllPauses",
-		params: params,
+		Method: "Debugger.setSkipAllPauses",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -389,8 +389,8 @@ func (Debugger) SetVariableValue(
 	params *debugger.SetVariableValueParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Debugger.setVariableValue",
-		params: params,
+		Method: "Debugger.setVariableValue",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -404,8 +404,8 @@ func (Debugger) StepInto(
 	params *debugger.StepIntoParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Debugger.stepInto",
-		params: params,
+		Method: "Debugger.stepInto",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -418,7 +418,7 @@ func (Debugger) StepOut(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Debugger.stepOut",
+		Method: "Debugger.stepOut",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -431,7 +431,7 @@ func (Debugger) StepOver(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Debugger.stepOver",
+		Method: "Debugger.stepOver",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

@@ -20,7 +20,7 @@ func (Profiler) Disable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Profiler.disable",
+		Method: "Profiler.disable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -33,7 +33,7 @@ func (Profiler) Enable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Profiler.enable",
+		Method: "Profiler.enable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -47,7 +47,7 @@ func (Profiler) GetBestEffortCoverage(
 	socket *Socket,
 ) (Profiler.GetBestEffortCoverageResult, error) {
 	command := &protocol.Command{
-		method: "Profiler.getBestEffortCoverage",
+		Method: "Profiler.getBestEffortCoverage",
 	}
 	socket.SendCommand(command)
 	return command.Result.(Profiler.GetBestEffortCoverageResult), command.Err
@@ -62,8 +62,8 @@ func (Profiler) SetSamplingInterval(
 	params *Profiler.SetSamplingIntervalParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Profiler.setSamplingInterval",
-		params: params,
+		Method: "Profiler.setSamplingInterval",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -76,7 +76,7 @@ func (Profiler) Start(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Profiler.start",
+		Method: "Profiler.start",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -92,8 +92,8 @@ func (Profiler) StartPreciseCoverage(
 	params *Profiler.StartPreciseCoverageParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Profiler.startPreciseCoverage",
-		params: params,
+		Method: "Profiler.startPreciseCoverage",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -106,7 +106,7 @@ func (Profiler) StartTypeProfile(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Profiler.startTypeProfile",
+		Method: "Profiler.startTypeProfile",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -119,7 +119,7 @@ func (Profiler) Stop(
 	socket *Socket,
 ) (Profiler.StopResult, error) {
 	command := &protocol.Command{
-		method: "Profiler.stop",
+		Method: "Profiler.stop",
 	}
 	socket.SendCommand(command)
 	return command.Result.(Profiler.StopResult), command.Err
@@ -133,7 +133,7 @@ func (Profiler) StopPreciseCoverage(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Profiler.stopPreciseCoverage",
+		Method: "Profiler.stopPreciseCoverage",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -147,7 +147,7 @@ func (Profiler) StopTypeProfile(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Profiler.stopTypeProfile",
+		Method: "Profiler.stopTypeProfile",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -161,7 +161,7 @@ func (Profiler) TakePreciseCoverage(
 	socket *Socket,
 ) (Profiler.TakePreciseCoverageResult, error) {
 	command := &protocol.Command{
-		method: "Profiler.takePreciseCoverage",
+		Method: "Profiler.takePreciseCoverage",
 	}
 	socket.SendCommand(command)
 	return command.Result.(Profiler.TakePreciseCoverageResult), command.Err
@@ -174,7 +174,7 @@ func (Profiler) TakeTypeProfile(
 	socket *Socket,
 ) (Profiler.TakeTypeProfileResult, error) {
 	command := &protocol.Command{
-		method: "Profiler.takeTypeProfile",
+		Method: "Profiler.takeTypeProfile",
 	}
 	socket.SendCommand(command)
 	return command.Result.(Profiler.TakeTypeProfileResult), command.Err

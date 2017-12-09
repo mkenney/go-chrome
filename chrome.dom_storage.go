@@ -16,8 +16,8 @@ func (DOMStorage) Clear(
 	params *dom_storage.ClearParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOMStorage.clear",
-		params: params,
+		Method: "DOMStorage.clear",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -30,7 +30,7 @@ func (DOMStorage) Disable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOMStorage.disable",
+		Method: "DOMStorage.disable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -43,7 +43,7 @@ func (DOMStorage) Enable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOMStorage.enable",
+		Method: "DOMStorage.enable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -57,8 +57,8 @@ func (DOMStorage) GetDOMStorageItems(
 	params *dom_storage.GetDOMStorageItemsParams,
 ) (dom_storage.GetDOMStorageItemsResult, error) {
 	command := &protocol.Command{
-		method: "DOMStorage.getDOMStorageItems",
-		params: params,
+		Method: "DOMStorage.getDOMStorageItems",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom_storage.GetDOMStorageItemsResult), command.Err
@@ -72,8 +72,8 @@ func (DOMStorage) RemoveDOMStorageItem(
 	params *dom_storage.RemoveDOMStorageItemParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOMStorage.removeDOMStorageItem",
-		params: params,
+		Method: "DOMStorage.removeDOMStorageItem",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -87,8 +87,8 @@ func (DOMStorage) SetDOMStorageItem(
 	params *dom_storage.SetDOMStorageItemParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOMStorage.setDOMStorageItem",
-		params: params,
+		Method: "DOMStorage.setDOMStorageItem",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

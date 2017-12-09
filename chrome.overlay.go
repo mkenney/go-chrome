@@ -20,7 +20,7 @@ func (Overlay) Disable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Overlay.disable",
+		Method: "Overlay.disable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -33,7 +33,7 @@ func (Overlay) Enable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Overlay.enable",
+		Method: "Overlay.enable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -47,8 +47,8 @@ func (Overlay) GetHighlightObjectForTest(
 	params *overlay.GetHighlightObjectForTestParams,
 ) (overlay.GetHighlightObjectForTestResult, error) {
 	command := &protocol.Command{
-		method: "Overlay.getHighlightObjectForTest",
-		params: params,
+		Method: "Overlay.getHighlightObjectForTest",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(overlay.GetHighlightObjectForTestResult), command.Err
@@ -61,7 +61,7 @@ func (Overlay) HideHighlight(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Overlay.hideHighlight",
+		Method: "Overlay.hideHighlight",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -75,8 +75,8 @@ func (Overlay) HighlightFrame(
 	params *overlay.HighlightFrameParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Overlay.highlightFrame",
-		params: params,
+		Method: "Overlay.highlightFrame",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -91,8 +91,8 @@ func (Overlay) HighlightNode(
 	params *overlay.HighlightNodeParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Overlay.highlightNode",
-		params: params,
+		Method: "Overlay.highlightNode",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -107,8 +107,8 @@ func (Overlay) HighlightQuad(
 	params *overlay.HighlightQuadParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Overlay.highlightQuad",
-		params: params,
+		Method: "Overlay.highlightQuad",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -123,8 +123,8 @@ func (Overlay) HighlightRect(
 	params *overlay.HighlightRectParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Overlay.highlightRect",
-		params: params,
+		Method: "Overlay.highlightRect",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -139,8 +139,8 @@ func (Overlay) SetInspectMode(
 	params *overlay.SetInspectModeParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Overlay.setInspectMode",
-		params: params,
+		Method: "Overlay.setInspectMode",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -154,8 +154,8 @@ func (Overlay) SetPausedInDebuggerMessage(
 	params *overlay.SetPausedInDebuggerMessageParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Overlay.setPausedInDebuggerMessage",
-		params: params,
+		Method: "Overlay.setPausedInDebuggerMessage",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -169,8 +169,8 @@ func (Overlay) SetShowDebugBorders(
 	params *overlay.SetShowDebugBordersParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Overlay.setShowDebugBorders",
-		params: params,
+		Method: "Overlay.setShowDebugBorders",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -184,8 +184,8 @@ func (Overlay) SetShowFPSCounter(
 	params *overlay.SetShowFPSCounterParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Overlay.setShowFPSCounter",
-		params: params,
+		Method: "Overlay.setShowFPSCounter",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -199,8 +199,8 @@ func (Overlay) SetShowScrollBottleneckRects(
 	params *overlay.SetShowScrollBottleneckRectsParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Overlay.setShowScrollBottleneckRects",
-		params: params,
+		Method: "Overlay.setShowScrollBottleneckRects",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -214,8 +214,8 @@ func (Overlay) SetShowViewportSizeOnResize(
 	params *overlay.SetShowViewportSizeOnResizeParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Overlay.setShowViewportSizeOnResize",
-		params: params,
+		Method: "Overlay.setShowViewportSizeOnResize",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -229,8 +229,8 @@ func (Overlay) SetSuspended(
 	params *overlay.SetSuspendedParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Overlay.setSuspended",
-		params: params,
+		Method: "Overlay.setSuspended",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

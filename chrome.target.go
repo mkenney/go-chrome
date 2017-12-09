@@ -21,8 +21,8 @@ func (Target) ActivateTarget(
 	params *target.ActivateTargetParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Target.activateTarget",
-		params: params,
+		Method: "Target.activateTarget",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -36,8 +36,8 @@ func (Target) AttachToTarget(
 	params *target.AttachToTargetParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Target.attachToTarget",
-		params: params,
+		Method: "Target.attachToTarget",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -50,7 +50,7 @@ func (Target) CloseTarget(
 	socket *Socket,
 ) (target.CloseTargetResult, error) {
 	command := &protocol.Command{
-		method: "Target.closeTarget",
+		Method: "Target.closeTarget",
 	}
 	socket.SendCommand(command)
 	return command.Result.(target.CloseTargetResult), command.Err
@@ -64,7 +64,7 @@ func (Target) CreateBrowserContext(
 	socket *Socket,
 ) (target.CreateBrowserContextResult, error) {
 	command := &protocol.Command{
-		method: "Target.createBrowserContext",
+		Method: "Target.createBrowserContext",
 	}
 	socket.SendCommand(command)
 	return command.Result.(target.CreateBrowserContextResult), command.Err
@@ -78,8 +78,8 @@ func (Target) CreateTarget(
 	params *target.CreateTargetParams,
 ) (target.CreateTargetResult, error) {
 	command := &protocol.Command{
-		method: "Target.createTarget",
-		params: params,
+		Method: "Target.createTarget",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(target.CreateTargetResult), command.Err
@@ -93,8 +93,8 @@ func (Target) DetachFromTarget(
 	params *target.DetachFromTargetParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Target.detachFromTarget",
-		params: params,
+		Method: "Target.detachFromTarget",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -108,8 +108,8 @@ func (Target) DisposeBrowserContext(
 	params *target.DisposeBrowserContextParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Target.disposeBrowserContext",
-		params: params,
+		Method: "Target.disposeBrowserContext",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -123,8 +123,8 @@ func (Target) GetTargetInfo(
 	params *target.GetTargetInfoParams,
 ) (target.GetTargetInfoResult, error) {
 	command := &protocol.Command{
-		method: "Target.getTargetInfo",
-		params: params,
+		Method: "Target.getTargetInfo",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(target.GetTargetInfoResult), command.Err
@@ -138,8 +138,8 @@ func (Target) GetTargets(
 	params *target.GetTargetsParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Target.getTargets",
-		params: params,
+		Method: "Target.getTargets",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -153,8 +153,8 @@ func (Target) SendMessageToTarget(
 	params *target.SendMessageToTargetParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Target.sendMessageToTarget",
-		params: params,
+		Method: "Target.sendMessageToTarget",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -168,8 +168,8 @@ func (Target) SetAttachToFrames(
 	params *target.SetAttachToFramesParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Target.setAttachToFrames",
-		params: params,
+		Method: "Target.setAttachToFrames",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -185,8 +185,8 @@ func (Target) SetAutoAttach(
 	params *target.SetAutoAttachParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Target.setAutoAttach",
-		params: params,
+		Method: "Target.setAutoAttach",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -201,8 +201,8 @@ func (Target) SetDiscoverTargets(
 	params *target.SetDiscoverTargetsParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Target.setDiscoverTargets",
-		params: params,
+		Method: "Target.setDiscoverTargets",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -217,8 +217,8 @@ func (Target) SetRemoteLocations(
 	params *target.SetRemoteLocationsParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Target.setRemoteLocations",
-		params: params,
+		Method: "Target.setRemoteLocations",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

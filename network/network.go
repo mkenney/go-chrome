@@ -1,6 +1,7 @@
 package Network
 
 import (
+	Debugger "app/chrome/debugger"
 	Page "app/chrome/page"
 	Runtime "app/chrome/runtime"
 	Security "app/chrome/security"
@@ -1183,6 +1184,6 @@ type RequestPattern struct {
 	// Optional. If set, only requests for matching resource types will be intercepted.
 	ResourceType Page.ResourceType `json:"resourceType,omitempty"`
 
-	// Optional. Stage at wich to begin intercepting requests. Default is Request.
+	// Optional. Stage at which to begin intercepting requests. Default is Request.
 	InterceptionStage InterceptionStage `json:"interceptionStage,omitempty"`
 }

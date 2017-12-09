@@ -201,7 +201,7 @@ type GlobalLexicalScopeNamesParams struct {
 GlobalLexicalScopeNamesResult represents the result of calls to Runtime.globalLexicalScopeNames.
 */
 type GlobalLexicalScopeNamesResult struct {
-	names []string `json:"names"`
+	Names []string `json:"names"`
 }
 
 /*

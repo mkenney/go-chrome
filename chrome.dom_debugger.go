@@ -17,8 +17,8 @@ func (DOMDebugger) GetEventListeners(
 	params *dom_debugger.GetEventListenersParams,
 ) (dom_debugger.GetEventListenersResult, error) {
 	command := &protocol.Command{
-		method: "DOMDebugger.getEventListeners",
-		params: params,
+		Method: "DOMDebugger.getEventListeners",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom_debugger.GetEventListenersResult), command.Err
@@ -32,8 +32,8 @@ func (DOMDebugger) RemoveDOMBreakpoint(
 	params *dom_debugger.RemoveDOMBreakpointParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOMDebugger.removeDOMBreakpoint",
-		params: params,
+		Method: "DOMDebugger.removeDOMBreakpoint",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -47,8 +47,8 @@ func (DOMDebugger) RemoveEventListenerBreakpoint(
 	params *dom_debugger.RemoveEventListenerBreakpointParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOMDebugger.removeEventListenerBreakpoint",
-		params: params,
+		Method: "DOMDebugger.removeEventListenerBreakpoint",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -62,8 +62,8 @@ func (DOMDebugger) RemoveInstrumentationBreakpoint(
 	params *dom_debugger.RemoveInstrumentationBreakpointParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOMDebugger.removeInstrumentationBreakpoint",
-		params: params,
+		Method: "DOMDebugger.removeInstrumentationBreakpoint",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -77,8 +77,8 @@ func (DOMDebugger) RemoveXHRBreakpoint(
 	params *dom_debugger.RemoveXHRBreakpointParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOMDebugger.removeXHRBreakpoint",
-		params: params,
+		Method: "DOMDebugger.removeXHRBreakpoint",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -92,8 +92,8 @@ func (DOMDebugger) SetDOMBreakpoint(
 	params *dom_debugger.SetDOMBreakpointParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOMDebugger.setDOMBreakpoint",
-		params: params,
+		Method: "DOMDebugger.setDOMBreakpoint",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -107,8 +107,8 @@ func (DOMDebugger) SetEventListenerBreakpoint(
 	params *dom_debugger.SetEventListenerBreakpointParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOMDebugger.setEventListenerBreakpoint",
-		params: params,
+		Method: "DOMDebugger.setEventListenerBreakpoint",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -122,8 +122,8 @@ func (DOMDebugger) SetInstrumentationBreakpoint(
 	params *dom_debugger.SetInstrumentationBreakpointParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOMDebugger.setInstrumentationBreakpoint",
-		params: params,
+		Method: "DOMDebugger.setInstrumentationBreakpoint",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -137,8 +137,8 @@ func (DOMDebugger) SetXHRBreakpoint(
 	params *dom_debugger.SetXHRBreakpointParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOMDebugger.setXHRBreakpoint",
-		params: params,
+		Method: "DOMDebugger.setXHRBreakpoint",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

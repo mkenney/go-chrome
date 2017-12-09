@@ -18,35 +18,35 @@ CanEmulate tells whether emulation is supported.
 */
 func (Emulation) CanEmulate(
 	socket *Socket,
-) (emulation.CanEmulateParams, error) {
+) (emulation.CanEmulateResult, error) {
 	command := &protocol.Command{
-		method: "Emulation.canEmulate",
+		Method: "Emulation.canEmulate",
 	}
 	socket.SendCommand(command)
-	return command.Result.(emulation.CanEmulateParams), command.Err
+	return command.Result.(emulation.CanEmulateResult), command.Err
 }
 
 /*
-ClearDeviceMetricsOverride clears the overriden device metrics.
+ClearDeviceMetricsOverride clears the overridden device metrics.
 */
 func (Emulation) ClearDeviceMetricsOverride(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Emulation.clearDeviceMetricsOverride",
+		Method: "Emulation.clearDeviceMetricsOverride",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
 }
 
 /*
-ClearGeolocationOverride clears the overriden Geolocation Position and Error.
+ClearGeolocationOverride clears the overridden Geolocation Position and Error.
 */
 func (Emulation) ClearGeolocationOverride(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Emulation.clearGeolocationOverride",
+		Method: "Emulation.clearGeolocationOverride",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -59,7 +59,7 @@ func (Emulation) ResetPageScaleFactor(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Emulation.resetPageScaleFactor",
+		Method: "Emulation.resetPageScaleFactor",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -73,8 +73,8 @@ func (Emulation) SetCPUThrottlingRate(
 	params *emulation.SetCPUThrottlingRateParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Emulation.setCPUThrottlingRate",
-		params: params,
+		Method: "Emulation.setCPUThrottlingRate",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -89,8 +89,8 @@ func (Emulation) SetDefaultBackgroundColorOverride(
 	params *emulation.SetDefaultBackgroundColorOverrideParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Emulation.setDefaultBackgroundColorOverride",
-		params: params,
+		Method: "Emulation.setDefaultBackgroundColorOverride",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -106,8 +106,8 @@ func (Emulation) SetDeviceMetricsOverride(
 	params *emulation.SetDeviceMetricsOverrideParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Emulation.setDeviceMetricsOverride",
-		params: params,
+		Method: "Emulation.setDeviceMetricsOverride",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -121,8 +121,8 @@ func (Emulation) SetEmitTouchEventsForMouse(
 	params *emulation.SetEmitTouchEventsForMouseParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Emulation.setEmitTouchEventsForMouse",
-		params: params,
+		Method: "Emulation.setEmitTouchEventsForMouse",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -136,8 +136,8 @@ func (Emulation) SetEmulatedMedia(
 	params *emulation.SetEmulatedMediaParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Emulation.setEmulatedMedia",
-		params: params,
+		Method: "Emulation.setEmulatedMedia",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -152,8 +152,8 @@ func (Emulation) SetGeolocationOverride(
 	params *emulation.SetGeolocationOverrideParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Emulation.setGeolocationOverride",
-		params: params,
+		Method: "Emulation.setGeolocationOverride",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -167,8 +167,8 @@ func (Emulation) SetNavigatorOverrides(
 	params *emulation.SetNavigatorOverridesParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Emulation.setNavigatorOverrides",
-		params: params,
+		Method: "Emulation.setNavigatorOverrides",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -182,8 +182,8 @@ func (Emulation) SetPageScaleFactor(
 	params *emulation.SetPageScaleFactorParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Emulation.setPageScaleFactor",
-		params: params,
+		Method: "Emulation.setPageScaleFactor",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -197,8 +197,8 @@ func (Emulation) SetScriptExecutionDisabled(
 	params *emulation.SetScriptExecutionDisabledParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Emulation.setScriptExecutionDisabled",
-		params: params,
+		Method: "Emulation.setScriptExecutionDisabled",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -212,8 +212,8 @@ func (Emulation) SetTouchEmulationEnabled(
 	params *emulation.SetTouchEmulationEnabledParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Emulation.setTouchEmulationEnabled",
-		params: params,
+		Method: "Emulation.setTouchEmulationEnabled",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -229,8 +229,8 @@ func (Emulation) SetVirtualTimePolicy(
 	params *emulation.SetVirtualTimePolicyParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Emulation.setVirtualTimePolicy",
-		params: params,
+		Method: "Emulation.setVirtualTimePolicy",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -246,8 +246,8 @@ func (Emulation) SetVisibleSize(
 	params *emulation.SetVisibleSizeParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Emulation.setVisibleSize",
-		params: params,
+		Method: "Emulation.setVisibleSize",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

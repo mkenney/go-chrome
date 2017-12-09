@@ -27,8 +27,8 @@ func (CSS) AddRule(
 	params *css.AddRuleParams,
 ) (css.AddRuleResult, error) {
 	command := &protocol.Command{
-		method: "CSS.addRule",
-		params: params,
+		Method: "CSS.addRule",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(css.AddRuleResult), command.Err
@@ -42,8 +42,8 @@ func (CSS) CollectClassNames(
 	params *css.CollectClassNamesParams,
 ) (css.CollectClassNamesResult, error) {
 	command := &protocol.Command{
-		method: "CSS.collectClassNames",
-		params: params,
+		Method: "CSS.collectClassNames",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(css.CollectClassNamesResult), command.Err
@@ -57,8 +57,8 @@ func (CSS) CreateStyleSheet(
 	params *css.CreateStyleSheetParams,
 ) (css.CreateStyleSheetResult, error) {
 	command := &protocol.Command{
-		method: "CSS.createStyleSheet",
-		params: params,
+		Method: "CSS.createStyleSheet",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result(css.CreateStyleSheetResult), command.Err
@@ -71,7 +71,7 @@ func (CSS) Disable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "CSS.disable",
+		Method: "CSS.disable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -85,7 +85,7 @@ func (CSS) Enable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "CSS.enable",
+		Method: "CSS.enable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -100,8 +100,8 @@ func (CSS) ForcePseudoState(
 	params *css.ForcePseudoStateParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "CSS.forcePseudoState",
-		params: params,
+		Method: "CSS.forcePseudoState",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -115,8 +115,8 @@ func (CSS) GetBackgroundColors(
 	params *css.GetBackgroundColorsParams,
 ) (css.GetBackgroundColorsResult, error) {
 	command := &protocol.Command{
-		method: "CSS.getBackgroundColors",
-		params: params,
+		Method: "CSS.getBackgroundColors",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(css.GetBackgroundColorsResult), command.Err
@@ -130,8 +130,8 @@ func (CSS) GetComputedStyleForNode(
 	params *css.GetComputedStyleForNodeParams,
 ) (css.GetComputedStyleForNodeResult, error) {
 	command := &protocol.Command{
-		method: "CSS.getComputedStyleForNode",
-		params: params,
+		Method: "CSS.getComputedStyleForNode",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(css.GetComputedStyleForNodeResult), command.Err
@@ -146,8 +146,8 @@ func (CSS) GetInlineStylesForNode(
 	params *css.GetInlineStylesForNodeParams,
 ) (css.GetInlineStylesForNodeResult, error) {
 	command := &protocol.Command{
-		method: "CSS.getInlineStylesForNode",
-		params: params,
+		Method: "CSS.getInlineStylesForNode",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(css.GetInlineStylesForNodeResult), command.Err
@@ -161,8 +161,8 @@ func (CSS) GetMatchedStylesForNode(
 	params *css.GetMatchedStylesForNodeParams,
 ) (css.GetMatchedStylesForNodeResult, error) {
 	command := &protocol.Command{
-		method: "CSS.getMatchedStylesForNode",
-		params: params,
+		Method: "CSS.getMatchedStylesForNode",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(css.GetMatchedStylesForNodeResult), command.Err
@@ -176,8 +176,8 @@ func (CSS) GetMediaQueries(
 	params *css.GetMediaQueriesParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "CSS.getMediaQueries",
-		params: params,
+		Method: "CSS.getMediaQueries",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -192,8 +192,8 @@ func (CSS) GetPlatformFontsForNode(
 	params *css.GetPlatformFontsForNodeParams,
 ) (css.GetPlatformFontsForNodeResult, error) {
 	command := &protocol.Command{
-		method: "CSS.getPlatformFontsForNode",
-		params: params,
+		Method: "CSS.getPlatformFontsForNode",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(css.GetPlatformFontsForNodeResult), command.Err
@@ -207,8 +207,8 @@ func (CSS) GetStyleSheetText(
 	params *css.GetStyleSheetTextParams,
 ) (css.GetStyleSheetTextResult, error) {
 	command := &protocol.Command{
-		method: "CSS.getStyleSheetText",
-		params: params,
+		Method: "CSS.getStyleSheetText",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(css.GetStyleSheetTextResult), command.Err
@@ -223,8 +223,8 @@ func (CSS) SetEffectivePropertyValueForNode(
 	params *css.SetEffectivePropertyValueForNodeParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "CSS.setEffectivePropertyValueForNode",
-		params: params,
+		Method: "CSS.setEffectivePropertyValueForNode",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -238,8 +238,8 @@ func (CSS) SetKeyframeKey(
 	params *css.SetKeyframeKeyParams,
 ) (css.SetKeyframeKeyResult, error) {
 	command := &protocol.Command{
-		method: "CSS.setKeyframeKey",
-		params: params,
+		Method: "CSS.setKeyframeKey",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(css.SetKeyframeKeyResult), command.Err
@@ -253,8 +253,8 @@ func (CSS) SetMediaText(
 	params *css.SetMediaTextParams,
 ) (css.SetMediaTextResult, error) {
 	command := &protocol.Command{
-		method: "CSS.setMediaText",
-		params: params,
+		Method: "CSS.setMediaText",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(css.SetMediaTextResult), command.Err
@@ -268,8 +268,8 @@ func (CSS) SetRuleSelector(
 	params *css.SetRuleSelectorParams,
 ) (css.SetRuleSelectorResult, error) {
 	command := &protocol.Command{
-		method: "CSS.setRuleSelector",
-		params: params,
+		Method: "CSS.setRuleSelector",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(css.SetRuleSelectorResult), command.Err
@@ -283,8 +283,8 @@ func (CSS) SetStyleSheetText(
 	params *css.SetStyleSheetTextParams,
 ) (css.SetStyleSheetTextResult, error) {
 	command := &protocol.Command{
-		method: "CSS.setStyleSheetText",
-		params: params,
+		Method: "CSS.setStyleSheetText",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(css.SetStyleSheetTextResult), command.Err
@@ -298,8 +298,8 @@ func (CSS) SetStyleTexts(
 	params *css.SetStyleTextsParams,
 ) (css.SetStyleTextsResult, error) {
 	command := &protocol.Command{
-		method: "CSS.setStyleTexts",
-		params: params,
+		Method: "CSS.setStyleTexts",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(css.SetStyleTextsResult), command.Err
@@ -312,7 +312,7 @@ func (CSS) StartRuleUsageTracking(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "CSS.startRuleUsageTracking",
+		Method: "CSS.startRuleUsageTracking",
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -325,7 +325,7 @@ func (CSS) StopRuleUsageTracking(
 	socket *Socket,
 ) (css.StopRuleUsageTrackingResult, error) {
 	command := &protocol.Command{
-		method: "CSS.stopRuleUsageTracking",
+		Method: "CSS.stopRuleUsageTracking",
 	}
 	socket.SendCommand(command)
 	return command.Result.(css.StopRuleUsageTrackingResult), command.Err
@@ -339,7 +339,7 @@ func (CSS) TakeCoverageDelta(
 	socket *Socket,
 ) (css.TakeCoverageDeltaResult, error) {
 	command := &protocol.Command{
-		method: "CSS.takeCoverageDelta",
+		Method: "CSS.takeCoverageDelta",
 	}
 	socket.SendCommand(command)
 	return command.Result.(css.TakeCoverageDeltaResult), command.Err

@@ -37,7 +37,7 @@ type ReadResult struct {
 	// Data that were read.
 	Data string `json:"data"`
 
-	// Set if the end-of-file condition occured while reading.
+	// Set if the end-of-file condition occurred while reading.
 	EOF bool `json:"eof"`
 }
 
@@ -58,7 +58,7 @@ type ResolveBlobResult struct {
 }
 
 /*
-StreamHandle is either obtained from another method or specifed as blob:<uuid> where <uuid> is an
+StreamHandle is either obtained from another method or specified as blob:<uuid> where <uuid> is an
 UUID of a Blob.
 */
 type StreamHandle string

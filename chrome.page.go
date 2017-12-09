@@ -22,8 +22,8 @@ func (Page) AddScriptToEvaluateOnLoad(
 	params *Page.AddScriptToEvaluateOnLoadParams,
 ) (Page.AddScriptToEvaluateOnLoadResult, error) {
 	command := &protocol.Command{
-		method: "Page.addScriptToEvaluateOnLoad",
-		params: params,
+		Method: "Page.addScriptToEvaluateOnLoad",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(Page.AddScriptToEvaluateOnLoadResult), command.Err
@@ -38,8 +38,8 @@ func (Page) AddScriptToEvaluateOnNewDocument(
 	params *Page.AddScriptToEvaluateOnNewDocumentParams,
 ) (Page.AddScriptToEvaluateOnNewDocumentResult, error) {
 	command := &protocol.Command{
-		method: "Page.addScriptToEvaluateOnNewDocument",
-		params: params,
+		Method: "Page.addScriptToEvaluateOnNewDocument",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(Page.AddScriptToEvaluateOnNewDocumentResult), command.Err
@@ -52,7 +52,7 @@ func (Page) BringToFront(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Page.bringToFront",
+		Method: "Page.bringToFront",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -66,8 +66,8 @@ func (Page) CaptureScreenshot(
 	params *Page.CaptureScreenshotParams,
 ) (Page.CaptureScreenshotResult, error) {
 	command := &protocol.Command{
-		method: "Page.CaptureScreenshot",
-		params: params,
+		Method: "Page.CaptureScreenshot",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(Page.CaptureScreenshotResult), command.Err
@@ -81,8 +81,8 @@ func (Page) CreateIsolatedWorld(
 	params *Page.CreateIsolatedWorldParams,
 ) (Page.CreateIsolatedWorldResult, error) {
 	command := &protocol.Command{
-		method: "Page.createIsolatedWorld",
-		params: params,
+		Method: "Page.createIsolatedWorld",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(Page.CreateIsolatedWorldResult), command.Err
@@ -95,7 +95,7 @@ func (Page) Disable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Page.disable",
+		Method: "Page.disable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -108,7 +108,7 @@ func (Page) Enable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Page.enable",
+		Method: "Page.enable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -122,8 +122,8 @@ func (Page) GetAppManifest(
 	params *Page.GetAppManifestParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Page.getAppManifest",
-		params: params,
+		Method: "Page.getAppManifest",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -136,7 +136,7 @@ func (Page) GetFrameTree(
 	socket *Socket,
 ) (Page.GetFrameTreeResult, error) {
 	command := &protocol.Command{
-		method: "Page.getFrameTree",
+		Method: "Page.getFrameTree",
 	}
 	socket.SendCommand(command)
 	return command.Result.(Page.GetFrameTreeResult), command.Err
@@ -150,7 +150,7 @@ func (Page) GetLayoutMetrics(
 	socket *Socket,
 ) (Page.GetLayoutMetricsResult, error) {
 	command := &protocol.Command{
-		method: "Page.getLayoutMetrics",
+		Method: "Page.getLayoutMetrics",
 	}
 	socket.SendCommand(command)
 	return command.Result.(Page.GetLayoutMetricsResult), command.Err
@@ -163,7 +163,7 @@ func (Page) GetNavigationHistory(
 	socket *Socket,
 ) (Page.GetNavigationHistoryResult, error) {
 	command := &protocol.Command{
-		method: "Page.getNavigationHistory",
+		Method: "Page.getNavigationHistory",
 	}
 	socket.SendCommand(command)
 	return command.Result.(Page.GetNavigationHistoryResult), command.Err
@@ -177,8 +177,8 @@ func (Page) GetResourceContent(
 	params *Page.GetResourceContentParams,
 ) (Page.GetResourceContentResult, error) {
 	command := &protocol.Command{
-		method: "Page.getResourceContent",
-		params: params,
+		Method: "Page.getResourceContent",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(Page.GetResourceContentResult), command.Err
@@ -191,7 +191,7 @@ func (Page) GetResourceTree(
 	socket *Socket,
 ) (Page.GetResourceTreeResult, error) {
 	command := &protocol.Command{
-		method: "Page.getResourceTree",
+		Method: "Page.getResourceTree",
 	}
 	socket.SendCommand(command)
 	return command.Result.(Page.GetResourceTreeResult), command.Err
@@ -206,8 +206,8 @@ func (Page) HandleJavaScriptDialog(
 	params *Page.HandleJavaScriptDialogParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Page.handleJavaScriptDialog",
-		params: params,
+		Method: "Page.handleJavaScriptDialog",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -221,8 +221,8 @@ func (Page) Navigate(
 	params *Page.NavigateParams,
 ) (Page.NavigateResult, error) {
 	command := &protocol.Command{
-		method: "Page.navigate",
-		params: params,
+		Method: "Page.navigate",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(Page.NavigateResult), command.Err
@@ -236,8 +236,8 @@ func (Page) NavigateToHistoryEntry(
 	params *Page.NavigateToHistoryEntryParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Page.navigateToHistoryEntry",
-		params: params,
+		Method: "Page.navigateToHistoryEntry",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -251,8 +251,8 @@ func (Page) PrintToPDF(
 	params *Page.PrintToPDFParams,
 ) (Page.PrintToPDFResult, error) {
 	command := &protocol.Command{
-		method: "Page.printToPDF",
-		params: params,
+		Method: "Page.printToPDF",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(Page.PrintToPDFResult), command.Err
@@ -266,8 +266,8 @@ func (Page) Reload(
 	params *Page.ReloadParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Page.reload",
-		params: params,
+		Method: "Page.reload",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -282,8 +282,8 @@ func (Page) RemoveScriptToEvaluateOnLoad(
 	params *Page.RemoveScriptToEvaluateOnLoadParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Page.removeScriptToEvaluateOnLoad",
-		params: params,
+		Method: "Page.removeScriptToEvaluateOnLoad",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -297,8 +297,8 @@ func (Page) RemoveScriptToEvaluateOnNewDocument(
 	params *Page.RemoveScriptToEvaluateOnNewDocumentParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Page.removeScriptToEvaluateOnNewDocument",
-		params: params,
+		Method: "Page.removeScriptToEvaluateOnNewDocument",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -312,8 +312,8 @@ func (Page) RequestAppBanner(
 	params *Page.RequestAppBannerParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Page.requestAppBanner",
-		params: params,
+		Method: "Page.requestAppBanner",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -328,8 +328,8 @@ func (Page) ScreencastFrameAck(
 	params *Page.ScreencastFrameAckParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Page.screencastFrameAck",
-		params: params,
+		Method: "Page.screencastFrameAck",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -343,8 +343,8 @@ func (Page) SearchInResource(
 	params *Page.SearchInResourceParams,
 ) (Page.SearchInResourceResult, error) {
 	command := &protocol.Command{
-		method: "Page.searchInResource",
-		params: params,
+		Method: "Page.searchInResource",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(Page.SearchInResourceResult), command.Err
@@ -358,8 +358,8 @@ func (Page) SetAdBlockingEnabled(
 	params *Page.SetAdBlockingEnabledParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Page.setAdBlockingEnabled",
-		params: params,
+		Method: "Page.setAdBlockingEnabled",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -374,8 +374,8 @@ func (Page) SetAutoAttachToCreatedPages(
 	params *Page.SetAutoAttachToCreatedPagesParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Page.setAutoAttachToCreatedPages",
-		params: params,
+		Method: "Page.setAutoAttachToCreatedPages",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -389,8 +389,8 @@ func (Page) SetDocumentContent(
 	params *Page.SetDocumentContentParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Page.setDocumentContent",
-		params: params,
+		Method: "Page.setDocumentContent",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -404,8 +404,8 @@ func (Page) SetDownloadBehavior(
 	params *Page.SetDownloadBehaviorParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Page.setDownloadBehavior",
-		params: params,
+		Method: "Page.setDownloadBehavior",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -419,8 +419,8 @@ func (Page) SetLifecycleEventsEnabled(
 	params *Page.SetLifecycleEventsEnabledParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Page.setLifecycleEventsEnabled",
-		params: params,
+		Method: "Page.setLifecycleEventsEnabled",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -434,8 +434,8 @@ func (Page) StartScreencast(
 	params *Page.StartScreencastParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Page.startScreencast",
-		params: params,
+		Method: "Page.startScreencast",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -448,7 +448,7 @@ func (Page) StopLoading(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Page.stopLoading",
+		Method: "Page.stopLoading",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -461,7 +461,7 @@ func (Page) StopScreencast(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Page.stopScreencast",
+		Method: "Page.stopScreencast",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

@@ -1,6 +1,7 @@
 package Emulation
 
 import (
+	DOM "app/chrome/dom"
 	Page "app/chrome/page"
 	"fmt"
 )
@@ -18,7 +19,7 @@ SetCPUThrottlingRateParams represents Emulation.setCPUThrottlingRate parameters.
 */
 type SetCPUThrottlingRateParams struct {
 	// Throttling rate as a slowdown factor (1 is no throttle, 2 is 2x slowdown, etc).
-	rate int `json:"rate"`
+	Rate int `json:"rate"`
 }
 
 /*

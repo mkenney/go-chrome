@@ -16,8 +16,8 @@ func (DeviceOrientation) ClearDeviceOrientationOverride(
 	params *device_orientation.ClearDeviceOrientationOverrideParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DeviceOrientation.clearDeviceOrientationOverride",
-		params: params,
+		Method: "DeviceOrientation.clearDeviceOrientationOverride",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -31,8 +31,8 @@ func (DeviceOrientation) SetDeviceOrientationOverride(
 	params *device_orientation.SetDeviceOrientationOverrideParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DeviceOrientation.setDeviceOrientationOverride",
-		params: params,
+		Method: "DeviceOrientation.setDeviceOrientationOverride",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

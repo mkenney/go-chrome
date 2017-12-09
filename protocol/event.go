@@ -17,7 +17,7 @@ EventHandler is a generic EventHandlerInterface type
 */
 type EventHandler struct {
 	callback func(name string, params []byte)
-	name     func() string
+	name     string
 }
 
 /*
@@ -34,7 +34,7 @@ func NewEventHandler(name string, callback func(name string, params []byte)) *Ev
 OnEvent is an EventHandlerInterface implementation
 */
 func (e *EventHandler) OnEvent(name string, params []byte) {
-	e.Callback(name, params)
+	e.callback(name, params)
 }
 
 /*
@@ -69,6 +69,14 @@ func NewEventHandlerPayload(id int, method string, params interface{}) *EventHan
 		Method: method,
 		Params: params,
 	}
+}
+
+/*
+SocketError represents an error
+*/
+type SocketError struct {
+	Code    int    `json:"code"`
+	Message string `json:"message"`
 }
 
 /*

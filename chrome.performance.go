@@ -19,7 +19,7 @@ func (Performance) Disable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Performance.disable",
+		Method: "Performance.disable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -32,7 +32,7 @@ func (Performance) Enable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Performance.enable",
+		Method: "Performance.enable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -46,8 +46,8 @@ func (Overlay) GetMetrics(
 	params *performance.GetMetricsParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Performance.getMetrics",
-		params: params,
+		Method: "Performance.getMetrics",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

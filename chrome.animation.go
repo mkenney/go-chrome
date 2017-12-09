@@ -20,7 +20,7 @@ func (Animation) Disable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Animation.disable",
+		Method: "Animation.disable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -33,7 +33,7 @@ func (Animation) Enable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Animation.enable",
+		Method: "Animation.enable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -47,8 +47,8 @@ func (Animation) GetCurrentTime(
 	params *animation.GetCurrentTimeParams,
 ) (animation.GetCurrentTimeResult, error) {
 	command := &protocol.Command{
-		method: "Animation.getCurrentTime",
-		params: params,
+		Method: "Animation.getCurrentTime",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(protocol.GetCurrentTimeResult), command.Err
@@ -61,7 +61,7 @@ func (Animation) GetPlaybackRate(
 	socket *Socket,
 ) (animation.GetPlaybackRateResult, error) {
 	command := &protocol.Command{
-		method: "Animation.getPlaybackRate",
+		Method: "Animation.getPlaybackRate",
 	}
 	socket.SendCommand(command)
 	return command.Result.(protocol.GetPlaybackRateResult), command.Err
@@ -75,8 +75,8 @@ func (Animation) ReleaseAnimations(
 	params *animation.ReleaseAnimationsParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Animation.releaseAnimations",
-		params: params,
+		Method: "Animation.releaseAnimations",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -90,8 +90,8 @@ func (Animation) ResolveAnimation(
 	params *animation.ResolveAnimationParams,
 ) (animation.ResolveAnimationResult, error) {
 	command := &protocol.Command{
-		method: "Animation.resolveAnimation",
-		params: params,
+		Method: "Animation.resolveAnimation",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(protocol.ResolveAnimationResult), command.Err
@@ -105,8 +105,8 @@ func (Animation) SeekAnimations(
 	params *animation.SeekAnimationsParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Animation.seekAnimations",
-		params: params,
+		Method: "Animation.seekAnimations",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -120,8 +120,8 @@ func (Animation) SetPaused(
 	params *animation.SetPausedParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Animation.setPaused",
-		params: params,
+		Method: "Animation.setPaused",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -135,8 +135,8 @@ func (Animation) SetPlaybackRate(
 	params *animation.SetPlaybackRateParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Animation.setPlaybackRate",
-		params: params,
+		Method: "Animation.setPlaybackRate",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -150,8 +150,8 @@ func (Animation) SetTiming(
 	params *animation.SetTimingParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Animation.setTiming",
-		params: params,
+		Method: "Animation.setTiming",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

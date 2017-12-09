@@ -19,8 +19,8 @@ func (IO) Close(
 	params *io.CloseParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "IO.close",
-		params: params,
+		Method: "IO.close",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -34,8 +34,8 @@ func (IO) Read(
 	params *io.ReadParams,
 ) (io.ReadResult, error) {
 	command := &protocol.Command{
-		method: "IO.read",
-		params: params,
+		Method: "IO.read",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(io.ReadResult), command.Err
@@ -49,8 +49,8 @@ func (IO) ResolveBlob(
 	params *io.ResolveBlobParams,
 ) (io.ResolveBlobResult, error) {
 	command := &protocol.Command{
-		method: "IO.resolveBlob",
-		params: params,
+		Method: "IO.resolveBlob",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(io.ResolveBlobResult), command.Err

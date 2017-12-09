@@ -20,7 +20,7 @@ func (Database) Disable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Database.disable",
+		Method: "Database.disable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -33,7 +33,7 @@ func (Database) Enable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Database.enable",
+		Method: "Database.enable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -47,8 +47,8 @@ func (Database) ExecuteSQL(
 	params *database.ExecuteSQLParams,
 ) (debugger.ExecuteSQLResult, error) {
 	command := &protocol.Command{
-		method: "Database.executeSQL",
-		params: params,
+		Method: "Database.executeSQL",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(debugger.ExecuteSQLResult), command.Err
@@ -62,8 +62,8 @@ func (Database) GetDatabaseTableNames(
 	params *database.GetDatabaseTableNamesParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Database.getDatabaseTableNames",
-		params: params,
+		Method: "Database.getDatabaseTableNames",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

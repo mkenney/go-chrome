@@ -21,8 +21,8 @@ func (Tethering) Bind(
 	params *tethering.BindParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Tethering.bind",
-		params: params,
+		Method: "Tethering.bind",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -36,8 +36,8 @@ func (Tethering) Unbind(
 	params *tethering.UnbindParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Tethering.unbind",
-		params: params,
+		Method: "Tethering.unbind",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

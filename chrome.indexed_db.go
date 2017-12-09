@@ -16,8 +16,8 @@ func (IndexedDB) ClearObjectStore(
 	params *indexed_db.ClearObjectStoreParams,
 ) (indexed_db.ClearObjectStoreResult, error) {
 	command := &protocol.Command{
-		method: "IndexedDB.clearObjectStore",
-		params: params,
+		Method: "IndexedDB.clearObjectStore",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(indexed_db.ClearObjectStoreResult), command.Err
@@ -31,8 +31,8 @@ func (IndexedDB) DeleteDatabase(
 	params *indexed_db.DeleteDatabaseParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "IndexedDB.deleteDatabase",
-		params: params,
+		Method: "IndexedDB.deleteDatabase",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -45,7 +45,7 @@ func (IndexedDB) Disable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "IndexedDB.disable",
+		Method: "IndexedDB.disable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -58,7 +58,7 @@ func (IndexedDB) Enable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "IndexedDB.enable",
+		Method: "IndexedDB.enable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -72,8 +72,8 @@ func (IndexedDB) RequestData(
 	params *indexed_db.RequestDataParams,
 ) (indexed_db.RequestDataResult, error) {
 	command := &protocol.Command{
-		method: "IndexedDB.requestData",
-		params: params,
+		Method: "IndexedDB.requestData",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(indexed_db.RequestDataResult), command.Err
@@ -87,8 +87,8 @@ func (IndexedDB) RequestDatabase(
 	params *indexed_db.RequestDatabaseParams,
 ) (indexed_db.RequestDatabaseResult, error) {
 	command := &protocol.Command{
-		method: "IndexedDB.requestDatabase",
-		params: params,
+		Method: "IndexedDB.requestDatabase",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(indexed_db.RequestDatabaseResult), command.Err
@@ -102,8 +102,8 @@ func (IndexedDB) RequestDatabaseNames(
 	params *indexed_db.RequestDatabaseNamesParams,
 ) (indexed_db.RequestDatabaseNamesResult, error) {
 	command := &protocol.Command{
-		method: "IndexedDB.requestDatabaseNames",
-		params: params,
+		Method: "IndexedDB.requestDatabaseNames",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(indexed_db.RequestDatabaseNamesResult), command.Err

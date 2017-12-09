@@ -21,7 +21,7 @@ func (Log) Clear(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Log.clear",
+		Method: "Log.clear",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -34,7 +34,7 @@ func (Log) Disable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Log.disable",
+		Method: "Log.disable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -48,7 +48,7 @@ func (Log) Enable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Log.enable",
+		Method: "Log.enable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -62,8 +62,8 @@ func (Log) StartViolationsReport(
 	params *chrome_log.StartViolationsReportParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Log.startViolationsReport",
-		params: params,
+		Method: "Log.startViolationsReport",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -76,7 +76,7 @@ func (Log) StopViolationsReport(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Log.stopViolationsReport",
+		Method: "Log.stopViolationsReport",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

@@ -19,7 +19,7 @@ func (Security) Disable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Security.disable",
+		Method: "Security.disable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -32,7 +32,7 @@ func (Security) Enable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Security.enable",
+		Method: "Security.enable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -43,8 +43,8 @@ HandleCertificateError handles a certificate error that fired a certificateError
 */
 func (Security) HandleCertificateError(socket *Socket, params *security.HandleCertificateErrorParams) error {
 	command := &protocol.Command{
-		method: "Security.handleCertificateError",
-		params: params,
+		Method: "Security.handleCertificateError",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -57,8 +57,8 @@ handleCertificateError commands.
 */
 func (Security) SetOverrideCertificateErrors(socket *Socket, params *security.SetOverrideCertificateErrorsParams) error {
 	command := &protocol.Command{
-		method: "Security.setOverrideCertificateErrors",
-		params: params,
+		Method: "Security.setOverrideCertificateErrors",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Err

@@ -15,8 +15,8 @@ func (Input) DispatchKeyEvent(
 	params *input.DispatchKeyEventParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Input.dispatchKeyEvent",
-		params: params,
+		Method: "Input.dispatchKeyEvent",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -30,8 +30,8 @@ func (Input) DispatchMouseEvent(
 	params *input.DispatchMouseEventParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Input.dispatchMouseEvent",
-		params: params,
+		Method: "Input.dispatchMouseEvent",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -45,8 +45,8 @@ func (Input) DispatchTouchEvent(
 	params *input.DispatchTouchEventParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Input.dispatchTouchEvent",
-		params: params,
+		Method: "Input.dispatchTouchEvent",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -60,8 +60,8 @@ func (Input) EmulateTouchFromMouseEvent(
 	params *input.EmulateTouchFromMouseEventParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Input.emulateTouchFromMouseEvent",
-		params: params,
+		Method: "Input.emulateTouchFromMouseEvent",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -75,8 +75,8 @@ func (Input) SetIgnoreInputEvents(
 	params *input.SetIgnoreInputEventsParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Input.setIgnoreInputEvents",
-		params: params,
+		Method: "Input.setIgnoreInputEvents",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -91,8 +91,8 @@ func (Input) SynthesizePinchGesture(
 	params *input.SynthesizePinchGestureParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Input.synthesizePinchGesture",
-		params: params,
+		Method: "Input.synthesizePinchGesture",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -107,8 +107,8 @@ func (Input) SynthesizeScrollGesture(
 	params *input.SynthesizeScrollGestureParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Input.synthesizeScrollGesture",
-		params: params,
+		Method: "Input.synthesizeScrollGesture",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -123,8 +123,8 @@ func (Input) SynthesizeTapGesture(
 	params *input.SynthesizeTapGestureParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Input.synthesizeTapGesture",
-		params: params,
+		Method: "Input.synthesizeTapGesture",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

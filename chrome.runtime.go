@@ -24,8 +24,8 @@ func (Runtime) AwaitPromise(
 	params *runtime.AwaitPromiseParams,
 ) (runtime.AwaitPromiseResult, error) {
 	command := &protocol.Command{
-		method: "Runtime.awaitPromise",
-		params: params,
+		Method: "Runtime.awaitPromise",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(runtime.AwaitPromiseResult), command.Err
@@ -40,8 +40,8 @@ func (Runtime) CallFunctionOn(
 	params *runtime.CallFunctionOnParams,
 ) (runtime.CallFunctionOnResult, error) {
 	command := &protocol.Command{
-		method: "Runtime.callFunctionOn",
-		params: params,
+		Method: "Runtime.callFunctionOn",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(runtime.CallFunctionOnResult), command.Err
@@ -55,8 +55,8 @@ func (Runtime) CompileScript(
 	params *runtime.CompileScriptParams,
 ) (runtime.CompileScriptResult, error) {
 	command := &protocol.Command{
-		method: "Runtime.compileScript",
-		params: params,
+		Method: "Runtime.compileScript",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(runtime.CompileScriptResult), command.Err
@@ -69,7 +69,7 @@ func (Runtime) Disable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Runtime.disable",
+		Method: "Runtime.disable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -82,7 +82,7 @@ func (Runtime) DiscardConsoleEntries(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Runtime.discardConsoleEntries",
+		Method: "Runtime.discardConsoleEntries",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -97,7 +97,7 @@ func (Runtime) Enable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Runtime.enable",
+		Method: "Runtime.enable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -111,8 +111,8 @@ func (Runtime) Evaluate(
 	params *runtime.EvaluateParams,
 ) (runtime.EvaluateResult, error) {
 	command := &protocol.Command{
-		method: "Runtime.evaluate",
-		params: params,
+		Method: "Runtime.evaluate",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(runtime.EvaluateResult), command.Err
@@ -127,8 +127,8 @@ func (Runtime) GetProperties(
 	params *runtime.GetPropertiesParams,
 ) (runtime.GetPropertiesResult, error) {
 	command := &protocol.Command{
-		method: "Runtime.getProperties",
-		params: params,
+		Method: "Runtime.getProperties",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(runtime.GetPropertiesResult), command.Err
@@ -142,8 +142,8 @@ func (Runtime) GlobalLexicalScopeNames(
 	params *runtime.GlobalLexicalScopeNamesParams,
 ) (runtime.GlobalLexicalScopeNamesResult, error) {
 	command := &protocol.Command{
-		method: "Runtime.globalLexicalScopeNames",
-		params: params,
+		Method: "Runtime.globalLexicalScopeNames",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(runtime.GlobalLexicalScopeNamesResult), command.Err
@@ -157,8 +157,8 @@ func (Runtime) QueryObjects(
 	params *runtime.QueryObjectsParams,
 ) (runtime.QueryObjectsResult, error) {
 	command := &protocol.Command{
-		method: "Runtime.queryObjects",
-		params: params,
+		Method: "Runtime.queryObjects",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(runtime.QueryObjectsResult), command.Err
@@ -172,8 +172,8 @@ func (Runtime) ReleaseObject(
 	params *runtime.ReleaseObjectParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Runtime.releaseObject",
-		params: params,
+		Method: "Runtime.releaseObject",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -187,8 +187,8 @@ func (Runtime) ReleaseObjectGroup(
 	params *runtime.ReleaseObjectGroupParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Runtime.releaseObjectGroup",
-		params: params,
+		Method: "Runtime.releaseObjectGroup",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -201,7 +201,7 @@ func (Runtime) RunIfWaitingForDebugger(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Runtime.runIfWaitingForDebugger",
+		Method: "Runtime.runIfWaitingForDebugger",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -215,8 +215,8 @@ func (Runtime) RunScript(
 	params *runtime.RunScriptParams,
 ) (runtime.RunScriptResult, error) {
 	command := &protocol.Command{
-		method: "Runtime.runScript",
-		params: params,
+		Method: "Runtime.runScript",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(runtime.RunScriptResult), command.Err
@@ -230,8 +230,8 @@ func (Runtime) SetCustomObjectFormatterEnabled(
 	params *runtime.SetCustomObjectFormatterEnabledParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Runtime.setCustomObjectFormatterEnabled",
-		params: params,
+		Method: "Runtime.setCustomObjectFormatterEnabled",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

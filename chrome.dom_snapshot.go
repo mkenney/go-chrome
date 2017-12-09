@@ -18,8 +18,8 @@ func (DOMSnapshot) GetSnapshot(
 	params *dom_snapshot.GetSnapshotParams,
 ) (dom_snapshot.GetSnapshotResult, error) {
 	command := &protocol.Command{
-		method: "DOMSnapshot.getSnapshot",
-		params: params,
+		Method: "DOMSnapshot.getSnapshot",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom_snapshot.GetSnapshotResult), command.Err

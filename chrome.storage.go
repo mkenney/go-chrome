@@ -21,8 +21,8 @@ func (Storage) ClearDataForOrigin(
 	params *storage.ClearDataForOriginParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "storage.clearDataForOrigin",
-		params: params,
+		Method: "storage.clearDataForOrigin",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -36,8 +36,8 @@ func (Storage) GetUsageAndQuota(
 	params *storage.GetUsageAndQuotaParams,
 ) (storage.GetUsageAndQuotaResult, error) {
 	command := &protocol.Command{
-		method: "storage.getUsageAndQuota",
-		params: params,
+		Method: "storage.getUsageAndQuota",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(storage.GetUsageAndQuotaResult), command.Err
@@ -52,8 +52,8 @@ func (Storage) TrackCacheStorageForOrigin(
 	params *storage.TrackCacheStorageForOriginParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "storage.trackCacheStorageForOrigin",
-		params: params,
+		Method: "storage.trackCacheStorageForOrigin",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -67,8 +67,8 @@ func (Storage) TrackIndexedDBForOrigin(
 	params *storage.TrackIndexedDBForOriginParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "storage.trackIndexedDBForOrigin",
-		params: params,
+		Method: "storage.trackIndexedDBForOrigin",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -82,8 +82,8 @@ func (Storage) UntrackCacheStorageForOrigin(
 	params *storage.UntrackCacheStorageForOriginParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "storage.untrackCacheStorageForOrigin",
-		params: params,
+		Method: "storage.untrackCacheStorageForOrigin",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -97,8 +97,8 @@ func (Storage) UntrackIndexedDBForOrigin(
 	params *storage.UntrackIndexedDBForOriginParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "storage.untrackIndexedDBForOrigin",
-		params: params,
+		Method: "storage.untrackIndexedDBForOrigin",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

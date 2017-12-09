@@ -21,8 +21,8 @@ func (ServiceWorker) DeliverPushMessage(
 	params *service_worker.DeliverPushMessageParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "ServiceWorker.deliverPushMessage",
-		params: params,
+		Method: "ServiceWorker.deliverPushMessage",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -35,7 +35,7 @@ func (ServiceWorker) Disable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "ServiceWorker.disable",
+		Method: "ServiceWorker.disable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -49,8 +49,8 @@ func (ServiceWorker) DispatchSyncEvent(
 	params *service_worker.DispatchSyncEventParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "ServiceWorker.dispatchSyncEvent",
-		params: params,
+		Method: "ServiceWorker.dispatchSyncEvent",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -63,7 +63,7 @@ func (ServiceWorker) Enable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "ServiceWorker.enable",
+		Method: "ServiceWorker.enable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -77,8 +77,8 @@ func (ServiceWorker) InspectWorker(
 	params *service_worker.InspectWorkerParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "ServiceWorker.inspectWorker",
-		params: params,
+		Method: "ServiceWorker.inspectWorker",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -92,8 +92,8 @@ func (ServiceWorker) SetForceUpdateOnPageLoad(
 	params *service_worker.SetForceUpdateOnPageLoadParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "ServiceWorker.setForceUpdateOnPageLoad",
-		params: params,
+		Method: "ServiceWorker.setForceUpdateOnPageLoad",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -107,8 +107,8 @@ func (ServiceWorker) SkipWaiting(
 	params *service_worker.SkipWaitingParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "ServiceWorker.skipWaiting",
-		params: params,
+		Method: "ServiceWorker.skipWaiting",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -122,8 +122,8 @@ func (ServiceWorker) StartWorker(
 	params *service_worker.StartWorkerParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "ServiceWorker.startWorker",
-		params: params,
+		Method: "ServiceWorker.startWorker",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -136,7 +136,7 @@ func (ServiceWorker) StopAllWorkers(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "ServiceWorker.stopAllWorkers",
+		Method: "ServiceWorker.stopAllWorkers",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -150,8 +150,8 @@ func (ServiceWorker) StopWorker(
 	params *service_worker.StopWorkerParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "ServiceWorker.stopWorker",
-		params: params,
+		Method: "ServiceWorker.stopWorker",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -165,8 +165,8 @@ func (ServiceWorker) Unregister(
 	params *service_worker.UnregisterParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "ServiceWorker.unregister",
-		params: params,
+		Method: "ServiceWorker.unregister",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -180,8 +180,8 @@ func (ServiceWorker) UpdateRegistration(
 	params *service_worker.UpdateRegistrationParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "ServiceWorker.updateRegistration",
-		params: params,
+		Method: "ServiceWorker.updateRegistration",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

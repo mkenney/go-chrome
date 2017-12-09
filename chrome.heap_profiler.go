@@ -22,8 +22,8 @@ func (HeapProfiler) AddInspectedHeapObject(
 	params *heap_profiler.AddInspectedHeapObjectParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "HeapProfiler.addInspectedHeapObject",
-		params: params,
+		Method: "HeapProfiler.addInspectedHeapObject",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -36,7 +36,7 @@ func (HeapProfiler) CollectGarbage(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "HeapProfiler.collectGarbage",
+		Method: "HeapProfiler.collectGarbage",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -49,7 +49,7 @@ func (HeapProfiler) Disable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "HeapProfiler.disable",
+		Method: "HeapProfiler.disable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -62,7 +62,7 @@ func (HeapProfiler) Enable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "HeapProfiler.enable",
+		Method: "HeapProfiler.enable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -76,8 +76,8 @@ func (HeapProfiler) GetHeapObjectID(
 	params *heap_profiler.GetHeapObjectIDParams,
 ) (heap_profiler.GetHeapObjectIDResult, error) {
 	command := &protocol.Command{
-		method: "HeapProfiler.getHeapObjectID",
-		params: params,
+		Method: "HeapProfiler.getHeapObjectID",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(heap_profiler.GetHeapObjectIDResult), command.Err
@@ -91,8 +91,8 @@ func (HeapProfiler) GetObjectByHeapObjectID(
 	params *heap_profiler.GetObjectByHeapObjectIDParams,
 ) (heap_profiler.GetObjectByHeapObjectIDResult, error) {
 	command := &protocol.Command{
-		method: "HeapProfiler.getObjectByHeapObjectId",
-		params: params,
+		Method: "HeapProfiler.getObjectByHeapObjectId",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(heap_profiler.GetObjectByHeapObjectIDResult), command.Err
@@ -106,8 +106,8 @@ func (HeapProfiler) GetSamplingProfile(
 	params *heap_profiler.GetSamplingProfileParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "HeapProfiler.getSamplingProfile",
-		params: params,
+		Method: "HeapProfiler.getSamplingProfile",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -121,8 +121,8 @@ func (HeapProfiler) StartSampling(
 	params *heap_profiler.StartSamplingParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "HeapProfiler.startSampling",
-		params: params,
+		Method: "HeapProfiler.startSampling",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -136,8 +136,8 @@ func (HeapProfiler) StartTrackingHeapObjects(
 	params *heap_profiler.StartTrackingHeapObjectsParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "HeapProfiler.startTrackingHeapObjects",
-		params: params,
+		Method: "HeapProfiler.startTrackingHeapObjects",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -151,8 +151,8 @@ func (HeapProfiler) StopSampling(
 	params *heap_profiler.StopSamplingParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "HeapProfiler.stopSampling",
-		params: params,
+		Method: "HeapProfiler.stopSampling",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -166,8 +166,8 @@ func (HeapProfiler) StopTrackingHeapObjects(
 	params *heap_profiler.StopTrackingHeapObjectsParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "HeapProfiler.stopTrackingHeapObjects",
-		params: params,
+		Method: "HeapProfiler.stopTrackingHeapObjects",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -181,8 +181,8 @@ func (HeapProfiler) TakeHeapSnapshot(
 	params *heap_profiler.TakeHeapSnapshotParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "HeapProfiler.takeHeapSnapshot",
-		params: params,
+		Method: "HeapProfiler.takeHeapSnapshot",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

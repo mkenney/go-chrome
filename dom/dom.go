@@ -625,7 +625,7 @@ type ChildNodeRemovedEvent struct {
 DistributedNodesUpdatedEvent represents DOM.distributedNodesUpdated event data.
 */
 type DistributedNodesUpdatedEvent struct {
-	// Insertion point where distrubuted nodes were updated.
+	// Insertion point where distributed nodes were updated.
 	InsertionPointID NodeID `json:"insertionPointId"`
 
 	// Distributed nodes for given insertion point.

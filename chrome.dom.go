@@ -29,8 +29,8 @@ func (DOM) CollectClassNamesFromSubtree(
 	params *dom.CollectClassNamesFromSubtreeParams,
 ) (dom.CollectClassNamesFromSubtreeResult, error) {
 	command := &protocol.Command{
-		method: "DOM.collectClassNamesFromSubtree",
-		params: params,
+		Method: "DOM.collectClassNamesFromSubtree",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.CollectClassNamesFromSubtreeResult), command.Err
@@ -45,8 +45,8 @@ func (DOM) CopyTo(
 	params *dom.CopyToParams,
 ) (dom.CopyToResult, error) {
 	command := &protocol.Command{
-		method: "DOM.copyTo",
-		params: params,
+		Method: "DOM.copyTo",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.CopyToResult), command.Err
@@ -61,8 +61,8 @@ func (DOM) DescribeNode(
 	params *dom.DescribeNodeParams,
 ) (dom.DescribeNodeResult, error) {
 	command := &protocol.Command{
-		method: "DOM.describeNode",
-		params: params,
+		Method: "DOM.describeNode",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.DescribeNodeResult), command.Err
@@ -75,7 +75,7 @@ func (DOM) Disable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOM.disable",
+		Method: "DOM.disable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -90,8 +90,8 @@ func (DOM) DiscardSearchResults(
 	params *dom.DiscardSearchResultsParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOM.discardSearchResults",
-		params: params,
+		Method: "DOM.discardSearchResults",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -104,7 +104,7 @@ func (DOM) Enable(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOM.enable",
+		Method: "DOM.enable",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -118,8 +118,8 @@ func (DOM) Focus(
 	params *dom.FocusParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOM.focus",
-		params: params,
+		Method: "DOM.focus",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -133,8 +133,8 @@ func (DOM) GetAttributes(
 	params *dom.GetAttributesParams,
 ) (dom.GetAttributesResult, error) {
 	command := &protocol.Command{
-		method: "DOM.getAttributes",
-		params: params,
+		Method: "DOM.getAttributes",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.GetAttributesResult), command.Err
@@ -148,8 +148,8 @@ func (DOM) GetBoxModel(
 	params *dom.GetBoxModelParams,
 ) (dom.GetBoxModelResult, error) {
 	command := &protocol.Command{
-		method: "DOM.getBoxModel",
-		params: params,
+		Method: "DOM.getBoxModel",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.GetBoxModelResult), command.Err
@@ -163,8 +163,8 @@ func (DOM) GetDocument(
 	params *dom.GetDocumentParams,
 ) (dom.GetDocumentResult, error) {
 	command := &protocol.Command{
-		method: "DOM.getDocument",
-		params: params,
+		Method: "DOM.getDocument",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.GetDocumentResult), command.Err
@@ -178,8 +178,8 @@ func (DOM) GetFlattenedDocument(
 	params *dom.GetFlattenedDocumentParams,
 ) (dom.GetFlattenedDocumentResult, error) {
 	command := &protocol.Command{
-		method: "DOM.getFlattenedDocument",
-		params: params,
+		Method: "DOM.getFlattenedDocument",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.GetFlattenedDocumentResult), command.Err
@@ -193,8 +193,8 @@ func (DOM) GetNodeForLocation(
 	params *dom.GetNodeForLocationParams,
 ) (dom.GetNodeForLocationResult, error) {
 	command := &protocol.Command{
-		method: "DOM.getNodeForLocation",
-		params: params,
+		Method: "DOM.getNodeForLocation",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.GetNodeForLocationResult), command.Err
@@ -208,8 +208,8 @@ func (DOM) GetOuterHTML(
 	params *dom.GetOuterHTMLParams,
 ) (dom.GetOuterHTMLResult, error) {
 	command := &protocol.Command{
-		method: "DOM.getOuterHTML",
-		params: params,
+		Method: "DOM.getOuterHTML",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.GetOuterHTMLResult), command.Err
@@ -223,8 +223,8 @@ func (DOM) GetRelayoutBoundary(
 	params *dom.GetRelayoutBoundaryParams,
 ) (dom.GetRelayoutBoundaryResult, error) {
 	command := &protocol.Command{
-		method: "DOM.getRelayoutBoundary",
-		params: params,
+		Method: "DOM.getRelayoutBoundary",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.GetRelayoutBoundaryResult), command.Err
@@ -239,8 +239,8 @@ func (DOM) GetSearchResults(
 	params *dom.GetSearchResultsParams,
 ) (dom.GetSearchResultsResult, error) {
 	command := &protocol.Command{
-		method: "DOM.getSearchResults",
-		params: params,
+		Method: "DOM.getSearchResults",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.GetSearchResultsResult), command.Err
@@ -253,7 +253,7 @@ func (DOM) MarkUndoableState(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOM.markUndoableState",
+		Method: "DOM.markUndoableState",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -267,8 +267,8 @@ func (DOM) MoveTo(
 	params *dom.MoveToParams,
 ) (dom.MoveToResult, error) {
 	command := &protocol.Command{
-		method: "DOM.moveTo",
-		params: params,
+		Method: "DOM.moveTo",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.MoveToResult), command.Err
@@ -283,8 +283,8 @@ func (DOM) PerformSearch(
 	params *dom.PerformSearchParams,
 ) (dom.PerformSearchResult, error) {
 	command := &protocol.Command{
-		method: "DOM.performSearch",
-		params: params,
+		Method: "DOM.performSearch",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.PerformSearchResult), command.Err
@@ -299,8 +299,8 @@ func (DOM) PushNodeByPathToFrontend(
 	params *dom.PushNodeByPathToFrontendParams,
 ) (dom.PushNodeByPathToFrontendResult, error) {
 	command := &protocol.Command{
-		method: "DOM.pushNodeByPathToFrontend",
-		params: params,
+		Method: "DOM.pushNodeByPathToFrontend",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.PushNodeByPathToFrontendResult), command.Err
@@ -315,8 +315,8 @@ func (DOM) PushNodesByBackendIDsToFrontend(
 	params *dom.PushNodesByBackendIDsToFrontendParams,
 ) (dom.PushNodesByBackendIDsToFrontendResult, error) {
 	command := &protocol.Command{
-		method: "DOM.pushNodesByBackendIdsToFrontend",
-		params: params,
+		Method: "DOM.pushNodesByBackendIdsToFrontend",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.PushNodesByBackendIDsToFrontendResult), command.Err
@@ -330,8 +330,8 @@ func (DOM) QuerySelector(
 	params *dom.QuerySelectorParams,
 ) (dom.QuerySelectorResult, error) {
 	command := &protocol.Command{
-		method: "DOM.querySelector",
-		params: params,
+		Method: "DOM.querySelector",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.QuerySelectorResult), command.Err
@@ -345,8 +345,8 @@ func (DOM) QuerySelectorAll(
 	params *dom.QuerySelectorAllParams,
 ) (dom.QuerySelectorAllResult, error) {
 	command := &protocol.Command{
-		method: "DOM.querySelectorAll",
-		params: params,
+		Method: "DOM.querySelectorAll",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.QuerySelectorAllResult), command.Err
@@ -359,7 +359,7 @@ func (DOM) Redo(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOM.redo",
+		Method: "DOM.redo",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -373,8 +373,8 @@ func (DOM) RemoveAttribute(
 	params *dom.RemoveAttributeParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOM.removeAttribute",
-		params: params,
+		Method: "DOM.removeAttribute",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -388,8 +388,8 @@ func (DOM) RemoveNode(
 	params *dom.RemoveNodeParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOM.removeNode",
-		params: params,
+		Method: "DOM.removeNode",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -405,8 +405,8 @@ func (DOM) RequestChildNodes(
 	params *dom.RequestChildNodesParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOM.requestChildNodes",
-		params: params,
+		Method: "DOM.requestChildNodes",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -422,8 +422,8 @@ func (DOM) RequestNode(
 	params *dom.RequestNodeParams,
 ) (dom.RequestNodeResult, error) {
 	command := &protocol.Command{
-		method: "DOM.requestNode",
-		params: params,
+		Method: "DOM.requestNode",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.RequestNodeResult), command.Err
@@ -437,8 +437,8 @@ func (DOM) ResolveNode(
 	params *dom.ResolveNodeParams,
 ) (dom.ResolveNodeResult, error) {
 	command := &protocol.Command{
-		method: "DOM.resolveNode",
-		params: params,
+		Method: "DOM.resolveNode",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.ResolveNodeResult), command.Err
@@ -452,8 +452,8 @@ func (DOM) SetAttributeValue(
 	params *dom.SetAttributeValueParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOM.setAttributeValue",
-		params: params,
+		Method: "DOM.setAttributeValue",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -468,8 +468,8 @@ func (DOM) SetAttributesAsText(
 	params *dom.SetAttributesAsTextParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOM.setAttributesAsText",
-		params: params,
+		Method: "DOM.setAttributesAsText",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -483,8 +483,8 @@ func (DOM) SetFileInputFiles(
 	params *dom.SetFileInputFilesParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOM.setFileInputFiles",
-		params: params,
+		Method: "DOM.setFileInputFiles",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -499,8 +499,8 @@ func (DOM) SetInspectedNode(
 	params *dom.SetInspectedNodeParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOM.setInspectedNode",
-		params: params,
+		Method: "DOM.setInspectedNode",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -514,8 +514,8 @@ func (DOM) SetNodeName(
 	params *dom.SetNodeNameParams,
 ) (dom.SetNodeNameResult, error) {
 	command := &protocol.Command{
-		method: "DOM.setNodeName",
-		params: params,
+		Method: "DOM.setNodeName",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Result.(dom.SetNodeNameResult), command.Err
@@ -529,8 +529,8 @@ func (DOM) SetNodeValue(
 	params *dom.SetNodeValueParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOM.setNodeValue",
-		params: params,
+		Method: "DOM.setNodeValue",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -544,8 +544,8 @@ func (DOM) SetOuterHTML(
 	params *dom.SetOuterHTMLParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOM.setOuterHTML",
-		params: params,
+		Method: "DOM.setOuterHTML",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -558,7 +558,7 @@ func (DOM) Undo(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "DOM.undo",
+		Method: "DOM.undo",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -698,7 +698,7 @@ func (DOM) OnChildNodeRemoved(
 
 /*
 OnDistributedNodesUpdated adds a handler to the DOM.distributedNodesUpdated event.
-DOM.distributedNodesUpdated fires when distrubution is changed. EXPERIMENTAL
+DOM.distributedNodesUpdated fires when distribution is changed. EXPERIMENTAL
 */
 func (DOM) OnDistributedNodesUpdated(
 	socket *Socket,

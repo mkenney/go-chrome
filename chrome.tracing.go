@@ -20,7 +20,7 @@ func (Tracing) End(
 	socket *Socket,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Tracing.end",
+		Method: "Tracing.end",
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -33,7 +33,7 @@ func (Tracing) GetCategories(
 	socket *Socket,
 ) (tracing.GetCategoriesResult, error) {
 	command := &protocol.Command{
-		method: "Tracing.getCategories",
+		Method: "Tracing.getCategories",
 	}
 	socket.SendCommand(command)
 	return command.Result.(tracing.GetCategoriesResult), command.Err
@@ -47,8 +47,8 @@ func (Tracing) RecordClockSyncMarker(
 	params *tracing.RecordClockSyncMarkerParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Tracing.recordClockSyncMarker",
-		params: params,
+		Method: "Tracing.recordClockSyncMarker",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err
@@ -61,7 +61,7 @@ func (Tracing) RequestMemoryDump(
 	socket *Socket,
 ) (tracing.GetCategoriesResult, error) {
 	command := &protocol.Command{
-		method: "Tracing.requestMemoryDump",
+		Method: "Tracing.requestMemoryDump",
 	}
 	socket.SendCommand(command)
 	return command.Result.(tracing.GetCategoriesResult), command.Err
@@ -75,8 +75,8 @@ func (Tracing) Start(
 	params *tracing.StartParams,
 ) (nil, error) {
 	command := &protocol.Command{
-		method: "Tracing.start",
-		params: params,
+		Method: "Tracing.start",
+		Params: params,
 	}
 	socket.SendCommand(command)
 	return nil, command.Err

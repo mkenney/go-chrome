@@ -24,8 +24,8 @@ func (socket *Socket) SendCommand(command protocol.CommandIface) int {
 	socket.cmdID++
 	payload := &protocol.CommandPayload{
 		socket.cmdID,
-		command.Method(),
-		command.Params(),
+		command.Method,
+		command.Params,
 	}
 	tmp, _ := json.Marshal(payload)
 	log.Debugf("Sending %#v", string(tmp))
