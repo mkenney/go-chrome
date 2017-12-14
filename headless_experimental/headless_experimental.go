@@ -22,7 +22,10 @@ type BeginFrameParams struct {
 
 	// Optional. If set, a screenshot of the frame will be captured and returned in the response.
 	// Otherwise, no screenshot will be captured.
-	Screenshot ScreenshotParams `json:"screenshot,omitempty"`
+	//
+	// This is an instance of ScreenshotParams, but that doesn't omitempty correctly so it must be
+	// added manually.
+	Screenshot interface{} `json:"screenshot,omitempty"`
 }
 
 /*

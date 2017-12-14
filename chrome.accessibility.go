@@ -3,6 +3,7 @@ package chrome
 import (
 	accessibility "app/chrome/accessibility"
 	"app/chrome/protocol"
+	"encoding/json"
 )
 
 /*
@@ -23,6 +24,24 @@ func (Accessibility) GetPartialAXTree(
 		Method: "Accessibility.getPartialAXTree",
 		Params: params,
 	}
+	result := accessibility.PartialAXTreeResult{}
 	socket.SendCommand(command)
-	return command.Result.(accessibility.PartialAXTreeResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }

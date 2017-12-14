@@ -3,6 +3,7 @@ package chrome
 import (
 	indexed_db "app/chrome/indexed_db"
 	"app/chrome/protocol"
+	"encoding/json"
 )
 
 /*
@@ -78,8 +79,26 @@ func (IndexedDB) RequestData(
 		Method: "IndexedDB.requestData",
 		Params: params,
 	}
+	result := indexed_db.RequestDataResult{}
 	socket.SendCommand(command)
-	return command.Result.(indexed_db.RequestDataResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -93,8 +112,26 @@ func (IndexedDB) RequestDatabase(
 		Method: "IndexedDB.requestDatabase",
 		Params: params,
 	}
+	result := indexed_db.RequestDatabaseResult{}
 	socket.SendCommand(command)
-	return command.Result.(indexed_db.RequestDatabaseResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -108,6 +145,24 @@ func (IndexedDB) RequestDatabaseNames(
 		Method: "IndexedDB.requestDatabaseNames",
 		Params: params,
 	}
+	result := indexed_db.RequestDatabaseNamesResult{}
 	socket.SendCommand(command)
-	return command.Result.(indexed_db.RequestDatabaseNamesResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }

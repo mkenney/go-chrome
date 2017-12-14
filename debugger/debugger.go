@@ -75,7 +75,10 @@ type GetPossibleBreakpointsParams struct {
 
 	// Optional. End of range to search possible breakpoint locations in (excluding). When not
 	// specified, end of scripts is used as end of range.
-	End Location `json:"end,omitempty"`
+	//
+	// This expects an instance of Location, but that doesn't omitempty correctly so it must be
+	// added manually.
+	End interface{} `json:"end,omitempty"`
 
 	// Optional. Only consider locations which are in the same (non-nested) function as start.
 	RestrictToFunction bool `json:"restrictToFunction,omitempty"`
@@ -550,7 +553,10 @@ type CallFrame struct {
 	FunctionName string `json:"functionName"`
 
 	// Optional. Location in the source code.
-	FunctionLocation Location `json:"functionLocation,omitempty"`
+	//
+	// This expects an instance of Location, but that doesn't omitempty correctly so it must be
+	// added manually.
+	FunctionLocation interface{} `json:"functionLocation,omitempty"`
 
 	// Location in the source code.
 	Location Location `json:"location"`
@@ -565,7 +571,10 @@ type CallFrame struct {
 	This Runtime.RemoteObject `json:"this"`
 
 	// Optional. The value being returned, if the function is at return point.
-	ReturnValue Runtime.RemoteObject `json:"returnValue,omitempty"`
+	//
+	// This expects an instance of Runtime.RemoteObject, but that doesn't omitempty correctly so it
+	// must be added manually.
+	ReturnValue interface{} `json:"returnValue,omitempty"`
 }
 
 /*
@@ -584,10 +593,16 @@ type Scope struct {
 	Name string `json:"name,omitempty"`
 
 	// Optional. Location in the source code where scope starts.
-	StartLocation Location `json:"startLocation,omitempty"`
+	//
+	// This expects an instance of Location, but that doesn't omitempty correctly so it must be
+	// added manually.
+	StartLocation interface{} `json:"startLocation,omitempty"`
 
 	// Optional. Location in the source code where scope ends.
-	EndLocation Location `json:"endLocation,omitempty"`
+	//
+	// This expects an instance of Location, but that doesn't omitempty correctly so it must be
+	// added manually.
+	EndLocation interface{} `json:"endLocation,omitempty"`
 }
 
 /*

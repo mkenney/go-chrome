@@ -3,6 +3,7 @@ package chrome
 import (
 	"app/chrome/protocol"
 	system_info "app/chrome/system_info"
+	"encoding/json"
 )
 
 /*
@@ -20,6 +21,24 @@ func (SystemInfo) GetInfo(
 	command := &protocol.Command{
 		Method: "SystemInfo.getInfo",
 	}
+	result := system_info.GetInfoResult{}
 	socket.SendCommand(command)
-	return command.Result.(system_info.GetInfoResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }

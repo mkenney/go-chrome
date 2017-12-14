@@ -9,46 +9,48 @@ import (
 /*
 AddEventHandler adds an event handler to the socket
 */
-func (socket *Socket) AddEventHandler(event *protocol.EventHandler) {
-	socket.eventMutex.Lock()
-	defer socket.eventMutex.Unlock()
+func (socket *Socket) AddEventHandler(handler *protocol.EventHandler) {
+	socket.Events.Mux.Lock()
+	defer socket.Events.Mux.Unlock()
 
-	for _, evt := range socket.events[event.Name()] {
-		if evt == event {
+	for _, hndl := range socket.Events.Map[handler.Name] {
+		if hndl == handler {
+			log.Warnf("Attempted to add a duplicate handler for event '%s'", handler.Name)
 			return
 		}
 	}
-	socket.events[event.Name()] = append(socket.events[event.Name()], event)
+	log.Debugf("Adding handler for event '%s'", handler.Name)
+	socket.Events.Map[handler.Name] = append(socket.Events.Map[handler.Name], handler)
 }
 
 /*
 RemoveEventHandler removes an event handler from the socket
 */
 func (socket *Socket) RemoveEventHandler(event *protocol.EventHandler) {
-	socket.eventMutex.Lock()
-	defer socket.eventMutex.Unlock()
+	socket.Events.Mux.Lock()
+	defer socket.Events.Mux.Unlock()
 
-	events := socket.events[event.Name()]
+	events := socket.Events.Map[event.Name]
 	for i, evt := range events {
 		if evt == event {
 			evtCount := len(events)
 			events[i] = events[evtCount-1]
-			socket.events[event.Name()] = events[:evtCount-1]
+			socket.Events.Map[event.Name] = events[:evtCount-1]
 			return
 		}
 	}
 }
 
 func (socket *Socket) handleEvent(response *SocketResponse) {
+	log.Debugf("%s: %s event received", socket.URL, response.Method)
 	if response.Method == "Inspector.targetCrashed" {
 		log.Fatalf("Chrome has crashed!")
 	}
-	socket.eventMutex.Lock()
-	defer socket.eventMutex.Unlock()
+	socket.Events.Mux.Lock()
+	defer socket.Events.Mux.Unlock()
 
-	log.Debugf("Event received: '%v'", response)
-	for _, event := range socket.events[response.Method] {
-		log.Debugf("%s handler(s) found", response.Method)
+	for _, event := range socket.Events.Map[response.Method] {
+		log.Infof("Handling event '%s'", response.Method)
 		go event.OnEvent(response.Method, []byte(response.Params))
 	}
 }

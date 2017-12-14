@@ -68,8 +68,26 @@ func (Debugger) EvaluateOnCallFrame(
 		Method: "Debugger.evaluateOnCallFrame",
 		Params: params,
 	}
+	result := debugger.EvaluateOnCallFrameResult{}
 	socket.SendCommand(command)
-	return command.Result.(debugger.EvaluateOnCallFrameResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -84,8 +102,26 @@ func (Debugger) GetPossibleBreakpoints(
 		Method: "Debugger.getPossibleBreakpoints",
 		Params: params,
 	}
+	result := debugger.GetPossibleBreakpointsResult{}
 	socket.SendCommand(command)
-	return command.Result.(debugger.GetPossibleBreakpointsResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -99,8 +135,26 @@ func (Debugger) GetScriptSource(
 		Method: "Debugger.getScriptSource",
 		Params: params,
 	}
+	result := debugger.GetScriptSourceResult{}
 	socket.SendCommand(command)
-	return command.Result.(debugger.GetScriptSourceResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -114,8 +168,26 @@ func (Debugger) GetStackTrace(
 		Method: "Debugger.getStackTrace",
 		Params: params,
 	}
+	result := debugger.GetStackTraceResult{}
 	socket.SendCommand(command)
-	return command.Result.(debugger.GetStackTraceResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -172,8 +244,26 @@ func (Debugger) RestartFrame(
 		Method: "Debugger.restartFrame",
 		Params: params,
 	}
+	result := debugger.RestartFrameResult{}
 	socket.SendCommand(command)
-	return command.Result.(debugger.RestartFrameResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -216,8 +306,26 @@ func (Debugger) SearchInContent(
 		Method: "Debugger.searchInContent",
 		Params: params,
 	}
+	result := debugger.SearchInContentResult{}
 	socket.SendCommand(command)
-	return command.Result.(debugger.SearchInContentResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -282,8 +390,26 @@ func (Debugger) SetBreakpoint(
 		Method: "Debugger.setBreakpoint",
 		Params: params,
 	}
+	result := debugger.SetBreakpointResult{}
 	socket.SendCommand(command)
-	return command.Result.(debugger.SetBreakpointResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -300,8 +426,26 @@ func (Debugger) SetBreakpointByURL(
 		Method: "Debugger.setBreakpointByUrl",
 		Params: params,
 	}
+	result := debugger.SetBreakpointByURLResult{}
 	socket.SendCommand(command)
-	return command.Result.(debugger.SetBreakpointByURLResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -362,8 +506,26 @@ func (Debugger) SetScriptSource(
 		Method: "Debugger.setScriptSource",
 		Params: params,
 	}
+	result := debugger.SetScriptSourceResult{}
 	socket.SendCommand(command)
-	return command.Result.(debugger.SetScriptSourceResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*

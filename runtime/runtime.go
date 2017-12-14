@@ -433,10 +433,16 @@ type RemoteObject struct {
 
 	// Optional. Preview containing abbreviated property values. Specified for object type values
 	// only. EXPERIMENTAL
-	Preview ObjectPreview `json:"preview,omitempty"`
+	//
+	// This expects an instance of ObjectPreview, but that doesn't omitempty correctly so it must be
+	// added manually.
+	Preview interface{} `json:"preview,omitempty"`
 
 	// Optional. EXPERIMENTAL
-	CustomPreview CustomPreview `json:"customPreview,omitempty"`
+	//
+	// This expects an instance of CustomPreview, but that doesn't omitempty correctly so it must be
+	// added manually.
+	CustomPreview interface{} `json:"customPreview,omitempty"`
 }
 
 /*
@@ -490,7 +496,10 @@ type PropertyPreview struct {
 	Value string `json:"value,omitempty"`
 
 	// Optional. Nested value preview.
-	ValuePreview ObjectPreview `json:"valuePreview,omitempty"`
+	//
+	// This expects an instance of ObjectPreview, but that doesn't omitempty correctly so it must be
+	// added manually.
+	ValuePreview interface{} `json:"valuePreview,omitempty"`
 
 	// Optional. Object subtype hint. Specified for object type values only. Allowed values: array,
 	// null, node, regexp, date, map, set, weakmap, weakset, iterator, generator, error.
@@ -502,7 +511,10 @@ EntryPreview is EXPERIMENTAL
 */
 type EntryPreview struct {
 	// Optional. Preview of the key. Specified for map-like collection entries.
-	Key ObjectPreview `json:"key,omitempty"`
+	//
+	// This expects an instance of ObjectPreview, but that doesn't omitempty correctly so it must be
+	// added manually.
+	Key interface{} `json:"key,omitempty"`
 
 	// Preview of the value.
 	Value ObjectPreview `json:"value"`
@@ -516,7 +528,10 @@ type PropertyDescriptor struct {
 	Name string `json:"name"`
 
 	// Optional. The value associated with the property.
-	Value RemoteObject `json:"value,omitempty"`
+	//
+	// This expects an instance of RemoteObject, but that doesn't omitempty correctly so it must be
+	// added manually.
+	Value interface{} `json:"value,omitempty"`
 
 	// Optional. True if the value associated with the property may be changed (data descriptors
 	// only).
@@ -524,11 +539,17 @@ type PropertyDescriptor struct {
 
 	// Optional. A function which serves as a getter for the property, or undefined if there is no
 	// getter (accessor descriptors only).
-	Get RemoteObject `json:"get,omitempty"`
+	//
+	// This expects an instance of RemoteObject, but that doesn't omitempty correctly so it must be
+	// added manually.
+	Get interface{} `json:"get,omitempty"`
 
 	// Optional. A function which serves as a setter for the property, or undefined if there is no
 	// setter (accessor descriptors only).
-	Set RemoteObject `json:"set,omitempty"`
+	//
+	// This expects an instance of RemoteObject, but that doesn't omitempty correctly so it must be
+	// added manually.
+	Set interface{} `json:"set,omitempty"`
 
 	// True if the type of this property descriptor may be changed and if the property may be
 	// deleted from the corresponding object.
@@ -545,7 +566,10 @@ type PropertyDescriptor struct {
 	IsOwn bool `json:"isOwn,omitempty"`
 
 	// Optional. Property symbol object, if the property is of the symbol type.
-	Symbol RemoteObject `json:"symbol,omitempty"`
+	//
+	// This expects an instance of RemoteObject, but that doesn't omitempty correctly so it must be
+	// added manually.
+	Symbol interface{} `json:"symbol,omitempty"`
 }
 
 /*
@@ -557,7 +581,10 @@ type InternalPropertyDescriptor struct {
 	Name string `json:"name"`
 
 	// Optional. The value associated with the property.
-	Value RemoteObject `json:"value,omitempty"`
+	//
+	// This expects an instance of RemoteObject, but that doesn't omitempty correctly so it must be
+	// added manually.
+	Value interface{} `json:"value,omitempty"`
 }
 
 /*
@@ -622,10 +649,16 @@ type ExceptionDetails struct {
 	URL string `json:"url,omitempty"`
 
 	// Optional. JavaScript stack trace if available.
-	StackTrace StackTrace `json:"stackTrace,omitempty"`
+	//
+	// This expects an instance of StackTrace, but that doesn't omitempty correctly so it must be
+	// added manually.
+	StackTrace interface{} `json:"stackTrace,omitempty"`
 
 	// Optional. Exception object if available.
-	Exception RemoteObject `json:"exception,omitempty"`
+	//
+	// This expects an instance of RemoteObject, but that doesn't omitempty correctly so it must be
+	// added manually.
+	Exception interface{} `json:"exception,omitempty"`
 
 	// Optional. Identifier of the context where exception happened.
 	ExecutionContextID ExecutionContextID `json:"executionContextId,omitempty"`
@@ -668,7 +701,10 @@ type StackTrace struct {
 	CallFrames []*CallFrame `json:"callFrames"`
 
 	// Optional. Asynchronous JavaScript stack trace that preceded this stack, if available.
-	Parent *StackTrace `json:"parent,omitempty"`
+	//
+	// This expects an instance of StackTrace, but that doesn't omitempty correctly so it must be
+	// added manually.
+	Parent interface{} `json:"parent,omitempty"`
 
 	// Optional. Asynchronous JavaScript stack trace that preceded this stack, if available.
 	// EXPERIMENTAL

@@ -26,8 +26,26 @@ func (Page) AddScriptToEvaluateOnLoad(
 		Method: "Page.addScriptToEvaluateOnLoad",
 		Params: params,
 	}
+	result := page.AddScriptToEvaluateOnLoadResult{}
 	socket.SendCommand(command)
-	return command.Result.(page.AddScriptToEvaluateOnLoadResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -42,8 +60,26 @@ func (Page) AddScriptToEvaluateOnNewDocument(
 		Method: "Page.addScriptToEvaluateOnNewDocument",
 		Params: params,
 	}
+	result := page.AddScriptToEvaluateOnNewDocumentResult{}
 	socket.SendCommand(command)
-	return command.Result.(page.AddScriptToEvaluateOnNewDocumentResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -67,11 +103,29 @@ func (Page) CaptureScreenshot(
 	params *page.CaptureScreenshotParams,
 ) (page.CaptureScreenshotResult, error) {
 	command := &protocol.Command{
-		Method: "Page.CaptureScreenshot",
+		Method: "Page.captureScreenshot",
 		Params: params,
 	}
+	result := page.CaptureScreenshotResult{}
 	socket.SendCommand(command)
-	return command.Result.(page.CaptureScreenshotResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -85,8 +139,26 @@ func (Page) CreateIsolatedWorld(
 		Method: "Page.createIsolatedWorld",
 		Params: params,
 	}
+	result := page.CreateIsolatedWorldResult{}
 	socket.SendCommand(command)
-	return command.Result.(page.CreateIsolatedWorldResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -139,8 +211,26 @@ func (Page) GetFrameTree(
 	command := &protocol.Command{
 		Method: "Page.getFrameTree",
 	}
+	result := page.GetFrameTreeResult{}
 	socket.SendCommand(command)
-	return command.Result.(page.GetFrameTreeResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -153,8 +243,26 @@ func (Page) GetLayoutMetrics(
 	command := &protocol.Command{
 		Method: "Page.getLayoutMetrics",
 	}
+	result := page.GetLayoutMetricsResult{}
 	socket.SendCommand(command)
-	return command.Result.(page.GetLayoutMetricsResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -166,8 +274,26 @@ func (Page) GetNavigationHistory(
 	command := &protocol.Command{
 		Method: "Page.getNavigationHistory",
 	}
+	result := page.GetNavigationHistoryResult{}
 	socket.SendCommand(command)
-	return command.Result.(page.GetNavigationHistoryResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -181,8 +307,26 @@ func (Page) GetResourceContent(
 		Method: "Page.getResourceContent",
 		Params: params,
 	}
+	result := page.GetResourceContentResult{}
 	socket.SendCommand(command)
-	return command.Result.(page.GetResourceContentResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -194,8 +338,26 @@ func (Page) GetResourceTree(
 	command := &protocol.Command{
 		Method: "Page.getResourceTree",
 	}
+	result := page.GetResourceTreeResult{}
 	socket.SendCommand(command)
-	return command.Result.(page.GetResourceTreeResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -225,8 +387,26 @@ func (Page) Navigate(
 		Method: "Page.navigate",
 		Params: params,
 	}
+	result := page.NavigateResult{}
 	socket.SendCommand(command)
-	return command.Result.(page.NavigateResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -255,8 +435,26 @@ func (Page) PrintToPDF(
 		Method: "Page.printToPDF",
 		Params: params,
 	}
+	result := page.PrintToPDFResult{}
 	socket.SendCommand(command)
-	return command.Result.(page.PrintToPDFResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -347,8 +545,26 @@ func (Page) SearchInResource(
 		Method: "Page.searchInResource",
 		Params: params,
 	}
+	result := page.SearchInResourceResult{}
 	socket.SendCommand(command)
-	return command.Result.(page.SearchInResourceResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*

@@ -50,7 +50,10 @@ type StartParams struct {
 	TransferMode string `json:"transferMode,omitempty"`
 
 	// Optional. Trace config.
-	TraceConfig TraceConfig `json:"traceConfig,omitempty"`
+	//
+	// This expects an instance of TraceConfig, but that doesn't omitempty correctly so it must be
+	// added manually.
+	TraceConfig interface{} `json:"traceConfig,omitempty"`
 }
 
 /*

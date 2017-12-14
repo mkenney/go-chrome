@@ -23,8 +23,26 @@ func (Emulation) CanEmulate(
 	command := &protocol.Command{
 		Method: "Emulation.canEmulate",
 	}
+	result := emulation.CanEmulateResult{}
 	socket.SendCommand(command)
-	return command.Result.(emulation.CanEmulateResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*

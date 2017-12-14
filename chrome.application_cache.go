@@ -52,8 +52,26 @@ func (ApplicationCache) GetApplicationCacheForFrame(
 		Method: "ApplicationCache.getManifestForFrame",
 		Params: params,
 	}
+	result := application_cache.GetApplicationCacheForFrameResult{}
 	socket.SendCommand(command)
-	return command.Result.(application_cache.GetApplicationCacheForFrameResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -66,8 +84,26 @@ func (ApplicationCache) GetFramesWithManifests(
 	command := &protocol.Command{
 		Method: "ApplicationCache.getFramesWithManifests",
 	}
+	result := application_cache.GetFramesWithManifestsResult{}
 	socket.SendCommand(command)
-	return command.Result.(application_cache.GetFramesWithManifestsResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -81,8 +117,26 @@ func (ApplicationCache) GetManifestForFrame(
 		Method: "ApplicationCache.getManifestForFrame",
 		Params: params,
 	}
+	result := application_cache.GetManifestForFrameResult{}
 	socket.SendCommand(command)
-	return command.Result.(application_cache.GetManifestForFrameResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*

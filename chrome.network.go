@@ -24,8 +24,26 @@ func (Network) CanClearBrowserCache(
 	command := &protocol.Command{
 		Method: "Network.canClearBrowserCache",
 	}
+	result := network.CanClearBrowserCacheResult{}
 	socket.SendCommand(command)
-	return command.Result.(network.CanClearBrowserCacheResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -37,8 +55,26 @@ func (Network) CanClearBrowserCookies(
 	command := &protocol.Command{
 		Method: "Network.canClearBrowserCookies",
 	}
+	result := network.CanClearBrowserCookiesResult{}
 	socket.SendCommand(command)
-	return command.Result.(network.CanClearBrowserCookiesResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -50,8 +86,26 @@ func (Network) CanEmulateNetworkConditions(
 	command := &protocol.Command{
 		Method: "Network.canEmulateNetworkConditions",
 	}
+	result := network.CanEmulateNetworkConditionsResult{}
 	socket.SendCommand(command)
-	return command.Result.(network.CanEmulateNetworkConditionsResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -166,8 +220,26 @@ func (Network) GetAllCookies(
 	command := &protocol.Command{
 		Method: "Network.getAllCookies",
 	}
+	result := network.GetAllCookiesResult{}
 	socket.SendCommand(command)
-	return command.Result.(network.GetAllCookiesResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -181,8 +253,26 @@ func (Network) GetCertificate(
 		Method: "Network.getCertificate",
 		Params: params,
 	}
+	result := network.GetCertificateResult{}
 	socket.SendCommand(command)
-	return command.Result.(network.GetCertificateResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -197,8 +287,26 @@ func (Network) GetCookies(
 		Method: "Network.getCookies",
 		Params: params,
 	}
+	result := network.GetCookiesResult{}
 	socket.SendCommand(command)
-	return command.Result.(network.GetCookiesResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -212,8 +320,26 @@ func (Network) GetResponseBody(
 		Method: "Network.getResponseBody",
 		Params: params,
 	}
+	result := network.GetResponseBodyResult{}
 	socket.SendCommand(command)
-	return command.Result.(network.GetResponseBodyResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -228,8 +354,26 @@ func (Network) GetResponseBodyForInterception(
 		Method: "Network.getResponseBodyForInterception",
 		Params: params,
 	}
+	result := network.GetResponseBodyForInterceptionResult{}
 	socket.SendCommand(command)
-	return command.Result.(network.GetResponseBodyForInterceptionResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -260,8 +404,26 @@ func (Network) SearchInResponseBody(
 		Method: "Network.searchInResponseBody",
 		Params: params,
 	}
+	result := network.SearchInResponseBodyResult{}
 	socket.SendCommand(command)
-	return command.Result.(network.SearchInResponseBodyResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -320,8 +482,26 @@ func (Network) SetCookie(
 		Method: "Network.setCookie",
 		Params: params,
 	}
+	result := network.SetCookieResult{}
 	socket.SendCommand(command)
-	return command.Result.(network.SetCookieResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*

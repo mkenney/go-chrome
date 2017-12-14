@@ -2,6 +2,7 @@ package chrome
 
 import (
 	"encoding/json"
+	"errors"
 	"io"
 	"net/http"
 	"strings"
@@ -34,12 +35,15 @@ func NewSocket(tab *Tab) (*Socket, error) {
 
 	socket := &Socket{
 		conn:     webSocket,
-		commands: make(map[int]*protocol.Command),
-		events:   make(map[string][]*protocol.EventHandler),
+		Commands: &commandMap{},
+		Events:   &eventMap{},
 	}
-	go socket.Listen(tab)
+	socket.Commands.Map = make(map[int]*protocol.Command)
+	socket.Events.Map = make(map[string][]*protocol.EventHandler)
+	go socket.Listen()
 
 	log.Infof("New socket connection listening on %s", tab.WebSocketDebuggerURL)
+	socket.URL = tab.WebSocketDebuggerURL
 	return socket, nil
 }
 
@@ -47,12 +51,22 @@ func NewSocket(tab *Tab) (*Socket, error) {
 Socket represents a websocket connection to the Browser instance
 */
 type Socket struct {
-	cmdID      int
-	cmdMutex   sync.Mutex
-	eventMutex sync.Mutex
-	events     map[string][]*protocol.EventHandler // key is event name.
-	commands   map[int]*protocol.Command           // key is id.
-	conn       *websocket.Conn
+	CommandID int
+	Commands  *commandMap
+	Events    *eventMap
+	Mux       sync.Mutex
+	URL       string
+	conn      *websocket.Conn
+}
+
+type commandMap struct {
+	Map map[int]*protocol.Command
+	Mux sync.Mutex
+}
+
+type eventMap struct {
+	Map map[string][]*protocol.EventHandler
+	Mux sync.Mutex
 }
 
 /*
@@ -76,11 +90,12 @@ func (socket *Socket) Close() error {
 /*
 Listen starts the socket read loop
 */
-func (socket *Socket) Listen(tab *Tab) {
+func (socket *Socket) Listen() {
 	for {
 		response := &SocketResponse{}
-		err := socket.conn.ReadJSON(response)
-		if err != nil {
+		err := socket.conn.ReadJSON(&response)
+
+		if nil != err {
 			log.Error(err)
 			if err == io.EOF ||
 				websocket.IsCloseError(err, 1006) ||
@@ -88,40 +103,70 @@ func (socket *Socket) Listen(tab *Tab) {
 				log.Error(err)
 				break
 			}
+
 		} else if response.ID > 0 {
 			socket.handleCommand(response)
+
 		} else {
-			params, _ := json.Marshal(response.Params)
-			log.Infof("%s: %s", tab.ID, response.Method)
-			log.Debugf("Event params: %s", params)
 			socket.handleEvent(response)
 		}
+
 		time.Sleep(100 * time.Millisecond)
 	}
 }
 
-///*
-//SendCommand sends a command payload to the socket
-//*/
-//func (socket *Socket) SendCommand(command protocol.CommandIface) int {
-//	command.WG.Add(1)
-//	socket.cmdMutex.Lock()
-//	defer socket.cmdMutex.Unlock()
-//
-//	socket.cmdID++
-//	payload := &protocol.CommandPayload{
-//		socket.cmdID,
-//		command.Method,
-//		command.Params,
-//	}
-//	tmp, _ := json.Marshal(payload)
-//	log.Debugf("Sending %#v", string(tmp))
-//	if err := socket.conn.WriteJSON(payload); err != nil {
-//		command.Done(nil, err)
-//	}
-//	socket.commands[payload.ID] = command
-//
-//	command.WG.Wait()
-//	return payload.ID
-//}
-//
+/*
+SendCommand sends a command to a connected socket.
+
+The socket's command mutex is locked, the command counter is incremented, the payload is sent to the
+socket connection and the mutex is unlocked. The command is stored using the counter value as it's
+Id. When the command is executed and the socket responds, handleCmd() is executed to generate a
+response.
+*/
+func (socket *Socket) SendCommand(command *protocol.Command) int {
+
+	// Safely get generate a command ID
+	socket.Mux.Lock()
+	socket.CommandID++
+	commandID := socket.CommandID
+	socket.Mux.Unlock()
+
+	// Safely add a command to the internal stack
+	socket.Commands.Mux.Lock()
+	payload := &protocol.CommandPayload{
+		ID:     commandID,
+		Method: command.Method,
+		Params: command.Params,
+	}
+	socket.Commands.Map[payload.ID] = command
+	socket.Commands.Mux.Unlock() // Do not defer, handlCommand also locks
+
+	tmp, _ := json.Marshal(payload)
+	log.Debugf("Sending command '%s'", string(tmp))
+
+	command.WG.Add(1)
+	if err := socket.conn.WriteJSON(payload); err != nil {
+		command.Done(nil, err)
+	}
+	command.WG.Wait()
+
+	return payload.ID
+}
+
+func (socket *Socket) handleCommand(response *SocketResponse) {
+	var err error
+
+	socket.Commands.Mux.Lock()
+	defer socket.Commands.Mux.Unlock()
+
+	if command, ok := socket.Commands.Map[response.ID]; !ok {
+		log.Errorf("Command %d not found: result=%s err=%s", response.ID, response.Result, response.Error.Message)
+
+	} else {
+		delete(socket.Commands.Map, response.ID)
+		if "" != response.Error.Message {
+			err = errors.New(response.Error.Message)
+		}
+		command.Done(response.Result, err)
+	}
+}

@@ -49,9 +49,13 @@ type CaptureScreenshotParams struct {
 	Quality int `json:"quality,omitempty"`
 
 	// Optional. Capture the screenshot of a given region only.
-	Clip Viewport `json:"clip,omitempty"`
+	//
+	// This expects an instance of Viewport, but that doesn't omitempty correctly so it must be
+	// added manually.
+	Clip interface{} `json:"clip,omitempty"`
 
-	// Optional. Capture the screenshot from the surface, rather than the view. Defaults to true. EXPERIMENTAL
+	// Optional. Capture the screenshot from the surface, rather than the view. Defaults to true.
+	// EXPERIMENTAL
 	FromSurface bool `json:"fromSurface,omitempty"`
 }
 
@@ -884,46 +888,9 @@ ScriptIdentifier is the unique script identifier.
 type ScriptIdentifier string
 
 /*
-ScreenshotParams defines the parameter structure for the captureScreenshot command.
-*/
-type ScreenshotParams struct {
-	// Optional. Image compression format (defaults to png). Allowed values: jpeg, png.
-	Format string `json:"format,omitempty"`
-
-	// Optional. Compression quality from range [0..100] (jpeg only).
-	Quality int `json:"quality,omitempty"`
-
-	// Optional. Capture the screenshot of a given region only.
-	Clip *Viewport `json:"clip,omitempty"`
-
-	// Optional. Capture the screenshot from the surface, rather than the view. Defaults to true.
-	// EXPERIMENTAL
-	FromSurface bool `json:"fromSurface,omitempty"`
-}
-
-/*
 TransitionType is the transition type.
 */
 type TransitionType string
-
-func (s TransitionType) String() string {
-	str := string(s)
-	if str == "link" ||
-		str == "typed" ||
-		str == "auto_bookmark" ||
-		str == "auto_subframe" ||
-		str == "manual_subframe" ||
-		str == "generated" ||
-		str == "auto_toplevel" ||
-		str == "form_submit" ||
-		str == "reload" ||
-		str == "keyword" ||
-		str == "keyword_generated" ||
-		str == "other" {
-		return str
-	}
-	panic(fmt.Errorf("Invalid TransitionType '%s'", str))
-}
 
 /*
 Viewport defines the viewport for capturing screenshot.

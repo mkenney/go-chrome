@@ -3,7 +3,6 @@ package DOM
 import (
 	Page "app/chrome/page"
 	Runtime "app/chrome/runtime"
-	"fmt"
 )
 
 /*
@@ -728,98 +727,12 @@ type BackendNode struct {
 /*
 PseudoType is a pseudo element type.
 */
-type PseudoType int
-
-const (
-	_firstLine PseudoType = iota
-	_firstLetter
-	_before
-	_after
-	_backdrop
-	_selection
-	_firstLineInherited
-	_scrollbar
-	_scrollbarThumb
-	_scrollbarButton
-	_scrollbarTrack
-	_scrollbarTrackPiece
-	_scrollbarCorner
-	_resizer
-	_inputListButton
-)
-
-func (a PseudoType) String() string {
-	if a == 0 {
-		return "first-line"
-	}
-	if a == 1 {
-		return "first-letter"
-	}
-	if a == 2 {
-		return "before"
-	}
-	if a == 3 {
-		return "after"
-	}
-	if a == 4 {
-		return "backdrop"
-	}
-	if a == 5 {
-		return "selection"
-	}
-	if a == 6 {
-		return "first-lineinherited"
-	}
-	if a == 7 {
-		return "scrollbar"
-	}
-	if a == 8 {
-		return "scrollbar-thumb"
-	}
-	if a == 9 {
-		return "scrollbar-button"
-	}
-	if a == 10 {
-		return "scrollbar-track"
-	}
-	if a == 11 {
-		return "scrollbar-track-piece"
-	}
-	if a == 12 {
-		return "scrollbar-corner"
-	}
-	if a == 13 {
-		return "resizer"
-	}
-	if a == 14 {
-		return "inputList-button"
-	}
-	panic(fmt.Errorf("Invalid PseudoType %d", a))
-}
+type PseudoType string
 
 /*
 ShadowRootType is a shadow root type.
 */
-type ShadowRootType int
-
-const (
-	_userAgent ShadowRootType = iota
-	_open
-	_closed
-)
-
-func (a ShadowRootType) String() string {
-	if a == 0 {
-		return "user-agent"
-	}
-	if a == 1 {
-		return "open"
-	}
-	if a == 2 {
-		return "closed"
-	}
-	panic(fmt.Errorf("Invalid ShadowRootType %d", a))
-}
+type ShadowRootType string
 
 /*
 Node is a base node mirror type. DOM interaction is implemented in terms of mirror objects that
@@ -960,7 +873,10 @@ type BoxModel struct {
 	Height int `json:"height"`
 
 	// Optional. Shape outside coordinates.
-	ShapeOutside ShapeOutsideInfo `json:"shapeOutside,omitempty"`
+	//
+	// This expects an instance of ShapeOutsideInfo, but that doesn't omitempty correctly so it must
+	// be added manually.
+	ShapeOutside interface{} `json:"shapeOutside,omitempty"`
 }
 
 /*

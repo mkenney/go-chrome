@@ -9,15 +9,14 @@ EventHandlerInterface is the interface definition for a socket event
 */
 type EventHandlerInterface interface {
 	OnEvent(name string, params []byte)
-	Name() string
 }
 
 /*
 EventHandler is a generic EventHandlerInterface type
 */
 type EventHandler struct {
-	callback func(name string, params []byte)
-	name     string
+	Callback func(name string, params []byte)
+	Name     string
 }
 
 /*
@@ -25,8 +24,8 @@ NewEventHandler returns a pointer to a generic event handler
 */
 func NewEventHandler(name string, callback func(name string, params []byte)) *EventHandler {
 	return &EventHandler{
-		name:     name,
-		callback: callback,
+		Callback: callback,
+		Name:     name,
 	}
 }
 
@@ -34,14 +33,7 @@ func NewEventHandler(name string, callback func(name string, params []byte)) *Ev
 OnEvent is an EventHandlerInterface implementation
 */
 func (e *EventHandler) OnEvent(name string, params []byte) {
-	e.callback(name, params)
-}
-
-/*
-Name is an EventHandlerInterface implementation
-*/
-func (e *EventHandler) Name() string {
-	return e.name
+	e.Callback(name, params)
 }
 
 /*

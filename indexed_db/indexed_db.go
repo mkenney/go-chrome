@@ -55,7 +55,10 @@ type RequestDataParams struct {
 	PageSize int `json:"pageSize"`
 
 	// Optional. Key range.
-	KeyRange KeyRange `json:"keyRange,omitempty"`
+	//
+	// This is an instance of KeyRange, but that doesn't omitempty correctly so it must be added
+	// manually.
+	KeyRange interface{} `json:"keyRange,omitempty"`
 }
 
 /*
@@ -177,10 +180,16 @@ KeyRange is a key range.
 */
 type KeyRange struct {
 	// Optional. Lower bound.
-	Lower *Key `json:"lower,omitempty"`
+	//
+	// This is an instance of Key, but that doesn't omitempty correctly so it must be added
+	// manually.
+	Lower interface{} `json:"lower,omitempty"`
 
 	// Optional. Upper bound.
-	Upper *Key `json:"upper,omitempty"`
+	//
+	// This is an instance of Key, but that doesn't omitempty correctly so it must be added
+	// manually.
+	Upper interface{} `json:"upper,omitempty"`
 
 	// If true lower bound is open.
 	LowerOpen bool `json:"lowerOpen"`

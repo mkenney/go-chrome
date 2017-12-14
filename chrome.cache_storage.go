@@ -3,6 +3,7 @@ package chrome
 import (
 	cache_storage "app/chrome/cache_storage"
 	"app/chrome/protocol"
+	"encoding/json"
 )
 
 /*
@@ -52,8 +53,26 @@ func (CacheStorage) RequestCacheNames(
 		Method: "CacheStorage.requestCacheNames",
 		Params: params,
 	}
+	result := cache_storage.RequestCacheNamesResult{}
 	socket.SendCommand(command)
-	return command.Result.(cache_storage.RequestCacheNamesResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -67,8 +86,26 @@ func (CacheStorage) RequestCachedResponse(
 		Method: "CacheStorage.requestCachedResponse",
 		Params: params,
 	}
+	result := cache_storage.RequestCachedResponseResult{}
 	socket.SendCommand(command)
-	return command.Result.(cache_storage.RequestCachedResponseResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -82,6 +119,24 @@ func (CacheStorage) RequestEntries(
 		Method: "CacheStorage.requestEntries",
 		Params: params,
 	}
+	result := cache_storage.RequestEntriesResult{}
 	socket.SendCommand(command)
-	return command.Result.(cache_storage.RequestEntriesResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }

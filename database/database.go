@@ -18,8 +18,8 @@ type ExecuteSQLResult struct {
 	// Values.
 	Values []interface{} `json:"values"`
 
-	// Error, if any.
-	SQLError Error `json:"sqlError"`
+	// Optional. Error, if any.
+	SQLError Error `json:"sqlError,omitempty"`
 }
 
 /*

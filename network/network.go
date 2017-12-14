@@ -3,7 +3,6 @@ package Network
 import (
 	Debugger "app/chrome/debugger"
 	Page "app/chrome/page"
-	Runtime "app/chrome/runtime"
 	Security "app/chrome/security"
 	"fmt"
 )
@@ -66,7 +65,10 @@ type ContinueInterceptedRequestParams struct {
 	Headers Headers `json:"headers,omitempty"`
 
 	// Optional. Response to a requestIntercepted with an AuthChallenge. Must not be set otherwise.
-	AuthChallengeResponse AuthChallengeResponse `json:"authChallengeResponse,omitempty"`
+	//
+	// This is an instance of AuthChallengeResponse, but that doesn't omitempty correctly so it must
+	// be added manually.
+	AuthChallengeResponse interface{} `json:"authChallengeResponse,omitempty"`
 }
 
 /*
@@ -961,7 +963,10 @@ type Response struct {
 	EncodedDataLength int `json:"encodedDataLength"`
 
 	// Optional. Timing information for the given request.
-	Timing ResourceTiming `json:"timing,omitempty"`
+	//
+	// This is an instance of ResourceTiming, but that doesn't omitempty correctly so it must be
+	// added manually.
+	Timing interface{} `json:"timing,omitempty"`
 
 	// Optional. Protocol used to fetch this request.
 	Protocol string `json:"protocol,omitempty"`
@@ -970,7 +975,10 @@ type Response struct {
 	SecurityState Security.SecurityState `json:"securityState"`
 
 	// Optional. Security details for the request.
-	SecurityDetails SecurityDetails `json:"securityDetails,omitempty"`
+	//
+	// This is an instance of SecurityDetails, but that doesn't omitempty correctly so it must be
+	// added manually.
+	SecurityDetails interface{} `json:"securityDetails,omitempty"`
 }
 
 /*
@@ -1028,7 +1036,10 @@ type CachedResource struct {
 	Type Page.ResourceType `json:"type"`
 
 	// Optional. Cached response data.
-	Response Response `json:"response,omitempty"`
+	//
+	// This is an instance of Response, but that doesn't omitempty correctly so it must be added
+	// manually.
+	Response interface{} `json:"response,omitempty"`
 
 	// Cached response body size.
 	BodySize int `json:"bodySize"`
@@ -1042,7 +1053,10 @@ type Initiator struct {
 	Type string `json:"type"`
 
 	// Optional. Initiator JavaScript stack trace, set for Script only.
-	Stack Runtime.StackTrace `json:"stack,omitempty"`
+	//
+	// This is an instance of Runtime.StackTrace, but that doesn't omitempty correctly so it must be
+	// added manually.
+	Stack interface{} `json:"stack,omitempty"`
 
 	// Optional. Initiator URL, set for Parser type or for Script type (when script is importing
 	// module).

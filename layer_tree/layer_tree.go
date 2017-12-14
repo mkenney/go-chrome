@@ -66,7 +66,10 @@ type ProfileSnapshotParams struct {
 	MinDuration float64 `json:"minDuration,omitempty"`
 
 	// Optional. The clip rectangle to apply when replaying the snapshot.
-	ClipRect DOM.Rect `json:"clipRect,omitempty"`
+	//
+	// This is an instance of DOM.Rect, but that doesn't omitempty correctly so it must be added
+	// manually.
+	ClipRect interface{} `json:"clipRect,omitempty"`
 }
 
 /*
@@ -160,7 +163,7 @@ ScrollRect is a rectangle where scrolling happens on the main thread.
 */
 type ScrollRect struct {
 	// Rectangle itself.
-	Rect *DOM.Rect `json:"rect"`
+	Rect DOM.Rect `json:"rect"`
 
 	// Reason for rectangle to force scrolling on the main thread Allowed values: RepaintsOnScroll, \
 	// TouchEventHandler, WheelEventHandler.
@@ -172,10 +175,10 @@ StickyPositionConstraint is sticky position constraints.
 */
 type StickyPositionConstraint struct {
 	// Layout rectangle of the sticky element before being shifted.
-	StickyBoxRect *DOM.Rect `json:"stickyBoxRect"`
+	StickyBoxRect DOM.Rect `json:"stickyBoxRect"`
 
 	// Layout rectangle of the containing block of the sticky element.
-	ContainingBlockRect *DOM.Rect `json:"containingBlockRect"`
+	ContainingBlockRect DOM.Rect `json:"containingBlockRect"`
 
 	// Optional. The nearest sticky layer that shifts the sticky box.
 	NearestLayerShiftingStickyBox LayerID `json:"nearestLayerShiftingStickyBox,omitempty"`
@@ -249,7 +252,10 @@ type Layer struct {
 	ScrollRects []*ScrollRect `json:"scrollRects,omitempty"`
 
 	// Optional. Sticky position constraint information.
-	StickyPositionConstraint *StickyPositionConstraint `json:"stickyPositionConstraint,omitempty"`
+	//
+	// This is an instance of StickyPositionConstraint, but that doesn't omitempty correctly so it
+	// must be added manually.
+	StickyPositionConstraint interface{} `json:"stickyPositionConstraint,omitempty"`
 }
 
 /*

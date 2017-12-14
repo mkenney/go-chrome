@@ -1,8 +1,6 @@
 package Emulation
 
 import (
-	DOM "app/chrome/dom"
-	Page "app/chrome/page"
 	"fmt"
 )
 
@@ -27,9 +25,12 @@ SetDefaultBackgroundColorOverrideParams represents Emulation.setDefaultBackgroun
 parameters.
 */
 type SetDefaultBackgroundColorOverrideParams struct {
-	// RGBA of the default background color. If not specified, any existing override will be
+	// Optional. RGBA of the default background color. If not specified, any existing override will be
 	// cleared.
-	Color DOM.RGBA `json:"color"`
+	//
+	// This expects an instance of DOM.RGBA, but that doesn't omitempty correctly so it must be
+	// added manually.
+	Color interface{} `json:"color,omitempty"`
 }
 
 /*
@@ -49,31 +50,40 @@ type SetDeviceMetricsOverrideParams struct {
 	// autosizing and more.
 	Mobile bool `json:"mobile"`
 
-	// Scale to apply to resulting view image. EXPERIMENTAL
-	Scale int `json:"scale"`
+	// Optional. Scale to apply to resulting view image. EXPERIMENTAL
+	Scale int `json:"scale,omitempty"`
 
-	// Overriding screen width value in pixels (minimum 0, maximum 10000000). EXPERIMENTAL
-	ScreenWidth int `json:"screenWidth"`
+	// Optional. Overriding screen width value in pixels (minimum 0, maximum 10000000). EXPERIMENTAL
+	ScreenWidth int `json:"screenWidth,omitempty"`
 
-	// Overriding screen height value in pixels (minimum 0, maximum 10000000). EXPERIMENTAL
-	ScreenHeight int `json:"screenHeight"`
-
-	// Overriding view X position on screen in pixels (minimum 0, maximum 10000000). EXPERIMENTAL
-	PositionX int `json:"positionX"`
-
-	// Overriding view Y position on screen in pixels (minimum 0, maximum 10000000). EXPERIMENTAL
-	PositionY int `json:"positionY"`
-
-	// Do not set visible view size, rely upon explicit setVisibleSize call. EXPERIMENTAL
-	DontSetVisibleSize bool `json:"dontSetVisibleSize"`
-
-	// Screen orientation override.
-	ScreenOrientation ScreenOrientation `json:"screenOrientation"`
-
-	// If set, the visible area of the page will be overridden to this viewport. This viewport
-	// change is not observed by the page, e.g. viewport-relative elements do not change positions.
+	// Optional. Overriding screen height value in pixels (minimum 0, maximum 10000000).
 	// EXPERIMENTAL
-	Viewport Page.Viewport `json:"viewport"`
+	ScreenHeight int `json:"screenHeight,omitempty"`
+
+	// Optional. Overriding view X position on screen in pixels (minimum 0, maximum 10000000).
+	// EXPERIMENTAL
+	PositionX int `json:"positionX,omitempty"`
+
+	// Optional. Overriding view Y position on screen in pixels (minimum 0, maximum 10000000).
+	// EXPERIMENTAL
+	PositionY int `json:"positionY,omitempty"`
+
+	// Optional. Do not set visible view size, rely upon explicit setVisibleSize call. EXPERIMENTAL
+	DontSetVisibleSize bool `json:"dontSetVisibleSize,omitempty"`
+
+	// Optional. Screen orientation override.
+	//
+	// This is an instance of ScreenOrientation, but that doesn't omitempty correctly so it must be
+	// added manually.
+	ScreenOrientation interface{} `json:"screenOrientation,omitempty"`
+
+	// Optional. If set, the visible area of the page will be overridden to this viewport. This
+	// viewport change is not observed by the page, e.g. viewport-relative elements do not change
+	// positions. EXPERIMENTAL
+	//
+	// This is an instance of Page.Viewport, but that doesn't omitempty correctly so it must be
+	// added manually.
+	Viewport interface{} `json:"viewport,omitempty"`
 }
 
 /*
@@ -83,9 +93,9 @@ type SetEmitTouchEventsForMouseParams struct {
 	// Whether touch emulation based on mouse input should be enabled.
 	Enabled bool `json:"enabled"`
 
-	// Touch/gesture events configuration. Default: current platform. Allowed values: mobile,
-	// desktop.
-	Configuration string `json:"configuration"`
+	// Optional. Touch/gesture events configuration. Default: current platform. Allowed values:
+	// mobile, desktop.
+	Configuration string `json:"configuration,omitempty"`
 }
 
 /*
@@ -100,14 +110,14 @@ type SetEmulatedMediaParams struct {
 SetGeolocationOverrideParams represents Emulation.setGeolocationOverride parameters.
 */
 type SetGeolocationOverrideParams struct {
-	// Mock latitude.
-	Latitude int `json:"latitude"`
+	// Optional. Mock latitude.
+	Latitude int `json:"latitude,omitempty"`
 
-	// Mock longitude.
-	Longitude int `json:"longitude"`
+	// Optional. Mock longitude.
+	Longitude int `json:"longitude,omitempty"`
 
-	// Mock accuracy.
-	Accuracy int `json:"accuracy"`
+	// Optional. Mock accuracy.
+	Accuracy int `json:"accuracy,omitempty"`
 }
 
 /*
@@ -141,8 +151,8 @@ type SetTouchEmulationEnabledParams struct {
 	// Whether the touch event emulation should be enabled.
 	Enabled bool `json:"enabled"`
 
-	// Maximum touch points supported. Defaults to one.
-	MaxTouchPoints int `json:"maxTouchPoints"`
+	// Optional. Maximum touch points supported. Defaults to one.
+	MaxTouchPoints int `json:"maxTouchPoints,omitempty"`
 }
 
 /*
@@ -152,13 +162,13 @@ type SetVirtualTimePolicyParams struct {
 	// desc.
 	Policy VirtualTimePolicy `json:"policy"`
 
-	// If set, after this many virtual milliseconds have elapsed virtual time will be paused and a
-	// virtualTimeBudgetExpired event is sent.
-	Budget int `json:"budget"`
+	// Optional. If set, after this many virtual milliseconds have elapsed virtual time will be
+	// paused and a virtualTimeBudgetExpired event is sent.
+	Budget int `json:"budget,omitempty"`
 
-	// If set this specifies the maximum number of tasks that can be run before virtual is forced
-	// forwards to prevent deadlock.
-	MaxVirtualTimeTaskStarvationCount int `json:"maxVirtualTimeTaskStarvationCount"`
+	// Optional. If set this specifies the maximum number of tasks that can be run before virtual is
+	// forced forwards to prevent deadlock.
+	MaxVirtualTimeTaskStarvationCount int `json:"maxVirtualTimeTaskStarvationCount,omitempty"`
 }
 
 /*

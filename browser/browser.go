@@ -136,5 +136,8 @@ type Bounds struct {
 	Height int `json:"height,omitempty"`
 
 	// Optional. The window state. Default to normal.
-	WindowState WindowState `json:"windowState,omitempty"`
+	//
+	// This expects an instance of WindowState, but that doesn't omitempty correctly so it must be
+	// added manually.
+	WindowState interface{} `json:"windowState,omitempty"`
 }

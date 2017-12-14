@@ -25,8 +25,26 @@ func (LayerTree) CompositingReasons(
 		Method: "LayerTree.compositingReasons",
 		Params: params,
 	}
+	result := layer_tree.CompositingReasonsResult{}
 	socket.SendCommand(command)
-	return command.Result.(layer_tree.CompositingReasonsResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -66,8 +84,26 @@ func (LayerTree) LoadSnapshot(
 		Method: "LayerTree.loadSnapshot",
 		Params: params,
 	}
+	result := layer_tree.LoadSnapshotResult{}
 	socket.SendCommand(command)
-	return command.Result.(layer_tree.LoadSnapshotResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -81,8 +117,26 @@ func (LayerTree) MakeSnapshot(
 		Method: "LayerTree.makeSnapshot",
 		Params: params,
 	}
+	result := layer_tree.MakeSnapshotResult{}
 	socket.SendCommand(command)
-	return command.Result.(layer_tree.MakeSnapshotResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -96,8 +150,26 @@ func (LayerTree) ProfileSnapshot(
 		Method: "LayerTree.profileSnapshot",
 		Params: params,
 	}
+	result := layer_tree.ProfileSnapshotResult{}
 	socket.SendCommand(command)
-	return command.Result.(layer_tree.ProfileSnapshotResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -126,8 +198,26 @@ func (LayerTree) ReplaySnapshot(
 		Method: "LayerTree.replaySnapshot",
 		Params: params,
 	}
+	result := layer_tree.ReplaySnapshotResult{}
 	socket.SendCommand(command)
-	return command.Result.(layer_tree.ReplaySnapshotResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -141,8 +231,26 @@ func (LayerTree) SnapshotCommandLog(
 		Method: "LayerTree.snapshotCommandLog",
 		Params: params,
 	}
+	result := layer_tree.SnapshotCommandLogResult{}
 	socket.SendCommand(command)
-	return command.Result.(layer_tree.SnapshotCommandLogResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*

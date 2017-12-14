@@ -3,6 +3,7 @@ package chrome
 import (
 	browser "app/chrome/browser"
 	"app/chrome/protocol"
+	"encoding/json"
 )
 
 /*
@@ -33,8 +34,26 @@ func (Browser) GetVersion(
 	command := &protocol.Command{
 		Method: "Browser.getVersion",
 	}
+	result := browser.GetVersionResult{}
 	socket.SendCommand(command)
-	return command.Result.(browser.GetVersionResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -48,8 +67,26 @@ func (Browser) GetWindowBounds(
 		Method: "Browser.getWindowBounds",
 		Params: params,
 	}
+	result := browser.GetWindowBoundsResult{}
 	socket.SendCommand(command)
-	return command.Result.(browser.GetWindowBoundsResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -63,8 +100,26 @@ func (Browser) GetWindowForTarget(
 		Method: "Browser.getWindowForTarget",
 		Params: params,
 	}
+	result := browser.GetWindowForTargetResult{}
 	socket.SendCommand(command)
-	return command.Result.(browser.GetWindowForTargetResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -78,6 +133,24 @@ func (Browser) SetWindowBounds(
 		Method: "Browser.setWindowBounds",
 		Params: params,
 	}
+	result := browser.SetWindowBoundsResult{}
 	socket.SendCommand(command)
-	return command.Result.(browser.SetWindowBoundsResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }

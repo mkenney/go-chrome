@@ -1,7 +1,6 @@
 package Animation
 
 import (
-	DOM "app/chrome/dom"
 	Runtime "app/chrome/runtime"
 )
 
@@ -121,8 +120,6 @@ type AnimationStartedEvent struct {
 	Animation Animation `json:"animation"`
 }
 
-////////////////
-
 /*
 Animation instance.
 */
@@ -152,7 +149,10 @@ type Animation struct {
 	Type string `json:"type"`
 
 	// Optional. Animation's source animation node.
-	Source AnimationEffect `json:"source,omitempty"`
+	//
+	// This expects an instance of AnimationEffect, but that doesn't omitempty correctly so it must
+	// be added manually.
+	Source interface{} `json:"source,omitempty"`
 
 	// Optional. A unique ID for Animation representing the sources that triggered this CSS
 	// animation/transition.
@@ -185,10 +185,16 @@ type AnimationEffect struct {
 	Fill string `json:"fill"`
 
 	// Optional. AnimationEffect's target node.
-	BackendNodeID DOM.BackendNodeID `json:"backendNodeId,omitempty"`
+	//
+	// This expects an instance of DOM.BackendNodeID, but that doesn't omitempty correctly so it
+	// must be added manually.
+	BackendNodeID interface{} `json:"backendNodeId,omitempty"`
 
 	// Optional. AnimationEffect's keyframes.
-	KeyframesRule KeyframesRule `json:"keyframesRule,omitempty"`
+	//
+	// This expects an instance of KeyframesRule, but that doesn't omitempty correctly so it must be
+	// added manually.
+	KeyframesRule interface{} `json:"keyframesRule,omitempty"`
 
 	// AnimationEffect's timing function.
 	Easing string `json:"easing"`

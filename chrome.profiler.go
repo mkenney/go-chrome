@@ -50,8 +50,26 @@ func (Profiler) GetBestEffortCoverage(
 	command := &protocol.Command{
 		Method: "Profiler.getBestEffortCoverage",
 	}
+	result := profiler.GetBestEffortCoverageResult{}
 	socket.SendCommand(command)
-	return command.Result.(profiler.GetBestEffortCoverageResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -122,8 +140,26 @@ func (Profiler) Stop(
 	command := &protocol.Command{
 		Method: "Profiler.stop",
 	}
+	result := profiler.StopResult{}
 	socket.SendCommand(command)
-	return command.Result.(profiler.StopResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -164,8 +200,26 @@ func (Profiler) TakePreciseCoverage(
 	command := &protocol.Command{
 		Method: "Profiler.takePreciseCoverage",
 	}
+	result := profiler.TakePreciseCoverageResult{}
 	socket.SendCommand(command)
-	return command.Result.(profiler.TakePreciseCoverageResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -177,8 +231,26 @@ func (Profiler) TakeTypeProfile(
 	command := &protocol.Command{
 		Method: "Profiler.takeTypeProfile",
 	}
+	result := profiler.TakeTypeProfileResult{}
 	socket.SendCommand(command)
-	return command.Result.(profiler.TakeTypeProfileResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*

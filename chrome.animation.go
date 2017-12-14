@@ -51,8 +51,26 @@ func (Animation) GetCurrentTime(
 		Method: "Animation.getCurrentTime",
 		Params: params,
 	}
+	result := animation.GetCurrentTimeResult{}
 	socket.SendCommand(command)
-	return command.Result.(animation.GetCurrentTimeResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -64,8 +82,26 @@ func (Animation) GetPlaybackRate(
 	command := &protocol.Command{
 		Method: "Animation.getPlaybackRate",
 	}
+	result := animation.GetPlaybackRateResult{}
 	socket.SendCommand(command)
-	return command.Result.(animation.GetPlaybackRateResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -94,8 +130,26 @@ func (Animation) ResolveAnimation(
 		Method: "Animation.resolveAnimation",
 		Params: params,
 	}
+	result := animation.ResolveAnimationResult{}
 	socket.SendCommand(command)
-	return command.Result.(animation.ResolveAnimationResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*

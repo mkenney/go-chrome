@@ -28,8 +28,26 @@ func (Runtime) AwaitPromise(
 		Method: "Runtime.awaitPromise",
 		Params: params,
 	}
+	result := runtime.AwaitPromiseResult{}
 	socket.SendCommand(command)
-	return command.Result.(runtime.AwaitPromiseResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -44,8 +62,26 @@ func (Runtime) CallFunctionOn(
 		Method: "Runtime.callFunctionOn",
 		Params: params,
 	}
+	result := runtime.CallFunctionOnResult{}
 	socket.SendCommand(command)
-	return command.Result.(runtime.CallFunctionOnResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -59,8 +95,26 @@ func (Runtime) CompileScript(
 		Method: "Runtime.compileScript",
 		Params: params,
 	}
+	result := runtime.CompileScriptResult{}
 	socket.SendCommand(command)
-	return command.Result.(runtime.CompileScriptResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -115,8 +169,26 @@ func (Runtime) Evaluate(
 		Method: "Runtime.evaluate",
 		Params: params,
 	}
+	result := runtime.EvaluateResult{}
 	socket.SendCommand(command)
-	return command.Result.(runtime.EvaluateResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -131,8 +203,26 @@ func (Runtime) GetProperties(
 		Method: "Runtime.getProperties",
 		Params: params,
 	}
+	result := runtime.GetPropertiesResult{}
 	socket.SendCommand(command)
-	return command.Result.(runtime.GetPropertiesResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -146,8 +236,26 @@ func (Runtime) GlobalLexicalScopeNames(
 		Method: "Runtime.globalLexicalScopeNames",
 		Params: params,
 	}
+	result := runtime.GlobalLexicalScopeNamesResult{}
 	socket.SendCommand(command)
-	return command.Result.(runtime.GlobalLexicalScopeNamesResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -161,8 +269,26 @@ func (Runtime) QueryObjects(
 		Method: "Runtime.queryObjects",
 		Params: params,
 	}
+	result := runtime.QueryObjectsResult{}
 	socket.SendCommand(command)
-	return command.Result.(runtime.QueryObjectsResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -219,8 +345,26 @@ func (Runtime) RunScript(
 		Method: "Runtime.runScript",
 		Params: params,
 	}
+	result := runtime.RunScriptResult{}
 	socket.SendCommand(command)
-	return command.Result.(runtime.RunScriptResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*

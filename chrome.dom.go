@@ -33,8 +33,26 @@ func (DOM) CollectClassNamesFromSubtree(
 		Method: "DOM.collectClassNamesFromSubtree",
 		Params: params,
 	}
+	result := dom.CollectClassNamesFromSubtreeResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.CollectClassNamesFromSubtreeResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -49,8 +67,26 @@ func (DOM) CopyTo(
 		Method: "DOM.copyTo",
 		Params: params,
 	}
+	result := dom.CopyToResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.CopyToResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -65,8 +101,26 @@ func (DOM) DescribeNode(
 		Method: "DOM.describeNode",
 		Params: params,
 	}
+	result := dom.DescribeNodeResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.DescribeNodeResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -137,8 +191,26 @@ func (DOM) GetAttributes(
 		Method: "DOM.getAttributes",
 		Params: params,
 	}
+	result := dom.GetAttributesResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.GetAttributesResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -152,8 +224,26 @@ func (DOM) GetBoxModel(
 		Method: "DOM.getBoxModel",
 		Params: params,
 	}
+	result := dom.GetBoxModelResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.GetBoxModelResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -167,8 +257,26 @@ func (DOM) GetDocument(
 		Method: "DOM.getDocument",
 		Params: params,
 	}
+	result := dom.GetDocumentResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.GetDocumentResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -182,8 +290,26 @@ func (DOM) GetFlattenedDocument(
 		Method: "DOM.getFlattenedDocument",
 		Params: params,
 	}
+	result := dom.GetFlattenedDocumentResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.GetFlattenedDocumentResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -197,8 +323,26 @@ func (DOM) GetNodeForLocation(
 		Method: "DOM.getNodeForLocation",
 		Params: params,
 	}
+	result := dom.GetNodeForLocationResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.GetNodeForLocationResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -212,8 +356,26 @@ func (DOM) GetOuterHTML(
 		Method: "DOM.getOuterHTML",
 		Params: params,
 	}
+	result := dom.GetOuterHTMLResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.GetOuterHTMLResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -227,8 +389,26 @@ func (DOM) GetRelayoutBoundary(
 		Method: "DOM.getRelayoutBoundary",
 		Params: params,
 	}
+	result := dom.GetRelayoutBoundaryResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.GetRelayoutBoundaryResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -243,8 +423,26 @@ func (DOM) GetSearchResults(
 		Method: "DOM.getSearchResults",
 		Params: params,
 	}
+	result := dom.GetSearchResultsResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.GetSearchResultsResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -271,8 +469,26 @@ func (DOM) MoveTo(
 		Method: "DOM.moveTo",
 		Params: params,
 	}
+	result := dom.MoveToResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.MoveToResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -287,8 +503,26 @@ func (DOM) PerformSearch(
 		Method: "DOM.performSearch",
 		Params: params,
 	}
+	result := dom.PerformSearchResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.PerformSearchResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -303,8 +537,26 @@ func (DOM) PushNodeByPathToFrontend(
 		Method: "DOM.pushNodeByPathToFrontend",
 		Params: params,
 	}
+	result := dom.PushNodeByPathToFrontendResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.PushNodeByPathToFrontendResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -319,8 +571,26 @@ func (DOM) PushNodesByBackendIDsToFrontend(
 		Method: "DOM.pushNodesByBackendIdsToFrontend",
 		Params: params,
 	}
+	result := dom.PushNodesByBackendIDsToFrontendResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.PushNodesByBackendIDsToFrontendResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -334,8 +604,26 @@ func (DOM) QuerySelector(
 		Method: "DOM.querySelector",
 		Params: params,
 	}
+	result := dom.QuerySelectorResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.QuerySelectorResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -349,8 +637,26 @@ func (DOM) QuerySelectorAll(
 		Method: "DOM.querySelectorAll",
 		Params: params,
 	}
+	result := dom.QuerySelectorAllResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.QuerySelectorAllResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -426,8 +732,26 @@ func (DOM) RequestNode(
 		Method: "DOM.requestNode",
 		Params: params,
 	}
+	result := dom.RequestNodeResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.RequestNodeResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -441,8 +765,26 @@ func (DOM) ResolveNode(
 		Method: "DOM.resolveNode",
 		Params: params,
 	}
+	result := dom.ResolveNodeResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.ResolveNodeResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -518,8 +860,26 @@ func (DOM) SetNodeName(
 		Method: "DOM.setNodeName",
 		Params: params,
 	}
+	result := dom.SetNodeNameResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom.SetNodeNameResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*

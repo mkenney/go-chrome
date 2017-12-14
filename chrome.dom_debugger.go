@@ -3,6 +3,7 @@ package chrome
 import (
 	dom_debugger "app/chrome/dom_debugger"
 	"app/chrome/protocol"
+	"encoding/json"
 )
 
 /*
@@ -23,8 +24,26 @@ func (DOMDebugger) GetEventListeners(
 		Method: "DOMDebugger.getEventListeners",
 		Params: params,
 	}
+	result := dom_debugger.GetEventListenersResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom_debugger.GetEventListenersResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*

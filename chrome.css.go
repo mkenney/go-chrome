@@ -31,8 +31,26 @@ func (CSS) AddRule(
 		Method: "CSS.addRule",
 		Params: params,
 	}
+	result := css.AddRuleResult{}
 	socket.SendCommand(command)
-	return command.Result.(css.AddRuleResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -46,8 +64,26 @@ func (CSS) CollectClassNames(
 		Method: "CSS.collectClassNames",
 		Params: params,
 	}
+	result := css.CollectClassNamesResult{}
 	socket.SendCommand(command)
-	return command.Result.(css.CollectClassNamesResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -61,8 +97,26 @@ func (CSS) CreateStyleSheet(
 		Method: "CSS.createStyleSheet",
 		Params: params,
 	}
+	result := css.CreateStyleSheetResult{}
 	socket.SendCommand(command)
-	return command.Result.(css.CreateStyleSheetResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -119,8 +173,26 @@ func (CSS) GetBackgroundColors(
 		Method: "CSS.getBackgroundColors",
 		Params: params,
 	}
+	result := css.GetBackgroundColorsResult{}
 	socket.SendCommand(command)
-	return command.Result.(css.GetBackgroundColorsResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -134,8 +206,26 @@ func (CSS) GetComputedStyleForNode(
 		Method: "CSS.getComputedStyleForNode",
 		Params: params,
 	}
+	result := css.GetComputedStyleForNodeResult{}
 	socket.SendCommand(command)
-	return command.Result.(css.GetComputedStyleForNodeResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -150,8 +240,26 @@ func (CSS) GetInlineStylesForNode(
 		Method: "CSS.getInlineStylesForNode",
 		Params: params,
 	}
+	result := css.GetInlineStylesForNodeResult{}
 	socket.SendCommand(command)
-	return command.Result.(css.GetInlineStylesForNodeResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -165,8 +273,26 @@ func (CSS) GetMatchedStylesForNode(
 		Method: "CSS.getMatchedStylesForNode",
 		Params: params,
 	}
+	result := css.GetMatchedStylesForNodeResult{}
 	socket.SendCommand(command)
-	return command.Result.(css.GetMatchedStylesForNodeResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -196,8 +322,26 @@ func (CSS) GetPlatformFontsForNode(
 		Method: "CSS.getPlatformFontsForNode",
 		Params: params,
 	}
+	result := css.GetPlatformFontsForNodeResult{}
 	socket.SendCommand(command)
-	return command.Result.(css.GetPlatformFontsForNodeResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -211,8 +355,26 @@ func (CSS) GetStyleSheetText(
 		Method: "CSS.getStyleSheetText",
 		Params: params,
 	}
+	result := css.GetStyleSheetTextResult{}
 	socket.SendCommand(command)
-	return command.Result.(css.GetStyleSheetTextResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -242,8 +404,26 @@ func (CSS) SetKeyframeKey(
 		Method: "CSS.setKeyframeKey",
 		Params: params,
 	}
+	result := css.SetKeyframeKeyResult{}
 	socket.SendCommand(command)
-	return command.Result.(css.SetKeyframeKeyResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -257,8 +437,26 @@ func (CSS) SetMediaText(
 		Method: "CSS.setMediaText",
 		Params: params,
 	}
+	result := css.SetMediaTextResult{}
 	socket.SendCommand(command)
-	return command.Result.(css.SetMediaTextResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -272,8 +470,26 @@ func (CSS) SetRuleSelector(
 		Method: "CSS.setRuleSelector",
 		Params: params,
 	}
+	result := css.SetRuleSelectorResult{}
 	socket.SendCommand(command)
-	return command.Result.(css.SetRuleSelectorResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -287,8 +503,26 @@ func (CSS) SetStyleSheetText(
 		Method: "CSS.setStyleSheetText",
 		Params: params,
 	}
+	result := css.SetStyleSheetTextResult{}
 	socket.SendCommand(command)
-	return command.Result.(css.SetStyleSheetTextResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -302,8 +536,26 @@ func (CSS) SetStyleTexts(
 		Method: "CSS.setStyleTexts",
 		Params: params,
 	}
+	result := css.SetStyleTextsResult{}
 	socket.SendCommand(command)
-	return command.Result.(css.SetStyleTextsResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -328,8 +580,26 @@ func (CSS) StopRuleUsageTracking(
 	command := &protocol.Command{
 		Method: "CSS.stopRuleUsageTracking",
 	}
+	result := css.StopRuleUsageTrackingResult{}
 	socket.SendCommand(command)
-	return command.Result.(css.StopRuleUsageTrackingResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -342,8 +612,26 @@ func (CSS) TakeCoverageDelta(
 	command := &protocol.Command{
 		Method: "CSS.takeCoverageDelta",
 	}
+	result := css.TakeCoverageDeltaResult{}
 	socket.SendCommand(command)
-	return command.Result.(css.TakeCoverageDeltaResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*

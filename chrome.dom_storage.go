@@ -3,6 +3,7 @@ package chrome
 import (
 	dom_storage "app/chrome/dom_storage"
 	"app/chrome/protocol"
+	"encoding/json"
 )
 
 /*
@@ -63,8 +64,26 @@ func (DOMStorage) GetDOMStorageItems(
 		Method: "DOMStorage.getDOMStorageItems",
 		Params: params,
 	}
+	result := dom_storage.GetDOMStorageItemsResult{}
 	socket.SendCommand(command)
-	return command.Result.(dom_storage.GetDOMStorageItemsResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*

@@ -54,8 +54,26 @@ func (Target) CloseTarget(
 	command := &protocol.Command{
 		Method: "Target.closeTarget",
 	}
+	result := target.CloseTargetResult{}
 	socket.SendCommand(command)
-	return command.Result.(target.CloseTargetResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -68,8 +86,26 @@ func (Target) CreateBrowserContext(
 	command := &protocol.Command{
 		Method: "Target.createBrowserContext",
 	}
+	result := target.CreateBrowserContextResult{}
 	socket.SendCommand(command)
-	return command.Result.(target.CreateBrowserContextResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -83,8 +119,26 @@ func (Target) CreateTarget(
 		Method: "Target.createTarget",
 		Params: params,
 	}
+	result := target.CreateTargetResult{}
 	socket.SendCommand(command)
-	return command.Result.(target.CreateTargetResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -128,8 +182,26 @@ func (Target) GetTargetInfo(
 		Method: "Target.getTargetInfo",
 		Params: params,
 	}
+	result := target.GetTargetInfoResult{}
 	socket.SendCommand(command)
-	return command.Result.(target.GetTargetInfoResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*

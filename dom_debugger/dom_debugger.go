@@ -157,10 +157,16 @@ type EventListener struct {
 	ColumnNumber int `json:"columnNumber"`
 
 	// Optional. Event handler function value.
-	Handler Runtime.RemoteObject `json:"handler,omitempty"`
+	//
+	// This expects an instance of Runtime.RemoteObject, but that doesn't omitempty correctly so it
+	// must be added manually.
+	Handler interface{} `json:"handler,omitempty"`
 
 	// Optional. Event original handler function value.
-	OriginalHandler Runtime.RemoteObject `json:"originalHandler,omitempty"`
+	//
+	// This expects an instance of Runtime.RemoteObject, but that doesn't omitempty correctly so it
+	// must be added manually.
+	OriginalHandler interface{} `json:"originalHandler,omitempty"`
 
 	// Optional. Node the listener is added to (if any).
 	BackendNodeID DOM.BackendNodeID `json:"backendNodeId,omitempty"`

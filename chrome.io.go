@@ -3,6 +3,7 @@ package chrome
 import (
 	io "app/chrome/io"
 	"app/chrome/protocol"
+	"encoding/json"
 )
 
 /*
@@ -37,8 +38,26 @@ func (IO) Read(
 		Method: "IO.read",
 		Params: params,
 	}
+	result := io.ReadResult{}
 	socket.SendCommand(command)
-	return command.Result.(io.ReadResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
 
 /*
@@ -52,6 +71,24 @@ func (IO) ResolveBlob(
 		Method: "IO.resolveBlob",
 		Params: params,
 	}
+	result := io.ResolveBlobResult{}
 	socket.SendCommand(command)
-	return command.Result.(io.ResolveBlobResult), command.Err
+
+	if nil != command.Err {
+		return result, command.Err
+	}
+
+	if nil != command.Result {
+		resultData, err := json.Marshal(command.Result)
+		if nil != err {
+			return result, err
+		}
+
+		err = json.Unmarshal(resultData, &result)
+		if nil != err {
+			return result, err
+		}
+	}
+
+	return result, command.Err
 }
