@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	indexed_db "app/chrome/indexed_db"
-	"app/chrome/protocol"
 	"encoding/json"
+
+	indexed_db "github.com/mkenney/go-chrome/indexed_db"
+	"github.com/mkenney/go-chrome/protocol"
 )
 
 /*

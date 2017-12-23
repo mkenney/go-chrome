@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	audits "app/chrome/audits"
-	"app/chrome/protocol"
 	"encoding/json"
+
+	audits "github.com/mkenney/go-chrome/audits"
+	"github.com/mkenney/go-chrome/protocol"
 )
 
 /*

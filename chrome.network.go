@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	network "app/chrome/network"
-	"app/chrome/protocol"
 	"encoding/json"
+
+	network "github.com/mkenney/go-chrome/network"
+	"github.com/mkenney/go-chrome/protocol"
 
 	log "github.com/Sirupsen/logrus"
 )

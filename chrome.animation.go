@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	animation "app/chrome/animation"
-	"app/chrome/protocol"
 	"encoding/json"
+
+	animation "github.com/mkenney/go-chrome/animation"
+	"github.com/mkenney/go-chrome/protocol"
 
 	log "github.com/Sirupsen/logrus"
 )

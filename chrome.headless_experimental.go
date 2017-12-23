@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	headless_experimental "app/chrome/headless_experimental"
-	"app/chrome/protocol"
 	"encoding/json"
+
+	headless_experimental "github.com/mkenney/go-chrome/headless_experimental"
+	"github.com/mkenney/go-chrome/protocol"
 
 	log "github.com/Sirupsen/logrus"
 )

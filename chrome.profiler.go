@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	profiler "app/chrome/profiler"
-	"app/chrome/protocol"
 	"encoding/json"
+
+	profiler "github.com/mkenney/go-chrome/profiler"
+	"github.com/mkenney/go-chrome/protocol"
 
 	log "github.com/Sirupsen/logrus"
 )

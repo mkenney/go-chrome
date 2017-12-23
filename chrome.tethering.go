@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	"app/chrome/protocol"
-	tethering "app/chrome/tethering"
 	"encoding/json"
+
+	"github.com/mkenney/go-chrome/protocol"
+	tethering "github.com/mkenney/go-chrome/tethering"
 
 	log "github.com/Sirupsen/logrus"
 )

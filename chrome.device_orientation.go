@@ -1,8 +1,8 @@
 package chrome
 
 import (
-	device_orientation "app/chrome/device_orientation"
-	"app/chrome/protocol"
+	device_orientation "github.com/mkenney/go-chrome/device_orientation"
+	"github.com/mkenney/go-chrome/protocol"
 )
 
 /*

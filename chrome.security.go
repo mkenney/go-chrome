@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	"app/chrome/protocol"
-	security "app/chrome/security"
 	"encoding/json"
+
+	"github.com/mkenney/go-chrome/protocol"
+	security "github.com/mkenney/go-chrome/security"
 
 	log "github.com/Sirupsen/logrus"
 )

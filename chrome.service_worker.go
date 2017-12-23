@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	"app/chrome/protocol"
-	service_worker "app/chrome/service_worker"
 	"encoding/json"
+
+	"github.com/mkenney/go-chrome/protocol"
+	service_worker "github.com/mkenney/go-chrome/service_worker"
 
 	log "github.com/Sirupsen/logrus"
 )

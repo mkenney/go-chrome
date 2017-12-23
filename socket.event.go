@@ -1,7 +1,7 @@
 package chrome
 
 import (
-	"app/chrome/protocol"
+	"github.com/mkenney/go-chrome/protocol"
 
 	log "github.com/Sirupsen/logrus"
 )

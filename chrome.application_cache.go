@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	application_cache "app/chrome/application_cache"
-	"app/chrome/protocol"
 	"encoding/json"
+
+	application_cache "github.com/mkenney/go-chrome/application_cache"
+	"github.com/mkenney/go-chrome/protocol"
 
 	log "github.com/Sirupsen/logrus"
 )

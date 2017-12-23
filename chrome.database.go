@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	database "app/chrome/database"
-	"app/chrome/protocol"
 	"encoding/json"
+
+	database "github.com/mkenney/go-chrome/database"
+	"github.com/mkenney/go-chrome/protocol"
 
 	log "github.com/Sirupsen/logrus"
 )

@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	debugger "app/chrome/debugger"
-	"app/chrome/protocol"
 	"encoding/json"
+
+	debugger "github.com/mkenney/go-chrome/debugger"
+	"github.com/mkenney/go-chrome/protocol"
 
 	log "github.com/Sirupsen/logrus"
 )

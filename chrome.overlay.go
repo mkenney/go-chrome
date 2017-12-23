@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	overlay "app/chrome/overlay"
-	"app/chrome/protocol"
 	"encoding/json"
+
+	overlay "github.com/mkenney/go-chrome/overlay"
+	"github.com/mkenney/go-chrome/protocol"
 
 	log "github.com/Sirupsen/logrus"
 )

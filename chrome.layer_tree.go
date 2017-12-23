@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	layer_tree "app/chrome/layer_tree"
-	"app/chrome/protocol"
 	"encoding/json"
+
+	layer_tree "github.com/mkenney/go-chrome/layer_tree"
+	"github.com/mkenney/go-chrome/protocol"
 
 	log "github.com/Sirupsen/logrus"
 )

@@ -1,8 +1,8 @@
 package chrome
 
 import (
-	input "app/chrome/input"
-	"app/chrome/protocol"
+	input "github.com/mkenney/go-chrome/input"
+	"github.com/mkenney/go-chrome/protocol"
 )
 
 /*

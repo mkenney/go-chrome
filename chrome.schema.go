@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	"app/chrome/protocol"
-	schema "app/chrome/schema"
 	"encoding/json"
+
+	"github.com/mkenney/go-chrome/protocol"
+	schema "github.com/mkenney/go-chrome/schema"
 )
 
 /*

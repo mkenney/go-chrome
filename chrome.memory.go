@@ -1,8 +1,8 @@
 package chrome
 
 import (
-	memory "app/chrome/memory"
-	"app/chrome/protocol"
+	memory "github.com/mkenney/go-chrome/memory"
+	"github.com/mkenney/go-chrome/protocol"
 )
 
 /*

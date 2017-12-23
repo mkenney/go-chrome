@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	performance "app/chrome/performance"
-	"app/chrome/protocol"
 	"encoding/json"
+
+	performance "github.com/mkenney/go-chrome/performance"
+	"github.com/mkenney/go-chrome/protocol"
 
 	log "github.com/Sirupsen/logrus"
 )

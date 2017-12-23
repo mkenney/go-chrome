@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	heap_profiler "app/chrome/heap_profiler"
-	"app/chrome/protocol"
 	"encoding/json"
+
+	heap_profiler "github.com/mkenney/go-chrome/heap_profiler"
+	"github.com/mkenney/go-chrome/protocol"
 
 	log "github.com/Sirupsen/logrus"
 )

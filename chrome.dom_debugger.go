@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	dom_debugger "app/chrome/dom_debugger"
-	"app/chrome/protocol"
 	"encoding/json"
+
+	dom_debugger "github.com/mkenney/go-chrome/dom_debugger"
+	"github.com/mkenney/go-chrome/protocol"
 )
 
 /*

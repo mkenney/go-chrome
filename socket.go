@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	"app/chrome/protocol"
+	"github.com/mkenney/go-chrome/protocol"
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/gorilla/websocket"

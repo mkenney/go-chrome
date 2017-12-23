@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	cache_storage "app/chrome/cache_storage"
-	"app/chrome/protocol"
 	"encoding/json"
+
+	cache_storage "github.com/mkenney/go-chrome/cache_storage"
+	"github.com/mkenney/go-chrome/protocol"
 )
 
 /*

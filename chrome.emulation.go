@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	emulation "app/chrome/emulation"
-	"app/chrome/protocol"
 	"encoding/json"
+
+	emulation "github.com/mkenney/go-chrome/emulation"
+	"github.com/mkenney/go-chrome/protocol"
 
 	log "github.com/Sirupsen/logrus"
 )

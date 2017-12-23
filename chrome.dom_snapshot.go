@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	dom_snapshot "app/chrome/dom_snapshot"
-	"app/chrome/protocol"
 	"encoding/json"
+
+	dom_snapshot "github.com/mkenney/go-chrome/dom_snapshot"
+	"github.com/mkenney/go-chrome/protocol"
 )
 
 /*

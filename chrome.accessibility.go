@@ -1,9 +1,10 @@
 package chrome
 
 import (
-	accessibility "app/chrome/accessibility"
-	"app/chrome/protocol"
 	"encoding/json"
+
+	accessibility "github.com/mkenney/go-chrome/accessibility"
+	"github.com/mkenney/go-chrome/protocol"
 )
 
 /*
