@@ -1,8 +1,8 @@
 package Profiler
 
 import (
-	Debugger "app/chrome/debugger"
-	Runtime "app/chrome/runtime"
+	Debugger "github.com/mkenney/go-chrome/debugger"
+	Runtime "github.com/mkenney/go-chrome/runtime"
 )
 
 /*

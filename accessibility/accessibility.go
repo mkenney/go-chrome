@@ -1,8 +1,9 @@
 package Accessibility
 
 import (
-	DOM "app/chrome/dom"
 	"fmt"
+
+	DOM "github.com/mkenney/go-chrome/dom"
 )
 
 /*

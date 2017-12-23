@@ -1,9 +1,10 @@
 package DOMDebugger
 
 import (
-	DOM "app/chrome/dom"
-	Runtime "app/chrome/runtime"
 	"fmt"
+
+	DOM "github.com/mkenney/go-chrome/dom"
+	Runtime "github.com/mkenney/go-chrome/runtime"
 )
 
 /*

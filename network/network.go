@@ -1,10 +1,11 @@
 package Network
 
 import (
-	Debugger "app/chrome/debugger"
-	Page "app/chrome/page"
-	Security "app/chrome/security"
 	"fmt"
+
+	Debugger "github.com/mkenney/go-chrome/debugger"
+	Page "github.com/mkenney/go-chrome/page"
+	Security "github.com/mkenney/go-chrome/security"
 )
 
 /*

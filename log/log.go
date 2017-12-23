@@ -1,8 +1,8 @@
 package Log
 
 import (
-	Network "app/chrome/network"
-	Runtime "app/chrome/runtime"
+	Network "github.com/mkenney/go-chrome/network"
+	Runtime "github.com/mkenney/go-chrome/runtime"
 )
 
 /*

@@ -1,8 +1,9 @@
 package Browser
 
 import (
-	Target "app/chrome/target"
 	"fmt"
+
+	Target "github.com/mkenney/go-chrome/target"
 )
 
 /*

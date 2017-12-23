@@ -1,7 +1,7 @@
 package LayerTree
 
 import (
-	DOM "app/chrome/dom"
+	DOM "github.com/mkenney/go-chrome/dom"
 )
 
 /*

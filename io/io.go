@@ -1,7 +1,7 @@
 package IO
 
 import (
-	Runtime "app/chrome/runtime"
+	Runtime "github.com/mkenney/go-chrome/runtime"
 )
 
 /*

@@ -1,9 +1,10 @@
 package CSS
 
 import (
-	DOM "app/chrome/dom"
-	Page "app/chrome/page"
 	"fmt"
+
+	DOM "github.com/mkenney/go-chrome/dom"
+	Page "github.com/mkenney/go-chrome/page"
 )
 
 /*

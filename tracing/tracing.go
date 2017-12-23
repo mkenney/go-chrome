@@ -1,7 +1,7 @@
 package Tracing
 
 import (
-	IO "app/chrome/io"
+	IO "github.com/mkenney/go-chrome/io"
 )
 
 /*

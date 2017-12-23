@@ -1,10 +1,11 @@
 package Overlay
 
 import (
-	DOM "app/chrome/dom"
-	Page "app/chrome/page"
-	Runtime "app/chrome/runtime"
 	"fmt"
+
+	DOM "github.com/mkenney/go-chrome/dom"
+	Page "github.com/mkenney/go-chrome/page"
+	Runtime "github.com/mkenney/go-chrome/runtime"
 )
 
 /*

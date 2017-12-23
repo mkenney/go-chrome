@@ -1,9 +1,10 @@
 package Page
 
 import (
-	Debugger "app/chrome/debugger"
-	Runtime "app/chrome/runtime"
 	"fmt"
+
+	Debugger "github.com/mkenney/go-chrome/debugger"
+	Runtime "github.com/mkenney/go-chrome/runtime"
 )
 
 /*
