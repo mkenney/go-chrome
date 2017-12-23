@@ -1,7 +1,7 @@
 package chrome
 
 import (
-	device_orientation "github.com/mkenney/go-chrome/device_orientation"
+	deviceOrientation "github.com/mkenney/go-chrome/device_orientation"
 	"github.com/mkenney/go-chrome/protocol"
 )
 
@@ -29,7 +29,7 @@ SetDeviceOrientationOverride overrides the Device Orientation.
 */
 func (DeviceOrientation) SetDeviceOrientationOverride(
 	socket *Socket,
-	params *device_orientation.SetDeviceOrientationOverrideParams,
+	params *deviceOrientation.SetDeviceOrientationOverrideParams,
 ) error {
 	command := &protocol.Command{
 		Method: "DeviceOrientation.setDeviceOrientationOverride",

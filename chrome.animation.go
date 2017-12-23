@@ -214,17 +214,17 @@ func (Animation) SetTiming(
 }
 
 /*
-OnAnimationCanceled adds a handler to the Animation.animationCanceled event.
-Animation.animationCanceled fires when when an animation has been cancelled.
+OnAnimationCanceled adds a handler to the Animation.Canceled event.
+Animation.Canceled fires when when an animation has been cancelled.
 */
 func (Animation) OnAnimationCanceled(
 	socket *Socket,
-	callback func(event *animation.AnimationCanceledEvent),
+	callback func(event *animation.CanceledEvent),
 ) {
 	handler := protocol.NewEventHandler(
 		"Animation.animationCanceled",
 		func(name string, params []byte) {
-			event := &animation.AnimationCanceledEvent{}
+			event := &animation.CanceledEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
@@ -236,17 +236,17 @@ func (Animation) OnAnimationCanceled(
 }
 
 /*
-OnAnimationCreated adds a handler to the Animation.animationCreated event.
-Animation.animationCreated fires for each animation that has been created.
+OnAnimationCreated adds a handler to the Animation.Created event.
+Animation.Created fires for each animation that has been created.
 */
 func (Animation) OnAnimationCreated(
 	socket *Socket,
-	callback func(event *animation.AnimationCreatedEvent),
+	callback func(event *animation.CreatedEvent),
 ) {
 	handler := protocol.NewEventHandler(
 		"Animation.animationCreated",
 		func(name string, params []byte) {
-			event := &animation.AnimationCreatedEvent{}
+			event := &animation.CreatedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
@@ -258,17 +258,17 @@ func (Animation) OnAnimationCreated(
 }
 
 /*
-OnAnimationStarted adds a handler to the Animation.animationStarted event.
-Animation.animationStarted fires for each animation that has been started.
+OnAnimationStarted adds a handler to the Animation.Started event.
+Animation.Started fires for each animation that has been started.
 */
 func (Animation) OnAnimationStarted(
 	socket *Socket,
-	callback func(event *animation.AnimationStartedEvent),
+	callback func(event *animation.StartedEvent),
 ) {
 	handler := protocol.NewEventHandler(
 		"Animation.animationStarted",
 		func(name string, params []byte) {
-			event := &animation.AnimationStartedEvent{}
+			event := &animation.StartedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {

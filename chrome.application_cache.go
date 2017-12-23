@@ -3,7 +3,7 @@ package chrome
 import (
 	"encoding/json"
 
-	application_cache "github.com/mkenney/go-chrome/application_cache"
+	applicationCache "github.com/mkenney/go-chrome/application_cache"
 	"github.com/mkenney/go-chrome/protocol"
 
 	log "github.com/Sirupsen/logrus"
@@ -47,13 +47,13 @@ in given frame.
 */
 func (ApplicationCache) GetApplicationCacheForFrame(
 	socket *Socket,
-	params *application_cache.GetApplicationCacheForFrameParams,
-) (application_cache.GetApplicationCacheForFrameResult, error) {
+	params *applicationCache.GetApplicationCacheForFrameParams,
+) (applicationCache.GetApplicationCacheForFrameResult, error) {
 	command := &protocol.Command{
 		Method: "ApplicationCache.getManifestForFrame",
 		Params: params,
 	}
-	result := application_cache.GetApplicationCacheForFrameResult{}
+	result := applicationCache.GetApplicationCacheForFrameResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {
@@ -81,11 +81,11 @@ containing a document associated with some application cache.
 */
 func (ApplicationCache) GetFramesWithManifests(
 	socket *Socket,
-) (application_cache.GetFramesWithManifestsResult, error) {
+) (applicationCache.GetFramesWithManifestsResult, error) {
 	command := &protocol.Command{
 		Method: "ApplicationCache.getFramesWithManifests",
 	}
-	result := application_cache.GetFramesWithManifestsResult{}
+	result := applicationCache.GetFramesWithManifestsResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {
@@ -112,13 +112,13 @@ GetManifestForFrame returns manifest URL for document in the given frame.
 */
 func (ApplicationCache) GetManifestForFrame(
 	socket *Socket,
-	params *application_cache.GetManifestForFrameParams,
-) (application_cache.GetManifestForFrameResult, error) {
+	params *applicationCache.GetManifestForFrameParams,
+) (applicationCache.GetManifestForFrameResult, error) {
 	command := &protocol.Command{
 		Method: "ApplicationCache.getManifestForFrame",
 		Params: params,
 	}
-	result := application_cache.GetManifestForFrameResult{}
+	result := applicationCache.GetManifestForFrameResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {
@@ -141,17 +141,16 @@ func (ApplicationCache) GetManifestForFrame(
 }
 
 /*
-OnApplicationCacheStatusUpdated adds a handler to the ApplicationCache.applicationCacheStatusUpdated
-event.
+OnApplicationCacheStatusUpdated adds a handler to the ApplicationCache.StatusUpdated event.
 */
 func (ApplicationCache) OnApplicationCacheStatusUpdated(
 	socket *Socket,
-	callback func(event *application_cache.ApplicationCacheStatusUpdatedEvent),
+	callback func(event *applicationCache.StatusUpdatedEvent),
 ) {
 	handler := protocol.NewEventHandler(
 		"ApplicationCache.applicationCacheStatusUpdated",
 		func(name string, params []byte) {
-			event := &application_cache.ApplicationCacheStatusUpdatedEvent{}
+			event := &applicationCache.StatusUpdatedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {

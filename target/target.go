@@ -5,7 +5,7 @@ ActivateTargetParams represents Target.activateTarget parameters.
 */
 type ActivateTargetParams struct {
 	// Target ID.
-	TargetID TargetID `json:"targetId"`
+	ID ID `json:"targetId"`
 }
 
 /*
@@ -13,7 +13,7 @@ AttachToTargetParams represents Target.attachToTarget parameters.
 */
 type AttachToTargetParams struct {
 	// Target ID.
-	TargetID TargetID `json:"targetId"`
+	ID ID `json:"targetId"`
 }
 
 /*
@@ -21,7 +21,7 @@ CloseTargetParams represents Target.closeTarget parameters.
 */
 type CloseTargetParams struct {
 	// Target ID.
-	TargetID TargetID `json:"targetId"`
+	ID ID `json:"targetId"`
 }
 
 /*
@@ -65,7 +65,7 @@ CreateTargetResult represents the result of calls to Target.createTarget.
 */
 type CreateTargetResult struct {
 	// The ID of the page opened.
-	TargetID TargetID `json:"targetId"`
+	ID ID `json:"targetId"`
 }
 
 /*
@@ -76,7 +76,7 @@ type DetachFromTargetParams struct {
 	SessionID SessionID `json:"sessionId,omitempty"`
 
 	// Optional. DEPRECATED
-	TargetID TargetID `json:"targetId,omitempty"`
+	ID ID `json:"targetId,omitempty"`
 }
 
 /*
@@ -84,7 +84,7 @@ DisposeBrowserContextParams represents Target.disposeBrowserContext parameters.
 */
 type DisposeBrowserContextParams struct {
 	// Target ID.
-	TargetID TargetID `json:"targetId"`
+	ID ID `json:"targetId"`
 }
 
 /*
@@ -99,7 +99,7 @@ GetTargetInfoParams represents Target.getTargetInfo parameters.
 */
 type GetTargetInfoParams struct {
 	// Target ID.
-	TargetID TargetID `json:"targetId"`
+	ID ID `json:"targetId"`
 }
 
 /*
@@ -107,7 +107,7 @@ GetTargetInfoResult represents the result of calls to Target.getTargetInfo.
 */
 type GetTargetInfoResult struct {
 	// The list of targets.
-	TargetInfos []TargetInfo `json:"targetInfos"`
+	Infos []Info `json:"targetInfos"`
 }
 
 /*
@@ -115,7 +115,7 @@ GetTargetsParams represents Target.getTargets parameters.
 */
 type GetTargetsParams struct {
 	// The list of targets.
-	TargetInfos []TargetInfo `json:"targetInfos"`
+	Infos []Info `json:"targetInfos"`
 }
 
 /*
@@ -129,7 +129,7 @@ type SendMessageToTargetParams struct {
 	SessionID SessionID `json:"sessionId,omitempty"`
 
 	// Optional. DEPRECATED
-	TargetID TargetID `json:"targetId,omitempty"`
+	ID ID `json:"targetId,omitempty"`
 }
 
 /*
@@ -176,7 +176,7 @@ type AttachedToTargetEvent struct {
 	SessionID SessionID `json:"sessionId"`
 
 	// Target info.
-	TargetInfo TargetInfo `json:"targetInfo"`
+	Info Info `json:"targetInfo"`
 
 	// Waiting for debugger.
 	WaitingForDebugger bool `json:"waitingForDebugger"`
@@ -190,7 +190,7 @@ type DetachedFromTargetEvent struct {
 	SessionID SessionID `json:"sessionId"`
 
 	// DEPRECATED
-	TargetID TargetID `json:"targetId"`
+	ID ID `json:"targetId"`
 }
 
 /*
@@ -204,39 +204,39 @@ type ReceivedMessageFromTargetEvent struct {
 	Message string `json:"message"`
 
 	// Optional. Deprecated. DEPRECATED.
-	TargetID TargetID `json:"targetId,omitempty"`
+	ID ID `json:"targetId,omitempty"`
 }
 
 /*
-TargetCreatedEvent represents Target.targetCreated event data.
+CreatedEvent represents Target.targetCreated event data.
 */
-type TargetCreatedEvent struct {
+type CreatedEvent struct {
 	// Target info.
-	TargetInfo TargetInfo `json:"targetInfo"`
+	Info Info `json:"targetInfo"`
 }
 
 /*
-TargetDestroyedEvent represents Target.targetDestroyed event data.
+DestroyedEvent represents Target.targetDestroyed event data.
 */
-type TargetDestroyedEvent struct {
+type DestroyedEvent struct {
 	// Target ID.
-	TargetID TargetID `json:"targetId"`
+	ID ID `json:"targetId"`
 }
 
 /*
-TargetInfoChangedEvent represents Target.targetInfoChanged event data.
+InfoChangedEvent represents Target.targetInfoChanged event data.
 */
-type TargetInfoChangedEvent struct {
+type InfoChangedEvent struct {
 	// Target info.
-	TargetInfo TargetInfo `json:"targetInfo"`
+	Info Info `json:"targetInfo"`
 }
 
 ///////////////////////
 
 /*
-TargetID is the target ID.
+ID is the target ID.
 */
-type TargetID string
+type ID string
 
 /*
 SessionID is a unique identifier of attached debugging session.
@@ -249,11 +249,11 @@ BrowserContextID is EXPERIMENTAL
 type BrowserContextID string
 
 /*
-TargetInfo holds the target info
+Info holds the target info
 */
-type TargetInfo struct {
+type Info struct {
 	// desc.
-	TargetID TargetID `json:"targetId"`
+	ID ID `json:"targetId"`
 
 	// desc.
 	Type string `json:"type"`
@@ -268,7 +268,7 @@ type TargetInfo struct {
 	Attached bool `json:"attached"`
 
 	// Optional. Opener target Id.
-	OpenerID TargetID `json:"openerId,omitempty"`
+	OpenerID ID `json:"openerId,omitempty"`
 }
 
 /*

@@ -3,7 +3,7 @@ package chrome
 import (
 	"encoding/json"
 
-	layer_tree "github.com/mkenney/go-chrome/layer_tree"
+	layerTree "github.com/mkenney/go-chrome/layer_tree"
 	"github.com/mkenney/go-chrome/protocol"
 
 	log "github.com/Sirupsen/logrus"
@@ -20,13 +20,13 @@ CompositingReasons provides the reasons why the given layer was composited.
 */
 func (LayerTree) CompositingReasons(
 	socket *Socket,
-	params *layer_tree.CompositingReasonsParams,
-) (layer_tree.CompositingReasonsResult, error) {
+	params *layerTree.CompositingReasonsParams,
+) (layerTree.CompositingReasonsResult, error) {
 	command := &protocol.Command{
 		Method: "LayerTree.compositingReasons",
 		Params: params,
 	}
-	result := layer_tree.CompositingReasonsResult{}
+	result := layerTree.CompositingReasonsResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {
@@ -79,13 +79,13 @@ LoadSnapshot returns the snapshot identifier.
 */
 func (LayerTree) LoadSnapshot(
 	socket *Socket,
-	params *layer_tree.LoadSnapshotParams,
-) (layer_tree.LoadSnapshotResult, error) {
+	params *layerTree.LoadSnapshotParams,
+) (layerTree.LoadSnapshotResult, error) {
 	command := &protocol.Command{
 		Method: "LayerTree.loadSnapshot",
 		Params: params,
 	}
-	result := layer_tree.LoadSnapshotResult{}
+	result := layerTree.LoadSnapshotResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {
@@ -112,13 +112,13 @@ MakeSnapshot returns the layer snapshot identifier.
 */
 func (LayerTree) MakeSnapshot(
 	socket *Socket,
-	params *layer_tree.MakeSnapshotParams,
-) (layer_tree.MakeSnapshotResult, error) {
+	params *layerTree.MakeSnapshotParams,
+) (layerTree.MakeSnapshotResult, error) {
 	command := &protocol.Command{
 		Method: "LayerTree.makeSnapshot",
 		Params: params,
 	}
-	result := layer_tree.MakeSnapshotResult{}
+	result := layerTree.MakeSnapshotResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {
@@ -145,13 +145,13 @@ ProfileSnapshot profiles a snapshot.
 */
 func (LayerTree) ProfileSnapshot(
 	socket *Socket,
-	params *layer_tree.ProfileSnapshotParams,
-) (layer_tree.ProfileSnapshotResult, error) {
+	params *layerTree.ProfileSnapshotParams,
+) (layerTree.ProfileSnapshotResult, error) {
 	command := &protocol.Command{
 		Method: "LayerTree.profileSnapshot",
 		Params: params,
 	}
-	result := layer_tree.ProfileSnapshotResult{}
+	result := layerTree.ProfileSnapshotResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {
@@ -178,7 +178,7 @@ ReleaseSnapshot releases layer snapshot captured by the back-end.
 */
 func (LayerTree) ReleaseSnapshot(
 	socket *Socket,
-	params *layer_tree.ReleaseSnapshotParams,
+	params *layerTree.ReleaseSnapshotParams,
 ) error {
 	command := &protocol.Command{
 		Method: "LayerTree.releaseSnapshot",
@@ -193,13 +193,13 @@ ReplaySnapshot replays the layer snapshot and returns the resulting bitmap.
 */
 func (LayerTree) ReplaySnapshot(
 	socket *Socket,
-	params *layer_tree.ReplaySnapshotParams,
-) (layer_tree.ReplaySnapshotResult, error) {
+	params *layerTree.ReplaySnapshotParams,
+) (layerTree.ReplaySnapshotResult, error) {
 	command := &protocol.Command{
 		Method: "LayerTree.replaySnapshot",
 		Params: params,
 	}
-	result := layer_tree.ReplaySnapshotResult{}
+	result := layerTree.ReplaySnapshotResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {
@@ -226,13 +226,13 @@ SnapshotCommandLog replays the layer snapshot and returns canvas log.
 */
 func (LayerTree) SnapshotCommandLog(
 	socket *Socket,
-	params *layer_tree.SnapshotCommandLogParams,
-) (layer_tree.SnapshotCommandLogResult, error) {
+	params *layerTree.SnapshotCommandLogParams,
+) (layerTree.SnapshotCommandLogResult, error) {
 	command := &protocol.Command{
 		Method: "LayerTree.snapshotCommandLog",
 		Params: params,
 	}
-	result := layer_tree.SnapshotCommandLogResult{}
+	result := layerTree.SnapshotCommandLogResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {
@@ -260,12 +260,12 @@ is painted.
 */
 func (LayerTree) OnLayerPainted(
 	socket *Socket,
-	callback func(event *layer_tree.LayerPaintedEvent),
+	callback func(event *layerTree.LayerPaintedEvent),
 ) {
 	handler := protocol.NewEventHandler(
 		"LayerTree.layerPainted",
 		func(name string, params []byte) {
-			event := &layer_tree.LayerPaintedEvent{}
+			event := &layerTree.LayerPaintedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
@@ -277,17 +277,17 @@ func (LayerTree) OnLayerPainted(
 }
 
 /*
-OnLayerTreeDidChange adds a handler to the LayerTree.layerTreeDidChange event. LayerTree.layerTreeDidChange
-fires when the layer tree changes.
+OnLayerTreeDidChange adds a handler to the LayerTree.DidChange event. LayerTree.DidChange fires when
+the layer tree changes.
 */
 func (LayerTree) OnLayerTreeDidChange(
 	socket *Socket,
-	callback func(event *layer_tree.LayerTreeDidChangeEvent),
+	callback func(event *layerTree.DidChangeEvent),
 ) {
 	handler := protocol.NewEventHandler(
 		"LayerTree.layerTreeDidChange",
 		func(name string, params []byte) {
-			event := &layer_tree.LayerTreeDidChangeEvent{}
+			event := &layerTree.DidChangeEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {

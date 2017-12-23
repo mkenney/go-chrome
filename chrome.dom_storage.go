@@ -3,7 +3,7 @@ package chrome
 import (
 	"encoding/json"
 
-	dom_storage "github.com/mkenney/go-chrome/dom_storage"
+	domStorage "github.com/mkenney/go-chrome/dom_storage"
 	"github.com/mkenney/go-chrome/protocol"
 )
 
@@ -18,7 +18,7 @@ Clear clears  a stored item.
 */
 func (DOMStorage) Clear(
 	socket *Socket,
-	params *dom_storage.ClearParams,
+	params *domStorage.ClearParams,
 ) error {
 	command := &protocol.Command{
 		Method: "DOMStorage.clear",
@@ -59,13 +59,13 @@ GetDOMStorageItems gets a stored item.
 */
 func (DOMStorage) GetDOMStorageItems(
 	socket *Socket,
-	params *dom_storage.GetDOMStorageItemsParams,
-) (dom_storage.GetDOMStorageItemsResult, error) {
+	params *domStorage.GetDOMStorageItemsParams,
+) (domStorage.GetDOMStorageItemsResult, error) {
 	command := &protocol.Command{
 		Method: "DOMStorage.getDOMStorageItems",
 		Params: params,
 	}
-	result := dom_storage.GetDOMStorageItemsResult{}
+	result := domStorage.GetDOMStorageItemsResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {
@@ -92,7 +92,7 @@ RemoveDOMStorageItem removes  a stored item.
 */
 func (DOMStorage) RemoveDOMStorageItem(
 	socket *Socket,
-	params *dom_storage.RemoveDOMStorageItemParams,
+	params *domStorage.RemoveDOMStorageItemParams,
 ) error {
 	command := &protocol.Command{
 		Method: "DOMStorage.removeDOMStorageItem",
@@ -107,7 +107,7 @@ SetDOMStorageItem sets a stored item.
 */
 func (DOMStorage) SetDOMStorageItem(
 	socket *Socket,
-	params *dom_storage.SetDOMStorageItemParams,
+	params *domStorage.SetDOMStorageItemParams,
 ) error {
 	command := &protocol.Command{
 		Method: "DOMStorage.setDOMStorageItem",

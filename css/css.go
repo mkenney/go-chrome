@@ -26,7 +26,7 @@ AddRuleResult represents the result of calls to CSS.addRule.
 */
 type AddRuleResult struct {
 	// The newly created rule.
-	Rule CSSRule `json:"rule"`
+	Rule Rule `json:"rule"`
 }
 
 /*
@@ -114,7 +114,7 @@ GetComputedStyleForNodeResult represents the result of calls to CSS.getComputedS
 */
 type GetComputedStyleForNodeResult struct {
 	// Computed style for the specified DOM node.
-	ComputedStyle []CSSComputedStyleProperty `json:"computedStyle"`
+	ComputedStyle []ComputedStyleProperty `json:"computedStyle"`
 }
 
 /*
@@ -129,10 +129,10 @@ GetInlineStylesForNodeResult represents the result of calls to CSS.getInlineStyl
 */
 type GetInlineStylesForNodeResult struct {
 	// Optional. Inline style for the specified DOM node.
-	InlineStyle CSSStyle `json:"inlineStyle,omitempty"`
+	InlineStyle Style `json:"inlineStyle,omitempty"`
 
 	// Optional. Attribute-defined element style (e.g. resulting from "width=20 height=100%").
-	AttributesStyle CSSStyle `json:"attributesStyle,omitempty"`
+	AttributesStyle Style `json:"attributesStyle,omitempty"`
 }
 
 /*
@@ -147,10 +147,10 @@ GetMatchedStylesForNodeResult represents the result of calls to CSS.getMatchedSt
 */
 type GetMatchedStylesForNodeResult struct {
 	// Inline style for the specified DOM node.
-	InlineStyle CSSStyle `json:"inlineStyle,omitempty"`
+	InlineStyle Style `json:"inlineStyle,omitempty"`
 
 	// Attribute-defined element style (e.g. resulting from "width=20 height=100%").
-	AttributesStyle CSSStyle `json:"attributesStyle,omitempty"`
+	AttributesStyle Style `json:"attributesStyle,omitempty"`
 
 	// CSS rules matching this node, from all applicable stylesheets.
 	MatchedCSSRules []RuleMatch `json:"matchedCSSRules,omitempty"`
@@ -162,21 +162,21 @@ type GetMatchedStylesForNodeResult struct {
 	Inherited []InheritedStyleEntry `json:"inherited,omitempty"`
 
 	// A list of CSS keyframed animations matching this node.
-	CSSKeyframesRules []CSSKeyframesRule `json:"cssKeyframesRules,omitempty"`
+	KeyframesRules []KeyframesRule `json:"cssKeyframesRules,omitempty"`
 }
 
 /*
 GetMediaQueriesParams represents CSS.getMediaQueries parameters.
 */
 type GetMediaQueriesParams struct {
-	Medias []*CSSMedia `json:"medias"`
+	Medias []*Media `json:"medias"`
 }
 
 /*
 GetMediaQueriesResult represents the result of calls to CSS.getMediaQueries.
 */
 type GetMediaQueriesResult struct {
-	Medias []CSSMedia `json:"medias"`
+	Medias []Media `json:"medias"`
 }
 
 /*
@@ -250,7 +250,7 @@ SetMediaTextResult represents the result of calls to CSS.setMediaText.
 */
 type SetMediaTextResult struct {
 	// The resulting CSS media rule after modification.
-	Media CSSMedia `json:"media"`
+	Media Media `json:"media"`
 }
 
 /*
@@ -298,7 +298,7 @@ SetStyleTextsResult represents the result of calls to CSS.setStyleTexts.
 */
 type SetStyleTextsResult struct {
 	// The resulting styles after modification.
-	Styles []CSSStyle `json:"styles"`
+	Styles []Style `json:"styles"`
 }
 
 /*
@@ -330,7 +330,7 @@ StyleSheetAddedEvent represents CSS.styleSheetAdded event data.
 */
 type StyleSheetAddedEvent struct {
 	// Added stylesheet metainfo.
-	Header CSSStyleSheetHeader `json:"header"`
+	Header StyleSheetHeader `json:"header"`
 }
 
 /*
@@ -403,7 +403,7 @@ InheritedStyleEntry is an inherited CSS rule collection from ancestor node.
 */
 type InheritedStyleEntry struct {
 	// Optional. The ancestor node's inline style, if any, in the style inheritance chain.
-	InlineStyle CSSStyle `json:"inlineStyle,omitempty"`
+	InlineStyle Style `json:"inlineStyle,omitempty"`
 
 	// Matches of CSS rules matching the ancestor node in the style inheritance chain.
 	MatchedCSSRules []*RuleMatch `json:"matchedCSSRules"`
@@ -414,7 +414,7 @@ RuleMatch is match data for a CSS rule.
 */
 type RuleMatch struct {
 	// CSS rule in the match.
-	Rule CSSRule `json:"rule"`
+	Rule Rule `json:"rule"`
 
 	// Matching selector indices in the rule's selectorList selectors (0-based).
 	MatchingSelectors []int `json:"matchingSelectors"`
@@ -443,9 +443,9 @@ type SelectorList struct {
 }
 
 /*
-CSSStyleSheetHeader holds CSS stylesheet metainformation.
+StyleSheetHeader holds CSS stylesheet metainformation.
 */
-type CSSStyleSheetHeader struct {
+type StyleSheetHeader struct {
 	// The stylesheet identifier.
 	StyleSheetID StyleSheetID `json:"styleSheetId"`
 
@@ -488,9 +488,9 @@ type CSSStyleSheetHeader struct {
 }
 
 /*
-CSSRule is a CSS rule representation.
+Rule is a CSS rule representation.
 */
-type CSSRule struct {
+type Rule struct {
 	// Optional. The css style sheet identifier (absent for user agent stylesheet and user-specified
 	// stylesheet rules) this rule came from.
 	StyleSheetID StyleSheetID `json:"styleSheetId,omitempty"`
@@ -502,11 +502,11 @@ type CSSRule struct {
 	Origin StyleSheetOrigin `json:"origin"`
 
 	// Associated style declaration.
-	Style CSSStyle `json:"style"`
+	Style Style `json:"style"`
 
 	// Optional. Media list array (for rules involving media queries). The array enumerates media
 	// queries starting with the innermost one, going outwards.
-	Media []*CSSMedia `json:"media,omitempty"`
+	Media []*Media `json:"media,omitempty"`
 }
 
 /*
@@ -559,9 +559,9 @@ type ShorthandEntry struct {
 }
 
 /*
-CSSComputedStyleProperty holds a computed style property
+ComputedStyleProperty holds a computed style property
 */
-type CSSComputedStyleProperty struct {
+type ComputedStyleProperty struct {
 	// Computed style property name.
 	Name string `json:"name"`
 
@@ -570,15 +570,15 @@ type CSSComputedStyleProperty struct {
 }
 
 /*
-CSSStyle is a CSS style representation.
+Style is a CSS style representation.
 */
-type CSSStyle struct {
+type Style struct {
 	// Optional. The css style sheet identifier (absent for user agent stylesheet and user-specified
 	// stylesheet rules) this rule came from.
 	StyleSheetID StyleSheetID `json:"styleSheetId,omitempty"`
 
 	// CSS properties in the style.
-	CSSProperties []*CSSProperty `json:"cssProperties"`
+	Properties []*Property `json:"cssProperties"`
 
 	// Computed values for all shorthands found in the style.
 	ShorthandEntries []*ShorthandEntry `json:"shorthandEntries"`
@@ -591,9 +591,9 @@ type CSSStyle struct {
 }
 
 /*
-CSSProperty holds CSS property declaration data.
+Property holds CSS property declaration data.
 */
-type CSSProperty struct {
+type Property struct {
 	// The property name.
 	Name string `json:"name"`
 
@@ -622,9 +622,9 @@ type CSSProperty struct {
 }
 
 /*
-CSSMedia holds a CSS media rule descriptor.
+Media holds a CSS media rule descriptor.
 */
-type CSSMedia struct {
+type Media struct {
 	// Media query text.
 	Text string `json:"text"`
 
@@ -696,20 +696,20 @@ type PlatformFontUsage struct {
 }
 
 /*
-CSSKeyframesRule is a CSS keyframes rule representation.
+KeyframesRule is a CSS keyframes rule representation.
 */
-type CSSKeyframesRule struct {
+type KeyframesRule struct {
 	// Animation name.
 	AnimationName *Value `json:"animationName"`
 
 	// List of keyframes.
-	Keyframes []*CSSKeyframeRule `json:"keyframes"`
+	Keyframes []*KeyframeRule `json:"keyframes"`
 }
 
 /*
-CSSKeyframeRule is a CSS keyframe rule representation.
+KeyframeRule is a CSS keyframe rule representation.
 */
-type CSSKeyframeRule struct {
+type KeyframeRule struct {
 	// Optional. The css style sheet identifier (absent for user agent stylesheet and user-specified
 	// stylesheet rules) this rule came from.
 	StyleSheetID StyleSheetID `json:"styleSheetId,omitempty"`
@@ -721,7 +721,7 @@ type CSSKeyframeRule struct {
 	KeyText Value `json:"keyText"`
 
 	// Associated style declaration.
-	Style CSSStyle `json:"style"`
+	Style Style `json:"style"`
 }
 
 /*

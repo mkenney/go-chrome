@@ -98,7 +98,7 @@ WorkerErrorReportedEvent represents ServiceWorker.workerErrorReported event data
 */
 type WorkerErrorReportedEvent struct {
 	// Error message.
-	ErrorMessage ServiceWorkerErrorMessage `json:"errorMessage"`
+	ErrorMessage ErrorMessage `json:"errorMessage"`
 }
 
 /*
@@ -106,7 +106,7 @@ WorkerRegistrationUpdatedEvent represents ServiceWorker.workerRegistrationUpdate
 */
 type WorkerRegistrationUpdatedEvent struct {
 	// Registrations.
-	Registrations []ServiceWorkerRegistration `json:"registrations"`
+	Registrations []Registration `json:"registrations"`
 }
 
 /*
@@ -114,13 +114,13 @@ WorkerVersionUpdatedEvent represents ServiceWorker.workerVersionUpdated event da
 */
 type WorkerVersionUpdatedEvent struct {
 	// Versions.
-	Versions []ServiceWorkerVersion `json:"versions"`
+	Versions []Version `json:"versions"`
 }
 
 /*
-ServiceWorkerRegistration is a ServiceWorker registration.
+Registration is a ServiceWorker registration.
 */
-type ServiceWorkerRegistration struct {
+type Registration struct {
 	// desc.
 	RegistrationID string `json:"registrationId"`
 
@@ -132,18 +132,18 @@ type ServiceWorkerRegistration struct {
 }
 
 /*
-ServiceWorkerVersionRunningStatus - Allowed values: stopped, starting, running, stopping.
+VersionRunningStatus - Allowed values: stopped, starting, running, stopping.
 */
-type ServiceWorkerVersionRunningStatus int
+type VersionRunningStatus int
 
 const (
-	_stopped ServiceWorkerVersionRunningStatus = iota
+	_stopped VersionRunningStatus = iota
 	_starting
 	_running
 	_stopping
 )
 
-func (a ServiceWorkerVersionRunningStatus) String() string {
+func (a VersionRunningStatus) String() string {
 	if a == 0 {
 		return "stopped"
 	}
@@ -160,13 +160,13 @@ func (a ServiceWorkerVersionRunningStatus) String() string {
 }
 
 /*
-ServiceWorkerVersionStatus - Allowed values: new, installing, installed, activating, activated,
+VersionStatus - Allowed values: new, installing, installed, activating, activated,
 redundant.
 */
-type ServiceWorkerVersionStatus int
+type VersionStatus int
 
 const (
-	_new ServiceWorkerVersionStatus = iota
+	_new VersionStatus = iota
 	_installing
 	_installed
 	_activating
@@ -174,7 +174,7 @@ const (
 	_redundant
 )
 
-func (a ServiceWorkerVersionStatus) String() string {
+func (a VersionStatus) String() string {
 	if a == 0 {
 		return "new"
 	}
@@ -197,9 +197,9 @@ func (a ServiceWorkerVersionStatus) String() string {
 }
 
 /*
-ServiceWorkerVersion is the ServiceWorker version.
+Version is the ServiceWorker version.
 */
-type ServiceWorkerVersion struct {
+type Version struct {
 	// versionId.
 	VersionID string `json:"versionId"`
 
@@ -210,10 +210,10 @@ type ServiceWorkerVersion struct {
 	ScriptURL string `json:"scriptURL"`
 
 	// runningStatus.
-	RunningStatus ServiceWorkerVersionRunningStatus `json:"runningStatus"`
+	RunningStatus VersionRunningStatus `json:"runningStatus"`
 
 	// status.
-	Status ServiceWorkerVersionStatus `json:"status"`
+	Status VersionStatus `json:"status"`
 
 	// Optional. The Last-Modified header value of the main script.
 	ScriptLastModified int `json:"scriptLastModified,omitempty"`
@@ -223,16 +223,16 @@ type ServiceWorkerVersion struct {
 	ScriptResponseTime int `json:"scriptResponseTime,omitempty"`
 
 	// Optional. controlledClients.
-	ControlledClients []*Target.TargetID `json:"controlledClients,omitempty"`
+	ControlledClients []*Target.ID `json:"controlledClients,omitempty"`
 
 	// Optional. targetId.
-	TargetID Target.TargetID `json:"targetId,omitempty"`
+	TargetID Target.ID `json:"targetId,omitempty"`
 }
 
 /*
-ServiceWorkerErrorMessage is a ServiceWorker error message.
+ErrorMessage is a ServiceWorker error message.
 */
-type ServiceWorkerErrorMessage struct {
+type ErrorMessage struct {
 	// desc.
 	ErrorMessage string `json:"errorMessage"`
 

@@ -4,8 +4,8 @@ package Database
 ExecuteSQLParams represents Database.executeSQL parameters.
 */
 type ExecuteSQLParams struct {
-	DatabaseID DatabaseID `json:"databaseId"`
-	Query      string     `json:"query"`
+	ID    ID     `json:"databaseId"`
+	Query string `json:"query"`
 }
 
 /*
@@ -26,7 +26,7 @@ type ExecuteSQLResult struct {
 GetDatabaseTableNamesParams represents Database.getDatabaseTableNames parameters.
 */
 type GetDatabaseTableNamesParams struct {
-	DatabaseID DatabaseID `json:"databaseId"`
+	ID ID `json:"databaseId"`
 }
 
 /*
@@ -45,16 +45,16 @@ type AddDatabaseEvent struct {
 }
 
 /*
-DatabaseID is a unique identifier of a database object.
+ID is a unique identifier of a database object.
 */
-type DatabaseID string
+type ID string
 
 /*
 Database is a database object
 */
 type Database struct {
 	// Database ID.
-	ID DatabaseID `json:"id"`
+	ID ID `json:"id"`
 
 	// Database domain.
 	Domain string `json:"domain"`

@@ -43,18 +43,18 @@ type CertificateErrorEvent struct {
 }
 
 /*
-SecurityStateChangedEvent represents Security.securityStateChanged event data.
+StateChangedEvent represents Security.securityStateChanged event data.
 */
-type SecurityStateChangedEvent struct {
+type StateChangedEvent struct {
 	// Security state.
-	SecurityState SecurityState `json:"securityState"`
+	State State `json:"securityState"`
 
 	// True if the page was loaded over cryptographic transport such as HTTPS.
 	SchemeIsCryptographic bool `json:"schemeIsCryptographic"`
 
 	// List of explanations for the security state. If the overall security state is `insecure` or
 	// `warning`, at least one corresponding explanation should be included.
-	Explanations []SecurityStateExplanation `json:"explanations"`
+	Explanations []StateExplanation `json:"explanations"`
 
 	// Information about insecure content on the page.
 	InsecureContentStatus InsecureContentStatus `json:"insecureContentStatus"`
@@ -80,11 +80,11 @@ func (s MixedContentType) String() string {
 }
 
 /*
-SecurityState is the security level of a page or resource.
+State is the security level of a page or resource.
 */
-type SecurityState string
+type State string
 
-func (s SecurityState) String() string {
+func (s State) String() string {
 	str := string(s)
 	if str == "unknown" ||
 		str == "neutral" ||
@@ -97,11 +97,11 @@ func (s SecurityState) String() string {
 }
 
 /*
-SecurityStateExplanation is an explanation of a factor contributing to the security state.
+StateExplanation is an explanation of a factor contributing to the security state.
 */
-type SecurityStateExplanation struct {
+type StateExplanation struct {
 	// Security state representing the severity of the factor being explained.
-	SecurityState SecurityState `json:"securityState"`
+	State State `json:"securityState"`
 
 	// Short phrase describing the type of factor.
 	Summary string `json:"summary"`
@@ -138,10 +138,10 @@ type InsecureContentStatus struct {
 	DisplayedContentWithCertErrors bool `json:"displayedContentWithCertErrors"`
 
 	// Security state representing a page that ran insecure content.
-	RanInsecureContentStyle SecurityState `json:"ranInsecureContentStyle"`
+	RanInsecureContentStyle State `json:"ranInsecureContentStyle"`
 
 	// Security state representing a page that displayed insecure content.
-	DisplayedInsecureContentStyle SecurityState `json:"displayedInsecureContentStyle"`
+	DisplayedInsecureContentStyle State `json:"displayedInsecureContentStyle"`
 }
 
 /*

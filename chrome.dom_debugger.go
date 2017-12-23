@@ -3,7 +3,7 @@ package chrome
 import (
 	"encoding/json"
 
-	dom_debugger "github.com/mkenney/go-chrome/dom_debugger"
+	domDebugger "github.com/mkenney/go-chrome/dom_debugger"
 	"github.com/mkenney/go-chrome/protocol"
 )
 
@@ -19,13 +19,13 @@ GetEventListeners returns event listeners of the given object.
 */
 func (DOMDebugger) GetEventListeners(
 	socket *Socket,
-	params *dom_debugger.GetEventListenersParams,
-) (dom_debugger.GetEventListenersResult, error) {
+	params *domDebugger.GetEventListenersParams,
+) (domDebugger.GetEventListenersResult, error) {
 	command := &protocol.Command{
 		Method: "DOMDebugger.getEventListeners",
 		Params: params,
 	}
-	result := dom_debugger.GetEventListenersResult{}
+	result := domDebugger.GetEventListenersResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {
@@ -52,7 +52,7 @@ RemoveDOMBreakpoint removes the DOM breakpoint that was set using setDOMBreakpoi
 */
 func (DOMDebugger) RemoveDOMBreakpoint(
 	socket *Socket,
-	params *dom_debugger.RemoveDOMBreakpointParams,
+	params *domDebugger.RemoveDOMBreakpointParams,
 ) error {
 	command := &protocol.Command{
 		Method: "DOMDebugger.removeDOMBreakpoint",
@@ -67,7 +67,7 @@ RemoveEventListenerBreakpoint removes breakpoint on particular DOM event.
 */
 func (DOMDebugger) RemoveEventListenerBreakpoint(
 	socket *Socket,
-	params *dom_debugger.RemoveEventListenerBreakpointParams,
+	params *domDebugger.RemoveEventListenerBreakpointParams,
 ) error {
 	command := &protocol.Command{
 		Method: "DOMDebugger.removeEventListenerBreakpoint",
@@ -82,7 +82,7 @@ RemoveInstrumentationBreakpoint removes breakpoint on particular native event. E
 */
 func (DOMDebugger) RemoveInstrumentationBreakpoint(
 	socket *Socket,
-	params *dom_debugger.RemoveInstrumentationBreakpointParams,
+	params *domDebugger.RemoveInstrumentationBreakpointParams,
 ) error {
 	command := &protocol.Command{
 		Method: "DOMDebugger.removeInstrumentationBreakpoint",
@@ -97,7 +97,7 @@ RemoveXHRBreakpoint removes breakpoint from XMLHttpRequest.
 */
 func (DOMDebugger) RemoveXHRBreakpoint(
 	socket *Socket,
-	params *dom_debugger.RemoveXHRBreakpointParams,
+	params *domDebugger.RemoveXHRBreakpointParams,
 ) error {
 	command := &protocol.Command{
 		Method: "DOMDebugger.removeXHRBreakpoint",
@@ -112,7 +112,7 @@ SetDOMBreakpoint sets a breakpoint on a particular operation with DOM.
 */
 func (DOMDebugger) SetDOMBreakpoint(
 	socket *Socket,
-	params *dom_debugger.SetDOMBreakpointParams,
+	params *domDebugger.SetDOMBreakpointParams,
 ) error {
 	command := &protocol.Command{
 		Method: "DOMDebugger.setDOMBreakpoint",
@@ -127,7 +127,7 @@ SetEventListenerBreakpoint sets the breakpoint on a particular DOM event.
 */
 func (DOMDebugger) SetEventListenerBreakpoint(
 	socket *Socket,
-	params *dom_debugger.SetEventListenerBreakpointParams,
+	params *domDebugger.SetEventListenerBreakpointParams,
 ) error {
 	command := &protocol.Command{
 		Method: "DOMDebugger.setEventListenerBreakpoint",
@@ -142,7 +142,7 @@ SetInstrumentationBreakpoint sets breakpoint on particular native event. EXPERIM
 */
 func (DOMDebugger) SetInstrumentationBreakpoint(
 	socket *Socket,
-	params *dom_debugger.SetInstrumentationBreakpointParams,
+	params *domDebugger.SetInstrumentationBreakpointParams,
 ) error {
 	command := &protocol.Command{
 		Method: "DOMDebugger.setInstrumentationBreakpoint",
@@ -157,7 +157,7 @@ SetXHRBreakpoint sets breakpoint on XMLHttpRequest.
 */
 func (DOMDebugger) SetXHRBreakpoint(
 	socket *Socket,
-	params *dom_debugger.SetXHRBreakpointParams,
+	params *domDebugger.SetXHRBreakpointParams,
 ) error {
 	command := &protocol.Command{
 		Method: "DOMDebugger.setXHRBreakpoint",

@@ -48,7 +48,7 @@ GetWindowForTargetParams represents Browser.getWindowForTarget parameters.
 */
 type GetWindowForTargetParams struct {
 	// Devtools agent host id.
-	TargetID Target.TargetID `json:"targetId"`
+	TargetID Target.ID `json:"targetId"`
 }
 
 /*

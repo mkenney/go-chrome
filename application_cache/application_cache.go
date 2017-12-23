@@ -48,10 +48,10 @@ type GetManifestForFrameResult struct {
 }
 
 /*
-ApplicationCacheStatusUpdatedEvent represents ApplicationCache.applicationCacheStatusUpdated
+StatusUpdatedEvent represents ApplicationCache.applicationCacheStatusUpdated
 event data.
 */
-type ApplicationCacheStatusUpdatedEvent struct {
+type StatusUpdatedEvent struct {
 	// Identifier of the frame containing document whose application cache updated status.
 	FrameID Page.FrameID `json:"frameId"`
 
@@ -63,9 +63,9 @@ type ApplicationCacheStatusUpdatedEvent struct {
 }
 
 /*
-ApplicationCacheResource contains detailed application cache resource information.
+Resource contains detailed application cache resource information.
 */
-type ApplicationCacheResource struct {
+type Resource struct {
 	// Resource URL.
 	URL string `json:"url"`
 
@@ -93,7 +93,7 @@ type ApplicationCache struct {
 	UpdateTime float64 `json:"updateTime"`
 
 	// Application cache resources.
-	Resources []*ApplicationCacheResource `json:"resources"`
+	Resources []Resource `json:"resources"`
 }
 
 /*

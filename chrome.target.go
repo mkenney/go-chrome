@@ -347,17 +347,17 @@ func (Target) OnReceivedMessageFromTarget(
 }
 
 /*
-OnTargetCreated adds a handler to the Target.targetCreated event. Target.targetCreated fires when a
-possible inspection target is created.
+OnTargetCreated adds a handler to the Target.Created event. Target.Created fires when a possible
+inspection target is created.
 */
 func (Target) OnTargetCreated(
 	socket *Socket,
-	callback func(event *target.TargetCreatedEvent),
+	callback func(event *target.CreatedEvent),
 ) {
 	handler := protocol.NewEventHandler(
 		"Target.targetCreated",
 		func(name string, params []byte) {
-			event := &target.TargetCreatedEvent{}
+			event := &target.CreatedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
@@ -369,17 +369,17 @@ func (Target) OnTargetCreated(
 }
 
 /*
-OnTargetDestroyed adds a handler to the Target.targetDestroyed event. Target.targetDestroyed fires
-when a a target is destroyed.
+OnTargetDestroyed adds a handler to the Target.Destroyed event. Target.Destroyed fires when a target
+is destroyed.
 */
 func (Target) OnTargetDestroyed(
 	socket *Socket,
-	callback func(event *target.TargetDestroyedEvent),
+	callback func(event *target.DestroyedEvent),
 ) {
 	handler := protocol.NewEventHandler(
 		"Target.targetDestroyed",
 		func(name string, params []byte) {
-			event := &target.TargetDestroyedEvent{}
+			event := &target.DestroyedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
@@ -391,18 +391,18 @@ func (Target) OnTargetDestroyed(
 }
 
 /*
-OnTargetInfoChanged adds a handler to the Target.targetInfoChanged event. Target.targetInfoChanged
-fires when some information about a target has changed. This only happens between `targetCreated`
-and `targetDestroyed`.
+OnTargetInfoChanged adds a handler to the Target.InfoChanged event. Target.InfoChanged fires when
+some information about a target has changed. This only happens between `targetCreated` and
+`targetDestroyed`.
 */
 func (Target) OnTargetInfoChanged(
 	socket *Socket,
-	callback func(event *target.TargetInfoChangedEvent),
+	callback func(event *target.InfoChangedEvent),
 ) {
 	handler := protocol.NewEventHandler(
 		"Target.targetInfoChanged",
 		func(name string, params []byte) {
-			event := &target.TargetInfoChangedEvent{}
+			event := &target.InfoChangedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {

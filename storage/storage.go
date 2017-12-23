@@ -111,12 +111,12 @@ type IndexedDBListUpdatedEvent struct {
 }
 
 /*
-StorageType is an enum of possible storage types.
+Type is an enum of possible storage types.
 */
-type StorageType int
+type Type int
 
 const (
-	_appcache StorageType = iota
+	_appcache Type = iota
 	_cookies
 	_fileSystems
 	_indexeddb
@@ -129,7 +129,7 @@ const (
 	_other
 )
 
-func (a StorageType) String() string {
+func (a Type) String() string {
 	if a == 0 {
 		return "appcache"
 	}
@@ -171,7 +171,7 @@ UsageForType is usage for a storage type.
 */
 type UsageForType struct {
 	// Name of storage type.
-	StorageType StorageType `json:"storageType"`
+	Type Type `json:"storageType"`
 
 	// Storage usage (bytes).
 	Usage int `json:"usage"`

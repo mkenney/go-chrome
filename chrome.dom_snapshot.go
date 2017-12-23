@@ -3,7 +3,7 @@ package chrome
 import (
 	"encoding/json"
 
-	dom_snapshot "github.com/mkenney/go-chrome/dom_snapshot"
+	domSnapshot "github.com/mkenney/go-chrome/dom_snapshot"
 	"github.com/mkenney/go-chrome/protocol"
 )
 
@@ -20,13 +20,13 @@ computed style information for the nodes. Shadow DOM in the returned DOM tree is
 */
 func (DOMSnapshot) GetSnapshot(
 	socket *Socket,
-	params *dom_snapshot.GetSnapshotParams,
-) (dom_snapshot.GetSnapshotResult, error) {
+	params *domSnapshot.GetSnapshotParams,
+) (domSnapshot.GetSnapshotResult, error) {
 	command := &protocol.Command{
 		Method: "DOMSnapshot.getSnapshot",
 		Params: params,
 	}
-	result := dom_snapshot.GetSnapshotResult{}
+	result := domSnapshot.GetSnapshotResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {

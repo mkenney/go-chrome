@@ -18,13 +18,13 @@ EntryAddedEvent represents LayerTree.entryAdded event data.
 */
 type EntryAddedEvent struct {
 	// The entry.
-	Entry LogEntry `json:"entry"`
+	Entry Entry `json:"entry"`
 }
 
 /*
-LogEntry is a log entry.
+Entry is a log entry.
 */
-type LogEntry struct {
+type Entry struct {
 	// Log entry source. Allowed values: xml, javascript, network, storage, appcache, rendering,
 	// security, deprecation, worker, violation, intervention, recommendation, other.
 	Source string `json:"source"`

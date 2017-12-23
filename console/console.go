@@ -5,13 +5,13 @@ MessageAddedEvent represents Console.messageAdded event data.
 */
 type MessageAddedEvent struct {
 	// Console message that has been added.
-	Message ConsoleMessage `json:"message"`
+	Message Message `json:"message"`
 }
 
 /*
-ConsoleMessage represents a console message.
+Message represents a console message.
 */
-type ConsoleMessage struct {
+type Message struct {
 	// Message source. Allowed values: xml, javascript, network, console-api, storage, appcache,
 	// rendering, security, other, deprecation, worker.
 	Source string `json:"source"`

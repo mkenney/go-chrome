@@ -80,9 +80,9 @@ type DataCollectedEvent struct {
 }
 
 /*
-TracingCompleteEvent represents Overlay.tracingComplete event data.
+CompleteEvent represents Overlay.tracingComplete event data.
 */
-type TracingCompleteEvent struct {
+type CompleteEvent struct {
 	// Optional. A handle of the stream that holds resulting trace data.
 	Stream IO.StreamHandle `json:"stream,omitempty"`
 }

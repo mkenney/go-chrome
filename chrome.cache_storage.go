@@ -3,7 +3,7 @@ package chrome
 import (
 	"encoding/json"
 
-	cache_storage "github.com/mkenney/go-chrome/cache_storage"
+	cacheStorage "github.com/mkenney/go-chrome/cache_storage"
 	"github.com/mkenney/go-chrome/protocol"
 )
 
@@ -18,7 +18,7 @@ DeleteCache deletes a cache.
 */
 func (CacheStorage) DeleteCache(
 	socket *Socket,
-	params *cache_storage.DeleteCacheParams,
+	params *cacheStorage.DeleteCacheParams,
 ) error {
 	command := &protocol.Command{
 		Method: "CacheStorage.deleteCache",
@@ -33,7 +33,7 @@ DeleteEntry deletes a cache entry.
 */
 func (CacheStorage) DeleteEntry(
 	socket *Socket,
-	params *cache_storage.DeleteEntryParams,
+	params *cacheStorage.DeleteEntryParams,
 ) error {
 	command := &protocol.Command{
 		Method: "CacheStorage.deleteEntry",
@@ -48,13 +48,13 @@ RequestCacheNames requests cache names.
 */
 func (CacheStorage) RequestCacheNames(
 	socket *Socket,
-	params *cache_storage.RequestCacheNamesParams,
-) (cache_storage.RequestCacheNamesResult, error) {
+	params *cacheStorage.RequestCacheNamesParams,
+) (cacheStorage.RequestCacheNamesResult, error) {
 	command := &protocol.Command{
 		Method: "CacheStorage.requestCacheNames",
 		Params: params,
 	}
-	result := cache_storage.RequestCacheNamesResult{}
+	result := cacheStorage.RequestCacheNamesResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {
@@ -81,13 +81,13 @@ RequestCachedResponse fetches cache entry.
 */
 func (CacheStorage) RequestCachedResponse(
 	socket *Socket,
-	params *cache_storage.RequestCachedResponseParams,
-) (cache_storage.RequestCachedResponseResult, error) {
+	params *cacheStorage.RequestCachedResponseParams,
+) (cacheStorage.RequestCachedResponseResult, error) {
 	command := &protocol.Command{
 		Method: "CacheStorage.requestCachedResponse",
 		Params: params,
 	}
-	result := cache_storage.RequestCachedResponseResult{}
+	result := cacheStorage.RequestCachedResponseResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {
@@ -114,13 +114,13 @@ RequestEntries requests data from cache.
 */
 func (CacheStorage) RequestEntries(
 	socket *Socket,
-	params *cache_storage.RequestEntriesParams,
-) (cache_storage.RequestEntriesResult, error) {
+	params *cacheStorage.RequestEntriesParams,
+) (cacheStorage.RequestEntriesResult, error) {
 	command := &protocol.Command{
 		Method: "CacheStorage.requestEntries",
 		Params: params,
 	}
-	result := cache_storage.RequestEntriesResult{}
+	result := cacheStorage.RequestEntriesResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {

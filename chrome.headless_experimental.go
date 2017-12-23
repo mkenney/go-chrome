@@ -3,7 +3,7 @@ package chrome
 import (
 	"encoding/json"
 
-	headless_experimental "github.com/mkenney/go-chrome/headless_experimental"
+	headlessExperimental "github.com/mkenney/go-chrome/headless_experimental"
 	"github.com/mkenney/go-chrome/protocol"
 
 	log "github.com/Sirupsen/logrus"
@@ -22,13 +22,13 @@ BeginFrameControl.
 */
 func (HeadlessExperimental) BeginFrame(
 	socket *Socket,
-	params *headless_experimental.BeginFrameParams,
-) (headless_experimental.BeginFrameResult, error) {
+	params *headlessExperimental.BeginFrameParams,
+) (headlessExperimental.BeginFrameResult, error) {
 	command := &protocol.Command{
 		Method: "HeadlessExperimental.beginFrame",
 		Params: params,
 	}
-	result := headless_experimental.BeginFrameResult{}
+	result := headlessExperimental.BeginFrameResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {
@@ -83,12 +83,12 @@ BeginFrames.
 */
 func (HeadlessExperimental) OnNeedsBeginFramesChanged(
 	socket *Socket,
-	callback func(event *headless_experimental.NeedsBeginFramesChangedEvent),
+	callback func(event *headlessExperimental.NeedsBeginFramesChangedEvent),
 ) {
 	handler := protocol.NewEventHandler(
 		"HeadlessExperimental.needsBeginFramesChanged",
 		func(name string, params []byte) {
-			event := &headless_experimental.NeedsBeginFramesChangedEvent{}
+			event := &headlessExperimental.NeedsBeginFramesChangedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
@@ -108,12 +108,12 @@ screenshotting requests may fail.
 */
 func (HeadlessExperimental) OnMainFrameReadyForScreenshots(
 	socket *Socket,
-	callback func(event *headless_experimental.MainFrameReadyForScreenshotsEvent),
+	callback func(event *headlessExperimental.MainFrameReadyForScreenshotsEvent),
 ) {
 	handler := protocol.NewEventHandler(
 		"HeadlessExperimental.mainFrameReadyForScreenshots",
 		func(name string, params []byte) {
-			event := &headless_experimental.MainFrameReadyForScreenshotsEvent{}
+			event := &headlessExperimental.MainFrameReadyForScreenshotsEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {

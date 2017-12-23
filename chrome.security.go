@@ -94,14 +94,14 @@ func (Security) OnCertificateError(socket *Socket, callback func(event *security
 }
 
 /*
-OnSecurityStateChanged adds a handler to the Security.securityStateChanged event.
-Security.securityStateChanged fires when the security state of the page changed.
+OnSecurityStateChanged adds a handler to the Security.StateChanged event. Security.StateChanged
+fires when the security state of the page changed.
 */
-func (Security) OnSecurityStateChanged(socket *Socket, callback func(event *security.SecurityStateChangedEvent)) {
+func (Security) OnSecurityStateChanged(socket *Socket, callback func(event *security.StateChangedEvent)) {
 	handler := protocol.NewEventHandler(
 		"Security.securityStateChanged",
 		func(name string, params []byte) {
-			event := &security.SecurityStateChangedEvent{}
+			event := &security.StateChangedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {

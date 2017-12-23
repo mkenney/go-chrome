@@ -973,7 +973,7 @@ type Response struct {
 	Protocol string `json:"protocol,omitempty"`
 
 	// Security state of the request resource.
-	SecurityState Security.SecurityState `json:"securityState"`
+	SecurityState Security.State `json:"securityState"`
 
 	// Optional. Security details for the request.
 	//

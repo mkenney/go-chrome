@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 
 	"github.com/mkenney/go-chrome/protocol"
-	system_info "github.com/mkenney/go-chrome/system_info"
+	systemInfo "github.com/mkenney/go-chrome/system_info"
 )
 
 /*
@@ -18,11 +18,11 @@ GetInfo returns information about the system.
 */
 func (SystemInfo) GetInfo(
 	socket *Socket,
-) (system_info.GetInfoResult, error) {
+) (systemInfo.GetInfoResult, error) {
 	command := &protocol.Command{
 		Method: "SystemInfo.getInfo",
 	}
-	result := system_info.GetInfoResult{}
+	result := systemInfo.GetInfoResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {

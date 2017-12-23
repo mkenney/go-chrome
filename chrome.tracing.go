@@ -166,18 +166,18 @@ func (Tracing) OnDataCollected(
 }
 
 /*
-OnTracingComplete adds a handler to the Tracing.tracingComplete event. Tracing.tracingComplete fires
-tracing is stopped and there is no trace buffers pending flush, all data were delivered via
-dataCollected events.
+OnTracingComplete adds a handler to the Tracing.Complete event. Tracing.Complete fires when tracing
+is stopped and there is no trace buffers pending flush, all data were delivered via DataCollected
+events.
 */
 func (Tracing) OnTracingComplete(
 	socket *Socket,
-	callback func(event *tracing.TracingCompleteEvent),
+	callback func(event *tracing.CompleteEvent),
 ) {
 	handler := protocol.NewEventHandler(
 		"Tracing.tracingComplete",
 		func(name string, params []byte) {
-			event := &tracing.TracingCompleteEvent{}
+			event := &tracing.CompleteEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {

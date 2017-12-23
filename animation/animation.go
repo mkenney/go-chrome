@@ -97,25 +97,25 @@ type SetTimingParams struct {
 }
 
 /*
-AnimationCanceledEvent represents Animation.animationCanceled event data.
+CanceledEvent represents Animation.animationCanceled event data.
 */
-type AnimationCanceledEvent struct {
+type CanceledEvent struct {
 	// ID of the animation that was cancelled.
 	ID string `json:"id"`
 }
 
 /*
-AnimationCreatedEvent represents Animation.animationCreated event data.
+CreatedEvent represents Animation.animationCreated event data.
 */
-type AnimationCreatedEvent struct {
+type CreatedEvent struct {
 	// ID of the animation that was created.
 	ID string `json:"id"`
 }
 
 /*
-AnimationStartedEvent represents Animation.animationStarted event data.
+StartedEvent represents Animation.animationStarted event data.
 */
-type AnimationStartedEvent struct {
+type StartedEvent struct {
 	// Animation that was started.
 	Animation Animation `json:"animation"`
 }
@@ -160,9 +160,9 @@ type Animation struct {
 }
 
 /*
-AnimationEffect instance
+Effect instance
 */
-type AnimationEffect struct {
+type Effect struct {
 	// AnimationEffect's delay.
 	Delay float64 `json:"delay"`
 
