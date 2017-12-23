@@ -1,7 +1,7 @@
 package Audits
 
 import (
-	Network "github.com/mkenney/go-chrome/network"
+	"github.com/mkenney/go-chrome/network"
 )
 
 /*

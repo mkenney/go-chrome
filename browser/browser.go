@@ -3,7 +3,7 @@ package Browser
 import (
 	"fmt"
 
-	Target "github.com/mkenney/go-chrome/target"
+	"github.com/mkenney/go-chrome/target"
 )
 
 /*

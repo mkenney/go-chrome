@@ -1,8 +1,8 @@
 package DOM
 
 import (
-	Page "github.com/mkenney/go-chrome/page"
-	Runtime "github.com/mkenney/go-chrome/runtime"
+	"github.com/mkenney/go-chrome/page"
+	"github.com/mkenney/go-chrome/runtime"
 )
 
 /*

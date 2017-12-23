@@ -3,9 +3,9 @@ package Network
 import (
 	"fmt"
 
-	Debugger "github.com/mkenney/go-chrome/debugger"
-	Page "github.com/mkenney/go-chrome/page"
-	Security "github.com/mkenney/go-chrome/security"
+	"github.com/mkenney/go-chrome/debugger"
+	"github.com/mkenney/go-chrome/page"
+	"github.com/mkenney/go-chrome/security"
 )
 
 /*

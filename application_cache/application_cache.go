@@ -1,7 +1,7 @@
 package ApplicationCache
 
 import (
-	Page "github.com/mkenney/go-chrome/page"
+	"github.com/mkenney/go-chrome/page"
 )
 
 /*

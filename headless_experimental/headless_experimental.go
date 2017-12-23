@@ -1,7 +1,7 @@
 package HeadlessExperimental
 
 import (
-	Runtime "github.com/mkenney/go-chrome/runtime"
+	"github.com/mkenney/go-chrome/runtime"
 )
 
 /*

@@ -1,8 +1,8 @@
 package DOMSnapshot
 
 import (
-	DOM "github.com/mkenney/go-chrome/dom"
-	Page "github.com/mkenney/go-chrome/page"
+	"github.com/mkenney/go-chrome/dom"
+	"github.com/mkenney/go-chrome/page"
 )
 
 /*

@@ -3,8 +3,8 @@ package DOMDebugger
 import (
 	"fmt"
 
-	DOM "github.com/mkenney/go-chrome/dom"
-	Runtime "github.com/mkenney/go-chrome/runtime"
+	"github.com/mkenney/go-chrome/dom"
+	"github.com/mkenney/go-chrome/runtime"
 )
 
 /*
