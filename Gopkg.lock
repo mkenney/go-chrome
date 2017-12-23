@@ -15,52 +15,6 @@
 
 [[projects]]
   branch = "master"
-  name = "github.com/mkenney/go-chrome"
-  packages = [
-    "accessibility",
-    "animation",
-    "application_cache",
-    "audits",
-    "browser",
-    "cache_storage",
-    "console",
-    "css",
-    "database",
-    "debugger",
-    "device_orientation",
-    "dom",
-    "dom_debugger",
-    "dom_snapshot",
-    "dom_storage",
-    "emulation",
-    "headless_experimental",
-    "heap_profiler",
-    "indexed_db",
-    "input",
-    "io",
-    "layer_tree",
-    "log",
-    "memory",
-    "network",
-    "overlay",
-    "page",
-    "performance",
-    "profiler",
-    "protocol",
-    "runtime",
-    "schema",
-    "security",
-    "service_worker",
-    "storage",
-    "system_info",
-    "target",
-    "tethering",
-    "tracing"
-  ]
-  revision = "4959afbc11865092f06972691da81d5bc0f7ade5"
-
-[[projects]]
-  branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
   revision = "d585fd2cc9195196078f516b69daff6744ef5e84"
@@ -77,6 +31,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "28ec383968855313ca73360341674a9c0ec2fa6c82c22d97e9ef3bd155858546"
+  inputs-digest = "8a0a48b5a363e539a3be264876546e998f8719c2b7243992512c67552280859f"
   solver-name = "gps-cdcl"
   solver-version = 1

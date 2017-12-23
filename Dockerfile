@@ -1,3 +1,8 @@
+#
+# Test runner environment that includes an installation of the Chrome 
+# headless browser
+#
+
 FROM golang:1.9
 
 # System setup
