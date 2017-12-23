@@ -8,6 +8,8 @@ import (
 
 /*
 GetVersionResult represents the result of calls to Browser.getVersion.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getVersion
 */
 type GetVersionResult struct {
 	// Protocol version.
@@ -28,6 +30,8 @@ type GetVersionResult struct {
 
 /*
 GetWindowBoundsParams represents Browser.getWindowBounds parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindowBounds
 */
 type GetWindowBoundsParams struct {
 	// Browser window id.
@@ -36,6 +40,8 @@ type GetWindowBoundsParams struct {
 
 /*
 GetWindowBoundsResult represents the result of calls to Browser.getWindowBounds.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindowBounds
 */
 type GetWindowBoundsResult struct {
 	// Bounds information of the window. When window state is 'minimized', the restored window
@@ -45,6 +51,8 @@ type GetWindowBoundsResult struct {
 
 /*
 GetWindowForTargetParams represents Browser.getWindowForTarget parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindowForTarget
 */
 type GetWindowForTargetParams struct {
 	// Devtools agent host id.
@@ -53,6 +61,8 @@ type GetWindowForTargetParams struct {
 
 /*
 GetWindowForTargetResult represents the result of calls to Browser.getWindowForTarget.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindowForTarget
 */
 type GetWindowForTargetResult struct {
 	// Browser window ID.
@@ -65,6 +75,8 @@ type GetWindowForTargetResult struct {
 
 /*
 SetWindowBoundsParams represents Browser.setWindowBounds parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-setWindowBounds
 */
 type SetWindowBoundsParams struct {
 	// Browser window id.
@@ -77,6 +89,8 @@ type SetWindowBoundsParams struct {
 
 /*
 SetWindowBoundsResult represents the result of calls to Browser.setWindowBounds.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-setWindowBounds
 */
 type SetWindowBoundsResult struct {
 	// Browser window ID.
@@ -89,39 +103,22 @@ type SetWindowBoundsResult struct {
 
 /*
 WindowID - EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Browser/#type-WindowID
 */
 type WindowID int
 
 /*
 WindowState holds the state of the browser window. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Browser/#type-WindowState
 */
-type WindowState int
-
-const (
-	_normal WindowState = iota
-	_minimized
-	_maximized
-	_fullscreen
-)
-
-func (a WindowState) String() string {
-	if a == 0 {
-		return "normal"
-	}
-	if a == 1 {
-		return "minimized"
-	}
-	if a == 2 {
-		return "maximized"
-	}
-	if a == 3 {
-		return "fullscreen"
-	}
-	panic(fmt.Errorf("Invalid WindowState %d", a))
-}
+type WindowState string
 
 /*
 Bounds holds the browser window bounds information. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Browser/#type-Bounds
 */
 type Bounds struct {
 	// Optional. The offset from the left edge of the screen to the window in pixels.

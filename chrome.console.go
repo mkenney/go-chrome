@@ -17,6 +17,8 @@ type Console struct{}
 
 /*
 ClearMessages does nothing.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Console/#method-clearMessages
 */
 func (Console) ClearMessages(
 	socket *Socket,
@@ -31,6 +33,8 @@ func (Console) ClearMessages(
 /*
 Disable disables console domain, prevents further console messages from being reported to the
 client.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Console/#method-disable
 */
 func (Console) Disable(
 	socket *Socket,
@@ -45,6 +49,8 @@ func (Console) Disable(
 /*
 Enable enables console domain, sends the messages collected so far to the client by means of the
 messageAdded notification.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Console/#method-enable
 */
 func (Console) Enable(
 	socket *Socket,
@@ -59,6 +65,8 @@ func (Console) Enable(
 /*
 OnMessageAdded adds a handler to the Console.messageAdded event. Console.messageAdded fires
 whenever an active document stylesheet is removed.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Console/#event-messageAdded
 */
 func (Console) OnMessageAdded(
 	socket *Socket,

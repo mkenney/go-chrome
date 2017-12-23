@@ -6,6 +6,8 @@ import (
 
 /*
 GetCurrentTimeParams represents Animation.getCurrentTime parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-getCurrentTime
 */
 type GetCurrentTimeParams struct {
 	// ID of animation.
@@ -14,6 +16,8 @@ type GetCurrentTimeParams struct {
 
 /*
 GetCurrentTimeResult represents the result of calls to Animation.getCurrentTime.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-getCurrentTime
 */
 type GetCurrentTimeResult struct {
 	// ID of animation.
@@ -22,6 +26,8 @@ type GetCurrentTimeResult struct {
 
 /*
 GetPlaybackRateResult represents the result of calls to Animation.getPlaybackRate.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-getPlaybackRate
 */
 type GetPlaybackRateResult struct {
 	// Playback rate for animations on page.
@@ -30,6 +36,8 @@ type GetPlaybackRateResult struct {
 
 /*
 ReleaseAnimationsParams represents Animation.releaseAnimations parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-releaseAnimations
 */
 type ReleaseAnimationsParams struct {
 	// List of animation ids to seek.
@@ -38,6 +46,8 @@ type ReleaseAnimationsParams struct {
 
 /*
 ResolveAnimationParams represents Animation.resolveAnimation parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-resolveAnimation
 */
 type ResolveAnimationParams struct {
 	// Animation ID.
@@ -46,6 +56,8 @@ type ResolveAnimationParams struct {
 
 /*
 ResolveAnimationResult represents the result of calls to Animation.resolveAnimation.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-resolveAnimation
 */
 type ResolveAnimationResult struct {
 	// Corresponding remote object.
@@ -54,6 +66,8 @@ type ResolveAnimationResult struct {
 
 /*
 SeekAnimationsParams represents Animation.seekAnimations parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-seekAnimations
 */
 type SeekAnimationsParams struct {
 	// List of animation ids to seek.
@@ -64,7 +78,9 @@ type SeekAnimationsParams struct {
 }
 
 /*
-SetPausedParams represents Animation.setPaused parameters.int16
+SetPausedParams represents Animation.setPaused parameters
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-setPaused
 */
 type SetPausedParams struct {
 	// Animations to set the pause state of.
@@ -76,6 +92,8 @@ type SetPausedParams struct {
 
 /*
 SetPlaybackRateParams represents Animation.setPlaybackRate parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-setPlaybackRate
 */
 type SetPlaybackRateParams struct {
 	// Playback rate for animations on page.
@@ -84,6 +102,8 @@ type SetPlaybackRateParams struct {
 
 /*
 SetTimingParams represents Animation.setTiming parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-setTiming
 */
 type SetTimingParams struct {
 	// Animation ID.
@@ -98,6 +118,8 @@ type SetTimingParams struct {
 
 /*
 CanceledEvent represents Animation.animationCanceled event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#event-animationCanceled
 */
 type CanceledEvent struct {
 	// ID of the animation that was cancelled.
@@ -106,6 +128,8 @@ type CanceledEvent struct {
 
 /*
 CreatedEvent represents Animation.animationCreated event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#event-animationCreated
 */
 type CreatedEvent struct {
 	// ID of the animation that was created.
@@ -114,6 +138,8 @@ type CreatedEvent struct {
 
 /*
 StartedEvent represents Animation.animationStarted event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#event-animationStarted
 */
 type StartedEvent struct {
 	// Animation that was started.
@@ -122,6 +148,8 @@ type StartedEvent struct {
 
 /*
 Animation instance.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#type-Animation
 */
 type Animation struct {
 	// Animation's id.
@@ -161,6 +189,8 @@ type Animation struct {
 
 /*
 Effect instance
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#type-AnimationEffect
 */
 type Effect struct {
 	// AnimationEffect's delay.
@@ -202,6 +232,8 @@ type Effect struct {
 
 /*
 KeyframesRule is the keyframes rule
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#type-KeyframesRule
 */
 type KeyframesRule struct {
 	// Optional. CSS keyframed animation's name.
@@ -213,6 +245,8 @@ type KeyframesRule struct {
 
 /*
 KeyframeStyle is the keyframe Style
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#type-KeyframeStyle
 */
 type KeyframeStyle struct {
 	// Keyframe's time offset.

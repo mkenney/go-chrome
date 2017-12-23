@@ -15,6 +15,8 @@ type CacheStorage struct{}
 
 /*
 DeleteCache deletes a cache.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-deleteCache
 */
 func (CacheStorage) DeleteCache(
 	socket *Socket,
@@ -30,6 +32,8 @@ func (CacheStorage) DeleteCache(
 
 /*
 DeleteEntry deletes a cache entry.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-deleteEntry
 */
 func (CacheStorage) DeleteEntry(
 	socket *Socket,
@@ -45,6 +49,8 @@ func (CacheStorage) DeleteEntry(
 
 /*
 RequestCacheNames requests cache names.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requestCacheNames
 */
 func (CacheStorage) RequestCacheNames(
 	socket *Socket,
@@ -78,6 +84,8 @@ func (CacheStorage) RequestCacheNames(
 
 /*
 RequestCachedResponse fetches cache entry.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requestCachedResponse
 */
 func (CacheStorage) RequestCachedResponse(
 	socket *Socket,
@@ -111,6 +119,8 @@ func (CacheStorage) RequestCachedResponse(
 
 /*
 RequestEntries requests data from cache.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requestEntries
 */
 func (CacheStorage) RequestEntries(
 	socket *Socket,

@@ -9,6 +9,8 @@ import (
 
 /*
 AddRuleParams represents CSS.addRule parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-addRule
 */
 type AddRuleParams struct {
 	// The css style sheet identifier where a new rule should be inserted.
@@ -23,6 +25,8 @@ type AddRuleParams struct {
 
 /*
 AddRuleResult represents the result of calls to CSS.addRule.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-addRule
 */
 type AddRuleResult struct {
 	// The newly created rule.
@@ -31,6 +35,8 @@ type AddRuleResult struct {
 
 /*
 CollectClassNamesParams represents CSS.collectClassNames parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-collectClassNames
 */
 type CollectClassNamesParams struct {
 	StyleSheetID StyleSheetID `json:"styleSheetId"`
@@ -38,6 +44,8 @@ type CollectClassNamesParams struct {
 
 /*
 CollectClassNamesResult represents the result of calls to CSS.collectClassNames.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-collectClassNames
 */
 type CollectClassNamesResult struct {
 	// Class name list.
@@ -46,6 +54,8 @@ type CollectClassNamesResult struct {
 
 /*
 CreateStyleSheetParams represents CSS.createStyleSheet parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-createStyleSheet
 */
 type CreateStyleSheetParams struct {
 	FrameID Page.FrameID `json:"frameId"`
@@ -53,6 +63,8 @@ type CreateStyleSheetParams struct {
 
 /*
 CreateStyleSheetResult represents the result of calls to CSS.createStyleSheet.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-createStyleSheet
 */
 type CreateStyleSheetResult struct {
 	// Identifier of the created "via-inspector" stylesheet.
@@ -61,6 +73,8 @@ type CreateStyleSheetResult struct {
 
 /*
 ForcePseudoStateParams represents CSS.forcePseudoState parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-forcePseudoState
 */
 type ForcePseudoStateParams struct {
 	// The element ID for which to force the pseudo state.
@@ -73,6 +87,8 @@ type ForcePseudoStateParams struct {
 
 /*
 GetBackgroundColorsParams represents CSS.getBackgroundColors parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getBackgroundColors
 */
 type GetBackgroundColorsParams struct {
 	// Id of the node to get background colors for.
@@ -81,6 +97,8 @@ type GetBackgroundColorsParams struct {
 
 /*
 GetBackgroundColorsResult represents the result of calls to CSS.getBackgroundColors.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getBackgroundColors
 */
 type GetBackgroundColorsResult struct {
 	// Optional. The range of background colors behind this element, if it contains any visible
@@ -104,6 +122,8 @@ type GetBackgroundColorsResult struct {
 
 /*
 GetComputedStyleForNodeParams represents CSS.getComputedStyleForNode parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getComputedStyleForNode
 */
 type GetComputedStyleForNodeParams struct {
 	NodeID DOM.NodeID `json:"nodeId"`
@@ -111,6 +131,8 @@ type GetComputedStyleForNodeParams struct {
 
 /*
 GetComputedStyleForNodeResult represents the result of calls to CSS.getComputedStyleForNode.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getComputedStyleForNode
 */
 type GetComputedStyleForNodeResult struct {
 	// Computed style for the specified DOM node.
@@ -119,6 +141,8 @@ type GetComputedStyleForNodeResult struct {
 
 /*
 GetInlineStylesForNodeParams represents CSS.getInlineStylesForNode parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getInlineStylesForNode
 */
 type GetInlineStylesForNodeParams struct {
 	NodeID DOM.NodeID `json:"nodeId"`
@@ -126,6 +150,8 @@ type GetInlineStylesForNodeParams struct {
 
 /*
 GetInlineStylesForNodeResult represents the result of calls to CSS.getInlineStylesForNode.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getInlineStylesForNode
 */
 type GetInlineStylesForNodeResult struct {
 	// Optional. Inline style for the specified DOM node.
@@ -137,6 +163,8 @@ type GetInlineStylesForNodeResult struct {
 
 /*
 GetMatchedStylesForNodeParams represents CSS.getMatchedStylesForNode parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getMatchedStylesForNode
 */
 type GetMatchedStylesForNodeParams struct {
 	NodeID DOM.NodeID `json:"nodeId"`
@@ -144,6 +172,8 @@ type GetMatchedStylesForNodeParams struct {
 
 /*
 GetMatchedStylesForNodeResult represents the result of calls to CSS.getMatchedStylesForNode.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getMatchedStylesForNode
 */
 type GetMatchedStylesForNodeResult struct {
 	// Inline style for the specified DOM node.
@@ -166,14 +196,9 @@ type GetMatchedStylesForNodeResult struct {
 }
 
 /*
-GetMediaQueriesParams represents CSS.getMediaQueries parameters.
-*/
-type GetMediaQueriesParams struct {
-	Medias []*Media `json:"medias"`
-}
-
-/*
 GetMediaQueriesResult represents the result of calls to CSS.getMediaQueries.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getMediaQueries
 */
 type GetMediaQueriesResult struct {
 	Medias []Media `json:"medias"`
@@ -181,6 +206,8 @@ type GetMediaQueriesResult struct {
 
 /*
 GetPlatformFontsForNodeParams represents CSS.getPlatformFontsForNode parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getPlatformFontsForNode
 */
 type GetPlatformFontsForNodeParams struct {
 	NodeID DOM.NodeID `json:"nodeId"`
@@ -188,6 +215,8 @@ type GetPlatformFontsForNodeParams struct {
 
 /*
 GetPlatformFontsForNodeResult represents the result of calls to CSS.getPlatformFontsForNode.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getPlatformFontsForNode
 */
 type GetPlatformFontsForNodeResult struct {
 	// Usage statistics for every employed platform font.
@@ -196,6 +225,8 @@ type GetPlatformFontsForNodeResult struct {
 
 /*
 GetStyleSheetTextParams represents CSS.getStyleSheetText parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getStyleSheetText
 */
 type GetStyleSheetTextParams struct {
 	StyleSheetID StyleSheetID `json:"styleSheetId"`
@@ -203,6 +234,8 @@ type GetStyleSheetTextParams struct {
 
 /*
 GetStyleSheetTextResult represents the result of calls to CSS.getStyleSheetText.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getStyleSheetText
 */
 type GetStyleSheetTextResult struct {
 	// The stylesheet text.
@@ -211,6 +244,8 @@ type GetStyleSheetTextResult struct {
 
 /*
 SetEffectivePropertyValueForNodeParams represents CSS.setEffectivePropertyValueForNode parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setEffectivePropertyValueForNode
 */
 type SetEffectivePropertyValueForNodeParams struct {
 	// The element id for which to set property.
@@ -221,6 +256,8 @@ type SetEffectivePropertyValueForNodeParams struct {
 
 /*
 SetKeyframeKeyParams represents CSS.setKeyframeKey parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setKeyframeKey
 */
 type SetKeyframeKeyParams struct {
 	StyleSheetID StyleSheetID `json:"styleSheetId"`
@@ -230,6 +267,8 @@ type SetKeyframeKeyParams struct {
 
 /*
 SetKeyframeKeyResult represents the result of calls to CSS.setKeyframeKey.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setKeyframeKey
 */
 type SetKeyframeKeyResult struct {
 	// The resulting key text after modification.
@@ -238,6 +277,8 @@ type SetKeyframeKeyResult struct {
 
 /*
 SetMediaTextParams represents CSS.setMediaText parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setMediaText
 */
 type SetMediaTextParams struct {
 	StyleSheetID StyleSheetID `json:"styleSheetId"`
@@ -247,6 +288,8 @@ type SetMediaTextParams struct {
 
 /*
 SetMediaTextResult represents the result of calls to CSS.setMediaText.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setMediaText
 */
 type SetMediaTextResult struct {
 	// The resulting CSS media rule after modification.
@@ -255,6 +298,8 @@ type SetMediaTextResult struct {
 
 /*
 SetRuleSelectorParams represents CSS.setRuleSelector parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setRuleSelector
 */
 type SetRuleSelectorParams struct {
 	StyleSheetID StyleSheetID `json:"styleSheetId"`
@@ -264,6 +309,8 @@ type SetRuleSelectorParams struct {
 
 /*
 SetRuleSelectorResult represents the result of calls to CSS.setRuleSelector.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setRuleSelector
 */
 type SetRuleSelectorResult struct {
 	// The resulting selector list after modification.
@@ -272,6 +319,8 @@ type SetRuleSelectorResult struct {
 
 /*
 SetStyleSheetTextParams represents CSS.setStyleSheetText parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setStyleSheetText
 */
 type SetStyleSheetTextParams struct {
 	StyleSheetID StyleSheetID `json:"styleSheetId"`
@@ -280,6 +329,8 @@ type SetStyleSheetTextParams struct {
 
 /*
 SetStyleSheetTextResult represents the result of calls to CSS.setStyleSheetText.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setStyleSheetText
 */
 type SetStyleSheetTextResult struct {
 	// URL of source map associated with script (if any).
@@ -288,6 +339,8 @@ type SetStyleSheetTextResult struct {
 
 /*
 SetStyleTextsParams represents CSS.setStyleTexts parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setStyleTexts
 */
 type SetStyleTextsParams struct {
 	Edits []*StyleDeclarationEdit `json:"edits"`
@@ -295,6 +348,8 @@ type SetStyleTextsParams struct {
 
 /*
 SetStyleTextsResult represents the result of calls to CSS.setStyleTexts.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setStyleTexts
 */
 type SetStyleTextsResult struct {
 	// The resulting styles after modification.
@@ -303,6 +358,8 @@ type SetStyleTextsResult struct {
 
 /*
 StopRuleUsageTrackingResult represents the result of calls to CSS.stopRuleUsageTracking.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-stopRuleUsageTracking
 */
 type StopRuleUsageTrackingResult struct {
 	RuleUsage []RuleUsage `json:"ruleUsage"`
@@ -310,6 +367,8 @@ type StopRuleUsageTrackingResult struct {
 
 /*
 TakeCoverageDeltaResult represents the result of calls to CSS.takeCoverageDelta.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-takeCoverageDelta
 */
 type TakeCoverageDeltaResult struct {
 	Coverage []RuleUsage `json:"coverage"`
@@ -317,16 +376,22 @@ type TakeCoverageDeltaResult struct {
 
 /*
 FontsUpdatedEvent represents CSS.fontsUpdated event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#event-fontsUpdated
 */
 type FontsUpdatedEvent struct{}
 
 /*
 MediaQueryResultChangedEvent represents CSS.mediaQueryResultChanged event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#event-mediaQueryResultChanged
 */
 type MediaQueryResultChangedEvent struct{}
 
 /*
 StyleSheetAddedEvent represents CSS.styleSheetAdded event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#event-styleSheetAdded
 */
 type StyleSheetAddedEvent struct {
 	// Added stylesheet metainfo.
@@ -335,6 +400,8 @@ type StyleSheetAddedEvent struct {
 
 /*
 StyleSheetChangedEvent represents CSS.styleSheetChanged event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#event-styleSheetChanged
 */
 type StyleSheetChangedEvent struct {
 	// Identifier of the changed stylesheet.
@@ -343,6 +410,8 @@ type StyleSheetChangedEvent struct {
 
 /*
 StyleSheetRemovedEvent represents CSS.styleSheetRemoved event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#event-styleSheetRemoved
 */
 type StyleSheetRemovedEvent struct {
 	// Identifier of the removed stylesheet.
@@ -351,6 +420,8 @@ type StyleSheetRemovedEvent struct {
 
 /*
 StyleSheetID is the ID of a stylesheet
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-StyleSheetId
 */
 type StyleSheetID string
 
@@ -361,34 +432,15 @@ StyleSheetOrigin is an enum defining:
 	- "inspector" for stylesheets created by the inspector (i.e. those holding the "via inspector"
 	  rules)
 	- "regular" for regular stylesheets.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-StyleSheetOrigin
 */
-type StyleSheetOrigin int
-
-const (
-	_injected StyleSheetOrigin = iota
-	_userAgent
-	_inspector
-	_regular
-)
-
-func (a StyleSheetOrigin) String() string {
-	if a == 0 {
-		return "injected"
-	}
-	if a == 1 {
-		return "user-agent"
-	}
-	if a == 2 {
-		return "inspector"
-	}
-	if a == 3 {
-		return "regular"
-	}
-	panic(fmt.Errorf("Invalid StyleSheetOrigin %d", a))
-}
+type StyleSheetOrigin string
 
 /*
 PseudoElementMatches is a CSS rule collection for a single pseudo style.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-PseudoElementMatches
 */
 type PseudoElementMatches struct {
 	// Pseudo element type.
@@ -400,6 +452,8 @@ type PseudoElementMatches struct {
 
 /*
 InheritedStyleEntry is an inherited CSS rule collection from ancestor node.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-InheritedStyleEntry
 */
 type InheritedStyleEntry struct {
 	// Optional. The ancestor node's inline style, if any, in the style inheritance chain.
@@ -411,6 +465,8 @@ type InheritedStyleEntry struct {
 
 /*
 RuleMatch is match data for a CSS rule.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-RuleMatch
 */
 type RuleMatch struct {
 	// CSS rule in the match.
@@ -422,6 +478,8 @@ type RuleMatch struct {
 
 /*
 Value represents data for a simple selector (these are delimited by commas in a selector list).
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-Value
 */
 type Value struct {
 	// Value text.
@@ -433,6 +491,8 @@ type Value struct {
 
 /*
 SelectorList represents selector list data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-SelectorList
 */
 type SelectorList struct {
 	// Selectors in the list.
@@ -444,6 +504,8 @@ type SelectorList struct {
 
 /*
 StyleSheetHeader holds CSS stylesheet metainformation.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-CSSStyleSheetHeader
 */
 type StyleSheetHeader struct {
 	// The stylesheet identifier.
@@ -489,6 +551,8 @@ type StyleSheetHeader struct {
 
 /*
 Rule is a CSS rule representation.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-CSSRule
 */
 type Rule struct {
 	// Optional. The css style sheet identifier (absent for user agent stylesheet and user-specified
@@ -511,6 +575,8 @@ type Rule struct {
 
 /*
 RuleUsage holds CSS coverage information.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-RuleUsage
 */
 type RuleUsage struct {
 	// The css style sheet identifier (absent for user agent stylesheet and user-specified
@@ -529,6 +595,8 @@ type RuleUsage struct {
 
 /*
 SourceRange is a text range within a resource. All numbers are zero-based.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-SourceRange
 */
 type SourceRange struct {
 	// Start line of range.
@@ -546,6 +614,8 @@ type SourceRange struct {
 
 /*
 ShorthandEntry holds a CSS shorthand entry
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-ShorthandEntry
 */
 type ShorthandEntry struct {
 	// Shorthand name.
@@ -560,6 +630,8 @@ type ShorthandEntry struct {
 
 /*
 ComputedStyleProperty holds a computed style property
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-CSSComputedStyleProperty
 */
 type ComputedStyleProperty struct {
 	// Computed style property name.
@@ -571,6 +643,8 @@ type ComputedStyleProperty struct {
 
 /*
 Style is a CSS style representation.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-CSSStyle
 */
 type Style struct {
 	// Optional. The css style sheet identifier (absent for user agent stylesheet and user-specified
@@ -592,6 +666,8 @@ type Style struct {
 
 /*
 Property holds CSS property declaration data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-CSSProperty
 */
 type Property struct {
 	// The property name.
@@ -623,6 +699,8 @@ type Property struct {
 
 /*
 Media holds a CSS media rule descriptor.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-CSSMedia
 */
 type Media struct {
 	// Media query text.
@@ -652,6 +730,8 @@ type Media struct {
 
 /*
 MediaQuery is a media query descriptor.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-MediaQuery
 */
 type MediaQuery struct {
 	// Array of media query expressions.
@@ -663,6 +743,8 @@ type MediaQuery struct {
 
 /*
 MediaQueryExpression is a media query expression descriptor.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-MediaQueryExpression
 */
 type MediaQueryExpression struct {
 	// Media query expression value.
@@ -683,6 +765,8 @@ type MediaQueryExpression struct {
 
 /*
 PlatformFontUsage holds information about the amount of glyphs that were rendered with given font.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-PlatformFontUsage
 */
 type PlatformFontUsage struct {
 	// Font's family name reported by platform.
@@ -697,6 +781,8 @@ type PlatformFontUsage struct {
 
 /*
 KeyframesRule is a CSS keyframes rule representation.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-CSSKeyframesRule
 */
 type KeyframesRule struct {
 	// Animation name.
@@ -708,6 +794,8 @@ type KeyframesRule struct {
 
 /*
 KeyframeRule is a CSS keyframe rule representation.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-CSSKeyframeRule
 */
 type KeyframeRule struct {
 	// Optional. The css style sheet identifier (absent for user agent stylesheet and user-specified
@@ -726,6 +814,8 @@ type KeyframeRule struct {
 
 /*
 StyleDeclarationEdit is a descriptor of operation to mutate style declaration text.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-StyleDeclarationEdit
 */
 type StyleDeclarationEdit struct {
 	// The css style sheet identifier.

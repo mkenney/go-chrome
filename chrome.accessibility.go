@@ -16,6 +16,8 @@ type Accessibility struct{}
 /*
 GetPartialAXTree fetches the accessibility node and partial accessibility tree for this DOM node, if
 it exists.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/#method-getPartialAXTree
 */
 func (Accessibility) GetPartialAXTree(
 	socket *Socket,

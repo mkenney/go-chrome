@@ -6,6 +6,8 @@ import (
 
 /*
 GetEncodedResponseParams represents Audits.getEncodedResponse parameters
+
+https://chromedevtools.github.io/devtools-protocol/tot/Audits/#method-getEncodedResponse
 */
 type GetEncodedResponseParams struct {
 	// Identifier of the network request to get content for.
@@ -23,6 +25,8 @@ type GetEncodedResponseParams struct {
 
 /*
 GetEncodedResponseResult represents the result of calls to Audits.getEncodedResponse.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Audits/#method-getEncodedResponse
 */
 type GetEncodedResponseResult struct {
 	// Optional. The encoded body as a base64 string. Omitted if sizeOnly is true.

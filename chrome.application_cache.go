@@ -17,6 +17,8 @@ type ApplicationCache struct{}
 
 /*
 Enable enables application cache domain notifications.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-enable
 */
 func (ApplicationCache) Enable(
 	socket *Socket,
@@ -29,21 +31,10 @@ func (ApplicationCache) Enable(
 }
 
 /*
-Disable disables application cache domain notifications.
-*/
-func (ApplicationCache) Disable(
-	socket *Socket,
-) error {
-	command := &protocol.Command{
-		Method: "ApplicationCache.disable",
-	}
-	socket.SendCommand(command)
-	return command.Err
-}
-
-/*
 GetApplicationCacheForFrame returns relevant application cache data for the document
 in given frame.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getApplicationCacheForFrame
 */
 func (ApplicationCache) GetApplicationCacheForFrame(
 	socket *Socket,
@@ -78,6 +69,8 @@ func (ApplicationCache) GetApplicationCacheForFrame(
 /*
 GetFramesWithManifests returns array of frame identifiers with manifest urls for each frame
 containing a document associated with some application cache.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getFramesWithManifests
 */
 func (ApplicationCache) GetFramesWithManifests(
 	socket *Socket,
@@ -109,6 +102,8 @@ func (ApplicationCache) GetFramesWithManifests(
 
 /*
 GetManifestForFrame returns manifest URL for document in the given frame.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getManifestForFrame
 */
 func (ApplicationCache) GetManifestForFrame(
 	socket *Socket,
@@ -142,6 +137,8 @@ func (ApplicationCache) GetManifestForFrame(
 
 /*
 OnApplicationCacheStatusUpdated adds a handler to the ApplicationCache.StatusUpdated event.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#event-applicationCacheStatusUpdated
 */
 func (ApplicationCache) OnApplicationCacheStatusUpdated(
 	socket *Socket,
@@ -149,6 +146,29 @@ func (ApplicationCache) OnApplicationCacheStatusUpdated(
 ) {
 	handler := protocol.NewEventHandler(
 		"ApplicationCache.applicationCacheStatusUpdated",
+		func(name string, params []byte) {
+			event := &applicationCache.StatusUpdatedEvent{}
+			if err := json.Unmarshal(params, event); err != nil {
+				log.Error(err)
+			} else {
+				callback(event)
+			}
+		},
+	)
+	socket.AddEventHandler(handler)
+}
+
+/*
+OnNetworkStateUpdated adds a handler to the ApplicationCache.StatusUpdated event.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#event-networkStateUpdated
+*/
+func (ApplicationCache) OnNetworkStateUpdated(
+	socket *Socket,
+	callback func(event *applicationCache.StatusUpdatedEvent),
+) {
+	handler := protocol.NewEventHandler(
+		"ApplicationCache.networkStateUpdated",
 		func(name string, params []byte) {
 			event := &applicationCache.StatusUpdatedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {

@@ -17,6 +17,8 @@ type Animation struct{}
 
 /*
 Disable animation domain notifications.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-disable
 */
 func (Animation) Disable(
 	socket *Socket,
@@ -30,6 +32,8 @@ func (Animation) Disable(
 
 /*
 Enable animation domain notifications.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-enable
 */
 func (Animation) Enable(
 	socket *Socket,
@@ -43,6 +47,8 @@ func (Animation) Enable(
 
 /*
 GetCurrentTime returns the current time of the an animation.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-getCurrentTime
 */
 func (Animation) GetCurrentTime(
 	socket *Socket,
@@ -76,6 +82,8 @@ func (Animation) GetCurrentTime(
 
 /*
 GetPlaybackRate gets the playback rate of the document timeline.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-getPlaybackRate
 */
 func (Animation) GetPlaybackRate(
 	socket *Socket,
@@ -107,6 +115,8 @@ func (Animation) GetPlaybackRate(
 
 /*
 ReleaseAnimations releases a set of animations to no longer be manipulated.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-releaseAnimations
 */
 func (Animation) ReleaseAnimations(
 	socket *Socket,
@@ -122,6 +132,8 @@ func (Animation) ReleaseAnimations(
 
 /*
 ResolveAnimation gets the remote object of the Animation.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-resolveAnimation
 */
 func (Animation) ResolveAnimation(
 	socket *Socket,
@@ -155,6 +167,8 @@ func (Animation) ResolveAnimation(
 
 /*
 SeekAnimations seeks a set of animations to a particular time within each animation.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-seekAnimations
 */
 func (Animation) SeekAnimations(
 	socket *Socket,
@@ -170,6 +184,8 @@ func (Animation) SeekAnimations(
 
 /*
 SetPaused sets the paused state of a set of animations.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-setPaused
 */
 func (Animation) SetPaused(
 	socket *Socket,
@@ -185,6 +201,8 @@ func (Animation) SetPaused(
 
 /*
 SetPlaybackRate sets the playback rate of the document timeline.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-setPlaybackRate
 */
 func (Animation) SetPlaybackRate(
 	socket *Socket,
@@ -200,6 +218,8 @@ func (Animation) SetPlaybackRate(
 
 /*
 SetTiming sets the timing of an animation node.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-setTiming
 */
 func (Animation) SetTiming(
 	socket *Socket,
@@ -214,8 +234,10 @@ func (Animation) SetTiming(
 }
 
 /*
-OnAnimationCanceled adds a handler to the Animation.Canceled event.
-Animation.Canceled fires when when an animation has been cancelled.
+OnAnimationCanceled adds a handler to the Animation.Canceled event. Animation.Canceled fires when
+when an animation has been cancelled.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#event-animationCanceled
 */
 func (Animation) OnAnimationCanceled(
 	socket *Socket,
@@ -236,8 +258,10 @@ func (Animation) OnAnimationCanceled(
 }
 
 /*
-OnAnimationCreated adds a handler to the Animation.Created event.
-Animation.Created fires for each animation that has been created.
+OnAnimationCreated adds a handler to the Animation.Created event. Animation.Created fires for each
+animation that has been created.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#event-animationCreated
 */
 func (Animation) OnAnimationCreated(
 	socket *Socket,
@@ -258,8 +282,10 @@ func (Animation) OnAnimationCreated(
 }
 
 /*
-OnAnimationStarted adds a handler to the Animation.Started event.
-Animation.Started fires for each animation that has been started.
+OnAnimationStarted adds a handler to the Animation.Started event. Animation.Started fires for each
+animation that has been started.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/#event-animationStarted
 */
 func (Animation) OnAnimationStarted(
 	socket *Socket,

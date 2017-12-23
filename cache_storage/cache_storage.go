@@ -2,6 +2,8 @@ package CacheStorage
 
 /*
 DeleteCacheParams represents CacheStorage.deleteCache parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-deleteCache
 */
 type DeleteCacheParams struct {
 	// Id of cache for deletion.
@@ -10,6 +12,8 @@ type DeleteCacheParams struct {
 
 /*
 DeleteEntryParams represents CacheStorage.deleteEntry parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-deleteEntry
 */
 type DeleteEntryParams struct {
 	// ID of cache where the entry will be deleted.
@@ -21,6 +25,8 @@ type DeleteEntryParams struct {
 
 /*
 RequestCacheNamesParams represents CacheStorage.requestCacheNames parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requestCacheNames
 */
 type RequestCacheNamesParams struct {
 	// Security origin.
@@ -29,6 +35,8 @@ type RequestCacheNamesParams struct {
 
 /*
 RequestCacheNamesResult represents the result of calls to CacheStorage.requestCacheNames.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requestCacheNames
 */
 type RequestCacheNamesResult struct {
 	// Caches for the security origin.
@@ -37,6 +45,8 @@ type RequestCacheNamesResult struct {
 
 /*
 RequestCachedResponseParams represents CacheStorage.requestCachedResponse parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requestCachedResponse
 */
 type RequestCachedResponseParams struct {
 	// ID of cache that contains the enty.
@@ -48,6 +58,8 @@ type RequestCachedResponseParams struct {
 
 /*
 RequestCachedResponseResult represents the result of calls to CacheStorage.requestCachedResponse.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requestCachedResponse
 */
 type RequestCachedResponseResult struct {
 	// Response read from the cache.
@@ -56,6 +68,8 @@ type RequestCachedResponseResult struct {
 
 /*
 RequestEntriesParams represents CacheStorage.requestEntries parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requestEntries
 */
 type RequestEntriesParams struct {
 	// ID of cache to get entries from.
@@ -70,6 +84,8 @@ type RequestEntriesParams struct {
 
 /*
 RequestEntriesResult represents the result of calls to CacheStorage.requestEntries.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requestEntries
 */
 type RequestEntriesResult struct {
 	// Array of object store data entries.
@@ -81,11 +97,15 @@ type RequestEntriesResult struct {
 
 /*
 CacheID is the unique identifier of the Cache object.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#type-CacheId
 */
 type CacheID string
 
 /*
 DataEntry is a data entry.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#type-DataEntry
 */
 type DataEntry struct {
 	// Request URL.
@@ -112,6 +132,8 @@ type DataEntry struct {
 
 /*
 Cache is a cache identifier.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#type-Cache
 */
 type Cache struct {
 	// An opaque unique ID of the cache.
@@ -126,6 +148,8 @@ type Cache struct {
 
 /*
 Header is a single header value
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#type-Header
 */
 type Header struct {
 	// Header name
@@ -137,6 +161,8 @@ type Header struct {
 
 /*
 CachedResponse represents a cached response
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#type-CachedResponse
 */
 type CachedResponse struct {
 	// Entry content, base64-encoded.

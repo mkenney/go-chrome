@@ -2,6 +2,8 @@ package Console
 
 /*
 MessageAddedEvent represents Console.messageAdded event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Console/#event-messageAdded
 */
 type MessageAddedEvent struct {
 	// Console message that has been added.
@@ -10,6 +12,8 @@ type MessageAddedEvent struct {
 
 /*
 Message represents a console message.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Console/#type-ConsoleMessage
 */
 type Message struct {
 	// Message source. Allowed values: xml, javascript, network, console-api, storage, appcache,

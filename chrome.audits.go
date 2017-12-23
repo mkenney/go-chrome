@@ -16,6 +16,8 @@ type Audits struct{}
 /*
 GetEncodedResponse returns the response body and size if it were re-encoded with the specified
 settings. Only applies to images.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Audits/#method-getEncodedResponse
 */
 func (Audits) GetEncodedResponse(
 	socket *Socket,

@@ -15,6 +15,8 @@ type Browser struct{}
 
 /*
 Close closes the browser gracefully.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-close
 */
 func (Browser) Close(
 	socket *Socket,
@@ -28,6 +30,8 @@ func (Browser) Close(
 
 /*
 GetVersion returns version information.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getVersion
 */
 func (Browser) GetVersion(
 	socket *Socket,
@@ -59,6 +63,8 @@ func (Browser) GetVersion(
 
 /*
 GetWindowBounds sets the position and/or size of the browser window. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindowBounds
 */
 func (Browser) GetWindowBounds(
 	socket *Socket,
@@ -92,6 +98,8 @@ func (Browser) GetWindowBounds(
 
 /*
 GetWindowForTarget gets the browser window that contains the devtools target. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindowForTarget
 */
 func (Browser) GetWindowForTarget(
 	socket *Socket,
@@ -125,6 +133,8 @@ func (Browser) GetWindowForTarget(
 
 /*
 SetWindowBounds sets the position and/or size of the browser window. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-setWindowBounds
 */
 func (Browser) SetWindowBounds(
 	socket *Socket,
