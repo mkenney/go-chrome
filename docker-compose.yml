@@ -1,0 +1,9 @@
+version: '3.4'
+services:
+    tests:
+        build:
+            context: ./
+            dockerfile: ./Dockerfile
+        container_name: go-chrome.test-runner
+        volumes:
+            - ./:/go/src/app
