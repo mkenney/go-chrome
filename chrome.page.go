@@ -550,7 +550,7 @@ RequestAppBanner EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-requestAppBanner
 */
 func (Page) RequestAppBanner(
-	socket *Socket
+	socket *Socket,
 ) error {
 	command := &protocol.Command{
 		Method: "Page.requestAppBanner",

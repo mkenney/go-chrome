@@ -322,7 +322,7 @@ GetMediaQueries returns all media queries parsed by the rendering engine.
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getMediaQueries
 */
 func (CSS) GetMediaQueries(
-	socket *Socket
+	socket *Socket,
 ) error {
 	command := &protocol.Command{
 		Method: "CSS.getMediaQueries",

@@ -1,8 +1,6 @@
 package CSS
 
 import (
-	"fmt"
-
 	"github.com/mkenney/go-chrome/dom"
 	"github.com/mkenney/go-chrome/page"
 )

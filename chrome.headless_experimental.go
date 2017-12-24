@@ -83,29 +83,6 @@ func (HeadlessExperimental) Enable(
 }
 
 /*
-OnNeedsBeginFramesChanged adds a handler to the HeadlessExperimental.needsBeginFramesChanged event.
-HeadlessExperimental.needsBeginFramesChanged fires when the target starts or stops needing
-BeginFrames.
-*/
-func (HeadlessExperimental) OnNeedsBeginFramesChanged(
-	socket *Socket,
-	callback func(event *headlessExperimental.NeedsBeginFramesChangedEvent),
-) {
-	handler := protocol.NewEventHandler(
-		"HeadlessExperimental.needsBeginFramesChanged",
-		func(name string, params []byte) {
-			event := &headlessExperimental.NeedsBeginFramesChangedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
-			}
-		},
-	)
-	socket.AddEventHandler(handler)
-}
-
-/*
 OnMainFrameReadyForScreenshots adds a handler to the
 HeadlessExperimental.mainFrameReadyForScreenshots event.
 HeadlessExperimental.mainFrameReadyForScreenshots fires when the main frame has first submitted a

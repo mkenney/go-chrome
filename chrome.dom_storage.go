@@ -3,6 +3,7 @@ package chrome
 import (
 	"encoding/json"
 
+	log "github.com/Sirupsen/logrus"
 	domStorage "github.com/mkenney/go-chrome/dom_storage"
 	"github.com/mkenney/go-chrome/protocol"
 )
@@ -130,19 +131,19 @@ func (DOMStorage) SetDOMStorageItem(
 }
 
 /*
-OnItemAdded adds a handler to the DOM.domStorageItemAdded event. DOM.domStorageItemAdded fires when
-an item is added to DOM storage.
+OnItemAdded adds a handler to the DOMStorage.domStorageItemAdded event.
+DOMStorage.domStorageItemAdded fires when an item is added to DOM storage.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#event-domStorageItemAdded
 */
 func (DOM) OnItemAdded(
 	socket *Socket,
-	callback func(event *dom.ItemAddedEvent),
+	callback func(event *domStorage.ItemAddedEvent),
 ) {
 	handler := protocol.NewEventHandler(
-		"DOM.domStorageItemAdded",
+		"DOMStorage.domStorageItemAdded",
 		func(name string, params []byte) {
-			event := &dom.ItemAddedEvent{}
+			event := &domStorage.ItemAddedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
@@ -154,19 +155,19 @@ func (DOM) OnItemAdded(
 }
 
 /*
-OnItemRemoved adds a handler to the DOM.domStorageItemRemoved event. DOM.domStorageItemRemoved fires
-when an item is removed from DOM storage.
+OnItemRemoved adds a handler to the DOMStorage.domStorageItemRemoved event.
+DOMStorage.domStorageItemRemoved fires when an item is removed from DOM storage.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#event-domStorageItemRemoved
 */
 func (DOM) OnItemRemoved(
 	socket *Socket,
-	callback func(event *dom.ItemRemovedEvent),
+	callback func(event *domStorage.ItemRemovedEvent),
 ) {
 	handler := protocol.NewEventHandler(
-		"DOM.domStorageItemRemoved",
+		"DOMStorage.domStorageItemRemoved",
 		func(name string, params []byte) {
-			event := &dom.ItemRemovedEvent{}
+			event := &domStorage.ItemRemovedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
@@ -178,19 +179,19 @@ func (DOM) OnItemRemoved(
 }
 
 /*
-OnItemUpdated adds a handler to the DOM.domStorageItemUpdated event. DOM.domStorageItemUpdated
-fires when an item in DOM storage is updated.
+OnItemUpdated adds a handler to the DOMStorage.domStorageItemUpdated event.
+DOMStorage.domStorageItemUpdated fires when an item in DOM storage is updated.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#event-domStorageItemUpdated
 */
 func (DOM) OnItemUpdated(
 	socket *Socket,
-	callback func(event *dom.ItemUpdatedEvent),
+	callback func(event *domStorage.ItemUpdatedEvent),
 ) {
 	handler := protocol.NewEventHandler(
-		"DOM.domStorageItemUpdated",
+		"DOMStorage.domStorageItemUpdated",
 		func(name string, params []byte) {
-			event := &dom.ItemUpdatedEvent{}
+			event := &domStorage.ItemUpdatedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
@@ -202,19 +203,19 @@ func (DOM) OnItemUpdated(
 }
 
 /*
-OnItemsCleared adds a handler to the DOM.domStorageItemsCleared event. DOM.domStorageItemsCleared
-fires when items in DOM storage are cleared.
+OnItemsCleared adds a handler to the DOMStorage.domStorageItemsCleared event.
+DOMStorage.domStorageItemsCleared fires when items in DOM storage are cleared.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#event-domStorageItemsCleared
 */
 func (DOM) OnItemsCleared(
 	socket *Socket,
-	callback func(event *dom.ItemsClearedEvent),
+	callback func(event *domStorage.ItemsClearedEvent),
 ) {
 	handler := protocol.NewEventHandler(
-		"DOM.domStorageItemsCleared",
+		"DOMStorage.domStorageItemsCleared",
 		func(name string, params []byte) {
-			event := &dom.ItemsClearedEvent{}
+			event := &domStorage.ItemsClearedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
