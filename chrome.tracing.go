@@ -6,7 +6,7 @@ import (
 	"github.com/mkenney/go-chrome/protocol"
 	tracing "github.com/mkenney/go-chrome/tracing"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 /*

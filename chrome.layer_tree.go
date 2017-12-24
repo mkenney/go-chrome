@@ -6,7 +6,7 @@ import (
 	layerTree "github.com/mkenney/go-chrome/layer_tree"
 	"github.com/mkenney/go-chrome/protocol"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 /*

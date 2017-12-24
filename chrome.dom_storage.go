@@ -3,9 +3,9 @@ package chrome
 import (
 	"encoding/json"
 
-	log "github.com/Sirupsen/logrus"
 	domStorage "github.com/mkenney/go-chrome/dom_storage"
 	"github.com/mkenney/go-chrome/protocol"
+	log "github.com/sirupsen/logrus"
 )
 
 /*

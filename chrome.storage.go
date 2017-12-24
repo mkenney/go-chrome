@@ -6,7 +6,7 @@ import (
 	"github.com/mkenney/go-chrome/protocol"
 	storage "github.com/mkenney/go-chrome/storage"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 /*

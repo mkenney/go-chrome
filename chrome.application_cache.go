@@ -6,7 +6,7 @@ import (
 	applicationCache "github.com/mkenney/go-chrome/application_cache"
 	"github.com/mkenney/go-chrome/protocol"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 /*

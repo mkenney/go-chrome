@@ -6,7 +6,7 @@ import (
 	headlessExperimental "github.com/mkenney/go-chrome/headless_experimental"
 	"github.com/mkenney/go-chrome/protocol"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 /*

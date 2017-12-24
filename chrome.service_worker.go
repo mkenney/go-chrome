@@ -6,7 +6,7 @@ import (
 	"github.com/mkenney/go-chrome/protocol"
 	serviceWorker "github.com/mkenney/go-chrome/service_worker"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 /*

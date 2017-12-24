@@ -6,7 +6,7 @@ import (
 	emulation "github.com/mkenney/go-chrome/emulation"
 	"github.com/mkenney/go-chrome/protocol"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 /*
