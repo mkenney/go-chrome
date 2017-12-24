@@ -1,5 +1,5 @@
 /*
-Package chrome aims to be a complete Chrome DevTools Protocol Viewer implementation
+Package Chrome aims to be a complete Chrome DevTools Protocol Viewer implementation
 https://chromedevtools.github.io/devtools-protocol/
 
 Work in progress
@@ -145,4 +145,4 @@ Upon disconnnection, the outgoing client will receive a detached event. For exam
 View the enum of possible reasons. (For reference: the original patch). After disconnection, some
 apps have chosen to pause their state and offer a reconnect button.
 */
-package chrome
+package Chrome

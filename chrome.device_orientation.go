@@ -1,4 +1,4 @@
-package chrome
+package Chrome
 
 import (
 	deviceOrientation "github.com/mkenney/go-chrome/device_orientation"

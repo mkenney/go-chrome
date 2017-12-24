@@ -1,4 +1,4 @@
-package chrome
+package Chrome
 
 /*
 SocketError represents an error
