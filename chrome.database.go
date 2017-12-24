@@ -17,6 +17,8 @@ type Database struct{}
 
 /*
 Disable disables database tracking, prevents database events from being sent to the client.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-disable
 */
 func (Database) Disable(
 	socket *Socket,
@@ -30,6 +32,8 @@ func (Database) Disable(
 
 /*
 Enable enables database tracking, database events will now be delivered to the client.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-enable
 */
 func (Database) Enable(
 	socket *Socket,
@@ -43,6 +47,8 @@ func (Database) Enable(
 
 /*
 ExecuteSQL executes a SQL query.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-executeSQL
 */
 func (Database) ExecuteSQL(
 	socket *Socket,
@@ -76,6 +82,8 @@ func (Database) ExecuteSQL(
 
 /*
 GetDatabaseTableNames gets database table names.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-getDatabaseTableNames
 */
 func (Database) GetDatabaseTableNames(
 	socket *Socket,
@@ -92,6 +100,8 @@ func (Database) GetDatabaseTableNames(
 /*
 OnAddDatabase adds a handler to the Database.addDatabase event. Database.addDatabase fires
 whenever a database is added
+
+https://chromedevtools.github.io/devtools-protocol/tot/Database/#event-addDatabase
 */
 func (Database) OnAddDatabase(
 	socket *Socket,

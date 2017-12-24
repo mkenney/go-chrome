@@ -15,6 +15,8 @@ type Schema struct{}
 
 /*
 GetDomains returns supported domains.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Schema/#method-getDomains
 */
 func (Schema) GetDomains(
 	socket *Socket,

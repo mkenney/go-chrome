@@ -13,6 +13,8 @@ type DeviceOrientation struct{}
 
 /*
 ClearDeviceOrientationOverride clears the overridden Device Orientation.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/#method-clearDeviceOrientationOverride
 */
 func (DeviceOrientation) ClearDeviceOrientationOverride(
 	socket *Socket,
@@ -26,6 +28,8 @@ func (DeviceOrientation) ClearDeviceOrientationOverride(
 
 /*
 SetDeviceOrientationOverride overrides the Device Orientation.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/#method-setDeviceOrientationOverride
 */
 func (DeviceOrientation) SetDeviceOrientationOverride(
 	socket *Socket,

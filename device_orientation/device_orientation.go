@@ -3,6 +3,8 @@ package DeviceOrientation
 /*
 SetDeviceOrientationOverrideParams represents DeviceOrientation.setDeviceOrientationOverride
 parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/#method-setDeviceOrientationOverride
 */
 type SetDeviceOrientationOverrideParams struct {
 	// Mock alpha.

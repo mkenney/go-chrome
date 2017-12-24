@@ -6,6 +6,8 @@ import (
 
 /*
 BeginFrameParams represents HeadlessExperimental.beginFrame parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-beginFrame
 */
 type BeginFrameParams struct {
 	// Optional. Timestamp of this BeginFrame (milliseconds since epoch). If not set, the current
@@ -30,6 +32,8 @@ type BeginFrameParams struct {
 
 /*
 BeginFrameResult represents the result of calls to HeadlessExperimental.beginFrame.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-beginFrame
 */
 type BeginFrameResult struct {
 	// Whether the BeginFrame resulted in damage and, thus, a new frame was committed to the
@@ -44,7 +48,17 @@ type BeginFrameResult struct {
 }
 
 /*
+MainFrameReadyForScreenshotsEvent represents HeadlessExperimental.mainFrameReadyForScreenshots event
+data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#event-mainFrameReadyForScreenshots
+*/
+type MainFrameReadyForScreenshotsEvent struct{}
+
+/*
 NeedsBeginFramesChangedEvent represents HeadlessExperimental.needsBeginFramesChanged event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#event-needsBeginFramesChanged
 */
 type NeedsBeginFramesChangedEvent struct {
 	// True if BeginFrames are needed, false otherwise.
@@ -52,13 +66,9 @@ type NeedsBeginFramesChangedEvent struct {
 }
 
 /*
-MainFrameReadyForScreenshotsEvent represents HeadlessExperimental.mainFrameReadyForScreenshots event
-data.
-*/
-type MainFrameReadyForScreenshotsEvent struct{}
-
-/*
 ScreenshotParams represents encoding options for a screenshot.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#type-ScreenshotParams
 */
 type ScreenshotParams struct {
 	// Optional. Image compression format (defaults to png). Allowed values: jpeg, png.

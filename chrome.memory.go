@@ -13,6 +13,8 @@ type Memory struct{}
 
 /*
 GetDOMCounters EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-getDOMCounters
 */
 func (Memory) GetDOMCounters(
 	socket *Socket,
@@ -28,6 +30,8 @@ func (Memory) GetDOMCounters(
 
 /*
 PrepareForLeakDetection EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-prepareForLeakDetection
 */
 func (Memory) PrepareForLeakDetection(
 	socket *Socket,
@@ -42,6 +46,8 @@ func (Memory) PrepareForLeakDetection(
 /*
 SetPressureNotificationsSuppressed enables/disables suppressing memory pressure notifications in all
 processes.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-setPressureNotificationsSuppressed
 */
 func (Memory) SetPressureNotificationsSuppressed(
 	socket *Socket,
@@ -57,6 +63,8 @@ func (Memory) SetPressureNotificationsSuppressed(
 
 /*
 SimulatePressureNotification simulates a memory pressure notification in all processes.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-simulatePressureNotification
 */
 func (Memory) SimulatePressureNotification(
 	socket *Socket,

@@ -10,6 +10,8 @@ import (
 
 /*
 CanClearBrowserCacheResult represents the result of calls to Network.canClearBrowserCache.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canClearBrowserCache
 */
 type CanClearBrowserCacheResult struct {
 	// True if browser cache can be cleared.
@@ -18,6 +20,8 @@ type CanClearBrowserCacheResult struct {
 
 /*
 CanClearBrowserCookiesResult represents the result of calls to Network.canClearBrowserCookies.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canClearBrowserCookies
 */
 type CanClearBrowserCookiesResult struct {
 	// True if browser cookies can be cleared.
@@ -26,6 +30,8 @@ type CanClearBrowserCookiesResult struct {
 
 /*
 CanEmulateNetworkConditionsResult represents the result of calls to Network.canEmulateNetworkConditions.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canEmulateNetworkConditions
 */
 type CanEmulateNetworkConditionsResult struct {
 	// True if emulation of network conditions is supported.
@@ -34,6 +40,8 @@ type CanEmulateNetworkConditionsResult struct {
 
 /*
 ContinueInterceptedRequestParams represents Network.continueInterceptedRequest parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-continueInterceptedRequest
 */
 type ContinueInterceptedRequestParams struct {
 	// The interception ID.
@@ -74,6 +82,8 @@ type ContinueInterceptedRequestParams struct {
 
 /*
 DeleteCookiesParams represents Network.deleteCookies parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-deleteCookies
 */
 type DeleteCookiesParams struct {
 	// Name of the cookies to remove.
@@ -92,6 +102,8 @@ type DeleteCookiesParams struct {
 
 /*
 EmulateNetworkConditionsParams represents Network.emulateNetworkConditions parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-emulateNetworkConditions
 */
 type EmulateNetworkConditionsParams struct {
 	// True to emulate internet disconnection.
@@ -112,6 +124,8 @@ type EmulateNetworkConditionsParams struct {
 
 /*
 EnableParams represents Network.enable parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-enable
 */
 type EnableParams struct {
 	// Optional. Buffer size in bytes to use when preserving network payloads (XHRs, etc).
@@ -125,6 +139,8 @@ type EnableParams struct {
 
 /*
 GetAllCookiesResult represents the result of calls to Network.getAllCookies.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getAllCookies
 */
 type GetAllCookiesResult struct {
 	// Array of cookie objects.
@@ -133,6 +149,8 @@ type GetAllCookiesResult struct {
 
 /*
 GetCertificateParams represents Network.getCertificate parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getCertificate
 */
 type GetCertificateParams struct {
 	// Origin to get certificate for.
@@ -141,6 +159,8 @@ type GetCertificateParams struct {
 
 /*
 GetCertificateResult represents the result of calls to Network.getCertificate.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getCertificate
 */
 type GetCertificateResult struct {
 	TableNames []string `json:"tableNames"`
@@ -148,6 +168,8 @@ type GetCertificateResult struct {
 
 /*
 GetCookiesParams represents Network.getCookies parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getCookies
 */
 type GetCookiesParams struct {
 	// Optional. The list of URLs for which applicable cookies will be fetched.
@@ -156,6 +178,8 @@ type GetCookiesParams struct {
 
 /*
 GetCookiesResult represents the result of calls to Network.getCookies.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getCookies
 */
 type GetCookiesResult struct {
 	// Array of cookie objects.
@@ -164,6 +188,8 @@ type GetCookiesResult struct {
 
 /*
 GetResponseBodyParams represents Network.getResponseBody parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getResponseBody
 */
 type GetResponseBodyParams struct {
 	// Identifier of the network request to get content for.
@@ -172,6 +198,8 @@ type GetResponseBodyParams struct {
 
 /*
 GetResponseBodyResult represents the result of calls to Network.getResponseBody.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getResponseBody
 */
 type GetResponseBodyResult struct {
 	// Response body.
@@ -183,6 +211,8 @@ type GetResponseBodyResult struct {
 
 /*
 GetResponseBodyForInterceptionParams represents Network.getResponseBodyForInterception parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getResponseBodyForInterception
 */
 type GetResponseBodyForInterceptionParams struct {
 	// Identifier for the intercepted request to get body for.
@@ -192,6 +222,8 @@ type GetResponseBodyForInterceptionParams struct {
 /*
 GetResponseBodyForInterceptionResult represents the result of calls to
 Network.getResponseBodyForInterception.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getResponseBodyForInterception
 */
 type GetResponseBodyForInterceptionResult struct {
 	// Response body.
@@ -203,6 +235,8 @@ type GetResponseBodyForInterceptionResult struct {
 
 /*
 ReplayXHRParams represents Network.replayXHR parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-replayXHR
 */
 type ReplayXHRParams struct {
 	// Identifier of XHR to replay.
@@ -211,6 +245,8 @@ type ReplayXHRParams struct {
 
 /*
 SearchInResponseBodyParams represents Network.searchInResponseBody parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-searchInResponseBody
 */
 type SearchInResponseBodyParams struct {
 	// Identifier of the network response to search.
@@ -228,6 +264,8 @@ type SearchInResponseBodyParams struct {
 
 /*
 SearchInResponseBodyResult represents the result of calls to Network.searchInResponseBody.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-searchInResponseBody
 */
 type SearchInResponseBodyResult struct {
 	// List of search matches.
@@ -236,6 +274,8 @@ type SearchInResponseBodyResult struct {
 
 /*
 SetBlockedURLsParams represents Network.setBlockedURLs parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setBlockedURLs
 */
 type SetBlockedURLsParams struct {
 	// URL patterns to block. Wildcards ('*') are allowed.
@@ -244,6 +284,8 @@ type SetBlockedURLsParams struct {
 
 /*
 SetBypassServiceWorkerParams represents Network.setBypassServiceWorker parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setBypassServiceWorker
 */
 type SetBypassServiceWorkerParams struct {
 	// Bypass service worker and load from network.
@@ -252,6 +294,8 @@ type SetBypassServiceWorkerParams struct {
 
 /*
 SetCacheDisabledParams represents Network.setCacheDisabled parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCacheDisabled
 */
 type SetCacheDisabledParams struct {
 	// Cache disabled state.
@@ -260,6 +304,8 @@ type SetCacheDisabledParams struct {
 
 /*
 SetCookieParams represents Network.setCookie parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCookie
 */
 type SetCookieParams struct {
 	// Cookie name.
@@ -293,6 +339,8 @@ type SetCookieParams struct {
 
 /*
 SetCookieResult represents the result of calls to Network.setCookie.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCookie
 */
 type SetCookieResult struct {
 	// True if successfully set cookie.
@@ -301,6 +349,8 @@ type SetCookieResult struct {
 
 /*
 SetCookiesParams represents Network.setCookies parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCookies
 */
 type SetCookiesParams struct {
 	// Cookies to be set.
@@ -309,6 +359,8 @@ type SetCookiesParams struct {
 
 /*
 SetDataSizeLimitsForTestParams represents Network.setDataSizeLimitsForTest parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setDataSizeLimitsForTest
 */
 type SetDataSizeLimitsForTestParams struct {
 	// Maximum total buffer size.
@@ -320,6 +372,8 @@ type SetDataSizeLimitsForTestParams struct {
 
 /*
 SetExtraHTTPHeadersParams represents Network.setExtraHTTPHeaders parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setExtraHTTPHeaders
 */
 type SetExtraHTTPHeadersParams struct {
 	// Map with extra HTTP headers.
@@ -328,6 +382,8 @@ type SetExtraHTTPHeadersParams struct {
 
 /*
 SetRequestInterceptionParams represents Network.setRequestInterception parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setRequestInterception
 */
 type SetRequestInterceptionParams struct {
 	// Requests matching any of these patterns will be forwarded and wait for the corresponding
@@ -337,6 +393,8 @@ type SetRequestInterceptionParams struct {
 
 /*
 SetUserAgentOverrideParams represents Network.setUserAgentOverride parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setUserAgentOverride
 */
 type SetUserAgentOverrideParams struct {
 	// User agent to use.
@@ -345,6 +403,8 @@ type SetUserAgentOverrideParams struct {
 
 /*
 DataReceivedEvent represents Network.dataReceived event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-dataReceived
 */
 type DataReceivedEvent struct {
 	// Request identifier.
@@ -362,6 +422,8 @@ type DataReceivedEvent struct {
 
 /*
 EventSourceMessageReceivedEvent represents Network.eventSourceMessageReceived event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-eventSourceMessageReceived
 */
 type EventSourceMessageReceivedEvent struct {
 	// Request identifier.
@@ -382,6 +444,8 @@ type EventSourceMessageReceivedEvent struct {
 
 /*
 LoadingFailedEvent represents Network.loadingFailed event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-loadingFailed
 */
 type LoadingFailedEvent struct {
 	// Request identifier.
@@ -405,6 +469,8 @@ type LoadingFailedEvent struct {
 
 /*
 LoadingFinishedEvent represents Network.loadingFinished event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-loadingFinished
 */
 type LoadingFinishedEvent struct {
 	// Request identifier.
@@ -419,6 +485,8 @@ type LoadingFinishedEvent struct {
 
 /*
 RequestInterceptedEvent represents Network.requestIntercepted event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-requestIntercepted
 */
 type RequestInterceptedEvent struct {
 	// Each request the page makes will have a unique id, however if any redirects are encountered
@@ -460,6 +528,8 @@ type RequestInterceptedEvent struct {
 
 /*
 RequestServedFromCacheEvent represents Network.requestServedFromCache event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-requestServedFromCache
 */
 type RequestServedFromCacheEvent struct {
 	// Request identifier.
@@ -468,6 +538,8 @@ type RequestServedFromCacheEvent struct {
 
 /*
 RequestWillBeSentEvent represents Network.requestWillBeSent event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-requestWillBeSent
 */
 type RequestWillBeSentEvent struct {
 	// Request identifier.
@@ -503,6 +575,8 @@ type RequestWillBeSentEvent struct {
 
 /*
 ResourceChangedPriorityEvent represents Network.resourceChangedPriority event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-resourceChangedPriority
 */
 type ResourceChangedPriorityEvent struct {
 	// Request identifier.
@@ -517,6 +591,8 @@ type ResourceChangedPriorityEvent struct {
 
 /*
 ResponseReceivedEvent represents Network.responseReceived event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-responseReceived
 */
 type ResponseReceivedEvent struct {
 	// Request identifier.
@@ -540,6 +616,8 @@ type ResponseReceivedEvent struct {
 
 /*
 WebSocketClosedEvent represents Network.webSocketClosed event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketClosed
 */
 type WebSocketClosedEvent struct {
 	// Request identifier.
@@ -551,6 +629,8 @@ type WebSocketClosedEvent struct {
 
 /*
 WebSocketCreatedEvent represents Network.webSocketCreated event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketCreated
 */
 type WebSocketCreatedEvent struct {
 	// Request identifier.
@@ -564,7 +644,25 @@ type WebSocketCreatedEvent struct {
 }
 
 /*
+WebSocketFrameErrorEvent represents Network.webSocketFrameError event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketFrameError
+*/
+type WebSocketFrameErrorEvent struct {
+	// Request identifier.
+	RequestID RequestID `json:"requestId"`
+
+	// Timestamp.
+	Timestamp MonotonicTime `json:"timestamp"`
+
+	// Optional. WebSocket frame error message.
+	ErrorMessage string `json:"errorMessage,omitempty"`
+}
+
+/*
 WebSocketFrameReceivedEvent represents Network.webSocketFrameReceived event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketFrameReceived
 */
 type WebSocketFrameReceivedEvent struct {
 	// Request identifier.
@@ -579,6 +677,8 @@ type WebSocketFrameReceivedEvent struct {
 
 /*
 WebSocketFrameSentEvent represents Network.webSocketFrameSent event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketFrameSent
 */
 type WebSocketFrameSentEvent struct {
 	// Request identifier.
@@ -594,6 +694,8 @@ type WebSocketFrameSentEvent struct {
 /*
 WebSocketHandshakeResponseReceivedEvent represents Network.webSocketHandshakeResponseReceived event
 data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketHandshakeResponseReceived
 */
 type WebSocketHandshakeResponseReceivedEvent struct {
 	// Request identifier.
@@ -609,6 +711,8 @@ type WebSocketHandshakeResponseReceivedEvent struct {
 /*
 WebSocketWillSendHandshakeRequestEvent represents Network.webSocketWillSendHandshakeRequest event
 data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketWillSendHandshakeRequest
 */
 type WebSocketWillSendHandshakeRequestEvent struct {
 	// Request identifier.
@@ -626,60 +730,82 @@ type WebSocketWillSendHandshakeRequestEvent struct {
 
 /*
 LoaderID is the Unique loader identifier.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-LoaderId
 */
 type LoaderID string
 
 /*
 RequestID is the unique request identifier.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-RequestId
 */
 type RequestID string
 
 /*
 InterceptionID is the unique intercepted request identifier.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-InterceptionId
 */
 type InterceptionID string
 
 /*
 ErrorReason is the network level fetch failure reason.
+
+ALLOWED VALUES
+	- Failed
+	- Aborted
+	- TimedOut
+	- AccessDenied
+	- ConnectionClosed
+	- ConnectionReset
+	- ConnectionRefused
+	- ConnectionAborted
+	- ConnectionFailed
+	- NameNotResolved
+	- InternetDisconnected
+	- AddressUnreachable
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-ErrorReason
 */
 type ErrorReason string
 
-func (s ErrorReason) String() string {
-	str := string(s)
-	if str == "Failed" ||
-		str == "Aborted" ||
-		str == "TimedOut" ||
-		str == "AccessDenied" ||
-		str == "ConnectionClosed" ||
-		str == "ConnectionReset" ||
-		str == "ConnectionRefused" ||
-		str == "ConnectionAborted" ||
-		str == "ConnectionFailed" ||
-		str == "NameNotResolved" ||
-		str == "InternetDisconnected" ||
-		str == "AddressUnreachable" {
-		return str
-	}
-	panic(fmt.Errorf("Invalid ErrorReason '%s'", str))
-}
-
 /*
 TimeSinceEpoch represents UTC time in seconds, counted from January 1, 1970.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-TimeSinceEpoch
 */
 type TimeSinceEpoch int
 
 /*
 MonotonicTime is the monotonically increasing time in seconds since an arbitrary point in the past.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-MonotonicTime
 */
 type MonotonicTime int
 
 /*
 Headers contains request / response headers as keys / values of JSON object.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-Headers
 */
 type Headers map[string]string
 
 /*
 ConnectionType is the underlying connection technology that the browser is supposedly using.
+
+ALLOWED VALUES
+	- none
+	- cellular2g
+	- cellular3g
+	- cellular4g
+	- bluetooth
+	- ethernet
+	- wifi
+	- wimax
+	- other
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-ConnectionType
 */
 type ConnectionType string
 
@@ -701,21 +827,21 @@ func (s ConnectionType) String() string {
 
 /*
 CookieSameSite represents the cookie's 'SameSite' status
+
+ALLOWED VALUES
+	- Strict
+	- Lax
+
 https://tools.ietf.org/html/draft-west-first-party-cookies
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-CookieSameSite
 */
 type CookieSameSite string
 
-func (s CookieSameSite) String() string {
-	str := string(s)
-	if str == "Strict" ||
-		str == "Lax" {
-		return str
-	}
-	panic(fmt.Errorf("Invalid CookieSameSite '%s'", str))
-}
-
 /*
 ResourceTiming defines the timing information for the request
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-ResourceTiming
 */
 type ResourceTiming struct {
 	// Timing's requestTime is a baseline in seconds, while the other numbers are ticks in
@@ -770,22 +896,22 @@ type ResourceTiming struct {
 
 /*
 ResourcePriority represents the loading priority of a resource request.
+
+ALLOWED VALUES
+	- VeryLow
+	- Low
+	- Medium
+	- High
+	- VeryHigh
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-ResourcePriority
 */
 type ResourcePriority string
 
-func (s ResourcePriority) String() string {
-	str := string(s)
-	if str == "VeryLow" ||
-		str == "Low" ||
-		str == "Medium" ||
-		str == "High" {
-		return str
-	}
-	panic(fmt.Errorf("Invalid ResourcePriority '%s'", str))
-}
-
 /*
 Request represents the HTTP request data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-Request
 */
 type Request struct {
 	// Request URL.
@@ -817,6 +943,8 @@ type Request struct {
 
 /*
 SignedCertificateTimestamp contains details of a signed certificate timestamp (SCT).
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-SignedCertificateTimestamp
 */
 type SignedCertificateTimestamp struct {
 
@@ -847,6 +975,8 @@ type SignedCertificateTimestamp struct {
 
 /*
 SecurityDetails defines security details about a request.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-SecurityDetails
 */
 type SecurityDetails struct {
 	// Protocol name (e.g. "TLS 1.2" or "QUIC").
@@ -888,33 +1018,23 @@ type SecurityDetails struct {
 
 /*
 BlockedReason defines the reason why request was blocked.
+
+ALLOWED VALUES
+	- csp
+	- mixed-content
+	- origin
+	- inspector
+	- subresource-filter
+	- other
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-BlockedReason
 */
 type BlockedReason int
 
-const (
-	_csp BlockedReason = iota
-	_mixedContent
-	_origin
-	_inspector
-	_subresourceFilter
-	_other
-)
-
-func (s BlockedReason) String() string {
-	str := string(s)
-	if str == "csp" ||
-		str == "mixed-content" ||
-		str == "origin" ||
-		str == "inspector" ||
-		str == "subresource-filter" ||
-		str == "other" {
-		return str
-	}
-	panic(fmt.Errorf("Invalid BlockedReason '%s'", str))
-}
-
 /*
 Response contains HTTP response data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-Response
 */
 type Response struct {
 
@@ -984,6 +1104,8 @@ type Response struct {
 
 /*
 WebSocketRequest contains WebSocket request data
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-WebSocketRequest
 */
 type WebSocketRequest struct {
 	Headers Headers `json:"headers"`
@@ -991,6 +1113,8 @@ type WebSocketRequest struct {
 
 /*
 WebSocketResponse contains WebSocket response data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-WebSocketResponse
 */
 type WebSocketResponse struct {
 	// HTTP response status code.
@@ -1014,6 +1138,8 @@ type WebSocketResponse struct {
 
 /*
 WebSocketFrame contains WebSocket frame data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-WebSocketFrame
 */
 type WebSocketFrame struct {
 	// WebSocket frame opcode.
@@ -1028,6 +1154,8 @@ type WebSocketFrame struct {
 
 /*
 CachedResource contains information about the cached resource.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-CachedResource
 */
 type CachedResource struct {
 	// Resource URL. This is the url of the original network request.
@@ -1048,6 +1176,8 @@ type CachedResource struct {
 
 /*
 Initiator contains information about the request initiator.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-Initiator
 */
 type Initiator struct {
 	// Type of this initiator. Allowed values: parser, script, preload, other.
@@ -1070,6 +1200,8 @@ type Initiator struct {
 
 /*
 Cookie object
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-Cookie
 */
 type Cookie struct {
 	// Cookie name.
@@ -1105,6 +1237,8 @@ type Cookie struct {
 
 /*
 CookieParam is a cookie parameter
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-CookieParam
 */
 type CookieParam struct {
 	// Cookie name.
@@ -1138,6 +1272,8 @@ type CookieParam struct {
 
 /*
 AuthChallenge is an authorization challenge for HTTP status code 401 or 407. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-AuthChallenge
 */
 type AuthChallenge struct {
 	// Optional. Source of the authentication challenge. Allowed values: Server, Proxy.
@@ -1155,6 +1291,8 @@ type AuthChallenge struct {
 
 /*
 AuthChallengeResponse is the response to an AuthChallenge. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-AuthChallengeResponse
 */
 type AuthChallengeResponse struct {
 	// The decision on what to do in response to the authorization challenge. Default means
@@ -1176,6 +1314,12 @@ type AuthChallengeResponse struct {
 InterceptionStage represents stages of the interception to begin intercepting. Request will
 intercept before the request is sent. Response will intercept after the response is received.
 EXPERIMENTAL
+
+ALLOWED VALUES
+	- Request
+	- HeadersReceived
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-InterceptionStage
 */
 type InterceptionStage string
 
@@ -1190,6 +1334,8 @@ func (s InterceptionStage) String() string {
 
 /*
 RequestPattern is the request pattern for interception. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-RequestPattern
 */
 type RequestPattern struct {
 	// Optional. Wildcards ('*' -> zero or more, '?' -> exactly one) are allowed. Escape character

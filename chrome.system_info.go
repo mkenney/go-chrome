@@ -15,6 +15,8 @@ type SystemInfo struct{}
 
 /*
 GetInfo returns information about the system.
+
+https://chromedevtools.github.io/devtools-protocol/tot/SystemInfo/#method-getInfo
 */
 func (SystemInfo) GetInfo(
 	socket *Socket,

@@ -6,6 +6,8 @@ import (
 
 /*
 ClearObjectStoreParams represents IndexedDB.clearObjectStore parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-clearObjectStore
 */
 type ClearObjectStoreParams struct {
 	// Security origin.
@@ -20,6 +22,8 @@ type ClearObjectStoreParams struct {
 
 /*
 DeleteDatabaseParams represents IndexedDB.deleteDatabase parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-deleteDatabase
 */
 type DeleteDatabaseParams struct {
 	// Security origin.
@@ -33,7 +37,22 @@ type DeleteDatabaseParams struct {
 }
 
 /*
+DeleteObjectStoreEntriesParams represents IndexedDB.deleteObjectStoreEntries parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-deleteObjectStoreEntries
+*/
+type DeleteObjectStoreEntriesParams struct {
+	// Security origin.
+	SecurityOrigin string `json:"securityOrigin"`
+
+	// Database name.
+	DatabaseName string `json:"databaseName"`
+}
+
+/*
 RequestDataParams represents IndexedDB.requestData parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestData
 */
 type RequestDataParams struct {
 	// Security origin.
@@ -63,6 +82,8 @@ type RequestDataParams struct {
 
 /*
 RequestDataResult represents the result of calls to IndexedDB.requestData.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestData
 */
 type RequestDataResult struct {
 	// Array of object store data entries.
@@ -74,6 +95,8 @@ type RequestDataResult struct {
 
 /*
 RequestDatabaseParams represents IndexedDB.requestDatabase parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestDatabase
 */
 type RequestDatabaseParams struct {
 	// Security origin.
@@ -85,6 +108,8 @@ type RequestDatabaseParams struct {
 
 /*
 RequestDatabaseResult represents the result of calls to IndexedDB.requestDatabase.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestDatabase
 */
 type RequestDatabaseResult struct {
 	// Database with an array of object stores.
@@ -93,6 +118,8 @@ type RequestDatabaseResult struct {
 
 /*
 RequestDatabaseNamesParams represents IndexedDB.requestDatabaseNames parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestDatabaseNames
 */
 type RequestDatabaseNamesParams struct {
 	// Security origin.
@@ -101,6 +128,8 @@ type RequestDatabaseNamesParams struct {
 
 /*
 RequestDatabaseNamesResult represents the result of calls to IndexedDB.requestDatabaseNames.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestDatabaseNames
 */
 type RequestDatabaseNamesResult struct {
 	// Database names for origin.
@@ -109,6 +138,8 @@ type RequestDatabaseNamesResult struct {
 
 /*
 DatabaseWithObjectStores is a database with an array of object stores.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#type-DatabaseWithObjectStores
 */
 type DatabaseWithObjectStores struct {
 	// Database name.
@@ -123,6 +154,8 @@ type DatabaseWithObjectStores struct {
 
 /*
 ObjectStore is a object store
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#type-ObjectStore
 */
 type ObjectStore struct {
 	// Object store name.
@@ -140,6 +173,8 @@ type ObjectStore struct {
 
 /*
 ObjectStoreIndex is an object store index.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#type-ObjectStoreIndex
 */
 type ObjectStoreIndex struct {
 	// Index name.
@@ -157,6 +192,8 @@ type ObjectStoreIndex struct {
 
 /*
 Key is a key.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#type-Key
 */
 type Key struct {
 	// Key type. Allowed values: number, string, date, array.
@@ -177,6 +214,8 @@ type Key struct {
 
 /*
 KeyRange is a key range.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#type-KeyRange
 */
 type KeyRange struct {
 	// Optional. Lower bound.
@@ -200,6 +239,8 @@ type KeyRange struct {
 
 /*
 DataEntry is a data entry.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#type-DataEntry
 */
 type DataEntry struct {
 	// Key object.
@@ -214,6 +255,8 @@ type DataEntry struct {
 
 /*
 KeyPath is a key path.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#type-KeyPath
 */
 type KeyPath struct {
 	// Key path type. Allowed values: null, string, array.

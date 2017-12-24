@@ -7,6 +7,8 @@ import (
 
 /*
 CollectClassNamesFromSubtreeParams represents DOM.collectClassNamesFromSubtree parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-collectClassNamesFromSubtree
 */
 type CollectClassNamesFromSubtreeParams struct {
 	// ID of the node to collect class names.
@@ -16,6 +18,8 @@ type CollectClassNamesFromSubtreeParams struct {
 /*
 CollectClassNamesFromSubtreeResult represents the result of calls to
 DOM.collectClassNamesFromSubtree.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-collectClassNamesFromSubtree
 */
 type CollectClassNamesFromSubtreeResult struct {
 	// Class name list.
@@ -24,6 +28,8 @@ type CollectClassNamesFromSubtreeResult struct {
 
 /*
 CopyToParams represents DOM.copyTo parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-copyTo
 */
 type CopyToParams struct {
 	// ID of the node to copy.
@@ -39,6 +45,8 @@ type CopyToParams struct {
 
 /*
 CopyToResult represents the result of calls to DOM.copyTo.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-copyTo
 */
 type CopyToResult struct {
 	// ID of the new cloned node.
@@ -47,6 +55,8 @@ type CopyToResult struct {
 
 /*
 DescribeNodeParams represents DOM.describeNode parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-describeNode
 */
 type DescribeNodeParams struct {
 	// Optional. ID of the node.
@@ -69,6 +79,8 @@ type DescribeNodeParams struct {
 
 /*
 DescribeNodeResult represents the result of calls to DOM.describeNode.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-describeNode
 */
 type DescribeNodeResult struct {
 	// ID of the new cloned node.
@@ -77,6 +89,8 @@ type DescribeNodeResult struct {
 
 /*
 DiscardSearchResultsParams represents DOM.discardSearchResults parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-discardSearchResults
 */
 type DiscardSearchResultsParams struct {
 	// Node description.
@@ -85,6 +99,8 @@ type DiscardSearchResultsParams struct {
 
 /*
 FocusParams represents DOM.focus parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-focus
 */
 type FocusParams struct {
 	// Optional. ID of the node.
@@ -99,6 +115,8 @@ type FocusParams struct {
 
 /*
 GetAttributesParams represents DOM.getAttributes parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getAttributes
 */
 type GetAttributesParams struct {
 	// ID  of the node to retrieve attibutes for.
@@ -107,6 +125,8 @@ type GetAttributesParams struct {
 
 /*
 GetAttributesResult represents the result of calls to DOM.getAttributes.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getAttributes
 */
 type GetAttributesResult struct {
 	// An interleaved array of node attribute names and values.
@@ -115,6 +135,8 @@ type GetAttributesResult struct {
 
 /*
 GetBoxModelParams represents DOM.getBoxModel parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getBoxModel
 */
 type GetBoxModelParams struct {
 	// Optional. ID of the node.
@@ -129,6 +151,8 @@ type GetBoxModelParams struct {
 
 /*
 GetBoxModelResult represents the result of calls to DOM.getBoxModel.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getBoxModel
 */
 type GetBoxModelResult struct {
 	// Box model for the node.
@@ -137,6 +161,8 @@ type GetBoxModelResult struct {
 
 /*
 GetDocumentParams represents DOM.getDocument parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getDocument
 */
 type GetDocumentParams struct {
 	// Optional. The maximum depth at which children should be retrieved, defaults to 1. Use -1 for
@@ -150,6 +176,8 @@ type GetDocumentParams struct {
 
 /*
 GetDocumentResult represents the result of calls to DOM.getDocument.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getDocument
 */
 type GetDocumentResult struct {
 	// Resulting node.
@@ -158,6 +186,8 @@ type GetDocumentResult struct {
 
 /*
 GetFlattenedDocumentParams represents DOM.getFlattenedDocument parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getFlattenedDocument
 */
 type GetFlattenedDocumentParams struct {
 	// Optional. The maximum depth at which children should be retrieved, defaults to 1. Use -1 for
@@ -171,6 +201,8 @@ type GetFlattenedDocumentParams struct {
 
 /*
 GetFlattenedDocumentResult represents the result of calls to DOM.getFlattenedDocument.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getFlattenedDocument
 */
 type GetFlattenedDocumentResult struct {
 	// Resulting nodes.
@@ -179,6 +211,8 @@ type GetFlattenedDocumentResult struct {
 
 /*
 GetNodeForLocationParams represents DOM.getNodeForLocation parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getNodeForLocation
 */
 type GetNodeForLocationParams struct {
 	// X coordinate.
@@ -193,6 +227,8 @@ type GetNodeForLocationParams struct {
 
 /*
 GetNodeForLocationResult represents the result of calls to DOM.getNodeForLocation.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getNodeForLocation
 */
 type GetNodeForLocationResult struct {
 	// ID of the node at given coordinates.
@@ -201,6 +237,8 @@ type GetNodeForLocationResult struct {
 
 /*
 GetOuterHTMLParams represents DOM.getOuterHTML parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getOuterHTML
 */
 type GetOuterHTMLParams struct {
 	// Optional. ID of the node.
@@ -215,6 +253,8 @@ type GetOuterHTMLParams struct {
 
 /*
 GetOuterHTMLResult represents the result of calls to DOM.getOuterHTML.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getOuterHTML
 */
 type GetOuterHTMLResult struct {
 	// Outer HTML markup.
@@ -223,6 +263,8 @@ type GetOuterHTMLResult struct {
 
 /*
 GetRelayoutBoundaryParams represents DOM.getRelayoutBoundary parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getRelayoutBoundary
 */
 type GetRelayoutBoundaryParams struct {
 	// ID of the node.
@@ -231,6 +273,8 @@ type GetRelayoutBoundaryParams struct {
 
 /*
 GetRelayoutBoundaryResult represents the result of calls to DOM.getRelayoutBoundary.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getRelayoutBoundary
 */
 type GetRelayoutBoundaryResult struct {
 	// Relayout boundary node ID for the given node.
@@ -239,6 +283,8 @@ type GetRelayoutBoundaryResult struct {
 
 /*
 GetSearchResultsParams represents DOM.getSearchResults parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getSearchResults
 */
 type GetSearchResultsParams struct {
 	// Unique search session identifier.
@@ -253,6 +299,8 @@ type GetSearchResultsParams struct {
 
 /*
 GetSearchResultsResult represents the result of calls to DOM.getSearchResults.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getSearchResults
 */
 type GetSearchResultsResult struct {
 	// IDs of the search result nodes.
@@ -261,6 +309,8 @@ type GetSearchResultsResult struct {
 
 /*
 MoveToParams represents DOM.moveTo parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-moveTo
 */
 type MoveToParams struct {
 	// ID of the node to move.
@@ -276,6 +326,8 @@ type MoveToParams struct {
 
 /*
 MoveToResult represents the result of calls to DOM.moveTo.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-moveTo
 */
 type MoveToResult struct {
 	// New ID of the moved node.
@@ -284,6 +336,8 @@ type MoveToResult struct {
 
 /*
 PerformSearchParams represents DOM.performSearch parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-performSearch
 */
 type PerformSearchParams struct {
 	// Plain text or query selector or XPath search query.
@@ -295,6 +349,8 @@ type PerformSearchParams struct {
 
 /*
 PerformSearchResult represents the result of calls to DOM.performSearch.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-performSearch
 */
 type PerformSearchResult struct {
 	// Unique search session identifier.
@@ -306,6 +362,8 @@ type PerformSearchResult struct {
 
 /*
 PushNodeByPathToFrontendParams represents DOM.pushNodeByPathToFrontend parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-pushNodeByPathToFrontend
 */
 type PushNodeByPathToFrontendParams struct {
 	// Path to node in the proprietary format.
@@ -314,6 +372,8 @@ type PushNodeByPathToFrontendParams struct {
 
 /*
 PushNodeByPathToFrontendResult represents the result of calls to DOM.pushNodeByPathToFrontend.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-pushNodeByPathToFrontend
 */
 type PushNodeByPathToFrontendResult struct {
 	// ID of the node for given path.
@@ -321,8 +381,9 @@ type PushNodeByPathToFrontendResult struct {
 }
 
 /*
-PushNodesByBackendIDsToFrontendParams represents DOM.pushNodesByBackendIdsToFrontend
-parameters.
+PushNodesByBackendIDsToFrontendParams represents DOM.pushNodesByBackendIdsToFrontend parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-pushNodesByBackendIdsToFrontend
 */
 type PushNodesByBackendIDsToFrontendParams struct {
 	// The array of backend node IDs.
@@ -332,6 +393,8 @@ type PushNodesByBackendIDsToFrontendParams struct {
 /*
 PushNodesByBackendIDsToFrontendResult represents the result of calls to
 DOM.pushNodesByBackendIdsToFrontend.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-pushNodesByBackendIdsToFrontend
 */
 type PushNodesByBackendIDsToFrontendResult struct {
 	// The array of IDs of pushed nodes that correspond to the backend IDs specified in
@@ -341,6 +404,8 @@ type PushNodesByBackendIDsToFrontendResult struct {
 
 /*
 QuerySelectorParams represents DOM.querySelector parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-querySelector
 */
 type QuerySelectorParams struct {
 	// ID of the node to query.
@@ -352,6 +417,8 @@ type QuerySelectorParams struct {
 
 /*
 QuerySelectorResult represents the result of calls to DOM.querySelector.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-querySelector
 */
 type QuerySelectorResult struct {
 	// Query selector result.
@@ -360,6 +427,8 @@ type QuerySelectorResult struct {
 
 /*
 QuerySelectorAllParams represents DOM.querySelectorAll parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-querySelectorAll
 */
 type QuerySelectorAllParams struct {
 	// ID of the node to query upon.
@@ -370,7 +439,19 @@ type QuerySelectorAllParams struct {
 }
 
 /*
+QuerySelectorAllResult represents the result of calls to DOM.querySelectorAll.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-querySelectorAll
+*/
+type QuerySelectorAllResult struct {
+	// Query selector result.
+	NodeIDs []NodeID `json:"nodeIds"`
+}
+
+/*
 RemoveAttributeParams represents DOM.removeAttribute parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-removeAttribute
 */
 type RemoveAttributeParams struct {
 	// ID of the element to remove attribute from.
@@ -381,15 +462,9 @@ type RemoveAttributeParams struct {
 }
 
 /*
-QuerySelectorAllResult represents the result of calls to DOM.querySelectorAll.
-*/
-type QuerySelectorAllResult struct {
-	// Query selector result.
-	NodeIDs []NodeID `json:"nodeIds"`
-}
-
-/*
 RemoveNodeParams represents DOM.removeNode parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-removeNode
 */
 type RemoveNodeParams struct {
 	// ID of the node to remove.
@@ -398,6 +473,8 @@ type RemoveNodeParams struct {
 
 /*
 RequestChildNodesParams represents DOM.requestChildNodes parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-requestChildNodes
 */
 type RequestChildNodesParams struct {
 	// ID of the node to get children for.
@@ -414,6 +491,8 @@ type RequestChildNodesParams struct {
 
 /*
 RequestNodeParams represents DOM.requestNode parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-requestNode
 */
 type RequestNodeParams struct {
 	// JavaScript object ID to convert into node.
@@ -422,6 +501,8 @@ type RequestNodeParams struct {
 
 /*
 RequestNodeResult represents the result of calls to DOM.requestNode.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-requestNode
 */
 type RequestNodeResult struct {
 	// Node ID for given object.
@@ -430,6 +511,8 @@ type RequestNodeResult struct {
 
 /*
 ResolveNodeParams represents DOM.resolveNode parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-resolveNode
 */
 type ResolveNodeParams struct {
 	// Optional. ID of the node to resolve.
@@ -444,6 +527,8 @@ type ResolveNodeParams struct {
 
 /*
 ResolveNodeResult represents the result of calls to DOM.resolveNode.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-resolveNode
 */
 type ResolveNodeResult struct {
 	// JavaScript object wrapper for given node.
@@ -452,6 +537,8 @@ type ResolveNodeResult struct {
 
 /*
 SetAttributeValueParams represents DOM.setAttributeValue parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setAttributeValue
 */
 type SetAttributeValueParams struct {
 	// ID of the element to set attribute for.
@@ -466,6 +553,8 @@ type SetAttributeValueParams struct {
 
 /*
 SetAttributesAsTextParams represents DOM.setAttributesAsText parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setAttributesAsText
 */
 type SetAttributesAsTextParams struct {
 	// ID of the element to set attributes for.
@@ -481,6 +570,8 @@ type SetAttributesAsTextParams struct {
 
 /*
 SetFileInputFilesParams represents DOM.setFileInputFiles parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setFileInputFiles
 */
 type SetFileInputFilesParams struct {
 	// Array of file paths to set.
@@ -498,6 +589,8 @@ type SetFileInputFilesParams struct {
 
 /*
 SetInspectedNodeParams represents DOM.setInspectedNode parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setInspectedNode
 */
 type SetInspectedNodeParams struct {
 	// DOM node ID to be accessible by means of $x command line API.
@@ -506,6 +599,8 @@ type SetInspectedNodeParams struct {
 
 /*
 SetNodeNameParams represents DOM.setNodeName parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setNodeName
 */
 type SetNodeNameParams struct {
 	// ID of the node to set name for.
@@ -517,6 +612,8 @@ type SetNodeNameParams struct {
 
 /*
 SetNodeNameResult represents the result of calls to DOM.setNodeName.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setNodeName
 */
 type SetNodeNameResult struct {
 	// New node's ID.
@@ -525,6 +622,8 @@ type SetNodeNameResult struct {
 
 /*
 SetNodeValueParams represents DOM.setNodeValue parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setNodeValue
 */
 type SetNodeValueParams struct {
 	// ID of the node to set value for.
@@ -536,6 +635,8 @@ type SetNodeValueParams struct {
 
 /*
 SetOuterHTMLParams represents DOM.setOuterHTML parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setOuterHTML
 */
 type SetOuterHTMLParams struct {
 	// ID of the node to set markup for.
@@ -547,6 +648,8 @@ type SetOuterHTMLParams struct {
 
 /*
 AttributeModifiedEvent represents DOM.attributeModified event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-attributeModified
 */
 type AttributeModifiedEvent struct {
 	// ID of the node that has changed.
@@ -561,6 +664,8 @@ type AttributeModifiedEvent struct {
 
 /*
 AttributeRemovedEvent represents DOM.attributeRemoved event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-attributeRemoved
 */
 type AttributeRemovedEvent struct {
 	// ID of the node that has changed.
@@ -572,6 +677,8 @@ type AttributeRemovedEvent struct {
 
 /*
 CharacterDataModifiedEvent represents DOM.characterDataModified event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-characterDataModified
 */
 type CharacterDataModifiedEvent struct {
 	// ID of the node that has changed.
@@ -583,6 +690,8 @@ type CharacterDataModifiedEvent struct {
 
 /*
 ChildNodeCountUpdatedEvent represents DOM.childNodeCountUpdated event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-childNodeCountUpdated
 */
 type ChildNodeCountUpdatedEvent struct {
 	// ID of the node that has changed.
@@ -597,6 +706,8 @@ type ChildNodeCountUpdatedEvent struct {
 
 /*
 ChildNodeInsertedEvent represents DOM.childNodeInserted event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-childNodeInserted
 */
 type ChildNodeInsertedEvent struct {
 	// ID of the node that has changed.
@@ -611,6 +722,8 @@ type ChildNodeInsertedEvent struct {
 
 /*
 ChildNodeRemovedEvent represents DOM.childNodeRemoved event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-childNodeRemoved
 */
 type ChildNodeRemovedEvent struct {
 	// Parent ID.
@@ -622,6 +735,8 @@ type ChildNodeRemovedEvent struct {
 
 /*
 DistributedNodesUpdatedEvent represents DOM.distributedNodesUpdated event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-distributedNodesUpdated
 */
 type DistributedNodesUpdatedEvent struct {
 	// Insertion point where distributed nodes were updated.
@@ -633,11 +748,15 @@ type DistributedNodesUpdatedEvent struct {
 
 /*
 DocumentUpdatedEvent represents DOM.documentUpdated event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-documentUpdated
 */
 type DocumentUpdatedEvent struct{}
 
 /*
 InlineStyleInvalidatedEvent represents DOM.inlineStyleInvalidated event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-inlineStyleInvalidated
 */
 type InlineStyleInvalidatedEvent struct {
 	// IDs of the nodes for which the inline styles have been invalidated.
@@ -646,6 +765,8 @@ type InlineStyleInvalidatedEvent struct {
 
 /*
 PseudoElementAddedEvent represents DOM.pseudoElementAdded event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-pseudoElementAdded
 */
 type PseudoElementAddedEvent struct {
 	// Pseudo element's parent element ID.
@@ -657,6 +778,8 @@ type PseudoElementAddedEvent struct {
 
 /*
 PseudoElementRemovedEvent represents DOM.pseudoElementRemoved event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-pseudoElementRemoved
 */
 type PseudoElementRemovedEvent struct {
 	// Pseudo element's parent element ID.
@@ -668,6 +791,8 @@ type PseudoElementRemovedEvent struct {
 
 /*
 SetChildNodesEvent represents DOM.setChildNodes event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-setChildNodes
 */
 type SetChildNodesEvent struct {
 	// Parent node ID to populate with children.
@@ -679,6 +804,8 @@ type SetChildNodesEvent struct {
 
 /*
 ShadowRootPoppedEvent represents DOM.shadowRootPopped event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-shadowRootPopped
 */
 type ShadowRootPoppedEvent struct {
 	// Host element ID.
@@ -690,6 +817,8 @@ type ShadowRootPoppedEvent struct {
 
 /*
 ShadowRootPushedEvent represents DOM.shadowRootPushed event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-shadowRootPushed
 */
 type ShadowRootPushedEvent struct {
 	// Host element ID.
@@ -701,17 +830,23 @@ type ShadowRootPushedEvent struct {
 
 /*
 NodeID is a unique DOM node identifier.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-NodeId
 */
 type NodeID int
 
 /*
 BackendNodeID is a unique DOM node identifier used to reference a node that may not have been pushed
 to the front-end.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-BackendNodeId
 */
 type BackendNodeID int
 
 /*
 BackendNode is a backend node with a friendly name.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-BackendNode
 */
 type BackendNode struct {
 	// Node's nodeType.
@@ -726,17 +861,23 @@ type BackendNode struct {
 
 /*
 PseudoType is a pseudo element type.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-PseudoType
 */
 type PseudoType string
 
 /*
 ShadowRootType is a shadow root type.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-ShadowRootType
 */
 type ShadowRootType string
 
 /*
 Node is a base node mirror type. DOM interaction is implemented in terms of mirror objects that
 represent the actual DOM nodes.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-Node
 */
 type Node struct {
 	// Node identifier that is passed into the rest of the DOM messages as the nodeId. Backend will
@@ -830,6 +971,8 @@ type Node struct {
 
 /*
 RGBA is a structure holding an RGBA color.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-RGBA
 */
 type RGBA struct {
 	// The red component, in the [0-255] range.
@@ -847,11 +990,15 @@ type RGBA struct {
 
 /*
 Quad is an array of quad vertices, x immediately followed by y for each point, points clock-wise.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-Quad
 */
 type Quad [2]int
 
 /*
 BoxModel represents the box model.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-BoxModel
 */
 type BoxModel struct {
 	// Content box.
@@ -881,6 +1028,8 @@ type BoxModel struct {
 
 /*
 ShapeOutsideInfo represents the CSS Shape Outside details.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-ShapeOutsideInfo
 */
 type ShapeOutsideInfo struct {
 	// Shape bounds.
@@ -895,6 +1044,8 @@ type ShapeOutsideInfo struct {
 
 /*
 Rect defines a rectangle
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-Rect
 */
 type Rect struct {
 	// X coordinate.

@@ -18,6 +18,8 @@ type HeapProfiler struct{}
 /*
 AddInspectedHeapObject enables console to refer to the node with given id via $x (see Command Line
 API for more details $x functions).
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-addInspectedHeapObject
 */
 func (HeapProfiler) AddInspectedHeapObject(
 	socket *Socket,
@@ -33,6 +35,8 @@ func (HeapProfiler) AddInspectedHeapObject(
 
 /*
 CollectGarbage EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-collectGarbage
 */
 func (HeapProfiler) CollectGarbage(
 	socket *Socket,
@@ -46,6 +50,8 @@ func (HeapProfiler) CollectGarbage(
 
 /*
 Disable disables the HeapProfiler.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-disable
 */
 func (HeapProfiler) Disable(
 	socket *Socket,
@@ -59,6 +65,8 @@ func (HeapProfiler) Disable(
 
 /*
 Enable enables the HeapProfiler.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-enable
 */
 func (HeapProfiler) Enable(
 	socket *Socket,
@@ -72,6 +80,8 @@ func (HeapProfiler) Enable(
 
 /*
 GetHeapObjectID EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getHeapObjectId
 */
 func (HeapProfiler) GetHeapObjectID(
 	socket *Socket,
@@ -105,6 +115,8 @@ func (HeapProfiler) GetHeapObjectID(
 
 /*
 GetObjectByHeapObjectID EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getObjectByHeapObjectId
 */
 func (HeapProfiler) GetObjectByHeapObjectID(
 	socket *Socket,
@@ -138,6 +150,8 @@ func (HeapProfiler) GetObjectByHeapObjectID(
 
 /*
 GetSamplingProfile EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getSamplingProfile
 */
 func (HeapProfiler) GetSamplingProfile(
 	socket *Socket,
@@ -153,6 +167,8 @@ func (HeapProfiler) GetSamplingProfile(
 
 /*
 StartSampling EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-startSampling
 */
 func (HeapProfiler) StartSampling(
 	socket *Socket,
@@ -168,6 +184,8 @@ func (HeapProfiler) StartSampling(
 
 /*
 StartTrackingHeapObjects EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-startTrackingHeapObjects
 */
 func (HeapProfiler) StartTrackingHeapObjects(
 	socket *Socket,
@@ -183,6 +201,8 @@ func (HeapProfiler) StartTrackingHeapObjects(
 
 /*
 StopSampling EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stopSampling
 */
 func (HeapProfiler) StopSampling(
 	socket *Socket,
@@ -198,6 +218,8 @@ func (HeapProfiler) StopSampling(
 
 /*
 StopTrackingHeapObjects EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stopTrackingHeapObjects
 */
 func (HeapProfiler) StopTrackingHeapObjects(
 	socket *Socket,
@@ -213,6 +235,8 @@ func (HeapProfiler) StopTrackingHeapObjects(
 
 /*
 TakeHeapSnapshot EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-takeHeapSnapshot
 */
 func (HeapProfiler) TakeHeapSnapshot(
 	socket *Socket,
@@ -229,6 +253,8 @@ func (HeapProfiler) TakeHeapSnapshot(
 /*
 OnAddHeapSnapshotChunk adds a handler to the HeapProfiler.AddHeapSnapshotChunk event.
 EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-addHeapSnapshotChunk
 */
 func (HeapProfiler) OnAddHeapSnapshotChunk(
 	socket *Socket,
@@ -251,6 +277,8 @@ func (HeapProfiler) OnAddHeapSnapshotChunk(
 /*
 OnHeapStatsUpdate adds a handler to the DOM.heapStatsUpdate event. DOM.heapStatsUpdate fires if heap
 objects tracking has been started then backend may send update for one or more fragments.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-heapStatsUpdate
 */
 func (HeapProfiler) OnHeapStatsUpdate(
 	socket *Socket,
@@ -275,6 +303,8 @@ OnLastSeenObjectID adds a handler to the DOM.LastSeenObjectID event. DOM.LastSee
 heap objects tracking has been started then backend regularly sends a current value for last seen
 object id and corresponding timestamp. If the were changes in the heap since last event then one or
 more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-lastSeenObjectId
 */
 func (HeapProfiler) OnLastSeenObjectID(
 	socket *Socket,
@@ -297,6 +327,8 @@ func (HeapProfiler) OnLastSeenObjectID(
 /*
 OnReportHeapSnapshotProgress adds a handler to the DOM.ReportHeapSnapshotProgress event.
 EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-reportHeapSnapshotProgress
 */
 func (HeapProfiler) OnReportHeapSnapshotProgress(
 	socket *Socket,
@@ -318,6 +350,8 @@ func (HeapProfiler) OnReportHeapSnapshotProgress(
 
 /*
 OnResetProfiles adds a handler to the HeapProfiler.ResetProfiles event. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-resetProfiles
 */
 func (HeapProfiler) OnResetProfiles(
 	socket *Socket,

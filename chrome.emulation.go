@@ -17,6 +17,8 @@ type Emulation struct{}
 
 /*
 CanEmulate tells whether emulation is supported.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-canEmulate
 */
 func (Emulation) CanEmulate(
 	socket *Socket,
@@ -48,6 +50,8 @@ func (Emulation) CanEmulate(
 
 /*
 ClearDeviceMetricsOverride clears the overridden device metrics.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-clearDeviceMetricsOverride
 */
 func (Emulation) ClearDeviceMetricsOverride(
 	socket *Socket,
@@ -61,6 +65,8 @@ func (Emulation) ClearDeviceMetricsOverride(
 
 /*
 ClearGeolocationOverride clears the overridden Geolocation Position and Error.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-clearGeolocationOverride
 */
 func (Emulation) ClearGeolocationOverride(
 	socket *Socket,
@@ -74,6 +80,8 @@ func (Emulation) ClearGeolocationOverride(
 
 /*
 ResetPageScaleFactor requests that page scale factor is reset to initial values. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-resetPageScaleFactor
 */
 func (Emulation) ResetPageScaleFactor(
 	socket *Socket,
@@ -87,6 +95,8 @@ func (Emulation) ResetPageScaleFactor(
 
 /*
 SetCPUThrottlingRate enables CPU throttling to emulate slow CPUs. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setCPUThrottlingRate
 */
 func (Emulation) SetCPUThrottlingRate(
 	socket *Socket,
@@ -103,6 +113,8 @@ func (Emulation) SetCPUThrottlingRate(
 /*
 SetDefaultBackgroundColorOverride sets or clears an override of the default background color of the
 frame. This override is used if the content does not specify one.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDefaultBackgroundColorOverride
 */
 func (Emulation) SetDefaultBackgroundColorOverride(
 	socket *Socket,
@@ -120,6 +132,8 @@ func (Emulation) SetDefaultBackgroundColorOverride(
 SetDeviceMetricsOverride overrides the values of device screen dimensions (window.screen.width,
 window.screen.height, window.innerWidth, window.innerHeight, and "device-width"/"device-height"
 related CSS media query results).
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDeviceMetricsOverride
 */
 func (Emulation) SetDeviceMetricsOverride(
 	socket *Socket,
@@ -135,6 +149,8 @@ func (Emulation) SetDeviceMetricsOverride(
 
 /*
 SetEmitTouchEventsForMouse enables touch events using a mouse. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setEmitTouchEventsForMouse
 */
 func (Emulation) SetEmitTouchEventsForMouse(
 	socket *Socket,
@@ -150,6 +166,8 @@ func (Emulation) SetEmitTouchEventsForMouse(
 
 /*
 SetEmulatedMedia emulates the given media for CSS media queries.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setEmulatedMedia
 */
 func (Emulation) SetEmulatedMedia(
 	socket *Socket,
@@ -166,6 +184,8 @@ func (Emulation) SetEmulatedMedia(
 /*
 SetGeolocationOverride overrides the Geolocation Position or Error. Omitting any of the parameters
 emulates position unavailable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setGeolocationOverride
 */
 func (Emulation) SetGeolocationOverride(
 	socket *Socket,
@@ -181,6 +201,8 @@ func (Emulation) SetGeolocationOverride(
 
 /*
 SetNavigatorOverrides overrides value returned by the javascript navigator object. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setNavigatorOverrides
 */
 func (Emulation) SetNavigatorOverrides(
 	socket *Socket,
@@ -196,6 +218,8 @@ func (Emulation) SetNavigatorOverrides(
 
 /*
 SetPageScaleFactor sets a specified page scale factor. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setPageScaleFactor
 */
 func (Emulation) SetPageScaleFactor(
 	socket *Socket,
@@ -211,6 +235,8 @@ func (Emulation) SetPageScaleFactor(
 
 /*
 SetScriptExecutionDisabled switches script execution in the page.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setScriptExecutionDisabled
 */
 func (Emulation) SetScriptExecutionDisabled(
 	socket *Socket,
@@ -226,6 +252,8 @@ func (Emulation) SetScriptExecutionDisabled(
 
 /*
 SetTouchEmulationEnabled enables touch on platforms which do not support it.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setTouchEmulationEnabled
 */
 func (Emulation) SetTouchEmulationEnabled(
 	socket *Socket,
@@ -243,6 +271,8 @@ func (Emulation) SetTouchEmulationEnabled(
 SetVirtualTimePolicy turns on virtual time for all frames (replacing real-time with a synthetic time
 source) and sets the current virtual time policy. Note this supersedes any previous time budget.
 EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setVirtualTimePolicy
 */
 func (Emulation) SetVirtualTimePolicy(
 	socket *Socket,
@@ -260,6 +290,8 @@ func (Emulation) SetVirtualTimePolicy(
 SetVisibleSize resizes the frame/viewport of the page. Note that this does not affect the frame's
 container (e.g. browser window). Can be used to produce screenshots of the specified size. Not
 supported on Android. EXPERIMENTAL DEPRECATED
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setVisibleSize
 */
 func (Emulation) SetVisibleSize(
 	socket *Socket,
@@ -276,6 +308,8 @@ func (Emulation) SetVisibleSize(
 /*
 OnVirtualTimeAdvanced adds a handler to the Emulation.virtualTimeAdvanced event.
 Emulation.virtualTimeAdvanced fires after the virtual time has advanced. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#event-virtualTimeAdvanced
 */
 func (Emulation) OnVirtualTimeAdvanced(
 	socket *Socket,
@@ -299,6 +333,8 @@ func (Emulation) OnVirtualTimeAdvanced(
 OnVirtualTimeBudgetExpired adds a handler to the Emulation.virtualTimeBudgetExpired event.
 Emulation.virtualTimeBudgetExpired fires after the virtual time budget for the current
 VirtualTimePolicy has run out. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#event-virtualTimeBudgetExpired
 */
 func (Emulation) OnVirtualTimeBudgetExpired(
 	socket *Socket,
@@ -321,6 +357,8 @@ func (Emulation) OnVirtualTimeBudgetExpired(
 /*
 OnVirtualTimePaused adds a handler to the Emulation.virtualTimePaused event.
 Emulation.virtualTimePaused fires after the virtual time has paused. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#event-virtualTimePaused
 */
 func (Emulation) OnVirtualTimePaused(
 	socket *Socket,

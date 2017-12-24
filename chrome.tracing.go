@@ -17,6 +17,8 @@ type Tracing struct{}
 
 /*
 End stops trace events collection.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-end
 */
 func (Tracing) End(
 	socket *Socket,
@@ -30,6 +32,8 @@ func (Tracing) End(
 
 /*
 GetCategories gets supported tracing categories.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-getCategories
 */
 func (Tracing) GetCategories(
 	socket *Socket,
@@ -61,6 +65,8 @@ func (Tracing) GetCategories(
 
 /*
 RecordClockSyncMarker records a clock sync marker in the trace.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-recordClockSyncMarker
 */
 func (Tracing) RecordClockSyncMarker(
 	socket *Socket,
@@ -76,6 +82,8 @@ func (Tracing) RecordClockSyncMarker(
 
 /*
 RequestMemoryDump requests a global memory dump.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-requestMemoryDump
 */
 func (Tracing) RequestMemoryDump(
 	socket *Socket,
@@ -107,6 +115,8 @@ func (Tracing) RequestMemoryDump(
 
 /*
 Start starts trace events collection.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-start
 */
 func (Tracing) Start(
 	socket *Socket,
@@ -123,6 +133,8 @@ func (Tracing) Start(
 /*
 OnBufferUsage adds a handler to the Tracing.bufferUsage event. Tracing.bufferUsage fires when a
 buffer is used.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-bufferUsage
 */
 func (Tracing) OnBufferUsage(
 	socket *Socket,
@@ -146,6 +158,8 @@ func (Tracing) OnBufferUsage(
 OnDataCollected adds a handler to the Tracing.dataCollected event. Tracing.dataCollected fires when
 tracing is stopped, collected events will be sent as a sequence of dataCollected events followed by
 tracingComplete event. Contains an bucket of collected trace events.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-dataCollected
 */
 func (Tracing) OnDataCollected(
 	socket *Socket,
@@ -169,6 +183,8 @@ func (Tracing) OnDataCollected(
 OnTracingComplete adds a handler to the Tracing.Complete event. Tracing.Complete fires when tracing
 is stopped and there is no trace buffers pending flush, all data were delivered via DataCollected
 events.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-tracingComplete
 */
 func (Tracing) OnTracingComplete(
 	socket *Socket,

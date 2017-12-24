@@ -1,11 +1,9 @@
 package Memory
 
-import (
-	"fmt"
-)
-
 /*
 GetDOMCountersParams represents Memory.getDOMCounters parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-getDOMCounters
 */
 type GetDOMCountersParams struct {
 	Documents        int `json:"documents"`
@@ -16,6 +14,8 @@ type GetDOMCountersParams struct {
 /*
 SetPressureNotificationsSuppressedParams represents Memory.setPressureNotificationsSuppressed
 parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-setPressureNotificationsSuppressed
 */
 type SetPressureNotificationsSuppressedParams struct {
 	// If true, memory pressure notifications will be suppressed.
@@ -24,6 +24,8 @@ type SetPressureNotificationsSuppressedParams struct {
 
 /*
 SimulatePressureNotificationParams represents Memory.simulatePressureNotification parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-simulatePressureNotification
 */
 type SimulatePressureNotificationParams struct {
 	// Memory pressure level of the notification.
@@ -32,20 +34,7 @@ type SimulatePressureNotificationParams struct {
 
 /*
 PressureLevel is the memory pressure level.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Memory/#type-PressureLevel
 */
-type PressureLevel int
-
-const (
-	_moderate PressureLevel = iota
-	_critical
-)
-
-func (a PressureLevel) String() string {
-	if a == 0 {
-		return "moderate"
-	}
-	if a == 1 {
-		return "critical"
-	}
-	panic(fmt.Errorf("Invalid PressureLevel %d", a))
-}
+type PressureLevel string

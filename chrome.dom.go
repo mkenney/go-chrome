@@ -25,6 +25,8 @@ type DOM struct{}
 /*
 CollectClassNamesFromSubtree creates a deep copy of the specified node and places it into the target container before the
 given anchor. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-collectClassNamesFromSubtree
 */
 func (DOM) CollectClassNamesFromSubtree(
 	socket *Socket,
@@ -59,6 +61,8 @@ func (DOM) CollectClassNamesFromSubtree(
 /*
 CopyTo creates a deep copy of the specified node and places it into the target container before the
 given anchor. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-copyTo
 */
 func (DOM) CopyTo(
 	socket *Socket,
@@ -93,6 +97,8 @@ func (DOM) CopyTo(
 /*
 DescribeNode describes node given its id, does not require domain to be enabled. Does not start
 tracking any objects, can be used for automation.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-describeNode
 */
 func (DOM) DescribeNode(
 	socket *Socket,
@@ -126,6 +132,8 @@ func (DOM) DescribeNode(
 
 /*
 Disable disables the DOM agent for the given page.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-disable
 */
 func (DOM) Disable(
 	socket *Socket,
@@ -140,6 +148,8 @@ func (DOM) Disable(
 /*
 DiscardSearchResults discards search results from the session with the given id. getSearchResults
 should no longer be called for that search. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-discardSearchResults
 */
 func (DOM) DiscardSearchResults(
 	socket *Socket,
@@ -155,6 +165,8 @@ func (DOM) DiscardSearchResults(
 
 /*
 Enable enables the DOM agent for the given page.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-enable
 */
 func (DOM) Enable(
 	socket *Socket,
@@ -168,6 +180,8 @@ func (DOM) Enable(
 
 /*
 Focus focuses the given element.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-focus
 */
 func (DOM) Focus(
 	socket *Socket,
@@ -183,6 +197,8 @@ func (DOM) Focus(
 
 /*
 GetAttributes returns attributes for the specified node.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getAttributes
 */
 func (DOM) GetAttributes(
 	socket *Socket,
@@ -216,6 +232,8 @@ func (DOM) GetAttributes(
 
 /*
 GetBoxModel returns boxes for the given node.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getBoxModel
 */
 func (DOM) GetBoxModel(
 	socket *Socket,
@@ -249,6 +267,8 @@ func (DOM) GetBoxModel(
 
 /*
 GetDocument returns the root DOM node (and optionally the subtree) to the caller.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getDocument
 */
 func (DOM) GetDocument(
 	socket *Socket,
@@ -282,6 +302,8 @@ func (DOM) GetDocument(
 
 /*
 GetFlattenedDocument returns the root DOM node (and optionally the subtree) to the caller.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getFlattenedDocument
 */
 func (DOM) GetFlattenedDocument(
 	socket *Socket,
@@ -315,6 +337,8 @@ func (DOM) GetFlattenedDocument(
 
 /*
 GetNodeForLocation returns node id at given location. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getNodeForLocation
 */
 func (DOM) GetNodeForLocation(
 	socket *Socket,
@@ -348,6 +372,8 @@ func (DOM) GetNodeForLocation(
 
 /*
 GetOuterHTML returns node's HTML markup.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getOuterHTML
 */
 func (DOM) GetOuterHTML(
 	socket *Socket,
@@ -381,6 +407,8 @@ func (DOM) GetOuterHTML(
 
 /*
 GetRelayoutBoundary returns the id of the nearest ancestor that is a relayout boundary. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getRelayoutBoundary
 */
 func (DOM) GetRelayoutBoundary(
 	socket *Socket,
@@ -415,6 +443,8 @@ func (DOM) GetRelayoutBoundary(
 /*
 GetSearchResults returns search results from given fromIndex to given toIndex from the search with
 the given identifier. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getSearchResults
 */
 func (DOM) GetSearchResults(
 	socket *Socket,
@@ -448,6 +478,8 @@ func (DOM) GetSearchResults(
 
 /*
 MarkUndoableState marks last undoable state. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-markUndoableState
 */
 func (DOM) MarkUndoableState(
 	socket *Socket,
@@ -461,6 +493,8 @@ func (DOM) MarkUndoableState(
 
 /*
 MoveTo moves node into the new container, places it before the given anchor.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-moveTo
 */
 func (DOM) MoveTo(
 	socket *Socket,
@@ -495,6 +529,8 @@ func (DOM) MoveTo(
 /*
 PerformSearch searches for a given string in the DOM tree. Use getSearchResults to access search
 results or cancelSearch to end this search session. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-performSearch
 */
 func (DOM) PerformSearch(
 	socket *Socket,
@@ -529,6 +565,8 @@ func (DOM) PerformSearch(
 /*
 PushNodeByPathToFrontend requests that the node is sent to the caller given its path. EXPERIMENTAL
 @TODO, use XPath.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-pushNodeByPathToFrontend
 */
 func (DOM) PushNodeByPathToFrontend(
 	socket *Socket,
@@ -563,6 +601,8 @@ func (DOM) PushNodeByPathToFrontend(
 /*
 PushNodesByBackendIDsToFrontend requests that a batch of nodes is sent to the caller given their
 backend node IDs. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-pushNodesByBackendIdsToFrontend
 */
 func (DOM) PushNodesByBackendIDsToFrontend(
 	socket *Socket,
@@ -596,6 +636,8 @@ func (DOM) PushNodesByBackendIDsToFrontend(
 
 /*
 QuerySelector executes querySelector on a given node.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-querySelector
 */
 func (DOM) QuerySelector(
 	socket *Socket,
@@ -629,6 +671,8 @@ func (DOM) QuerySelector(
 
 /*
 QuerySelectorAll executes querySelectorAll on a given node.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-querySelectorAll
 */
 func (DOM) QuerySelectorAll(
 	socket *Socket,
@@ -662,6 +706,8 @@ func (DOM) QuerySelectorAll(
 
 /*
 Redo re-does the last undone action. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-redo
 */
 func (DOM) Redo(
 	socket *Socket,
@@ -675,6 +721,8 @@ func (DOM) Redo(
 
 /*
 RemoveAttribute removes attribute with given name from an element with given id.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-removeAttribute
 */
 func (DOM) RemoveAttribute(
 	socket *Socket,
@@ -690,6 +738,8 @@ func (DOM) RemoveAttribute(
 
 /*
 RemoveNode removes the specified node.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-removeNode
 */
 func (DOM) RemoveNode(
 	socket *Socket,
@@ -707,6 +757,8 @@ func (DOM) RemoveNode(
 RequestChildNodes requests that children of the node with given id are returned to the caller in
 form of setChildNodes events where not only immediate children are retrieved, but all children down
 to the specified depth.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-requestChildNodes
 */
 func (DOM) RequestChildNodes(
 	socket *Socket,
@@ -724,6 +776,8 @@ func (DOM) RequestChildNodes(
 RequestNode requests that the node is sent to the caller given the JavaScript node object reference.
 All nodes that form the path from the node to the root are also sent to the client as a series of
 setChildNodes notifications.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-requestNode
 */
 func (DOM) RequestNode(
 	socket *Socket,
@@ -757,6 +811,8 @@ func (DOM) RequestNode(
 
 /*
 ResolveNode resolves the JavaScript node object for a given NodeID or BackendNodeID.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-resolveNode
 */
 func (DOM) ResolveNode(
 	socket *Socket,
@@ -790,6 +846,8 @@ func (DOM) ResolveNode(
 
 /*
 SetAttributeValue sets attribute for an element with given id.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setAttributeValue
 */
 func (DOM) SetAttributeValue(
 	socket *Socket,
@@ -806,6 +864,8 @@ func (DOM) SetAttributeValue(
 /*
 SetAttributesAsText sets attributes on element with given id. This method is useful when user edits
 some existing attribute value and types in several attribute name/value pairs.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setAttributesAsText
 */
 func (DOM) SetAttributesAsText(
 	socket *Socket,
@@ -821,6 +881,8 @@ func (DOM) SetAttributesAsText(
 
 /*
 SetFileInputFiles sets files for the given file input element.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setFileInputFiles
 */
 func (DOM) SetFileInputFiles(
 	socket *Socket,
@@ -837,6 +899,8 @@ func (DOM) SetFileInputFiles(
 /*
 SetInspectedNode enables console to refer to the node with given id via $x (see Command Line API for
 more details $x functions). EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setInspectedNode
 */
 func (DOM) SetInspectedNode(
 	socket *Socket,
@@ -852,6 +916,8 @@ func (DOM) SetInspectedNode(
 
 /*
 SetNodeName sets node name for the specified node.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setNodeName
 */
 func (DOM) SetNodeName(
 	socket *Socket,
@@ -885,6 +951,8 @@ func (DOM) SetNodeName(
 
 /*
 SetNodeValue sets node value for the specified node.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setNodeValue
 */
 func (DOM) SetNodeValue(
 	socket *Socket,
@@ -900,6 +968,8 @@ func (DOM) SetNodeValue(
 
 /*
 SetOuterHTML sets node HTML markup, returns new node id.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setOuterHTML
 */
 func (DOM) SetOuterHTML(
 	socket *Socket,
@@ -915,6 +985,8 @@ func (DOM) SetOuterHTML(
 
 /*
 Undo undoes the last performed action. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-undo
 */
 func (DOM) Undo(
 	socket *Socket,
@@ -929,6 +1001,8 @@ func (DOM) Undo(
 /*
 OnAttributeModified adds a handler to the DOM.attributeModified event. DOM.attributeModified fires
 when Element's attribute is modified.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-attributeModified
 */
 func (DOM) OnAttributeModified(
 	socket *Socket,
@@ -951,6 +1025,8 @@ func (DOM) OnAttributeModified(
 /*
 OnAttributeRemoved adds a handler to the DOM.attributeRemoved event. DOM.attributeRemoved fires when
 Element's attribute is modified.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-attributeRemoved
 */
 func (DOM) OnAttributeRemoved(
 	socket *Socket,
@@ -973,6 +1049,8 @@ func (DOM) OnAttributeRemoved(
 /*
 OnCharacterDataModified adds a handler to the DOM.characterDataModified event.
 DOM.characterDataModified mirrors the DOMCharacterDataModified event.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-characterDataModified
 */
 func (DOM) OnCharacterDataModified(
 	socket *Socket,
@@ -995,6 +1073,8 @@ func (DOM) OnCharacterDataModified(
 /*
 OnChildNodeCountUpdated adds a handler to the DOM.childNodeCountUpdated event.
 DOM.childNodeCountUpdated fires when Container's child node count has changed.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-childNodeCountUpdated
 */
 func (DOM) OnChildNodeCountUpdated(
 	socket *Socket,
@@ -1017,6 +1097,8 @@ func (DOM) OnChildNodeCountUpdated(
 /*
 OnChildNodeInserted adds a handler to the DOM.childNodeInserted event. DOM.childNodeInserted mirrors
 the DOMNodeInserted event.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-childNodeInserted
 */
 func (DOM) OnChildNodeInserted(
 	socket *Socket,
@@ -1039,6 +1121,8 @@ func (DOM) OnChildNodeInserted(
 /*
 OnChildNodeRemoved adds a handler to the DOM.childNodeRemoved event.DOM.childNodeRemoved mirrors the
 DOMNodeRemoved event.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-childNodeRemoved
 */
 func (DOM) OnChildNodeRemoved(
 	socket *Socket,
@@ -1061,6 +1145,8 @@ func (DOM) OnChildNodeRemoved(
 /*
 OnDistributedNodesUpdated adds a handler to the DOM.distributedNodesUpdated event.
 DOM.distributedNodesUpdated fires when distribution is changed. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-distributedNodesUpdated
 */
 func (DOM) OnDistributedNodesUpdated(
 	socket *Socket,
@@ -1083,6 +1169,8 @@ func (DOM) OnDistributedNodesUpdated(
 /*
 OnDocumentUpdated adds a handler to the DOM.documentUpdated event. DOM.documentUpdated
 fires when Document has been totally updated. Node IDs are no longer valid.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-documentUpdated
 */
 func (DOM) OnDocumentUpdated(
 	socket *Socket,
@@ -1105,6 +1193,8 @@ func (DOM) OnDocumentUpdated(
 /*
 OnInlineStyleInvalidated adds a handler to the DOM.inlineStyleInvalidated event.
 DOM.inlineStyleInvalidated fires when Element's attribute is removed.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-inlineStyleInvalidated
 */
 func (DOM) OnInlineStyleInvalidated(
 	socket *Socket,
@@ -1127,6 +1217,8 @@ func (DOM) OnInlineStyleInvalidated(
 /*
 OnPseudoElementAdded adds a handler to the DOM.pseudoElementAdded event. DOM.pseudoElementAdded
 fires when a pseudo element is added to an element. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-pseudoElementAdded
 */
 func (DOM) OnPseudoElementAdded(
 	socket *Socket,
@@ -1149,6 +1241,8 @@ func (DOM) OnPseudoElementAdded(
 /*
 OnPseudoElementRemoved adds a handler to the DOM.pseudoElementRemoved event.
 DOM.pseudoElementRemoved fires when a pseudo element is removed from an element. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-pseudoElementRemoved
 */
 func (DOM) OnPseudoElementRemoved(
 	socket *Socket,
@@ -1172,6 +1266,8 @@ func (DOM) OnPseudoElementRemoved(
 OnSetChildNodes adds a handler to the DOM.setChildNodes event. DOM.setChildNodes fires
 when backend wants to provide client with the missing DOM structure. This happens upon most of the
 calls requesting node IDs.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-setChildNodes
 */
 func (DOM) OnSetChildNodes(
 	socket *Socket,
@@ -1194,6 +1290,8 @@ func (DOM) OnSetChildNodes(
 /*
 OnShadowRootPopped adds a handler to the DOM.shadowRootPopped event. DOM.shadowRootPopped fires when
 shadow root is popped from the element. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-shadowRootPopped
 */
 func (DOM) OnShadowRootPopped(
 	socket *Socket,
@@ -1216,6 +1314,8 @@ func (DOM) OnShadowRootPopped(
 /*
 OnShadowRootPushed adds a handler to the DOM.shadowRootPushed event. DOM.shadowRootPushed fires when
 shadow root is pushed into the element. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-shadowRootPushed
 */
 func (DOM) OnShadowRootPushed(
 	socket *Socket,

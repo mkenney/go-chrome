@@ -18,6 +18,8 @@ type Debugger struct{}
 
 /*
 ContinueToLocation continues execution until specific location is reached.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-continueToLocation
 */
 func (Debugger) ContinueToLocation(
 	socket *Socket,
@@ -33,6 +35,8 @@ func (Debugger) ContinueToLocation(
 
 /*
 Disable disables debugger for given page.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-disable
 */
 func (Debugger) Disable(
 	socket *Socket,
@@ -47,6 +51,8 @@ func (Debugger) Disable(
 /*
 Enable enables debugger for the given page. Clients should not assume that the debugging has been
 enabled until the result for this command is received.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-enable
 */
 func (Debugger) Enable(
 	socket *Socket,
@@ -60,6 +66,8 @@ func (Debugger) Enable(
 
 /*
 EvaluateOnCallFrame evaluates expression on a given call frame.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-evaluateOnCallFrame
 */
 func (Debugger) EvaluateOnCallFrame(
 	socket *Socket,
@@ -94,6 +102,8 @@ func (Debugger) EvaluateOnCallFrame(
 /*
 GetPossibleBreakpoints returns possible locations for breakpoint. scriptId in start and end range
 locations should be the same.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getPossibleBreakpoints
 */
 func (Debugger) GetPossibleBreakpoints(
 	socket *Socket,
@@ -127,6 +137,8 @@ func (Debugger) GetPossibleBreakpoints(
 
 /*
 GetScriptSource returns source for the script with given id.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getScriptSource
 */
 func (Debugger) GetScriptSource(
 	socket *Socket,
@@ -160,6 +172,8 @@ func (Debugger) GetScriptSource(
 
 /*
 GetStackTrace returns stack trace with given stackTraceId. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getStackTrace
 */
 func (Debugger) GetStackTrace(
 	socket *Socket,
@@ -193,6 +207,8 @@ func (Debugger) GetStackTrace(
 
 /*
 Pause stops on the next JavaScript statement.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-pause
 */
 func (Debugger) Pause(
 	socket *Socket,
@@ -206,6 +222,8 @@ func (Debugger) Pause(
 
 /*
 PauseOnAsyncCall EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-pauseOnAsyncCall
 */
 func (Debugger) PauseOnAsyncCall(
 	socket *Socket,
@@ -221,6 +239,8 @@ func (Debugger) PauseOnAsyncCall(
 
 /*
 RemoveBreakpoint removes JavaScript breakpoint.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-removeBreakpoint
 */
 func (Debugger) RemoveBreakpoint(
 	socket *Socket,
@@ -236,6 +256,8 @@ func (Debugger) RemoveBreakpoint(
 
 /*
 RestartFrame restarts particular call frame from the beginning.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-restartFrame
 */
 func (Debugger) RestartFrame(
 	socket *Socket,
@@ -269,6 +291,8 @@ func (Debugger) RestartFrame(
 
 /*
 Resume resumes JavaScript execution.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-resume
 */
 func (Debugger) Resume(
 	socket *Socket,
@@ -285,6 +309,8 @@ ScheduleStepIntoAsync is deprecated - use Debugger.stepInto with breakOnAsyncCal
 Debugger.pauseOnAsyncTask instead. Steps into next scheduled async task if any is scheduled before
 next pause. Returns success when async task is actually scheduled, returns error if no task were
 scheduled or another scheduleStepIntoAsync was called. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-scheduleStepIntoAsync
 */
 func (Debugger) ScheduleStepIntoAsync(
 	socket *Socket,
@@ -298,6 +324,8 @@ func (Debugger) ScheduleStepIntoAsync(
 
 /*
 SearchInContent searches for given string in script content.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-searchInContent
 */
 func (Debugger) SearchInContent(
 	socket *Socket,
@@ -331,6 +359,8 @@ func (Debugger) SearchInContent(
 
 /*
 SetAsyncCallStackDepth enables or disables async call stacks tracking.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setAsyncCallStackDepth
 */
 func (Debugger) SetAsyncCallStackDepth(
 	socket *Socket,
@@ -349,6 +379,8 @@ SetBlackboxPatterns replaces previous blackbox patterns with passed ones. Forces
 stepping/pausing in scripts with url matching one of the patterns. VM will try to leave blackboxed
 script by performing 'step in' several times, finally resorting to 'step out' if unsuccessful.
 EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBlackboxPatterns
 */
 func (Debugger) SetBlackboxPatterns(
 	socket *Socket,
@@ -367,6 +399,8 @@ SetBlackboxedRanges makes backend skip steps in the script in blackboxed ranges.
 blacklisted scripts by performing 'step in' several times, finally resorting to 'step out' if
 unsuccessful. Positions array contains positions where blackbox state is changed. First interval
 isn't blackboxed. Array should be sorted.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBlackboxedRanges
 */
 func (Debugger) SetBlackboxedRanges(
 	socket *Socket,
@@ -382,6 +416,8 @@ func (Debugger) SetBlackboxedRanges(
 
 /*
 SetBreakpoint sets JavaScript breakpoint at a given location.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreakpoint
 */
 func (Debugger) SetBreakpoint(
 	socket *Socket,
@@ -418,6 +454,8 @@ SetBreakpointByURL sets JavaScript breakpoint at given location specified either
 regex. Once this command is issued, all existing parsed scripts will have breakpoints resolved and
 returned in locations property. Further matching script parsing will result in subsequent
 breakpointResolved events issued. This logical breakpoint will survive page reloads.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreakpointByUrl
 */
 func (Debugger) SetBreakpointByURL(
 	socket *Socket,
@@ -451,6 +489,8 @@ func (Debugger) SetBreakpointByURL(
 
 /*
 SetBreakpointsActive activates / deactivates all breakpoints on the page.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreakpointsActive
 */
 func (Debugger) SetBreakpointsActive(
 	socket *Socket,
@@ -467,6 +507,8 @@ func (Debugger) SetBreakpointsActive(
 /*
 SetPauseOnExceptions defines the pause on exceptions state. Can be set to stop on all exceptions,
 uncaught exceptions or no exceptions. Initial pause on exceptions state is none.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setPauseOnExceptions
 */
 func (Debugger) SetPauseOnExceptions(
 	socket *Socket,
@@ -483,6 +525,8 @@ func (Debugger) SetPauseOnExceptions(
 /*
 SetReturnValue changes return value in top frame. Available only at return break position.
 EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setReturnValue
 */
 func (Debugger) SetReturnValue(
 	socket *Socket,
@@ -498,6 +542,8 @@ func (Debugger) SetReturnValue(
 
 /*
 SetScriptSource edits JavaScript source live.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setScriptSource
 */
 func (Debugger) SetScriptSource(
 	socket *Socket,
@@ -531,6 +577,8 @@ func (Debugger) SetScriptSource(
 
 /*
 SetSkipAllPauses makes page not interrupt on any pauses (breakpoint, exception, dom exception etc).
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setSkipAllPauses
 */
 func (Debugger) SetSkipAllPauses(
 	socket *Socket,
@@ -547,6 +595,8 @@ func (Debugger) SetSkipAllPauses(
 /*
 SetVariableValue changes value of variable in a callframe. Object-based scopes are not supported and
 must be mutated manually.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setVariableValue
 */
 func (Debugger) SetVariableValue(
 	socket *Socket,
@@ -562,6 +612,8 @@ func (Debugger) SetVariableValue(
 
 /*
 StepInto steps into the function call.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepInto
 */
 func (Debugger) StepInto(
 	socket *Socket,
@@ -577,6 +629,8 @@ func (Debugger) StepInto(
 
 /*
 StepOut steps out of the function call.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepOut
 */
 func (Debugger) StepOut(
 	socket *Socket,
@@ -590,6 +644,8 @@ func (Debugger) StepOut(
 
 /*
 StepOver steps over the statement.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepOver
 */
 func (Debugger) StepOver(
 	socket *Socket,
@@ -604,6 +660,8 @@ func (Debugger) StepOver(
 /*
 OnBreakpointResolved adds a handler to the Debugger.breakpointResolved event.
 Debugger.breakpointResolved fires when breakpoint is resolved to an actual script and location.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-breakpointResolved
 */
 func (Debugger) OnBreakpointResolved(
 	socket *Socket,
@@ -626,6 +684,8 @@ func (Debugger) OnBreakpointResolved(
 /*
 OnPaused adds a handler to the Debugger.paused event. Debugger.paused fires when the virtual machine
 stopped on breakpoint or exception or any other stop criteria.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-paused
 */
 func (Debugger) OnPaused(
 	socket *Socket,
@@ -648,6 +708,8 @@ func (Debugger) OnPaused(
 /*
 OnResumed adds a handler to the Debugger.resumed event. Debugger.resumed fires when the virtual
 machine resumes execution.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-resumed
 */
 func (Debugger) OnResumed(
 	socket *Socket,
@@ -670,6 +732,8 @@ func (Debugger) OnResumed(
 /*
 OnScriptFailedToParse adds a handler to the Debugger.scriptFailedToParse event.
 Debugger.scriptFailedToParse fires when the virtual machine fails to parse the script.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-scriptFailedToParse
 */
 func (Debugger) OnScriptFailedToParse(
 	socket *Socket,
@@ -693,6 +757,8 @@ func (Debugger) OnScriptFailedToParse(
 OnScriptParsed adds a handler to the Debugger.ScriptParsed event. Debugger.ScriptParsed fires when
 virtual machine parses script. This event is also fired for all known and uncollected scripts upon
 enabling debugger.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-scriptParsed
 */
 func (Debugger) OnScriptParsed(
 	socket *Socket,

@@ -1,11 +1,9 @@
 package Runtime
 
-import (
-	"fmt"
-)
-
 /*
 AwaitPromiseParams represents Runtime.awaitPromise parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-awaitPromise
 */
 type AwaitPromiseParams struct {
 	// Identifier of the promise.
@@ -20,6 +18,8 @@ type AwaitPromiseParams struct {
 
 /*
 AwaitPromiseResult represents the result of calls to Runtime.awaitPromise.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-awaitPromise
 */
 type AwaitPromiseResult struct {
 	// Promise result. Will contain rejected value if promise was rejected.
@@ -31,6 +31,8 @@ type AwaitPromiseResult struct {
 
 /*
 CallFunctionOnParams represents Runtime.callFunctionOn parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-callFunctionOn
 */
 type CallFunctionOnParams struct {
 	// Declaration of the function to call.
@@ -72,6 +74,8 @@ type CallFunctionOnParams struct {
 
 /*
 CallFunctionOnResult represents the result of calls to Runtime.callFunctionOn.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-callFunctionOn
 */
 type CallFunctionOnResult struct {
 	// Call result.
@@ -83,6 +87,8 @@ type CallFunctionOnResult struct {
 
 /*
 CompileScriptParams represents Runtime.compileScript parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-compileScript
 */
 type CompileScriptParams struct {
 	// Expression to compile.
@@ -101,6 +107,8 @@ type CompileScriptParams struct {
 
 /*
 CompileScriptResult represents the result of calls to Runtime.compileScript.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-compileScript
 */
 type CompileScriptResult struct {
 	// ID of the script.
@@ -112,6 +120,8 @@ type CompileScriptResult struct {
 
 /*
 EvaluateParams represents Runtime.evaluate parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-evaluate
 */
 type EvaluateParams struct {
 	// Expression to evaluate.
@@ -147,6 +157,8 @@ type EvaluateParams struct {
 
 /*
 EvaluateResult represents the result of calls to Runtime.evaluate.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-evaluate
 */
 type EvaluateResult struct {
 	// Evaluation result.
@@ -158,6 +170,8 @@ type EvaluateResult struct {
 
 /*
 GetPropertiesParams represents Runtime.getProperties parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-getProperties
 */
 type GetPropertiesParams struct {
 	// Identifier of the object to return properties for.
@@ -177,6 +191,8 @@ type GetPropertiesParams struct {
 
 /*
 GetPropertiesResult represents the result of calls to Runtime.getProperties.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-getProperties
 */
 type GetPropertiesResult struct {
 	// Object properties.
@@ -191,6 +207,8 @@ type GetPropertiesResult struct {
 
 /*
 GlobalLexicalScopeNamesParams represents Runtime.globalLexicalScopeNames parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-globalLexicalScopeNames
 */
 type GlobalLexicalScopeNamesParams struct {
 	// Optional. Specifies in which execution context to lookup global scope variables.
@@ -199,6 +217,8 @@ type GlobalLexicalScopeNamesParams struct {
 
 /*
 GlobalLexicalScopeNamesResult represents the result of calls to Runtime.globalLexicalScopeNames.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-globalLexicalScopeNames
 */
 type GlobalLexicalScopeNamesResult struct {
 	Names []string `json:"names"`
@@ -206,6 +226,8 @@ type GlobalLexicalScopeNamesResult struct {
 
 /*
 QueryObjectsParams represents Runtime.queryObjects parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-queryObjects
 */
 type QueryObjectsParams struct {
 	// Identifier of the prototype to return objects for.
@@ -214,6 +236,8 @@ type QueryObjectsParams struct {
 
 /*
 QueryObjectsResult represents the result of calls to Runtime.queryObjects.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-queryObjects
 */
 type QueryObjectsResult struct {
 	// Identifier of the object to release.
@@ -222,6 +246,8 @@ type QueryObjectsResult struct {
 
 /*
 ReleaseObjectParams represents Runtime.releaseObject parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseObject
 */
 type ReleaseObjectParams struct {
 	// Identifier of the object to release.
@@ -230,6 +256,8 @@ type ReleaseObjectParams struct {
 
 /*
 ReleaseObjectGroupParams represents Runtime.releaseObjectGroup parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseObjectGroup
 */
 type ReleaseObjectGroupParams struct {
 	// Symbolic object group name.
@@ -238,6 +266,8 @@ type ReleaseObjectGroupParams struct {
 
 /*
 RunScriptParams represents Runtime.runScript parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-runScript
 */
 type RunScriptParams struct {
 	// ID of the script to run.
@@ -270,6 +300,8 @@ type RunScriptParams struct {
 
 /*
 RunScriptResult represents the result of calls to Runtime.runScript.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-runScript
 */
 type RunScriptResult struct {
 	// Identifier of the object to release.
@@ -278,6 +310,8 @@ type RunScriptResult struct {
 
 /*
 SetCustomObjectFormatterEnabledParams represents Runtime.setCustomObjectFormatterEnabled parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-setCustomObjectFormatterEnabled
 */
 type SetCustomObjectFormatterEnabledParams struct {
 	// Run result.
@@ -289,6 +323,8 @@ type SetCustomObjectFormatterEnabledParams struct {
 
 /*
 ConsoleAPICalledEvent represents Runtime.consoleAPICalled event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-consoleAPICalled
 */
 type ConsoleAPICalledEvent struct {
 	// Type of the call. Allowed values: log, debug, info, error, warning, dir, dirxml, table,
@@ -316,6 +352,8 @@ type ConsoleAPICalledEvent struct {
 
 /*
 ExceptionRevokedEvent represents Runtime.exceptionRevoked event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-exceptionRevoked
 */
 type ExceptionRevokedEvent struct {
 	// Reason describing why exception was revoked.
@@ -327,6 +365,8 @@ type ExceptionRevokedEvent struct {
 
 /*
 ExceptionThrownEvent represents Runtime.exceptionThrown event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-exceptionThrown
 */
 type ExceptionThrownEvent struct {
 	// Timestamp of the exception.
@@ -338,6 +378,8 @@ type ExceptionThrownEvent struct {
 
 /*
 ExecutionContextCreatedEvent represents Runtime.executionContextCreated event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionContextCreated
 */
 type ExecutionContextCreatedEvent struct {
 	// A newly created execution context.
@@ -346,6 +388,8 @@ type ExecutionContextCreatedEvent struct {
 
 /*
 ExecutionContextDestroyedEvent represents Runtime.executionContextDestroyed event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionContextDestroyed
 */
 type ExecutionContextDestroyedEvent struct {
 	// ID of the destroyed context.
@@ -354,11 +398,15 @@ type ExecutionContextDestroyedEvent struct {
 
 /*
 ExecutionContextsClearedEvent represents Runtime.executionContextsCleared event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionContextsCleared
 */
 type ExecutionContextsClearedEvent struct{}
 
 /*
 InspectRequestedEvent represents Runtime.inspectRequested event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-inspectRequested
 */
 type InspectRequestedEvent struct {
 	// Remote object.
@@ -370,40 +418,35 @@ type InspectRequestedEvent struct {
 
 /*
 ScriptID is a unique script identifier.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-ScriptId
 */
 type ScriptID string
 
 /*
 RemoteObjectID is a unique object identifier.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-RemoteObjectId
 */
 type RemoteObjectID string
 
 /*
 UnserializableValue is a primitive value which cannot be JSON-stringified.
+
+ALLOWED VALUES
+	- Infinity
+	- NaN
+	- -Infinity
+	- -0
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-UnserializableValue
 */
 type UnserializableValue int
-
-const (
-	_infinity UnserializableValue = iota
-	_nan
-	_negInfinity
-	_negNil
-)
-
-func (s UnserializableValue) String() string {
-	str := string(s)
-	if str == "Infinity" ||
-		str == "NaN" ||
-		str == "-Infinity" ||
-		str == "-0" {
-		return str
-	}
-	panic(fmt.Errorf("Invalid UnserializableValue '%s'", str))
-}
 
 /*
 RemoteObject is a mirror object referencing the original JavaScript object.
 
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-RemoteObject
 */
 type RemoteObject struct {
 	// Object type. Allowed values: object, function, undefined, string, number, boolean, symbol.
@@ -447,6 +490,8 @@ type RemoteObject struct {
 
 /*
 CustomPreview is EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-CustomPreview
 */
 type CustomPreview struct {
 	Header                     string         `json:"header"`
@@ -459,6 +504,8 @@ type CustomPreview struct {
 
 /*
 ObjectPreview is an object containing abbreviated remote object value. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-ObjectPreview
 */
 type ObjectPreview struct {
 	// Object type. Allowed values: object, function, undefined, string, number, boolean, symbol.
@@ -483,6 +530,8 @@ type ObjectPreview struct {
 
 /*
 PropertyPreview is EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-PropertyPreview
 */
 type PropertyPreview struct {
 	// Property name.
@@ -508,6 +557,8 @@ type PropertyPreview struct {
 
 /*
 EntryPreview is EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-EntryPreview
 */
 type EntryPreview struct {
 	// Optional. Preview of the key. Specified for map-like collection entries.
@@ -522,6 +573,8 @@ type EntryPreview struct {
 
 /*
 PropertyDescriptor is an object property descriptor.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-PropertyDescriptor
 */
 type PropertyDescriptor struct {
 	// Property name or symbol description.
@@ -575,6 +628,8 @@ type PropertyDescriptor struct {
 /*
 InternalPropertyDescriptor is an object's internal property descriptor. This property isn't normally
 visible in JavaScript code.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-InternalPropertyDescriptor
 */
 type InternalPropertyDescriptor struct {
 	// Conventional property name.
@@ -590,6 +645,8 @@ type InternalPropertyDescriptor struct {
 /*
 CallArgument represents a function call argument. Either remote object id objectId, primitive value,
 unserializable primitive value or neither of (for undefined) them should be specified.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-CallArgument
 */
 type CallArgument struct {
 	// Optional. Primitive value or serializable javascript object.
@@ -604,11 +661,15 @@ type CallArgument struct {
 
 /*
 ExecutionContextID is the ID of an execution context.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-ExecutionContextId
 */
 type ExecutionContextID int
 
 /*
 ExecutionContextDescription is the description of an isolated world.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-ExecutionContextDescription
 */
 type ExecutionContextDescription struct {
 	// Unique ID of the execution context. It can be used to specify in which execution context
@@ -628,6 +689,8 @@ type ExecutionContextDescription struct {
 /*
 ExceptionDetails contains detailed information about exception (or error) that was thrown during
 script compilation or execution.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-ExceptionDetails
 */
 type ExceptionDetails struct {
 	// Exception id.
@@ -666,11 +729,15 @@ type ExceptionDetails struct {
 
 /*
 Timestamp is the number of milliseconds since epoch.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-Timestamp
 */
 type Timestamp int
 
 /*
 CallFrame is a stack entry for runtime errors and assertions.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-CallFrame
 */
 type CallFrame struct {
 	// JavaScript function name.
@@ -691,6 +758,8 @@ type CallFrame struct {
 
 /*
 StackTrace contains call frames for assertions or error messages.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-StackTrace
 */
 type StackTrace struct {
 	// Optional. String label of this stack trace. For async traces this may be a name of the
@@ -713,6 +782,8 @@ type StackTrace struct {
 
 /*
 UniqueDebuggerID is the unique identifier of the  current debugger. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-UniqueDebuggerId
 */
 type UniqueDebuggerID string
 
@@ -720,6 +791,8 @@ type UniqueDebuggerID string
 StackTraceID - If debuggerID is set stack trace comes from another debugger and can be resolved
 there. This allows to track cross-debugger calls. See StackTrace and Debugger.paused for usages.
 EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-StackTraceId
 */
 type StackTraceID struct {
 	ID string `json:"id"`

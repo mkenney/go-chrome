@@ -1,11 +1,9 @@
 package Input
 
-import (
-	"fmt"
-)
-
 /*
 DispatchKeyEventParams represents Input.dispatchKeyEvent parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchKeyEvent
 */
 type DispatchKeyEventParams struct {
 	// Type of the key event. Allowed values: keyDown, keyUp, rawKeyDown, char.
@@ -58,6 +56,8 @@ type DispatchKeyEventParams struct {
 
 /*
 DispatchMouseEventParams represents Input.dispatchMouseEvent parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchMouseEvent
 */
 type DispatchMouseEventParams struct {
 	// Type of the mouse event. Allowed values: mousePressed, mouseReleased, mouseMoved, mouseWheel.
@@ -92,6 +92,8 @@ type DispatchMouseEventParams struct {
 
 /*
 DispatchTouchEventParams represents Input.dispatchTouchEvent parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchTouchEvent
 */
 type DispatchTouchEventParams struct {
 	// Type of the touch event. TouchEnd and TouchCancel must not contain any touch points, while
@@ -114,6 +116,8 @@ type DispatchTouchEventParams struct {
 
 /*
 EmulateTouchFromMouseEventParams represents Input.emulateTouchFromMouseEvent parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-emulateTouchFromMouseEvent
 */
 type EmulateTouchFromMouseEventParams struct {
 	// Type of the mouse event. Allowed values: mousePressed, mouseReleased, mouseMoved, mouseWheel.
@@ -147,6 +151,8 @@ type EmulateTouchFromMouseEventParams struct {
 
 /*
 SetIgnoreInputEventsParams represents Input.setIgnoreInputEvents parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-setIgnoreInputEvents
 */
 type SetIgnoreInputEventsParams struct {
 	// Ignores input events processing when set to true.
@@ -155,6 +161,8 @@ type SetIgnoreInputEventsParams struct {
 
 /*
 SynthesizePinchGestureParams represents Input.synthesizePinchGesture parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizePinchGesture
 */
 type SynthesizePinchGestureParams struct {
 	// X coordinate of the start of the gesture in CSS pixels.
@@ -176,6 +184,8 @@ type SynthesizePinchGestureParams struct {
 
 /*
 SynthesizeScrollGestureParams represents Input.synthesizeScrollGesture parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizeScrollGesture
 */
 type SynthesizeScrollGestureParams struct {
 	// X coordinate of the start of the gesture in CSS pixels.
@@ -220,6 +230,8 @@ type SynthesizeScrollGestureParams struct {
 
 /*
 SynthesizeTapGestureParams represents Input.synthesizeTapGesture parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizeTapGesture
 */
 type SynthesizeTapGestureParams struct {
 	// X coordinate of the start of the gesture in CSS pixels.
@@ -241,6 +253,8 @@ type SynthesizeTapGestureParams struct {
 
 /*
 TouchPoint is a touch point.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#type-TouchPoint
 */
 type TouchPoint struct {
 	// X coordinate of the event relative to the main frame's viewport in CSS pixels.
@@ -269,29 +283,14 @@ type TouchPoint struct {
 
 /*
 GestureSourceType is a gesture source type. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#type-GestureSourceType
 */
-type GestureSourceType int
-
-const (
-	_default GestureSourceType = iota
-	_touch
-	_mouse
-)
-
-func (a GestureSourceType) String() string {
-	if a == 0 {
-		return "default"
-	}
-	if a == 1 {
-		return "touch"
-	}
-	if a == 2 {
-		return "mouse"
-	}
-	panic(fmt.Errorf("Invalid GestureSourceType %d", a))
-}
+type GestureSourceType string
 
 /*
 TimeSinceEpoch is UTC time in seconds, counted from January 1, 1970.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#type-TimeSinceEpoch
 */
 type TimeSinceEpoch int

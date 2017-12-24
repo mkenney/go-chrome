@@ -1,18 +1,9 @@
 package Performance
 
 /*
-Metric is a run-time execution metric.
-*/
-type Metric struct {
-	// Metric name.
-	Name string `json:"name"`
-
-	// Metric value.
-	Value int `json:"value"`
-}
-
-/*
 GetMetricsResult represents the result of calls to Performance.getMetrics.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-getMetrics
 */
 type GetMetricsResult struct {
 	// Current values for run-time metrics.
@@ -21,6 +12,8 @@ type GetMetricsResult struct {
 
 /*
 MetricsEvent represents Performance.metrics event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Performance/#event-metrics
 */
 type MetricsEvent struct {
 	// Current values of the metrics.
@@ -28,4 +21,17 @@ type MetricsEvent struct {
 
 	// Timestamp title.
 	Title string `json:"title"`
+}
+
+/*
+Metric is a run-time execution metric.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Performance/#type-Metric
+*/
+type Metric struct {
+	// Metric name.
+	Name string `json:"name"`
+
+	// Metric value.
+	Value int `json:"value"`
 }

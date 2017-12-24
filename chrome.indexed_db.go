@@ -15,6 +15,8 @@ type IndexedDB struct{}
 
 /*
 ClearObjectStore clears all entries from an object store.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-clearObjectStore
 */
 func (IndexedDB) ClearObjectStore(
 	socket *Socket,
@@ -30,6 +32,8 @@ func (IndexedDB) ClearObjectStore(
 
 /*
 DeleteDatabase deletes a database.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-deleteDatabase
 */
 func (IndexedDB) DeleteDatabase(
 	socket *Socket,
@@ -44,7 +48,26 @@ func (IndexedDB) DeleteDatabase(
 }
 
 /*
+DeleteObjectStoreEntries deletes a range of entries from an object store.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-deleteObjectStoreEntries
+*/
+func (IndexedDB) DeleteObjectStoreEntries(
+	socket *Socket,
+	params *indexed_db.DeleteObjectStoreEntriesParams,
+) error {
+	command := &protocol.Command{
+		Method: "IndexedDB.deleteObjectStoreEntries",
+		Params: params,
+	}
+	socket.SendCommand(command)
+	return command.Err
+}
+
+/*
 Disable disables events from backend.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-disable
 */
 func (IndexedDB) Disable(
 	socket *Socket,
@@ -58,6 +81,8 @@ func (IndexedDB) Disable(
 
 /*
 Enable enables events from backend.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-enable
 */
 func (IndexedDB) Enable(
 	socket *Socket,
@@ -71,6 +96,8 @@ func (IndexedDB) Enable(
 
 /*
 RequestData requests data from object store or index.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestData
 */
 func (IndexedDB) RequestData(
 	socket *Socket,
@@ -104,6 +131,8 @@ func (IndexedDB) RequestData(
 
 /*
 RequestDatabase requests database with given name in given frame.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestDatabase
 */
 func (IndexedDB) RequestDatabase(
 	socket *Socket,
@@ -137,6 +166,8 @@ func (IndexedDB) RequestDatabase(
 
 /*
 RequestDatabaseNames requests database names for given security origin.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestDatabaseNames
 */
 func (IndexedDB) RequestDatabaseNames(
 	socket *Socket,

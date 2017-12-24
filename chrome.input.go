@@ -12,6 +12,8 @@ type Input struct{}
 
 /*
 DispatchKeyEvent dispatches a key event to the page.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchKeyEvent
 */
 func (Input) DispatchKeyEvent(
 	socket *Socket,
@@ -27,6 +29,8 @@ func (Input) DispatchKeyEvent(
 
 /*
 DispatchMouseEvent dispatches a mouse event to the page.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchMouseEvent
 */
 func (Input) DispatchMouseEvent(
 	socket *Socket,
@@ -42,6 +46,8 @@ func (Input) DispatchMouseEvent(
 
 /*
 DispatchTouchEvent dispatches a touch event to the page.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchTouchEvent
 */
 func (Input) DispatchTouchEvent(
 	socket *Socket,
@@ -57,6 +63,8 @@ func (Input) DispatchTouchEvent(
 
 /*
 EmulateTouchFromMouseEvent emulates touch event from the mouse event parameters. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-emulateTouchFromMouseEvent
 */
 func (Input) EmulateTouchFromMouseEvent(
 	socket *Socket,
@@ -72,6 +80,8 @@ func (Input) EmulateTouchFromMouseEvent(
 
 /*
 SetIgnoreInputEvents ignores input events (useful while auditing page).
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-setIgnoreInputEvents
 */
 func (Input) SetIgnoreInputEvents(
 	socket *Socket,
@@ -88,6 +98,8 @@ func (Input) SetIgnoreInputEvents(
 /*
 SynthesizePinchGesture synthesizes a pinch gesture over a time period by issuing appropriate touch
 events. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizePinchGesture
 */
 func (Input) SynthesizePinchGesture(
 	socket *Socket,
@@ -104,6 +116,8 @@ func (Input) SynthesizePinchGesture(
 /*
 SynthesizeScrollGesture synthesizes a scroll gesture over a time period by issuing appropriate touch
 events. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizeScrollGesture
 */
 func (Input) SynthesizeScrollGesture(
 	socket *Socket,
@@ -120,6 +134,8 @@ func (Input) SynthesizeScrollGesture(
 /*
 SynthesizeTapGesture synthesizes a tap gesture over a time period by issuing appropriate touch
 events. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizeTapGesture
 */
 func (Input) SynthesizeTapGesture(
 	socket *Socket,

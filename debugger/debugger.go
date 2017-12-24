@@ -6,6 +6,8 @@ import (
 
 /*
 ContinueToLocationParams represents Debugger.continueToLocation parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-continueToLocation
 */
 type ContinueToLocationParams struct {
 	// Location to continue to.
@@ -17,6 +19,8 @@ type ContinueToLocationParams struct {
 
 /*
 EnableResult represents the result of calls to Debugger.enable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-enable
 */
 type EnableResult struct {
 	// Unique identifier of the debugger. EXPERIMENTAL
@@ -25,6 +29,8 @@ type EnableResult struct {
 
 /*
 EvaluateOnCallFrameParams represents Debugger.evaluateOnCallFrame parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-evaluateOnCallFrame
 */
 type EvaluateOnCallFrameParams struct {
 	// Call frame identifier to evaluate on.
@@ -57,6 +63,8 @@ type EvaluateOnCallFrameParams struct {
 
 /*
 EvaluateOnCallFrameResult represents the result of calls to Debugger.evaluateOnCallFrame.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-evaluateOnCallFrame
 */
 type EvaluateOnCallFrameResult struct {
 	// Object wrapper for the evaluation result.
@@ -68,6 +76,8 @@ type EvaluateOnCallFrameResult struct {
 
 /*
 GetPossibleBreakpointsParams represents Debugger.getPossibleBreakpoints parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getPossibleBreakpoints
 */
 type GetPossibleBreakpointsParams struct {
 	// Start of range to search possible breakpoint locations in.
@@ -86,6 +96,8 @@ type GetPossibleBreakpointsParams struct {
 
 /*
 GetPossibleBreakpointsResult represents the result of calls to Debugger.getPossibleBreakpoints.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getPossibleBreakpoints
 */
 type GetPossibleBreakpointsResult struct {
 	// List of the possible breakpoint locations.
@@ -94,6 +106,8 @@ type GetPossibleBreakpointsResult struct {
 
 /*
 GetScriptSourceParams represents Debugger.getScriptSource parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getScriptSource
 */
 type GetScriptSourceParams struct {
 	// ID of the script to get source for.
@@ -102,6 +116,8 @@ type GetScriptSourceParams struct {
 
 /*
 GetScriptSourceResult represents the result of calls to Debugger.getScriptSource.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getScriptSource
 */
 type GetScriptSourceResult struct {
 	// Script source.
@@ -110,6 +126,8 @@ type GetScriptSourceResult struct {
 
 /*
 GetStackTraceParams represents Debugger.getStackTrace parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getStackTrace
 */
 type GetStackTraceParams struct {
 	StackTraceID Runtime.StackTraceID `json:"stackTraceId"`
@@ -117,6 +135,8 @@ type GetStackTraceParams struct {
 
 /*
 GetStackTraceResult represents the result of calls to Debugger.getStackTrace.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getStackTrace
 */
 type GetStackTraceResult struct {
 	StackTrace Runtime.StackTrace `json:"stackTrace"`
@@ -124,6 +144,8 @@ type GetStackTraceResult struct {
 
 /*
 PauseOnAsyncCallParams represents Debugger.pauseOnAsyncCall parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-pauseOnAsyncCall
 */
 type PauseOnAsyncCallParams struct {
 	// Debugger will pause when async call with given stack trace is started.
@@ -132,6 +154,8 @@ type PauseOnAsyncCallParams struct {
 
 /*
 RemoveBreakpointParams represents Debugger.removeBreakpoint parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-removeBreakpoint
 */
 type RemoveBreakpointParams struct {
 	BreakpointID BreakpointID `json:"breakpointId"`
@@ -139,6 +163,8 @@ type RemoveBreakpointParams struct {
 
 /*
 RestartFrameParams represents Debugger.restartFrame parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-restartFrame
 */
 type RestartFrameParams struct {
 	// Call frame identifier to evaluate on.
@@ -147,6 +173,8 @@ type RestartFrameParams struct {
 
 /*
 RestartFrameResult represents the result of calls to Debugger.restartFrame.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-restartFrame
 */
 type RestartFrameResult struct {
 	// New stack trace.
@@ -161,6 +189,8 @@ type RestartFrameResult struct {
 
 /*
 SearchInContentParams represents Debugger.searchInContent parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-searchInContent
 */
 type SearchInContentParams struct {
 	// ID of the script to search in.
@@ -178,6 +208,8 @@ type SearchInContentParams struct {
 
 /*
 SearchInContentResult represents the result of calls to Debugger.searchInContent.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-searchInContent
 */
 type SearchInContentResult struct {
 	// List of search matches.
@@ -186,6 +218,8 @@ type SearchInContentResult struct {
 
 /*
 SetAsyncCallStackDepthParams represents Debugger.setAsyncCallStackDepth parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setAsyncCallStackDepth
 */
 type SetAsyncCallStackDepthParams struct {
 	// Maximum depth of async call stacks. Setting to 0 will effectively disable collecting async
@@ -195,6 +229,8 @@ type SetAsyncCallStackDepthParams struct {
 
 /*
 SetBlackboxPatternsParams represents Debugger.setBlackboxPatterns parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBlackboxPatterns
 */
 type SetBlackboxPatternsParams struct {
 	// Array of regexps that will be used to check script url for blackbox state.
@@ -203,6 +239,8 @@ type SetBlackboxPatternsParams struct {
 
 /*
 SetBlackboxedRangesParams represents Debugger.setBlackboxedRanges parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBlackboxedRanges
 */
 type SetBlackboxedRangesParams struct {
 	// ID of the script.
@@ -212,6 +250,8 @@ type SetBlackboxedRangesParams struct {
 
 /*
 SetBreakpointParams represents Debugger.setBreakpoint parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreakpoint
 */
 type SetBreakpointParams struct {
 	// Location to set breakpoint in.
@@ -224,6 +264,8 @@ type SetBreakpointParams struct {
 
 /*
 SetBreakpointResult represents the result of calls to Debugger.setBreakpoint.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreakpoint
 */
 type SetBreakpointResult struct {
 	// ID of the created breakpoint for further reference.
@@ -235,6 +277,8 @@ type SetBreakpointResult struct {
 
 /*
 SetBreakpointByURLParams represents Debugger.setBreakpointByUrl parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreakpointByUrl
 */
 type SetBreakpointByURLParams struct {
 	// Line number to set breakpoint at.
@@ -260,6 +304,8 @@ type SetBreakpointByURLParams struct {
 
 /*
 SetBreakpointByURLResult represents the result of calls to Debugger.setBreakpointByUrl.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreakpointByUrl
 */
 type SetBreakpointByURLResult struct {
 	// ID of the created breakpoint for further reference.
@@ -271,6 +317,8 @@ type SetBreakpointByURLResult struct {
 
 /*
 SetBreakpointsActiveParams represents Debugger.setBreakpointsActive parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreakpointsActive
 */
 type SetBreakpointsActiveParams struct {
 	// New value for breakpoints active state.
@@ -279,6 +327,8 @@ type SetBreakpointsActiveParams struct {
 
 /*
 SetPauseOnExceptionsParams represents Debugger.setPauseOnExceptions parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setPauseOnExceptions
 */
 type SetPauseOnExceptionsParams struct {
 	// Pause on exceptions mode. Allowed values: none, uncaught, all.
@@ -287,6 +337,8 @@ type SetPauseOnExceptionsParams struct {
 
 /*
 SetReturnValueParams represents Debugger.setReturnValue parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setReturnValue
 */
 type SetReturnValueParams struct {
 	// New return value.
@@ -295,6 +347,8 @@ type SetReturnValueParams struct {
 
 /*
 SetScriptSourceParams represents Debugger.setScriptSource parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setScriptSource
 */
 type SetScriptSourceParams struct {
 	// ID of the script to edit.
@@ -310,6 +364,8 @@ type SetScriptSourceParams struct {
 
 /*
 SetScriptSourceResult represents the result of calls to Debugger.setScriptSource.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setScriptSource
 */
 type SetScriptSourceResult struct {
 	// Optional. New stack trace in case editing has happened while VM was stopped.
@@ -330,6 +386,8 @@ type SetScriptSourceResult struct {
 
 /*
 SetSkipAllPausesParams represents Debugger.setSkipAllPauses parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setSkipAllPauses
 */
 type SetSkipAllPausesParams struct {
 	// New value for skip pauses state.
@@ -338,6 +396,8 @@ type SetSkipAllPausesParams struct {
 
 /*
 SetVariableValueParams represents Debugger.setVariableValue parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setVariableValue
 */
 type SetVariableValueParams struct {
 	// 0-based number of scope as was listed in scope chain. Only 'local', 'closure' and 'catch' scope types are allowed. Other scopes could be manipulated manually.
@@ -355,6 +415,8 @@ type SetVariableValueParams struct {
 
 /*
 StepIntoParams represents Debugger.stepInto parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepInto
 */
 type StepIntoParams struct {
 	// Optional. Debugger will issue additional Debugger.paused notification if any async task is
@@ -364,6 +426,8 @@ type StepIntoParams struct {
 
 /*
 BreakpointResolvedEvent represents Debugger.breakpointResolved event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-breakpointResolved
 */
 type BreakpointResolvedEvent struct {
 	// Breakpoint unique identifier.
@@ -375,6 +439,8 @@ type BreakpointResolvedEvent struct {
 
 /*
 PausedEvent represents Debugger.paused event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-paused
 */
 type PausedEvent struct {
 	// Call stack the virtual machine stopped on.
@@ -404,11 +470,15 @@ type PausedEvent struct {
 
 /*
 ResumedEvent represents Debugger.resumed event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-resumed
 */
 type ResumedEvent struct{}
 
 /*
 ScriptFailedToParseEvent represents Debugger.scriptFailedToParse event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-scriptFailedToParse
 */
 type ScriptFailedToParseEvent struct {
 	// Identifier of the script parsed.
@@ -457,6 +527,8 @@ type ScriptFailedToParseEvent struct {
 
 /*
 ScriptParsedEvent represents Debugger.scriptParsed event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-scriptParsed
 */
 type ScriptParsedEvent struct {
 	// Identifier of the script parsed.
@@ -509,16 +581,22 @@ type ScriptParsedEvent struct {
 
 /*
 BreakpointID is a breakpoint identifier.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#type-BreakpointId
 */
 type BreakpointID string
 
 /*
 CallFrameID is a call frame identifier.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#type-CallFrameId
 */
 type CallFrameID string
 
 /*
 Location is a location in the source code.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#type-Location
 */
 type Location struct {
 	// Script identifier as reported in the Debugger.scriptParsed.
@@ -533,6 +611,8 @@ type Location struct {
 
 /*
 ScriptPosition is a location in the source code. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#type-ScriptPosition
 */
 type ScriptPosition struct {
 	// Line number
@@ -544,6 +624,8 @@ type ScriptPosition struct {
 
 /*
 CallFrame is a JavaScript call frame. Array of call frames form the call stack.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#type-CallFrame
 */
 type CallFrame struct {
 	// Call frame identifier. This identifier is only valid while the virtual machine is paused.
@@ -579,6 +661,8 @@ type CallFrame struct {
 
 /*
 Scope represents a scope description
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#type-Scope
 */
 type Scope struct {
 	// Scope type. Allowed values: global, local, with, closure, catch, block, script, eval, module.
@@ -607,6 +691,8 @@ type Scope struct {
 
 /*
 SearchMatch is a search match for a resource.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#type-SearchMatch
 */
 type SearchMatch struct {
 	// Line number in resource content.
@@ -618,6 +704,8 @@ type SearchMatch struct {
 
 /*
 BreakLocation is a break location
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#type-BreakLocation
 */
 type BreakLocation struct {
 	// Script identifier as reported in the Debugger.scriptParsed.

@@ -2,6 +2,8 @@ package SystemInfo
 
 /*
 GetInfoResult represents the result of calls to SystemInfo.getInfo.
+
+https://chromedevtools.github.io/devtools-protocol/tot/SystemInfo/#method-getInfo
 */
 type GetInfoResult struct {
 	// Information about the GPUs on the system.
@@ -22,6 +24,8 @@ type GetInfoResult struct {
 
 /*
 GPUDevice describes a single graphics processor (GPU).
+
+https://chromedevtools.github.io/devtools-protocol/tot/SystemInfo/#type-GPUDevice
 */
 type GPUDevice struct {
 	// PCI ID of the GPU vendor, if available; 0 otherwise.
@@ -39,6 +43,8 @@ type GPUDevice struct {
 
 /*
 GPUInfo provides information about the GPU(s) on the system.
+
+https://chromedevtools.github.io/devtools-protocol/tot/SystemInfo/#type-GPUInfo
 */
 type GPUInfo struct {
 	// The graphics devices on the system. Element 0 is the primary GPU.

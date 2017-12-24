@@ -1,11 +1,9 @@
 package Storage
 
-import (
-	"fmt"
-)
-
 /*
 ClearDataForOriginParams represents Storage.clearDataForOrigin parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-clearDataForOrigin
 */
 type ClearDataForOriginParams struct {
 	// Security origin.
@@ -17,6 +15,8 @@ type ClearDataForOriginParams struct {
 
 /*
 GetUsageAndQuotaParams represents Storage.getUsageAndQuota parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-getUsageAndQuota
 */
 type GetUsageAndQuotaParams struct {
 	// Security origin.
@@ -25,6 +25,8 @@ type GetUsageAndQuotaParams struct {
 
 /*
 GetUsageAndQuotaResult represents the result of calls to Storage.getUsageAndQuota.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-getUsageAndQuota
 */
 type GetUsageAndQuotaResult struct {
 	// Storage usage (bytes).
@@ -39,6 +41,8 @@ type GetUsageAndQuotaResult struct {
 
 /*
 TrackCacheStorageForOriginParams represents Storage.trackCacheStorageForOrigin parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-trackCacheStorageForOrigin
 */
 type TrackCacheStorageForOriginParams struct {
 	// Security origin.
@@ -47,6 +51,8 @@ type TrackCacheStorageForOriginParams struct {
 
 /*
 TrackIndexedDBForOriginParams represents Storage.trackIndexedDBForOrigin parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-trackIndexedDBForOrigin
 */
 type TrackIndexedDBForOriginParams struct {
 	// Security origin.
@@ -55,6 +61,8 @@ type TrackIndexedDBForOriginParams struct {
 
 /*
 UntrackCacheStorageForOriginParams represents Storage.untrackCacheStorageForOrigin parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-untrackCacheStorageForOrigin
 */
 type UntrackCacheStorageForOriginParams struct {
 	// Security origin.
@@ -63,6 +71,8 @@ type UntrackCacheStorageForOriginParams struct {
 
 /*
 UntrackIndexedDBForOriginParams represents Storage.untrackIndexedDBForOrigin parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-untrackIndexedDBForOrigin
 */
 type UntrackIndexedDBForOriginParams struct {
 	// Security origin.
@@ -71,6 +81,8 @@ type UntrackIndexedDBForOriginParams struct {
 
 /*
 CacheStorageContentUpdatedEvent represents Storage.cacheStorageContentUpdated event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/#event-cacheStorageContentUpdated
 */
 type CacheStorageContentUpdatedEvent struct {
 	// Origin to update.
@@ -82,6 +94,8 @@ type CacheStorageContentUpdatedEvent struct {
 
 /*
 CacheStorageListUpdatedEvent represents Storage.cacheStorageListUpdated event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/#event-cacheStorageListUpdated
 */
 type CacheStorageListUpdatedEvent struct {
 	// Origin to update.
@@ -90,6 +104,8 @@ type CacheStorageListUpdatedEvent struct {
 
 /*
 IndexedDBContentUpdatedEvent represents Storage.indexedDBContentUpdated event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/#event-indexedDBContentUpdated
 */
 type IndexedDBContentUpdatedEvent struct {
 	// Origin to update.
@@ -104,6 +120,8 @@ type IndexedDBContentUpdatedEvent struct {
 
 /*
 IndexedDBListUpdatedEvent represents Storage.indexedDBListUpdated event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/#event-indexedDBListUpdated
 */
 type IndexedDBListUpdatedEvent struct {
 	// Origin to update.
@@ -112,62 +130,28 @@ type IndexedDBListUpdatedEvent struct {
 
 /*
 Type is an enum of possible storage types.
+
+ALLOWED VALUES
+	- appcache
+	- cookies
+	- file_systems
+	- indexeddb
+	- local_storage
+	- shader_cache
+	- websql
+	- service_workers
+	- cache_storage
+	- all
+	- other
+
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/#type-StorageType
 */
-type Type int
-
-const (
-	_appcache Type = iota
-	_cookies
-	_fileSystems
-	_indexeddb
-	_localStorage
-	_shaderCache
-	_websql
-	_serviceWorkers
-	_cacheStorage
-	_all
-	_other
-)
-
-func (a Type) String() string {
-	if a == 0 {
-		return "appcache"
-	}
-	if a == 1 {
-		return "cookies"
-	}
-	if a == 2 {
-		return "file_systems"
-	}
-	if a == 3 {
-		return "indexeddb"
-	}
-	if a == 4 {
-		return "local_storage"
-	}
-	if a == 5 {
-		return "shader_cache"
-	}
-	if a == 6 {
-		return "websql"
-	}
-	if a == 7 {
-		return "service_workers"
-	}
-	if a == 8 {
-		return "cache_storage"
-	}
-	if a == 9 {
-		return "all"
-	}
-	if a == 10 {
-		return "other"
-	}
-	panic(fmt.Errorf("Invalid StorageType %d", a))
-}
+type Type string
 
 /*
 UsageForType is usage for a storage type.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/#type-UsageForType
 */
 type UsageForType struct {
 	// Name of storage type.

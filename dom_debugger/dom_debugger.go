@@ -9,6 +9,8 @@ import (
 
 /*
 GetEventListenersParams represents DOMDebugger.getEventListeners parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-getEventListeners
 */
 type GetEventListenersParams struct {
 	// ID of the object to return listeners for.
@@ -25,6 +27,8 @@ type GetEventListenersParams struct {
 
 /*
 GetEventListenersResult represents the result of calls to DOMDebugger.getEventListeners.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-getEventListeners
 */
 type GetEventListenersResult struct {
 	// Array of relevant listeners.
@@ -33,6 +37,8 @@ type GetEventListenersResult struct {
 
 /*
 RemoveDOMBreakpointParams represents DOMDebugger.removeDOMBreakpoint parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeDOMBreakpoint
 */
 type RemoveDOMBreakpointParams struct {
 	// ID of the node to remove breakpoint from.
@@ -44,6 +50,8 @@ type RemoveDOMBreakpointParams struct {
 
 /*
 RemoveEventListenerBreakpointParams represents DOMDebugger.removeEventListenerBreakpoint parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeEventListenerBreakpoint
 */
 type RemoveEventListenerBreakpointParams struct {
 	// Event name.
@@ -54,7 +62,10 @@ type RemoveEventListenerBreakpointParams struct {
 }
 
 /*
-RemoveInstrumentationBreakpointParams represents DOMDebugger.removeInstrumentationBreakpoint parameters.
+RemoveInstrumentationBreakpointParams represents DOMDebugger.removeInstrumentationBreakpoint
+parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeInstrumentationBreakpoint
 */
 type RemoveInstrumentationBreakpointParams struct {
 	// Instrumentation name to stop on.
@@ -63,6 +74,8 @@ type RemoveInstrumentationBreakpointParams struct {
 
 /*
 RemoveXHRBreakpointParams represents DOMDebugger.removeXHRBreakpoint parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeXHRBreakpoint
 */
 type RemoveXHRBreakpointParams struct {
 	// Resource URL substring.
@@ -71,6 +84,8 @@ type RemoveXHRBreakpointParams struct {
 
 /*
 SetDOMBreakpointParams represents DOMDebugger.setDOMBreakpoint parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setDOMBreakpoint
 */
 type SetDOMBreakpointParams struct {
 	// ID of the node to set breakpoint on.
@@ -82,6 +97,8 @@ type SetDOMBreakpointParams struct {
 
 /*
 SetEventListenerBreakpointParams represents DOMDebugger.setEventListenerBreakpoint parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setEventListenerBreakpoint
 */
 type SetEventListenerBreakpointParams struct {
 	// DOM Event name to stop on (any DOM event will do).
@@ -94,6 +111,8 @@ type SetEventListenerBreakpointParams struct {
 
 /*
 SetInstrumentationBreakpointParams represents DOMDebugger.setInstrumentationBreakpoint parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setInstrumentationBreakpoint
 */
 type SetInstrumentationBreakpointParams struct {
 	// Instrumentation name to stop on.
@@ -102,6 +121,8 @@ type SetInstrumentationBreakpointParams struct {
 
 /*
 SetXHRBreakpointParams represents DOMDebugger.setXHRBreakpoint parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setXHRBreakpoint
 */
 type SetXHRBreakpointParams struct {
 	// Resource URL substring. All XHRs having this substring in the URL will get stopped upon.
@@ -110,30 +131,15 @@ type SetXHRBreakpointParams struct {
 
 /*
 DOMBreakpointType is the DOM breakpoint type.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#type-DOMBreakpointType
 */
-type DOMBreakpointType int
-
-const (
-	_subtreeModified DOMBreakpointType = iota
-	_attributeModified
-	_nodeRemoved
-)
-
-func (a DOMBreakpointType) String() string {
-	if a == 0 {
-		return "subtree-modified"
-	}
-	if a == 1 {
-		return "attribute-modified"
-	}
-	if a == 2 {
-		return "node-removed"
-	}
-	panic(fmt.Errorf("Invalid DOMBreakpointType %d", a))
-}
+type DOMBreakpointType string
 
 /*
 EventListener is the object event listener.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#type-EventListener
 */
 type EventListener struct {
 	// EventListener's type.

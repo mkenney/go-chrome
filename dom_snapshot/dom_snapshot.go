@@ -7,6 +7,8 @@ import (
 
 /*
 GetSnapshotParams represents DOMSnapshot.getSnapshot parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#method-getSnapshot
 */
 type GetSnapshotParams struct {
 	// Whitelist of computed styles to return.
@@ -15,6 +17,8 @@ type GetSnapshotParams struct {
 
 /*
 GetSnapshotResult represents the result of calls to DOMSnapshot.getSnapshot.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#method-getSnapshot
 */
 type GetSnapshotResult struct {
 	// The nodes in the DOM tree. The DOMNode at index 0 corresponds to the root document.
@@ -29,6 +33,8 @@ type GetSnapshotResult struct {
 
 /*
 DOMNode is a Node in the DOM tree.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#type-DOMNode
 */
 type DOMNode struct {
 	// Node's nodeType.
@@ -116,6 +122,8 @@ type DOMNode struct {
 /*
 InlineTextBox contains details of post layout rendered text positions. The exact layout should not
 be regarded as stable and may change between versions.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#type-InlineTextBox
 */
 type InlineTextBox struct {
 	// The absolute position bounding box.
@@ -130,6 +138,8 @@ type InlineTextBox struct {
 
 /*
 LayoutTreeNode contains details of an element in the DOM tree with a LayoutObject.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#type-LayoutTreeNode
 */
 type LayoutTreeNode struct {
 	// The index of the related DOM node in the domNodes array returned by getSnapshot.
@@ -150,6 +160,8 @@ type LayoutTreeNode struct {
 
 /*
 ComputedStyle is a subset of the full ComputedStyle as defined by the request whitelist.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#type-ComputedStyle
 */
 type ComputedStyle struct {
 	// Name/value pairs of computed style properties.
@@ -158,6 +170,8 @@ type ComputedStyle struct {
 
 /*
 NameValue is a name/value pair.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#type-NameValue
 */
 type NameValue struct {
 	// Attribute/property name.

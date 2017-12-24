@@ -15,6 +15,8 @@ type IO struct{}
 
 /*
 Close closes the stream and discards any temporary backing storage.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-close
 */
 func (IO) Close(
 	socket *Socket,
@@ -30,6 +32,8 @@ func (IO) Close(
 
 /*
 Read reads a chunk of the stream.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-read
 */
 func (IO) Read(
 	socket *Socket,
@@ -63,6 +67,8 @@ func (IO) Read(
 
 /*
 ResolveBlob returns the UUID of Blob object specified by a remote object id.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-resolveBlob
 */
 func (IO) ResolveBlob(
 	socket *Socket,

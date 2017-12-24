@@ -2,6 +2,8 @@ package Database
 
 /*
 ExecuteSQLParams represents Database.executeSQL parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-executeSQL
 */
 type ExecuteSQLParams struct {
 	ID    ID     `json:"databaseId"`
@@ -10,6 +12,8 @@ type ExecuteSQLParams struct {
 
 /*
 ExecuteSQLResult represents the result of calls to Database.executeSQL.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-executeSQL
 */
 type ExecuteSQLResult struct {
 	// Column names.
@@ -24,6 +28,8 @@ type ExecuteSQLResult struct {
 
 /*
 GetDatabaseTableNamesParams represents Database.getDatabaseTableNames parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-getDatabaseTableNames
 */
 type GetDatabaseTableNamesParams struct {
 	ID ID `json:"databaseId"`
@@ -31,6 +37,8 @@ type GetDatabaseTableNamesParams struct {
 
 /*
 GetDatabaseTableNamesResult represents the result of calls to Database.getDatabaseTableNames.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-getDatabaseTableNames
 */
 type GetDatabaseTableNamesResult struct {
 	// Table names.
@@ -39,6 +47,8 @@ type GetDatabaseTableNamesResult struct {
 
 /*
 AddDatabaseEvent represents Database.addDatabase event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Database/#event-addDatabase
 */
 type AddDatabaseEvent struct {
 	Database Database `json:"database"`
@@ -46,11 +56,15 @@ type AddDatabaseEvent struct {
 
 /*
 ID is a unique identifier of a database object.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Database/#type-DatabaseId
 */
 type ID string
 
 /*
 Database is a database object
+
+https://chromedevtools.github.io/devtools-protocol/tot/Database/#type-Database
 */
 type Database struct {
 	// Database ID.
@@ -68,6 +82,8 @@ type Database struct {
 
 /*
 Error is a database error.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Database/#type-Error
 */
 type Error struct {
 	// Error message.

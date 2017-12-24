@@ -17,6 +17,8 @@ type Target struct{}
 
 /*
 ActivateTarget activates (focuses) the target.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-activateTarget
 */
 func (Target) ActivateTarget(
 	socket *Socket,
@@ -32,6 +34,8 @@ func (Target) ActivateTarget(
 
 /*
 AttachToTarget attaches to the target with given id.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-attachToTarget
 */
 func (Target) AttachToTarget(
 	socket *Socket,
@@ -47,6 +51,8 @@ func (Target) AttachToTarget(
 
 /*
 CloseTarget closes the target. If the target is a page that gets closed too.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-closeTarget
 */
 func (Target) CloseTarget(
 	socket *Socket,
@@ -80,6 +86,8 @@ func (Target) CloseTarget(
 /*
 CreateBrowserContext creates a new empty BrowserContext. Similar to an incognito profile but you can
 have more than one. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-createBrowserContext
 */
 func (Target) CreateBrowserContext(
 	socket *Socket,
@@ -111,6 +119,8 @@ func (Target) CreateBrowserContext(
 
 /*
 CreateTarget creates a new page.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-createTarget
 */
 func (Target) CreateTarget(
 	socket *Socket,
@@ -144,6 +154,8 @@ func (Target) CreateTarget(
 
 /*
 DetachFromTarget detaches session with given id.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-detachFromTarget
 */
 func (Target) DetachFromTarget(
 	socket *Socket,
@@ -159,6 +171,8 @@ func (Target) DetachFromTarget(
 
 /*
 DisposeBrowserContext deletes a BrowserContext, will fail of any open page uses it. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-disposeBrowserContext
 */
 func (Target) DisposeBrowserContext(
 	socket *Socket,
@@ -174,6 +188,8 @@ func (Target) DisposeBrowserContext(
 
 /*
 GetTargetInfo returns information about a target. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargetInfo
 */
 func (Target) GetTargetInfo(
 	socket *Socket,
@@ -207,6 +223,8 @@ func (Target) GetTargetInfo(
 
 /*
 GetTargets retrieves a list of available targets.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargets
 */
 func (Target) GetTargets(
 	socket *Socket,
@@ -222,6 +240,8 @@ func (Target) GetTargets(
 
 /*
 SendMessageToTarget sends protocol message over session with given id.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-sendMessageToTarget
 */
 func (Target) SendMessageToTarget(
 	socket *Socket,
@@ -237,6 +257,8 @@ func (Target) SendMessageToTarget(
 
 /*
 SetAttachToFrames EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAttachToFrames
 */
 func (Target) SetAttachToFrames(
 	socket *Socket,
@@ -254,6 +276,8 @@ func (Target) SetAttachToFrames(
 SetAutoAttach controls whether to automatically attach to new targets which are considered to be
 related to this one. When turned on, attaches to all existing related targets as well. When turned
 off, automatically detaches from all currently attached targets. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAutoAttach
 */
 func (Target) SetAutoAttach(
 	socket *Socket,
@@ -270,6 +294,8 @@ func (Target) SetAutoAttach(
 /*
 SetDiscoverTargets controls whether to discover available targets and notify via
 `targetCreated/targetInfoChanged/targetDestroyed` events.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setDiscoverTargets
 */
 func (Target) SetDiscoverTargets(
 	socket *Socket,
@@ -286,6 +312,8 @@ func (Target) SetDiscoverTargets(
 /*
 SetRemoteLocations enables target discovery for the specified locations, when `setDiscoverTargets`
 was set to `true`. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setRemoteLocations
 */
 func (Target) SetRemoteLocations(
 	socket *Socket,
@@ -300,10 +328,37 @@ func (Target) SetRemoteLocations(
 }
 
 /*
+OnAttachedToTarget adds a handler to the Target.attachedToTarget event.
+Target.attachedToTarget fires when attached to target because of auto-attach or `attachToTarget`
+command. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-attachedToTarget
+*/
+func (Target) OnAttachedToTarget(
+	socket *Socket,
+	callback func(event *target.AttachedToTargetEvent),
+) {
+	handler := protocol.NewEventHandler(
+		"Target.attachedToTarget",
+		func(name string, params []byte) {
+			event := &target.AttachedToTargetEvent{}
+			if err := json.Unmarshal(params, event); err != nil {
+				log.Error(err)
+			} else {
+				callback(event)
+			}
+		},
+	)
+	socket.AddEventHandler(handler)
+}
+
+/*
 OnDetachedFromTarget adds a handler to the Target.detachedFromTarget event.
 Target.detachedFromTarget fires when detached from target for any reason (including
 `detachFromTarget` command). Can be issued multiple times per target if multiple sessions have been
 attached to it. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-detachedFromTarget
 */
 func (Target) OnDetachedFromTarget(
 	socket *Socket,
@@ -327,6 +382,8 @@ func (Target) OnDetachedFromTarget(
 OnReceivedMessageFromTarget adds a handler to the Target.receivedMessageFromTarget event.
 Target.receivedMessageFromTarget fires when a new protocol message received from the session (as
 reported in `attachedToTarget` event).
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-receivedMessageFromTarget
 */
 func (Target) OnReceivedMessageFromTarget(
 	socket *Socket,
@@ -349,6 +406,8 @@ func (Target) OnReceivedMessageFromTarget(
 /*
 OnTargetCreated adds a handler to the Target.Created event. Target.Created fires when a possible
 inspection target is created.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-targetCreated
 */
 func (Target) OnTargetCreated(
 	socket *Socket,
@@ -371,6 +430,8 @@ func (Target) OnTargetCreated(
 /*
 OnTargetDestroyed adds a handler to the Target.Destroyed event. Target.Destroyed fires when a target
 is destroyed.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-targetDestroyed
 */
 func (Target) OnTargetDestroyed(
 	socket *Socket,
@@ -394,6 +455,8 @@ func (Target) OnTargetDestroyed(
 OnTargetInfoChanged adds a handler to the Target.InfoChanged event. Target.InfoChanged fires when
 some information about a target has changed. This only happens between `targetCreated` and
 `targetDestroyed`.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-targetInfoChanged
 */
 func (Target) OnTargetInfoChanged(
 	socket *Socket,

@@ -16,6 +16,8 @@ type DOMDebugger struct{}
 
 /*
 GetEventListeners returns event listeners of the given object.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-getEventListeners
 */
 func (DOMDebugger) GetEventListeners(
 	socket *Socket,
@@ -49,6 +51,8 @@ func (DOMDebugger) GetEventListeners(
 
 /*
 RemoveDOMBreakpoint removes the DOM breakpoint that was set using setDOMBreakpoint.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeDOMBreakpoint
 */
 func (DOMDebugger) RemoveDOMBreakpoint(
 	socket *Socket,
@@ -64,6 +68,8 @@ func (DOMDebugger) RemoveDOMBreakpoint(
 
 /*
 RemoveEventListenerBreakpoint removes breakpoint on particular DOM event.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeEventListenerBreakpoint
 */
 func (DOMDebugger) RemoveEventListenerBreakpoint(
 	socket *Socket,
@@ -79,6 +85,8 @@ func (DOMDebugger) RemoveEventListenerBreakpoint(
 
 /*
 RemoveInstrumentationBreakpoint removes breakpoint on particular native event. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeInstrumentationBreakpoint
 */
 func (DOMDebugger) RemoveInstrumentationBreakpoint(
 	socket *Socket,
@@ -94,6 +102,8 @@ func (DOMDebugger) RemoveInstrumentationBreakpoint(
 
 /*
 RemoveXHRBreakpoint removes breakpoint from XMLHttpRequest.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeXHRBreakpoint
 */
 func (DOMDebugger) RemoveXHRBreakpoint(
 	socket *Socket,
@@ -109,6 +119,8 @@ func (DOMDebugger) RemoveXHRBreakpoint(
 
 /*
 SetDOMBreakpoint sets a breakpoint on a particular operation with DOM.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setDOMBreakpoint
 */
 func (DOMDebugger) SetDOMBreakpoint(
 	socket *Socket,
@@ -124,6 +136,8 @@ func (DOMDebugger) SetDOMBreakpoint(
 
 /*
 SetEventListenerBreakpoint sets the breakpoint on a particular DOM event.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setEventListenerBreakpoint
 */
 func (DOMDebugger) SetEventListenerBreakpoint(
 	socket *Socket,
@@ -139,6 +153,8 @@ func (DOMDebugger) SetEventListenerBreakpoint(
 
 /*
 SetInstrumentationBreakpoint sets breakpoint on particular native event. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setInstrumentationBreakpoint
 */
 func (DOMDebugger) SetInstrumentationBreakpoint(
 	socket *Socket,
@@ -154,6 +170,8 @@ func (DOMDebugger) SetInstrumentationBreakpoint(
 
 /*
 SetXHRBreakpoint sets breakpoint on XMLHttpRequest.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setXHRBreakpoint
 */
 func (DOMDebugger) SetXHRBreakpoint(
 	socket *Socket,

@@ -18,6 +18,8 @@ type Page struct{}
 /*
 AddScriptToEvaluateOnLoad is eprecated, please use addScriptToEvaluateOnNewDocument instead.
 EXPERIMENTAL DEPRECATED
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-addScriptToEvaluateOnLoad
 */
 func (Page) AddScriptToEvaluateOnLoad(
 	socket *Socket,
@@ -52,6 +54,8 @@ func (Page) AddScriptToEvaluateOnLoad(
 /*
 AddScriptToEvaluateOnNewDocument evaluates given script in every frame upon creation (before loading
 frame's scripts).
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-addScriptToEvaluateOnNewDocument
 */
 func (Page) AddScriptToEvaluateOnNewDocument(
 	socket *Socket,
@@ -85,6 +89,8 @@ func (Page) AddScriptToEvaluateOnNewDocument(
 
 /*
 BringToFront brings page to front (activates tab).
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-bringToFront
 */
 func (Page) BringToFront(
 	socket *Socket,
@@ -98,6 +104,8 @@ func (Page) BringToFront(
 
 /*
 CaptureScreenshot capture a page screenshot.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot
 */
 func (Page) CaptureScreenshot(
 	socket *Socket,
@@ -131,6 +139,8 @@ func (Page) CaptureScreenshot(
 
 /*
 CreateIsolatedWorld creates an isolated world for the given frame.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-createIsolatedWorld
 */
 func (Page) CreateIsolatedWorld(
 	socket *Socket,
@@ -164,6 +174,8 @@ func (Page) CreateIsolatedWorld(
 
 /*
 Disable disables page domain notifications.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-disable
 */
 func (Page) Disable(
 	socket *Socket,
@@ -177,6 +189,8 @@ func (Page) Disable(
 
 /*
 Enable Ennables page domain notifications.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-enable
 */
 func (Page) Enable(
 	socket *Socket,
@@ -190,6 +204,8 @@ func (Page) Enable(
 
 /*
 GetAppManifest gets the app manifest.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getAppManifest
 */
 func (Page) GetAppManifest(
 	socket *Socket,
@@ -205,6 +221,8 @@ func (Page) GetAppManifest(
 
 /*
 GetFrameTree returns present frame tree structure.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getFrameTree
 */
 func (Page) GetFrameTree(
 	socket *Socket,
@@ -237,6 +255,8 @@ func (Page) GetFrameTree(
 /*
 GetLayoutMetrics returns metrics relating to the layouting of the page, such as viewport
 bounds/scale.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getLayoutMetrics
 */
 func (Page) GetLayoutMetrics(
 	socket *Socket,
@@ -268,6 +288,8 @@ func (Page) GetLayoutMetrics(
 
 /*
 GetNavigationHistory returns navigation history for the current page.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getNavigationHistory
 */
 func (Page) GetNavigationHistory(
 	socket *Socket,
@@ -299,6 +321,8 @@ func (Page) GetNavigationHistory(
 
 /*
 GetResourceContent returns content of the given resource. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceContent
 */
 func (Page) GetResourceContent(
 	socket *Socket,
@@ -332,6 +356,8 @@ func (Page) GetResourceContent(
 
 /*
 GetResourceTree returns present frame / resource tree structure. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceTree
 */
 func (Page) GetResourceTree(
 	socket *Socket,
@@ -364,6 +390,8 @@ func (Page) GetResourceTree(
 /*
 HandleJavaScriptDialog accepts or dismisses a JavaScript initiated dialog (alert, confirm, prompt,
 or onbeforeunload).
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-handleJavaScriptDialog
 */
 func (Page) HandleJavaScriptDialog(
 	socket *Socket,
@@ -379,6 +407,8 @@ func (Page) HandleJavaScriptDialog(
 
 /*
 Navigate navigates current page to the given URL.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-navigate
 */
 func (Page) Navigate(
 	socket *Socket,
@@ -412,6 +442,8 @@ func (Page) Navigate(
 
 /*
 NavigateToHistoryEntry navigates current page to the given history entry.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-navigateToHistoryEntry
 */
 func (Page) NavigateToHistoryEntry(
 	socket *Socket,
@@ -427,6 +459,8 @@ func (Page) NavigateToHistoryEntry(
 
 /*
 PrintToPDF print page as PDF.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-printToPDF
 */
 func (Page) PrintToPDF(
 	socket *Socket,
@@ -460,6 +494,8 @@ func (Page) PrintToPDF(
 
 /*
 Reload reloads given page optionally ignoring the cache.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-reload
 */
 func (Page) Reload(
 	socket *Socket,
@@ -476,6 +512,8 @@ func (Page) Reload(
 /*
 RemoveScriptToEvaluateOnLoad deprecated, please use removeScriptToEvaluateOnNewDocument instead.
 EXPERIMENTAL DEPRECATED
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-removeScriptToEvaluateOnLoad
 */
 func (Page) RemoveScriptToEvaluateOnLoad(
 	socket *Socket,
@@ -491,6 +529,8 @@ func (Page) RemoveScriptToEvaluateOnLoad(
 
 /*
 RemoveScriptToEvaluateOnNewDocument removes given script from the list.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-removeScriptToEvaluateOnNewDocument
 */
 func (Page) RemoveScriptToEvaluateOnNewDocument(
 	socket *Socket,
@@ -506,14 +546,14 @@ func (Page) RemoveScriptToEvaluateOnNewDocument(
 
 /*
 RequestAppBanner EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-requestAppBanner
 */
 func (Page) RequestAppBanner(
-	socket *Socket,
-	params *page.RequestAppBannerParams,
+	socket *Socket
 ) error {
 	command := &protocol.Command{
 		Method: "Page.requestAppBanner",
-		Params: params,
 	}
 	socket.SendCommand(command)
 	return command.Err
@@ -522,6 +562,8 @@ func (Page) RequestAppBanner(
 /*
 ScreencastFrameAck acknowledges that a screencast frame has been received by the frontend.
 EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-screencastFrameAck
 */
 func (Page) ScreencastFrameAck(
 	socket *Socket,
@@ -537,6 +579,8 @@ func (Page) ScreencastFrameAck(
 
 /*
 SearchInResource searches for given string in resource content. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-searchInResource
 */
 func (Page) SearchInResource(
 	socket *Socket,
@@ -570,6 +614,8 @@ func (Page) SearchInResource(
 
 /*
 SetAdBlockingEnabled enable Chrome's experimental ad filter on all sites. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setAdBlockingEnabled
 */
 func (Page) SetAdBlockingEnabled(
 	socket *Socket,
@@ -586,6 +632,8 @@ func (Page) SetAdBlockingEnabled(
 /*
 SetAutoAttachToCreatedPages controls whether browser will open a new inspector window for connected
 pages. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setAutoAttachToCreatedPages
 */
 func (Page) SetAutoAttachToCreatedPages(
 	socket *Socket,
@@ -601,6 +649,8 @@ func (Page) SetAutoAttachToCreatedPages(
 
 /*
 SetDocumentContent sets given markup as the document's HTML.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setDocumentContent
 */
 func (Page) SetDocumentContent(
 	socket *Socket,
@@ -616,6 +666,8 @@ func (Page) SetDocumentContent(
 
 /*
 SetDownloadBehavior sets the behavior when downloading a file. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setDownloadBehavior
 */
 func (Page) SetDownloadBehavior(
 	socket *Socket,
@@ -631,6 +683,8 @@ func (Page) SetDownloadBehavior(
 
 /*
 SetLifecycleEventsEnabled controls whether page will emit lifecycle events. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setLifecycleEventsEnabled
 */
 func (Page) SetLifecycleEventsEnabled(
 	socket *Socket,
@@ -646,6 +700,8 @@ func (Page) SetLifecycleEventsEnabled(
 
 /*
 StartScreencast starts sending each frame using the `screencastFrame` event. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-startScreencast
 */
 func (Page) StartScreencast(
 	socket *Socket,
@@ -661,6 +717,8 @@ func (Page) StartScreencast(
 
 /*
 StopLoading force the page stop all navigations and pending resource fetches.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-stopLoading
 */
 func (Page) StopLoading(
 	socket *Socket,
@@ -674,6 +732,8 @@ func (Page) StopLoading(
 
 /*
 StopScreencast stops sending each frame in the `screencastFrame`. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-stopScreencast
 */
 func (Page) StopScreencast(
 	socket *Socket,
@@ -688,6 +748,8 @@ func (Page) StopScreencast(
 /*
 OnDOMContentEventFired adds a handler to the Page.domContentEventFired event.
 Page.domContentEventFired fires when a content event occurs in the DOM.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-domContentEventFired
 */
 func (Page) OnDOMContentEventFired(
 	socket *Socket,
@@ -710,6 +772,8 @@ func (Page) OnDOMContentEventFired(
 /*
 OnFrameAttached adds a handler to the Page.frameAttached event. Page.frameAttached fires when a
 frame has been attached to its parent.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameAttached
 */
 func (Page) OnFrameAttached(
 	socket *Socket,
@@ -733,6 +797,8 @@ func (Page) OnFrameAttached(
 OnFrameClearedScheduledNavigation adds a handler to the Page.frameClearedScheduledNavigation event.
 Page.frameClearedScheduledNavigation fires when a frame no longer has a scheduled navigation.
 EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameClearedScheduledNavigation
 */
 func (Page) OnFrameClearedScheduledNavigation(
 	socket *Socket,
@@ -755,6 +821,8 @@ func (Page) OnFrameClearedScheduledNavigation(
 /*
 OnFrameDetached adds a handler to the Page.frameDetached event. Page.frameDetached fires when a
 frame has been detached from its parent.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameDetached
 */
 func (Page) OnFrameDetached(
 	socket *Socket,
@@ -777,6 +845,8 @@ func (Page) OnFrameDetached(
 /*
 OnFrameNavigated adds a handler to the Page.frameNavigated event. Page.frameNavigated fires once
 navigation of the frame has completed. Frame is now associated with the new loader.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameNavigated
 */
 func (Page) OnFrameNavigated(
 	socket *Socket,
@@ -798,7 +868,9 @@ func (Page) OnFrameNavigated(
 
 /*
 OnFrameResized adds a handler to the Page.frameResized event. Page.frameResized fires when frame
-schedules a potential navigation. EXPERIMENTAL
+is resized. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameResized
 */
 func (Page) OnFrameResized(
 	socket *Socket,
@@ -819,8 +891,34 @@ func (Page) OnFrameResized(
 }
 
 /*
+OnFrameScheduledNavigation adds a handler to the Page.frameScheduledNavigation event.
+Page.frameScheduledNavigation fires when frame schedules a potential navigation. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameScheduledNavigation
+*/
+func (Page) OnFrameScheduledNavigation(
+	socket *Socket,
+	callback func(event *page.FrameScheduledNavigationEvent),
+) {
+	handler := protocol.NewEventHandler(
+		"Page.frameScheduledNavigation",
+		func(name string, params []byte) {
+			event := &page.FrameScheduledNavigationEvent{}
+			if err := json.Unmarshal(params, event); err != nil {
+				log.Error(err)
+			} else {
+				callback(event)
+			}
+		},
+	)
+	socket.AddEventHandler(handler)
+}
+
+/*
 OnFrameStartedLoading adds a handler to the Page.frameStartedLoading event. Page.frameStartedLoading
 fires when frame has started loading. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameStartedLoading
 */
 func (Page) OnFrameStartedLoading(
 	socket *Socket,
@@ -843,6 +941,8 @@ func (Page) OnFrameStartedLoading(
 /*
 OnFrameStoppedLoading adds a handler to the Page.frameStoppedLoading event. Page.frameStoppedLoading
 fires when frame has stopped loading. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameStoppedLoading
 */
 func (Page) OnFrameStoppedLoading(
 	socket *Socket,
@@ -865,6 +965,8 @@ func (Page) OnFrameStoppedLoading(
 /*
 OnInterstitialHidden adds a handler to the Page.interstitialHidden event. Page.interstitialHidden
 fires when interstitial page was hidden.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-interstitialHidden
 */
 func (Page) OnInterstitialHidden(
 	socket *Socket,
@@ -887,6 +989,8 @@ func (Page) OnInterstitialHidden(
 /*
 OnInterstitialShown adds a handler to the Page.interstitialShown event. Page.interstitialShown fires
 when interstitial page was shown.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-interstitialShown
 */
 func (Page) OnInterstitialShown(
 	socket *Socket,
@@ -910,6 +1014,8 @@ func (Page) OnInterstitialShown(
 OnJavascriptDialogClosed adds a handler to the Page.javascriptDialogClosed event.
 Page.javascriptDialogClosed fires when a JavaScript initiated dialog (alert, confirm, prompt, or
 onbeforeunload) has been closed.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-javascriptDialogClosed
 */
 func (Page) OnJavascriptDialogClosed(
 	socket *Socket,
@@ -933,6 +1039,8 @@ func (Page) OnJavascriptDialogClosed(
 OnJavascriptDialogOpening adds a handler to the Page.javascriptDialogOpening event.
 Page.javascriptDialogOpening fires when a JavaScript initiated dialog (alert, confirm, prompt, or
 onbeforeunload) is about to open.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-javascriptDialogOpening
 */
 func (Page) OnJavascriptDialogOpening(
 	socket *Socket,
@@ -955,6 +1063,8 @@ func (Page) OnJavascriptDialogOpening(
 /*
 OnLifecycleEvent adds a handler to the Page.lifecycleEvent event. Page.lifecycleEvent fires for top
 level page lifecycle events such as navigation, load, paint, etc.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-lifecycleEvent
 */
 func (Page) OnLifecycleEvent(
 	socket *Socket,
@@ -977,6 +1087,8 @@ func (Page) OnLifecycleEvent(
 /*
 OnLoadEventFired adds a handler to the Page.loadEventFired event. Page.loadEventFired fires when the
 page has finished loading.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-loadEventFired
 */
 func (Page) OnLoadEventFired(
 	socket *Socket,
@@ -999,6 +1111,8 @@ func (Page) OnLoadEventFired(
 /*
 OnScreencastFrame adds a handler to the Page.screencastFrame event. Page.screencastFrame fires when
 compressed image data is requested by the `startScreencast` method. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-screencastFrame
 */
 func (Page) OnScreencastFrame(
 	socket *Socket,
@@ -1022,6 +1136,8 @@ func (Page) OnScreencastFrame(
 OnScreencastVisibilityChanged adds a handler to the Page.screencastVisibilityChanged event.
 Page.screencastVisibilityChanged fires when the page with currently enabled screencast was shown or
 hidden. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-screencastVisibilityChanged
 */
 func (Page) OnScreencastVisibilityChanged(
 	socket *Socket,
@@ -1044,6 +1160,8 @@ func (Page) OnScreencastVisibilityChanged(
 /*
 OnWindowOpen adds a handler to the Page.windowOpen event. Page.windowOpen fires when a new window is
 going to be opened, via window.open(), link click, form submission, etc.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-windowOpen
 */
 func (Page) OnWindowOpen(
 	socket *Socket,

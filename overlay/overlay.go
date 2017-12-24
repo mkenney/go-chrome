@@ -1,8 +1,6 @@
 package Overlay
 
 import (
-	"fmt"
-
 	"github.com/mkenney/go-chrome/dom"
 	"github.com/mkenney/go-chrome/page"
 	"github.com/mkenney/go-chrome/runtime"
@@ -10,6 +8,8 @@ import (
 
 /*
 GetHighlightObjectForTestParams represents Overlay.getHighlightObjectForTest parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-getHighlightObjectForTest
 */
 type GetHighlightObjectForTestParams struct {
 	// ID of the node to get highlight object for.
@@ -18,6 +18,8 @@ type GetHighlightObjectForTestParams struct {
 
 /*
 GetHighlightObjectForTestResult represents the result of calls to Overlay.getHighlightObjectForTest.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-getHighlightObjectForTest
 */
 type GetHighlightObjectForTestResult struct {
 	// Highlight data for the node.
@@ -26,6 +28,8 @@ type GetHighlightObjectForTestResult struct {
 
 /*
 HighlightFrameParams represents Overlay.highlightFrame parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightFrame
 */
 type HighlightFrameParams struct {
 	// Identifier of the frame to highlight.
@@ -46,6 +50,8 @@ type HighlightFrameParams struct {
 
 /*
 HighlightNodeParams represents Overlay.highlightNode parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightNode
 */
 type HighlightNodeParams struct {
 	// A descriptor for the highlight appearance.
@@ -63,6 +69,8 @@ type HighlightNodeParams struct {
 
 /*
 HighlightQuadParams represents Overlay.highlightQuad parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightQuad
 */
 type HighlightQuadParams struct {
 	// Quad to highlight.
@@ -83,6 +91,8 @@ type HighlightQuadParams struct {
 
 /*
 HighlightRectParams represents Overlay.highlightRect parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightRect
 */
 type HighlightRectParams struct {
 	// X coordinate.
@@ -112,6 +122,8 @@ type HighlightRectParams struct {
 
 /*
 SetInspectModeParams represents Overlay.setInspectMode parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setInspectMode
 */
 type SetInspectModeParams struct {
 	// Set an inspection mode.
@@ -127,6 +139,8 @@ type SetInspectModeParams struct {
 
 /*
 SetPausedInDebuggerMessageParams represents Overlay.setPausedInDebuggerMessage parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setPausedInDebuggerMessage
 */
 type SetPausedInDebuggerMessageParams struct {
 	// Optional. The message to display, also triggers resume and step over controls.
@@ -135,6 +149,8 @@ type SetPausedInDebuggerMessageParams struct {
 
 /*
 SetShowDebugBordersParams represents Overlay.setShowDebugBorders parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowDebugBorders
 */
 type SetShowDebugBordersParams struct {
 	// True for showing debug borders.
@@ -143,14 +159,28 @@ type SetShowDebugBordersParams struct {
 
 /*
 SetShowFPSCounterParams represents Overlay.setShowFPSCounter parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowFPSCounter
 */
 type SetShowFPSCounterParams struct {
+	// True for showing paint rectangles.
+	Show bool `json:"show"`
+}
+
+/*
+SetShowPaintRectsParams represents Overlay.setShowPaintRects parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowPaintRects
+*/
+type SetShowPaintRectsParams struct {
 	// True for showing paint rectangles.
 	Result bool `json:"result"`
 }
 
 /*
 SetShowScrollBottleneckRectsParams represents Overlay.setShowScrollBottleneckRects parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowScrollBottleneckRects
 */
 type SetShowScrollBottleneckRectsParams struct {
 	// True for showing scroll bottleneck rects.
@@ -159,6 +189,8 @@ type SetShowScrollBottleneckRectsParams struct {
 
 /*
 SetShowViewportSizeOnResizeParams represents Overlay.setShowViewportSizeOnResize parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowViewportSizeOnResize
 */
 type SetShowViewportSizeOnResizeParams struct {
 	// Whether to paint size or not.
@@ -167,6 +199,8 @@ type SetShowViewportSizeOnResizeParams struct {
 
 /*
 SetSuspendedParams represents Overlay.setSuspended parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setSuspended
 */
 type SetSuspendedParams struct {
 	// Whether overlay should be suspended and not consume any resources until resumed.
@@ -175,6 +209,8 @@ type SetSuspendedParams struct {
 
 /*
 InspectNodeRequestedEvent represents Overlay.inspectNodeRequested event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#event-inspectNodeRequested
 */
 type InspectNodeRequestedEvent struct {
 	// ID of the node to inspect.
@@ -183,6 +219,8 @@ type InspectNodeRequestedEvent struct {
 
 /*
 NodeHighlightRequestedEvent represents Overlay.nodeHighlightRequested event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#event-nodeHighlightRequested
 */
 type NodeHighlightRequestedEvent struct {
 	// ID of the node to highlight.
@@ -191,6 +229,8 @@ type NodeHighlightRequestedEvent struct {
 
 /*
 ScreenshotRequestedEvent represents Overlay.screenshotRequested event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#event-screenshotRequested
 */
 type ScreenshotRequestedEvent struct {
 	// Viewport to capture, in CSS.
@@ -199,6 +239,8 @@ type ScreenshotRequestedEvent struct {
 
 /*
 HighlightConfig is configuration data for the highlighting of page elements.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#type-HighlightConfig
 */
 type HighlightConfig struct {
 	// Optional. Whether the node info tooltip should be shown (default: false).
@@ -268,24 +310,12 @@ type HighlightConfig struct {
 
 /*
 InspectMode is the inspect mode
+
+ALLOWED VALUES
+	- searchForNode
+	- searchForUAShadowDOM
+	- none
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#type-InspectMode
 */
-type InspectMode int
-
-const (
-	_searchForNode InspectMode = iota
-	_searchForUAShadowDOM
-	_none
-)
-
-func (a InspectMode) String() string {
-	if a == 0 {
-		return "searchForNode"
-	}
-	if a == 1 {
-		return "searchForUAShadowDOM"
-	}
-	if a == 2 {
-		return "none"
-	}
-	panic(fmt.Errorf("Invalid InspectMode %d", a))
-}
+type InspectMode string

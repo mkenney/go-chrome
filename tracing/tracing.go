@@ -6,6 +6,8 @@ import (
 
 /*
 GetCategoriesResult represents the result of calls to Tracing.getCategories.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-getCategories
 */
 type GetCategoriesResult struct {
 	// A list of supported tracing categories.
@@ -14,6 +16,8 @@ type GetCategoriesResult struct {
 
 /*
 RecordClockSyncMarkerParams represents Tracing.recordClockSyncMarker parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-recordClockSyncMarker
 */
 type RecordClockSyncMarkerParams struct {
 	// The ID of this clock sync marker
@@ -22,6 +26,8 @@ type RecordClockSyncMarkerParams struct {
 
 /*
 RequestMemoryDumpResult represents the result of calls to Tracing.requestMemoryDump.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-requestMemoryDump
 */
 type RequestMemoryDumpResult struct {
 	// GUID of the resulting global memory dump.
@@ -33,6 +39,8 @@ type RequestMemoryDumpResult struct {
 
 /*
 StartParams represents Tracing.start parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-start
 */
 type StartParams struct {
 	// Optional. Category/tag filter.
@@ -58,6 +66,8 @@ type StartParams struct {
 
 /*
 BufferUsageEvent represents Overlay.bufferUsage event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-bufferUsage
 */
 type BufferUsageEvent struct {
 	// Optional. A number in range [0..1] that indicates the used size of event buffer as a fraction
@@ -74,6 +84,8 @@ type BufferUsageEvent struct {
 
 /*
 DataCollectedEvent represents Overlay.dataCollected event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-dataCollected
 */
 type DataCollectedEvent struct {
 	Value []map[string]string `json:"value"`
@@ -81,6 +93,8 @@ type DataCollectedEvent struct {
 
 /*
 CompleteEvent represents Overlay.tracingComplete event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-tracingComplete
 */
 type CompleteEvent struct {
 	// Optional. A handle of the stream that holds resulting trace data.
@@ -90,11 +104,15 @@ type CompleteEvent struct {
 /*
 MemoryDumpConfig is the configuration for memory dump. Used only when "memory-infra" category is
 enabled.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#type-MemoryDumpConfig
 */
 type MemoryDumpConfig map[string]string
 
 /*
 TraceConfig is the trace configuration
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#type-TraceConfig
 */
 type TraceConfig struct {
 	// Optional. Controls how the trace buffer stores data. Allowed values: recordUntilFull,
@@ -123,3 +141,14 @@ type TraceConfig struct {
 	// enabled.
 	MemoryDumpConfig MemoryDumpConfig `json:"memoryDumpConfig,omitempty"`
 }
+
+/*
+StreamCompression is the ompression type to use for traces returned via streams.
+
+ALLOWED VALUES
+	- none
+	- gzip
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#type-StreamCompression
+*/
+type StreamCompression string

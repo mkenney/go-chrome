@@ -20,6 +20,8 @@ type Runtime struct{}
 
 /*
 AwaitPromise adds handler to promise with given promise object ID.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-awaitPromise
 */
 func (Runtime) AwaitPromise(
 	socket *Socket,
@@ -54,6 +56,8 @@ func (Runtime) AwaitPromise(
 /*
 CallFunctionOn calls a function with given declaration on the given object. Object group of the
 result is inherited from the target object.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-callFunctionOn
 */
 func (Runtime) CallFunctionOn(
 	socket *Socket,
@@ -87,6 +91,8 @@ func (Runtime) CallFunctionOn(
 
 /*
 CompileScript compiles an expression.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-compileScript
 */
 func (Runtime) CompileScript(
 	socket *Socket,
@@ -120,6 +126,8 @@ func (Runtime) CompileScript(
 
 /*
 Disable disables reporting of execution contexts creation.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-disable
 */
 func (Runtime) Disable(
 	socket *Socket,
@@ -133,6 +141,8 @@ func (Runtime) Disable(
 
 /*
 DiscardConsoleEntries discards collected exceptions and console API calls.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-discardConsoleEntries
 */
 func (Runtime) DiscardConsoleEntries(
 	socket *Socket,
@@ -148,6 +158,8 @@ func (Runtime) DiscardConsoleEntries(
 Enable enables reporting of execution contexts creation by means of executionContextCreated event.
 When the reporting gets enabled the event will be sent immediately for each existing execution
 context.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-enable
 */
 func (Runtime) Enable(
 	socket *Socket,
@@ -161,6 +173,8 @@ func (Runtime) Enable(
 
 /*
 Evaluate evaluates expression on global object.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-evaluate
 */
 func (Runtime) Evaluate(
 	socket *Socket,
@@ -195,6 +209,8 @@ func (Runtime) Evaluate(
 /*
 GetProperties returns properties of a given object. Object group of the result is inherited from the
 target object.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-getProperties
 */
 func (Runtime) GetProperties(
 	socket *Socket,
@@ -228,6 +244,8 @@ func (Runtime) GetProperties(
 
 /*
 GlobalLexicalScopeNames returns all let, const and class variables from global scope.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-globalLexicalScopeNames
 */
 func (Runtime) GlobalLexicalScopeNames(
 	socket *Socket,
@@ -261,6 +279,8 @@ func (Runtime) GlobalLexicalScopeNames(
 
 /*
 QueryObjects returns objects for a given prototype ID.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-queryObjects
 */
 func (Runtime) QueryObjects(
 	socket *Socket,
@@ -294,6 +314,8 @@ func (Runtime) QueryObjects(
 
 /*
 ReleaseObject releases remote object with given id.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseObject
 */
 func (Runtime) ReleaseObject(
 	socket *Socket,
@@ -309,6 +331,8 @@ func (Runtime) ReleaseObject(
 
 /*
 ReleaseObjectGroup releases all remote objects that belong to a given group.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseObjectGroup
 */
 func (Runtime) ReleaseObjectGroup(
 	socket *Socket,
@@ -324,6 +348,8 @@ func (Runtime) ReleaseObjectGroup(
 
 /*
 RunIfWaitingForDebugger tells inspected instance to run if it was waiting for debugger to attach.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-runIfWaitingForDebugger
 */
 func (Runtime) RunIfWaitingForDebugger(
 	socket *Socket,
@@ -337,6 +363,8 @@ func (Runtime) RunIfWaitingForDebugger(
 
 /*
 RunScript runs the script with given ID in a given context.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-runScript
 */
 func (Runtime) RunScript(
 	socket *Socket,
@@ -370,6 +398,8 @@ func (Runtime) RunScript(
 
 /*
 SetCustomObjectFormatterEnabled EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-setCustomObjectFormatterEnabled
 */
 func (Runtime) SetCustomObjectFormatterEnabled(
 	socket *Socket,
@@ -386,6 +416,8 @@ func (Runtime) SetCustomObjectFormatterEnabled(
 /*
 OnConsoleAPICalled adds a handler to the Runtime.consoleAPICalled event. Runtime.consoleAPICalled
 fires when the console API is called.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-consoleAPICalled
 */
 func (Runtime) OnConsoleAPICalled(
 	socket *Socket,
@@ -408,6 +440,8 @@ func (Runtime) OnConsoleAPICalled(
 /*
 OnExceptionRevoked adds a handler to the Runtime.exceptionRevoked event. Runtime.exceptionRevoked
 fires when an unhandled exception is revoked.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-exceptionRevoked
 */
 func (Runtime) OnExceptionRevoked(
 	socket *Socket,
@@ -430,6 +464,8 @@ func (Runtime) OnExceptionRevoked(
 /*
 OnExceptionThrown adds a handler to the Runtime.exceptionThrown event. Runtime.exceptionThrown fires
 when an exception is thrown and is unhandled.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-exceptionThrown
 */
 func (Runtime) OnExceptionThrown(
 	socket *Socket,
@@ -452,6 +488,8 @@ func (Runtime) OnExceptionThrown(
 /*
 OnExecutionContextCreated adds a handler to the Runtime.executionContextCreated event.
 Runtime.executionContextCreated fires when a new execution context is created.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionContextCreated
 */
 func (Runtime) OnExecutionContextCreated(
 	socket *Socket,
@@ -474,6 +512,8 @@ func (Runtime) OnExecutionContextCreated(
 /*
 OnExecutionContextDestroyed adds a handler to the Runtime.executionContextDestroyed event.
 Runtime.executionContextDestroyed fires when execution context is destroyed.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionContextDestroyed
 */
 func (Runtime) OnExecutionContextDestroyed(
 	socket *Socket,
@@ -496,6 +536,8 @@ func (Runtime) OnExecutionContextDestroyed(
 /*
 OnExecutionContextsCleared adds a handler to the Runtime.executionContextsCleared event.
 Runtime.executionContextsCleared fires when all executionContexts were cleared in browser.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionContextsCleared
 */
 func (Runtime) OnExecutionContextsCleared(
 	socket *Socket,
@@ -519,6 +561,8 @@ func (Runtime) OnExecutionContextsCleared(
 OnInspectRequested adds a handler to the Runtime.inspectRequested event. Runtime.inspectRequested
 fires when an object should be inspected (for example, as a result of inspect() command line API
 call).
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-inspectRequested
 */
 func (Runtime) OnInspectRequested(
 	socket *Socket,

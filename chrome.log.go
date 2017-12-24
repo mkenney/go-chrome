@@ -17,6 +17,8 @@ type Log struct{}
 
 /*
 Clear clears the log.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-clear
 */
 func (Log) Clear(
 	socket *Socket,
@@ -30,6 +32,8 @@ func (Log) Clear(
 
 /*
 Disable disables log domain, prevents further log entries from being reported to the client.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-disable
 */
 func (Log) Disable(
 	socket *Socket,
@@ -44,6 +48,8 @@ func (Log) Disable(
 /*
 Enable enables log domain, sends the entries collected so far to the client by means of the
 `entryAdded` notification.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-enable
 */
 func (Log) Enable(
 	socket *Socket,
@@ -57,6 +63,8 @@ func (Log) Enable(
 
 /*
 StartViolationsReport starts violation reporting.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-startViolationsReport
 */
 func (Log) StartViolationsReport(
 	socket *Socket,
@@ -72,6 +80,8 @@ func (Log) StartViolationsReport(
 
 /*
 StopViolationsReport stops violation reporting.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-stopViolationsReport
 */
 func (Log) StopViolationsReport(
 	socket *Socket,
@@ -86,6 +96,8 @@ func (Log) StopViolationsReport(
 /*
 OnEntryAdded adds a handler to the Log.entryAdded event. Log.entryAdded fires when a new message is
 logged.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Log/#event-entryAdded
 */
 func (Log) OnEntryAdded(
 	socket *Socket,

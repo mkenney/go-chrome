@@ -1,16 +1,19 @@
 package Security
 
-import (
-	"fmt"
-)
-
 /*
-CertificateID is an internal certificate ID value.
+SetIgnoreCertificateErrorsParams represents Security.setIgnoreCertificateErrors parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setIgnoreCertificateErrors
 */
-type CertificateID int
+type SetIgnoreCertificateErrorsParams struct {
+	// If true, all certificate errors will be ignored.
+	Ignore bool `json:"ignore"`
+}
 
 /*
 HandleCertificateErrorParams represents Security.handleCertificateError parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-handleCertificateError
 */
 type HandleCertificateErrorParams struct {
 	// The ID of the event.
@@ -22,6 +25,8 @@ type HandleCertificateErrorParams struct {
 
 /*
 SetOverrideCertificateErrorsParams represents Security.setOverrideCertificateErrors parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setOverrideCertificateErrors
 */
 type SetOverrideCertificateErrorsParams struct {
 	// If true, certificate errors will be overridden.
@@ -30,6 +35,8 @@ type SetOverrideCertificateErrorsParams struct {
 
 /*
 CertificateErrorEvent represents Security.certificateError event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#event-certificateError
 */
 type CertificateErrorEvent struct {
 	// The ID of the event.
@@ -44,6 +51,8 @@ type CertificateErrorEvent struct {
 
 /*
 StateChangedEvent represents Security.securityStateChanged event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#event-securityStateChanged
 */
 type StateChangedEvent struct {
 	// Security state.
@@ -64,40 +73,43 @@ type StateChangedEvent struct {
 }
 
 /*
+CertificateID is an internal certificate ID value.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#type-CertificateId
+*/
+type CertificateID int
+
+/*
 MixedContentType is a description of mixed content (HTTP resources on HTTPS pages), as defined by
 https://www.w3.org/TR/mixed-content/#categories
+
+ALLOWED VALUES
+	- blockable
+	- optionally-blockable
+	- none
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#type-MixedContentType
 */
 type MixedContentType string
 
-func (s MixedContentType) String() string {
-	str := string(s)
-	if str == "blockable" ||
-		str == "optionally-blockable" ||
-		str == "none" {
-		return str
-	}
-	panic(fmt.Errorf("Invalid MixedContentType '%s'", str))
-}
-
 /*
 State is the security level of a page or resource.
+
+ALLOWED VALUES
+	- unknown
+	- neutral
+	- insecure
+	- secure
+	- info
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#type-SecurityState
 */
 type State string
 
-func (s State) String() string {
-	str := string(s)
-	if str == "unknown" ||
-		str == "neutral" ||
-		str == "insecure" ||
-		str == "secure" ||
-		str == "info" {
-		return str
-	}
-	panic(fmt.Errorf("Invalid SecurityState '%s'", str))
-}
-
 /*
 StateExplanation is an explanation of a factor contributing to the security state.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#type-SecurityStateExplanation
 */
 type StateExplanation struct {
 	// Security state representing the severity of the factor being explained.
@@ -118,6 +130,8 @@ type StateExplanation struct {
 
 /*
 InsecureContentStatus describes information about insecure content on the page.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#type-InsecureContentStatus
 */
 type InsecureContentStatus struct {
 	// True if the page was loaded over HTTPS and ran mixed (HTTP) content such as scripts.
@@ -147,14 +161,11 @@ type InsecureContentStatus struct {
 /*
 CertificateErrorAction describes the action to take when a certificate error occurs. 'continue' will
 continue processing the request and 'cancel' will cancel the request.
+
+ALLOWED VALUES
+	- continue
+	- cancel
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#type-CertificateErrorAction
 */
 type CertificateErrorAction string
-
-func (s CertificateErrorAction) String() string {
-	str := string(s)
-	if str == "continue" ||
-		str == "cancel" {
-		return str
-	}
-	panic(fmt.Errorf("Invalid CertificateErrorAction '%s'", str))
-}

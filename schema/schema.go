@@ -2,6 +2,8 @@ package Schema
 
 /*
 GetDomainsResult represents the result of calls to Schema.getDomains.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Schema/#method-getDomains
 */
 type GetDomainsResult struct {
 	// List of supported domains.
@@ -10,6 +12,8 @@ type GetDomainsResult struct {
 
 /*
 Domain is a description of the protocol domain.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Schema/#type-Domain
 */
 type Domain struct {
 	// Domain name.

@@ -2,6 +2,8 @@ package Target
 
 /*
 ActivateTargetParams represents Target.activateTarget parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-activateTarget
 */
 type ActivateTargetParams struct {
 	// Target ID.
@@ -10,6 +12,8 @@ type ActivateTargetParams struct {
 
 /*
 AttachToTargetParams represents Target.attachToTarget parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-attachToTarget
 */
 type AttachToTargetParams struct {
 	// Target ID.
@@ -17,7 +21,19 @@ type AttachToTargetParams struct {
 }
 
 /*
+AttachToTargetResult represents the result of calls to Target.attachToTarget.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-attachToTarget
+*/
+type AttachToTargetResult struct {
+	// Id assigned to the session.
+	SessionID SessionID `json:"sessionId"`
+}
+
+/*
 CloseTargetParams represents Target.closeTarget parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-closeTarget
 */
 type CloseTargetParams struct {
 	// Target ID.
@@ -26,6 +42,8 @@ type CloseTargetParams struct {
 
 /*
 CloseTargetResult represents the result of calls to Target.closeTarget.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-closeTarget
 */
 type CloseTargetResult struct {
 	Success bool `json:"success"`
@@ -33,6 +51,8 @@ type CloseTargetResult struct {
 
 /*
 CreateBrowserContextResult represents the result of calls to Target.createBrowserContext.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-createBrowserContext
 */
 type CreateBrowserContextResult struct {
 	// The ID of the context created.
@@ -41,6 +61,8 @@ type CreateBrowserContextResult struct {
 
 /*
 CreateTargetParams represents Target.createTarget parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-createTarget
 */
 type CreateTargetParams struct {
 	// The initial URL the page will be navigated to.
@@ -62,6 +84,8 @@ type CreateTargetParams struct {
 
 /*
 CreateTargetResult represents the result of calls to Target.createTarget.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-createTarget
 */
 type CreateTargetResult struct {
 	// The ID of the page opened.
@@ -70,6 +94,8 @@ type CreateTargetResult struct {
 
 /*
 DetachFromTargetParams represents Target.detachFromTarget parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-detachFromTarget
 */
 type DetachFromTargetParams struct {
 	// Optional. Session to detach.
@@ -81,6 +107,8 @@ type DetachFromTargetParams struct {
 
 /*
 DisposeBrowserContextParams represents Target.disposeBrowserContext parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-disposeBrowserContext
 */
 type DisposeBrowserContextParams struct {
 	// Target ID.
@@ -89,6 +117,8 @@ type DisposeBrowserContextParams struct {
 
 /*
 DisposeBrowserContextResult represents the result of calls to Target.disposeBrowserContext.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-disposeBrowserContext
 */
 type DisposeBrowserContextResult struct {
 	Success bool `json:"success"`
@@ -96,6 +126,8 @@ type DisposeBrowserContextResult struct {
 
 /*
 GetTargetInfoParams represents Target.getTargetInfo parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargetInfo
 */
 type GetTargetInfoParams struct {
 	// Target ID.
@@ -104,6 +136,8 @@ type GetTargetInfoParams struct {
 
 /*
 GetTargetInfoResult represents the result of calls to Target.getTargetInfo.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargetInfo
 */
 type GetTargetInfoResult struct {
 	// The list of targets.
@@ -112,6 +146,8 @@ type GetTargetInfoResult struct {
 
 /*
 GetTargetsParams represents Target.getTargets parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargets
 */
 type GetTargetsParams struct {
 	// The list of targets.
@@ -120,6 +156,8 @@ type GetTargetsParams struct {
 
 /*
 SendMessageToTargetParams represents Target.sendMessageToTarget parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-sendMessageToTarget
 */
 type SendMessageToTargetParams struct {
 	// Message.
@@ -134,6 +172,8 @@ type SendMessageToTargetParams struct {
 
 /*
 SetAttachToFramesParams represents Target.setAttachToFrames parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAttachToFrames
 */
 type SetAttachToFramesParams struct {
 	// Whether to attach to frames.
@@ -142,6 +182,8 @@ type SetAttachToFramesParams struct {
 
 /*
 SetAutoAttachParams represents Target.setAutoAttach parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAutoAttach
 */
 type SetAutoAttachParams struct {
 	// Whether to auto-attach to related targets.
@@ -154,6 +196,8 @@ type SetAutoAttachParams struct {
 
 /*
 SetDiscoverTargetsParams represents Target.setDiscoverTargets parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setDiscoverTargets
 */
 type SetDiscoverTargetsParams struct {
 	// Whether to discover available targets.
@@ -162,6 +206,8 @@ type SetDiscoverTargetsParams struct {
 
 /*
 SetRemoteLocationsParams represents Target.setRemoteLocations parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setRemoteLocations
 */
 type SetRemoteLocationsParams struct {
 	// List of remote locations.
@@ -170,6 +216,8 @@ type SetRemoteLocationsParams struct {
 
 /*
 AttachedToTargetEvent represents Target.attachedToTarget event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-attachedToTarget
 */
 type AttachedToTargetEvent struct {
 	// Identifier assigned to the session used to send/receive messages.
@@ -184,6 +232,8 @@ type AttachedToTargetEvent struct {
 
 /*
 DetachedFromTargetEvent represents Target.detachedFromTarget event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-detachedFromTarget
 */
 type DetachedFromTargetEvent struct {
 	// Detached session identifier.
@@ -195,6 +245,8 @@ type DetachedFromTargetEvent struct {
 
 /*
 ReceivedMessageFromTargetEvent represents Target.receivedMessageFromTarget event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-receivedMessageFromTarget
 */
 type ReceivedMessageFromTargetEvent struct {
 	// Identifier of a session which sends a message.
@@ -209,6 +261,8 @@ type ReceivedMessageFromTargetEvent struct {
 
 /*
 CreatedEvent represents Target.targetCreated event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-targetCreated
 */
 type CreatedEvent struct {
 	// Target info.
@@ -217,6 +271,8 @@ type CreatedEvent struct {
 
 /*
 DestroyedEvent represents Target.targetDestroyed event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-targetDestroyed
 */
 type DestroyedEvent struct {
 	// Target ID.
@@ -225,31 +281,39 @@ type DestroyedEvent struct {
 
 /*
 InfoChangedEvent represents Target.targetInfoChanged event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-targetInfoChanged
 */
 type InfoChangedEvent struct {
 	// Target info.
 	Info Info `json:"targetInfo"`
 }
 
-///////////////////////
-
 /*
 ID is the target ID.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#type-TargetID
 */
 type ID string
 
 /*
 SessionID is a unique identifier of attached debugging session.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#type-SessionID
 */
 type SessionID string
 
 /*
 BrowserContextID is EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#type-BrowserContextID
 */
 type BrowserContextID string
 
 /*
-Info holds the target info
+Info holds the target info.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#type-TargetInfo
 */
 type Info struct {
 	// desc.
@@ -273,6 +337,8 @@ type Info struct {
 
 /*
 RemoteLocation is EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#type-RemoteLocation
 */
 type RemoteLocation struct {
 	// desc.

@@ -1,13 +1,13 @@
 package ServiceWorker
 
 import (
-	"fmt"
-
 	"github.com/mkenney/go-chrome/target"
 )
 
 /*
 DeliverPushMessageParams represents ServiceWorker.deliverPushMessage parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-deliverPushMessage
 */
 type DeliverPushMessageParams struct {
 	// Origin.
@@ -22,6 +22,8 @@ type DeliverPushMessageParams struct {
 
 /*
 DispatchSyncEventParams represents ServiceWorker.dispatchSyncEvent parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-dispatchSyncEvent
 */
 type DispatchSyncEventParams struct {
 	// Origin.
@@ -39,6 +41,8 @@ type DispatchSyncEventParams struct {
 
 /*
 InspectWorkerParams represents ServiceWorker.inspectWorker parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-inspectWorker
 */
 type InspectWorkerParams struct {
 	// Version ID.
@@ -47,6 +51,8 @@ type InspectWorkerParams struct {
 
 /*
 SetForceUpdateOnPageLoadParams represents ServiceWorker.setForceUpdateOnPageLoad parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-setForceUpdateOnPageLoad
 */
 type SetForceUpdateOnPageLoadParams struct {
 	// Force update on page load.
@@ -55,6 +61,8 @@ type SetForceUpdateOnPageLoadParams struct {
 
 /*
 SkipWaitingParams represents ServiceWorker.skipWaiting parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-skipWaiting
 */
 type SkipWaitingParams struct {
 	// Scope URL.
@@ -63,6 +71,8 @@ type SkipWaitingParams struct {
 
 /*
 StartWorkerParams represents ServiceWorker.startWorker parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-startWorker
 */
 type StartWorkerParams struct {
 	// Scope URL.
@@ -71,6 +81,8 @@ type StartWorkerParams struct {
 
 /*
 StopWorkerParams represents ServiceWorker.stopWorker parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-stopWorker
 */
 type StopWorkerParams struct {
 	// Version ID.
@@ -79,6 +91,8 @@ type StopWorkerParams struct {
 
 /*
 UnregisterParams represents ServiceWorker.unregister parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-unregister
 */
 type UnregisterParams struct {
 	// Scope URL.
@@ -87,6 +101,8 @@ type UnregisterParams struct {
 
 /*
 UpdateRegistrationParams represents ServiceWorker.updateRegistration parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-updateRegistration
 */
 type UpdateRegistrationParams struct {
 	// Scope URL.
@@ -95,6 +111,8 @@ type UpdateRegistrationParams struct {
 
 /*
 WorkerErrorReportedEvent represents ServiceWorker.workerErrorReported event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-workerErrorReported
 */
 type WorkerErrorReportedEvent struct {
 	// Error message.
@@ -103,6 +121,8 @@ type WorkerErrorReportedEvent struct {
 
 /*
 WorkerRegistrationUpdatedEvent represents ServiceWorker.workerRegistrationUpdated event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-workerRegistrationUpdated
 */
 type WorkerRegistrationUpdatedEvent struct {
 	// Registrations.
@@ -111,6 +131,8 @@ type WorkerRegistrationUpdatedEvent struct {
 
 /*
 WorkerVersionUpdatedEvent represents ServiceWorker.workerVersionUpdated event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-workerVersionUpdated
 */
 type WorkerVersionUpdatedEvent struct {
 	// Versions.
@@ -119,6 +141,8 @@ type WorkerVersionUpdatedEvent struct {
 
 /*
 Registration is a ServiceWorker registration.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#type-ServiceWorkerRegistration
 */
 type Registration struct {
 	// desc.
@@ -132,72 +156,37 @@ type Registration struct {
 }
 
 /*
-VersionRunningStatus - Allowed values: stopped, starting, running, stopping.
+VersionRunningStatus is the version running status
+
+ALLOWED VALUES
+	- stopped
+	- starting
+	- running
+	- stopping
+
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#type-ServiceWorkerVersionRunningStatus
 */
-type VersionRunningStatus int
-
-const (
-	_stopped VersionRunningStatus = iota
-	_starting
-	_running
-	_stopping
-)
-
-func (a VersionRunningStatus) String() string {
-	if a == 0 {
-		return "stopped"
-	}
-	if a == 1 {
-		return "starting"
-	}
-	if a == 2 {
-		return "running"
-	}
-	if a == 3 {
-		return "stopping"
-	}
-	panic(fmt.Errorf("Invalid ServiceWorkerVersionRunningStatus %d", a))
-}
+type VersionRunningStatus string
 
 /*
-VersionStatus - Allowed values: new, installing, installed, activating, activated,
-redundant.
+VersionStatus is the version status
+
+ALLOWED VALUES
+	- new
+	- installing
+	- installed
+	- activating
+	- activated
+	- redundant
+
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#type-ServiceWorkerVersionStatus
 */
-type VersionStatus int
-
-const (
-	_new VersionStatus = iota
-	_installing
-	_installed
-	_activating
-	_activated
-	_redundant
-)
-
-func (a VersionStatus) String() string {
-	if a == 0 {
-		return "new"
-	}
-	if a == 1 {
-		return "installing"
-	}
-	if a == 2 {
-		return "installed"
-	}
-	if a == 3 {
-		return "activating"
-	}
-	if a == 4 {
-		return "activated"
-	}
-	if a == 5 {
-		return "redundant"
-	}
-	panic(fmt.Errorf("Invalid ServiceWorkerVersionStatus %d", a))
-}
+type VersionStatus string
 
 /*
 Version is the ServiceWorker version.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#type-ServiceWorkerVersion
 */
 type Version struct {
 	// versionId.
@@ -231,6 +220,8 @@ type Version struct {
 
 /*
 ErrorMessage is a ServiceWorker error message.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#type-ServiceWorkerErrorMessage
 */
 type ErrorMessage struct {
 	// desc.

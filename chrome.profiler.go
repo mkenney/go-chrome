@@ -17,6 +17,8 @@ type Profiler struct{}
 
 /*
 Disable disables profiling.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-disable
 */
 func (Profiler) Disable(
 	socket *Socket,
@@ -30,6 +32,8 @@ func (Profiler) Disable(
 
 /*
 Enable enables profiling.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-enable
 */
 func (Profiler) Enable(
 	socket *Socket,
@@ -44,6 +48,8 @@ func (Profiler) Enable(
 /*
 GetBestEffortCoverage collects coverage data for the current isolate. The coverage data may be
 incomplete due to garbage collection.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-getBestEffortCoverage
 */
 func (Profiler) GetBestEffortCoverage(
 	socket *Socket,
@@ -76,6 +82,8 @@ func (Profiler) GetBestEffortCoverage(
 /*
 SetSamplingInterval changes CPU profiler sampling interval. Must be called before CPU profiles
 recording started.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-setSamplingInterval
 */
 func (Profiler) SetSamplingInterval(
 	socket *Socket,
@@ -91,6 +99,8 @@ func (Profiler) SetSamplingInterval(
 
 /*
 Start starts profiling.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-start
 */
 func (Profiler) Start(
 	socket *Socket,
@@ -106,6 +116,8 @@ func (Profiler) Start(
 StartPreciseCoverage enable precise code coverage. Coverage data for JavaScript executed before
 enabling precise code coverage may be incomplete. Enabling prevents running optimized code and
 resets execution counters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-startPreciseCoverage
 */
 func (Profiler) StartPreciseCoverage(
 	socket *Socket,
@@ -121,6 +133,8 @@ func (Profiler) StartPreciseCoverage(
 
 /*
 StartTypeProfile enables type profile. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-startTypeProfile
 */
 func (Profiler) StartTypeProfile(
 	socket *Socket,
@@ -134,6 +148,8 @@ func (Profiler) StartTypeProfile(
 
 /*
 Stop stops profiling.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stop
 */
 func (Profiler) Stop(
 	socket *Socket,
@@ -166,6 +182,8 @@ func (Profiler) Stop(
 /*
 StopPreciseCoverage disable precise code coverage. Disabling releases unnecessary execution count
 records and allows executing optimized code.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stopPreciseCoverage
 */
 func (Profiler) StopPreciseCoverage(
 	socket *Socket,
@@ -180,6 +198,8 @@ func (Profiler) StopPreciseCoverage(
 /*
 StopTypeProfile disables type profile. Disabling releases type profile data collected so far.
 EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stopTypeProfile
 */
 func (Profiler) StopTypeProfile(
 	socket *Socket,
@@ -194,6 +214,8 @@ func (Profiler) StopTypeProfile(
 /*
 TakePreciseCoverage collects coverage data for the current isolate, and resets execution counters.
 Precise code coverage needs to have started.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-takePreciseCoverage
 */
 func (Profiler) TakePreciseCoverage(
 	socket *Socket,
@@ -225,6 +247,8 @@ func (Profiler) TakePreciseCoverage(
 
 /*
 TakeTypeProfile collect type profile. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-takeTypeProfile
 */
 func (Profiler) TakeTypeProfile(
 	socket *Socket,
@@ -255,18 +279,19 @@ func (Profiler) TakeTypeProfile(
 }
 
 /*
-OnConsoleProfileStarted adds a handler to the Profiler.consoleProfileStarted event.
-Profiler.consoleProfileStarted fires when new profile recording is started using console.profile()
-call.
+OnConsoleProfileFinished adds a handler to the Profiler.consoleProfileFinished event.
+Profiler.consoleProfileFinished fires when profile recording finishes.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#event-consoleProfileFinished
 */
-func (Profiler) OnConsoleProfileStarted(
+func (Profiler) OnConsoleProfileFinished(
 	socket *Socket,
-	callback func(event *profiler.ConsoleProfileStartedEvent),
+	callback func(event *profiler.ConsoleProfileFinishedEvent),
 ) {
 	handler := protocol.NewEventHandler(
-		"Profiler.consoleProfileStarted",
+		"Profiler.consoleProfileFinished",
 		func(name string, params []byte) {
-			event := &profiler.ConsoleProfileStartedEvent{}
+			event := &profiler.ConsoleProfileFinishedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {
@@ -278,17 +303,20 @@ func (Profiler) OnConsoleProfileStarted(
 }
 
 /*
-OnConsoleProfileFinished adds a handler to the Profiler.consoleProfileFinished event.
-Profiler.consoleProfileFinished fires when profile recording finishes.
+OnConsoleProfileStarted adds a handler to the Profiler.consoleProfileStarted event.
+Profiler.consoleProfileStarted fires when new profile recording is started using console.profile()
+call.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#event-consoleProfileStarted
 */
-func (Profiler) OnConsoleProfileFinished(
+func (Profiler) OnConsoleProfileStarted(
 	socket *Socket,
-	callback func(event *profiler.ConsoleProfileFinishedEvent),
+	callback func(event *profiler.ConsoleProfileStartedEvent),
 ) {
 	handler := protocol.NewEventHandler(
-		"Profiler.consoleProfileFinished",
+		"Profiler.consoleProfileStarted",
 		func(name string, params []byte) {
-			event := &profiler.ConsoleProfileFinishedEvent{}
+			event := &profiler.ConsoleProfileStartedEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {

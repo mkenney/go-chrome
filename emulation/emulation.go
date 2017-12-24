@@ -1,11 +1,13 @@
 package Emulation
 
 import (
-	"fmt"
+	"github.com/mkenney/go-chrome/runtime"
 )
 
 /*
 CanEmulateResult represents the result of calls to Emulation.canEmulate.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-canEmulate
 */
 type CanEmulateResult struct {
 	// True if emulation is supported.
@@ -14,6 +16,8 @@ type CanEmulateResult struct {
 
 /*
 SetCPUThrottlingRateParams represents Emulation.setCPUThrottlingRate parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setCPUThrottlingRate
 */
 type SetCPUThrottlingRateParams struct {
 	// Throttling rate as a slowdown factor (1 is no throttle, 2 is 2x slowdown, etc).
@@ -23,6 +27,8 @@ type SetCPUThrottlingRateParams struct {
 /*
 SetDefaultBackgroundColorOverrideParams represents Emulation.setDefaultBackgroundColorOverride
 parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDefaultBackgroundColorOverride
 */
 type SetDefaultBackgroundColorOverrideParams struct {
 	// Optional. RGBA of the default background color. If not specified, any existing override will be
@@ -35,6 +41,8 @@ type SetDefaultBackgroundColorOverrideParams struct {
 
 /*
 SetDeviceMetricsOverrideParams represents Emulation.setDeviceMetricsOverride parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDeviceMetricsOverride
 */
 type SetDeviceMetricsOverrideParams struct {
 	// Overriding width value in pixels (minimum 0, maximum 10000000). 0 disables the override.
@@ -88,6 +96,8 @@ type SetDeviceMetricsOverrideParams struct {
 
 /*
 SetEmitTouchEventsForMouseParams represents Emulation.setEmitTouchEventsForMouse parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setEmitTouchEventsForMouse
 */
 type SetEmitTouchEventsForMouseParams struct {
 	// Whether touch emulation based on mouse input should be enabled.
@@ -100,6 +110,8 @@ type SetEmitTouchEventsForMouseParams struct {
 
 /*
 SetEmulatedMediaParams represents Emulation.setEmulatedMedia parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setEmulatedMedia
 */
 type SetEmulatedMediaParams struct {
 	// Media type to emulate. Empty string disables the override.
@@ -108,6 +120,8 @@ type SetEmulatedMediaParams struct {
 
 /*
 SetGeolocationOverrideParams represents Emulation.setGeolocationOverride parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setGeolocationOverride
 */
 type SetGeolocationOverrideParams struct {
 	// Optional. Mock latitude.
@@ -122,6 +136,8 @@ type SetGeolocationOverrideParams struct {
 
 /*
 SetNavigatorOverridesParams represents Emulation.setNavigatorOverrides parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setNavigatorOverrides
 */
 type SetNavigatorOverridesParams struct {
 	// The platform navigator.platform should return.
@@ -130,6 +146,8 @@ type SetNavigatorOverridesParams struct {
 
 /*
 SetPageScaleFactorParams represents Emulation.setPageScaleFactor parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setPageScaleFactor
 */
 type SetPageScaleFactorParams struct {
 	// Page scale factor.
@@ -138,6 +156,8 @@ type SetPageScaleFactorParams struct {
 
 /*
 SetScriptExecutionDisabledParams represents Emulation.setScriptExecutionDisabled parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setScriptExecutionDisabled
 */
 type SetScriptExecutionDisabledParams struct {
 	// Whether script execution should be disabled in the page.
@@ -146,6 +166,8 @@ type SetScriptExecutionDisabledParams struct {
 
 /*
 SetTouchEmulationEnabledParams represents Emulation.setTouchEmulationEnabled parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setTouchEmulationEnabled
 */
 type SetTouchEmulationEnabledParams struct {
 	// Whether the touch event emulation should be enabled.
@@ -157,6 +179,8 @@ type SetTouchEmulationEnabledParams struct {
 
 /*
 SetVirtualTimePolicyParams represents Emulation.setVirtualTimePolicy parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setVirtualTimePolicy
 */
 type SetVirtualTimePolicyParams struct {
 	// desc.
@@ -172,7 +196,19 @@ type SetVirtualTimePolicyParams struct {
 }
 
 /*
+SetVirtualTimePolicyResult represents the result of calls to Emulation.setVirtualTimePolicy.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setVirtualTimePolicy
+*/
+type SetVirtualTimePolicyResult struct {
+	// Absolute timestamp at which virtual time was first enabled (milliseconds since epoch).
+	VirtualTimeBase Runtime.Timestamp `json:"virtualTimeBase"`
+}
+
+/*
 SetVisibleSizeParams represents Emulation.setVisibleSize parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setVisibleSize
 */
 type SetVisibleSizeParams struct {
 	// Frame width (DIP).
@@ -184,6 +220,8 @@ type SetVisibleSizeParams struct {
 
 /*
 VirtualTimeAdvancedEvent represents Emulation.virtualTimeAdvanced event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#event-virtualTimeAdvanced
 */
 type VirtualTimeAdvancedEvent struct {
 	// The amount of virtual time that has elapsed in milliseconds since virtual time was first enabled.
@@ -192,11 +230,15 @@ type VirtualTimeAdvancedEvent struct {
 
 /*
 VirtualTimeBudgetExpiredEvent represents Emulation.virtualTimeBudgetExpired event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#event-virtualTimeBudgetExpired
 */
 type VirtualTimeBudgetExpiredEvent struct{}
 
 /*
 VirtualTimePausedEvent represents Emulation.virtualTimePaused event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#event-virtualTimePaused
 */
 type VirtualTimePausedEvent struct {
 	// The amount of virtual time that has elapsed in milliseconds since virtual time was first enabled.
@@ -205,6 +247,8 @@ type VirtualTimePausedEvent struct {
 
 /*
 ScreenOrientation represents a screen orientation.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#type-ScreenOrientation
 */
 type ScreenOrientation struct {
 	// Orientation type. Allowed values: portraitPrimary, portraitSecondary, landscapePrimary,
@@ -223,24 +267,7 @@ VirtualTimePolicy is the time policy
 	- pauseIfNetworkFetchesPending: The virtual time base may not advance if there are any pending
 	  resource fetches.
 EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#type-VirtualTimePolicy
 */
-type VirtualTimePolicy int
-
-const (
-	_advance VirtualTimePolicy = iota
-	_pause
-	_pauseIfNetworkFetchesPending
-)
-
-func (a VirtualTimePolicy) String() string {
-	if a == 0 {
-		return "advance"
-	}
-	if a == 1 {
-		return "pause"
-	}
-	if a == 2 {
-		return "pauseIfNetworkFetchesPending"
-	}
-	panic(fmt.Errorf("Invalid VirtualTimePolicy %d", a))
-}
+type VirtualTimePolicy string

@@ -6,6 +6,8 @@ import (
 
 /*
 CompositingReasonsParams represents LayerTree.compositingReasons parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-compositingReasons
 */
 type CompositingReasonsParams struct {
 	// The ID of the layer for which we want to get the reasons it was composited.
@@ -14,6 +16,8 @@ type CompositingReasonsParams struct {
 
 /*
 CompositingReasonsResult represents the result of calls to LayerTree.compositingReasons.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-compositingReasons
 */
 type CompositingReasonsResult struct {
 	// A list of strings specifying reasons for the given layer to become composited.
@@ -22,6 +26,8 @@ type CompositingReasonsResult struct {
 
 /*
 LoadSnapshotParams represents LayerTree.loadSnapshot parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-loadSnapshot
 */
 type LoadSnapshotParams struct {
 	// An array of tiles composing the snapshot.
@@ -30,6 +36,8 @@ type LoadSnapshotParams struct {
 
 /*
 LoadSnapshotResult represents the result of calls to LayerTree.loadSnapshot.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-loadSnapshot
 */
 type LoadSnapshotResult struct {
 	// The ID of the snapshot.
@@ -38,6 +46,8 @@ type LoadSnapshotResult struct {
 
 /*
 MakeSnapshotParams represents LayerTree.makeSnapshot parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-makeSnapshot
 */
 type MakeSnapshotParams struct {
 	// The ID of the layer.
@@ -46,6 +56,8 @@ type MakeSnapshotParams struct {
 
 /*
 MakeSnapshotResult represents the result of calls to LayerTree.makeSnapshot.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-makeSnapshot
 */
 type MakeSnapshotResult struct {
 	// The ID of the layer snapshot.
@@ -54,6 +66,8 @@ type MakeSnapshotResult struct {
 
 /*
 ProfileSnapshotParams represents LayerTree.profileSnapshot parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-profileSnapshot
 */
 type ProfileSnapshotParams struct {
 	// The ID of the layer snapshot.
@@ -74,6 +88,8 @@ type ProfileSnapshotParams struct {
 
 /*
 ProfileSnapshotResult represents the result of calls to LayerTree.profileSnapshot.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-profileSnapshot
 */
 type ProfileSnapshotResult struct {
 	// The array of paint profiles, one per run.
@@ -82,6 +98,8 @@ type ProfileSnapshotResult struct {
 
 /*
 ReleaseSnapshotParams represents LayerTree.releaseSnapshot parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-releaseSnapshot
 */
 type ReleaseSnapshotParams struct {
 	// The ID of the layer snapshot.
@@ -90,6 +108,8 @@ type ReleaseSnapshotParams struct {
 
 /*
 ReplaySnapshotParams represents LayerTree.replaySnapshot parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-replaySnapshot
 */
 type ReplaySnapshotParams struct {
 	// The ID of the layer snapshot.
@@ -107,6 +127,8 @@ type ReplaySnapshotParams struct {
 
 /*
 ReplaySnapshotResult represents the result of calls to LayerTree.replaySnapshot.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-replaySnapshot
 */
 type ReplaySnapshotResult struct {
 	// A data: URL for resulting image.
@@ -115,6 +137,8 @@ type ReplaySnapshotResult struct {
 
 /*
 SnapshotCommandLogParams represents LayerTree.snapshotCommandLog parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-snapshotCommandLog
 */
 type SnapshotCommandLogParams struct {
 	// The ID of the layer snapshot.
@@ -123,6 +147,8 @@ type SnapshotCommandLogParams struct {
 
 /*
 SnapshotCommandLogResult represents the result of calls to LayerTree.snapshotCommandLog.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-snapshotCommandLog
 */
 type SnapshotCommandLogResult struct {
 	// The array of canvas function calls.
@@ -131,6 +157,8 @@ type SnapshotCommandLogResult struct {
 
 /*
 LayerPaintedEvent represents LayerTree.layerPainted event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#event-layerPainted
 */
 type LayerPaintedEvent struct {
 	// The ID of the painted layer.
@@ -142,6 +170,8 @@ type LayerPaintedEvent struct {
 
 /*
 DidChangeEvent represents LayerTree.layerTreeDidChange event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#event-layerTreeDidChange
 */
 type DidChangeEvent struct {
 	// Optional. Layer tree, absent if not in the comspositing mode.
@@ -150,16 +180,22 @@ type DidChangeEvent struct {
 
 /*
 LayerID is a unique Layer identifier.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#type-LayerId
 */
 type LayerID string
 
 /*
 SnapshotID is a unique snapshot identifier.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#type-SnapshotId
 */
 type SnapshotID string
 
 /*
 ScrollRect is a rectangle where scrolling happens on the main thread.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#type-ScrollRect
 */
 type ScrollRect struct {
 	// Rectangle itself.
@@ -172,6 +208,8 @@ type ScrollRect struct {
 
 /*
 StickyPositionConstraint is sticky position constraints.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#type-StickyPositionConstraint
 */
 type StickyPositionConstraint struct {
 	// Layout rectangle of the sticky element before being shifted.
@@ -189,6 +227,8 @@ type StickyPositionConstraint struct {
 
 /*
 PictureTile is a serialized fragment of layer picture along with its offset within the layer.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#type-PictureTile
 */
 type PictureTile struct {
 	// Offset from owning layer left boundary.
@@ -203,6 +243,8 @@ type PictureTile struct {
 
 /*
 Layer is information about a compositing layer.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#type-Layer
 */
 type Layer struct {
 	// The unique ID for this layer.
@@ -260,5 +302,7 @@ type Layer struct {
 
 /*
 PaintProfile is an array of timings, one per paint step.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#type-PaintProfile
 */
 type PaintProfile []interface{}

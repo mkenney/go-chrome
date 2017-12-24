@@ -1,14 +1,14 @@
 package Page
 
 import (
-	"fmt"
-
 	"github.com/mkenney/go-chrome/debugger"
 	"github.com/mkenney/go-chrome/runtime"
 )
 
 /*
 AddScriptToEvaluateOnLoadParams represents Page.addScriptToEvaluateOnLoad parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-addScriptToEvaluateOnLoad
 */
 type AddScriptToEvaluateOnLoadParams struct {
 	ScriptSource string `json:"scriptSource"`
@@ -16,6 +16,8 @@ type AddScriptToEvaluateOnLoadParams struct {
 
 /*
 AddScriptToEvaluateOnLoadResult represents the result of calls to Page.addScriptToEvaluateOnLoad.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-addScriptToEvaluateOnLoad
 */
 type AddScriptToEvaluateOnLoadResult struct {
 	// Identifier of the added script.
@@ -25,6 +27,8 @@ type AddScriptToEvaluateOnLoadResult struct {
 /*
 AddScriptToEvaluateOnNewDocumentParams represents Page.addScriptToEvaluateOnNewDocument
 parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-addScriptToEvaluateOnNewDocument
 */
 type AddScriptToEvaluateOnNewDocumentParams struct {
 	Source string `json:"source"`
@@ -33,6 +37,8 @@ type AddScriptToEvaluateOnNewDocumentParams struct {
 /*
 AddScriptToEvaluateOnNewDocumentResult represents the result of calls to
 Page.addScriptToEvaluateOnNewDocument.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-addScriptToEvaluateOnNewDocument
 */
 type AddScriptToEvaluateOnNewDocumentResult struct {
 	// Identifier of the added script.
@@ -41,6 +47,8 @@ type AddScriptToEvaluateOnNewDocumentResult struct {
 
 /*
 CaptureScreenshotParams represents Page.captureScreenshot parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot
 */
 type CaptureScreenshotParams struct {
 	// Optional. Image compression format (defaults to png). Allowed values: jpeg, png.
@@ -62,6 +70,8 @@ type CaptureScreenshotParams struct {
 
 /*
 CaptureScreenshotResult represents the result of calls to Page.captureScreenshot.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot
 */
 type CaptureScreenshotResult struct {
 	// Base64-encoded image data.
@@ -70,6 +80,8 @@ type CaptureScreenshotResult struct {
 
 /*
 CreateIsolatedWorldParams represents Page.createIsolatedWorld parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-createIsolatedWorld
 */
 type CreateIsolatedWorldParams struct {
 	// ID of the frame in which the isolated world should be created.
@@ -85,6 +97,8 @@ type CreateIsolatedWorldParams struct {
 
 /*
 CreateIsolatedWorldResult represents the result of calls to Page.createIsolatedWorld.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-createIsolatedWorld
 */
 type CreateIsolatedWorldResult struct {
 	// Execution context of the isolated world.
@@ -93,6 +107,8 @@ type CreateIsolatedWorldResult struct {
 
 /*
 GetAppManifestParams represents Page.getAppManifest parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getAppManifest
 */
 type GetAppManifestParams struct {
 	// Manifest location.
@@ -107,6 +123,8 @@ type GetAppManifestParams struct {
 
 /*
 GetFrameTreeResult represents the result of calls to Page.getFrameTree.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getFrameTree
 */
 type GetFrameTreeResult struct {
 	// Present frame tree structure.
@@ -115,6 +133,8 @@ type GetFrameTreeResult struct {
 
 /*
 GetLayoutMetricsResult represents the result of calls to Page.getLayoutMetrics.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getLayoutMetrics
 */
 type GetLayoutMetricsResult struct {
 	// Metrics relating to the layout viewport.
@@ -129,6 +149,8 @@ type GetLayoutMetricsResult struct {
 
 /*
 GetNavigationHistoryResult represents the result of calls to Page.getNavigationHistory.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getNavigationHistory
 */
 type GetNavigationHistoryResult struct {
 	// Index of the current navigation history entry.
@@ -140,6 +162,8 @@ type GetNavigationHistoryResult struct {
 
 /*
 GetResourceContentParams represents Page.getResourceContent parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceContent
 */
 type GetResourceContentParams struct {
 	// Frame ID to get resource for.
@@ -151,6 +175,8 @@ type GetResourceContentParams struct {
 
 /*
 GetResourceContentResult represents the result of calls to Page.getResourceContent.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceContent
 */
 type GetResourceContentResult struct {
 	// Resource content.
@@ -162,6 +188,8 @@ type GetResourceContentResult struct {
 
 /*
 GetResourceTreeResult represents the result of calls to Page.getResourceTree.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceTree
 */
 type GetResourceTreeResult struct {
 	// Present frame / resource tree structure.
@@ -170,6 +198,8 @@ type GetResourceTreeResult struct {
 
 /*
 HandleJavaScriptDialogParams represents Page.handleJavaScriptDialog parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-handleJavaScriptDialog
 */
 type HandleJavaScriptDialogParams struct {
 	// Whether to accept or dismiss the dialog.
@@ -182,6 +212,8 @@ type HandleJavaScriptDialogParams struct {
 
 /*
 NavigateParams represents Page.navigate parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-navigate
 */
 type NavigateParams struct {
 	// URL to navigate the page to.
@@ -196,6 +228,8 @@ type NavigateParams struct {
 
 /*
 NavigateResult represents the result of calls to Page.navigate.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-navigate
 */
 type NavigateResult struct {
 	// Frame ID that has navigated (or failed to navigate).
@@ -210,6 +244,8 @@ type NavigateResult struct {
 
 /*
 NavigateToHistoryEntryParams represents Page.navigateToHistoryEntry parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-navigateToHistoryEntry
 */
 type NavigateToHistoryEntryParams struct {
 	// Unique ID of the entry to navigate to.
@@ -218,6 +254,8 @@ type NavigateToHistoryEntryParams struct {
 
 /*
 PrintToPDFParams represents Page.printToPDF parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-printToPDF
 */
 type PrintToPDFParams struct {
 	// Optional. Paper orientation. Defaults to false.
@@ -261,6 +299,8 @@ type PrintToPDFParams struct {
 
 /*
 PrintToPDFResult represents the result of calls to Page.printToPDF.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-printToPDF
 */
 type PrintToPDFResult struct {
 	// Base64-encoded pdf data.
@@ -269,6 +309,8 @@ type PrintToPDFResult struct {
 
 /*
 ReloadParams represents Page.reload parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-reload
 */
 type ReloadParams struct {
 	// Optional. If true, browser cache is ignored (as if the user pressed Shift+refresh).
@@ -281,6 +323,8 @@ type ReloadParams struct {
 
 /*
 RemoveScriptToEvaluateOnLoadParams represents Page.removeScriptToEvaluateOnLoad parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-removeScriptToEvaluateOnLoad
 */
 type RemoveScriptToEvaluateOnLoadParams struct {
 	Identifier ScriptIdentifier `json:"identifier"`
@@ -289,18 +333,17 @@ type RemoveScriptToEvaluateOnLoadParams struct {
 /*
 RemoveScriptToEvaluateOnNewDocumentParams represents Page.removeScriptToEvaluateOnNewDocument
 parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-removeScriptToEvaluateOnNewDocument
 */
 type RemoveScriptToEvaluateOnNewDocumentParams struct {
 	Identifier ScriptIdentifier `json:"identifier"`
 }
 
 /*
-RequestAppBannerParams represents Page.requestAppBanner parameters.
-*/
-type RequestAppBannerParams struct{}
-
-/*
 ScreencastFrameAckParams represents Page.screencastFrameAck parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-screencastFrameAck
 */
 type ScreencastFrameAckParams struct {
 	// Frame number.
@@ -309,6 +352,8 @@ type ScreencastFrameAckParams struct {
 
 /*
 SearchInResourceParams represents Page.searchInResource parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-searchInResource
 */
 type SearchInResourceParams struct {
 	// Frame ID for resource to search in.
@@ -329,6 +374,8 @@ type SearchInResourceParams struct {
 
 /*
 SearchInResourceResult represents the result of calls to Page.searchInResource.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-searchInResource
 */
 type SearchInResourceResult struct {
 	// List of search matches.
@@ -337,6 +384,8 @@ type SearchInResourceResult struct {
 
 /*
 SetAdBlockingEnabledParams represents Page.setAdBlockingEnabled parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setAdBlockingEnabled
 */
 type SetAdBlockingEnabledParams struct {
 	// Whether to block ads.
@@ -345,6 +394,8 @@ type SetAdBlockingEnabledParams struct {
 
 /*
 SetAutoAttachToCreatedPagesParams represents Page.setAutoAttachToCreatedPages parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setAutoAttachToCreatedPages
 */
 type SetAutoAttachToCreatedPagesParams struct {
 	// If true, browser will open a new inspector window for every page created from this one.
@@ -353,6 +404,8 @@ type SetAutoAttachToCreatedPagesParams struct {
 
 /*
 SetDocumentContentParams represents Page.setDocumentContent parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setDocumentContent
 */
 type SetDocumentContentParams struct {
 	// Frame ID to set HTML for.
@@ -364,6 +417,8 @@ type SetDocumentContentParams struct {
 
 /*
 SetDownloadBehaviorParams represents Page.setDownloadBehavior parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setDownloadBehavior
 */
 type SetDownloadBehaviorParams struct {
 	// Whether to allow all or deny all download requests, or use default Chrome behavior if
@@ -377,6 +432,8 @@ type SetDownloadBehaviorParams struct {
 
 /*
 SetLifecycleEventsEnabledParams represents Page.setLifecycleEventsEnabled parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setLifecycleEventsEnabled
 */
 type SetLifecycleEventsEnabledParams struct {
 	// If true, starts emitting lifecycle events.
@@ -385,6 +442,8 @@ type SetLifecycleEventsEnabledParams struct {
 
 /*
 StartScreencastParams represents Page.startScreencast parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-startScreencast
 */
 type StartScreencastParams struct {
 	// Optional. Image compression format. Allowed values: jpeg, png.
@@ -405,6 +464,8 @@ type StartScreencastParams struct {
 
 /*
 DOMContentEventFiredEvent represents Page.domContentEventFired event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-domContentEventFired
 */
 type DOMContentEventFiredEvent struct {
 	Timestamp MonotonicTime `json:"timestamp"`
@@ -412,6 +473,8 @@ type DOMContentEventFiredEvent struct {
 
 /*
 FrameAttachedEvent represents Page.frameAttached event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameAttached
 */
 type FrameAttachedEvent struct {
 	// ID of the frame that has been attached.
@@ -428,6 +491,8 @@ type FrameAttachedEvent struct {
 /*
 FrameClearedScheduledNavigationEvent represents Page.frameClearedScheduledNavigation event
 data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameClearedScheduledNavigation
 */
 type FrameClearedScheduledNavigationEvent struct {
 	// ID of the frame that has cleared its scheduled navigation.
@@ -436,6 +501,8 @@ type FrameClearedScheduledNavigationEvent struct {
 
 /*
 FrameDetachedEvent represents Page.frameDetached event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameDetached
 */
 type FrameDetachedEvent struct {
 	// ID of the frame that has been detached.
@@ -444,6 +511,8 @@ type FrameDetachedEvent struct {
 
 /*
 FrameNavigatedEvent represents Page.frameNavigated event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameNavigated
 */
 type FrameNavigatedEvent struct {
 	// Frame object.
@@ -452,11 +521,15 @@ type FrameNavigatedEvent struct {
 
 /*
 FrameResizedEvent represents Page.frameResized event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameResized
 */
 type FrameResizedEvent struct{}
 
 /*
 FrameScheduledNavigationEvent represents Page.frameScheduledNavigation event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameScheduledNavigation
 */
 type FrameScheduledNavigationEvent struct {
 	// ID of the frame that has scheduled a navigation.
@@ -476,6 +549,8 @@ type FrameScheduledNavigationEvent struct {
 
 /*
 FrameStartedLoadingEvent represents Page.frameStartedLoading event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameStartedLoading
 */
 type FrameStartedLoadingEvent struct {
 	// ID of the frame that has started loading.
@@ -484,6 +559,8 @@ type FrameStartedLoadingEvent struct {
 
 /*
 FrameStoppedLoadingEvent represents Page.frameStoppedLoading event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameStoppedLoading
 */
 type FrameStoppedLoadingEvent struct {
 	// ID of the frame that has stopped loading.
@@ -492,16 +569,22 @@ type FrameStoppedLoadingEvent struct {
 
 /*
 InterstitialHiddenEvent represents Page.interstitialHidden event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-interstitialHidden
 */
 type InterstitialHiddenEvent struct{}
 
 /*
 InterstitialShownEvent represents Page.interstitialShown event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-interstitialShown
 */
 type InterstitialShownEvent struct{}
 
 /*
 JavascriptDialogClosedEvent represents Page.javascriptDialogClosed event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-javascriptDialogClosed
 */
 type JavascriptDialogClosedEvent struct {
 	// Whether dialog was confirmed.
@@ -513,6 +596,8 @@ type JavascriptDialogClosedEvent struct {
 
 /*
 JavascriptDialogOpeningEvent represents Page.javascriptDialogOpening event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-javascriptDialogOpening
 */
 type JavascriptDialogOpeningEvent struct {
 	// Frame url.
@@ -530,6 +615,8 @@ type JavascriptDialogOpeningEvent struct {
 
 /*
 LifecycleEventEvent represents Page.lifecycleEvent event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-lifecycleEvent
 */
 type LifecycleEventEvent struct {
 	// ID of the frame.
@@ -547,6 +634,8 @@ type LifecycleEventEvent struct {
 
 /*
 LoadEventFiredEvent represents Page.loadEventFired event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-loadEventFired
 */
 type LoadEventFiredEvent struct {
 	// timestamp.
@@ -555,6 +644,8 @@ type LoadEventFiredEvent struct {
 
 /*
 ScreencastFrameEvent represents Page.screencastFrame event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-screencastFrame
 */
 type ScreencastFrameEvent struct {
 	// Base64-encoded compressed image.
@@ -569,6 +660,8 @@ type ScreencastFrameEvent struct {
 
 /*
 ScreencastVisibilityChangedEvent represents Page.screencastVisibilityChanged event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-screencastVisibilityChanged
 */
 type ScreencastVisibilityChangedEvent struct {
 	// True if the page is visible.
@@ -577,6 +670,8 @@ type ScreencastVisibilityChangedEvent struct {
 
 /*
 WindowOpenEvent represents Page.windowOpen event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-windowOpen
 */
 type WindowOpenEvent struct {
 	// The URL for the new window.
@@ -592,23 +687,27 @@ type WindowOpenEvent struct {
 	UserGesture bool `json:"userGesture"`
 }
 
-//////////////////////////////////////
-
 /*
 LoaderID is the Unique loader identifier.
 This is a duplicate of Network.LoaderID to avoid an invalid import cycle
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-LoaderId
 */
 type LoaderID string
 
 /*
 MonotonicTime is the monotonically increasing time in seconds since an arbitrary point in the past.
 This is a duplicate of Network.MonotonicTime to avoid an invalid import cycle
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-MonotonicTime
 */
 type MonotonicTime int
 
 /*
 Rect defines a rectangle.
 This is a duplicate of DOM.Rect to avoid an invalid import cycle
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-Rect
 */
 type Rect struct {
 	// X coordinate.
@@ -626,12 +725,16 @@ type Rect struct {
 
 /*
 TimeSinceEpoch represents UTC time in seconds, counted from January 1, 1970.
-Duplicated from go-chrome/protocol/network to prevent import cycling
+This is a duplicate of DOM.Rect to avoid an invalid import cycle
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-TimeSinceEpoch
 */
 type TimeSinceEpoch int
 
 /*
 AppManifestError defines an error that occurs while parsing an app manifest.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-AppManifestError
 */
 type AppManifestError struct {
 	// Error message.
@@ -649,22 +752,21 @@ type AppManifestError struct {
 
 /*
 DialogType defines the Javascript dialog type.
+
+ALLOWED VALUES
+	- alert
+	- confirm
+	- prompt
+	- beforeunload
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-DialogType
 */
 type DialogType string
 
-func (s DialogType) String() string {
-	str := string(s)
-	if str == "alert" ||
-		str == "confirm" ||
-		str == "prompt" ||
-		str == "beforeunload" {
-		return str
-	}
-	panic(fmt.Errorf("Invalid DialogType '%s'", str))
-}
-
 /*
 Frame details information about the Frame on the page.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-Frame
 */
 type Frame struct {
 	// Frame unique identifier.
@@ -695,11 +797,15 @@ type Frame struct {
 
 /*
 FrameID is a unique frame identifier
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-FrameId
 */
 type FrameID string
 
 /*
 FrameResource provides information about the Resource on the page. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-FrameResource
 */
 type FrameResource struct {
 	// Resource URL.
@@ -727,6 +833,8 @@ type FrameResource struct {
 /*
 FrameResourceTree provides information about the Frame hierarchy along with their cached resources.
 EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-FrameResourceTree
 */
 type FrameResourceTree struct {
 	// Frame information for this tree item.
@@ -741,6 +849,8 @@ type FrameResourceTree struct {
 
 /*
 FrameTree provides information about the Frame hierarchy.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-FrameTree
 */
 type FrameTree struct {
 	// Frame information for this tree item.
@@ -752,6 +862,8 @@ type FrameTree struct {
 
 /*
 LayoutViewport defines layout viewport position and dimensions.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-LayoutViewport
 */
 type LayoutViewport struct {
 
@@ -770,6 +882,8 @@ type LayoutViewport struct {
 
 /*
 NavigationEntry defines a navigation history entry.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-NavigationEntry
 */
 type NavigationEntry struct {
 	// Unique id of the navigation history entry.
@@ -789,75 +903,31 @@ type NavigationEntry struct {
 }
 
 /*
-PDFParams defines the parameter structure for the printToPDF command
-*/
-type PDFParams struct {
-	// Optional. Paper orientation. Defaults to false.
-	Landscape bool `json:"landscape,omitempty"`
-
-	// Optional. Display header and footer. Defaults to false.
-	DisplayHeaderFooter bool `json:"displayHeaderFooter,omitempty"`
-
-	// Optional. Print background graphics. Defaults to false.
-	PrintBackground bool `json:"printBackground,omitempty"`
-
-	// Optional. Scale of the webpage rendering. Defaults to 1.
-	Scale int `json:"scale,omitempty"`
-
-	// Optional. Paper width in inches. Defaults to 8.5 inches.
-	PaperWidth int `json:"paperWidth,omitempty"`
-
-	// Optional. Paper height in inches. Defaults to 11 inches.
-	PaperHeight int `json:"paperHeight,omitempty"`
-
-	// Optional. Top margin in inches. Defaults to 1cm (~0.4 inches).
-	MarginTop int `json:"marginTop,omitempty"`
-
-	// Optional. Bottom margin in inches. Defaults to 1cm (~0.4 inches).
-	MarginBottom int `json:"marginBottom,omitempty"`
-
-	// Optional. Left margin in inches. Defaults to 1cm (~0.4 inches).
-	MarginLeft int `json:"marginLeft,omitempty"`
-
-	// Optional. Right margin in inches. Defaults to 1cm (~0.4 inches).
-	MarginRight int `json:"marginRight,omitempty"`
-
-	// Optional. Paper ranges to print, e.g., '1-5, 8, 11-13'. Defaults to an
-	// empty string, which means print all page,omitemptys.
-	PageRanges string `json:"pageRanges,omitempty"`
-
-	// Optional. Whether to silently ignore invalid but successfully parsed page
-	// ranges, such as '3-2'. Defaults to fals,omitemptye.
-	IgnoreInvalidPageRanges bool `json:"ignoreInvalidPageRanges,omitempty"`
-}
-
-/*
 ResourceType is the resource type as it was perceived by the rendering engine.
+
+ALLOWED VALUES
+	- Document
+	- Stylesheet
+	- Image
+	- Media
+	- Font
+	- Script
+	- TextTrack
+	- XHR
+	- Fetch
+	- EventSource
+	- WebSocket
+	- Manifest
+	- Other
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-ResourceType
 */
 type ResourceType string
 
-func (s ResourceType) String() string {
-	str := string(s)
-	if str == "Document" ||
-		str == "Stylesheet" ||
-		str == "Image" ||
-		str == "Media" ||
-		str == "Font" ||
-		str == "Script" ||
-		str == "TextTrack" ||
-		str == "XHR" ||
-		str == "Fetch" ||
-		str == "EventSource" ||
-		str == "WebSocket" ||
-		str == "Manifest" ||
-		str == "Other" {
-		return str
-	}
-	panic(fmt.Errorf("Invalid ResourceType '%s'", str))
-}
-
 /*
 ScreencastFrameMetadata provides screencast frame metadata. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-ScreencastFrameMetadata
 */
 type ScreencastFrameMetadata struct {
 
@@ -885,16 +955,22 @@ type ScreencastFrameMetadata struct {
 
 /*
 ScriptIdentifier is the unique script identifier.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-ScriptIdentifier
 */
 type ScriptIdentifier string
 
 /*
 TransitionType is the transition type.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-TransitionType
 */
 type TransitionType string
 
 /*
 Viewport defines the viewport for capturing screenshot.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-Viewport
 */
 type Viewport struct {
 	// Required. X offset in CSS pixels.
@@ -915,6 +991,8 @@ type Viewport struct {
 
 /*
 VisualViewport defines visual viewport position, dimensions, and scale.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-VisualViewport
 */
 type VisualViewport struct {
 	// Horizontal offset relative to the layout viewport (CSS pixels).

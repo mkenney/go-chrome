@@ -16,6 +16,8 @@ type Performance struct{}
 
 /*
 Disable disables collecting and reporting metrics.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-disable
 */
 func (Performance) Disable(
 	socket *Socket,
@@ -29,6 +31,8 @@ func (Performance) Disable(
 
 /*
 Enable enables collecting and reporting metrics.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-enable
 */
 func (Performance) Enable(
 	socket *Socket,
@@ -42,6 +46,8 @@ func (Performance) Enable(
 
 /*
 GetMetrics retrieves current values of run-time metrics.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-getMetrics
 */
 func (Overlay) GetMetrics(
 	socket *Socket,
@@ -74,6 +80,8 @@ func (Overlay) GetMetrics(
 /*
 OnMetrics adds a handler to the Performance.metrics event. Performance.metrics returns current
 values of the metrics.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Performance/#event-metrics
 */
 func (Overlay) OnMetrics(
 	socket *Socket,

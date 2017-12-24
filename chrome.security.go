@@ -16,6 +16,8 @@ type Security struct{}
 
 /*
 Disable disables tracking security state changes.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-disable
 */
 func (Security) Disable(
 	socket *Socket,
@@ -29,6 +31,8 @@ func (Security) Disable(
 
 /*
 Enable tracking security state changes.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-enable
 */
 func (Security) Enable(
 	socket *Socket,
@@ -41,7 +45,27 @@ func (Security) Enable(
 }
 
 /*
+SetIgnoreCertificateErrors enables/disables whether all certificate errors should be ignored.
+EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setIgnoreCertificateErrors
+*/
+func (Security) SetIgnoreCertificateErrors(
+	socket *Socket,
+	params *security.SetIgnoreCertificateErrorsParams,
+) error {
+	command := &protocol.Command{
+		Method: "Security.setIgnoreCertificateErrors",
+		Params: params,
+	}
+	socket.SendCommand(command)
+	return command.Err
+}
+
+/*
 HandleCertificateError handles a certificate error that fired a certificateError event.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-handleCertificateError
 */
 func (Security) HandleCertificateError(
 	socket *Socket,
@@ -59,6 +83,8 @@ func (Security) HandleCertificateError(
 SetOverrideCertificateErrors enables/disables overriding certificate errors. If enabled, all
 certificate error events need to be handled by the DevTools client and should be answered with
 handleCertificateError commands.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setOverrideCertificateErrors
 */
 func (Security) SetOverrideCertificateErrors(
 	socket *Socket,
@@ -77,6 +103,8 @@ OnCertificateError adds a handler to the Security.certificateError event. Securi
 fires when there is a certificate error. If overriding certificate errors is enabled, then it should
 be handled with the handleCertificateError command. Note: this event does not fire if the
 certificate error has been allowed internally.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#event-certificateError
 */
 func (Security) OnCertificateError(socket *Socket, callback func(event *security.CertificateErrorEvent)) {
 	handler := protocol.NewEventHandler(
@@ -96,6 +124,8 @@ func (Security) OnCertificateError(socket *Socket, callback func(event *security
 /*
 OnSecurityStateChanged adds a handler to the Security.StateChanged event. Security.StateChanged
 fires when the security state of the page changed.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#event-securityStateChanged
 */
 func (Security) OnSecurityStateChanged(socket *Socket, callback func(event *security.StateChangedEvent)) {
 	handler := protocol.NewEventHandler(

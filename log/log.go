@@ -7,6 +7,8 @@ import (
 
 /*
 StartViolationsReportParams represents LayerTree.startViolationsReport parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-startViolationsReport
 */
 type StartViolationsReportParams struct {
 	// Configuration for violations.
@@ -15,6 +17,8 @@ type StartViolationsReportParams struct {
 
 /*
 EntryAddedEvent represents LayerTree.entryAdded event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Log/#event-entryAdded
 */
 type EntryAddedEvent struct {
 	// The entry.
@@ -23,6 +27,8 @@ type EntryAddedEvent struct {
 
 /*
 Entry is a log entry.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Log/#type-LogEntry
 */
 type Entry struct {
 	// Log entry source. Allowed values: xml, javascript, network, storage, appcache, rendering,
@@ -62,6 +68,8 @@ type Entry struct {
 
 /*
 ViolationSetting is a violation configuration setting.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Log/#type-ViolationSetting
 */
 type ViolationSetting struct {
 	// Violation type. Allowed values: longTask, longLayout, blockedEvent, blockedParser,

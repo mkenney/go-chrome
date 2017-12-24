@@ -6,6 +6,8 @@ import (
 
 /*
 CloseParams represents IO.close parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-close
 */
 type CloseParams struct {
 	// Handle of the stream to close.
@@ -14,6 +16,8 @@ type CloseParams struct {
 
 /*
 ReadParams represents IO.read parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-read
 */
 type ReadParams struct {
 	// Handle of the stream to read.
@@ -29,6 +33,8 @@ type ReadParams struct {
 
 /*
 ReadResult represents the result of calls to IO.read.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-read
 */
 type ReadResult struct {
 	// Set if the data is base64-encoded.
@@ -43,6 +49,8 @@ type ReadResult struct {
 
 /*
 ResolveBlobParams represents IO.resolveBlob parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-resolveBlob
 */
 type ResolveBlobParams struct {
 	// Object ID of a Blob object wrapper.
@@ -51,6 +59,8 @@ type ResolveBlobParams struct {
 
 /*
 ResolveBlobResult represents the result of calls to IO.resolveBlob.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-resolveBlob
 */
 type ResolveBlobResult struct {
 	// UUID of the specified Blob.
@@ -60,5 +70,7 @@ type ResolveBlobResult struct {
 /*
 StreamHandle is either obtained from another method or specified as blob:<uuid> where <uuid> is an
 UUID of a Blob.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IO/#type-StreamHandle
 */
 type StreamHandle string

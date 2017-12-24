@@ -7,6 +7,8 @@ import (
 
 /*
 GetBestEffortCoverageResult represents the result of calls to Profiler.getBestEffortCoverage.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-getBestEffortCoverage
 */
 type GetBestEffortCoverageResult struct {
 	// Coverage data for the current isolate.
@@ -15,6 +17,8 @@ type GetBestEffortCoverageResult struct {
 
 /*
 SetSamplingIntervalParams represents Profiler.setSamplingInterval parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-setSamplingInterval
 */
 type SetSamplingIntervalParams struct {
 	// New sampling interval in microseconds.
@@ -23,6 +27,8 @@ type SetSamplingIntervalParams struct {
 
 /*
 StartPreciseCoverageParams represents Profiler.startPreciseCoverage parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-startPreciseCoverage
 */
 type StartPreciseCoverageParams struct {
 	// Collect accurate call counts beyond simple 'covered' or 'not covered'.
@@ -33,18 +39,9 @@ type StartPreciseCoverageParams struct {
 }
 
 /*
-StartPreciseCoverageResult represents the result of calls to Profiler.startPreciseCoverage.
-*/
-type StartPreciseCoverageResult struct {
-	// Collect accurate call counts beyond simple 'covered' or 'not covered'.
-	CallCount bool `json:"callCount"`
-
-	// Collect block-based coverage.
-	Detailed bool `json:"detailed"`
-}
-
-/*
 StopResult represents the result of calls to Profiler.stop.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stop
 */
 type StopResult struct {
 	// Recorded profile.
@@ -53,6 +50,8 @@ type StopResult struct {
 
 /*
 TakePreciseCoverageResult represents the result of calls to Profiler.takePreciseCoverage.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-takePreciseCoverage
 */
 type TakePreciseCoverageResult struct {
 	// Coverage data for the current isolate.
@@ -61,6 +60,8 @@ type TakePreciseCoverageResult struct {
 
 /*
 TakeTypeProfileResult represents the result of calls to Profiler.takeTypeProfile.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-takeTypeProfile
 */
 type TakeTypeProfileResult struct {
 	// Type profile for all scripts since startTypeProfile() was turned on.
@@ -68,21 +69,9 @@ type TakeTypeProfileResult struct {
 }
 
 /*
-ConsoleProfileStartedEvent represents Overlay.consoleProfileStarted event data.
-*/
-type ConsoleProfileStartedEvent struct {
-	// Profile ID.
-	ID string `json:"id"`
-
-	// Location of console.profile().
-	Location Debugger.Location `json:"location"`
-
-	// Profile title passed as an argument to console.profile().
-	Title string `json:"title"`
-}
-
-/*
 ConsoleProfileFinishedEvent represents Overlay.consoleProfileFinished event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#event-consoleProfileFinished
 */
 type ConsoleProfileFinishedEvent struct {
 	// Profile ID.
@@ -99,7 +88,25 @@ type ConsoleProfileFinishedEvent struct {
 }
 
 /*
+ConsoleProfileStartedEvent represents Overlay.consoleProfileStarted event data.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#event-consoleProfileStarted
+*/
+type ConsoleProfileStartedEvent struct {
+	// Profile ID.
+	ID string `json:"id"`
+
+	// Location of console.profile().
+	Location Debugger.Location `json:"location"`
+
+	// Profile title passed as an argument to console.profile().
+	Title string `json:"title"`
+}
+
+/*
 ProfileNode holds callsite information, execution statistics and child nodes.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#type-ProfileNode
 */
 type ProfileNode struct {
 	// Unique ID of the node.
@@ -124,6 +131,8 @@ type ProfileNode struct {
 
 /*
 Profile defines a profile
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#type-Profile
 */
 type Profile struct {
 	// The list of profile nodes. First item is the root node.
@@ -145,6 +154,8 @@ type Profile struct {
 
 /*
 PositionTickInfo specifies a number of samples attributed to a certain source position.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#type-PositionTickInfo
 */
 type PositionTickInfo struct {
 	// Source line number (1-based).
@@ -156,6 +167,8 @@ type PositionTickInfo struct {
 
 /*
 CoverageRange defines coverage data for a source range.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#type-CoverageRange
 */
 type CoverageRange struct {
 	// JavaScript script source offset for the range start.
@@ -170,6 +183,8 @@ type CoverageRange struct {
 
 /*
 FunctionCoverage defines coverage data for a JavaScript function.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#type-FunctionCoverage
 */
 type FunctionCoverage struct {
 	// JavaScript function name.
@@ -184,6 +199,8 @@ type FunctionCoverage struct {
 
 /*
 ScriptCoverage defines coverage data for a JavaScript script.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#type-ScriptCoverage
 */
 type ScriptCoverage struct {
 	// JavaScript script ID.
@@ -198,6 +215,8 @@ type ScriptCoverage struct {
 
 /*
 TypeObject describes a type collected during runtime. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#type-TypeObject
 */
 type TypeObject struct {
 	// Name of a type collected with type profiling.
@@ -206,6 +225,8 @@ type TypeObject struct {
 
 /*
 TypeProfileEntry is the source offset and types for a parameter or return value. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#type-TypeProfileEntry
 */
 type TypeProfileEntry struct {
 	// Source offset of the parameter or end of function for return values.
@@ -218,6 +239,8 @@ type TypeProfileEntry struct {
 /*
 ScriptTypeProfile is type profile data collected during runtime for a JavaScript script.
 EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#type-ScriptTypeProfile
 */
 type ScriptTypeProfile struct {
 	// JavaScript script ID.

@@ -17,6 +17,8 @@ type Tethering struct{}
 
 /*
 Bind requests browser port binding.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tethering/#method-bind
 */
 func (Tethering) Bind(
 	socket *Socket,
@@ -32,6 +34,8 @@ func (Tethering) Bind(
 
 /*
 Unbind requests browser port unbinding.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tethering/#method-unbind
 */
 func (Tethering) Unbind(
 	socket *Socket,
@@ -48,6 +52,8 @@ func (Tethering) Unbind(
 /*
 OnAccepted adds a handler to the Tethering.accepted event. Tethering.accepted fires when a port was
 successfully bound and got a specified connection id.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tethering/#event-accepted
 */
 func (Tethering) OnAccepted(
 	socket *Socket,
