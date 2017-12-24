@@ -1,3 +1,8 @@
+/*
+Package Log provides type definitions for use with the Chrome Log protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/Log/
+*/
 package Log
 
 import (

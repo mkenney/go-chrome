@@ -1,3 +1,8 @@
+/*
+Package Input provides type definitions for use with the Chrome Input protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/
+*/
 package Input
 
 /*
@@ -150,11 +155,11 @@ type EmulateTouchFromMouseEventParams struct {
 }
 
 /*
-SetIgnoreInputEventsParams represents Input.setIgnoreInputEvents parameters.
+SetIgnoreEventsParams represents Input.setIgnoreInputEvents parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-setIgnoreInputEvents
 */
-type SetIgnoreInputEventsParams struct {
+type SetIgnoreEventsParams struct {
 	// Ignores input events processing when set to true.
 	Ignore bool `json:"ignore"`
 }

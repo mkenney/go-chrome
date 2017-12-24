@@ -81,13 +81,13 @@ func (Database) ExecuteSQL(
 }
 
 /*
-GetDatabaseTableNames gets database table names.
+GetTableNames gets database table names.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-getDatabaseTableNames
 */
-func (Database) GetDatabaseTableNames(
+func (Database) GetTableNames(
 	socket *Socket,
-	params *database.GetDatabaseTableNamesParams,
+	params *database.GetTableNamesParams,
 ) error {
 	command := &protocol.Command{
 		Method: "Database.getDatabaseTableNames",
@@ -98,19 +98,19 @@ func (Database) GetDatabaseTableNames(
 }
 
 /*
-OnAddDatabase adds a handler to the Database.addDatabase event. Database.addDatabase fires
+OnAdd adds a handler to the Database.addDatabase event. Database.addDatabase fires
 whenever a database is added
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#event-addDatabase
 */
-func (Database) OnAddDatabase(
+func (Database) OnAdd(
 	socket *Socket,
-	callback func(event *database.AddDatabaseEvent),
+	callback func(event *database.AddEvent),
 ) {
 	handler := protocol.NewEventHandler(
 		"Database.addDatabase",
 		func(name string, params []byte) {
-			event := &database.AddDatabaseEvent{}
+			event := &database.AddEvent{}
 			if err := json.Unmarshal(params, event); err != nil {
 				log.Error(err)
 			} else {

@@ -1,12 +1,18 @@
+/*
+Package DeviceOrientation provides type definitions for use with the Chrome DeviceOrientation
+protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/
+*/
 package DeviceOrientation
 
 /*
-SetDeviceOrientationOverrideParams represents DeviceOrientation.setDeviceOrientationOverride
+SetOverrideParams represents DeviceOrientation.setDeviceOrientationOverride
 parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/#method-setDeviceOrientationOverride
 */
-type SetDeviceOrientationOverrideParams struct {
+type SetOverrideParams struct {
 	// Mock alpha.
 	Alpha float64 `json:"alpha"`
 

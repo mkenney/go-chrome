@@ -1,3 +1,9 @@
+/*
+Package HeadlessExperimental provides type definitions for use with the Chrome HeadlessExperimental
+protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/
+*/
 package HeadlessExperimental
 
 import (

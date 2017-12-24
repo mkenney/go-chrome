@@ -1,3 +1,8 @@
+/*
+Package ApplicationCache provides type definitions for use with the Chrome ApplicationCache protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/
+*/
 package ApplicationCache
 
 import (
@@ -5,22 +10,21 @@ import (
 )
 
 /*
-GetApplicationCacheForFrameParams represents ApplicationCache.getApplicationCacheForFrame parameters
+GetForFrameParams represents ApplicationCache.getApplicationCacheForFrame parameters
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getApplicationCacheForFrame
 */
-type GetApplicationCacheForFrameParams struct {
+type GetForFrameParams struct {
 	// Identifier of the frame containing document whose application cache is retrieved.
 	FrameID Page.FrameID `json:"frameId"`
 }
 
 /*
-GetApplicationCacheForFrameResult represents the result of calls to
-ApplicationCache.getApplicationCacheForFrame.
+GetForFrameResult represents the result of calls to ApplicationCache.getApplicationCacheForFrame.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getApplicationCacheForFrame
 */
-type GetApplicationCacheForFrameResult struct {
+type GetForFrameResult struct {
 	// Relevant application cache data for the document in given frame.
 	ApplicationCache ApplicationCache `json:"applicationCache"`
 }

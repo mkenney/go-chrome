@@ -1,3 +1,8 @@
+/*
+Package DOMStorage provides type definitions for use with the Chrome DOMStorage protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/
+*/
 package DOMStorage
 
 /*
@@ -10,39 +15,39 @@ type ClearParams struct {
 }
 
 /*
-GetDOMStorageItemsParams represents DOMStorage.getDOMStorageItems parameters.
+GetItemsParams represents DOMStorage.getDOMStorageItems parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-getDOMStorageItems
 */
-type GetDOMStorageItemsParams struct {
+type GetItemsParams struct {
 	StorageID StorageID `json:"storageId"`
 }
 
 /*
-GetDOMStorageItemsResult represents the result of calls to DOMStorage.getDOMStorageItems.
+GetItemsResult represents the result of calls to DOMStorage.getDOMStorageItems.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-getDOMStorageItems
 */
-type GetDOMStorageItemsResult struct {
+type GetItemsResult struct {
 	Entries []Item `json:"entries"`
 }
 
 /*
-RemoveDOMStorageItemParams represents DOMStorage.removeDOMStorageItem parameters.
+RemoveItemParams represents DOMStorage.removeDOMStorageItem parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-removeDOMStorageItem
 */
-type RemoveDOMStorageItemParams struct {
+type RemoveItemParams struct {
 	StorageID StorageID `json:"storageId"`
 	Key       string    `json:"key"`
 }
 
 /*
-SetDOMStorageItemParams represents DOMStorage.setDOMStorageItem parameters.
+SetItemParams represents DOMStorage.setDOMStorageItem parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-setDOMStorageItem
 */
-type SetDOMStorageItemParams struct {
+type SetItemParams struct {
 	StorageID StorageID `json:"storageId"`
 	Key       string    `json:"key"`
 	Value     string    `json:"value"`

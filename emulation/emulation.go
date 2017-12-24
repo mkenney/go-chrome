@@ -1,3 +1,8 @@
+/*
+Package Emulation provides type definitions for use with the Chrome Emulation protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/
+*/
 package Emulation
 
 import (

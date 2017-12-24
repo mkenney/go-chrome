@@ -1,3 +1,8 @@
+/*
+Package DOMSnapshot provides type definitions for use with the Chrome DOMSnapshot protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/
+*/
 package DOMSnapshot
 
 import (
@@ -6,21 +11,21 @@ import (
 )
 
 /*
-GetSnapshotParams represents DOMSnapshot.getSnapshot parameters.
+GetParams represents DOMSnapshot.getSnapshot parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#method-getSnapshot
 */
-type GetSnapshotParams struct {
+type GetParams struct {
 	// Whitelist of computed styles to return.
 	ComputedStyleWhitelist []string `json:"computedStyleWhitelist"`
 }
 
 /*
-GetSnapshotResult represents the result of calls to DOMSnapshot.getSnapshot.
+GetResult represents the result of calls to DOMSnapshot.getSnapshot.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#method-getSnapshot
 */
-type GetSnapshotResult struct {
+type GetResult struct {
 	// The nodes in the DOM tree. The DOMNode at index 0 corresponds to the root document.
 	DOMNodes []DOMNode `json:"domNodes"`
 

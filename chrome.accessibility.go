@@ -8,8 +8,9 @@ import (
 )
 
 /*
-Accessibility - https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/
-EXPERIMENTAL
+Accessibility EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/
 */
 type Accessibility struct{}
 

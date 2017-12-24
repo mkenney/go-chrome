@@ -1,3 +1,8 @@
+/*
+Package Accessibility provides type definitions for use with the Chrome Accessibility protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/
+*/
 package Accessibility
 
 import (

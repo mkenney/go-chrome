@@ -1,3 +1,8 @@
+/*
+Package Security provides type definitions for use with the Chrome Security protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/
+*/
 package Security
 
 /*

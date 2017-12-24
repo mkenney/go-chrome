@@ -1,3 +1,8 @@
+/*
+Package Browser provides type definitions for use with the Chrome Browser protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/Browser/
+*/
 package Browser
 
 import (

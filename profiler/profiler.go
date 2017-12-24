@@ -1,3 +1,8 @@
+/*
+Package Profiler provides type definitions for use with the Chrome Profiler protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/
+*/
 package Profiler
 
 import (

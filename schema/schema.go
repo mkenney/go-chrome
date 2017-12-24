@@ -1,3 +1,8 @@
+/*
+Package Schema provides type definitions for use with the Chrome Schema protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/Schema/
+*/
 package Schema
 
 /*

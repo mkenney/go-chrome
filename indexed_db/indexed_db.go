@@ -1,3 +1,8 @@
+/*
+Package IndexedDB provides type definitions for use with the Chrome IndexedDB protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/
+*/
 package IndexedDB
 
 import (

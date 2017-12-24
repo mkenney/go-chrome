@@ -1,3 +1,8 @@
+/*
+Package Tracing provides type definitions for use with the Chrome Tracing protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/
+*/
 package Tracing
 
 import (

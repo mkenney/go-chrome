@@ -1,3 +1,8 @@
+/*
+Package ServiceWorker provides type definitions for use with the Chrome ServiceWorker protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/
+*/
 package ServiceWorker
 
 import (

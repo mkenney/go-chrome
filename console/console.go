@@ -1,3 +1,8 @@
+/*
+Package Console provides type definitions for use with the Chrome Console protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/Console/
+*/
 package Console
 
 /*

@@ -9,26 +9,27 @@ import (
 
 /*
 DOMSnapshot facilitates obtaining document snapshots with DOM, layout, and style information.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/
 */
 type DOMSnapshot struct{}
 
 /*
-GetSnapshot - https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/
-Returns a document snapshot, including the full DOM tree of the root node (including iframes,
+Get returns a document snapshot, including the full DOM tree of the root node (including iframes,
 template contents, and imported documents) in a flattened array, as well as layout and white-listed
 computed style information for the nodes. Shadow DOM in the returned DOM tree is flattened.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#method-getSnapshot
 */
-func (DOMSnapshot) GetSnapshot(
+func (DOMSnapshot) Get(
 	socket *Socket,
-	params *domSnapshot.GetSnapshotParams,
-) (domSnapshot.GetSnapshotResult, error) {
+	params *domSnapshot.GetParams,
+) (domSnapshot.GetResult, error) {
 	command := &protocol.Command{
 		Method: "DOMSnapshot.getSnapshot",
 		Params: params,
 	}
-	result := domSnapshot.GetSnapshotResult{}
+	result := domSnapshot.GetResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {

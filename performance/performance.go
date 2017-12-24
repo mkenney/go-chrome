@@ -1,3 +1,8 @@
+/*
+Package Performance provides type definitions for use with the Chrome Performance protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/Performance/
+*/
 package Performance
 
 /*

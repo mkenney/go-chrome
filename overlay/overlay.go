@@ -1,3 +1,8 @@
+/*
+Package Overlay provides type definitions for use with the Chrome Overlay protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/
+*/
 package Overlay
 
 import (

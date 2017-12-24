@@ -1,3 +1,8 @@
+/*
+Package Storage provides type definitions for use with the Chrome Storage protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/
+*/
 package Storage
 
 /*
@@ -10,7 +15,7 @@ type ClearDataForOriginParams struct {
 	Origin string `json:"origin"`
 
 	// Comma separated origin names.
-	StorageTypes string `json:"storageTypes"`
+	Types string `json:"storageTypes"`
 }
 
 /*

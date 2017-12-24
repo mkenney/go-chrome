@@ -1,3 +1,8 @@
+/*
+Package DOMDebugger provides type definitions for use with the Chrome DOMDebugger protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/
+*/
 package DOMDebugger
 
 import (

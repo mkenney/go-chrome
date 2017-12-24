@@ -1,3 +1,8 @@
+/*
+Package Debugger provides type definitions for use with the Chrome Debugger protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/
+*/
 package Debugger
 
 import (
@@ -24,7 +29,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-enable
 */
 type EnableResult struct {
 	// Unique identifier of the debugger. EXPERIMENTAL
-	DebuggerID Runtime.UniqueDebuggerID `json:"debuggerId"`
+	ID Runtime.UniqueDebuggerID `json:"debuggerId"`
 }
 
 /*

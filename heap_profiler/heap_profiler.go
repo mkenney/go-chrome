@@ -1,3 +1,8 @@
+/*
+Package HeapProfiler provides type definitions for use with the Chrome HeapProfiler protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/
+*/
 package HeapProfiler
 
 import (

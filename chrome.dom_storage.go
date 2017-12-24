@@ -9,8 +9,9 @@ import (
 )
 
 /*
-DOMStorage - https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/
-Queries and modifies DOM storage.
+DOMStorage queries and modifies DOM storage.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/
 */
 type DOMStorage struct{}
 
@@ -62,19 +63,19 @@ func (DOMStorage) Enable(
 }
 
 /*
-GetDOMStorageItems gets a stored item.
+GetItems gets a stored item.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-getDOMStorageItems
 */
-func (DOMStorage) GetDOMStorageItems(
+func (DOMStorage) GetItems(
 	socket *Socket,
-	params *domStorage.GetDOMStorageItemsParams,
-) (domStorage.GetDOMStorageItemsResult, error) {
+	params *domStorage.GetItemsParams,
+) (domStorage.GetItemsResult, error) {
 	command := &protocol.Command{
 		Method: "DOMStorage.getDOMStorageItems",
 		Params: params,
 	}
-	result := domStorage.GetDOMStorageItemsResult{}
+	result := domStorage.GetItemsResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {
@@ -97,13 +98,13 @@ func (DOMStorage) GetDOMStorageItems(
 }
 
 /*
-RemoveDOMStorageItem removes  a stored item.
+RemoveItem removes  a stored item.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-removeDOMStorageItem
 */
-func (DOMStorage) RemoveDOMStorageItem(
+func (DOMStorage) RemoveItem(
 	socket *Socket,
-	params *domStorage.RemoveDOMStorageItemParams,
+	params *domStorage.RemoveItemParams,
 ) error {
 	command := &protocol.Command{
 		Method: "DOMStorage.removeDOMStorageItem",
@@ -114,13 +115,13 @@ func (DOMStorage) RemoveDOMStorageItem(
 }
 
 /*
-SetDOMStorageItem sets a stored item.
+SetItem sets a stored item.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-setDOMStorageItem
 */
-func (DOMStorage) SetDOMStorageItem(
+func (DOMStorage) SetItem(
 	socket *Socket,
-	params *domStorage.SetDOMStorageItemParams,
+	params *domStorage.SetItemParams,
 ) error {
 	command := &protocol.Command{
 		Method: "DOMStorage.setDOMStorageItem",

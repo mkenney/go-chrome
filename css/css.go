@@ -1,3 +1,8 @@
+/*
+Package CSS provides type definitions for use with the Chrome CSS protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/CSS/
+*/
 package CSS
 
 import (
@@ -181,7 +186,7 @@ type GetMatchedStylesForNodeResult struct {
 	AttributesStyle Style `json:"attributesStyle,omitempty"`
 
 	// CSS rules matching this node, from all applicable stylesheets.
-	MatchedCSSRules []RuleMatch `json:"matchedCSSRules,omitempty"`
+	MatchedRules []RuleMatch `json:"matchedCSSRules,omitempty"`
 
 	// Pseudo style matches for this node.
 	PseudoElements []PseudoElementMatches `json:"pseudoElements,omitempty"`
@@ -458,7 +463,7 @@ type InheritedStyleEntry struct {
 	InlineStyle Style `json:"inlineStyle,omitempty"`
 
 	// Matches of CSS rules matching the ancestor node in the style inheritance chain.
-	MatchedCSSRules []*RuleMatch `json:"matchedCSSRules"`
+	MatchedRules []*RuleMatch `json:"matchedCSSRules"`
 }
 
 /*
@@ -656,7 +661,7 @@ type Style struct {
 	ShorthandEntries []*ShorthandEntry `json:"shorthandEntries"`
 
 	// Style declaration text (if available).
-	CSSText string `json:"cssText"`
+	Text string `json:"cssText"`
 
 	// Optional. Style declaration range in the enclosing stylesheet (if available).
 	Range SourceRange `json:"range,omitempty"`

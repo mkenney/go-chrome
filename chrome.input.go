@@ -79,13 +79,13 @@ func (Input) EmulateTouchFromMouseEvent(
 }
 
 /*
-SetIgnoreInputEvents ignores input events (useful while auditing page).
+SetIgnoreEvents ignores input events (useful while auditing page).
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-setIgnoreInputEvents
 */
-func (Input) SetIgnoreInputEvents(
+func (Input) SetIgnoreEvents(
 	socket *Socket,
-	params *input.SetIgnoreInputEventsParams,
+	params *input.SetIgnoreEventsParams,
 ) error {
 	command := &protocol.Command{
 		Method: "Input.setIgnoreInputEvents",

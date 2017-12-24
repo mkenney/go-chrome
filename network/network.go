@@ -1,3 +1,8 @@
+/*
+Package Network provides type definitions for use with the Chrome Network protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/Network/
+*/
 package Network
 
 import (
@@ -29,11 +34,11 @@ type CanClearBrowserCookiesResult struct {
 }
 
 /*
-CanEmulateNetworkConditionsResult represents the result of calls to Network.canEmulateNetworkConditions.
+CanEmulateConditionsResult represents the result of calls to Network.canEmulateNetworkConditions.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canEmulateNetworkConditions
 */
-type CanEmulateNetworkConditionsResult struct {
+type CanEmulateConditionsResult struct {
 	// True if emulation of network conditions is supported.
 	Result bool `json:"result"`
 }
@@ -101,11 +106,11 @@ type DeleteCookiesParams struct {
 }
 
 /*
-EmulateNetworkConditionsParams represents Network.emulateNetworkConditions parameters.
+EmulateConditionsParams represents Network.emulateNetworkConditions parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-emulateNetworkConditions
 */
-type EmulateNetworkConditionsParams struct {
+type EmulateConditionsParams struct {
 	// True to emulate internet disconnection.
 	Offline bool `json:"offline"`
 

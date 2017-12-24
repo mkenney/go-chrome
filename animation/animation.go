@@ -1,3 +1,8 @@
+/*
+Package Animation provides type definitions for use with the Chrome Animation protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/
+*/
 package Animation
 
 import (
@@ -193,40 +198,40 @@ Effect instance
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#type-AnimationEffect
 */
 type Effect struct {
-	// AnimationEffect's delay.
+	// Effect's delay.
 	Delay float64 `json:"delay"`
 
-	// AnimationEffect's end delay.
+	// Effect's end delay.
 	EndDelay float64 `json:"endDelay"`
 
-	// AnimationEffect's iteration start.
+	// Effect's iteration start.
 	IterationStart float64 `json:"iterationStart"`
 
-	// AnimationEffect's iterations.
+	// Effect's iterations.
 	Iterations float64 `json:"iterations"`
 
-	// AnimationEffect's iteration duration.
+	// Effect's iteration duration.
 	Duration float64 `json:"duration"`
 
-	// AnimationEffect's playback direction.
+	// Effect's playback direction.
 	Direction string `json:"direction"`
 
-	// AnimationEffect's fill mode.
+	// Effect's fill mode.
 	Fill string `json:"fill"`
 
-	// Optional. AnimationEffect's target node.
+	// Optional. Effect's target node.
 	//
 	// This expects an instance of DOM.BackendNodeID, but that doesn't omitempty correctly so it
 	// must be added manually.
 	BackendNodeID interface{} `json:"backendNodeId,omitempty"`
 
-	// Optional. AnimationEffect's keyframes.
+	// Optional. Effect's keyframes.
 	//
 	// This expects an instance of KeyframesRule, but that doesn't omitempty correctly so it must be
 	// added manually.
 	KeyframesRule interface{} `json:"keyframesRule,omitempty"`
 
-	// AnimationEffect's timing function.
+	// Effect's timing function.
 	Easing string `json:"easing"`
 }
 
@@ -252,6 +257,6 @@ type KeyframeStyle struct {
 	// Keyframe's time offset.
 	Offset string `json:"offset"`
 
-	// AnimationEffect's timing function.
+	// Effect's timing function.
 	Easing string `json:"easing"`
 }

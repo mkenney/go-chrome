@@ -83,17 +83,17 @@ func (Network) CanClearBrowserCookies(
 }
 
 /*
-CanEmulateNetworkConditions tells whether emulation of network conditions is supported. DEPRECATED
+CanEmulateConditions tells whether emulation of network conditions is supported. DEPRECATED
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canEmulateNetworkConditions
 */
-func (Network) CanEmulateNetworkConditions(
+func (Network) CanEmulateConditions(
 	socket *Socket,
-) (network.CanEmulateNetworkConditionsResult, error) {
+) (network.CanEmulateConditionsResult, error) {
 	command := &protocol.Command{
 		Method: "Network.canEmulateNetworkConditions",
 	}
-	result := network.CanEmulateNetworkConditionsResult{}
+	result := network.CanEmulateConditionsResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {
@@ -198,13 +198,13 @@ func (Network) Disable(
 }
 
 /*
-EmulateNetworkConditions activates emulation of network conditions.
+EmulateConditions activates emulation of network conditions.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-emulateNetworkConditions
 */
-func (Network) EmulateNetworkConditions(
+func (Network) EmulateConditions(
 	socket *Socket,
-	params *network.EmulateNetworkConditionsParams,
+	params *network.EmulateConditionsParams,
 ) error {
 	command := &protocol.Command{
 		Method: "Network.emulateNetworkConditions",

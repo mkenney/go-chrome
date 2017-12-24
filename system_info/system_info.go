@@ -1,3 +1,8 @@
+/*
+Package SystemInfo provides type definitions for use with the Chrome SystemInfo protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/SystemInfo/
+*/
 package SystemInfo
 
 /*

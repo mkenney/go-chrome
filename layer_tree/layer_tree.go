@@ -1,3 +1,8 @@
+/*
+Package LayerTree provides type definitions for use with the Chrome LayerTree protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/
+*/
 package LayerTree
 
 import (

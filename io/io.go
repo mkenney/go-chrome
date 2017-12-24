@@ -1,3 +1,8 @@
+/*
+Package IO provides type definitions for use with the Chrome IO protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/IO/
+*/
 package IO
 
 import (

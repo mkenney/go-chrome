@@ -31,20 +31,20 @@ func (ApplicationCache) Enable(
 }
 
 /*
-GetApplicationCacheForFrame returns relevant application cache data for the document
+GetForFrame returns relevant application cache data for the document
 in given frame.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getApplicationCacheForFrame
 */
-func (ApplicationCache) GetApplicationCacheForFrame(
+func (ApplicationCache) GetForFrame(
 	socket *Socket,
-	params *applicationCache.GetApplicationCacheForFrameParams,
-) (applicationCache.GetApplicationCacheForFrameResult, error) {
+	params *applicationCache.GetForFrameParams,
+) (applicationCache.GetForFrameResult, error) {
 	command := &protocol.Command{
-		Method: "ApplicationCache.getManifestForFrame",
+		Method: "ApplicationCache.getApplicationCacheForFrame",
 		Params: params,
 	}
-	result := applicationCache.GetApplicationCacheForFrameResult{}
+	result := applicationCache.GetForFrameResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Err {

@@ -1,3 +1,8 @@
+/*
+Package Database provides type definitions for use with the Chrome Database protocol
+
+https://chromedevtools.github.io/devtools-protocol/tot/Database/
+*/
 package Database
 
 /*
@@ -27,30 +32,30 @@ type ExecuteSQLResult struct {
 }
 
 /*
-GetDatabaseTableNamesParams represents Database.getDatabaseTableNames parameters.
+GetTableNamesParams represents Database.getDatabaseTableNames parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-getDatabaseTableNames
 */
-type GetDatabaseTableNamesParams struct {
+type GetTableNamesParams struct {
 	ID ID `json:"databaseId"`
 }
 
 /*
-GetDatabaseTableNamesResult represents the result of calls to Database.getDatabaseTableNames.
+GetTableNamesResult represents the result of calls to Database.getDatabaseTableNames.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-getDatabaseTableNames
 */
-type GetDatabaseTableNamesResult struct {
+type GetTableNamesResult struct {
 	// Table names.
 	TableNames []string `json:"tableNames"`
 }
 
 /*
-AddDatabaseEvent represents Database.addDatabase event data.
+AddEvent represents Database.addDatabase event data.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#event-addDatabase
 */
-type AddDatabaseEvent struct {
+type AddEvent struct {
 	Database Database `json:"database"`
 }
 
