@@ -1,4 +1,4 @@
-package Chrome
+package chrome
 
 import (
 	memory "github.com/mkenney/go-chrome/memory"

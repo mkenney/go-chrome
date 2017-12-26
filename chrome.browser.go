@@ -1,4 +1,4 @@
-package Chrome
+package chrome
 
 import (
 	"encoding/json"

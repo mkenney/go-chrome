@@ -1,4 +1,4 @@
-package Chrome
+package chrome
 
 /*
 SocketParams represents parameters for a WebSocket command

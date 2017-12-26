@@ -1,4 +1,4 @@
-package Chrome
+package chrome
 
 /*
 LoadEvent is the load event data
