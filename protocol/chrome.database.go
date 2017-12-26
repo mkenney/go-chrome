@@ -10,8 +10,11 @@ import (
 )
 
 /*
-Database - https://chromedevtools.github.io/devtools-protocol/tot/Database/
+Database is a struct that provides a namespace for the Chrome Database protocol methods.
+
 EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Database/
 */
 type Database struct{}
 

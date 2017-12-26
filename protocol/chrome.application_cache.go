@@ -10,8 +10,11 @@ import (
 )
 
 /*
-ApplicationCache - https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/
+ApplicationCache is a struct that provides a namespace for the Chrome Animation protocol methods.
+
 EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/
 */
 type ApplicationCache struct{}
 

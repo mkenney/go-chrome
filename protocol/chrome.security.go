@@ -10,7 +10,9 @@ import (
 )
 
 /*
-Security - https://chromedevtools.github.io/devtools-protocol/tot/Security/
+Security is a struct that provides a namespace for the Chrome Security protocol methods.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/
 */
 type Security struct{}
 

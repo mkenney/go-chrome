@@ -10,8 +10,11 @@ import (
 )
 
 /*
-Target - https://chromedevtools.github.io/devtools-protocol/tot/Target/
-Supports additional targets discovery and allows to attach to them.
+Target is a struct that provides a namespace for the Chrome Target protocol methods.
+
+The Target protocol supports additional targets discovery and allows to attach to them.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/
 */
 type Target struct{}
 

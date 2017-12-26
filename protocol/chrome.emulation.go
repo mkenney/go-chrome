@@ -10,8 +10,11 @@ import (
 )
 
 /*
-Emulation - https://chromedevtools.github.io/devtools-protocol/tot/Emulation/
-Emulates different environments for the page.
+Emulation is a struct that provides a namespace for the Chrome Emulation protocol methods.
+
+The Emulation protocol emulates different environments for the page.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/
 */
 type Emulation struct{}
 

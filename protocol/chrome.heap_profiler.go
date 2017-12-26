@@ -10,8 +10,11 @@ import (
 )
 
 /*
-HeapProfiler - https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/
+HeapProfiler is a struct that provides a namespace for the Chrome HeapProfiler protocol methods.
+
 EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/
 */
 type HeapProfiler struct{}
 

@@ -10,7 +10,9 @@ import (
 )
 
 /*
-Performance - https://chromedevtools.github.io/devtools-protocol/tot/Performance/
+Performance is a struct that provides a namespace for the Chrome Performance protocol methods.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Performance/
 */
 type Performance struct{}
 

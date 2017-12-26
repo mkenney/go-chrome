@@ -10,8 +10,11 @@ import (
 )
 
 /*
-ServiceWorker - https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/
+ServiceWorker is a struct that provides a namespace for the Chrome ServiceWorker protocol methods.
+
 EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/
 */
 type ServiceWorker struct{}
 

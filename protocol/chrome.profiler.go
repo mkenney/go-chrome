@@ -10,8 +10,9 @@ import (
 )
 
 /*
-Profiler - https://chromedevtools.github.io/devtools-protocol/tot/Profiler/
-Provides various functionality related to drawing atop the inspected page. EXPERIMENTAL
+Profiler is a struct that provides a namespace for the Chrome Profiler protocol methods.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Profiler/
 */
 type Profiler struct{}
 

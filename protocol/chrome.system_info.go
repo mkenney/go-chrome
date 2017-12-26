@@ -8,8 +8,12 @@ import (
 )
 
 /*
-SystemInfo - https://chromedevtools.github.io/devtools-protocol/tot/SystemInfo/
-Defines methods and events for querying low-level system information. EXPERIMENTAL
+SystemInfo is a struct that provides a namespace for the Chrome SystemInfo protocol methods.
+
+The SystemInfo protocol defines methods and events for querying low-level system information.
+EXPERIMENTAL
+
+- https://chromedevtools.github.io/devtools-protocol/tot/SystemInfo/
 */
 type SystemInfo struct{}
 

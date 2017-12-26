@@ -10,8 +10,12 @@ import (
 )
 
 /*
-HeadlessExperimental - https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/
-Provides experimental commands only supported in headless mode. EXPERIMENTAL
+HeadlessExperimental is a struct that provides a namespace for the Chrome HeadlessExperimental
+protocol methods.
+
+The HeadlessExperimental protocol provides experimental commands only supported in headless mode. EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/
 */
 type HeadlessExperimental struct{}
 

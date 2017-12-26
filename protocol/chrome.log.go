@@ -10,8 +10,11 @@ import (
 )
 
 /*
-Log - https://chromedevtools.github.io/devtools-protocol/tot/Log/
-Provides access to log entries.
+Log is a struct that provides a namespace for the Chrome Log protocol methods.
+
+The Log protocol provides access to log entries.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Log/
 */
 type Log struct{}
 

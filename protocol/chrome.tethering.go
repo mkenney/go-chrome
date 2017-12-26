@@ -10,8 +10,11 @@ import (
 )
 
 /*
-Tethering - https://chromedevtools.github.io/devtools-protocol/tot/Tethering/
-Defines methods and events for browser port binding.
+Tethering is a struct that provides a namespace for the Chrome Tethering protocol methods.
+
+The Tethering protocol defines methods and events for browser port binding.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tethering/
 */
 type Tethering struct{}
 

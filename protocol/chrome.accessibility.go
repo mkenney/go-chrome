@@ -8,7 +8,9 @@ import (
 )
 
 /*
-Accessibility EXPERIMENTAL
+Accessibility is a struct that provides a namespace for the Chrome Accessibility protocol methods.
+
+EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/
 */

@@ -6,8 +6,11 @@ import (
 )
 
 /*
-Memory - https://chromedevtools.github.io/devtools-protocol/tot/Memory/
+Memory is a struct that provides a namespace for the Chrome Memory protocol methods.
+
 EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/Memory/
 */
 type Memory struct{}
 

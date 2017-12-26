@@ -8,8 +8,11 @@ import (
 )
 
 /*
-IndexedDB - https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/
+IndexedDB is a struct that provides a namespace for the Chrome IndexedDB protocol methods.
+
 EXPERIMENTAL
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/
 */
 type IndexedDB struct{}
 

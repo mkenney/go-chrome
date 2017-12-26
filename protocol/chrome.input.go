@@ -6,7 +6,9 @@ import (
 )
 
 /*
-Input - https://chromedevtools.github.io/devtools-protocol/tot/Input/
+Input is a struct that provides a namespace for the Chrome Input protocol methods.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/
 */
 type Input struct{}
 

@@ -10,9 +10,12 @@ import (
 )
 
 /*
-Debugger - https://chromedevtools.github.io/devtools-protocol/tot/Debugger/
-Exposes JavaScript debugging capabilities. It allows setting and removing breakpoints, stepping
-through execution, exploring stack traces, etc.
+Debugger is a struct that provides a namespace for the Chrome Debugger protocol methods.
+
+The Debugger protocol exposes JavaScript debugging capabilities. It allows setting and removing
+breakpoints, stepping through execution, exploring stack traces, etc.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/
 */
 type Debugger struct{}
 
