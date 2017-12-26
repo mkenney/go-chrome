@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/url"
 
+	"github.com/mkenney/go-chrome/socket"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -11,14 +12,14 @@ import (
 Tab is a struct representing an individual Chrome tab
 */
 type Tab struct {
-	Description          string  `json:"description"`
-	DevtoolsFrontendURL  string  `json:"devtoolsFrontendUrl"`
-	ID                   string  `json:"id"`
-	Socket               *Socket `json:"-"`
-	Title                string  `json:"title"`
-	Type                 string  `json:"type"`
-	URL                  string  `json:"url"`
-	WebSocketDebuggerURL string  `json:"webSocketDebuggerUrl"`
+	Description          string         `json:"description"`
+	DevtoolsFrontendURL  string         `json:"devtoolsFrontendUrl"`
+	ID                   string         `json:"id"`
+	Socket               *socket.Socket `json:"-"`
+	Title                string         `json:"title"`
+	Type                 string         `json:"type"`
+	URL                  string         `json:"url"`
+	WebSocketDebuggerURL string         `json:"webSocketDebuggerUrl"`
 
 	loadEventFired bool
 }
@@ -44,7 +45,7 @@ func NewTab(uri string) (*Tab, error) {
 		return nil, err
 	}
 
-	tab.Socket, err = NewSocket(tab)
+	tab.Socket, err = socket.New(tab.WebSocketDebuggerURL)
 	if nil != err {
 		return nil, err
 	}
