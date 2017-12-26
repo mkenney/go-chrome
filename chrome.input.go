@@ -1,4 +1,4 @@
-package chrome
+package Chrome
 
 import (
 	input "github.com/mkenney/go-chrome/input"

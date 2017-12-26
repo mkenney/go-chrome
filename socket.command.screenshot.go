@@ -1,4 +1,4 @@
-package chrome
+package Chrome
 
 ///*
 //SocketScreenshotCmd is a representation of the CaptureScreenshot command

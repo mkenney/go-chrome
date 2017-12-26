@@ -1,4 +1,4 @@
-package chrome
+package Chrome
 
 import (
 	"github.com/mkenney/go-chrome/protocol"
