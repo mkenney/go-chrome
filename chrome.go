@@ -19,7 +19,7 @@ import (
 New returns a pointer to a Chrome struct
 */
 func New() *Chrome {
-	chrome := &Chrome{
+	return &Chrome{
 		Address:          "localhost",
 		Args:             Args{},
 		Binary:           "/usr/bin/google-chrome",
@@ -31,7 +31,6 @@ func New() *Chrome {
 		Version:          Version{},
 		Workdir:          "/tmp/headless-chrome",
 	}
-	return chrome
 }
 
 /*
