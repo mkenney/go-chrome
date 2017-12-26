@@ -1,4 +1,4 @@
-package Chrome
+package chrome
 
 import (
 	"fmt"
@@ -12,6 +12,7 @@ import (
 Tab is a struct representing an individual Chrome tab
 */
 type Tab struct {
+	Chrome               *Chrome        `json:"-"`
 	Description          string         `json:"description"`
 	DevtoolsFrontendURL  string         `json:"devtoolsFrontendUrl"`
 	ID                   string         `json:"id"`
@@ -20,27 +21,20 @@ type Tab struct {
 	Type                 string         `json:"type"`
 	URL                  string         `json:"url"`
 	WebSocketDebuggerURL string         `json:"webSocketDebuggerUrl"`
-
-	loadEventFired bool
 }
 
 /*
 NewTab spawns a new tab and returns a reference to it
 */
-func NewTab(uri string) (*Tab, error) {
+func (chrome *Chrome) NewTab(uri string) (*Tab, error) {
 	if "" == uri {
 		uri = "about:blank"
 	}
 	var err error
-	var browser *Chrome
-
-	browser, err = GetChrome()
-	if nil != err {
-		return nil, err
-	}
 
 	tab := &Tab{}
-	_, err = browser.Cmd(fmt.Sprintf("/json/new?%s", url.QueryEscape(uri)), url.Values{}, tab)
+	tab.Chrome = chrome
+	_, err = chrome.Cmd(fmt.Sprintf("/json/new?%s", url.QueryEscape(uri)), url.Values{}, tab)
 	if nil != err {
 		return nil, err
 	}
@@ -61,7 +55,7 @@ func NewTab(uri string) (*Tab, error) {
 	//})
 	//tab.loadEventFired = false
 
-	browser.Tabs = append(browser.Tabs, tab)
+	chrome.Tabs = append(chrome.Tabs, tab)
 	return tab, nil
 }
 
@@ -108,15 +102,13 @@ Close closes the referenced tab
 */
 func (tab *Tab) Close() (interface{}, error) {
 	var err error
-	var browser *Chrome
 	var result interface{}
 
-	browser, err = GetChrome()
 	if nil != err {
 		return "", err
 	}
 
-	_, err = browser.Cmd(fmt.Sprintf("/json/close/%s", tab.ID), url.Values{}, &result)
+	_, err = tab.Chrome.Cmd(fmt.Sprintf("/json/close/%s", tab.ID), url.Values{}, &result)
 	log.Debugf("Close result: %s: %s", result, err)
 	if nil != err {
 		log.Warnf("%s: %s", result, err)

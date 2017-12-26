@@ -5,6 +5,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/
 */
 package page
 
+import (
+	"github.com/mkenney/go-chrome/protocol/debugger"
+	"github.com/mkenney/go-chrome/protocol/runtime"
+)
+
 /*
 AddScriptToEvaluateOnLoadParams represents Page.addScriptToEvaluateOnLoad parameters.
 
@@ -102,7 +107,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-createIsolat
 */
 type CreateIsolatedWorldResult struct {
 	// Execution context of the isolated world.
-	ExecutionContextID Runtime.ExecutionContextID `json:"executionContextId"`
+	ExecutionContextID runtime.ExecutionContextID `json:"executionContextId"`
 }
 
 /*
@@ -379,7 +384,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-searchInReso
 */
 type SearchInResourceResult struct {
 	// List of search matches.
-	Result []Debugger.SearchMatch `json:"result"`
+	Result []debugger.SearchMatch `json:"result"`
 }
 
 /*
@@ -485,7 +490,7 @@ type FrameAttachedEvent struct {
 
 	// Optional. JavaScript stack trace of when frame was attached, only set if frame initiated from
 	// script.
-	Stack Runtime.StackTrace `json:"stack,omitempty"`
+	Stack runtime.StackTrace `json:"stack,omitempty"`
 }
 
 /*

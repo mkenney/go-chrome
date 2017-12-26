@@ -71,7 +71,7 @@ type DescribeNodeParams struct {
 	BackendNodeID BackendNodeID `json:"backendNodeId,omitempty"`
 
 	// Optional. JavaScript object ID of the node wrapper.
-	ObjectID Runtime.RemoteObjectID `json:"objectId,omitempty"`
+	ObjectID runtime.RemoteObjectID `json:"objectId,omitempty"`
 
 	// Optional. The maximum depth at which children should be retrieved, defaults to 1. Use -1 for
 	// the entire subtree or provide an integer larger than 0.
@@ -115,7 +115,7 @@ type FocusParams struct {
 	BackendNodeID BackendNodeID `json:"backendNodeId,omitempty"`
 
 	// Optional. JavaScript object ID of the node wrapper.
-	ObjectID Runtime.RemoteObjectID `json:"objectId,omitempty"`
+	ObjectID runtime.RemoteObjectID `json:"objectId,omitempty"`
 }
 
 /*
@@ -151,7 +151,7 @@ type GetBoxModelParams struct {
 	BackendNodeID BackendNodeID `json:"backendNodeId,omitempty"`
 
 	// Optional. JavaScript object ID of the node wrapper.
-	ObjectID Runtime.RemoteObjectID `json:"objectId,omitempty"`
+	ObjectID runtime.RemoteObjectID `json:"objectId,omitempty"`
 }
 
 /*
@@ -253,7 +253,7 @@ type GetOuterHTMLParams struct {
 	BackendNodeID BackendNodeID `json:"backendNodeId,omitempty"`
 
 	// Optional. JavaScript object ID of the node wrapper.
-	ObjectID Runtime.RemoteObjectID `json:"objectId,omitempty"`
+	ObjectID runtime.RemoteObjectID `json:"objectId,omitempty"`
 }
 
 /*
@@ -501,7 +501,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-requestNode
 */
 type RequestNodeParams struct {
 	// JavaScript object ID to convert into node.
-	ObjectID Runtime.RemoteObjectID `json:"objectId"`
+	ObjectID runtime.RemoteObjectID `json:"objectId"`
 }
 
 /*
@@ -537,7 +537,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-resolveNode
 */
 type ResolveNodeResult struct {
 	// JavaScript object wrapper for given node.
-	Object Runtime.RemoteObject `json:"object"`
+	Object runtime.RemoteObject `json:"object"`
 }
 
 /*
@@ -589,7 +589,7 @@ type SetFileInputFilesParams struct {
 	BackendNodeID BackendNodeID `json:"backendNodeId,omitempty"`
 
 	// Optional. JavaScript object ID of the node wrapper.
-	ObjectID Runtime.RemoteObjectID `json:"objectId,omitempty"`
+	ObjectID runtime.RemoteObjectID `json:"objectId,omitempty"`
 }
 
 /*
@@ -950,7 +950,7 @@ type Node struct {
 	ShadowRootType ShadowRootType `json:"shadowRootType,omitempty"`
 
 	// Optional. Frame ID for frame owner elements.
-	FrameID Page.FrameID `json:"frameId,omitempty"`
+	FrameID page.FrameID `json:"frameId,omitempty"`
 
 	// Optional. Content document for frame owner elements.
 	ContentDocument *Node `json:"contentDocument,omitempty"`

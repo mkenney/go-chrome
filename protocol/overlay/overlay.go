@@ -219,7 +219,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#event-inspectNod
 */
 type InspectNodeRequestedEvent struct {
 	// ID of the node to inspect.
-	BackendNodeID DOM.BackendNodeID `json:"backendNodeId"`
+	BackendNodeID dom.BackendNodeID `json:"backendNodeId"`
 }
 
 /*
@@ -229,7 +229,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#event-nodeHighli
 */
 type NodeHighlightRequestedEvent struct {
 	// ID of the node to highlight.
-	NodeID DOM.NodeID `json:"nodeId"`
+	NodeID dom.NodeID `json:"nodeId"`
 }
 
 /*
