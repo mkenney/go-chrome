@@ -1,9 +1,9 @@
 /*
-Package LayerTree provides type definitions for use with the Chrome LayerTree protocol
+Package layerTree provides type definitions for use with the Chrome LayerTree protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/
 */
-package LayerTree
+package layerTree
 
 import (
 	"github.com/mkenney/go-chrome/protocol/dom"
@@ -170,7 +170,7 @@ type LayerPaintedEvent struct {
 	LayerID LayerID `json:"layerId"`
 
 	// Clip rectangle.
-	Clip DOM.Rect `json:"clip"`
+	Clip dom.Rect `json:"clip"`
 }
 
 /*
@@ -204,7 +204,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#type-ScrollRec
 */
 type ScrollRect struct {
 	// Rectangle itself.
-	Rect DOM.Rect `json:"rect"`
+	Rect dom.Rect `json:"rect"`
 
 	// Reason for rectangle to force scrolling on the main thread Allowed values: RepaintsOnScroll, \
 	// TouchEventHandler, WheelEventHandler.
@@ -218,10 +218,10 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#type-StickyPos
 */
 type StickyPositionConstraint struct {
 	// Layout rectangle of the sticky element before being shifted.
-	StickyBoxRect DOM.Rect `json:"stickyBoxRect"`
+	StickyBoxRect dom.Rect `json:"stickyBoxRect"`
 
 	// Layout rectangle of the containing block of the sticky element.
-	ContainingBlockRect DOM.Rect `json:"containingBlockRect"`
+	ContainingBlockRect dom.Rect `json:"containingBlockRect"`
 
 	// Optional. The nearest sticky layer that shifts the sticky box.
 	NearestLayerShiftingStickyBox LayerID `json:"nearestLayerShiftingStickyBox,omitempty"`
@@ -259,7 +259,7 @@ type Layer struct {
 	ParentLayerID LayerID `json:"parentLayerId,omitempty"`
 
 	// Optional. The backend ID for the node associated with this layer.
-	BackendNodeID DOM.BackendNodeID `json:"backendNodeId,omitempty"`
+	BackendNodeID dom.BackendNodeID `json:"backendNodeId,omitempty"`
 
 	// Offset from parent layer, X coordinate.
 	OffsetX float64 `json:"offsetX"`

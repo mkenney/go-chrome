@@ -1,9 +1,9 @@
 /*
-Package Debugger provides type definitions for use with the Chrome Debugger protocol
+Package debugger provides type definitions for use with the Chrome Debugger protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/
 */
-package Debugger
+package debugger
 
 import (
 	"github.com/mkenney/go-chrome/protocol/runtime"
@@ -29,7 +29,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-enable
 */
 type EnableResult struct {
 	// Unique identifier of the debugger. EXPERIMENTAL
-	ID Runtime.UniqueDebuggerID `json:"debuggerId"`
+	ID runtime.UniqueDebuggerID `json:"debuggerId"`
 }
 
 /*
@@ -73,10 +73,10 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-evaluate
 */
 type EvaluateOnCallFrameResult struct {
 	// Object wrapper for the evaluation result.
-	Result Runtime.RemoteObject `json:"result"`
+	Result runtime.RemoteObject `json:"result"`
 
 	// Optional. Exception details.
-	ExceptionDetails Runtime.ExceptionDetails `json:"exceptionDetails,omitempty"`
+	ExceptionDetails runtime.ExceptionDetails `json:"exceptionDetails,omitempty"`
 }
 
 /*
@@ -116,7 +116,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getScrip
 */
 type GetScriptSourceParams struct {
 	// ID of the script to get source for.
-	ScriptID Runtime.ScriptID `json:"scriptId"`
+	ScriptID runtime.ScriptID `json:"scriptId"`
 }
 
 /*
@@ -135,7 +135,7 @@ GetStackTraceParams represents Debugger.getStackTrace parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getStackTrace
 */
 type GetStackTraceParams struct {
-	StackTraceID Runtime.StackTraceID `json:"stackTraceId"`
+	StackTraceID runtime.StackTraceID `json:"stackTraceId"`
 }
 
 /*
@@ -144,7 +144,7 @@ GetStackTraceResult represents the result of calls to Debugger.getStackTrace.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getStackTrace
 */
 type GetStackTraceResult struct {
-	StackTrace Runtime.StackTrace `json:"stackTrace"`
+	StackTrace runtime.StackTrace `json:"stackTrace"`
 }
 
 /*
@@ -154,7 +154,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-pauseOnA
 */
 type PauseOnAsyncCallParams struct {
 	// Debugger will pause when async call with given stack trace is started.
-	ParentStackTraceID Runtime.StackTraceID `json:"parentStackTraceId"`
+	ParentStackTraceID runtime.StackTraceID `json:"parentStackTraceId"`
 }
 
 /*
@@ -186,10 +186,10 @@ type RestartFrameResult struct {
 	CallFrames []CallFrame `json:"callFrames"`
 
 	// Optional. Async stack trace, if any.
-	AsyncStackTrace Runtime.StackTrace `json:"asyncStackTrace,omitempty"`
+	AsyncStackTrace runtime.StackTrace `json:"asyncStackTrace,omitempty"`
 
 	// Optional. Async stack trace, if any. EXPERIMENTAL
-	AsyncStackTraceID Runtime.StackTraceID `json:"asyncStackTraceId,omitempty"`
+	AsyncStackTraceID runtime.StackTraceID `json:"asyncStackTraceId,omitempty"`
 }
 
 /*
@@ -199,7 +199,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-searchIn
 */
 type SearchInContentParams struct {
 	// ID of the script to search in.
-	ScriptID Runtime.ScriptID `json:"scriptId"`
+	ScriptID runtime.ScriptID `json:"scriptId"`
 
 	// String to search for.
 	Query string `json:"query"`
@@ -249,7 +249,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBlack
 */
 type SetBlackboxedRangesParams struct {
 	// ID of the script.
-	ScriptID  Runtime.ScriptID  `json:"scriptId"`
+	ScriptID  runtime.ScriptID  `json:"scriptId"`
 	Positions []*ScriptPosition `json:"positions"`
 }
 
@@ -347,7 +347,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setRetur
 */
 type SetReturnValueParams struct {
 	// New return value.
-	NewValue Runtime.CallArgument `json:"newValue"`
+	NewValue runtime.CallArgument `json:"newValue"`
 }
 
 /*
@@ -357,7 +357,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setScrip
 */
 type SetScriptSourceParams struct {
 	// ID of the script to edit.
-	ScriptID Runtime.ScriptID `json:"scriptId"`
+	ScriptID runtime.ScriptID `json:"scriptId"`
 
 	// New content of the script.
 	ScriptSource string `json:"scriptSource"`
@@ -380,13 +380,13 @@ type SetScriptSourceResult struct {
 	StackChanged bool `json:"stackChanged,omitempty"`
 
 	// Optional. Async stack trace, if any.
-	AsyncStackTrace Runtime.StackTrace `json:"asyncStackTrace,omitempty"`
+	AsyncStackTrace runtime.StackTrace `json:"asyncStackTrace,omitempty"`
 
 	// Optional. Async stack trace, if any. EXPERIMENTAL
-	AsyncStackTraceID Runtime.StackTraceID `json:"asyncStackTraceId,omitempty"`
+	AsyncStackTraceID runtime.StackTraceID `json:"asyncStackTraceId,omitempty"`
 
 	// Optional. Exception details if any.
-	ExceptionDetails Runtime.ExceptionDetails `json:"exceptionDetails,omitempty"`
+	ExceptionDetails runtime.ExceptionDetails `json:"exceptionDetails,omitempty"`
 }
 
 /*
@@ -412,7 +412,7 @@ type SetVariableValueParams struct {
 	VariableName string `json:"variableName"`
 
 	// New variable value.
-	NewValue Runtime.CallArgument `json:"newValue"`
+	NewValue runtime.CallArgument `json:"newValue"`
 
 	// ID of callframe that holds variable.
 	CallFrameID CallFrameID `json:"callFrameId"`
@@ -462,15 +462,15 @@ type PausedEvent struct {
 	HitBreakpoints []string `json:"hitBreakpoints,omitempty"`
 
 	// Optional. Async stack trace, if any.
-	AsyncStackTrace Runtime.StackTrace `json:"asyncStackTrace,omitempty"`
+	AsyncStackTrace runtime.StackTrace `json:"asyncStackTrace,omitempty"`
 
 	// Optional. Async stack trace, if any. EXPERIMENTAL
-	AsyncStackTraceID Runtime.StackTraceID `json:"asyncStackTraceId,omitempty"`
+	AsyncStackTraceID runtime.StackTraceID `json:"asyncStackTraceId,omitempty"`
 
 	// Optional. Just scheduled async call will have this stack trace as parent stack during async
 	// execution. This field is available only after Debugger.stepInto call with breakOnAsynCall
 	// flag. EXPERIMENTAL
-	AsyncCallStackTraceID Runtime.StackTraceID `json:"asyncCallStackTraceId,omitempty"`
+	AsyncCallStackTraceID runtime.StackTraceID `json:"asyncCallStackTraceId,omitempty"`
 }
 
 /*
@@ -487,7 +487,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-scriptFai
 */
 type ScriptFailedToParseEvent struct {
 	// Identifier of the script parsed.
-	ScriptID Runtime.ScriptID `json:"scriptId"`
+	ScriptID runtime.ScriptID `json:"scriptId"`
 
 	// URL or name of the script parsed (if any).
 	URL string `json:"url"`
@@ -505,7 +505,7 @@ type ScriptFailedToParseEvent struct {
 	EndColumn int `json:"endColumn"`
 
 	// Specifies script creation context.
-	ExecutionContextID Runtime.ExecutionContextID `json:"executionContextId"`
+	ExecutionContextID runtime.ExecutionContextID `json:"executionContextId"`
 
 	// Content hash of the script.
 	Hash string `json:"hash"`
@@ -527,7 +527,7 @@ type ScriptFailedToParseEvent struct {
 
 	// Optional. JavaScript top stack frame of where the script parsed event was triggered if
 	// available. EXPERIMENTAL
-	StackTrace Runtime.StackTrace `json:"stackTrace,omitempty"`
+	StackTrace runtime.StackTrace `json:"stackTrace,omitempty"`
 }
 
 /*
@@ -537,7 +537,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-scriptPar
 */
 type ScriptParsedEvent struct {
 	// Identifier of the script parsed.
-	ScriptID Runtime.ScriptID `json:"scriptId"`
+	ScriptID runtime.ScriptID `json:"scriptId"`
 
 	// URL or name of the script parsed (if any).
 	URL string `json:"url"`
@@ -555,7 +555,7 @@ type ScriptParsedEvent struct {
 	EndColumn int `json:"endColumn"`
 
 	// Specifies script creation context.
-	ExecutionContextID Runtime.ExecutionContextID `json:"executionContextId"`
+	ExecutionContextID runtime.ExecutionContextID `json:"executionContextId"`
 
 	// Content hash of the script.
 	Hash string `json:"hash"`
@@ -581,7 +581,7 @@ type ScriptParsedEvent struct {
 
 	// Optional. JavaScript top stack frame of where the script parsed event was triggered if
 	// available. EXPERIMENTAL.
-	StackTrace Runtime.StackTrace `json:"stackTrace,omitempty"`
+	StackTrace runtime.StackTrace `json:"stackTrace,omitempty"`
 }
 
 /*
@@ -605,7 +605,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#type-Location
 */
 type Location struct {
 	// Script identifier as reported in the Debugger.scriptParsed.
-	ScriptID Runtime.ScriptID `json:"scriptId"`
+	ScriptID runtime.ScriptID `json:"scriptId"`
 
 	// Line number in the script (0-based).
 	LineNumber int `json:"lineNumber"`
@@ -655,7 +655,7 @@ type CallFrame struct {
 	ScopeChain []*Scope `json:"scopeChain"`
 
 	// this object for this call frame.
-	This Runtime.RemoteObject `json:"this"`
+	This runtime.RemoteObject `json:"this"`
 
 	// Optional. The value being returned, if the function is at return point.
 	//
@@ -676,7 +676,7 @@ type Scope struct {
 	// Object representing the scope. For global and with scopes it represents the actual object;
 	// for the rest of the scopes, it is artificial transient object enumerating scope variables as
 	// its properties.
-	Object Runtime.RemoteObject `json:"object"`
+	Object runtime.RemoteObject `json:"object"`
 
 	// Optional. The scope name.
 	Name string `json:"name,omitempty"`
@@ -714,7 +714,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#type-BreakLocat
 */
 type BreakLocation struct {
 	// Script identifier as reported in the Debugger.scriptParsed.
-	ScriptID Runtime.ScriptID `json:"scriptId"`
+	ScriptID runtime.ScriptID `json:"scriptId"`
 
 	// Line number in the script (0-based).
 	LineNumber int `json:"lineNumber"`

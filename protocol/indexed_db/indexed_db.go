@@ -1,9 +1,9 @@
 /*
-Package IndexedDB provides type definitions for use with the Chrome IndexedDB protocol
+Package indexedDB provides type definitions for use with the Chrome IndexedDB protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/
 */
-package IndexedDB
+package indexedDB
 
 import (
 	"github.com/mkenney/go-chrome/protocol/runtime"
@@ -249,13 +249,13 @@ https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#type-DataEntry
 */
 type DataEntry struct {
 	// Key object.
-	Key *Runtime.RemoteObject `json:"key"`
+	Key *runtime.RemoteObject `json:"key"`
 
 	// Primary key object.
-	PrimaryKey *Runtime.RemoteObject `json:"primaryKey"`
+	PrimaryKey *runtime.RemoteObject `json:"primaryKey"`
 
 	// Value object.
-	Value *Runtime.RemoteObject `json:"value"`
+	Value *runtime.RemoteObject `json:"value"`
 }
 
 /*

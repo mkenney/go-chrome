@@ -1,9 +1,9 @@
 /*
-Package Schema provides type definitions for use with the Chrome Schema protocol
+Package schema provides type definitions for use with the Chrome Schema protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Schema/
 */
-package Schema
+package schema
 
 /*
 GetDomainsResult represents the result of calls to Schema.getDomains.

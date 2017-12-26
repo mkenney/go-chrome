@@ -1,9 +1,9 @@
 /*
-Package Storage provides type definitions for use with the Chrome Storage protocol
+Package storage provides type definitions for use with the Chrome Storage protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/
 */
-package Storage
+package storage
 
 /*
 ClearDataForOriginParams represents Storage.clearDataForOrigin parameters.

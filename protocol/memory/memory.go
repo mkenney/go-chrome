@@ -1,9 +1,9 @@
 /*
-Package Memory provides type definitions for use with the Chrome Memory protocol
+Package memory provides type definitions for use with the Chrome Memory protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/
 */
-package Memory
+package memory
 
 /*
 GetDOMCountersParams represents Memory.getDOMCounters parameters.

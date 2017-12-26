@@ -1,9 +1,9 @@
 /*
-Package Tracing provides type definitions for use with the Chrome Tracing protocol
+Package tracing provides type definitions for use with the Chrome Tracing protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/
 */
-package Tracing
+package tracing
 
 import (
 	"github.com/mkenney/go-chrome/protocol/io"
@@ -103,7 +103,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-tracingCom
 */
 type CompleteEvent struct {
 	// Optional. A handle of the stream that holds resulting trace data.
-	Stream IO.StreamHandle `json:"stream,omitempty"`
+	Stream io.StreamHandle `json:"stream,omitempty"`
 }
 
 /*

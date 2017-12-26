@@ -3,7 +3,7 @@ Package Target provides type definitions for use with the Chrome Target protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/
 */
-package Target
+package target
 
 /*
 ActivateTargetParams represents Target.activateTarget parameters.

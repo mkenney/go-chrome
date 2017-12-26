@@ -1,9 +1,9 @@
 /*
-Package Browser provides type definitions for use with the Chrome Browser protocol
+Package browser provides type definitions for use with the Chrome Browser protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/
 */
-package Browser
+package browser
 
 import (
 	"github.com/mkenney/go-chrome/protocol/target"
@@ -59,7 +59,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindow
 */
 type GetWindowForTargetParams struct {
 	// Devtools agent host id.
-	TargetID Target.ID `json:"targetId"`
+	TargetID target.ID `json:"targetId"`
 }
 
 /*

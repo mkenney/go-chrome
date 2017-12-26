@@ -1,9 +1,9 @@
 /*
-Package Performance provides type definitions for use with the Chrome Performance protocol
+Package performance provides type definitions for use with the Chrome Performance protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/
 */
-package Performance
+package performance
 
 /*
 GetMetricsResult represents the result of calls to Performance.getMetrics.

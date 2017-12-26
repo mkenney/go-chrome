@@ -1,10 +1,10 @@
 /*
-Package HeadlessExperimental provides type definitions for use with the Chrome HeadlessExperimental
+Package headlessExperimental provides type definitions for use with the Chrome HeadlessExperimental
 protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/
 */
-package HeadlessExperimental
+package headlessExperimental
 
 import (
 	"github.com/mkenney/go-chrome/protocol/runtime"
@@ -18,11 +18,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#met
 type BeginFrameParams struct {
 	// Optional. Timestamp of this BeginFrame (milliseconds since epoch). If not set, the current
 	// time will be used.
-	FrameTime Runtime.Timestamp `json:"frameTime,omitempty"`
+	FrameTime runtime.Timestamp `json:"frameTime,omitempty"`
 
 	// Optional. Deadline of this BeginFrame (milliseconds since epoch). If not set, the deadline
 	// will be calculated from the frameTime and interval.
-	Deadline Runtime.Timestamp `json:"deadline,omitempty"`
+	Deadline runtime.Timestamp `json:"deadline,omitempty"`
 
 	// Optional. The interval between BeginFrames that is reported to the compositor, in
 	// milliseconds. Defaults to a 60 frames/second interval, i.e. about 16.666 milliseconds.

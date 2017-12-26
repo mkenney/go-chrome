@@ -1,9 +1,9 @@
 /*
-Package ApplicationCache provides type definitions for use with the Chrome ApplicationCache protocol
+Package applicationCache provides type definitions for use with the Chrome ApplicationCache protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/
 */
-package ApplicationCache
+package applicationCache
 
 import (
 	"github.com/mkenney/go-chrome/protocol/page"
@@ -16,7 +16,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-
 */
 type GetForFrameParams struct {
 	// Identifier of the frame containing document whose application cache is retrieved.
-	FrameID Page.FrameID `json:"frameId"`
+	FrameID page.FrameID `json:"frameId"`
 }
 
 /*
@@ -48,7 +48,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-
 */
 type GetManifestForFrameParams struct {
 	// Identifier of the frame containing document whose manifest is retrieved.
-	FrameID Page.FrameID `json:"frameId"`
+	FrameID page.FrameID `json:"frameId"`
 }
 
 /*
@@ -68,7 +68,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#event-a
 */
 type StatusUpdatedEvent struct {
 	// Identifier of the frame containing document whose application cache updated status.
-	FrameID Page.FrameID `json:"frameId"`
+	FrameID page.FrameID `json:"frameId"`
 
 	// Manifest URL.
 	ManifestURL string `json:"manifestURL"`
@@ -131,7 +131,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#type-Fr
 */
 type FrameWithManifest struct {
 	// Frame identifier.
-	FrameID Page.FrameID `json:"frameId"`
+	FrameID page.FrameID `json:"frameId"`
 
 	// Manifest URL.
 	ManifestURL string `json:"manifestURL"`

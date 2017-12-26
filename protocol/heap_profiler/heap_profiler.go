@@ -1,9 +1,9 @@
 /*
-Package HeapProfiler provides type definitions for use with the Chrome HeapProfiler protocol
+Package heapProfiler provides type definitions for use with the Chrome HeapProfiler protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/
 */
-package HeapProfiler
+package heapProfiler
 
 import (
 	"github.com/mkenney/go-chrome/protocol/runtime"
@@ -26,7 +26,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getH
 */
 type GetHeapObjectIDParams struct {
 	// Identifier of the object to get heap object ID for.
-	ObjectID Runtime.RemoteObjectID `json:"objectId"`
+	ObjectID runtime.RemoteObjectID `json:"objectId"`
 }
 
 /*
@@ -60,7 +60,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getO
 */
 type GetObjectByHeapObjectIDResult struct {
 	// Evaluation result.
-	Result Runtime.RemoteObject `json:"result"`
+	Result runtime.RemoteObject `json:"result"`
 }
 
 /*
@@ -198,7 +198,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#type-Sampli
 */
 type SamplingHeapProfileNode struct {
 	// Function location.
-	CallFrame Runtime.CallFrame `json:"callFrame"`
+	CallFrame runtime.CallFrame `json:"callFrame"`
 
 	// Allocations size in bytes for the node excluding children.
 	SelfSize int `json:"selfSize"`

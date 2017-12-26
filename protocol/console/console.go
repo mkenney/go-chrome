@@ -1,9 +1,9 @@
 /*
-Package Console provides type definitions for use with the Chrome Console protocol
+Package console provides type definitions for use with the Chrome Console protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Console/
 */
-package Console
+package console
 
 /*
 MessageAddedEvent represents Console.messageAdded event data.

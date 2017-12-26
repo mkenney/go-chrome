@@ -3,7 +3,7 @@ Package Runtime provides type definitions for use with the Chrome Runtime protoc
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/
 */
-package Runtime
+package runtime
 
 /*
 AwaitPromiseParams represents Runtime.awaitPromise parameters.

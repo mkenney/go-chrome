@@ -1,9 +1,9 @@
 /*
-Package CacheStorage provides type definitions for use with the Chrome CacheStorage protocol
+Package cacheStorage provides type definitions for use with the Chrome CacheStorage protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/
 */
-package CacheStorage
+package cacheStorage
 
 /*
 DeleteCacheParams represents CacheStorage.deleteCache parameters.

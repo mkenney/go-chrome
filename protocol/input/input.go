@@ -1,9 +1,9 @@
 /*
-Package Input provides type definitions for use with the Chrome Input protocol
+Package input provides type definitions for use with the Chrome Input protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/
 */
-package Input
+package input
 
 /*
 DispatchKeyEventParams represents Input.dispatchKeyEvent parameters.

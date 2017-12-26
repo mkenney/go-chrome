@@ -1,9 +1,9 @@
 /*
-Package Profiler provides type definitions for use with the Chrome Profiler protocol
+Package profiler provides type definitions for use with the Chrome Profiler protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/
 */
-package Profiler
+package profiler
 
 import (
 	"github.com/mkenney/go-chrome/protocol/debugger"
@@ -83,7 +83,7 @@ type ConsoleProfileFinishedEvent struct {
 	ID string `json:"id"`
 
 	// Location of console.profileEnd().
-	Location Debugger.Location `json:"location"`
+	Location debugger.Location `json:"location"`
 
 	// Profile data.
 	Profile Profile `json:"profile"`
@@ -102,7 +102,7 @@ type ConsoleProfileStartedEvent struct {
 	ID string `json:"id"`
 
 	// Location of console.profile().
-	Location Debugger.Location `json:"location"`
+	Location debugger.Location `json:"location"`
 
 	// Profile title passed as an argument to console.profile().
 	Title string `json:"title"`
@@ -118,7 +118,7 @@ type ProfileNode struct {
 	ID int `json:"id"`
 
 	// Function location.
-	CallFrame Runtime.CallFrame `json:"callFrame"`
+	CallFrame runtime.CallFrame `json:"callFrame"`
 
 	// Optional. Number of samples where this node was on top of the call stack.
 	HitCount int `json:"hitCount,omitempty"`
@@ -209,7 +209,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#type-ScriptCove
 */
 type ScriptCoverage struct {
 	// JavaScript script ID.
-	ScriptID Runtime.ScriptID `json:"scriptId"`
+	ScriptID runtime.ScriptID `json:"scriptId"`
 
 	// JavaScript script name or url.
 	URL string `json:"url"`
@@ -249,7 +249,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#type-ScriptType
 */
 type ScriptTypeProfile struct {
 	// JavaScript script ID.
-	ScriptID Runtime.ScriptID `json:"scriptId"`
+	ScriptID runtime.ScriptID `json:"scriptId"`
 
 	// JavaScript script name or url.
 	URL string `json:"url"`

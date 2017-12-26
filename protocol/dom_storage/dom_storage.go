@@ -1,9 +1,9 @@
 /*
-Package DOMStorage provides type definitions for use with the Chrome DOMStorage protocol
+Package domStorage provides type definitions for use with the Chrome DOMStorage protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/
 */
-package DOMStorage
+package domStorage
 
 /*
 ClearParams represents DOMStorage.clear parameters.

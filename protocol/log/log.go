@@ -1,9 +1,9 @@
 /*
-Package Log provides type definitions for use with the Chrome Log protocol
+Package log provides type definitions for use with the Chrome Log protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/
 */
-package Log
+package log
 
 import (
 	"github.com/mkenney/go-chrome/protocol/network"
@@ -47,7 +47,7 @@ type Entry struct {
 	Text string `json:"text"`
 
 	// Timestamp when this entry was added.
-	Timestamp Runtime.Timestamp `json:"timestamp"`
+	Timestamp runtime.Timestamp `json:"timestamp"`
 
 	// Optional. URL of the resource if known.
 	URL string `json:"url,omitempty"`
@@ -62,13 +62,13 @@ type Entry struct {
 	StackTrace interface{} `json:"stackTrace,omitempty"`
 
 	// Optional. Identifier of the network request associated with this entry.
-	NetworkRequestID Network.RequestID `json:"networkRequestId,omitempty"`
+	NetworkRequestID network.RequestID `json:"networkRequestId,omitempty"`
 
 	// Optional. Identifier of the worker associated with this entry.
 	WorkerID string `json:"workerId,omitempty"`
 
 	// Optional. Call arguments.
-	Args []Runtime.RemoteObject `json:"args,omitempty"`
+	Args []runtime.RemoteObject `json:"args,omitempty"`
 }
 
 /*

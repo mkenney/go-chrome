@@ -3,7 +3,7 @@ Package Security provides type definitions for use with the Chrome Security prot
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/
 */
-package Security
+package security
 
 /*
 SetIgnoreCertificateErrorsParams represents Security.setIgnoreCertificateErrors parameters.

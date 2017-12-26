@@ -1,9 +1,9 @@
 /*
-Package DOMSnapshot provides type definitions for use with the Chrome DOMSnapshot protocol
+Package domSnapshot provides type definitions for use with the Chrome DOMSnapshot protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/
 */
-package DOMSnapshot
+package domSnapshot
 
 import (
 	"github.com/mkenney/go-chrome/protocol/dom"
@@ -65,7 +65,7 @@ type DOMNode struct {
 	OptionSelected bool `json:"optionSelected,omitempty"`
 
 	// Optional. Node's ID, corresponds to DOM.Node.backendNodeID.
-	BackendNodeID DOM.BackendNodeID `json:"backendNodeId,omitempty"`
+	BackendNodeID dom.BackendNodeID `json:"backendNodeId,omitempty"`
 
 	// Optional. The indexes of the node's child nodes in the domNodes array returned by
 	// getSnapshot, if any.
@@ -101,7 +101,7 @@ type DOMNode struct {
 	SystemID string `json:"systemId,omitempty"`
 
 	// Optional. Frame ID for frame owner elements and also for the document node.
-	FrameID Page.FrameID `json:"frameId,omitempty"`
+	FrameID page.FrameID `json:"frameId,omitempty"`
 
 	// Optional. The index of a frame owner element's content document in the domNodes array
 	// returned by getSnapshot, if any.
@@ -116,7 +116,7 @@ type DOMNode struct {
 	TemplateContentIndex int `json:"templateContentIndex,omitempty"`
 
 	// Optional. Type of a pseudo element node.
-	PseudoType *DOM.PseudoType `json:"pseudoType,omitempty"`
+	PseudoType dom.PseudoType `json:"pseudoType,omitempty"`
 
 	// Optional. Whether this DOM node responds to mouse clicks. This includes nodes that have had
 	// click event listeners attached via JavaScript as well as anchor tags that naturally navigate
@@ -132,7 +132,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#type-InlineT
 */
 type InlineTextBox struct {
 	// The absolute position bounding box.
-	BoundingBox *DOM.Rect `json:"boundingBox"`
+	BoundingBox dom.Rect `json:"boundingBox"`
 
 	// The starting index in characters, for this post layout textbox substring.
 	StartCharacterIndex int `json:"startCharacterIndex"`
@@ -151,7 +151,7 @@ type LayoutTreeNode struct {
 	DomNodeIndex int `json:"domNodeIndex"`
 
 	// The absolute position bounding box.
-	BoundingBox *DOM.Rect `json:"boundingBox"`
+	BoundingBox dom.Rect `json:"boundingBox"`
 
 	// Optional. Contents of the LayoutText, if any.
 	LayoutText string `json:"layoutText,omitempty"`

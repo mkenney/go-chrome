@@ -3,12 +3,7 @@ Package Page provides type definitions for use with the Chrome Page protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/
 */
-package Page
-
-import (
-	"github.com/mkenney/go-chrome/protocol/debugger"
-	"github.com/mkenney/go-chrome/protocol/runtime"
-)
+package page
 
 /*
 AddScriptToEvaluateOnLoadParams represents Page.addScriptToEvaluateOnLoad parameters.

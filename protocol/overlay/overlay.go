@@ -1,9 +1,9 @@
 /*
-Package Overlay provides type definitions for use with the Chrome Overlay protocol
+Package overlay provides type definitions for use with the Chrome Overlay protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/
 */
-package Overlay
+package overlay
 
 import (
 	"github.com/mkenney/go-chrome/protocol/dom"
@@ -18,7 +18,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-getHighli
 */
 type GetHighlightObjectForTestParams struct {
 	// ID of the node to get highlight object for.
-	NodeID DOM.NodeID `json:"nodeId"`
+	NodeID dom.NodeID `json:"nodeId"`
 }
 
 /*
@@ -38,7 +38,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlight
 */
 type HighlightFrameParams struct {
 	// Identifier of the frame to highlight.
-	FrameID Page.FrameID `json:"frameId"`
+	FrameID page.FrameID `json:"frameId"`
 
 	// Optional. The content box highlight fill color (default: transparent).
 	//
@@ -63,13 +63,13 @@ type HighlightNodeParams struct {
 	HighlightConfig HighlightConfig `json:"highlightConfig"`
 
 	// Optional. Identifier of the node to highlight.
-	NodeID DOM.NodeID `json:"nodeId,omitempty"`
+	NodeID dom.NodeID `json:"nodeId,omitempty"`
 
 	// Optional. Identifier of the backend node to highlight.
-	BackendNodeID DOM.BackendNodeID `json:"backendNodeId,omitempty"`
+	BackendNodeID dom.BackendNodeID `json:"backendNodeId,omitempty"`
 
 	// Optional. JavaScript object ID of the node to be highlighted.
-	ObjectID Runtime.RemoteObjectID `json:"objectId,omitempty"`
+	ObjectID runtime.RemoteObjectID `json:"objectId,omitempty"`
 }
 
 /*
@@ -79,7 +79,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlight
 */
 type HighlightQuadParams struct {
 	// Quad to highlight.
-	Quad DOM.Quad `json:"quad"`
+	Quad dom.Quad `json:"quad"`
 
 	// Optional. The highlight fill color (default: transparent).
 	//
@@ -239,7 +239,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#event-screenshot
 */
 type ScreenshotRequestedEvent struct {
 	// Viewport to capture, in CSS.
-	Viewport Page.Viewport `json:"viewport"`
+	Viewport page.Viewport `json:"viewport"`
 }
 
 /*

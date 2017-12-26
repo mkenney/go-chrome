@@ -1,9 +1,9 @@
 /*
-Package ServiceWorker provides type definitions for use with the Chrome ServiceWorker protocol
+Package serviceWorker provides type definitions for use with the Chrome ServiceWorker protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/
 */
-package ServiceWorker
+package serviceWorker
 
 import (
 	"github.com/mkenney/go-chrome/protocol/target"
@@ -217,10 +217,10 @@ type Version struct {
 	ScriptResponseTime int `json:"scriptResponseTime,omitempty"`
 
 	// Optional. controlledClients.
-	ControlledClients []*Target.ID `json:"controlledClients,omitempty"`
+	ControlledClients []*target.ID `json:"controlledClients,omitempty"`
 
 	// Optional. targetId.
-	TargetID Target.ID `json:"targetId,omitempty"`
+	TargetID target.ID `json:"targetId,omitempty"`
 }
 
 /*

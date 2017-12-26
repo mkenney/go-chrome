@@ -3,7 +3,7 @@ Package Network provides type definitions for use with the Chrome Network protoc
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/
 */
-package Network
+package network
 
 import (
 	"fmt"
@@ -274,7 +274,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-searchInR
 */
 type SearchInResponseBodyResult struct {
 	// List of search matches.
-	Result []Debugger.SearchMatch `json:"result"`
+	Result []debugger.SearchMatch `json:"result"`
 }
 
 /*
@@ -460,7 +460,7 @@ type LoadingFailedEvent struct {
 	Timestamp MonotonicTime `json:"timestamp"`
 
 	// Resource type.
-	Type Page.ResourceType `json:"type"`
+	Type page.ResourceType `json:"type"`
 
 	// User friendly error message.
 	ErrorText string `json:"errorText"`
@@ -503,10 +503,10 @@ type RequestInterceptedEvent struct {
 	Request Request `json:"request"`
 
 	// The ID of the frame that initiated the request.
-	FrameID Page.FrameID `json:"frameId"`
+	FrameID page.FrameID `json:"frameId"`
 
 	// How the requested resource will be used.
-	ResourceType Page.ResourceType `json:"resourceType"`
+	ResourceType page.ResourceType `json:"resourceType"`
 
 	// Whether this is a navigation request, which can abort the navigation completely.
 	IsNavigationRequest bool `json:"isNavigationRequest"`
@@ -572,10 +572,10 @@ type RequestWillBeSentEvent struct {
 	RedirectResponse Response `json:"redirectResponse"`
 
 	// Optional. Type of this resource.
-	Type Page.ResourceType `json:"type,omitempty"`
+	Type page.ResourceType `json:"type,omitempty"`
 
 	// Optional. Frame identifier.
-	FrameID Page.FrameID `json:"frameId,omitempty"`
+	FrameID page.FrameID `json:"frameId,omitempty"`
 }
 
 /*
@@ -610,13 +610,13 @@ type ResponseReceivedEvent struct {
 	Timestamp MonotonicTime `json:"timestamp"`
 
 	// Resource type.
-	Type Page.ResourceType `json:"type"`
+	Type page.ResourceType `json:"type"`
 
 	// Response data.
 	Response Response `json:"response"`
 
 	// Optional. Frame identifier.
-	FrameID Page.FrameID `json:"frameId,omitempty"`
+	FrameID page.FrameID `json:"frameId,omitempty"`
 }
 
 /*
@@ -932,7 +932,7 @@ type Request struct {
 	PostData string `json:"postData,omitempty"`
 
 	// Optional. The mixed content type of the request.
-	MixedContentType Security.MixedContentType `json:"mixedContentType,omitempty"`
+	MixedContentType security.MixedContentType `json:"mixedContentType,omitempty"`
 
 	// Priority of the resource request at the time request is sent.
 	InitialPriority ResourcePriority `json:"initialPriority"`
@@ -1000,7 +1000,7 @@ type SecurityDetails struct {
 	Mac string `json:"mac,omitempty"`
 
 	// Certificate ID value.
-	CertificateID Security.CertificateID `json:"certificateId"`
+	CertificateID security.CertificateID `json:"certificateId"`
 
 	// Certificate subject name.
 	SubjectName string `json:"subjectName"`
@@ -1098,7 +1098,7 @@ type Response struct {
 	Protocol string `json:"protocol,omitempty"`
 
 	// Security state of the request resource.
-	SecurityState Security.State `json:"securityState"`
+	SecurityState security.State `json:"securityState"`
 
 	// Optional. Security details for the request.
 	//
@@ -1167,7 +1167,7 @@ type CachedResource struct {
 	URL string `json:"url"`
 
 	// Type of this resource.
-	Type Page.ResourceType `json:"type"`
+	Type page.ResourceType `json:"type"`
 
 	// Optional. Cached response data.
 	//
@@ -1348,7 +1348,7 @@ type RequestPattern struct {
 	URLPattern string `json:"urlPattern,omitempty"`
 
 	// Optional. If set, only requests for matching resource types will be intercepted.
-	ResourceType Page.ResourceType `json:"resourceType,omitempty"`
+	ResourceType page.ResourceType `json:"resourceType,omitempty"`
 
 	// Optional. Stage at which to begin intercepting requests. Default is Request.
 	InterceptionStage InterceptionStage `json:"interceptionStage,omitempty"`

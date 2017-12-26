@@ -1,9 +1,9 @@
 /*
-Package Animation provides type definitions for use with the Chrome Animation protocol
+Package animation provides type definitions for use with the Chrome Animation protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/
 */
-package Animation
+package animation
 
 import (
 	"github.com/mkenney/go-chrome/protocol/runtime"
@@ -66,7 +66,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-resolve
 */
 type ResolveAnimationResult struct {
 	// Corresponding remote object.
-	RemoteObject Runtime.RemoteObject `json:"remoteObject"`
+	RemoteObject runtime.RemoteObject `json:"remoteObject"`
 }
 
 /*

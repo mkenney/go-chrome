@@ -1,9 +1,9 @@
 /*
-Package DOMDebugger provides type definitions for use with the Chrome DOMDebugger protocol
+Package domDebugger provides type definitions for use with the Chrome DOMDebugger protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/
 */
-package DOMDebugger
+package domDebugger
 
 import (
 	"github.com/mkenney/go-chrome/protocol/dom"
@@ -17,7 +17,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-getEv
 */
 type GetEventListenersParams struct {
 	// ID of the object to return listeners for.
-	ObjectID Runtime.RemoteObjectID `json:"objectId"`
+	ObjectID runtime.RemoteObjectID `json:"objectId"`
 
 	// Optional. The maximum depth at which Node children should be retrieved, defaults to 1. Use -1
 	// for the entire subtree or provide an integer larger than 0.
@@ -45,7 +45,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-remov
 */
 type RemoveDOMBreakpointParams struct {
 	// ID of the node to remove breakpoint from.
-	NodeID DOM.NodeID `json:"nodeId"`
+	NodeID dom.NodeID `json:"nodeId"`
 
 	// Type of the breakpoint to remove.
 	Type DOMBreakpointType `json:"type"`
@@ -92,7 +92,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setDO
 */
 type SetDOMBreakpointParams struct {
 	// ID of the node to set breakpoint on.
-	NodeID DOM.NodeID `json:"nodeId"`
+	NodeID dom.NodeID `json:"nodeId"`
 
 	// Type of the operation to stop upon.
 	Type DOMBreakpointType `json:"type"`
@@ -158,7 +158,7 @@ type EventListener struct {
 	Once bool `json:"once"`
 
 	// Script ID of the handler code.
-	ScriptID Runtime.ScriptID `json:"scriptId"`
+	ScriptID runtime.ScriptID `json:"scriptId"`
 
 	// Line number in the script (0-based).
 	LineNumber int `json:"lineNumber"`
@@ -179,5 +179,5 @@ type EventListener struct {
 	OriginalHandler interface{} `json:"originalHandler,omitempty"`
 
 	// Optional. Node the listener is added to (if any).
-	BackendNodeID DOM.BackendNodeID `json:"backendNodeId,omitempty"`
+	BackendNodeID dom.BackendNodeID `json:"backendNodeId,omitempty"`
 }

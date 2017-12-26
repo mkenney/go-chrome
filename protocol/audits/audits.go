@@ -1,9 +1,9 @@
 /*
-Package Audits provides type definitions for use with the Chrome Audits protocol
+Package audits provides type definitions for use with the Chrome Audits protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Audits/
 */
-package Audits
+package audits
 
 import (
 	"github.com/mkenney/go-chrome/protocol/network"
@@ -16,7 +16,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Audits/#method-getEncoded
 */
 type GetEncodedResponseParams struct {
 	// Identifier of the network request to get content for.
-	RequestID Network.RequestID `json:"requestId"`
+	RequestID network.RequestID `json:"requestId"`
 
 	// The encoding to use. Allowed values: webp, jpeg, png.
 	Encoding string `json:"encoding"`

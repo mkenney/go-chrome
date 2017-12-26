@@ -1,9 +1,9 @@
 /*
-Package Emulation provides type definitions for use with the Chrome Emulation protocol
+Package emulation provides type definitions for use with the Chrome Emulation protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/
 */
-package Emulation
+package emulation
 
 import (
 	"github.com/mkenney/go-chrome/protocol/runtime"
@@ -207,7 +207,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setVirt
 */
 type SetVirtualTimePolicyResult struct {
 	// Absolute timestamp at which virtual time was first enabled (milliseconds since epoch).
-	VirtualTimeBase Runtime.Timestamp `json:"virtualTimeBase"`
+	VirtualTimeBase runtime.Timestamp `json:"virtualTimeBase"`
 }
 
 /*

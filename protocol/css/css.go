@@ -1,9 +1,9 @@
 /*
-Package CSS provides type definitions for use with the Chrome CSS protocol
+Package css provides type definitions for use with the Chrome CSS protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/
 */
-package CSS
+package css
 
 import (
 	"github.com/mkenney/go-chrome/protocol/dom"
@@ -61,7 +61,7 @@ CreateStyleSheetParams represents CSS.createStyleSheet parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-createStyleSheet
 */
 type CreateStyleSheetParams struct {
-	FrameID Page.FrameID `json:"frameId"`
+	FrameID page.FrameID `json:"frameId"`
 }
 
 /*
@@ -81,7 +81,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-forcePseudoSt
 */
 type ForcePseudoStateParams struct {
 	// The element ID for which to force the pseudo state.
-	NodeID DOM.NodeID `json:"nodeId"`
+	NodeID dom.NodeID `json:"nodeId"`
 
 	// Element pseudo classes to force when computing the element's style.
 	// Allowed values: active, focus, hover, visited.
@@ -95,7 +95,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getBackground
 */
 type GetBackgroundColorsParams struct {
 	// Id of the node to get background colors for.
-	NodeID DOM.NodeID `json:"nodeId"`
+	NodeID dom.NodeID `json:"nodeId"`
 }
 
 /*
@@ -129,7 +129,7 @@ GetComputedStyleForNodeParams represents CSS.getComputedStyleForNode parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getComputedStyleForNode
 */
 type GetComputedStyleForNodeParams struct {
-	NodeID DOM.NodeID `json:"nodeId"`
+	NodeID dom.NodeID `json:"nodeId"`
 }
 
 /*
@@ -148,7 +148,7 @@ GetInlineStylesForNodeParams represents CSS.getInlineStylesForNode parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getInlineStylesForNode
 */
 type GetInlineStylesForNodeParams struct {
-	NodeID DOM.NodeID `json:"nodeId"`
+	NodeID dom.NodeID `json:"nodeId"`
 }
 
 /*
@@ -170,7 +170,7 @@ GetMatchedStylesForNodeParams represents CSS.getMatchedStylesForNode parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getMatchedStylesForNode
 */
 type GetMatchedStylesForNodeParams struct {
-	NodeID DOM.NodeID `json:"nodeId"`
+	NodeID dom.NodeID `json:"nodeId"`
 }
 
 /*
@@ -213,7 +213,7 @@ GetPlatformFontsForNodeParams represents CSS.getPlatformFontsForNode parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getPlatformFontsForNode
 */
 type GetPlatformFontsForNodeParams struct {
-	NodeID DOM.NodeID `json:"nodeId"`
+	NodeID dom.NodeID `json:"nodeId"`
 }
 
 /*
@@ -252,7 +252,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setEffectiveP
 */
 type SetEffectivePropertyValueForNodeParams struct {
 	// The element id for which to set property.
-	NodeID       DOM.NodeID `json:"nodeId"`
+	NodeID       dom.NodeID `json:"nodeId"`
 	PropertyName string     `json:"propertyName"`
 	Value        string     `json:"value"`
 }
@@ -447,7 +447,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-PseudoElementMa
 */
 type PseudoElementMatches struct {
 	// Pseudo element type.
-	PseudoType *DOM.PseudoType `json:"pseudoType"`
+	PseudoType dom.PseudoType `json:"pseudoType"`
 
 	// Matches of CSS rules applicable to the pseudo style.
 	Matches []*RuleMatch `json:"matches"`
@@ -515,7 +515,7 @@ type StyleSheetHeader struct {
 	StyleSheetID StyleSheetID `json:"styleSheetId"`
 
 	// Owner frame identifier.
-	FrameID Page.FrameID `json:"frameId"`
+	FrameID page.FrameID `json:"frameId"`
 
 	// Stylesheet resource URL.
 	SourceURL string `json:"sourceURL"`
@@ -530,7 +530,7 @@ type StyleSheetHeader struct {
 	Title string `json:"title"`
 
 	// Optional. The backend ID for the owner node of the stylesheet.
-	OwnerNode DOM.BackendNodeID `json:"ownerNode,omitempty"`
+	OwnerNode dom.BackendNodeID `json:"ownerNode,omitempty"`
 
 	// Denotes whether the stylesheet is disabled.
 	Disabled bool `json:"disabled"`

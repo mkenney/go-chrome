@@ -1,9 +1,9 @@
 /*
-Package SystemInfo provides type definitions for use with the Chrome SystemInfo protocol
+Package systemInfo provides type definitions for use with the Chrome SystemInfo protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/SystemInfo/
 */
-package SystemInfo
+package systemInfo
 
 /*
 GetInfoResult represents the result of calls to SystemInfo.getInfo.

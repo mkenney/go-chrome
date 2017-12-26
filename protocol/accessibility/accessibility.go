@@ -1,9 +1,9 @@
 /*
-Package Accessibility provides type definitions for use with the Chrome Accessibility protocol
+Package accessibility provides type definitions for use with the Chrome Accessibility protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/
 */
-package Accessibility
+package accessibility
 
 import (
 	"github.com/mkenney/go-chrome/protocol/dom"
@@ -16,7 +16,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/#method-get
 */
 type PartialAXTreeParams struct {
 	// ID of the node to get the partial accessibility tree for.
-	NodeID DOM.NodeID `json:"nodeId"`
+	NodeID dom.NodeID `json:"nodeId"`
 
 	// Optional. Whether to fetch this nodes ancestors, siblings and children. Defaults to true.
 	FetchRelatives bool `json:"fetchRelatives,omitempty"`
@@ -67,7 +67,7 @@ type AXNode struct {
 	ChildIds []AXNodeID `json:"childIds,omitempty"`
 
 	// Optional. The backend ID for the associated DOM node, if any.
-	BackendDOMNodeID DOM.BackendNodeID `json:"backendDOMNodeId,omitempty"`
+	BackendDOMNodeID dom.BackendNodeID `json:"backendDOMNodeId,omitempty"`
 }
 
 /*
@@ -110,7 +110,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/#type-AXRel
 */
 type AXRelatedNode struct {
 	// The BackendNodeId of the related DOM node.
-	BackendDOMNodeID DOM.BackendNodeID `json:"backendDOMNodeId"`
+	BackendDOMNodeID dom.BackendNodeID `json:"backendDOMNodeId"`
 
 	// Optional. The IDRef value provided, if any.
 	IDRef string `json:"idref,omitempty"`

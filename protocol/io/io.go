@@ -1,9 +1,9 @@
 /*
-Package IO provides type definitions for use with the Chrome IO protocol
+Package io provides type definitions for use with the Chrome IO protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/IO/
 */
-package IO
+package io
 
 import (
 	"github.com/mkenney/go-chrome/protocol/runtime"
@@ -59,7 +59,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-resolveBlob
 */
 type ResolveBlobParams struct {
 	// Object ID of a Blob object wrapper.
-	ObjectID Runtime.RemoteObjectID `json:"objectId"`
+	ObjectID runtime.RemoteObjectID `json:"objectId"`
 }
 
 /*

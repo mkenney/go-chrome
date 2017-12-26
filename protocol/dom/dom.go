@@ -1,9 +1,9 @@
 /*
-Package DOM provides type definitions for use with the Chrome DOM protocol
+Package dom provides type definitions for use with the Chrome DOM protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/
 */
-package DOM
+package dom
 
 import (
 	"github.com/mkenney/go-chrome/protocol/page"

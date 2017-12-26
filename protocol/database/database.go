@@ -1,9 +1,9 @@
 /*
-Package Database provides type definitions for use with the Chrome Database protocol
+Package database provides type definitions for use with the Chrome Database protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/
 */
-package Database
+package database
 
 /*
 ExecuteSQLParams represents Database.executeSQL parameters.
