@@ -1,5 +1,5 @@
 /*
-Package Runtime provides type definitions for use with the Chrome Runtime protocol
+Package runtime provides type definitions for use with the Chrome Runtime protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/
 */

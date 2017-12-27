@@ -1,5 +1,5 @@
 /*
-Package Network provides type definitions for use with the Chrome Network protocol
+Package network provides type definitions for use with the Chrome Network protocol
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/
 */

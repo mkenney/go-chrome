@@ -67,10 +67,10 @@ type eventMap struct {
 }
 
 /*
-SocketResponse represents a socket message
+Response represents a socket message
 */
-type SocketResponse struct {
-	Error  SocketError     `json:"error"`
+type Response struct {
+	Error  Error           `json:"error"`
 	ID     int             `json:"id"`
 	Method string          `json:"method"`
 	Params json.RawMessage `json:"params"`
@@ -78,9 +78,9 @@ type SocketResponse struct {
 }
 
 /*
-SocketError represents an error
+Error represents an error
 */
-type SocketError struct {
+type Error struct {
 	Code    int    `json:"code"`
 	Message string `json:"message"`
 }
@@ -97,7 +97,7 @@ Listen starts the socket read loop
 */
 func (socket *Socket) Listen() {
 	for {
-		response := &SocketResponse{}
+		response := &Response{}
 		err := socket.conn.ReadJSON(&response)
 
 		if nil != err {
