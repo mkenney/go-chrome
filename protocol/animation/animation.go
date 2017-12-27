@@ -6,6 +6,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/
 package animation
 
 import (
+	"github.com/mkenney/go-chrome/protocol/dom"
 	"github.com/mkenney/go-chrome/protocol/runtime"
 )
 
@@ -182,10 +183,7 @@ type Animation struct {
 	Type string `json:"type"`
 
 	// Optional. Animation's source animation node.
-	//
-	// This expects an instance of AnimationEffect, but that doesn't omitempty correctly so it must
-	// be added manually.
-	Source interface{} `json:"source,omitempty"`
+	Source *Effect `json:"source,omitempty"`
 
 	// Optional. A unique ID for Animation representing the sources that triggered this CSS
 	// animation/transition.
@@ -220,16 +218,10 @@ type Effect struct {
 	Fill string `json:"fill"`
 
 	// Optional. Effect's target node.
-	//
-	// This expects an instance of DOM.BackendNodeID, but that doesn't omitempty correctly so it
-	// must be added manually.
-	BackendNodeID interface{} `json:"backendNodeId,omitempty"`
+	BackendNodeID *dom.BackendNodeID `json:"backendNodeId,omitempty"`
 
 	// Optional. Effect's keyframes.
-	//
-	// This expects an instance of KeyframesRule, but that doesn't omitempty correctly so it must be
-	// added manually.
-	KeyframesRule interface{} `json:"keyframesRule,omitempty"`
+	KeyframesRule *KeyframesRule `json:"keyframesRule,omitempty"`
 
 	// Effect's timing function.
 	Easing string `json:"easing"`

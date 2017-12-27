@@ -49,25 +49,25 @@ type AXNode struct {
 	IgnoredReasons []*AXProperty `json:"ignoredReasons,omitempty"`
 
 	// Optional. This Node's role, whether explicit or implicit.
-	Role AXValue `json:"role,omitempty"`
+	Role *AXValue `json:"role,omitempty"`
 
 	// Optional. The accessible name for this Node.
-	Name AXValue `json:"name,omitempty"`
+	Name *AXValue `json:"name,omitempty"`
 
 	// Optional. The accessible description for this Node.
-	Description AXValue `json:"description,omitempty"`
+	Description *AXValue `json:"description,omitempty"`
 
 	// Optional. The value for this Node.
-	Value AXValue `json:"value,omitempty"`
+	Value *AXValue `json:"value,omitempty"`
 
 	// Optional. All other properties.
 	Properties []*AXProperty `json:"properties,omitempty"`
 
 	// Optional. IDs for each of this node's child nodes.
-	ChildIds []AXNodeID `json:"childIds,omitempty"`
+	ChildIDs []*AXNodeID `json:"childIds,omitempty"`
 
 	// Optional. The backend ID for the associated DOM node, if any.
-	BackendDOMNodeID dom.BackendNodeID `json:"backendDOMNodeId,omitempty"`
+	BackendDOMNodeID *dom.BackendNodeID `json:"backendDOMNodeId,omitempty"`
 }
 
 /*
@@ -87,7 +87,7 @@ type AXProperty struct {
 	Name AXPropertyName `json:"name"`
 
 	// The value of this property.
-	Value AXValue `json:"value"`
+	Value *AXValue `json:"value"`
 }
 
 /*
@@ -154,13 +154,13 @@ type AXValueSource struct {
 	Type AXValueSourceType `json:"type"`
 
 	// Optional. The value of this property source.
-	Value AXValue `json:"value,omitempty"`
+	Value *AXValue `json:"value,omitempty"`
 
 	// Optional. The name of the relevant attribute, if any.
 	Attribute string `json:"attribute,omitempty"`
 
 	// Optional. The value of the relevant attribute, if any.
-	AttributeValue AXValue `json:"attributeValue,omitempty"`
+	AttributeValue *AXValue `json:"attributeValue,omitempty"`
 
 	// Optional. Whether this source is superseded by a higher priority source.
 	Superseded bool `json:"superseded,omitempty"`
@@ -169,7 +169,7 @@ type AXValueSource struct {
 	NativeSource AXValueNativeSourceType `json:"nativeSource,omitempty"`
 
 	// Optional. The value, such as a node or node list, of the native source.
-	NativeSourceValue AXValue `json:"nativeSourceValue,omitempty"`
+	NativeSourceValue *AXValue `json:"nativeSourceValue,omitempty"`
 
 	// Optional. Whether the value for this property is invalid.
 	Invalid bool `json:"invalid,omitempty"`

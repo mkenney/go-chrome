@@ -69,7 +69,7 @@ func NewEventHandlerPayload(id int, method string, params interface{}) *EventHan
 EventHandlerResponse represents a socket message
 */
 type EventHandlerResponse struct {
-	Error  SocketError     `json:"error"`
+	Error  Error           `json:"error"`
 	ID     int             `json:"id"`
 	Method string          `json:"method"`
 	Params json.RawMessage `json:"params"`
@@ -111,7 +111,7 @@ func (socket *Socket) RemoveEventHandler(event *EventHandler) {
 	}
 }
 
-func (socket *Socket) handleEvent(response *SocketResponse) {
+func (socket *Socket) handleEvent(response *Response) {
 	log.Debugf("%s: %s event received", socket.URL, response.Method)
 	if response.Method == "Inspector.targetCrashed" {
 		log.Fatalf("Chrome has crashed!")

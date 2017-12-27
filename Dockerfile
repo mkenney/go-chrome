@@ -1,5 +1,5 @@
 #
-# Test runner environment that includes an installation of the Chrome 
+# Test runner environment that includes an installation of the Chrome
 # headless browser
 #
 
@@ -43,9 +43,4 @@ RUN rm /etc/apt/sources.list.d/google.list \
     && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 # Install htmltox
-COPY ./ /go/src/app
-
-WORKDIR /go/src/app
-CMD cd /go/src/app \
-    && dep ensure \
-    && go test
+COPY ./ /go/src/github.com/mkenney/go-chrome

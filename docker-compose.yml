@@ -4,6 +4,10 @@ services:
         build:
             context: ./
             dockerfile: ./Dockerfile
-        container_name: go-chrome.test-runner
+        container_name: go-chrome.acceptance-test-runner
         volumes:
-            - ./:/go/src/app
+            - ./:/go/src/github.com/mkenney/go-chrome
+        entrypoint: sh
+        command:
+            - '-cexu'
+            - 'cd /go/src/github.com/mkenney/go-chrome && go test'

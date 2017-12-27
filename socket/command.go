@@ -86,7 +86,7 @@ func (socket *Socket) SendCommand(command *Command) int {
 	return payload.ID
 }
 
-func (socket *Socket) handleCommand(response *SocketResponse) {
+func (socket *Socket) handleCommand(response *Response) {
 	var err error
 
 	socket.Commands.Mux.Lock()
