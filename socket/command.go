@@ -24,7 +24,7 @@ type Command struct {
 	// Optional. Result holds the result struct for the command being executed
 	Result interface{}
 
-	// WG handles command syncronization
+	// WG handles command synchronization
 	WG sync.WaitGroup
 }
 
