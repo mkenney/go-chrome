@@ -23,6 +23,7 @@ NewEventHandlerMap creates and returns a pointer to a EventHandlerMap.
 func NewEventHandlerMap() EventHandlerMapper {
 	return &eventHandlerMap{
 		stack: make(map[string][]EventHandler),
+		mux:   &sync.Mutex{},
 	}
 }
 
@@ -35,7 +36,7 @@ eventHandlerMap defines the event handler stacks for all handled events.
 */
 type eventHandlerMap struct {
 	stack map[string][]EventHandler
-	mux   sync.Mutex
+	mux   *sync.Mutex
 }
 
 /*

@@ -13,9 +13,10 @@ NewCommand creates and returns a pointer to a Command.
 */
 func NewCommand(method string, params interface{}) Commander {
 	return &command{
+		id:     GenerateCommandID(),
 		method: method,
 		params: &params,
-		sync:   &sync.WaitGroup{},
+		wg:     &sync.WaitGroup{},
 	}
 }
 
@@ -25,6 +26,7 @@ NewCommandMap creates and returns a pointer to a CommandMap.
 func NewCommandMap() CommandMapper {
 	return &commandMap{
 		stack: make(map[int]Commander),
+		mux:   &sync.Mutex{},
 	}
 }
 
@@ -39,6 +41,9 @@ type command struct {
 	// err contains any error resulting from executing the command
 	err error
 
+	// id contains the command ID
+	id int
+
 	// method is the Chrome protocol method being executed
 	method string
 
@@ -49,18 +54,24 @@ type command struct {
 	result interface{}
 
 	// sync handles command synchronization
-	sync *sync.WaitGroup
+	wg *sync.WaitGroup
 }
 
 /*
 Done implements Commander.
 */
 func (cmd *command) Done(result []byte, err error) {
-	if err == nil {
-		err = json.Unmarshal(result, cmd.Result())
+	if err != nil {
+		log.Error(err)
+		cmd.err = err
 	}
-	cmd.err = err
-	cmd.Sync().Done()
+	err = json.Unmarshal(result, &cmd.result)
+	if err != nil {
+		log.Error(err)
+		cmd.err = fmt.Errorf("%s. In addition, a JSON error occurred while decoding the data: %s", cmd.err.Error(), err.Error())
+	}
+
+	cmd.WaitGroup().Done()
 }
 
 /*
@@ -68,6 +79,13 @@ Error implements Commander.
 */
 func (cmd *command) Error() error {
 	return cmd.err
+}
+
+/*
+ID implements Commander.
+*/
+func (cmd *command) ID() int {
+	return cmd.id
 }
 
 /*
@@ -81,21 +99,21 @@ func (cmd *command) Method() string {
 Params implements Commander.
 */
 func (cmd *command) Params() interface{} {
-	return &cmd.params
+	return cmd.params
 }
 
 /*
 Result implements Commander.
 */
 func (cmd *command) Result() interface{} {
-	return &cmd.result
+	return cmd.result
 }
 
 /*
 Sync implements Commander.
 */
-func (cmd *command) Sync() *sync.WaitGroup {
-	return cmd.sync
+func (cmd *command) WaitGroup() *sync.WaitGroup {
+	return cmd.wg
 }
 
 //////////////////////////////////////////////////
@@ -107,7 +125,7 @@ commandMap implements CommandMapper.
 */
 type commandMap struct {
 	stack map[int]Commander
-	mux   sync.Mutex
+	mux   *sync.Mutex
 }
 
 /*
@@ -182,7 +200,7 @@ func (socket *socket) SendCommand(command Commander) *commandPayload {
 	// Safely add a command to the internal stack
 	socket.commands.Lock()
 	payload := &commandPayload{
-		ID:     socket.GenerateCommandID(),
+		ID:     command.ID(),
 		Method: command.Method(),
 		Params: command.Params(),
 	}
@@ -190,11 +208,11 @@ func (socket *socket) SendCommand(command Commander) *commandPayload {
 	socket.commands.Unlock() // Do not defer, HandleCommand() also locks
 
 	log.Debugf("Sending command '%s'", payload)
-	command.Sync().Add(1)
-	if err := socket.conn.WriteJSON(payload); err != nil {
+	command.WaitGroup().Add(1)
+	if err := socket.Conn().WriteJSON(payload); err != nil {
 		command.Done(nil, err)
 	}
-	command.Sync().Wait()
+	command.WaitGroup().Wait()
 
 	return payload
 }
@@ -207,14 +225,14 @@ func (socket *socket) HandleCommand(response *Response) {
 	defer socket.commands.Unlock()
 
 	if command, err := socket.commands.Get(response.ID); nil != err {
-		log.Errorf("Command %d not found: result=%s err=%s", response.ID, response.Result, response.Error.Message)
+		log.Errorf("%s: result=%s err=%s", err.Error(), response.Result, response.Error.Message)
 
 	} else {
-		socket.commands.Delete(response.ID)
-		if "" != response.Error.Message {
+		socket.commands.Delete(command.ID())
+		if nil != response.Error && "" != response.Error.Message {
 			err = fmt.Errorf("%d %s: - %s", response.Error.Code, response.Error.Message, response.Error.Data)
 		}
 		command.Done(response.Result, err)
-		log.Debugf("Command '%s' complete", command.Method())
+		log.Infof("Command '%s' complete", command.Method())
 	}
 }

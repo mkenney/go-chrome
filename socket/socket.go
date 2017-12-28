@@ -2,10 +2,7 @@ package socket
 
 import (
 	"encoding/json"
-	"io"
 	"net/http"
-	"strings"
-	"sync"
 
 	"github.com/gorilla/websocket"
 	log "github.com/sirupsen/logrus"
@@ -37,6 +34,16 @@ func New(socketURL string) (Socketer, error) {
 	return socket, nil
 }
 
+/*
+GenerateCommandID generates and returns a unique command ID.
+*/
+func GenerateCommandID() int {
+	commandID++
+	return commandID
+}
+
+var commandID = 0
+
 //////////////////////////////////////////////////
 // Socketer
 //////////////////////////////////////////////////
@@ -45,12 +52,12 @@ func New(socketURL string) (Socketer, error) {
 socket implements Socketer.
 */
 type socket struct {
-	commandID int
-	commands  CommandMapper
-	handlers  EventHandlerMapper
-	mux       sync.Mutex
-	url       string
-	conn      *websocket.Conn
+	commandID     int
+	commands      CommandMapper
+	handlers      EventHandlerMapper
+	url           string
+	conn          Conner
+	stopListening bool
 }
 
 /*
@@ -61,50 +68,46 @@ func (socket *socket) Close() error {
 }
 
 /*
-GenerateCommandID generates and returns a unique command ID.
+Conn implements Socketer.
 */
-func (socket *socket) GenerateCommandID() int {
-	socket.commandID++
-	return socket.commandID
+func (socket *socket) Conn() Conner {
+	return socket.conn
 }
 
 /*
 Listen implements Socketer.
 */
-func (socket *socket) Listen() {
+func (socket *socket) Listen() (err error) {
+	socket.stopListening = false
 	for {
-		response := &Response{}
-		err := socket.conn.ReadJSON(&response)
+		if socket.stopListening {
+			break
+		}
 
+		response := &Response{}
+		err = socket.conn.ReadJSON(&response)
 		if nil != err {
 			log.Error(err)
-			if err == io.EOF ||
-				websocket.IsCloseError(err, 1006) ||
-				strings.Contains(err.Error(), "closed network connection") {
-				break
-			}
+			socket.Stop()
+		}
 
-		} else if response.ID > 0 {
+		if response.ID > 0 {
 			socket.HandleCommand(response)
 
 		} else {
 			socket.HandleEvent(response)
 		}
 	}
+	log.Infof("Socket shutting down")
+
+	return
 }
 
 /*
-Lock implements Socketer.
+Stop implements Socketer.
 */
-func (socket *socket) Lock() {
-	socket.mux.Lock()
-}
-
-/*
-Unlock implements Socketer.
-*/
-func (socket *socket) Unlock() {
-	socket.mux.Unlock()
+func (socket *socket) Stop() {
+	socket.stopListening = true
 }
 
 /*
@@ -131,7 +134,7 @@ type Error struct {
 Response represents a socket message.
 */
 type Response struct {
-	Error  Error           `json:"error"`
+	Error  *Error          `json:"error"`
 	ID     int             `json:"id"`
 	Method string          `json:"method"`
 	Params json.RawMessage `json:"params"`

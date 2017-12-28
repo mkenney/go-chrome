@@ -1,6 +1,8 @@
 package socket
 
-import "sync"
+import (
+	"sync"
+)
 
 /*
 Commander defines an interface for websocket commands.
@@ -12,6 +14,9 @@ type Commander interface {
 	// Error returns the current error, if any.
 	Error() error
 
+	// ID returns the command ID
+	ID() int
+
 	// Method returns the name of the protocol method to be executed.
 	Method() string
 
@@ -21,8 +26,8 @@ type Commander interface {
 	// Result returns the result of the method call.
 	Result() interface{}
 
-	// Sync returns the sync.WaitGroup instance.
-	Sync() *sync.WaitGroup
+	// WaitGroup returns the sync.WaitGroup instance.
+	WaitGroup() *sync.WaitGroup
 }
 
 /*
@@ -43,6 +48,17 @@ type CommandMapper interface {
 
 	// Set sets the entire stack of handlers for an event.
 	Set(commandID int, command Commander)
+}
+
+/*
+Conner defines the websocket.Conn methods used by the API
+
+Primarily used for mocking
+*/
+type Conner interface {
+	Close() error
+	ReadJSON(v interface{}) error
+	WriteJSON(v interface{}) error
 }
 
 /*
@@ -92,8 +108,8 @@ type Socketer interface {
 	// Close closes the current socket connection.
 	Close() error
 
-	// GenerateCommandID generates and returns a unique command identifier.
-	GenerateCommandID() int
+	// Conn returns the websocket connection
+	Conn() Conner
 
 	// HandleCommand handles all responses to commands sent to the websocket connection.
 	HandleCommand(response *Response)
@@ -102,10 +118,7 @@ type Socketer interface {
 	HandleEvent(response *Response)
 
 	// Listen starts the socket read loop.
-	Listen()
-
-	// Lock locks the sync mutex.
-	Lock()
+	Listen() error
 
 	// RemoveEventHandler removes a handler from the stack of listeners for an event.
 	RemoveEventHandler(handler EventHandler)
@@ -113,8 +126,8 @@ type Socketer interface {
 	// SendCommand sends a command to the websocket connection.
 	SendCommand(command Commander) *commandPayload
 
-	// Unlock unlocks the sync mutex.
-	Unlock()
+	// Stop tells the socket connection to stop listening for data
+	Stop()
 
 	// URL returns the URL of the websocket connection
 	URL() string
