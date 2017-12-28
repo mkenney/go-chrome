@@ -13,7 +13,8 @@ import (
 HeadlessExperimental is a struct that provides a namespace for the Chrome HeadlessExperimental
 protocol methods.
 
-The HeadlessExperimental protocol provides experimental commands only supported in headless mode. EXPERIMENTAL
+The HeadlessExperimental protocol provides experimental commands only supported in headless mode.
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/
 */
@@ -110,7 +111,8 @@ func (_headlessExperimental) OnMainFrameReadyForScreenshots(
 
 /*
 OnNeedsBeginFramesChanged adds a handler to the HeadlessExperimental.needsBeginFramesChanged event.
-HeadlessExperimental.needsBeginFramesChanged fires when the target starts or stops needing BeginFrames.
+HeadlessExperimental.needsBeginFramesChanged fires when the target starts or stops needing
+BeginFrames.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#event-needsBeginFramesChanged
 */

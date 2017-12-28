@@ -10,9 +10,7 @@ import (
 )
 
 /*
-Storage is a struct that provides a namespace for the Chrome Storage protocol methods.
-
-EXPERIMENTAL
+Storage is a struct that provides a namespace for the Chrome Storage protocol methods. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/
 */

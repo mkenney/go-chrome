@@ -7,9 +7,7 @@ import (
 
 /*
 DeviceOrientation is a struct that provides a namespace for the Chrome DeviceOrientation protocol
-methods.
-
-EXPERIMENTAL
+methods. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/
 */

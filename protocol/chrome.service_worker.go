@@ -11,8 +11,7 @@ import (
 
 /*
 ServiceWorker is a struct that provides a namespace for the Chrome ServiceWorker protocol methods.
-
-EXPERIMENTAL
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/
 */
@@ -21,7 +20,7 @@ var ServiceWorker = _serviceWorker{}
 type _serviceWorker struct{}
 
 /*
-DeliverPushMessage EXPERIMENTAL
+DeliverPushMessage EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-deliverPushMessage
 */
@@ -35,7 +34,7 @@ func (_serviceWorker) DeliverPushMessage(
 }
 
 /*
-Disable EXPERIMENTAL
+Disable EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-disable
 */
@@ -48,7 +47,7 @@ func (_serviceWorker) Disable(
 }
 
 /*
-DispatchSyncEvent EXPERIMENTAL
+DispatchSyncEvent EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-dispatchSyncEvent
 */
@@ -62,7 +61,7 @@ func (_serviceWorker) DispatchSyncEvent(
 }
 
 /*
-Enable EXPERIMENTAL
+Enable EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-enable
 */
@@ -75,7 +74,7 @@ func (_serviceWorker) Enable(
 }
 
 /*
-InspectWorker EXPERIMENTAL
+InspectWorker EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-inspectWorker
 */
@@ -89,7 +88,7 @@ func (_serviceWorker) InspectWorker(
 }
 
 /*
-SetForceUpdateOnPageLoad EXPERIMENTAL
+SetForceUpdateOnPageLoad EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-setForceUpdateOnPageLoad
 */
@@ -103,7 +102,7 @@ func (_serviceWorker) SetForceUpdateOnPageLoad(
 }
 
 /*
-SkipWaiting EXPERIMENTAL
+SkipWaiting EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-skipWaiting
 */
@@ -117,7 +116,7 @@ func (_serviceWorker) SkipWaiting(
 }
 
 /*
-StartWorker EXPERIMENTAL
+StartWorker EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-startWorker
 */
@@ -131,7 +130,7 @@ func (_serviceWorker) StartWorker(
 }
 
 /*
-StopAllWorkers EXPERIMENTAL
+StopAllWorkers EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-stopAllWorkers
 */
@@ -144,7 +143,7 @@ func (_serviceWorker) StopAllWorkers(
 }
 
 /*
-StopWorker EXPERIMENTAL
+StopWorker EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-stopWorker
 */
@@ -158,7 +157,7 @@ func (_serviceWorker) StopWorker(
 }
 
 /*
-Unregister EXPERIMENTAL
+Unregister EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-unregister
 */
@@ -172,7 +171,7 @@ func (_serviceWorker) Unregister(
 }
 
 /*
-UpdateRegistration EXPERIMENTAL
+UpdateRegistration EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-updateRegistration
 */
@@ -186,7 +185,7 @@ func (_serviceWorker) UpdateRegistration(
 }
 
 /*
-OnWorkerErrorReported EXPERIMENTAL
+OnWorkerErrorReported EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-workerErrorReported
 */
@@ -209,7 +208,7 @@ func (_serviceWorker) OnWorkerErrorReported(
 }
 
 /*
-OnWorkerRegistrationUpdated EXPERIMENTAL
+OnWorkerRegistrationUpdated EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-workerRegistrationUpdated
 */
@@ -232,7 +231,7 @@ func (_serviceWorker) OnWorkerRegistrationUpdated(
 }
 
 /*
-OnWorkerVersionUpdated EXPERIMENTAL
+OnWorkerVersionUpdated EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-workerVersionUpdated
 */

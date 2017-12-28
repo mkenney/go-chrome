@@ -22,7 +22,7 @@ var Network = _network{}
 type _network struct{}
 
 /*
-CanClearBrowserCache tells whether clearing browser cache is supported. DEPRECATED
+CanClearBrowserCache tells whether clearing browser cache is supported. DEPRECATED.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canClearBrowserCache
 */
@@ -53,7 +53,7 @@ func (_network) CanClearBrowserCache(
 }
 
 /*
-CanClearBrowserCookies tells whether clearing browser cookies is supported. DEPRECATED
+CanClearBrowserCookies tells whether clearing browser cookies is supported. DEPRECATED.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canClearBrowserCookies
 */
@@ -84,7 +84,7 @@ func (_network) CanClearBrowserCookies(
 }
 
 /*
-CanEmulateConditions tells whether emulation of network conditions is supported. DEPRECATED
+CanEmulateConditions tells whether emulation of network conditions is supported. DEPRECATED.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canEmulateNetworkConditions
 */
@@ -144,7 +144,7 @@ func (_network) ClearBrowserCookies(
 ContinueInterceptedRequest response to Network.requestIntercepted which either modifies the request
 to continue with any modifications, or blocks it, or completes it with the provided response bytes.
 If a network fetch occurs as a result which encounters a redirect an additional
-Network.requestIntercepted event will be sent with the same InterceptionID. EXPERIMENTAL
+Network.requestIntercepted event will be sent with the same InterceptionID. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-continueInterceptedRequest
 */
@@ -245,7 +245,7 @@ func (_network) GetAllCookies(
 }
 
 /*
-GetCertificate returns the DER-encoded certificate. EXPERIMENTAL
+GetCertificate returns the DER-encoded certificate. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getCertificate
 */
@@ -343,7 +343,7 @@ func (_network) GetResponseBody(
 
 /*
 GetResponseBodyForInterception returns content served for the given currently intercepted request.
-EXPERIMENTAL
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getResponseBodyForInterception
 */
@@ -377,7 +377,7 @@ func (_network) GetResponseBodyForInterception(
 /*
 ReplayXHR sends a new XMLHttpRequest which is identical to the original one. The following
 parameters should be identical: method, url, async, request body, extra headers, withCredentials
-attribute, user, password. EXPERIMENTAL
+attribute, user, password. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-replayXHR
 */
@@ -391,7 +391,7 @@ func (_network) ReplayXHR(
 }
 
 /*
-SearchInResponseBody searches for given string in response content. EXPERIMENTAL
+SearchInResponseBody searches for given string in response content. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-searchInResponseBody
 */
@@ -423,7 +423,7 @@ func (_network) SearchInResponseBody(
 }
 
 /*
-SetBlockedURLs blocks URLs from loading. EXPERIMENTAL
+SetBlockedURLs blocks URLs from loading. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setBlockedURLs
 */
@@ -437,7 +437,7 @@ func (_network) SetBlockedURLs(
 }
 
 /*
-SetBypassServiceWorker toggles ignoring of service worker for each request. EXPERIMENTAL
+SetBypassServiceWorker toggles ignoring of service worker for each request. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setBypassServiceWorker
 */
@@ -511,7 +511,7 @@ func (_network) SetCookies(
 }
 
 /*
-SetDataSizeLimitsForTest is for testing. EXPERIMENTAL
+SetDataSizeLimitsForTest is for testing. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setDataSizeLimitsForTest
 */
@@ -541,7 +541,7 @@ func (_network) SetExtraHTTPHeaders(
 
 /*
 SetRequestInterception sets the requests to intercept that match a the provided patterns and
-optionally resource types. EXPERIMENTAL
+optionally resource types. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setRequestInterception
 */
@@ -667,7 +667,7 @@ func (_network) OnLoadingFinished(
 /*
 OnRequestIntercepted adds a handler to the Network.requestIntercepted event.
 Network.requestIntercepted fires when a HTTP request is intercepted and returns details, which must
-be either allowed, blocked, modified or mocked. EXPERIMENTAL
+be either allowed, blocked, modified or mocked. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-requestIntercepted
 */
@@ -739,7 +739,7 @@ func (_network) OnRequestWillBeSent(
 
 /*
 OnResourceChangedPriority adds a handler to the Network.resourceChangedPriority event.
-Network.resourceChangedPriority fires when resource loading priority is changed EXPERIMENTAL
+Network.resourceChangedPriority fires when resource loading priority is changed EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-resourceChangedPriority
 */

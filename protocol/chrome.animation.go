@@ -11,8 +11,7 @@ import (
 
 /*
 Animation is a struct that provides a namespace for the Chrome Animation protocol methods.
-
-EXPERIMENTAL
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/
 */

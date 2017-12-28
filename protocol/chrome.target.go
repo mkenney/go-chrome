@@ -82,7 +82,7 @@ func (_target) CloseTarget(
 
 /*
 CreateBrowserContext creates a new empty BrowserContext. Similar to an incognito profile but you can
-have more than one. EXPERIMENTAL
+have more than one. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-createBrowserContext
 */
@@ -159,7 +159,7 @@ func (_target) DetachFromTarget(
 }
 
 /*
-DisposeBrowserContext deletes a BrowserContext, will fail of any open page uses it. EXPERIMENTAL
+DisposeBrowserContext deletes a BrowserContext, will fail of any open page uses it. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-disposeBrowserContext
 */
@@ -173,7 +173,7 @@ func (_target) DisposeBrowserContext(
 }
 
 /*
-GetTargetInfo returns information about a target. EXPERIMENTAL
+GetTargetInfo returns information about a target. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargetInfo
 */
@@ -233,7 +233,7 @@ func (_target) SendMessageToTarget(
 }
 
 /*
-SetAttachToFrames EXPERIMENTAL
+SetAttachToFrames EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAttachToFrames
 */
@@ -249,7 +249,7 @@ func (_target) SetAttachToFrames(
 /*
 SetAutoAttach controls whether to automatically attach to new targets which are considered to be
 related to this one. When turned on, attaches to all existing related targets as well. When turned
-off, automatically detaches from all currently attached targets. EXPERIMENTAL
+off, automatically detaches from all currently attached targets. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAutoAttach
 */
@@ -279,7 +279,7 @@ func (_target) SetDiscoverTargets(
 
 /*
 SetRemoteLocations enables target discovery for the specified locations, when `setDiscoverTargets`
-was set to `true`. EXPERIMENTAL
+was set to `true`. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setRemoteLocations
 */
@@ -295,7 +295,7 @@ func (_target) SetRemoteLocations(
 /*
 OnAttachedToTarget adds a handler to the Target.attachedToTarget event.
 Target.attachedToTarget fires when attached to target because of auto-attach or `attachToTarget`
-command. EXPERIMENTAL
+command. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-attachedToTarget
 */
@@ -321,7 +321,7 @@ func (_target) OnAttachedToTarget(
 OnDetachedFromTarget adds a handler to the Target.detachedFromTarget event.
 Target.detachedFromTarget fires when detached from target for any reason (including
 `detachFromTarget` command). Can be issued multiple times per target if multiple sessions have been
-attached to it. EXPERIMENTAL
+attached to it. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-detachedFromTarget
 */

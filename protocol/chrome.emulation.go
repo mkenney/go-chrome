@@ -78,7 +78,7 @@ func (_emulation) ClearGeolocationOverride(
 }
 
 /*
-ResetPageScaleFactor requests that page scale factor is reset to initial values. EXPERIMENTAL
+ResetPageScaleFactor requests that page scale factor is reset to initial values. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-resetPageScaleFactor
 */
@@ -91,7 +91,7 @@ func (_emulation) ResetPageScaleFactor(
 }
 
 /*
-SetCPUThrottlingRate enables CPU throttling to emulate slow CPUs. EXPERIMENTAL
+SetCPUThrottlingRate enables CPU throttling to emulate slow CPUs. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setCPUThrottlingRate
 */
@@ -136,7 +136,7 @@ func (_emulation) SetDeviceMetricsOverride(
 }
 
 /*
-SetEmitTouchEventsForMouse enables touch events using a mouse. EXPERIMENTAL
+SetEmitTouchEventsForMouse enables touch events using a mouse. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setEmitTouchEventsForMouse
 */
@@ -179,7 +179,7 @@ func (_emulation) SetGeolocationOverride(
 }
 
 /*
-SetNavigatorOverrides overrides value returned by the javascript navigator object. EXPERIMENTAL
+SetNavigatorOverrides overrides value returned by the javascript navigator object. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setNavigatorOverrides
 */
@@ -193,7 +193,7 @@ func (_emulation) SetNavigatorOverrides(
 }
 
 /*
-SetPageScaleFactor sets a specified page scale factor. EXPERIMENTAL
+SetPageScaleFactor sets a specified page scale factor. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setPageScaleFactor
 */
@@ -237,7 +237,7 @@ func (_emulation) SetTouchEmulationEnabled(
 /*
 SetVirtualTimePolicy turns on virtual time for all frames (replacing real-time with a synthetic time
 source) and sets the current virtual time policy. Note this supersedes any previous time budget.
-EXPERIMENTAL
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setVirtualTimePolicy
 */
@@ -253,7 +253,7 @@ func (_emulation) SetVirtualTimePolicy(
 /*
 SetVisibleSize resizes the frame/viewport of the page. Note that this does not affect the frame's
 container (e.g. browser window). Can be used to produce screenshots of the specified size. Not
-supported on Android. EXPERIMENTAL DEPRECATED
+supported on Android. EXPERIMENTAL. DEPRECATED.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setVisibleSize
 */
@@ -268,7 +268,7 @@ func (_emulation) SetVisibleSize(
 
 /*
 OnVirtualTimeAdvanced adds a handler to the Emulation.virtualTimeAdvanced event.
-Emulation.virtualTimeAdvanced fires after the virtual time has advanced. EXPERIMENTAL
+Emulation.virtualTimeAdvanced fires after the virtual time has advanced. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#event-virtualTimeAdvanced
 */
@@ -293,7 +293,7 @@ func (_emulation) OnVirtualTimeAdvanced(
 /*
 OnVirtualTimeBudgetExpired adds a handler to the Emulation.virtualTimeBudgetExpired event.
 Emulation.virtualTimeBudgetExpired fires after the virtual time budget for the current
-VirtualTimePolicy has run out. EXPERIMENTAL
+VirtualTimePolicy has run out. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#event-virtualTimeBudgetExpired
 */
@@ -317,7 +317,7 @@ func (_emulation) OnVirtualTimeBudgetExpired(
 
 /*
 OnVirtualTimePaused adds a handler to the Emulation.virtualTimePaused event.
-Emulation.virtualTimePaused fires after the virtual time has paused. EXPERIMENTAL
+Emulation.virtualTimePaused fires after the virtual time has paused. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#event-virtualTimePaused
 */

@@ -10,9 +10,7 @@ import (
 )
 
 /*
-Tracing is a struct that provides a namespace for the Chrome Tracing protocol methods.
-
-EXPERIMENTAL
+Tracing is a struct that provides a namespace for the Chrome Tracing protocol methods. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/
 */

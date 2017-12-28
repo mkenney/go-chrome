@@ -11,8 +11,7 @@ import (
 
 /*
 HeapProfiler is a struct that provides a namespace for the Chrome HeapProfiler protocol methods.
-
-EXPERIMENTAL
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/
 */
@@ -36,7 +35,7 @@ func (_heapProfiler) AddInspectedHeapObject(
 }
 
 /*
-CollectGarbage EXPERIMENTAL
+CollectGarbage EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-collectGarbage
 */
@@ -75,7 +74,7 @@ func (_heapProfiler) Enable(
 }
 
 /*
-GetHeapObjectID EXPERIMENTAL
+GetHeapObjectID EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getHeapObjectId
 */
@@ -107,7 +106,7 @@ func (_heapProfiler) GetHeapObjectID(
 }
 
 /*
-GetObjectByHeapObjectID EXPERIMENTAL
+GetObjectByHeapObjectID EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getObjectByHeapObjectId
 */
@@ -139,7 +138,7 @@ func (_heapProfiler) GetObjectByHeapObjectID(
 }
 
 /*
-GetSamplingProfile EXPERIMENTAL
+GetSamplingProfile EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getSamplingProfile
 */
@@ -153,7 +152,7 @@ func (_heapProfiler) GetSamplingProfile(
 }
 
 /*
-StartSampling EXPERIMENTAL
+StartSampling EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-startSampling
 */
@@ -167,7 +166,7 @@ func (_heapProfiler) StartSampling(
 }
 
 /*
-StartTrackingHeapObjects EXPERIMENTAL
+StartTrackingHeapObjects EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-startTrackingHeapObjects
 */
@@ -181,7 +180,7 @@ func (_heapProfiler) StartTrackingHeapObjects(
 }
 
 /*
-StopSampling EXPERIMENTAL
+StopSampling EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stopSampling
 */
@@ -195,7 +194,7 @@ func (_heapProfiler) StopSampling(
 }
 
 /*
-StopTrackingHeapObjects EXPERIMENTAL
+StopTrackingHeapObjects EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stopTrackingHeapObjects
 */
@@ -209,7 +208,7 @@ func (_heapProfiler) StopTrackingHeapObjects(
 }
 
 /*
-TakeHeapSnapshot EXPERIMENTAL
+TakeHeapSnapshot EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-takeHeapSnapshot
 */
@@ -223,8 +222,7 @@ func (_heapProfiler) TakeHeapSnapshot(
 }
 
 /*
-OnAddHeapSnapshotChunk adds a handler to the HeapProfiler.AddHeapSnapshotChunk event.
-EXPERIMENTAL
+OnAddHeapSnapshotChunk adds a handler to the HeapProfiler.AddHeapSnapshotChunk event. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-addHeapSnapshotChunk
 */
@@ -298,7 +296,7 @@ func (_heapProfiler) OnLastSeenObjectID(
 
 /*
 OnReportHeapSnapshotProgress adds a handler to the DOM.ReportHeapSnapshotProgress event.
-EXPERIMENTAL
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-reportHeapSnapshotProgress
 */
@@ -321,7 +319,7 @@ func (_heapProfiler) OnReportHeapSnapshotProgress(
 }
 
 /*
-OnResetProfiles adds a handler to the HeapProfiler.ResetProfiles event. EXPERIMENTAL
+OnResetProfiles adds a handler to the HeapProfiler.ResetProfiles event. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-resetProfiles
 */

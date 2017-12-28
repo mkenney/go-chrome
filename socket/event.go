@@ -8,7 +8,7 @@ import (
 )
 
 /*
-NewEventHandler returns a pointer to a generic event handler.
+NewEventHandler returns a pointer to an event handler.
 */
 func NewEventHandler(name string, callback func(response *Response)) EventHandler {
 	return &handler{
@@ -18,7 +18,7 @@ func NewEventHandler(name string, callback func(response *Response)) EventHandle
 }
 
 /*
-NewEventHandlerMap creates and returns a pointer to a EventHandlerMap.
+NewEventHandlerMap creates and returns a pointer to an EventHandlerMapper.
 */
 func NewEventHandlerMap() EventHandlerMapper {
 	return &eventHandlerMap{

@@ -13,7 +13,7 @@ import (
 Overlay is a struct that provides a namespace for the Chrome Overlay protocol methods.
 
 The Overlay protocol provides various functionality related to drawing atop the inspected page.
-EXPERIMENTAL
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/
 */

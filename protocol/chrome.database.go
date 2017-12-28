@@ -11,8 +11,7 @@ import (
 
 /*
 Database is a struct that provides a namespace for the Chrome Database protocol methods.
-
-EXPERIMENTAL
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/
 */

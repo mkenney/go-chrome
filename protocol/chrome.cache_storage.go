@@ -9,8 +9,7 @@ import (
 
 /*
 CacheStorage is a struct that provides a namespace for the Chrome CacheStorage protocol methods.
-
-EXPERIMENTAL
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/
 */

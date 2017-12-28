@@ -6,9 +6,7 @@ import (
 )
 
 /*
-Memory is a struct that provides a namespace for the Chrome Memory protocol methods.
-
-EXPERIMENTAL
+Memory is a struct that provides a namespace for the Chrome Memory protocol methods. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/
 */
@@ -17,7 +15,7 @@ var Memory = _memory{}
 type _memory struct{}
 
 /*
-GetDOMCounters EXPERIMENTAL
+GetDOMCounters EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-getDOMCounters
 */
@@ -31,7 +29,7 @@ func (_memory) GetDOMCounters(
 }
 
 /*
-PrepareForLeakDetection EXPERIMENTAL
+PrepareForLeakDetection EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-prepareForLeakDetection
 */

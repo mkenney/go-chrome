@@ -11,8 +11,7 @@ import (
 
 /*
 LayerTree is a struct that provides a namespace for the Chrome LayerTree protocol methods.
-
-EXPERIMENTAL
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/
 */

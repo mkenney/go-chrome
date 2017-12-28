@@ -8,9 +8,7 @@ import (
 )
 
 /*
-Schema is a struct that provides a namespace for the Chrome Schema protocol methods.
-
-DEPRECATED
+Schema is a struct that provides a namespace for the Chrome Schema protocol methods. DEPRECATED.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Schema/
 */

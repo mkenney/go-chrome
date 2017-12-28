@@ -21,7 +21,17 @@ func NewCommand(method string, params interface{}) Commander {
 }
 
 /*
-NewCommandMap creates and returns a pointer to a CommandMap.
+GenerateCommandID generates and returns a unique command ID.
+*/
+func GenerateCommandID() int {
+	commandID++
+	return commandID
+}
+
+var commandID = 0
+
+/*
+NewCommandMap creates and returns a pointer to a CommandMapper.
 */
 func NewCommandMap() CommandMapper {
 	return &commandMap{

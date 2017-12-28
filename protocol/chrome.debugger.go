@@ -160,7 +160,7 @@ func (_debugger) GetScriptSource(
 }
 
 /*
-GetStackTrace returns stack trace with given stackTraceId. EXPERIMENTAL
+GetStackTrace returns stack trace with given stackTraceId. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getStackTrace
 */
@@ -205,7 +205,7 @@ func (_debugger) Pause(
 }
 
 /*
-PauseOnAsyncCall EXPERIMENTAL
+PauseOnAsyncCall EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-pauseOnAsyncCall
 */
@@ -281,7 +281,7 @@ func (_debugger) Resume(
 ScheduleStepIntoAsync is deprecated - use Debugger.stepInto with breakOnAsyncCall and
 Debugger.pauseOnAsyncTask instead. Steps into next scheduled async task if any is scheduled before
 next pause. Returns success when async task is actually scheduled, returns error if no task were
-scheduled or another scheduleStepIntoAsync was called. EXPERIMENTAL
+scheduled or another scheduleStepIntoAsync was called. EXPERIMENTAL. DEPRECATED.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-scheduleStepIntoAsync
 */
@@ -343,7 +343,7 @@ func (_debugger) SetAsyncCallStackDepth(
 SetBlackboxPatterns replaces previous blackbox patterns with passed ones. Forces backend to skip
 stepping/pausing in scripts with url matching one of the patterns. VM will try to leave blackboxed
 script by performing 'step in' several times, finally resorting to 'step out' if unsuccessful.
-EXPERIMENTAL
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBlackboxPatterns
 */
@@ -471,7 +471,7 @@ func (_debugger) SetPauseOnExceptions(
 
 /*
 SetReturnValue changes return value in top frame. Available only at return break position.
-EXPERIMENTAL
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setReturnValue
 */

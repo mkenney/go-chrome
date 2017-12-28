@@ -63,7 +63,7 @@ func (_browser) GetVersion(
 }
 
 /*
-GetWindowBounds sets the position and/or size of the browser window. EXPERIMENTAL
+GetWindowBounds sets the position and/or size of the browser window. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindowBounds
 */
@@ -95,7 +95,7 @@ func (_browser) GetWindowBounds(
 }
 
 /*
-GetWindowForTarget gets the browser window that contains the devtools target. EXPERIMENTAL
+GetWindowForTarget gets the browser window that contains the devtools target. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindowForTarget
 */
@@ -127,7 +127,7 @@ func (_browser) GetWindowForTarget(
 }
 
 /*
-SetWindowBounds sets the position and/or size of the browser window. EXPERIMENTAL
+SetWindowBounds sets the position and/or size of the browser window. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-setWindowBounds
 */

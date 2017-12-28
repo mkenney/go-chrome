@@ -29,7 +29,7 @@ type _dom struct{}
 
 /*
 CollectClassNamesFromSubtree creates a deep copy of the specified node and places it into the target container before the
-given anchor. EXPERIMENTAL
+given anchor. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-collectClassNamesFromSubtree
 */
@@ -62,7 +62,7 @@ func (_dom) CollectClassNamesFromSubtree(
 
 /*
 CopyTo creates a deep copy of the specified node and places it into the target container before the
-given anchor. EXPERIMENTAL
+given anchor. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-copyTo
 */
@@ -141,7 +141,7 @@ func (_dom) Disable(
 
 /*
 DiscardSearchResults discards search results from the session with the given id. getSearchResults
-should no longer be called for that search. EXPERIMENTAL
+should no longer be called for that search. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-discardSearchResults
 */
@@ -310,7 +310,7 @@ func (_dom) GetFlattenedDocument(
 }
 
 /*
-GetNodeForLocation returns node id at given location. EXPERIMENTAL
+GetNodeForLocation returns node id at given location. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getNodeForLocation
 */
@@ -374,7 +374,8 @@ func (_dom) GetOuterHTML(
 }
 
 /*
-GetRelayoutBoundary returns the id of the nearest ancestor that is a relayout boundary. EXPERIMENTAL
+GetRelayoutBoundary returns the id of the nearest ancestor that is a relayout boundary.
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getRelayoutBoundary
 */
@@ -407,7 +408,7 @@ func (_dom) GetRelayoutBoundary(
 
 /*
 GetSearchResults returns search results from given fromIndex to given toIndex from the search with
-the given identifier. EXPERIMENTAL
+the given identifier. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getSearchResults
 */
@@ -439,7 +440,7 @@ func (_dom) GetSearchResults(
 }
 
 /*
-MarkUndoableState marks last undoable state. EXPERIMENTAL
+MarkUndoableState marks last undoable state. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-markUndoableState
 */
@@ -485,7 +486,7 @@ func (_dom) MoveTo(
 
 /*
 PerformSearch searches for a given string in the DOM tree. Use getSearchResults to access search
-results or cancelSearch to end this search session. EXPERIMENTAL
+results or cancelSearch to end this search session. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-performSearch
 */
@@ -517,7 +518,7 @@ func (_dom) PerformSearch(
 }
 
 /*
-PushNodeByPathToFrontend requests that the node is sent to the caller given its path. EXPERIMENTAL
+PushNodeByPathToFrontend requests that the node is sent to the caller given its path. EXPERIMENTAL.
 @TODO, use XPath.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-pushNodeByPathToFrontend
@@ -551,7 +552,7 @@ func (_dom) PushNodeByPathToFrontend(
 
 /*
 PushNodesByBackendIDsToFrontend requests that a batch of nodes is sent to the caller given their
-backend node IDs. EXPERIMENTAL
+backend node IDs. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-pushNodesByBackendIdsToFrontend
 */
@@ -647,7 +648,7 @@ func (_dom) QuerySelectorAll(
 }
 
 /*
-Redo re-does the last undone action. EXPERIMENTAL
+Redo re-does the last undone action. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-redo
 */
@@ -814,7 +815,7 @@ func (_dom) SetFileInputFiles(
 
 /*
 SetInspectedNode enables console to refer to the node with given id via $x (see Command Line API for
-more details $x functions). EXPERIMENTAL
+more details $x functions). EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setInspectedNode
 */
@@ -888,7 +889,7 @@ func (_dom) SetOuterHTML(
 }
 
 /*
-Undo undoes the last performed action. EXPERIMENTAL
+Undo undoes the last performed action. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-undo
 */
@@ -1046,7 +1047,7 @@ func (_dom) OnChildNodeRemoved(
 
 /*
 OnDistributedNodesUpdated adds a handler to the DOM.distributedNodesUpdated event.
-DOM.distributedNodesUpdated fires when distribution is changed. EXPERIMENTAL
+DOM.distributedNodesUpdated fires when distribution is changed. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-distributedNodesUpdated
 */
@@ -1118,7 +1119,7 @@ func (_dom) OnInlineStyleInvalidated(
 
 /*
 OnPseudoElementAdded adds a handler to the DOM.pseudoElementAdded event. DOM.pseudoElementAdded
-fires when a pseudo element is added to an element. EXPERIMENTAL
+fires when a pseudo element is added to an element. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-pseudoElementAdded
 */
@@ -1142,7 +1143,7 @@ func (_dom) OnPseudoElementAdded(
 
 /*
 OnPseudoElementRemoved adds a handler to the DOM.pseudoElementRemoved event.
-DOM.pseudoElementRemoved fires when a pseudo element is removed from an element. EXPERIMENTAL
+DOM.pseudoElementRemoved fires when a pseudo element is removed from an element. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-pseudoElementRemoved
 */
@@ -1191,7 +1192,7 @@ func (_dom) OnSetChildNodes(
 
 /*
 OnShadowRootPopped adds a handler to the DOM.shadowRootPopped event. DOM.shadowRootPopped fires when
-shadow root is popped from the element. EXPERIMENTAL
+shadow root is popped from the element. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-shadowRootPopped
 */
@@ -1215,7 +1216,7 @@ func (_dom) OnShadowRootPopped(
 
 /*
 OnShadowRootPushed adds a handler to the DOM.shadowRootPushed event. DOM.shadowRootPushed fires when
-shadow root is pushed into the element. EXPERIMENTAL
+shadow root is pushed into the element. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-shadowRootPushed
 */

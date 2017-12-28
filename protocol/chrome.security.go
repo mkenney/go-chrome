@@ -46,7 +46,7 @@ func (_security) Enable(
 
 /*
 SetIgnoreCertificateErrors enables/disables whether all certificate errors should be ignored.
-EXPERIMENTAL
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setIgnoreCertificateErrors
 */

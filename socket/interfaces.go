@@ -31,29 +31,28 @@ type Commander interface {
 }
 
 /*
-CommandMapper defines the interface for the event handler stack.
+CommandMapper defines the interface for the command stack.
 */
 type CommandMapper interface {
-	// Delete removes the entire stack of handlers for an event.
+	// Delete removes a command from the stack.
 	Delete(commandID int)
 
-	// Get retrieves the entire stack of handlers for an event.
+	// Get retrieves a command from the stack.
 	Get(commandID int) (Commander, error)
 
 	// Lock locks the sync mutex.
 	Lock()
 
+	// Set sets a command in the stack.
+	Set(commandID int, command Commander)
+
 	// Unlock unlocks the sync mutex.
 	Unlock()
-
-	// Set sets the entire stack of handlers for an event.
-	Set(commandID int, command Commander)
 }
 
 /*
-Conner defines the websocket.Conn methods used by the API
-
-Primarily used for mocking
+Conner defines the websocket.Conn methods used by the API. It's primary purpose is mocking the
+websocket service for testing.
 */
 type Conner interface {
 	Close() error
@@ -65,11 +64,11 @@ type Conner interface {
 EventHandler is the interface definition for a socket event.
 */
 type EventHandler interface {
-	// Name returns the name of the event the handler is assigned to.
-	Name() string
-
 	// Handle executes the event handler callback.
 	Handle(response *Response)
+
+	// Name returns the name of the event the handler is assigned to.
+	Name() string
 }
 
 /*
@@ -88,14 +87,14 @@ type EventHandlerMapper interface {
 	// Lock locks the sync mutex.
 	Lock()
 
-	// Unlock unlocks the sync mutex.
-	Unlock()
-
 	// Remove removes a handler from the stack of handlers for an event.
 	Remove(handler EventHandler)
 
 	// Set sets the entire stack of handlers for an event.
 	Set(eventName string, handlers []EventHandler)
+
+	// Unlock unlocks the sync mutex.
+	Unlock()
 }
 
 /*

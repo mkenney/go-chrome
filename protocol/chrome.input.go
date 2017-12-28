@@ -57,7 +57,7 @@ func (_input) DispatchTouchEvent(
 }
 
 /*
-EmulateTouchFromMouseEvent emulates touch event from the mouse event parameters. EXPERIMENTAL
+EmulateTouchFromMouseEvent emulates touch event from the mouse event parameters. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-emulateTouchFromMouseEvent
 */
@@ -86,7 +86,7 @@ func (_input) SetIgnoreEvents(
 
 /*
 SynthesizePinchGesture synthesizes a pinch gesture over a time period by issuing appropriate touch
-events. EXPERIMENTAL
+events. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizePinchGesture
 */
@@ -101,7 +101,7 @@ func (_input) SynthesizePinchGesture(
 
 /*
 SynthesizeScrollGesture synthesizes a scroll gesture over a time period by issuing appropriate touch
-events. EXPERIMENTAL
+events. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizeScrollGesture
 */
@@ -116,7 +116,7 @@ func (_input) SynthesizeScrollGesture(
 
 /*
 SynthesizeTapGesture synthesizes a tap gesture over a time period by issuing appropriate touch
-events. EXPERIMENTAL
+events. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizeTapGesture
 */

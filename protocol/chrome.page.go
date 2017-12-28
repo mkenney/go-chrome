@@ -23,7 +23,7 @@ type _page struct{}
 
 /*
 AddScriptToEvaluateOnLoad is eprecated, please use addScriptToEvaluateOnNewDocument instead.
-EXPERIMENTAL DEPRECATED
+EXPERIMENTAL. DEPRECATED.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-addScriptToEvaluateOnLoad
 */
@@ -304,7 +304,7 @@ func (_page) GetNavigationHistory(
 }
 
 /*
-GetResourceContent returns content of the given resource. EXPERIMENTAL
+GetResourceContent returns content of the given resource. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceContent
 */
@@ -337,7 +337,7 @@ func (_page) GetResourceContent(
 }
 
 /*
-GetResourceTree returns present frame / resource tree structure. EXPERIMENTAL
+GetResourceTree returns present frame / resource tree structure. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceTree
 */
@@ -481,7 +481,7 @@ func (_page) Reload(
 
 /*
 RemoveScriptToEvaluateOnLoad deprecated, please use removeScriptToEvaluateOnNewDocument instead.
-EXPERIMENTAL DEPRECATED
+EXPERIMENTAL. DEPRECATED.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-removeScriptToEvaluateOnLoad
 */
@@ -511,7 +511,7 @@ func (_page) RemoveScriptToEvaluateOnNewDocument(
 }
 
 /*
-RequestAppBanner EXPERIMENTAL
+RequestAppBanner EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-requestAppBanner
 */
@@ -525,7 +525,7 @@ func (_page) RequestAppBanner(
 
 /*
 ScreencastFrameAck acknowledges that a screencast frame has been received by the frontend.
-EXPERIMENTAL
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-screencastFrameAck
 */
@@ -540,7 +540,7 @@ func (_page) ScreencastFrameAck(
 }
 
 /*
-SearchInResource searches for given string in resource content. EXPERIMENTAL
+SearchInResource searches for given string in resource content. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-searchInResource
 */
@@ -573,7 +573,7 @@ func (_page) SearchInResource(
 }
 
 /*
-SetAdBlockingEnabled enable Chrome's experimental ad filter on all sites. EXPERIMENTAL
+SetAdBlockingEnabled enable Chrome's experimental ad filter on all sites. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setAdBlockingEnabled
 */
@@ -589,7 +589,7 @@ func (_page) SetAdBlockingEnabled(
 
 /*
 SetAutoAttachToCreatedPages controls whether browser will open a new inspector window for connected
-pages. EXPERIMENTAL
+pages. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setAutoAttachToCreatedPages
 */
@@ -619,7 +619,7 @@ func (_page) SetDocumentContent(
 }
 
 /*
-SetDownloadBehavior sets the behavior when downloading a file. EXPERIMENTAL
+SetDownloadBehavior sets the behavior when downloading a file. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setDownloadBehavior
 */
@@ -634,7 +634,7 @@ func (_page) SetDownloadBehavior(
 }
 
 /*
-SetLifecycleEventsEnabled controls whether page will emit lifecycle events. EXPERIMENTAL
+SetLifecycleEventsEnabled controls whether page will emit lifecycle events. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setLifecycleEventsEnabled
 */
@@ -649,7 +649,7 @@ func (_page) SetLifecycleEventsEnabled(
 }
 
 /*
-StartScreencast starts sending each frame using the `screencastFrame` event. EXPERIMENTAL
+StartScreencast starts sending each frame using the `screencastFrame` event. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-startScreencast
 */
@@ -677,7 +677,7 @@ func (_page) StopLoading(
 }
 
 /*
-StopScreencast stops sending each frame in the `screencastFrame`. EXPERIMENTAL
+StopScreencast stops sending each frame in the `screencastFrame`. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-stopScreencast
 */
@@ -740,7 +740,7 @@ func (_page) OnFrameAttached(
 /*
 OnFrameClearedScheduledNavigation adds a handler to the Page.frameClearedScheduledNavigation event.
 Page.frameClearedScheduledNavigation fires when a frame no longer has a scheduled navigation.
-EXPERIMENTAL
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameClearedScheduledNavigation
 */
@@ -812,7 +812,7 @@ func (_page) OnFrameNavigated(
 
 /*
 OnFrameResized adds a handler to the Page.frameResized event. Page.frameResized fires when frame
-is resized. EXPERIMENTAL
+is resized. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameResized
 */
@@ -836,7 +836,7 @@ func (_page) OnFrameResized(
 
 /*
 OnFrameScheduledNavigation adds a handler to the Page.frameScheduledNavigation event.
-Page.frameScheduledNavigation fires when frame schedules a potential navigation. EXPERIMENTAL
+Page.frameScheduledNavigation fires when frame schedules a potential navigation. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameScheduledNavigation
 */
@@ -860,7 +860,7 @@ func (_page) OnFrameScheduledNavigation(
 
 /*
 OnFrameStartedLoading adds a handler to the Page.frameStartedLoading event. Page.frameStartedLoading
-fires when frame has started loading. EXPERIMENTAL
+fires when frame has started loading. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameStartedLoading
 */
@@ -884,7 +884,7 @@ func (_page) OnFrameStartedLoading(
 
 /*
 OnFrameStoppedLoading adds a handler to the Page.frameStoppedLoading event. Page.frameStoppedLoading
-fires when frame has stopped loading. EXPERIMENTAL
+fires when frame has stopped loading. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameStoppedLoading
 */
@@ -1054,7 +1054,7 @@ func (_page) OnLoadEventFired(
 
 /*
 OnScreencastFrame adds a handler to the Page.screencastFrame event. Page.screencastFrame fires when
-compressed image data is requested by the `startScreencast` method. EXPERIMENTAL
+compressed image data is requested by the `startScreencast` method. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-screencastFrame
 */
@@ -1079,7 +1079,7 @@ func (_page) OnScreencastFrame(
 /*
 OnScreencastVisibilityChanged adds a handler to the Page.screencastVisibilityChanged event.
 Page.screencastVisibilityChanged fires when the page with currently enabled screencast was shown or
-hidden. EXPERIMENTAL
+hidden. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-screencastVisibilityChanged
 */

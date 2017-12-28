@@ -365,7 +365,7 @@ func (_runtime) RunScript(
 }
 
 /*
-SetCustomObjectFormatterEnabled EXPERIMENTAL
+SetCustomObjectFormatterEnabled EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-setCustomObjectFormatterEnabled
 */

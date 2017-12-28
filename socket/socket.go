@@ -34,16 +34,6 @@ func New(socketURL string) (Socketer, error) {
 	return socket, nil
 }
 
-/*
-GenerateCommandID generates and returns a unique command ID.
-*/
-func GenerateCommandID() int {
-	commandID++
-	return commandID
-}
-
-var commandID = 0
-
 //////////////////////////////////////////////////
 // Socketer
 //////////////////////////////////////////////////
