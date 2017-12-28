@@ -111,7 +111,7 @@ type Socketer interface {
 	RemoveEventHandler(handler EventHandler)
 
 	// SendCommand sends a command to the websocket connection.
-	SendCommand(command Commander) int
+	SendCommand(command Commander) *commandPayload
 
 	// Unlock unlocks the sync mutex.
 	Unlock()

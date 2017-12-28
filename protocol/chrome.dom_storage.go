@@ -125,7 +125,7 @@ DOMStorage.domStorageItemAdded fires when an item is added to DOM storage.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#event-domStorageItemAdded
 */
-func (DOM) OnItemAdded(
+func (_domStorage) OnItemAdded(
 	socket sock.Socketer,
 	callback func(event *domStorage.ItemAddedEvent),
 ) {
@@ -149,7 +149,7 @@ DOMStorage.domStorageItemRemoved fires when an item is removed from DOM storage.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#event-domStorageItemRemoved
 */
-func (DOM) OnItemRemoved(
+func (_domStorage) OnItemRemoved(
 	socket sock.Socketer,
 	callback func(event *domStorage.ItemRemovedEvent),
 ) {
@@ -173,7 +173,7 @@ DOMStorage.domStorageItemUpdated fires when an item in DOM storage is updated.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#event-domStorageItemUpdated
 */
-func (DOM) OnItemUpdated(
+func (_domStorage) OnItemUpdated(
 	socket sock.Socketer,
 	callback func(event *domStorage.ItemUpdatedEvent),
 ) {
@@ -197,7 +197,7 @@ DOMStorage.domStorageItemsCleared fires when items in DOM storage are cleared.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#event-domStorageItemsCleared
 */
-func (DOM) OnItemsCleared(
+func (_domStorage) OnItemsCleared(
 	socket sock.Socketer,
 	callback func(event *domStorage.ItemsClearedEvent),
 ) {
