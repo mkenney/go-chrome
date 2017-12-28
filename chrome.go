@@ -277,7 +277,7 @@ func (args Args) Set(arg string, value interface{}) {
 List returns an array of formatted CLI parameters
 */
 func (args Args) List() []string {
-	list := make([]string, 0)
+	var list []string
 	for arg, val := range args {
 		if nil == val {
 			arg = fmt.Sprintf("--%s", arg)
