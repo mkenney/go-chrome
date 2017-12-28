@@ -4,7 +4,7 @@ services:
         build:
             context: ./
             dockerfile: ./Dockerfile
-        container_name: go-chrome.acceptance-test-runner
+        container_name: go-chrome.test-runner
         volumes:
             - ./:/go/src/github.com/mkenney/go-chrome
         entrypoint: sh

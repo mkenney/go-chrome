@@ -126,7 +126,7 @@ func TestReadJSONError(t *testing.T) {
 	}
 
 	if "Mock Read Error" != err.Error() {
-		t.Errorf("Expeced error message 'Mock Read Error', received '%s'", err.Error())
+		t.Errorf("Expected error message 'Mock Read Error', received '%s'", err.Error())
 	}
 }
 
