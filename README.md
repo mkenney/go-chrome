@@ -6,5 +6,3 @@
 This package aims to be a complete [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) implementation. My primary use-case is interacting with [headless Google Chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) in a container environment, but this should be appropriate for developing server side and desktop applications as well.
 
 This is a work in progress. I think most things are workable now but I still need to add tests and happy-path test more of the APIs. I have `Page.captureScreenshot` working fairly well and have been using that for validating changes so far. This is not production ready by any stretch.
-
-[Docs](https://godoc.org/github.com/mkenney/go-chrome)
