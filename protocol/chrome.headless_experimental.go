@@ -27,22 +27,19 @@ BeginFrameControl.
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-beginFrame
 */
 func (HeadlessExperimental) BeginFrame(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *headlessExperimental.BeginFrameParams,
 ) (headlessExperimental.BeginFrameResult, error) {
-	command := &sock.Command{
-		Method: "HeadlessExperimental.beginFrame",
-		Params: params,
-	}
+	command := sock.NewCommand("HeadlessExperimental.beginFrame", params)
 	result := headlessExperimental.BeginFrameResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -53,7 +50,7 @@ func (HeadlessExperimental) BeginFrame(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -62,13 +59,11 @@ Disable disables headless events for the target.
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-disable
 */
 func (HeadlessExperimental) Disable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "HeadlessExperimental.disable",
-	}
+	command := sock.NewCommand("HeadlessExperimental.disable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -77,13 +72,11 @@ Enable enables headless events for the target.
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-enable
 */
 func (HeadlessExperimental) Enable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "HeadlessExperimental.enable",
-	}
+	command := sock.NewCommand("HeadlessExperimental.enable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -96,14 +89,14 @@ screenshotting requests may fail.
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#event-mainFrameReadyForScreenshots
 */
 func (HeadlessExperimental) OnMainFrameReadyForScreenshots(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *headlessExperimental.MainFrameReadyForScreenshotsEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"HeadlessExperimental.mainFrameReadyForScreenshots",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &headlessExperimental.MainFrameReadyForScreenshotsEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -120,14 +113,14 @@ HeadlessExperimental.needsBeginFramesChanged fires when the target starts or sto
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#event-needsBeginFramesChanged
 */
 func (HeadlessExperimental) OnNeedsBeginFramesChanged(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *headlessExperimental.NeedsBeginFramesChangedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"HeadlessExperimental.needsBeginFramesChanged",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &headlessExperimental.NeedsBeginFramesChangedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

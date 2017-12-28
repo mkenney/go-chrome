@@ -24,15 +24,12 @@ ActivateTarget activates (focuses) the target.
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-activateTarget
 */
 func (Target) ActivateTarget(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *target.ActivateTargetParams,
 ) error {
-	command := &sock.Command{
-		Method: "Target.activateTarget",
-		Params: params,
-	}
+	command := sock.NewCommand("Target.activateTarget", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -41,15 +38,12 @@ AttachToTarget attaches to the target with given id.
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-attachToTarget
 */
 func (Target) AttachToTarget(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *target.AttachToTargetParams,
 ) error {
-	command := &sock.Command{
-		Method: "Target.attachToTarget",
-		Params: params,
-	}
+	command := sock.NewCommand("Target.attachToTarget", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -58,21 +52,19 @@ CloseTarget closes the target. If the target is a page that gets closed too.
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-closeTarget
 */
 func (Target) CloseTarget(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *target.CloseTargetParams,
 ) (target.CloseTargetResult, error) {
-	command := &sock.Command{
-		Method: "Target.closeTarget",
-	}
+	command := sock.NewCommand("Target.closeTarget", params)
 	result := target.CloseTargetResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -83,7 +75,7 @@ func (Target) CloseTarget(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -93,20 +85,18 @@ have more than one. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-createBrowserContext
 */
 func (Target) CreateBrowserContext(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) (target.CreateBrowserContextResult, error) {
-	command := &sock.Command{
-		Method: "Target.createBrowserContext",
-	}
+	command := sock.NewCommand("Target.createBrowserContext", nil)
 	result := target.CreateBrowserContextResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -117,7 +107,7 @@ func (Target) CreateBrowserContext(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -126,22 +116,19 @@ CreateTarget creates a new page.
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-createTarget
 */
 func (Target) CreateTarget(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *target.CreateTargetParams,
 ) (target.CreateTargetResult, error) {
-	command := &sock.Command{
-		Method: "Target.createTarget",
-		Params: params,
-	}
+	command := sock.NewCommand("Target.createTarget", params)
 	result := target.CreateTargetResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -152,7 +139,7 @@ func (Target) CreateTarget(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -161,15 +148,12 @@ DetachFromTarget detaches session with given id.
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-detachFromTarget
 */
 func (Target) DetachFromTarget(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *target.DetachFromTargetParams,
 ) error {
-	command := &sock.Command{
-		Method: "Target.detachFromTarget",
-		Params: params,
-	}
+	command := sock.NewCommand("Target.detachFromTarget", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -178,15 +162,12 @@ DisposeBrowserContext deletes a BrowserContext, will fail of any open page uses 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-disposeBrowserContext
 */
 func (Target) DisposeBrowserContext(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *target.DisposeBrowserContextParams,
 ) error {
-	command := &sock.Command{
-		Method: "Target.disposeBrowserContext",
-		Params: params,
-	}
+	command := sock.NewCommand("Target.disposeBrowserContext", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -195,22 +176,19 @@ GetTargetInfo returns information about a target. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargetInfo
 */
 func (Target) GetTargetInfo(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *target.GetTargetInfoParams,
 ) (target.GetTargetInfoResult, error) {
-	command := &sock.Command{
-		Method: "Target.getTargetInfo",
-		Params: params,
-	}
+	command := sock.NewCommand("Target.getTargetInfo", params)
 	result := target.GetTargetInfoResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -221,7 +199,7 @@ func (Target) GetTargetInfo(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -230,15 +208,12 @@ GetTargets retrieves a list of available targets.
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargets
 */
 func (Target) GetTargets(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *target.GetTargetsParams,
 ) error {
-	command := &sock.Command{
-		Method: "Target.getTargets",
-		Params: params,
-	}
+	command := sock.NewCommand("Target.getTargets", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -247,15 +222,12 @@ SendMessageToTarget sends protocol message over session with given id.
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-sendMessageToTarget
 */
 func (Target) SendMessageToTarget(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *target.SendMessageToTargetParams,
 ) error {
-	command := &sock.Command{
-		Method: "Target.sendMessageToTarget",
-		Params: params,
-	}
+	command := sock.NewCommand("Target.sendMessageToTarget", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -264,15 +236,12 @@ SetAttachToFrames EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAttachToFrames
 */
 func (Target) SetAttachToFrames(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *target.SetAttachToFramesParams,
 ) error {
-	command := &sock.Command{
-		Method: "Target.setAttachToFrames",
-		Params: params,
-	}
+	command := sock.NewCommand("Target.setAttachToFrames", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -283,15 +252,12 @@ off, automatically detaches from all currently attached targets. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAutoAttach
 */
 func (Target) SetAutoAttach(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *target.SetAutoAttachParams,
 ) error {
-	command := &sock.Command{
-		Method: "Target.setAutoAttach",
-		Params: params,
-	}
+	command := sock.NewCommand("Target.setAutoAttach", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -301,15 +267,12 @@ SetDiscoverTargets controls whether to discover available targets and notify via
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setDiscoverTargets
 */
 func (Target) SetDiscoverTargets(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *target.SetDiscoverTargetsParams,
 ) error {
-	command := &sock.Command{
-		Method: "Target.setDiscoverTargets",
-		Params: params,
-	}
+	command := sock.NewCommand("Target.setDiscoverTargets", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -319,15 +282,12 @@ was set to `true`. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setRemoteLocations
 */
 func (Target) SetRemoteLocations(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *target.SetRemoteLocationsParams,
 ) error {
-	command := &sock.Command{
-		Method: "Target.setRemoteLocations",
-		Params: params,
-	}
+	command := sock.NewCommand("Target.setRemoteLocations", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -338,14 +298,14 @@ command. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-attachedToTarget
 */
 func (Target) OnAttachedToTarget(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *target.AttachedToTargetEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Target.attachedToTarget",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &target.AttachedToTargetEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -364,14 +324,14 @@ attached to it. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-detachedFromTarget
 */
 func (Target) OnDetachedFromTarget(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *target.DetachedFromTargetEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Target.detachedFromTarget",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &target.DetachedFromTargetEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -389,14 +349,14 @@ reported in `attachedToTarget` event).
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-receivedMessageFromTarget
 */
 func (Target) OnReceivedMessageFromTarget(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *target.ReceivedMessageFromTargetEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Target.receivedMessageFromTarget",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &target.ReceivedMessageFromTargetEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -413,14 +373,14 @@ inspection target is created.
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-targetCreated
 */
 func (Target) OnTargetCreated(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *target.CreatedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Target.targetCreated",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &target.CreatedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -437,14 +397,14 @@ is destroyed.
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-targetDestroyed
 */
 func (Target) OnTargetDestroyed(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *target.DestroyedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Target.targetDestroyed",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &target.DestroyedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -462,14 +422,14 @@ some information about a target has changed. This only happens between `targetCr
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-targetInfoChanged
 */
 func (Target) OnTargetInfoChanged(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *target.InfoChangedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Target.targetInfoChanged",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &target.InfoChangedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

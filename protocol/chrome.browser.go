@@ -14,21 +14,21 @@ The Browser protocol defines methods and events for browser management.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/
 */
-type Browser struct{}
+var Browser = _browser{}
+
+type _browser struct{}
 
 /*
 Close closes the browser gracefully.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-close
 */
-func (Browser) Close(
-	socket *sock.Socket,
+func (_browser) Close(
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Browser.close",
-	}
+	command := sock.NewCommand("Browser.close", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -36,21 +36,19 @@ GetVersion returns version information.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getVersion
 */
-func (Browser) GetVersion(
-	socket *sock.Socket,
+func (_browser) GetVersion(
+	socket sock.Socketer,
 ) (browser.GetVersionResult, error) {
-	command := &sock.Command{
-		Method: "Browser.getVersion",
-	}
+	command := sock.NewCommand("Browser.getVersion", nil)
 	result := browser.GetVersionResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -61,7 +59,7 @@ func (Browser) GetVersion(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -69,23 +67,20 @@ GetWindowBounds sets the position and/or size of the browser window. EXPERIMENTA
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindowBounds
 */
-func (Browser) GetWindowBounds(
-	socket *sock.Socket,
+func (_browser) GetWindowBounds(
+	socket sock.Socketer,
 	params *browser.GetWindowBoundsParams,
 ) (browser.GetWindowBoundsResult, error) {
-	command := &sock.Command{
-		Method: "Browser.getWindowBounds",
-		Params: params,
-	}
+	command := sock.NewCommand("Browser.getWindowBounds", params)
 	result := browser.GetWindowBoundsResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -96,7 +91,7 @@ func (Browser) GetWindowBounds(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -104,23 +99,20 @@ GetWindowForTarget gets the browser window that contains the devtools target. EX
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindowForTarget
 */
-func (Browser) GetWindowForTarget(
-	socket *sock.Socket,
+func (_browser) GetWindowForTarget(
+	socket sock.Socketer,
 	params *browser.GetWindowForTargetParams,
 ) (browser.GetWindowForTargetResult, error) {
-	command := &sock.Command{
-		Method: "Browser.getWindowForTarget",
-		Params: params,
-	}
+	command := sock.NewCommand("Browser.getWindowForTarget", params)
 	result := browser.GetWindowForTargetResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -131,7 +123,7 @@ func (Browser) GetWindowForTarget(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -139,23 +131,20 @@ SetWindowBounds sets the position and/or size of the browser window. EXPERIMENTA
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-setWindowBounds
 */
-func (Browser) SetWindowBounds(
-	socket *sock.Socket,
+func (_browser) SetWindowBounds(
+	socket sock.Socketer,
 	params *browser.SetWindowBoundsParams,
 ) (browser.SetWindowBoundsResult, error) {
-	command := &sock.Command{
-		Method: "Browser.setWindowBounds",
-		Params: params,
-	}
+	command := sock.NewCommand("Browser.setWindowBounds", params)
 	result := browser.SetWindowBoundsResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -166,5 +155,5 @@ func (Browser) SetWindowBounds(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }

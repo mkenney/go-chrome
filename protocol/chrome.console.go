@@ -16,21 +16,21 @@ DEPRECATED - use Runtime or Log instead.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Console/
 */
-type Console struct{}
+var Console = _console{}
+
+type _console struct{}
 
 /*
 ClearMessages does nothing.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Console/#method-clearMessages
 */
-func (Console) ClearMessages(
-	socket *sock.Socket,
+func (_console) ClearMessages(
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Console.clearMessages",
-	}
+	command := sock.NewCommand("Console.clearMessages", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -39,14 +39,12 @@ client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Console/#method-disable
 */
-func (Console) Disable(
-	socket *sock.Socket,
+func (_console) Disable(
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Console.disable",
-	}
+	command := sock.NewCommand("Console.disable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -55,14 +53,12 @@ messageAdded notification.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Console/#method-enable
 */
-func (Console) Enable(
-	socket *sock.Socket,
+func (_console) Enable(
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Console.enable",
-	}
+	command := sock.NewCommand("Console.enable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -71,15 +67,15 @@ whenever an active document stylesheet is removed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Console/#event-messageAdded
 */
-func (Console) OnMessageAdded(
-	socket *sock.Socket,
+func (_console) OnMessageAdded(
+	socket sock.Socketer,
 	callback func(event *console.MessageAddedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Console.messageAdded",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &console.MessageAddedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

@@ -25,13 +25,11 @@ Disable disables domain notifications.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-disable
 */
 func (Overlay) Disable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Overlay.disable",
-	}
+	command := sock.NewCommand("Overlay.disable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -40,13 +38,11 @@ Enable enables domain notifications.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-enable
 */
 func (Overlay) Enable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Overlay.enable",
-	}
+	command := sock.NewCommand("Overlay.enable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -55,22 +51,19 @@ GetHighlightObjectForTest is for testing.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-getHighlightObjectForTest
 */
 func (Overlay) GetHighlightObjectForTest(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *overlay.GetHighlightObjectForTestParams,
 ) (overlay.GetHighlightObjectForTestResult, error) {
-	command := &sock.Command{
-		Method: "Overlay.getHighlightObjectForTest",
-		Params: params,
-	}
+	command := sock.NewCommand("Overlay.getHighlightObjectForTest", params)
 	result := overlay.GetHighlightObjectForTestResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -81,7 +74,7 @@ func (Overlay) GetHighlightObjectForTest(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -90,13 +83,11 @@ HideHighlight hides any highlight.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-hideHighlight
 */
 func (Overlay) HideHighlight(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Overlay.hideHighlight",
-	}
+	command := sock.NewCommand("Overlay.hideHighlight", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -105,15 +96,12 @@ HighlightFrame highlights owner element of the frame with given ID.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightFrame
 */
 func (Overlay) HighlightFrame(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *overlay.HighlightFrameParams,
 ) error {
-	command := &sock.Command{
-		Method: "Overlay.highlightFrame",
-		Params: params,
-	}
+	command := sock.NewCommand("Overlay.highlightFrame", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -123,15 +111,12 @@ nodeID or objectID must be specified.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightNode
 */
 func (Overlay) HighlightNode(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *overlay.HighlightNodeParams,
 ) error {
-	command := &sock.Command{
-		Method: "Overlay.highlightNode",
-		Params: params,
-	}
+	command := sock.NewCommand("Overlay.highlightNode", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -141,15 +126,12 @@ viewport.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightQuad
 */
 func (Overlay) HighlightQuad(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *overlay.HighlightQuadParams,
 ) error {
-	command := &sock.Command{
-		Method: "Overlay.highlightQuad",
-		Params: params,
-	}
+	command := sock.NewCommand("Overlay.highlightQuad", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -159,15 +141,12 @@ viewport.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightRect
 */
 func (Overlay) HighlightRect(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *overlay.HighlightRectParams,
 ) error {
-	command := &sock.Command{
-		Method: "Overlay.highlightRect",
-		Params: params,
-	}
+	command := sock.NewCommand("Overlay.highlightRect", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -177,15 +156,12 @@ highlighted. Backend then generates 'inspectNodeRequested' event upon element se
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setInspectMode
 */
 func (Overlay) SetInspectMode(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *overlay.SetInspectModeParams,
 ) error {
-	command := &sock.Command{
-		Method: "Overlay.setInspectMode",
-		Params: params,
-	}
+	command := sock.NewCommand("Overlay.setInspectMode", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -194,15 +170,12 @@ SetPausedInDebuggerMessage sets the paused message
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setPausedInDebuggerMessage
 */
 func (Overlay) SetPausedInDebuggerMessage(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *overlay.SetPausedInDebuggerMessageParams,
 ) error {
-	command := &sock.Command{
-		Method: "Overlay.setPausedInDebuggerMessage",
-		Params: params,
-	}
+	command := sock.NewCommand("Overlay.setPausedInDebuggerMessage", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -211,15 +184,12 @@ SetShowDebugBorders requests that backend shows debug borders on layers.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowDebugBorders
 */
 func (Overlay) SetShowDebugBorders(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *overlay.SetShowDebugBordersParams,
 ) error {
-	command := &sock.Command{
-		Method: "Overlay.setShowDebugBorders",
-		Params: params,
-	}
+	command := sock.NewCommand("Overlay.setShowDebugBorders", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -228,15 +198,12 @@ SetShowFPSCounter requests that backend shows the FPS counter.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowFPSCounter
 */
 func (Overlay) SetShowFPSCounter(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *overlay.SetShowFPSCounterParams,
 ) error {
-	command := &sock.Command{
-		Method: "Overlay.setShowFPSCounter",
-		Params: params,
-	}
+	command := sock.NewCommand("Overlay.setShowFPSCounter", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -245,15 +212,12 @@ SetShowPaintRects that backend shows paint rectangles.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowPaintRects
 */
 func (Overlay) SetShowPaintRects(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *overlay.SetShowPaintRectsParams,
 ) error {
-	command := &sock.Command{
-		Method: "Overlay.setShowPaintRects",
-		Params: params,
-	}
+	command := sock.NewCommand("Overlay.setShowPaintRects", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -262,15 +226,12 @@ SetShowScrollBottleneckRects requests that backend shows scroll bottleneck rects
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowScrollBottleneckRects
 */
 func (Overlay) SetShowScrollBottleneckRects(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *overlay.SetShowScrollBottleneckRectsParams,
 ) error {
-	command := &sock.Command{
-		Method: "Overlay.setShowScrollBottleneckRects",
-		Params: params,
-	}
+	command := sock.NewCommand("Overlay.setShowScrollBottleneckRects", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -279,15 +240,12 @@ SetShowViewportSizeOnResize paints viewport size upon main frame resize.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowViewportSizeOnResize
 */
 func (Overlay) SetShowViewportSizeOnResize(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *overlay.SetShowViewportSizeOnResizeParams,
 ) error {
-	command := &sock.Command{
-		Method: "Overlay.setShowViewportSizeOnResize",
-		Params: params,
-	}
+	command := sock.NewCommand("Overlay.setShowViewportSizeOnResize", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -296,15 +254,12 @@ SetSuspended sets the suspended state
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setSuspended
 */
 func (Overlay) SetSuspended(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *overlay.SetSuspendedParams,
 ) error {
-	command := &sock.Command{
-		Method: "Overlay.setSuspended",
-		Params: params,
-	}
+	command := sock.NewCommand("Overlay.setSuspended", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -315,14 +270,14 @@ Overlay.inspectNodeRequested fires when the node should be inspected. This happe
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#event-inspectNodeRequested
 */
 func (Overlay) OnInspectNodeRequested(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *overlay.InspectNodeRequestedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Overlay.inspectNodeRequested",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &overlay.InspectNodeRequestedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -340,14 +295,14 @@ Overlay.nodeHighlightRequested fires when the node should be highlighted. This h
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#event-nodeHighlightRequested
 */
 func (Overlay) OnNodeHighlightRequested(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *overlay.NodeHighlightRequestedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Overlay.nodeHighlightRequested",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &overlay.NodeHighlightRequestedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -364,14 +319,14 @@ Overlay.screenshotRequested fires when user asks to capture screenshot of some a
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#event-screenshotRequested
 */
 func (Overlay) OnScreenshotRequested(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *overlay.ScreenshotRequestedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Overlay.screenshotRequested",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &overlay.ScreenshotRequestedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

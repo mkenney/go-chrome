@@ -1,3 +1,6 @@
+/*
+This set of tests just locks down the structs against expectations
+*/
 package accessibility
 
 import (

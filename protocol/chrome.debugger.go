@@ -25,15 +25,12 @@ ContinueToLocation continues execution until specific location is reached.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-continueToLocation
 */
 func (Debugger) ContinueToLocation(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.ContinueToLocationParams,
 ) error {
-	command := &sock.Command{
-		Method: "Debugger.continueToLocation",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.continueToLocation", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -42,13 +39,11 @@ Disable disables debugger for given page.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-disable
 */
 func (Debugger) Disable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Debugger.disable",
-	}
+	command := sock.NewCommand("Debugger.disable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -58,13 +53,11 @@ enabled until the result for this command is received.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-enable
 */
 func (Debugger) Enable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Debugger.enable",
-	}
+	command := sock.NewCommand("Debugger.enable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -73,22 +66,19 @@ EvaluateOnCallFrame evaluates expression on a given call frame.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-evaluateOnCallFrame
 */
 func (Debugger) EvaluateOnCallFrame(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.EvaluateOnCallFrameParams,
 ) (debugger.EvaluateOnCallFrameResult, error) {
-	command := &sock.Command{
-		Method: "Debugger.evaluateOnCallFrame",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.evaluateOnCallFrame", params)
 	result := debugger.EvaluateOnCallFrameResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -99,7 +89,7 @@ func (Debugger) EvaluateOnCallFrame(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -109,22 +99,19 @@ locations should be the same.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getPossibleBreakpoints
 */
 func (Debugger) GetPossibleBreakpoints(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.GetPossibleBreakpointsParams,
 ) (debugger.GetPossibleBreakpointsResult, error) {
-	command := &sock.Command{
-		Method: "Debugger.getPossibleBreakpoints",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.getPossibleBreakpoints", params)
 	result := debugger.GetPossibleBreakpointsResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -135,7 +122,7 @@ func (Debugger) GetPossibleBreakpoints(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -144,22 +131,19 @@ GetScriptSource returns source for the script with given id.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getScriptSource
 */
 func (Debugger) GetScriptSource(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.GetScriptSourceParams,
 ) (debugger.GetScriptSourceResult, error) {
-	command := &sock.Command{
-		Method: "Debugger.getScriptSource",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.getScriptSource", params)
 	result := debugger.GetScriptSourceResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -170,7 +154,7 @@ func (Debugger) GetScriptSource(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -179,22 +163,19 @@ GetStackTrace returns stack trace with given stackTraceId. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getStackTrace
 */
 func (Debugger) GetStackTrace(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.GetStackTraceParams,
 ) (debugger.GetStackTraceResult, error) {
-	command := &sock.Command{
-		Method: "Debugger.getStackTrace",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.getStackTrace", params)
 	result := debugger.GetStackTraceResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -205,7 +186,7 @@ func (Debugger) GetStackTrace(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -214,13 +195,11 @@ Pause stops on the next JavaScript statement.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-pause
 */
 func (Debugger) Pause(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Debugger.pause",
-	}
+	command := sock.NewCommand("Debugger.pause", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -229,15 +208,12 @@ PauseOnAsyncCall EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-pauseOnAsyncCall
 */
 func (Debugger) PauseOnAsyncCall(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.PauseOnAsyncCallParams,
 ) error {
-	command := &sock.Command{
-		Method: "Debugger.pauseOnAsyncCall",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.pauseOnAsyncCall", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -246,15 +222,12 @@ RemoveBreakpoint removes JavaScript breakpoint.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-removeBreakpoint
 */
 func (Debugger) RemoveBreakpoint(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.RemoveBreakpointParams,
 ) error {
-	command := &sock.Command{
-		Method: "Debugger.removeBreakpoint",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.removeBreakpoint", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -263,22 +236,19 @@ RestartFrame restarts particular call frame from the beginning.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-restartFrame
 */
 func (Debugger) RestartFrame(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.RestartFrameParams,
 ) (debugger.RestartFrameResult, error) {
-	command := &sock.Command{
-		Method: "Debugger.restartFrame",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.restartFrame", params)
 	result := debugger.RestartFrameResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -289,7 +259,7 @@ func (Debugger) RestartFrame(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -298,13 +268,11 @@ Resume resumes JavaScript execution.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-resume
 */
 func (Debugger) Resume(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Debugger.resume",
-	}
+	command := sock.NewCommand("Debugger.resume", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -316,13 +284,11 @@ scheduled or another scheduleStepIntoAsync was called. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-scheduleStepIntoAsync
 */
 func (Debugger) ScheduleStepIntoAsync(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Debugger.scheduleStepIntoAsync",
-	}
+	command := sock.NewCommand("Debugger.scheduleStepIntoAsync", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -331,22 +297,19 @@ SearchInContent searches for given string in script content.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-searchInContent
 */
 func (Debugger) SearchInContent(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.SearchInContentParams,
 ) (debugger.SearchInContentResult, error) {
-	command := &sock.Command{
-		Method: "Debugger.searchInContent",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.searchInContent", params)
 	result := debugger.SearchInContentResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -357,7 +320,7 @@ func (Debugger) SearchInContent(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -366,15 +329,12 @@ SetAsyncCallStackDepth enables or disables async call stacks tracking.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setAsyncCallStackDepth
 */
 func (Debugger) SetAsyncCallStackDepth(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.SetAsyncCallStackDepthParams,
 ) error {
-	command := &sock.Command{
-		Method: "Debugger.setAsyncCallStackDepth",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.setAsyncCallStackDepth", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -386,15 +346,12 @@ EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBlackboxPatterns
 */
 func (Debugger) SetBlackboxPatterns(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.SetBlackboxPatternsParams,
 ) error {
-	command := &sock.Command{
-		Method: "Debugger.setBlackboxPatterns",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.setBlackboxPatterns", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -406,15 +363,12 @@ isn't blackboxed. Array should be sorted.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBlackboxedRanges
 */
 func (Debugger) SetBlackboxedRanges(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.SetBlackboxedRangesParams,
 ) error {
-	command := &sock.Command{
-		Method: "Debugger.setBlackboxedRanges",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.setBlackboxedRanges", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -423,22 +377,19 @@ SetBreakpoint sets JavaScript breakpoint at a given location.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreakpoint
 */
 func (Debugger) SetBreakpoint(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.SetBreakpointParams,
 ) (debugger.SetBreakpointResult, error) {
-	command := &sock.Command{
-		Method: "Debugger.setBreakpoint",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.setBreakpoint", params)
 	result := debugger.SetBreakpointResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -449,7 +400,7 @@ func (Debugger) SetBreakpoint(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -461,22 +412,19 @@ breakpointResolved events issued. This logical breakpoint will survive page relo
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreakpointByUrl
 */
 func (Debugger) SetBreakpointByURL(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.SetBreakpointByURLParams,
 ) (debugger.SetBreakpointByURLResult, error) {
-	command := &sock.Command{
-		Method: "Debugger.setBreakpointByUrl",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.setBreakpointByUrl", params)
 	result := debugger.SetBreakpointByURLResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -487,7 +435,7 @@ func (Debugger) SetBreakpointByURL(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -496,15 +444,12 @@ SetBreakpointsActive activates / deactivates all breakpoints on the page.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreakpointsActive
 */
 func (Debugger) SetBreakpointsActive(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.SetBreakpointsActiveParams,
 ) error {
-	command := &sock.Command{
-		Method: "Debugger.setBreakpointsActive",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.setBreakpointsActive", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -514,15 +459,12 @@ uncaught exceptions or no exceptions. Initial pause on exceptions state is none.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setPauseOnExceptions
 */
 func (Debugger) SetPauseOnExceptions(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.SetPauseOnExceptionsParams,
 ) error {
-	command := &sock.Command{
-		Method: "Debugger.setPauseOnExceptions",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.setPauseOnExceptions", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -532,15 +474,12 @@ EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setReturnValue
 */
 func (Debugger) SetReturnValue(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.SetReturnValueParams,
 ) error {
-	command := &sock.Command{
-		Method: "Debugger.setReturnValue",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.setReturnValue", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -549,22 +488,19 @@ SetScriptSource edits JavaScript source live.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setScriptSource
 */
 func (Debugger) SetScriptSource(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.SetScriptSourceParams,
 ) (debugger.SetScriptSourceResult, error) {
-	command := &sock.Command{
-		Method: "Debugger.setScriptSource",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.setScriptSource", params)
 	result := debugger.SetScriptSourceResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -575,7 +511,7 @@ func (Debugger) SetScriptSource(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -584,15 +520,12 @@ SetSkipAllPauses makes page not interrupt on any pauses (breakpoint, exception, 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setSkipAllPauses
 */
 func (Debugger) SetSkipAllPauses(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.SetSkipAllPausesParams,
 ) error {
-	command := &sock.Command{
-		Method: "Debugger.setSkipAllPauses",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.setSkipAllPauses", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -602,15 +535,12 @@ must be mutated manually.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setVariableValue
 */
 func (Debugger) SetVariableValue(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.SetVariableValueParams,
 ) error {
-	command := &sock.Command{
-		Method: "Debugger.setVariableValue",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.setVariableValue", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -619,15 +549,12 @@ StepInto steps into the function call.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepInto
 */
 func (Debugger) StepInto(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *debugger.StepIntoParams,
 ) error {
-	command := &sock.Command{
-		Method: "Debugger.stepInto",
-		Params: params,
-	}
+	command := sock.NewCommand("Debugger.stepInto", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -636,13 +563,11 @@ StepOut steps out of the function call.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepOut
 */
 func (Debugger) StepOut(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Debugger.stepOut",
-	}
+	command := sock.NewCommand("Debugger.stepOut", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -651,13 +576,11 @@ StepOver steps over the statement.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepOver
 */
 func (Debugger) StepOver(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Debugger.stepOver",
-	}
+	command := sock.NewCommand("Debugger.stepOver", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -667,14 +590,14 @@ Debugger.breakpointResolved fires when breakpoint is resolved to an actual scrip
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-breakpointResolved
 */
 func (Debugger) OnBreakpointResolved(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *debugger.BreakpointResolvedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Debugger.breakpointResolved",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &debugger.BreakpointResolvedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -691,14 +614,14 @@ stopped on breakpoint or exception or any other stop criteria.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-paused
 */
 func (Debugger) OnPaused(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *debugger.PausedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Debugger.paused",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &debugger.PausedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -715,14 +638,14 @@ machine resumes execution.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-resumed
 */
 func (Debugger) OnResumed(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *debugger.ResumedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Debugger.resumed",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &debugger.ResumedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -739,14 +662,14 @@ Debugger.scriptFailedToParse fires when the virtual machine fails to parse the s
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-scriptFailedToParse
 */
 func (Debugger) OnScriptFailedToParse(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *debugger.ScriptFailedToParseEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Debugger.scriptFailedToParse",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &debugger.ScriptFailedToParseEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -764,14 +687,14 @@ enabling debugger.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-scriptParsed
 */
 func (Debugger) OnScriptParsed(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *debugger.ScriptParsedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Debugger.scriptParsed",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &debugger.ScriptParsedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

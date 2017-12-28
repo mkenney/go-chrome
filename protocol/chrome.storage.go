@@ -24,15 +24,12 @@ ClearDataForOrigin clears storage for origin.
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-clearDataForOrigin
 */
 func (Storage) ClearDataForOrigin(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *storage.ClearDataForOriginParams,
 ) error {
-	command := &sock.Command{
-		Method: "storage.clearDataForOrigin",
-		Params: params,
-	}
+	command := sock.NewCommand("storage.clearDataForOrigin", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -41,22 +38,19 @@ GetUsageAndQuota returns usage and quota in bytes.
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-getUsageAndQuota
 */
 func (Storage) GetUsageAndQuota(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *storage.GetUsageAndQuotaParams,
 ) (storage.GetUsageAndQuotaResult, error) {
-	command := &sock.Command{
-		Method: "storage.getUsageAndQuota",
-		Params: params,
-	}
+	command := sock.NewCommand("storage.getUsageAndQuota", params)
 	result := storage.GetUsageAndQuotaResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -67,7 +61,7 @@ func (Storage) GetUsageAndQuota(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -77,15 +71,12 @@ storage list.
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-trackCacheStorageForOrigin
 */
 func (Storage) TrackCacheStorageForOrigin(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *storage.TrackCacheStorageForOriginParams,
 ) error {
-	command := &sock.Command{
-		Method: "storage.trackCacheStorageForOrigin",
-		Params: params,
-	}
+	command := sock.NewCommand("storage.trackCacheStorageForOrigin", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -94,15 +85,12 @@ TrackIndexedDBForOrigin registers origin to be notified when an update occurs to
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-trackIndexedDBForOrigin
 */
 func (Storage) TrackIndexedDBForOrigin(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *storage.TrackIndexedDBForOriginParams,
 ) error {
-	command := &sock.Command{
-		Method: "storage.trackIndexedDBForOrigin",
-		Params: params,
-	}
+	command := sock.NewCommand("storage.trackIndexedDBForOrigin", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -111,15 +99,12 @@ UntrackCacheStorageForOrigin unregisters origin from receiving notifications for
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-untrackCacheStorageForOrigin
 */
 func (Storage) UntrackCacheStorageForOrigin(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *storage.UntrackCacheStorageForOriginParams,
 ) error {
-	command := &sock.Command{
-		Method: "storage.untrackCacheStorageForOrigin",
-		Params: params,
-	}
+	command := sock.NewCommand("storage.untrackCacheStorageForOrigin", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -128,15 +113,12 @@ UntrackIndexedDBForOrigin unregisters origin from receiving notifications for In
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-untrackIndexedDBForOrigin
 */
 func (Storage) UntrackIndexedDBForOrigin(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *storage.UntrackIndexedDBForOriginParams,
 ) error {
-	command := &sock.Command{
-		Method: "storage.untrackIndexedDBForOrigin",
-		Params: params,
-	}
+	command := sock.NewCommand("storage.untrackIndexedDBForOrigin", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -146,14 +128,14 @@ Storage.cacheStorageContentUpdated fires when a cache's contents have been modif
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#event-cacheStorageContentUpdated
 */
 func (Storage) OnCacheStorageContentUpdated(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *storage.CacheStorageContentUpdatedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Storage.cacheStorageContentUpdated",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &storage.CacheStorageContentUpdatedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -170,14 +152,14 @@ Storage.cacheStorageListUpdated fires when cache has been added/deleted.
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#event-cacheStorageListUpdated
 */
 func (Storage) OnCacheStorageListUpdated(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *storage.CacheStorageListUpdatedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Storage.cacheStorageListUpdated",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &storage.CacheStorageListUpdatedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -194,14 +176,14 @@ Storage.indexedDBContentUpdated fires when the origin's IndexedDB object store h
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#event-indexedDBContentUpdated
 */
 func (Storage) OnIndexedDBContentUpdated(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *storage.IndexedDBContentUpdatedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Storage.indexedDBContentUpdated",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &storage.IndexedDBContentUpdatedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -218,14 +200,14 @@ Storage.indexedDBListUpdated fires when the origin's IndexedDB database list has
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#event-indexedDBListUpdated
 */
 func (Storage) OnIndexedDBListUpdated(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *storage.IndexedDBListUpdatedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Storage.indexedDBListUpdated",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &storage.IndexedDBListUpdatedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

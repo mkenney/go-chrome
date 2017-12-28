@@ -25,20 +25,18 @@ CanClearBrowserCache tells whether clearing browser cache is supported. DEPRECAT
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canClearBrowserCache
 */
 func (Network) CanClearBrowserCache(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) (network.CanClearBrowserCacheResult, error) {
-	command := &sock.Command{
-		Method: "Network.canClearBrowserCache",
-	}
+	command := sock.NewCommand("Network.canClearBrowserCache", nil)
 	result := network.CanClearBrowserCacheResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -49,7 +47,7 @@ func (Network) CanClearBrowserCache(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -58,20 +56,18 @@ CanClearBrowserCookies tells whether clearing browser cookies is supported. DEPR
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canClearBrowserCookies
 */
 func (Network) CanClearBrowserCookies(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) (network.CanClearBrowserCookiesResult, error) {
-	command := &sock.Command{
-		Method: "Network.canClearBrowserCookies",
-	}
+	command := sock.NewCommand("Network.canClearBrowserCookies", nil)
 	result := network.CanClearBrowserCookiesResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -82,7 +78,7 @@ func (Network) CanClearBrowserCookies(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -91,20 +87,18 @@ CanEmulateConditions tells whether emulation of network conditions is supported.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canEmulateNetworkConditions
 */
 func (Network) CanEmulateConditions(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) (network.CanEmulateConditionsResult, error) {
-	command := &sock.Command{
-		Method: "Network.canEmulateNetworkConditions",
-	}
+	command := sock.NewCommand("Network.canEmulateNetworkConditions", nil)
 	result := network.CanEmulateConditionsResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -115,7 +109,7 @@ func (Network) CanEmulateConditions(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -124,13 +118,11 @@ ClearBrowserCache clears browser cache.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-clearBrowserCache
 */
 func (Network) ClearBrowserCache(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Network.clearBrowserCache",
-	}
+	command := sock.NewCommand("Network.clearBrowserCache", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -139,13 +131,11 @@ ClearBrowserCookies clears browser cookies.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-clearBrowserCookies
 */
 func (Network) ClearBrowserCookies(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Network.clearBrowserCookies",
-	}
+	command := sock.NewCommand("Network.clearBrowserCookies", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -157,15 +147,12 @@ Network.requestIntercepted event will be sent with the same InterceptionID. EXPE
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-continueInterceptedRequest
 */
 func (Network) ContinueInterceptedRequest(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *network.ContinueInterceptedRequestParams,
 ) error {
-	command := &sock.Command{
-		Method: "Network.continueInterceptedRequest",
-		Params: params,
-	}
+	command := sock.NewCommand("Network.continueInterceptedRequest", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -174,15 +161,12 @@ DeleteCookies deletes browser cookies with matching name and url or domain/path 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-deleteCookies
 */
 func (Network) DeleteCookies(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *network.DeleteCookiesParams,
 ) error {
-	command := &sock.Command{
-		Method: "Network.deleteCookies",
-		Params: params,
-	}
+	command := sock.NewCommand("Network.deleteCookies", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -191,13 +175,11 @@ Disable disables network tracking, prevents network events from being sent to th
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-disable
 */
 func (Network) Disable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Network.disable",
-	}
+	command := sock.NewCommand("Network.disable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -206,15 +188,12 @@ EmulateConditions activates emulation of network conditions.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-emulateNetworkConditions
 */
 func (Network) EmulateConditions(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *network.EmulateConditionsParams,
 ) error {
-	command := &sock.Command{
-		Method: "Network.emulateNetworkConditions",
-		Params: params,
-	}
+	command := sock.NewCommand("Network.emulateNetworkConditions", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -223,15 +202,12 @@ Enable enables network tracking, network events will now be delivered to the cli
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-enable
 */
 func (Network) Enable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *network.EnableParams,
 ) error {
-	command := &sock.Command{
-		Method: "Network.enable",
-		Params: params,
-	}
+	command := sock.NewCommand("Network.enable", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -241,20 +217,18 @@ cookie information in the `cookies` field.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getAllCookies
 */
 func (Network) GetAllCookies(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) (network.GetAllCookiesResult, error) {
-	command := &sock.Command{
-		Method: "Network.getAllCookies",
-	}
+	command := sock.NewCommand("Network.getAllCookies", nil)
 	result := network.GetAllCookiesResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -265,7 +239,7 @@ func (Network) GetAllCookies(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -274,22 +248,19 @@ GetCertificate returns the DER-encoded certificate. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getCertificate
 */
 func (Network) GetCertificate(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *network.GetCertificateParams,
 ) (network.GetCertificateResult, error) {
-	command := &sock.Command{
-		Method: "Network.getCertificate",
-		Params: params,
-	}
+	command := sock.NewCommand("Network.getCertificate", params)
 	result := network.GetCertificateResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -300,7 +271,7 @@ func (Network) GetCertificate(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -310,22 +281,19 @@ return detailed cookie information in the `cookies` field.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getCookies
 */
 func (Network) GetCookies(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *network.GetCookiesParams,
 ) (network.GetCookiesResult, error) {
-	command := &sock.Command{
-		Method: "Network.getCookies",
-		Params: params,
-	}
+	command := sock.NewCommand("Network.getCookies", params)
 	result := network.GetCookiesResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -336,7 +304,7 @@ func (Network) GetCookies(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -345,22 +313,19 @@ GetResponseBody returns content served for the given request.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getResponseBody
 */
 func (Network) GetResponseBody(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *network.GetResponseBodyParams,
 ) (network.GetResponseBodyResult, error) {
-	command := &sock.Command{
-		Method: "Network.getResponseBody",
-		Params: params,
-	}
+	command := sock.NewCommand("Network.getResponseBody", params)
 	result := network.GetResponseBodyResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -371,7 +336,7 @@ func (Network) GetResponseBody(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -381,22 +346,19 @@ EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getResponseBodyForInterception
 */
 func (Network) GetResponseBodyForInterception(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *network.GetResponseBodyForInterceptionParams,
 ) (network.GetResponseBodyForInterceptionResult, error) {
-	command := &sock.Command{
-		Method: "Network.getResponseBodyForInterception",
-		Params: params,
-	}
+	command := sock.NewCommand("Network.getResponseBodyForInterception", params)
 	result := network.GetResponseBodyForInterceptionResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -407,7 +369,7 @@ func (Network) GetResponseBodyForInterception(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -418,15 +380,12 @@ attribute, user, password. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-replayXHR
 */
 func (Network) ReplayXHR(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *network.ReplayXHRParams,
 ) error {
-	command := &sock.Command{
-		Method: "Network.replayXHR",
-		Params: params,
-	}
+	command := sock.NewCommand("Network.replayXHR", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -435,22 +394,19 @@ SearchInResponseBody searches for given string in response content. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-searchInResponseBody
 */
 func (Network) SearchInResponseBody(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *network.SearchInResponseBodyParams,
 ) (network.SearchInResponseBodyResult, error) {
-	command := &sock.Command{
-		Method: "Network.searchInResponseBody",
-		Params: params,
-	}
+	command := sock.NewCommand("Network.searchInResponseBody", params)
 	result := network.SearchInResponseBodyResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -461,7 +417,7 @@ func (Network) SearchInResponseBody(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -470,15 +426,12 @@ SetBlockedURLs blocks URLs from loading. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setBlockedURLs
 */
 func (Network) SetBlockedURLs(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *network.SetBlockedURLsParams,
 ) error {
-	command := &sock.Command{
-		Method: "Network.setBlockedURLs",
-		Params: params,
-	}
+	command := sock.NewCommand("Network.setBlockedURLs", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -487,15 +440,12 @@ SetBypassServiceWorker toggles ignoring of service worker for each request. EXPE
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setBypassServiceWorker
 */
 func (Network) SetBypassServiceWorker(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *network.SetBypassServiceWorkerParams,
 ) error {
-	command := &sock.Command{
-		Method: "Network.setBypassServiceWorker",
-		Params: params,
-	}
+	command := sock.NewCommand("Network.setBypassServiceWorker", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -504,15 +454,12 @@ SetCacheDisabled toggles ignoring cache for each request. If `true`, cache will 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCacheDisabled
 */
 func (Network) SetCacheDisabled(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *network.SetCacheDisabledParams,
 ) error {
-	command := &sock.Command{
-		Method: "Network.setCacheDisabled",
-		Params: params,
-	}
+	command := sock.NewCommand("Network.setCacheDisabled", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -521,22 +468,19 @@ SetCookie sets a cookie with the given cookie data; may overwrite equivalent coo
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCookie
 */
 func (Network) SetCookie(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *network.SetCookieParams,
 ) (network.SetCookieResult, error) {
-	command := &sock.Command{
-		Method: "Network.setCookie",
-		Params: params,
-	}
+	command := sock.NewCommand("Network.setCookie", params)
 	result := network.SetCookieResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -547,7 +491,7 @@ func (Network) SetCookie(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -556,15 +500,12 @@ SetCookies sets given cookies.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCookies
 */
 func (Network) SetCookies(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *network.SetCookiesParams,
 ) error {
-	command := &sock.Command{
-		Method: "Network.setCookies",
-		Params: params,
-	}
+	command := sock.NewCommand("Network.setCookies", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -573,15 +514,12 @@ SetDataSizeLimitsForTest is for testing. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setDataSizeLimitsForTest
 */
 func (Network) SetDataSizeLimitsForTest(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *network.SetDataSizeLimitsForTestParams,
 ) error {
-	command := &sock.Command{
-		Method: "Network.setDataSizeLimitsForTest",
-		Params: params,
-	}
+	command := sock.NewCommand("Network.setDataSizeLimitsForTest", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -591,15 +529,12 @@ page.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setExtraHTTPHeaders
 */
 func (Network) SetExtraHTTPHeaders(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *network.SetExtraHTTPHeadersParams,
 ) error {
-	command := &sock.Command{
-		Method: "Network.setExtraHTTPHeaders",
-		Params: params,
-	}
+	command := sock.NewCommand("Network.setExtraHTTPHeaders", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -609,15 +544,12 @@ optionally resource types. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setRequestInterception
 */
 func (Network) SetRequestInterception(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *network.SetRequestInterceptionParams,
 ) error {
-	command := &sock.Command{
-		Method: "Network.setRequestInterception",
-		Params: params,
-	}
+	command := sock.NewCommand("Network.setRequestInterception", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -626,15 +558,12 @@ SetUserAgentOverride allows overriding user agent with the given string.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setUserAgentOverride
 */
 func (Network) SetUserAgentOverride(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *network.SetUserAgentOverrideParams,
 ) error {
-	command := &sock.Command{
-		Method: "Network.setUserAgentOverride",
-		Params: params,
-	}
+	command := sock.NewCommand("Network.setUserAgentOverride", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -644,14 +573,14 @@ data chunk was received over the network.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-dataReceived
 */
 func (Network) OnDataReceived(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *network.DataReceivedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Network.dataReceived",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &network.DataReceivedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -668,14 +597,14 @@ Network.eventSourceMessageReceived fires when EventSource message is received.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-eventSourceMessageReceived
 */
 func (Network) OnEventSourceMessageReceived(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *network.EventSourceMessageReceivedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Network.eventSourceMessageReceived",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &network.EventSourceMessageReceivedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -692,14 +621,14 @@ HTTP request has failed to load.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-loadingFailed
 */
 func (Network) OnLoadingFailed(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *network.LoadingFailedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Network.loadingFailed",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &network.LoadingFailedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -716,14 +645,14 @@ when HTTP request has finished loading.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-loadingFinished
 */
 func (Network) OnLoadingFinished(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *network.LoadingFinishedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Network.loadingFinished",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &network.LoadingFinishedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -741,14 +670,14 @@ be either allowed, blocked, modified or mocked. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-requestIntercepted
 */
 func (Network) OnRequestIntercepted(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *network.RequestInterceptedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Network.requestIntercepted",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &network.RequestInterceptedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -765,14 +694,14 @@ Network.requestServedFromCache fires when request ended up loading from cache.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-requestServedFromCache
 */
 func (Network) OnRequestServedFromCache(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *network.RequestServedFromCacheEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Network.requestServedFromCache",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &network.RequestServedFromCacheEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -789,14 +718,14 @@ fires when the page is about to send HTTP request.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-requestWillBeSent
 */
 func (Network) OnRequestWillBeSent(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *network.RequestWillBeSentEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Network.requestWillBeSent",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &network.RequestWillBeSentEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -813,14 +742,14 @@ Network.resourceChangedPriority fires when resource loading priority is changed 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-resourceChangedPriority
 */
 func (Network) OnResourceChangedPriority(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *network.ResourceChangedPriorityEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Network.resourceChangedPriority",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &network.ResourceChangedPriorityEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -837,14 +766,14 @@ fires when HTTP response is available.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-responseReceived
 */
 func (Network) OnResponseReceived(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *network.ResponseReceivedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Network.responseReceived",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &network.ResponseReceivedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -861,14 +790,14 @@ fires when WebSocket is closed.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketClosed
 */
 func (Network) OnWebSocketClosed(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *network.WebSocketClosedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Network.webSocketClosed",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &network.WebSocketClosedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -885,14 +814,14 @@ fires upon WebSocket creation.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketCreated
 */
 func (Network) OnWebSocketCreated(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *network.WebSocketCreatedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Network.webSocketCreated",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &network.WebSocketCreatedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -909,14 +838,14 @@ Network.webSocketFrameError fires when a WebSocket frame error occurs.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketFrameError
 */
 func (Network) OnWebSocketFrameError(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *network.WebSocketFrameErrorEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Network.webSocketFrameError",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &network.WebSocketFrameErrorEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -933,14 +862,14 @@ Network.webSocketFrameReceived fires when WebSocket frame is received.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketFrameReceived
 */
 func (Network) OnWebSocketFrameReceived(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *network.WebSocketFrameReceivedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Network.webSocketFrameReceived",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &network.WebSocketFrameReceivedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -957,14 +886,14 @@ Network.webSocketFrameSent fires when WebSocket frame is sent.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketFrameSent
 */
 func (Network) OnWebSocketFrameSent(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *network.WebSocketFrameSentEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Network.webSocketFrameSent",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &network.WebSocketFrameSentEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -982,14 +911,14 @@ when WebSocket handshake response becomes available.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketHandshakeResponseReceived
 */
 func (Network) OnWebSocketHandshakeResponseReceived(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *network.WebSocketHandshakeResponseReceivedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Network.webSocketHandshakeResponseReceived",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &network.WebSocketHandshakeResponseReceivedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1007,14 +936,14 @@ when WebSocket is about to initiate handshake.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketWillSendHandshakeRequest
 */
 func (Network) OnWebSocketWillSendHandshakeRequest(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *network.WebSocketWillSendHandshakeRequestEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Network.webSocketWillSendHandshakeRequest",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &network.WebSocketWillSendHandshakeRequestEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

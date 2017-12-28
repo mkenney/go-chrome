@@ -32,22 +32,19 @@ given anchor. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-collectClassNamesFromSubtree
 */
 func (DOM) CollectClassNamesFromSubtree(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.CollectClassNamesFromSubtreeParams,
 ) (dom.CollectClassNamesFromSubtreeResult, error) {
-	command := &sock.Command{
-		Method: "DOM.collectClassNamesFromSubtree",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.collectClassNamesFromSubtree", params)
 	result := dom.CollectClassNamesFromSubtreeResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -58,7 +55,7 @@ func (DOM) CollectClassNamesFromSubtree(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -68,22 +65,19 @@ given anchor. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-copyTo
 */
 func (DOM) CopyTo(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.CopyToParams,
 ) (dom.CopyToResult, error) {
-	command := &sock.Command{
-		Method: "DOM.copyTo",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.copyTo", params)
 	result := dom.CopyToResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -94,7 +88,7 @@ func (DOM) CopyTo(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -104,22 +98,19 @@ tracking any objects, can be used for automation.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-describeNode
 */
 func (DOM) DescribeNode(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.DescribeNodeParams,
 ) (dom.DescribeNodeResult, error) {
-	command := &sock.Command{
-		Method: "DOM.describeNode",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.describeNode", params)
 	result := dom.DescribeNodeResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -130,7 +121,7 @@ func (DOM) DescribeNode(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -139,13 +130,11 @@ Disable disables the DOM agent for the given page.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-disable
 */
 func (DOM) Disable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "DOM.disable",
-	}
+	command := sock.NewCommand("DOM.disable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -155,15 +144,12 @@ should no longer be called for that search. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-discardSearchResults
 */
 func (DOM) DiscardSearchResults(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.DiscardSearchResultsParams,
 ) error {
-	command := &sock.Command{
-		Method: "DOM.discardSearchResults",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.discardSearchResults", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -172,13 +158,11 @@ Enable enables the DOM agent for the given page.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-enable
 */
 func (DOM) Enable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "DOM.enable",
-	}
+	command := sock.NewCommand("DOM.enable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -187,15 +171,12 @@ Focus focuses the given element.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-focus
 */
 func (DOM) Focus(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.FocusParams,
 ) error {
-	command := &sock.Command{
-		Method: "DOM.focus",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.focus", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -204,22 +185,19 @@ GetAttributes returns attributes for the specified node.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getAttributes
 */
 func (DOM) GetAttributes(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.GetAttributesParams,
 ) (dom.GetAttributesResult, error) {
-	command := &sock.Command{
-		Method: "DOM.getAttributes",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.getAttributes", params)
 	result := dom.GetAttributesResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -230,7 +208,7 @@ func (DOM) GetAttributes(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -239,22 +217,19 @@ GetBoxModel returns boxes for the given node.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getBoxModel
 */
 func (DOM) GetBoxModel(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.GetBoxModelParams,
 ) (dom.GetBoxModelResult, error) {
-	command := &sock.Command{
-		Method: "DOM.getBoxModel",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.getBoxModel", params)
 	result := dom.GetBoxModelResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -265,7 +240,7 @@ func (DOM) GetBoxModel(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -274,22 +249,19 @@ GetDocument returns the root DOM node (and optionally the subtree) to the caller
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getDocument
 */
 func (DOM) GetDocument(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.GetDocumentParams,
 ) (dom.GetDocumentResult, error) {
-	command := &sock.Command{
-		Method: "DOM.getDocument",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.getDocument", params)
 	result := dom.GetDocumentResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -300,7 +272,7 @@ func (DOM) GetDocument(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -309,22 +281,19 @@ GetFlattenedDocument returns the root DOM node (and optionally the subtree) to t
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getFlattenedDocument
 */
 func (DOM) GetFlattenedDocument(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.GetFlattenedDocumentParams,
 ) (dom.GetFlattenedDocumentResult, error) {
-	command := &sock.Command{
-		Method: "DOM.getFlattenedDocument",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.getFlattenedDocument", params)
 	result := dom.GetFlattenedDocumentResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -335,7 +304,7 @@ func (DOM) GetFlattenedDocument(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -344,22 +313,19 @@ GetNodeForLocation returns node id at given location. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getNodeForLocation
 */
 func (DOM) GetNodeForLocation(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.GetNodeForLocationParams,
 ) (dom.GetNodeForLocationResult, error) {
-	command := &sock.Command{
-		Method: "DOM.getNodeForLocation",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.getNodeForLocation", params)
 	result := dom.GetNodeForLocationResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -370,7 +336,7 @@ func (DOM) GetNodeForLocation(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -379,22 +345,19 @@ GetOuterHTML returns node's HTML markup.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getOuterHTML
 */
 func (DOM) GetOuterHTML(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.GetOuterHTMLParams,
 ) (dom.GetOuterHTMLResult, error) {
-	command := &sock.Command{
-		Method: "DOM.getOuterHTML",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.getOuterHTML", params)
 	result := dom.GetOuterHTMLResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -405,7 +368,7 @@ func (DOM) GetOuterHTML(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -414,22 +377,19 @@ GetRelayoutBoundary returns the id of the nearest ancestor that is a relayout bo
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getRelayoutBoundary
 */
 func (DOM) GetRelayoutBoundary(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.GetRelayoutBoundaryParams,
 ) (dom.GetRelayoutBoundaryResult, error) {
-	command := &sock.Command{
-		Method: "DOM.getRelayoutBoundary",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.getRelayoutBoundary", params)
 	result := dom.GetRelayoutBoundaryResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -440,7 +400,7 @@ func (DOM) GetRelayoutBoundary(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -450,22 +410,19 @@ the given identifier. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getSearchResults
 */
 func (DOM) GetSearchResults(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.GetSearchResultsParams,
 ) (dom.GetSearchResultsResult, error) {
-	command := &sock.Command{
-		Method: "DOM.getSearchResults",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.getSearchResults", params)
 	result := dom.GetSearchResultsResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -476,7 +433,7 @@ func (DOM) GetSearchResults(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -485,13 +442,11 @@ MarkUndoableState marks last undoable state. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-markUndoableState
 */
 func (DOM) MarkUndoableState(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "DOM.markUndoableState",
-	}
+	command := sock.NewCommand("DOM.markUndoableState", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -500,22 +455,19 @@ MoveTo moves node into the new container, places it before the given anchor.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-moveTo
 */
 func (DOM) MoveTo(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.MoveToParams,
 ) (dom.MoveToResult, error) {
-	command := &sock.Command{
-		Method: "DOM.moveTo",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.moveTo", params)
 	result := dom.MoveToResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -526,7 +478,7 @@ func (DOM) MoveTo(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -536,22 +488,19 @@ results or cancelSearch to end this search session. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-performSearch
 */
 func (DOM) PerformSearch(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.PerformSearchParams,
 ) (dom.PerformSearchResult, error) {
-	command := &sock.Command{
-		Method: "DOM.performSearch",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.performSearch", params)
 	result := dom.PerformSearchResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -562,7 +511,7 @@ func (DOM) PerformSearch(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -572,22 +521,19 @@ PushNodeByPathToFrontend requests that the node is sent to the caller given its 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-pushNodeByPathToFrontend
 */
 func (DOM) PushNodeByPathToFrontend(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.PushNodeByPathToFrontendParams,
 ) (dom.PushNodeByPathToFrontendResult, error) {
-	command := &sock.Command{
-		Method: "DOM.pushNodeByPathToFrontend",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.pushNodeByPathToFrontend", params)
 	result := dom.PushNodeByPathToFrontendResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -598,7 +544,7 @@ func (DOM) PushNodeByPathToFrontend(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -608,22 +554,19 @@ backend node IDs. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-pushNodesByBackendIdsToFrontend
 */
 func (DOM) PushNodesByBackendIDsToFrontend(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.PushNodesByBackendIDsToFrontendParams,
 ) (dom.PushNodesByBackendIDsToFrontendResult, error) {
-	command := &sock.Command{
-		Method: "DOM.pushNodesByBackendIdsToFrontend",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.pushNodesByBackendIdsToFrontend", params)
 	result := dom.PushNodesByBackendIDsToFrontendResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -634,7 +577,7 @@ func (DOM) PushNodesByBackendIDsToFrontend(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -643,22 +586,19 @@ QuerySelector executes querySelector on a given node.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-querySelector
 */
 func (DOM) QuerySelector(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.QuerySelectorParams,
 ) (dom.QuerySelectorResult, error) {
-	command := &sock.Command{
-		Method: "DOM.querySelector",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.querySelector", params)
 	result := dom.QuerySelectorResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -669,7 +609,7 @@ func (DOM) QuerySelector(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -678,22 +618,19 @@ QuerySelectorAll executes querySelectorAll on a given node.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-querySelectorAll
 */
 func (DOM) QuerySelectorAll(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.QuerySelectorAllParams,
 ) (dom.QuerySelectorAllResult, error) {
-	command := &sock.Command{
-		Method: "DOM.querySelectorAll",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.querySelectorAll", params)
 	result := dom.QuerySelectorAllResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -704,7 +641,7 @@ func (DOM) QuerySelectorAll(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -713,13 +650,11 @@ Redo re-does the last undone action. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-redo
 */
 func (DOM) Redo(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "DOM.redo",
-	}
+	command := sock.NewCommand("DOM.redo", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -728,15 +663,12 @@ RemoveAttribute removes attribute with given name from an element with given id.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-removeAttribute
 */
 func (DOM) RemoveAttribute(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.RemoveAttributeParams,
 ) error {
-	command := &sock.Command{
-		Method: "DOM.removeAttribute",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.removeAttribute", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -745,15 +677,12 @@ RemoveNode removes the specified node.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-removeNode
 */
 func (DOM) RemoveNode(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.RemoveNodeParams,
 ) error {
-	command := &sock.Command{
-		Method: "DOM.removeNode",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.removeNode", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -764,15 +693,12 @@ to the specified depth.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-requestChildNodes
 */
 func (DOM) RequestChildNodes(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.RequestChildNodesParams,
 ) error {
-	command := &sock.Command{
-		Method: "DOM.requestChildNodes",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.requestChildNodes", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -783,22 +709,19 @@ setChildNodes notifications.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-requestNode
 */
 func (DOM) RequestNode(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.RequestNodeParams,
 ) (dom.RequestNodeResult, error) {
-	command := &sock.Command{
-		Method: "DOM.requestNode",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.requestNode", params)
 	result := dom.RequestNodeResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -809,7 +732,7 @@ func (DOM) RequestNode(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -818,22 +741,19 @@ ResolveNode resolves the JavaScript node object for a given NodeID or BackendNod
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-resolveNode
 */
 func (DOM) ResolveNode(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.ResolveNodeParams,
 ) (dom.ResolveNodeResult, error) {
-	command := &sock.Command{
-		Method: "DOM.resolveNode",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.resolveNode", params)
 	result := dom.ResolveNodeResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -844,7 +764,7 @@ func (DOM) ResolveNode(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -853,15 +773,12 @@ SetAttributeValue sets attribute for an element with given id.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setAttributeValue
 */
 func (DOM) SetAttributeValue(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.SetAttributeValueParams,
 ) error {
-	command := &sock.Command{
-		Method: "DOM.setAttributeValue",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.setAttributeValue", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -871,15 +788,12 @@ some existing attribute value and types in several attribute name/value pairs.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setAttributesAsText
 */
 func (DOM) SetAttributesAsText(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.SetAttributesAsTextParams,
 ) error {
-	command := &sock.Command{
-		Method: "DOM.setAttributesAsText",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.setAttributesAsText", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -888,15 +802,12 @@ SetFileInputFiles sets files for the given file input element.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setFileInputFiles
 */
 func (DOM) SetFileInputFiles(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.SetFileInputFilesParams,
 ) error {
-	command := &sock.Command{
-		Method: "DOM.setFileInputFiles",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.setFileInputFiles", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -906,15 +817,12 @@ more details $x functions). EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setInspectedNode
 */
 func (DOM) SetInspectedNode(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.SetInspectedNodeParams,
 ) error {
-	command := &sock.Command{
-		Method: "DOM.setInspectedNode",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.setInspectedNode", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -923,22 +831,19 @@ SetNodeName sets node name for the specified node.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setNodeName
 */
 func (DOM) SetNodeName(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.SetNodeNameParams,
 ) (dom.SetNodeNameResult, error) {
-	command := &sock.Command{
-		Method: "DOM.setNodeName",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.setNodeName", params)
 	result := dom.SetNodeNameResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -949,7 +854,7 @@ func (DOM) SetNodeName(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -958,15 +863,12 @@ SetNodeValue sets node value for the specified node.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setNodeValue
 */
 func (DOM) SetNodeValue(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.SetNodeValueParams,
 ) error {
-	command := &sock.Command{
-		Method: "DOM.setNodeValue",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.setNodeValue", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -975,15 +877,12 @@ SetOuterHTML sets node HTML markup, returns new node id.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setOuterHTML
 */
 func (DOM) SetOuterHTML(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *dom.SetOuterHTMLParams,
 ) error {
-	command := &sock.Command{
-		Method: "DOM.setOuterHTML",
-		Params: params,
-	}
+	command := sock.NewCommand("DOM.setOuterHTML", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -992,13 +891,11 @@ Undo undoes the last performed action. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-undo
 */
 func (DOM) Undo(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "DOM.undo",
-	}
+	command := sock.NewCommand("DOM.undo", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -1008,14 +905,14 @@ when Element's attribute is modified.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-attributeModified
 */
 func (DOM) OnAttributeModified(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *dom.AttributeModifiedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"DOM.attributeModified",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &dom.AttributeModifiedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1032,14 +929,14 @@ Element's attribute is modified.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-attributeRemoved
 */
 func (DOM) OnAttributeRemoved(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *dom.AttributeRemovedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"DOM.attributeRemoved",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &dom.AttributeRemovedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1056,14 +953,14 @@ DOM.characterDataModified mirrors the DOMCharacterDataModified event.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-characterDataModified
 */
 func (DOM) OnCharacterDataModified(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *dom.CharacterDataModifiedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"DOM.characterDataModified",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &dom.CharacterDataModifiedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1080,14 +977,14 @@ DOM.childNodeCountUpdated fires when Container's child node count has changed.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-childNodeCountUpdated
 */
 func (DOM) OnChildNodeCountUpdated(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *dom.ChildNodeCountUpdatedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"DOM.childNodeCountUpdated",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &dom.ChildNodeCountUpdatedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1104,14 +1001,14 @@ the DOMNodeInserted event.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-childNodeInserted
 */
 func (DOM) OnChildNodeInserted(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *dom.ChildNodeInsertedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"DOM.childNodeInserted",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &dom.ChildNodeInsertedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1128,14 +1025,14 @@ DOMNodeRemoved event.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-childNodeRemoved
 */
 func (DOM) OnChildNodeRemoved(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *dom.ChildNodeRemovedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"DOM.childNodeRemoved",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &dom.ChildNodeRemovedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1152,14 +1049,14 @@ DOM.distributedNodesUpdated fires when distribution is changed. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-distributedNodesUpdated
 */
 func (DOM) OnDistributedNodesUpdated(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *dom.DistributedNodesUpdatedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"DOM.distributedNodesUpdated",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &dom.DistributedNodesUpdatedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1176,14 +1073,14 @@ fires when Document has been totally updated. Node IDs are no longer valid.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-documentUpdated
 */
 func (DOM) OnDocumentUpdated(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *dom.DocumentUpdatedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"DOM.documentUpdated",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &dom.DocumentUpdatedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1200,14 +1097,14 @@ DOM.inlineStyleInvalidated fires when Element's attribute is removed.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-inlineStyleInvalidated
 */
 func (DOM) OnInlineStyleInvalidated(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *dom.InlineStyleInvalidatedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"DOM.inlineStyleInvalidated",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &dom.InlineStyleInvalidatedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1224,14 +1121,14 @@ fires when a pseudo element is added to an element. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-pseudoElementAdded
 */
 func (DOM) OnPseudoElementAdded(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *dom.PseudoElementAddedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"DOM.pseudoElementAdded",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &dom.PseudoElementAddedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1248,14 +1145,14 @@ DOM.pseudoElementRemoved fires when a pseudo element is removed from an element.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-pseudoElementRemoved
 */
 func (DOM) OnPseudoElementRemoved(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *dom.PseudoElementRemovedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"DOM.pseudoElementRemoved",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &dom.PseudoElementRemovedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1273,14 +1170,14 @@ calls requesting node IDs.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-setChildNodes
 */
 func (DOM) OnSetChildNodes(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *dom.SetChildNodesEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"DOM.setChildNodes",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &dom.SetChildNodesEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1297,14 +1194,14 @@ shadow root is popped from the element. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-shadowRootPopped
 */
 func (DOM) OnShadowRootPopped(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *dom.ShadowRootPoppedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"DOM.shadowRootPopped",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &dom.ShadowRootPoppedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1321,14 +1218,14 @@ shadow root is pushed into the element. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-shadowRootPushed
 */
 func (DOM) OnShadowRootPushed(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *dom.ShadowRootPushedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"DOM.shadowRootPushed",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &dom.ShadowRootPushedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

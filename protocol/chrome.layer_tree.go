@@ -24,22 +24,19 @@ CompositingReasons provides the reasons why the given layer was composited.
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-compositingReasons
 */
 func (LayerTree) CompositingReasons(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *layerTree.CompositingReasonsParams,
 ) (layerTree.CompositingReasonsResult, error) {
-	command := &sock.Command{
-		Method: "LayerTree.compositingReasons",
-		Params: params,
-	}
+	command := sock.NewCommand("LayerTree.compositingReasons", params)
 	result := layerTree.CompositingReasonsResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -50,7 +47,7 @@ func (LayerTree) CompositingReasons(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -59,13 +56,11 @@ Disable disables compositing tree inspection.
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-disable
 */
 func (LayerTree) Disable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "LayerTree.disable",
-	}
+	command := sock.NewCommand("LayerTree.disable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -74,13 +69,11 @@ Enable enables compositing tree inspection.
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-enable
 */
 func (LayerTree) Enable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "LayerTree.enable",
-	}
+	command := sock.NewCommand("LayerTree.enable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -89,22 +82,19 @@ LoadSnapshot returns the snapshot identifier.
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-loadSnapshot
 */
 func (LayerTree) LoadSnapshot(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *layerTree.LoadSnapshotParams,
 ) (layerTree.LoadSnapshotResult, error) {
-	command := &sock.Command{
-		Method: "LayerTree.loadSnapshot",
-		Params: params,
-	}
+	command := sock.NewCommand("LayerTree.loadSnapshot", params)
 	result := layerTree.LoadSnapshotResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -115,7 +105,7 @@ func (LayerTree) LoadSnapshot(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -124,22 +114,19 @@ MakeSnapshot returns the layer snapshot identifier.
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-makeSnapshot
 */
 func (LayerTree) MakeSnapshot(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *layerTree.MakeSnapshotParams,
 ) (layerTree.MakeSnapshotResult, error) {
-	command := &sock.Command{
-		Method: "LayerTree.makeSnapshot",
-		Params: params,
-	}
+	command := sock.NewCommand("LayerTree.makeSnapshot", params)
 	result := layerTree.MakeSnapshotResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -150,7 +137,7 @@ func (LayerTree) MakeSnapshot(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -159,22 +146,19 @@ ProfileSnapshot profiles a snapshot.
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-profileSnapshot
 */
 func (LayerTree) ProfileSnapshot(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *layerTree.ProfileSnapshotParams,
 ) (layerTree.ProfileSnapshotResult, error) {
-	command := &sock.Command{
-		Method: "LayerTree.profileSnapshot",
-		Params: params,
-	}
+	command := sock.NewCommand("LayerTree.profileSnapshot", params)
 	result := layerTree.ProfileSnapshotResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -185,7 +169,7 @@ func (LayerTree) ProfileSnapshot(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -194,15 +178,12 @@ ReleaseSnapshot releases layer snapshot captured by the back-end.
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-releaseSnapshot
 */
 func (LayerTree) ReleaseSnapshot(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *layerTree.ReleaseSnapshotParams,
 ) error {
-	command := &sock.Command{
-		Method: "LayerTree.releaseSnapshot",
-		Params: params,
-	}
+	command := sock.NewCommand("LayerTree.releaseSnapshot", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -211,22 +192,19 @@ ReplaySnapshot replays the layer snapshot and returns the resulting bitmap.
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-replaySnapshot
 */
 func (LayerTree) ReplaySnapshot(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *layerTree.ReplaySnapshotParams,
 ) (layerTree.ReplaySnapshotResult, error) {
-	command := &sock.Command{
-		Method: "LayerTree.replaySnapshot",
-		Params: params,
-	}
+	command := sock.NewCommand("LayerTree.replaySnapshot", params)
 	result := layerTree.ReplaySnapshotResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -237,7 +215,7 @@ func (LayerTree) ReplaySnapshot(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -246,22 +224,19 @@ SnapshotCommandLog replays the layer snapshot and returns canvas log.
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-snapshotCommandLog
 */
 func (LayerTree) SnapshotCommandLog(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *layerTree.SnapshotCommandLogParams,
 ) (layerTree.SnapshotCommandLogResult, error) {
-	command := &sock.Command{
-		Method: "LayerTree.snapshotCommandLog",
-		Params: params,
-	}
+	command := sock.NewCommand("LayerTree.snapshotCommandLog", params)
 	result := layerTree.SnapshotCommandLogResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -272,7 +247,7 @@ func (LayerTree) SnapshotCommandLog(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -282,14 +257,14 @@ is painted.
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#event-layerPainted
 */
 func (LayerTree) OnLayerPainted(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *layerTree.LayerPaintedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"LayerTree.layerPainted",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &layerTree.LayerPaintedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -306,14 +281,14 @@ the layer tree changes.
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#event-layerTreeDidChange
 */
 func (LayerTree) OnLayerTreeDidChange(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *layerTree.DidChangeEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"LayerTree.layerTreeDidChange",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &layerTree.DidChangeEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

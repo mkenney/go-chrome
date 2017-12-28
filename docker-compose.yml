@@ -10,4 +10,4 @@ services:
         entrypoint: sh
         command:
             - '-cexu'
-            - 'cd /go/src/github.com/mkenney/go-chrome && go test'
+            - 'cd /go/src/github.com/mkenney/go-chrome && go test ./...'

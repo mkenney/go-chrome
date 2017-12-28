@@ -25,15 +25,12 @@ API for more details $x functions).
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-addInspectedHeapObject
 */
 func (HeapProfiler) AddInspectedHeapObject(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *heapProfiler.AddInspectedHeapObjectParams,
 ) error {
-	command := &sock.Command{
-		Method: "HeapProfiler.addInspectedHeapObject",
-		Params: params,
-	}
+	command := sock.NewCommand("HeapProfiler.addInspectedHeapObject", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -42,13 +39,11 @@ CollectGarbage EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-collectGarbage
 */
 func (HeapProfiler) CollectGarbage(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "HeapProfiler.collectGarbage",
-	}
+	command := sock.NewCommand("HeapProfiler.collectGarbage", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -57,13 +52,11 @@ Disable disables the HeapProfiler.
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-disable
 */
 func (HeapProfiler) Disable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "HeapProfiler.disable",
-	}
+	command := sock.NewCommand("HeapProfiler.disable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -72,13 +65,11 @@ Enable enables the HeapProfiler.
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-enable
 */
 func (HeapProfiler) Enable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "HeapProfiler.enable",
-	}
+	command := sock.NewCommand("HeapProfiler.enable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -87,22 +78,19 @@ GetHeapObjectID EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getHeapObjectId
 */
 func (HeapProfiler) GetHeapObjectID(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *heapProfiler.GetHeapObjectIDParams,
 ) (heapProfiler.GetHeapObjectIDResult, error) {
-	command := &sock.Command{
-		Method: "HeapProfiler.getHeapObjectID",
-		Params: params,
-	}
+	command := sock.NewCommand("HeapProfiler.getHeapObjectID", params)
 	result := heapProfiler.GetHeapObjectIDResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -113,7 +101,7 @@ func (HeapProfiler) GetHeapObjectID(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -122,22 +110,19 @@ GetObjectByHeapObjectID EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getObjectByHeapObjectId
 */
 func (HeapProfiler) GetObjectByHeapObjectID(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *heapProfiler.GetObjectByHeapObjectIDParams,
 ) (heapProfiler.GetObjectByHeapObjectIDResult, error) {
-	command := &sock.Command{
-		Method: "HeapProfiler.getObjectByHeapObjectId",
-		Params: params,
-	}
+	command := sock.NewCommand("HeapProfiler.getObjectByHeapObjectId", params)
 	result := heapProfiler.GetObjectByHeapObjectIDResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -148,7 +133,7 @@ func (HeapProfiler) GetObjectByHeapObjectID(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -157,15 +142,12 @@ GetSamplingProfile EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getSamplingProfile
 */
 func (HeapProfiler) GetSamplingProfile(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *heapProfiler.GetSamplingProfileParams,
 ) error {
-	command := &sock.Command{
-		Method: "HeapProfiler.getSamplingProfile",
-		Params: params,
-	}
+	command := sock.NewCommand("HeapProfiler.getSamplingProfile", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -174,15 +156,12 @@ StartSampling EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-startSampling
 */
 func (HeapProfiler) StartSampling(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *heapProfiler.StartSamplingParams,
 ) error {
-	command := &sock.Command{
-		Method: "HeapProfiler.startSampling",
-		Params: params,
-	}
+	command := sock.NewCommand("HeapProfiler.startSampling", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -191,15 +170,12 @@ StartTrackingHeapObjects EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-startTrackingHeapObjects
 */
 func (HeapProfiler) StartTrackingHeapObjects(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *heapProfiler.StartTrackingHeapObjectsParams,
 ) error {
-	command := &sock.Command{
-		Method: "HeapProfiler.startTrackingHeapObjects",
-		Params: params,
-	}
+	command := sock.NewCommand("HeapProfiler.startTrackingHeapObjects", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -208,15 +184,12 @@ StopSampling EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stopSampling
 */
 func (HeapProfiler) StopSampling(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *heapProfiler.StopSamplingParams,
 ) error {
-	command := &sock.Command{
-		Method: "HeapProfiler.stopSampling",
-		Params: params,
-	}
+	command := sock.NewCommand("HeapProfiler.stopSampling", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -225,15 +198,12 @@ StopTrackingHeapObjects EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stopTrackingHeapObjects
 */
 func (HeapProfiler) StopTrackingHeapObjects(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *heapProfiler.StopTrackingHeapObjectsParams,
 ) error {
-	command := &sock.Command{
-		Method: "HeapProfiler.stopTrackingHeapObjects",
-		Params: params,
-	}
+	command := sock.NewCommand("HeapProfiler.stopTrackingHeapObjects", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -242,15 +212,12 @@ TakeHeapSnapshot EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-takeHeapSnapshot
 */
 func (HeapProfiler) TakeHeapSnapshot(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *heapProfiler.TakeHeapSnapshotParams,
 ) error {
-	command := &sock.Command{
-		Method: "HeapProfiler.takeHeapSnapshot",
-		Params: params,
-	}
+	command := sock.NewCommand("HeapProfiler.takeHeapSnapshot", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -260,14 +227,14 @@ EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-addHeapSnapshotChunk
 */
 func (HeapProfiler) OnAddHeapSnapshotChunk(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *heapProfiler.AddHeapSnapshotChunkEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"HeapProfiler.addHeapSnapshotChunk",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &heapProfiler.AddHeapSnapshotChunkEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -284,14 +251,14 @@ objects tracking has been started then backend may send update for one or more f
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-heapStatsUpdate
 */
 func (HeapProfiler) OnHeapStatsUpdate(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *heapProfiler.HeapStatsUpdateEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"HeapProfiler.heapStatsUpdate",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &heapProfiler.HeapStatsUpdateEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -310,14 +277,14 @@ more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-lastSeenObjectId
 */
 func (HeapProfiler) OnLastSeenObjectID(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *heapProfiler.LastSeenObjectIDEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"HeapProfiler.lastSeenObjectID",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &heapProfiler.LastSeenObjectIDEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -334,14 +301,14 @@ EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-reportHeapSnapshotProgress
 */
 func (HeapProfiler) OnReportHeapSnapshotProgress(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *heapProfiler.ReportHeapSnapshotProgressEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"HeapProfiler.reportHeapSnapshotProgress",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &heapProfiler.ReportHeapSnapshotProgressEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -357,14 +324,14 @@ OnResetProfiles adds a handler to the HeapProfiler.ResetProfiles event. EXPERIME
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-resetProfiles
 */
 func (HeapProfiler) OnResetProfiles(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *heapProfiler.ResetProfilesEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"HeapProfiler.resetProfiles",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &heapProfiler.ResetProfilesEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

@@ -24,13 +24,11 @@ Clear clears the log.
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-clear
 */
 func (Log) Clear(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Log.clear",
-	}
+	command := sock.NewCommand("Log.clear", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -39,13 +37,11 @@ Disable disables log domain, prevents further log entries from being reported to
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-disable
 */
 func (Log) Disable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Log.disable",
-	}
+	command := sock.NewCommand("Log.disable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -55,13 +51,11 @@ Enable enables log domain, sends the entries collected so far to the client by m
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-enable
 */
 func (Log) Enable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Log.enable",
-	}
+	command := sock.NewCommand("Log.enable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -70,15 +64,12 @@ StartViolationsReport starts violation reporting.
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-startViolationsReport
 */
 func (Log) StartViolationsReport(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *chromeLog.StartViolationsReportParams,
 ) error {
-	command := &sock.Command{
-		Method: "Log.startViolationsReport",
-		Params: params,
-	}
+	command := sock.NewCommand("Log.startViolationsReport", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -87,13 +78,11 @@ StopViolationsReport stops violation reporting.
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-stopViolationsReport
 */
 func (Log) StopViolationsReport(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Log.stopViolationsReport",
-	}
+	command := sock.NewCommand("Log.stopViolationsReport", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -103,14 +92,14 @@ logged.
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#event-entryAdded
 */
 func (Log) OnEntryAdded(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *chromeLog.EntryAddedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Log.entryAdded",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &chromeLog.EntryAddedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

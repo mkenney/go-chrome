@@ -6,6 +6,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/
 package emulation
 
 import (
+	"github.com/mkenney/go-chrome/protocol/page"
 	"github.com/mkenney/go-chrome/protocol/runtime"
 )
 
@@ -57,7 +58,7 @@ type SetDeviceMetricsOverrideParams struct {
 	Height int `json:"height"`
 
 	// Overriding device scale factor value. 0 disables the override.
-	DeviceScaleFactor int `json:"deviceScaleFactor"`
+	DeviceScaleFactor float64 `json:"deviceScaleFactor"`
 
 	// Whether to emulate mobile device. This includes viewport meta tag, overlay scrollbars, text
 	// autosizing and more.
@@ -85,18 +86,12 @@ type SetDeviceMetricsOverrideParams struct {
 	DontSetVisibleSize bool `json:"dontSetVisibleSize,omitempty"`
 
 	// Optional. Screen orientation override.
-	//
-	// This is an instance of ScreenOrientation, but that doesn't omitempty correctly so it must be
-	// added manually.
-	ScreenOrientation interface{} `json:"screenOrientation,omitempty"`
+	ScreenOrientation *ScreenOrientation `json:"screenOrientation,omitempty"`
 
 	// Optional. If set, the visible area of the page will be overridden to this viewport. This
 	// viewport change is not observed by the page, e.g. viewport-relative elements do not change
 	// positions. EXPERIMENTAL
-	//
-	// This is an instance of Page.Viewport, but that doesn't omitempty correctly so it must be
-	// added manually.
-	Viewport interface{} `json:"viewport,omitempty"`
+	Viewport *page.Viewport `json:"viewport,omitempty"`
 }
 
 /*

@@ -24,15 +24,12 @@ DeliverPushMessage EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-deliverPushMessage
 */
 func (ServiceWorker) DeliverPushMessage(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *serviceWorker.DeliverPushMessageParams,
 ) error {
-	command := &sock.Command{
-		Method: "ServiceWorker.deliverPushMessage",
-		Params: params,
-	}
+	command := sock.NewCommand("ServiceWorker.deliverPushMessage", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -41,13 +38,11 @@ Disable EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-disable
 */
 func (ServiceWorker) Disable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "ServiceWorker.disable",
-	}
+	command := sock.NewCommand("ServiceWorker.disable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -56,15 +51,12 @@ DispatchSyncEvent EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-dispatchSyncEvent
 */
 func (ServiceWorker) DispatchSyncEvent(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *serviceWorker.DispatchSyncEventParams,
 ) error {
-	command := &sock.Command{
-		Method: "ServiceWorker.dispatchSyncEvent",
-		Params: params,
-	}
+	command := sock.NewCommand("ServiceWorker.dispatchSyncEvent", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -73,13 +65,11 @@ Enable EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-enable
 */
 func (ServiceWorker) Enable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "ServiceWorker.enable",
-	}
+	command := sock.NewCommand("ServiceWorker.enable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -88,15 +78,12 @@ InspectWorker EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-inspectWorker
 */
 func (ServiceWorker) InspectWorker(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *serviceWorker.InspectWorkerParams,
 ) error {
-	command := &sock.Command{
-		Method: "ServiceWorker.inspectWorker",
-		Params: params,
-	}
+	command := sock.NewCommand("ServiceWorker.inspectWorker", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -105,15 +92,12 @@ SetForceUpdateOnPageLoad EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-setForceUpdateOnPageLoad
 */
 func (ServiceWorker) SetForceUpdateOnPageLoad(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *serviceWorker.SetForceUpdateOnPageLoadParams,
 ) error {
-	command := &sock.Command{
-		Method: "ServiceWorker.setForceUpdateOnPageLoad",
-		Params: params,
-	}
+	command := sock.NewCommand("ServiceWorker.setForceUpdateOnPageLoad", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -122,15 +106,12 @@ SkipWaiting EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-skipWaiting
 */
 func (ServiceWorker) SkipWaiting(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *serviceWorker.SkipWaitingParams,
 ) error {
-	command := &sock.Command{
-		Method: "ServiceWorker.skipWaiting",
-		Params: params,
-	}
+	command := sock.NewCommand("ServiceWorker.skipWaiting", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -139,15 +120,12 @@ StartWorker EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-startWorker
 */
 func (ServiceWorker) StartWorker(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *serviceWorker.StartWorkerParams,
 ) error {
-	command := &sock.Command{
-		Method: "ServiceWorker.startWorker",
-		Params: params,
-	}
+	command := sock.NewCommand("ServiceWorker.startWorker", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -156,13 +134,11 @@ StopAllWorkers EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-stopAllWorkers
 */
 func (ServiceWorker) StopAllWorkers(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "ServiceWorker.stopAllWorkers",
-	}
+	command := sock.NewCommand("ServiceWorker.stopAllWorkers", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -171,15 +147,12 @@ StopWorker EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-stopWorker
 */
 func (ServiceWorker) StopWorker(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *serviceWorker.StopWorkerParams,
 ) error {
-	command := &sock.Command{
-		Method: "ServiceWorker.stopWorker",
-		Params: params,
-	}
+	command := sock.NewCommand("ServiceWorker.stopWorker", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -188,15 +161,12 @@ Unregister EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-unregister
 */
 func (ServiceWorker) Unregister(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *serviceWorker.UnregisterParams,
 ) error {
-	command := &sock.Command{
-		Method: "ServiceWorker.unregister",
-		Params: params,
-	}
+	command := sock.NewCommand("ServiceWorker.unregister", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -205,15 +175,12 @@ UpdateRegistration EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-updateRegistration
 */
 func (ServiceWorker) UpdateRegistration(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *serviceWorker.UpdateRegistrationParams,
 ) error {
-	command := &sock.Command{
-		Method: "ServiceWorker.updateRegistration",
-		Params: params,
-	}
+	command := sock.NewCommand("ServiceWorker.updateRegistration", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -222,14 +189,14 @@ OnWorkerErrorReported EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-workerErrorReported
 */
 func (ServiceWorker) OnWorkerErrorReported(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *serviceWorker.WorkerErrorReportedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"ServiceWorker.workerErrorReported",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &serviceWorker.WorkerErrorReportedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -245,14 +212,14 @@ OnWorkerRegistrationUpdated EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-workerRegistrationUpdated
 */
 func (ServiceWorker) OnWorkerRegistrationUpdated(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *serviceWorker.WorkerRegistrationUpdatedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"ServiceWorker.workerRegistrationUpdated",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &serviceWorker.WorkerRegistrationUpdatedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -268,14 +235,14 @@ OnWorkerVersionUpdated EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-workerVersionUpdated
 */
 func (ServiceWorker) OnWorkerVersionUpdated(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *serviceWorker.WorkerVersionUpdatedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"ServiceWorker.workerVersionUpdated",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &serviceWorker.WorkerVersionUpdatedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

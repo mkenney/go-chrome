@@ -16,28 +16,28 @@ The Emulation protocol emulates different environments for the page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/
 */
-type Emulation struct{}
+var Emulation = _emulation{}
+
+type _emulation struct{}
 
 /*
 CanEmulate tells whether emulation is supported.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-canEmulate
 */
-func (Emulation) CanEmulate(
-	socket *sock.Socket,
+func (_emulation) CanEmulate(
+	socket sock.Socketer,
 ) (emulation.CanEmulateResult, error) {
-	command := &sock.Command{
-		Method: "Emulation.canEmulate",
-	}
+	command := sock.NewCommand("Emulation.canEmulate", nil)
 	result := emulation.CanEmulateResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -48,7 +48,7 @@ func (Emulation) CanEmulate(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -56,14 +56,12 @@ ClearDeviceMetricsOverride clears the overridden device metrics.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-clearDeviceMetricsOverride
 */
-func (Emulation) ClearDeviceMetricsOverride(
-	socket *sock.Socket,
+func (_emulation) ClearDeviceMetricsOverride(
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Emulation.clearDeviceMetricsOverride",
-	}
+	command := sock.NewCommand("Emulation.clearDeviceMetricsOverride", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -71,14 +69,12 @@ ClearGeolocationOverride clears the overridden Geolocation Position and Error.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-clearGeolocationOverride
 */
-func (Emulation) ClearGeolocationOverride(
-	socket *sock.Socket,
+func (_emulation) ClearGeolocationOverride(
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Emulation.clearGeolocationOverride",
-	}
+	command := sock.NewCommand("Emulation.clearGeolocationOverride", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -86,14 +82,12 @@ ResetPageScaleFactor requests that page scale factor is reset to initial values.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-resetPageScaleFactor
 */
-func (Emulation) ResetPageScaleFactor(
-	socket *sock.Socket,
+func (_emulation) ResetPageScaleFactor(
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Emulation.resetPageScaleFactor",
-	}
+	command := sock.NewCommand("Emulation.resetPageScaleFactor", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -101,16 +95,13 @@ SetCPUThrottlingRate enables CPU throttling to emulate slow CPUs. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setCPUThrottlingRate
 */
-func (Emulation) SetCPUThrottlingRate(
-	socket *sock.Socket,
+func (_emulation) SetCPUThrottlingRate(
+	socket sock.Socketer,
 	params *emulation.SetCPUThrottlingRateParams,
 ) error {
-	command := &sock.Command{
-		Method: "Emulation.setCPUThrottlingRate",
-		Params: params,
-	}
+	command := sock.NewCommand("Emulation.setCPUThrottlingRate", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -119,16 +110,13 @@ frame. This override is used if the content does not specify one.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDefaultBackgroundColorOverride
 */
-func (Emulation) SetDefaultBackgroundColorOverride(
-	socket *sock.Socket,
+func (_emulation) SetDefaultBackgroundColorOverride(
+	socket sock.Socketer,
 	params *emulation.SetDefaultBackgroundColorOverrideParams,
 ) error {
-	command := &sock.Command{
-		Method: "Emulation.setDefaultBackgroundColorOverride",
-		Params: params,
-	}
+	command := sock.NewCommand("Emulation.setDefaultBackgroundColorOverride", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -138,16 +126,13 @@ related CSS media query results).
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDeviceMetricsOverride
 */
-func (Emulation) SetDeviceMetricsOverride(
-	socket *sock.Socket,
+func (_emulation) SetDeviceMetricsOverride(
+	socket sock.Socketer,
 	params *emulation.SetDeviceMetricsOverrideParams,
 ) error {
-	command := &sock.Command{
-		Method: "Emulation.setDeviceMetricsOverride",
-		Params: params,
-	}
+	command := sock.NewCommand("Emulation.setDeviceMetricsOverride", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -155,16 +140,13 @@ SetEmitTouchEventsForMouse enables touch events using a mouse. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setEmitTouchEventsForMouse
 */
-func (Emulation) SetEmitTouchEventsForMouse(
-	socket *sock.Socket,
+func (_emulation) SetEmitTouchEventsForMouse(
+	socket sock.Socketer,
 	params *emulation.SetEmitTouchEventsForMouseParams,
 ) error {
-	command := &sock.Command{
-		Method: "Emulation.setEmitTouchEventsForMouse",
-		Params: params,
-	}
+	command := sock.NewCommand("Emulation.setEmitTouchEventsForMouse", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -172,16 +154,13 @@ SetEmulatedMedia emulates the given media for CSS media queries.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setEmulatedMedia
 */
-func (Emulation) SetEmulatedMedia(
-	socket *sock.Socket,
+func (_emulation) SetEmulatedMedia(
+	socket sock.Socketer,
 	params *emulation.SetEmulatedMediaParams,
 ) error {
-	command := &sock.Command{
-		Method: "Emulation.setEmulatedMedia",
-		Params: params,
-	}
+	command := sock.NewCommand("Emulation.setEmulatedMedia", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -190,16 +169,13 @@ emulates position unavailable.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setGeolocationOverride
 */
-func (Emulation) SetGeolocationOverride(
-	socket *sock.Socket,
+func (_emulation) SetGeolocationOverride(
+	socket sock.Socketer,
 	params *emulation.SetGeolocationOverrideParams,
 ) error {
-	command := &sock.Command{
-		Method: "Emulation.setGeolocationOverride",
-		Params: params,
-	}
+	command := sock.NewCommand("Emulation.setGeolocationOverride", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -207,16 +183,13 @@ SetNavigatorOverrides overrides value returned by the javascript navigator objec
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setNavigatorOverrides
 */
-func (Emulation) SetNavigatorOverrides(
-	socket *sock.Socket,
+func (_emulation) SetNavigatorOverrides(
+	socket sock.Socketer,
 	params *emulation.SetNavigatorOverridesParams,
 ) error {
-	command := &sock.Command{
-		Method: "Emulation.setNavigatorOverrides",
-		Params: params,
-	}
+	command := sock.NewCommand("Emulation.setNavigatorOverrides", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -224,16 +197,13 @@ SetPageScaleFactor sets a specified page scale factor. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setPageScaleFactor
 */
-func (Emulation) SetPageScaleFactor(
-	socket *sock.Socket,
+func (_emulation) SetPageScaleFactor(
+	socket sock.Socketer,
 	params *emulation.SetPageScaleFactorParams,
 ) error {
-	command := &sock.Command{
-		Method: "Emulation.setPageScaleFactor",
-		Params: params,
-	}
+	command := sock.NewCommand("Emulation.setPageScaleFactor", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -241,16 +211,13 @@ SetScriptExecutionDisabled switches script execution in the page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setScriptExecutionDisabled
 */
-func (Emulation) SetScriptExecutionDisabled(
-	socket *sock.Socket,
+func (_emulation) SetScriptExecutionDisabled(
+	socket sock.Socketer,
 	params *emulation.SetScriptExecutionDisabledParams,
 ) error {
-	command := &sock.Command{
-		Method: "Emulation.setScriptExecutionDisabled",
-		Params: params,
-	}
+	command := sock.NewCommand("Emulation.setScriptExecutionDisabled", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -258,16 +225,13 @@ SetTouchEmulationEnabled enables touch on platforms which do not support it.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setTouchEmulationEnabled
 */
-func (Emulation) SetTouchEmulationEnabled(
-	socket *sock.Socket,
+func (_emulation) SetTouchEmulationEnabled(
+	socket sock.Socketer,
 	params *emulation.SetTouchEmulationEnabledParams,
 ) error {
-	command := &sock.Command{
-		Method: "Emulation.setTouchEmulationEnabled",
-		Params: params,
-	}
+	command := sock.NewCommand("Emulation.setTouchEmulationEnabled", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -277,16 +241,13 @@ EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setVirtualTimePolicy
 */
-func (Emulation) SetVirtualTimePolicy(
-	socket *sock.Socket,
+func (_emulation) SetVirtualTimePolicy(
+	socket sock.Socketer,
 	params *emulation.SetVirtualTimePolicyParams,
 ) error {
-	command := &sock.Command{
-		Method: "Emulation.setVirtualTimePolicy",
-		Params: params,
-	}
+	command := sock.NewCommand("Emulation.setVirtualTimePolicy", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -296,16 +257,13 @@ supported on Android. EXPERIMENTAL DEPRECATED
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setVisibleSize
 */
-func (Emulation) SetVisibleSize(
-	socket *sock.Socket,
+func (_emulation) SetVisibleSize(
+	socket sock.Socketer,
 	params *emulation.SetVisibleSizeParams,
 ) error {
-	command := &sock.Command{
-		Method: "Emulation.setVisibleSize",
-		Params: params,
-	}
+	command := sock.NewCommand("Emulation.setVisibleSize", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -314,15 +272,15 @@ Emulation.virtualTimeAdvanced fires after the virtual time has advanced. EXPERIM
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#event-virtualTimeAdvanced
 */
-func (Emulation) OnVirtualTimeAdvanced(
-	socket *sock.Socket,
+func (_emulation) OnVirtualTimeAdvanced(
+	socket sock.Socketer,
 	callback func(event *emulation.VirtualTimeAdvancedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Emulation.virtualTimeAdvanced",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &emulation.VirtualTimeAdvancedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -339,15 +297,15 @@ VirtualTimePolicy has run out. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#event-virtualTimeBudgetExpired
 */
-func (Emulation) OnVirtualTimeBudgetExpired(
-	socket *sock.Socket,
+func (_emulation) OnVirtualTimeBudgetExpired(
+	socket sock.Socketer,
 	callback func(event *emulation.VirtualTimeBudgetExpiredEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Emulation.virtualTimeBudgetExpired",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &emulation.VirtualTimeBudgetExpiredEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -363,15 +321,15 @@ Emulation.virtualTimePaused fires after the virtual time has paused. EXPERIMENTA
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#event-virtualTimePaused
 */
-func (Emulation) OnVirtualTimePaused(
-	socket *sock.Socket,
+func (_emulation) OnVirtualTimePaused(
+	socket sock.Socketer,
 	callback func(event *emulation.VirtualTimePausedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Emulation.virtualTimePaused",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &emulation.VirtualTimePausedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

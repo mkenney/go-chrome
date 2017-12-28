@@ -22,15 +22,12 @@ ClearObjectStore clears all entries from an object store.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-clearObjectStore
 */
 func (IndexedDB) ClearObjectStore(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *indexedDB.ClearObjectStoreParams,
 ) error {
-	command := &sock.Command{
-		Method: "IndexedDB.clearObjectStore",
-		Params: params,
-	}
+	command := sock.NewCommand("IndexedDB.clearObjectStore", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -39,15 +36,12 @@ DeleteDatabase deletes a database.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-deleteDatabase
 */
 func (IndexedDB) DeleteDatabase(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *indexedDB.DeleteDatabaseParams,
 ) error {
-	command := &sock.Command{
-		Method: "IndexedDB.deleteDatabase",
-		Params: params,
-	}
+	command := sock.NewCommand("IndexedDB.deleteDatabase", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -56,15 +50,12 @@ DeleteObjectStoreEntries deletes a range of entries from an object store.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-deleteObjectStoreEntries
 */
 func (IndexedDB) DeleteObjectStoreEntries(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *indexedDB.DeleteObjectStoreEntriesParams,
 ) error {
-	command := &sock.Command{
-		Method: "IndexedDB.deleteObjectStoreEntries",
-		Params: params,
-	}
+	command := sock.NewCommand("IndexedDB.deleteObjectStoreEntries", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -73,13 +64,11 @@ Disable disables events from backend.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-disable
 */
 func (IndexedDB) Disable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "IndexedDB.disable",
-	}
+	command := sock.NewCommand("IndexedDB.disable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -88,13 +77,11 @@ Enable enables events from backend.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-enable
 */
 func (IndexedDB) Enable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "IndexedDB.enable",
-	}
+	command := sock.NewCommand("IndexedDB.enable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -103,22 +90,19 @@ RequestData requests data from object store or index.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestData
 */
 func (IndexedDB) RequestData(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *indexedDB.RequestDataParams,
 ) (indexedDB.RequestDataResult, error) {
-	command := &sock.Command{
-		Method: "IndexedDB.requestData",
-		Params: params,
-	}
+	command := sock.NewCommand("IndexedDB.requestData", params)
 	result := indexedDB.RequestDataResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -129,7 +113,7 @@ func (IndexedDB) RequestData(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -138,22 +122,19 @@ RequestDatabase requests database with given name in given frame.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestDatabase
 */
 func (IndexedDB) RequestDatabase(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *indexedDB.RequestDatabaseParams,
 ) (indexedDB.RequestDatabaseResult, error) {
-	command := &sock.Command{
-		Method: "IndexedDB.requestDatabase",
-		Params: params,
-	}
+	command := sock.NewCommand("IndexedDB.requestDatabase", params)
 	result := indexedDB.RequestDatabaseResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -164,7 +145,7 @@ func (IndexedDB) RequestDatabase(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -173,22 +154,19 @@ RequestDatabaseNames requests database names for given security origin.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestDatabaseNames
 */
 func (IndexedDB) RequestDatabaseNames(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *indexedDB.RequestDatabaseNamesParams,
 ) (indexedDB.RequestDatabaseNamesResult, error) {
-	command := &sock.Command{
-		Method: "IndexedDB.requestDatabaseNames",
-		Params: params,
-	}
+	command := sock.NewCommand("IndexedDB.requestDatabaseNames", params)
 	result := indexedDB.RequestDatabaseNamesResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -199,5 +177,5 @@ func (IndexedDB) RequestDatabaseNames(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }

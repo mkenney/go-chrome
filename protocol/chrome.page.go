@@ -17,7 +17,9 @@ page domain.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/
 */
-type Page struct{}
+var Page = _page{}
+
+type _page struct{}
 
 /*
 AddScriptToEvaluateOnLoad is eprecated, please use addScriptToEvaluateOnNewDocument instead.
@@ -25,23 +27,21 @@ EXPERIMENTAL DEPRECATED
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-addScriptToEvaluateOnLoad
 */
-func (Page) AddScriptToEvaluateOnLoad(
-	socket *sock.Socket,
+func (_page) AddScriptToEvaluateOnLoad(
+	socket sock.Socketer,
 	params *page.AddScriptToEvaluateOnLoadParams,
 ) (page.AddScriptToEvaluateOnLoadResult, error) {
-	command := &sock.Command{
-		Method: "Page.addScriptToEvaluateOnLoad",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.addScriptToEvaluateOnLoad", params)
+
 	result := page.AddScriptToEvaluateOnLoadResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -52,7 +52,7 @@ func (Page) AddScriptToEvaluateOnLoad(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -61,23 +61,21 @@ frame's scripts).
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-addScriptToEvaluateOnNewDocument
 */
-func (Page) AddScriptToEvaluateOnNewDocument(
-	socket *sock.Socket,
+func (_page) AddScriptToEvaluateOnNewDocument(
+	socket sock.Socketer,
 	params *page.AddScriptToEvaluateOnNewDocumentParams,
 ) (page.AddScriptToEvaluateOnNewDocumentResult, error) {
-	command := &sock.Command{
-		Method: "Page.addScriptToEvaluateOnNewDocument",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.addScriptToEvaluateOnNewDocument", params)
+
 	result := page.AddScriptToEvaluateOnNewDocumentResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -88,7 +86,7 @@ func (Page) AddScriptToEvaluateOnNewDocument(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -96,14 +94,12 @@ BringToFront brings page to front (activates tab).
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-bringToFront
 */
-func (Page) BringToFront(
-	socket *sock.Socket,
+func (_page) BringToFront(
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Page.bringToFront",
-	}
+	command := sock.NewCommand("Page.bringToFront", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -111,23 +107,21 @@ CaptureScreenshot capture a page screenshot.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot
 */
-func (Page) CaptureScreenshot(
-	socket *sock.Socket,
+func (_page) CaptureScreenshot(
+	socket sock.Socketer,
 	params *page.CaptureScreenshotParams,
 ) (page.CaptureScreenshotResult, error) {
-	command := &sock.Command{
-		Method: "Page.captureScreenshot",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.captureScreenshot", params)
+
 	result := page.CaptureScreenshotResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -138,7 +132,7 @@ func (Page) CaptureScreenshot(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -146,23 +140,21 @@ CreateIsolatedWorld creates an isolated world for the given frame.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-createIsolatedWorld
 */
-func (Page) CreateIsolatedWorld(
-	socket *sock.Socket,
+func (_page) CreateIsolatedWorld(
+	socket sock.Socketer,
 	params *page.CreateIsolatedWorldParams,
 ) (page.CreateIsolatedWorldResult, error) {
-	command := &sock.Command{
-		Method: "Page.createIsolatedWorld",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.createIsolatedWorld", params)
+
 	result := page.CreateIsolatedWorldResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -173,7 +165,7 @@ func (Page) CreateIsolatedWorld(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -181,14 +173,12 @@ Disable disables page domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-disable
 */
-func (Page) Disable(
-	socket *sock.Socket,
+func (_page) Disable(
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Page.disable",
-	}
+	command := sock.NewCommand("Page.disable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -196,14 +186,12 @@ Enable Ennables page domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-enable
 */
-func (Page) Enable(
-	socket *sock.Socket,
+func (_page) Enable(
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Page.enable",
-	}
+	command := sock.NewCommand("Page.enable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -211,16 +199,14 @@ GetAppManifest gets the app manifest.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getAppManifest
 */
-func (Page) GetAppManifest(
-	socket *sock.Socket,
+func (_page) GetAppManifest(
+	socket sock.Socketer,
 	params *page.GetAppManifestParams,
 ) error {
-	command := &sock.Command{
-		Method: "Page.getAppManifest",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.getAppManifest", params)
+
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -228,21 +214,19 @@ GetFrameTree returns present frame tree structure.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getFrameTree
 */
-func (Page) GetFrameTree(
-	socket *sock.Socket,
+func (_page) GetFrameTree(
+	socket sock.Socketer,
 ) (page.GetFrameTreeResult, error) {
-	command := &sock.Command{
-		Method: "Page.getFrameTree",
-	}
+	command := sock.NewCommand("Page.getFrameTree", nil)
 	result := page.GetFrameTreeResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -253,7 +237,7 @@ func (Page) GetFrameTree(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -262,21 +246,19 @@ bounds/scale.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getLayoutMetrics
 */
-func (Page) GetLayoutMetrics(
-	socket *sock.Socket,
+func (_page) GetLayoutMetrics(
+	socket sock.Socketer,
 ) (page.GetLayoutMetricsResult, error) {
-	command := &sock.Command{
-		Method: "Page.getLayoutMetrics",
-	}
+	command := sock.NewCommand("Page.getLayoutMetrics", nil)
 	result := page.GetLayoutMetricsResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -287,7 +269,7 @@ func (Page) GetLayoutMetrics(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -295,21 +277,19 @@ GetNavigationHistory returns navigation history for the current page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getNavigationHistory
 */
-func (Page) GetNavigationHistory(
-	socket *sock.Socket,
+func (_page) GetNavigationHistory(
+	socket sock.Socketer,
 ) (page.GetNavigationHistoryResult, error) {
-	command := &sock.Command{
-		Method: "Page.getNavigationHistory",
-	}
+	command := sock.NewCommand("Page.getNavigationHistory", nil)
 	result := page.GetNavigationHistoryResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -320,7 +300,7 @@ func (Page) GetNavigationHistory(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -328,23 +308,21 @@ GetResourceContent returns content of the given resource. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceContent
 */
-func (Page) GetResourceContent(
-	socket *sock.Socket,
+func (_page) GetResourceContent(
+	socket sock.Socketer,
 	params *page.GetResourceContentParams,
 ) (page.GetResourceContentResult, error) {
-	command := &sock.Command{
-		Method: "Page.getResourceContent",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.getResourceContent", params)
+
 	result := page.GetResourceContentResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -355,7 +333,7 @@ func (Page) GetResourceContent(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -363,21 +341,19 @@ GetResourceTree returns present frame / resource tree structure. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceTree
 */
-func (Page) GetResourceTree(
-	socket *sock.Socket,
+func (_page) GetResourceTree(
+	socket sock.Socketer,
 ) (page.GetResourceTreeResult, error) {
-	command := &sock.Command{
-		Method: "Page.getResourceTree",
-	}
+	command := sock.NewCommand("Page.getResourceTree", nil)
 	result := page.GetResourceTreeResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -388,7 +364,7 @@ func (Page) GetResourceTree(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -397,16 +373,14 @@ or onbeforeunload).
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-handleJavaScriptDialog
 */
-func (Page) HandleJavaScriptDialog(
-	socket *sock.Socket,
+func (_page) HandleJavaScriptDialog(
+	socket sock.Socketer,
 	params *page.HandleJavaScriptDialogParams,
 ) error {
-	command := &sock.Command{
-		Method: "Page.handleJavaScriptDialog",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.handleJavaScriptDialog", params)
+
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -414,23 +388,21 @@ Navigate navigates current page to the given URL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-navigate
 */
-func (Page) Navigate(
-	socket *sock.Socket,
+func (_page) Navigate(
+	socket sock.Socketer,
 	params *page.NavigateParams,
 ) (page.NavigateResult, error) {
-	command := &sock.Command{
-		Method: "Page.navigate",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.navigate", params)
+
 	result := page.NavigateResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -441,7 +413,7 @@ func (Page) Navigate(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -449,16 +421,14 @@ NavigateToHistoryEntry navigates current page to the given history entry.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-navigateToHistoryEntry
 */
-func (Page) NavigateToHistoryEntry(
-	socket *sock.Socket,
+func (_page) NavigateToHistoryEntry(
+	socket sock.Socketer,
 	params *page.NavigateToHistoryEntryParams,
 ) error {
-	command := &sock.Command{
-		Method: "Page.navigateToHistoryEntry",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.navigateToHistoryEntry", params)
+
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -466,23 +436,21 @@ PrintToPDF print page as PDF.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-printToPDF
 */
-func (Page) PrintToPDF(
-	socket *sock.Socket,
+func (_page) PrintToPDF(
+	socket sock.Socketer,
 	params *page.PrintToPDFParams,
 ) (page.PrintToPDFResult, error) {
-	command := &sock.Command{
-		Method: "Page.printToPDF",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.printToPDF", params)
+
 	result := page.PrintToPDFResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -493,7 +461,7 @@ func (Page) PrintToPDF(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -501,16 +469,14 @@ Reload reloads given page optionally ignoring the cache.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-reload
 */
-func (Page) Reload(
-	socket *sock.Socket,
+func (_page) Reload(
+	socket sock.Socketer,
 	params *page.ReloadParams,
 ) error {
-	command := &sock.Command{
-		Method: "Page.reload",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.reload", params)
+
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -519,16 +485,14 @@ EXPERIMENTAL DEPRECATED
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-removeScriptToEvaluateOnLoad
 */
-func (Page) RemoveScriptToEvaluateOnLoad(
-	socket *sock.Socket,
+func (_page) RemoveScriptToEvaluateOnLoad(
+	socket sock.Socketer,
 	params *page.RemoveScriptToEvaluateOnLoadParams,
 ) error {
-	command := &sock.Command{
-		Method: "Page.removeScriptToEvaluateOnLoad",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.removeScriptToEvaluateOnLoad", params)
+
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -536,16 +500,14 @@ RemoveScriptToEvaluateOnNewDocument removes given script from the list.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-removeScriptToEvaluateOnNewDocument
 */
-func (Page) RemoveScriptToEvaluateOnNewDocument(
-	socket *sock.Socket,
+func (_page) RemoveScriptToEvaluateOnNewDocument(
+	socket sock.Socketer,
 	params *page.RemoveScriptToEvaluateOnNewDocumentParams,
 ) error {
-	command := &sock.Command{
-		Method: "Page.removeScriptToEvaluateOnNewDocument",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.removeScriptToEvaluateOnNewDocument", params)
+
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -553,14 +515,12 @@ RequestAppBanner EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-requestAppBanner
 */
-func (Page) RequestAppBanner(
-	socket *sock.Socket,
+func (_page) RequestAppBanner(
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Page.requestAppBanner",
-	}
+	command := sock.NewCommand("Page.requestAppBanner", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -569,16 +529,14 @@ EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-screencastFrameAck
 */
-func (Page) ScreencastFrameAck(
-	socket *sock.Socket,
+func (_page) ScreencastFrameAck(
+	socket sock.Socketer,
 	params *page.ScreencastFrameAckParams,
 ) error {
-	command := &sock.Command{
-		Method: "Page.screencastFrameAck",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.screencastFrameAck", params)
+
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -586,23 +544,21 @@ SearchInResource searches for given string in resource content. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-searchInResource
 */
-func (Page) SearchInResource(
-	socket *sock.Socket,
+func (_page) SearchInResource(
+	socket sock.Socketer,
 	params *page.SearchInResourceParams,
 ) (page.SearchInResourceResult, error) {
-	command := &sock.Command{
-		Method: "Page.searchInResource",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.searchInResource", params)
+
 	result := page.SearchInResourceResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -613,7 +569,7 @@ func (Page) SearchInResource(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -621,16 +577,14 @@ SetAdBlockingEnabled enable Chrome's experimental ad filter on all sites. EXPERI
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setAdBlockingEnabled
 */
-func (Page) SetAdBlockingEnabled(
-	socket *sock.Socket,
+func (_page) SetAdBlockingEnabled(
+	socket sock.Socketer,
 	params *page.SetAdBlockingEnabledParams,
 ) error {
-	command := &sock.Command{
-		Method: "Page.setAdBlockingEnabled",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.setAdBlockingEnabled", params)
+
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -639,16 +593,14 @@ pages. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setAutoAttachToCreatedPages
 */
-func (Page) SetAutoAttachToCreatedPages(
-	socket *sock.Socket,
+func (_page) SetAutoAttachToCreatedPages(
+	socket sock.Socketer,
 	params *page.SetAutoAttachToCreatedPagesParams,
 ) error {
-	command := &sock.Command{
-		Method: "Page.setAutoAttachToCreatedPages",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.setAutoAttachToCreatedPages", params)
+
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -656,16 +608,14 @@ SetDocumentContent sets given markup as the document's HTML.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setDocumentContent
 */
-func (Page) SetDocumentContent(
-	socket *sock.Socket,
+func (_page) SetDocumentContent(
+	socket sock.Socketer,
 	params *page.SetDocumentContentParams,
 ) error {
-	command := &sock.Command{
-		Method: "Page.setDocumentContent",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.setDocumentContent", params)
+
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -673,16 +623,14 @@ SetDownloadBehavior sets the behavior when downloading a file. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setDownloadBehavior
 */
-func (Page) SetDownloadBehavior(
-	socket *sock.Socket,
+func (_page) SetDownloadBehavior(
+	socket sock.Socketer,
 	params *page.SetDownloadBehaviorParams,
 ) error {
-	command := &sock.Command{
-		Method: "Page.setDownloadBehavior",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.setDownloadBehavior", params)
+
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -690,16 +638,14 @@ SetLifecycleEventsEnabled controls whether page will emit lifecycle events. EXPE
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setLifecycleEventsEnabled
 */
-func (Page) SetLifecycleEventsEnabled(
-	socket *sock.Socket,
+func (_page) SetLifecycleEventsEnabled(
+	socket sock.Socketer,
 	params *page.SetLifecycleEventsEnabledParams,
 ) error {
-	command := &sock.Command{
-		Method: "Page.setLifecycleEventsEnabled",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.setLifecycleEventsEnabled", params)
+
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -707,16 +653,14 @@ StartScreencast starts sending each frame using the `screencastFrame` event. EXP
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-startScreencast
 */
-func (Page) StartScreencast(
-	socket *sock.Socket,
+func (_page) StartScreencast(
+	socket sock.Socketer,
 	params *page.StartScreencastParams,
 ) error {
-	command := &sock.Command{
-		Method: "Page.startScreencast",
-		Params: params,
-	}
+	command := sock.NewCommand("Page.startScreencast", params)
+
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -724,14 +668,12 @@ StopLoading force the page stop all navigations and pending resource fetches.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-stopLoading
 */
-func (Page) StopLoading(
-	socket *sock.Socket,
+func (_page) StopLoading(
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Page.stopLoading",
-	}
+	command := sock.NewCommand("Page.stopLoading", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -739,14 +681,12 @@ StopScreencast stops sending each frame in the `screencastFrame`. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-stopScreencast
 */
-func (Page) StopScreencast(
-	socket *sock.Socket,
+func (_page) StopScreencast(
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Page.stopScreencast",
-	}
+	command := sock.NewCommand("Page.stopScreencast", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -755,15 +695,15 @@ Page.domContentEventFired fires when a content event occurs in the DOM.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-domContentEventFired
 */
-func (Page) OnDOMContentEventFired(
-	socket *sock.Socket,
+func (_page) OnDOMContentEventFired(
+	socket sock.Socketer,
 	callback func(event *page.DOMContentEventFiredEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Page.domContentEventFired",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &page.DOMContentEventFiredEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -779,15 +719,15 @@ frame has been attached to its parent.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameAttached
 */
-func (Page) OnFrameAttached(
-	socket *sock.Socket,
+func (_page) OnFrameAttached(
+	socket sock.Socketer,
 	callback func(event *page.FrameAttachedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Page.frameAttached",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &page.FrameAttachedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -804,15 +744,15 @@ EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameClearedScheduledNavigation
 */
-func (Page) OnFrameClearedScheduledNavigation(
-	socket *sock.Socket,
+func (_page) OnFrameClearedScheduledNavigation(
+	socket sock.Socketer,
 	callback func(event *page.FrameClearedScheduledNavigationEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Page.frameClearedScheduledNavigation",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &page.FrameClearedScheduledNavigationEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -828,15 +768,15 @@ frame has been detached from its parent.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameDetached
 */
-func (Page) OnFrameDetached(
-	socket *sock.Socket,
+func (_page) OnFrameDetached(
+	socket sock.Socketer,
 	callback func(event *page.FrameDetachedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Page.frameDetached",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &page.FrameDetachedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -852,15 +792,15 @@ navigation of the frame has completed. Frame is now associated with the new load
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameNavigated
 */
-func (Page) OnFrameNavigated(
-	socket *sock.Socket,
+func (_page) OnFrameNavigated(
+	socket sock.Socketer,
 	callback func(event *page.FrameNavigatedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Page.frameNavigated",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &page.FrameNavigatedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -876,15 +816,15 @@ is resized. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameResized
 */
-func (Page) OnFrameResized(
-	socket *sock.Socket,
+func (_page) OnFrameResized(
+	socket sock.Socketer,
 	callback func(event *page.FrameResizedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Page.frameResized",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &page.FrameResizedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -900,15 +840,15 @@ Page.frameScheduledNavigation fires when frame schedules a potential navigation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameScheduledNavigation
 */
-func (Page) OnFrameScheduledNavigation(
-	socket *sock.Socket,
+func (_page) OnFrameScheduledNavigation(
+	socket sock.Socketer,
 	callback func(event *page.FrameScheduledNavigationEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Page.frameScheduledNavigation",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &page.FrameScheduledNavigationEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -924,15 +864,15 @@ fires when frame has started loading. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameStartedLoading
 */
-func (Page) OnFrameStartedLoading(
-	socket *sock.Socket,
+func (_page) OnFrameStartedLoading(
+	socket sock.Socketer,
 	callback func(event *page.FrameStartedLoadingEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Page.frameStartedLoading",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &page.FrameStartedLoadingEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -948,15 +888,15 @@ fires when frame has stopped loading. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameStoppedLoading
 */
-func (Page) OnFrameStoppedLoading(
-	socket *sock.Socket,
+func (_page) OnFrameStoppedLoading(
+	socket sock.Socketer,
 	callback func(event *page.FrameStoppedLoadingEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Page.frameStoppedLoading",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &page.FrameStoppedLoadingEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -972,15 +912,15 @@ fires when interstitial page was hidden.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-interstitialHidden
 */
-func (Page) OnInterstitialHidden(
-	socket *sock.Socket,
+func (_page) OnInterstitialHidden(
+	socket sock.Socketer,
 	callback func(event *page.InterstitialHiddenEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Page.interstitialHidden",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &page.InterstitialHiddenEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -996,15 +936,15 @@ when interstitial page was shown.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-interstitialShown
 */
-func (Page) OnInterstitialShown(
-	socket *sock.Socket,
+func (_page) OnInterstitialShown(
+	socket sock.Socketer,
 	callback func(event *page.InterstitialShownEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Page.interstitialShown",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &page.InterstitialShownEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1021,15 +961,15 @@ onbeforeunload) has been closed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-javascriptDialogClosed
 */
-func (Page) OnJavascriptDialogClosed(
-	socket *sock.Socket,
+func (_page) OnJavascriptDialogClosed(
+	socket sock.Socketer,
 	callback func(event *page.JavascriptDialogClosedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Page.javascriptDialogClosed",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &page.JavascriptDialogClosedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1046,15 +986,15 @@ onbeforeunload) is about to open.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-javascriptDialogOpening
 */
-func (Page) OnJavascriptDialogOpening(
-	socket *sock.Socket,
+func (_page) OnJavascriptDialogOpening(
+	socket sock.Socketer,
 	callback func(event *page.JavascriptDialogOpeningEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Page.javascriptDialogOpening",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &page.JavascriptDialogOpeningEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1070,15 +1010,15 @@ level page lifecycle events such as navigation, load, paint, etc.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-lifecycleEvent
 */
-func (Page) OnLifecycleEvent(
-	socket *sock.Socket,
+func (_page) OnLifecycleEvent(
+	socket sock.Socketer,
 	callback func(event *page.LifecycleEventEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Page.lifecycleEvent",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &page.LifecycleEventEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1094,15 +1034,15 @@ page has finished loading.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-loadEventFired
 */
-func (Page) OnLoadEventFired(
-	socket *sock.Socket,
+func (_page) OnLoadEventFired(
+	socket sock.Socketer,
 	callback func(event *page.LoadEventFiredEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Page.loadEventFired",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &page.LoadEventFiredEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1118,15 +1058,15 @@ compressed image data is requested by the `startScreencast` method. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-screencastFrame
 */
-func (Page) OnScreencastFrame(
-	socket *sock.Socket,
+func (_page) OnScreencastFrame(
+	socket sock.Socketer,
 	callback func(event *page.ScreencastFrameEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Page.screencastFrame",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &page.ScreencastFrameEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1143,15 +1083,15 @@ hidden. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-screencastVisibilityChanged
 */
-func (Page) OnScreencastVisibilityChanged(
-	socket *sock.Socket,
+func (_page) OnScreencastVisibilityChanged(
+	socket sock.Socketer,
 	callback func(event *page.ScreencastVisibilityChangedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Page.screencastVisibilityChanged",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &page.ScreencastVisibilityChangedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1167,15 +1107,15 @@ going to be opened, via window.open(), link click, form submission, etc.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-windowOpen
 */
-func (Page) OnWindowOpen(
-	socket *sock.Socket,
+func (_page) OnWindowOpen(
+	socket sock.Socketer,
 	callback func(event *page.WindowOpenEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Page.windowOpen",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &page.WindowOpenEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

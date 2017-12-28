@@ -25,22 +25,19 @@ computed style information for the nodes. Shadow DOM in the returned DOM tree is
 https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#method-getSnapshot
 */
 func (DOMSnapshot) Get(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *domSnapshot.GetParams,
 ) (domSnapshot.GetResult, error) {
-	command := &sock.Command{
-		Method: "DOMSnapshot.getSnapshot",
-		Params: params,
-	}
+	command := sock.NewCommand("DOMSnapshot.getSnapshot", params)
 	result := domSnapshot.GetResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -51,5 +48,5 @@ func (DOMSnapshot) Get(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }

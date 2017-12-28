@@ -24,13 +24,11 @@ Disable disables database tracking, prevents database events from being sent to 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-disable
 */
 func (Database) Disable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Database.disable",
-	}
+	command := sock.NewCommand("Database.disable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -39,13 +37,11 @@ Enable enables database tracking, database events will now be delivered to the c
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-enable
 */
 func (Database) Enable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Database.enable",
-	}
+	command := sock.NewCommand("Database.enable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -54,22 +50,19 @@ ExecuteSQL executes a SQL query.
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-executeSQL
 */
 func (Database) ExecuteSQL(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *database.ExecuteSQLParams,
 ) (database.ExecuteSQLResult, error) {
-	command := &sock.Command{
-		Method: "Database.executeSQL",
-		Params: params,
-	}
+	command := sock.NewCommand("Database.executeSQL", params)
 	result := database.ExecuteSQLResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -80,7 +73,7 @@ func (Database) ExecuteSQL(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -89,15 +82,12 @@ GetTableNames gets database table names.
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-getDatabaseTableNames
 */
 func (Database) GetTableNames(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *database.GetTableNamesParams,
 ) error {
-	command := &sock.Command{
-		Method: "Database.getDatabaseTableNames",
-		Params: params,
-	}
+	command := sock.NewCommand("Database.getDatabaseTableNames", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -107,14 +97,14 @@ whenever a database is added
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#event-addDatabase
 */
 func (Database) OnAdd(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *database.AddEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Database.addDatabase",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &database.AddEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

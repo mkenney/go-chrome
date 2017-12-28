@@ -22,13 +22,11 @@ Disable disables profiling.
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-disable
 */
 func (Profiler) Disable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Profiler.disable",
-	}
+	command := sock.NewCommand("Profiler.disable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -37,13 +35,11 @@ Enable enables profiling.
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-enable
 */
 func (Profiler) Enable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Profiler.enable",
-	}
+	command := sock.NewCommand("Profiler.enable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -53,20 +49,18 @@ incomplete due to garbage collection.
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-getBestEffortCoverage
 */
 func (Profiler) GetBestEffortCoverage(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) (profiler.GetBestEffortCoverageResult, error) {
-	command := &sock.Command{
-		Method: "Profiler.getBestEffortCoverage",
-	}
+	command := sock.NewCommand("Profiler.getBestEffortCoverage", nil)
 	result := profiler.GetBestEffortCoverageResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -77,7 +71,7 @@ func (Profiler) GetBestEffortCoverage(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -87,15 +81,12 @@ recording started.
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-setSamplingInterval
 */
 func (Profiler) SetSamplingInterval(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *profiler.SetSamplingIntervalParams,
 ) error {
-	command := &sock.Command{
-		Method: "Profiler.setSamplingInterval",
-		Params: params,
-	}
+	command := sock.NewCommand("Profiler.setSamplingInterval", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -104,13 +95,11 @@ Start starts profiling.
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-start
 */
 func (Profiler) Start(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Profiler.start",
-	}
+	command := sock.NewCommand("Profiler.start", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -121,15 +110,12 @@ resets execution counters.
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-startPreciseCoverage
 */
 func (Profiler) StartPreciseCoverage(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *profiler.StartPreciseCoverageParams,
 ) error {
-	command := &sock.Command{
-		Method: "Profiler.startPreciseCoverage",
-		Params: params,
-	}
+	command := sock.NewCommand("Profiler.startPreciseCoverage", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -138,13 +124,11 @@ StartTypeProfile enables type profile. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-startTypeProfile
 */
 func (Profiler) StartTypeProfile(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Profiler.startTypeProfile",
-	}
+	command := sock.NewCommand("Profiler.startTypeProfile", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -153,20 +137,18 @@ Stop stops profiling.
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stop
 */
 func (Profiler) Stop(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) (profiler.StopResult, error) {
-	command := &sock.Command{
-		Method: "Profiler.stop",
-	}
+	command := sock.NewCommand("Profiler.stop", nil)
 	result := profiler.StopResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -177,7 +159,7 @@ func (Profiler) Stop(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -187,13 +169,11 @@ records and allows executing optimized code.
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stopPreciseCoverage
 */
 func (Profiler) StopPreciseCoverage(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Profiler.stopPreciseCoverage",
-	}
+	command := sock.NewCommand("Profiler.stopPreciseCoverage", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -203,13 +183,11 @@ EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stopTypeProfile
 */
 func (Profiler) StopTypeProfile(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Profiler.stopTypeProfile",
-	}
+	command := sock.NewCommand("Profiler.stopTypeProfile", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -219,20 +197,18 @@ Precise code coverage needs to have started.
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-takePreciseCoverage
 */
 func (Profiler) TakePreciseCoverage(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) (profiler.TakePreciseCoverageResult, error) {
-	command := &sock.Command{
-		Method: "Profiler.takePreciseCoverage",
-	}
+	command := sock.NewCommand("Profiler.takePreciseCoverage", nil)
 	result := profiler.TakePreciseCoverageResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -243,7 +219,7 @@ func (Profiler) TakePreciseCoverage(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -252,20 +228,18 @@ TakeTypeProfile collect type profile. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-takeTypeProfile
 */
 func (Profiler) TakeTypeProfile(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) (profiler.TakeTypeProfileResult, error) {
-	command := &sock.Command{
-		Method: "Profiler.takeTypeProfile",
-	}
+	command := sock.NewCommand("Profiler.takeTypeProfile", nil)
 	result := profiler.TakeTypeProfileResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -276,7 +250,7 @@ func (Profiler) TakeTypeProfile(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -286,14 +260,14 @@ Profiler.consoleProfileFinished fires when profile recording finishes.
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#event-consoleProfileFinished
 */
 func (Profiler) OnConsoleProfileFinished(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *profiler.ConsoleProfileFinishedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Profiler.consoleProfileFinished",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &profiler.ConsoleProfileFinishedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -311,14 +285,14 @@ call.
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#event-consoleProfileStarted
 */
 func (Profiler) OnConsoleProfileStarted(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *profiler.ConsoleProfileStartedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Profiler.consoleProfileStarted",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &profiler.ConsoleProfileStartedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

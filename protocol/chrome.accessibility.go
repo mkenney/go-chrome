@@ -14,7 +14,9 @@ EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/
 */
-type Accessibility struct{}
+var Accessibility = _accessibility{}
+
+type _accessibility struct{}
 
 /*
 GetPartialAXTree fetches the accessibility node and partial accessibility tree for this DOM node, if
@@ -22,22 +24,19 @@ it exists.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/#method-getPartialAXTree
 */
-func (Accessibility) GetPartialAXTree(
-	socket *sock.Socket,
+func (_accessibility) GetPartialAXTree(
+	socket sock.Socketer,
 	params *accessibility.PartialAXTreeParams,
 ) (accessibility.PartialAXTreeResult, error) {
-	command := &sock.Command{
-		Method: "Accessibility.getPartialAXTree",
-		Params: params,
-	}
+	command := sock.NewCommand("Accessibility.getPartialAXTree", params)
 	result := accessibility.PartialAXTreeResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
+	if nil != command.Result() {
 		resultData, err := json.Marshal(command.Result)
 		if nil != err {
 			return result, err
@@ -49,5 +48,5 @@ func (Accessibility) GetPartialAXTree(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }

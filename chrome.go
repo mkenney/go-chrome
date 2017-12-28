@@ -395,7 +395,7 @@ func (chrome *Chrome) Close() error {
 NewSocket returns a new websocket connected to the Chrome instance for sending
 commands through.
 */
-func (chrome *Chrome) NewSocket() (*socket.Socket, error) {
+func (chrome *Chrome) NewSocket() (socket.Socketer, error) {
 	tabs, err := chrome.GetTabs()
 	if nil != err {
 		log.Fatal(err)

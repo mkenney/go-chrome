@@ -18,15 +18,12 @@ DispatchKeyEvent dispatches a key event to the page.
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchKeyEvent
 */
 func (Input) DispatchKeyEvent(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *input.DispatchKeyEventParams,
 ) error {
-	command := &sock.Command{
-		Method: "Input.dispatchKeyEvent",
-		Params: params,
-	}
+	command := sock.NewCommand("Input.dispatchKeyEvent", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -35,15 +32,12 @@ DispatchMouseEvent dispatches a mouse event to the page.
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchMouseEvent
 */
 func (Input) DispatchMouseEvent(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *input.DispatchMouseEventParams,
 ) error {
-	command := &sock.Command{
-		Method: "Input.dispatchMouseEvent",
-		Params: params,
-	}
+	command := sock.NewCommand("Input.dispatchMouseEvent", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -52,15 +46,12 @@ DispatchTouchEvent dispatches a touch event to the page.
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchTouchEvent
 */
 func (Input) DispatchTouchEvent(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *input.DispatchTouchEventParams,
 ) error {
-	command := &sock.Command{
-		Method: "Input.dispatchTouchEvent",
-		Params: params,
-	}
+	command := sock.NewCommand("Input.dispatchTouchEvent", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -69,15 +60,12 @@ EmulateTouchFromMouseEvent emulates touch event from the mouse event parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-emulateTouchFromMouseEvent
 */
 func (Input) EmulateTouchFromMouseEvent(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *input.EmulateTouchFromMouseEventParams,
 ) error {
-	command := &sock.Command{
-		Method: "Input.emulateTouchFromMouseEvent",
-		Params: params,
-	}
+	command := sock.NewCommand("Input.emulateTouchFromMouseEvent", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -86,15 +74,12 @@ SetIgnoreEvents ignores input events (useful while auditing page).
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-setIgnoreInputEvents
 */
 func (Input) SetIgnoreEvents(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *input.SetIgnoreEventsParams,
 ) error {
-	command := &sock.Command{
-		Method: "Input.setIgnoreInputEvents",
-		Params: params,
-	}
+	command := sock.NewCommand("Input.setIgnoreInputEvents", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -104,15 +89,12 @@ events. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizePinchGesture
 */
 func (Input) SynthesizePinchGesture(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *input.SynthesizePinchGestureParams,
 ) error {
-	command := &sock.Command{
-		Method: "Input.synthesizePinchGesture",
-		Params: params,
-	}
+	command := sock.NewCommand("Input.synthesizePinchGesture", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -122,15 +104,12 @@ events. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizeScrollGesture
 */
 func (Input) SynthesizeScrollGesture(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *input.SynthesizeScrollGestureParams,
 ) error {
-	command := &sock.Command{
-		Method: "Input.synthesizeScrollGesture",
-		Params: params,
-	}
+	command := sock.NewCommand("Input.synthesizeScrollGesture", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -140,13 +119,10 @@ events. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizeTapGesture
 */
 func (Input) SynthesizeTapGesture(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *input.SynthesizeTapGestureParams,
 ) error {
-	command := &sock.Command{
-		Method: "Input.synthesizeTapGesture",
-		Params: params,
-	}
+	command := sock.NewCommand("Input.synthesizeTapGesture", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }

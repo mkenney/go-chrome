@@ -16,21 +16,21 @@ EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/
 */
-type ApplicationCache struct{}
+var ApplicationCache = _applicationcache{}
+
+type _applicationcache struct{}
 
 /*
 Enable enables application cache domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-enable
 */
-func (ApplicationCache) Enable(
-	socket *sock.Socket,
+func (_applicationcache) Enable(
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "ApplicationCache.enable",
-	}
+	command := sock.NewCommand("ApplicationCache.enable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -39,23 +39,20 @@ in given frame.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getApplicationCacheForFrame
 */
-func (ApplicationCache) GetForFrame(
-	socket *sock.Socket,
+func (_applicationcache) GetForFrame(
+	socket sock.Socketer,
 	params *applicationCache.GetForFrameParams,
 ) (applicationCache.GetForFrameResult, error) {
-	command := &sock.Command{
-		Method: "ApplicationCache.getApplicationCacheForFrame",
-		Params: params,
-	}
+	command := sock.NewCommand("ApplicationCache.getApplicationCacheForFrame", params)
 	result := applicationCache.GetForFrameResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -66,7 +63,7 @@ func (ApplicationCache) GetForFrame(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -75,21 +72,19 @@ containing a document associated with some application cache.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getFramesWithManifests
 */
-func (ApplicationCache) GetFramesWithManifests(
-	socket *sock.Socket,
+func (_applicationcache) GetFramesWithManifests(
+	socket sock.Socketer,
 ) (applicationCache.GetFramesWithManifestsResult, error) {
-	command := &sock.Command{
-		Method: "ApplicationCache.getFramesWithManifests",
-	}
+	command := sock.NewCommand("ApplicationCache.getFramesWithManifests", nil)
 	result := applicationCache.GetFramesWithManifestsResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -100,7 +95,7 @@ func (ApplicationCache) GetFramesWithManifests(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -108,23 +103,20 @@ GetManifestForFrame returns manifest URL for document in the given frame.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getManifestForFrame
 */
-func (ApplicationCache) GetManifestForFrame(
-	socket *sock.Socket,
+func (_applicationcache) GetManifestForFrame(
+	socket sock.Socketer,
 	params *applicationCache.GetManifestForFrameParams,
 ) (applicationCache.GetManifestForFrameResult, error) {
-	command := &sock.Command{
-		Method: "ApplicationCache.getManifestForFrame",
-		Params: params,
-	}
+	command := sock.NewCommand("ApplicationCache.getManifestForFrame", params)
 	result := applicationCache.GetManifestForFrameResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -135,7 +127,7 @@ func (ApplicationCache) GetManifestForFrame(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -143,15 +135,15 @@ OnApplicationCacheStatusUpdated adds a handler to the ApplicationCache.StatusUpd
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#event-applicationCacheStatusUpdated
 */
-func (ApplicationCache) OnApplicationCacheStatusUpdated(
-	socket *sock.Socket,
+func (_applicationcache) OnApplicationCacheStatusUpdated(
+	socket sock.Socketer,
 	callback func(event *applicationCache.StatusUpdatedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"ApplicationCache.applicationCacheStatusUpdated",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &applicationCache.StatusUpdatedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -166,15 +158,15 @@ OnNetworkStateUpdated adds a handler to the ApplicationCache.StatusUpdated event
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#event-networkStateUpdated
 */
-func (ApplicationCache) OnNetworkStateUpdated(
-	socket *sock.Socket,
+func (_applicationcache) OnNetworkStateUpdated(
+	socket sock.Socketer,
 	callback func(event *applicationCache.StatusUpdatedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"ApplicationCache.networkStateUpdated",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &applicationCache.StatusUpdatedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

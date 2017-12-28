@@ -6,96 +6,72 @@ import (
 	"net/http"
 	"strings"
 	"sync"
-	"time"
 
 	"github.com/gorilla/websocket"
 	log "github.com/sirupsen/logrus"
 )
 
 /*
-New returns a new websocket connection
+New returns a new Socketer websocket connection listening to the specified URL.
 */
-func New(socketURL string) (*Socket, error) {
+func New(socketURL string) (Socketer, error) {
 
-	dialer := &websocket.Dialer{
-		EnableCompression: false,
-	}
-	header := http.Header{
-		"Origin": []string{socketURL},
-	}
+	dialer := &websocket.Dialer{EnableCompression: false}
+	header := http.Header{"Origin": []string{socketURL}}
 
 	webSocket, response, err := dialer.Dial(socketURL, header)
 	if err != nil {
-		log.Warningf("Could not create socket connection. %s responded with '%s'", socketURL, response.Status)
+		log.Warningf("Could not create websocket connection. %s responded with '%s'", socketURL, response.Status)
 		return nil, err
 	}
 
-	socket := &Socket{
+	socket := &socket{
 		conn:     webSocket,
-		Commands: &commandMap{},
-		Events:   &eventMap{},
+		commands: NewCommandMap(),
+		handlers: NewEventHandlerMap(),
+		url:      socketURL,
 	}
-	socket.Commands.Map = make(map[int]*Command)
-	socket.Events.Map = make(map[string][]*EventHandler)
 	go socket.Listen()
 
-	log.Infof("New socket connection listening on %s", socketURL)
-	socket.URL = socketURL
+	log.Infof("New socket connection listening on %s: %s", socket.url, response.Status)
 	return socket, nil
 }
 
+//////////////////////////////////////////////////
+// Socketer
+//////////////////////////////////////////////////
+
 /*
-Socket represents a websocket connection to the Browser instance
+socket implements Socketer.
 */
-type Socket struct {
-	CommandID int
-	Commands  *commandMap
-	Events    *eventMap
-	Mux       sync.Mutex
-	URL       string
+type socket struct {
+	commandID int
+	commands  CommandMapper
+	handlers  EventHandlerMapper
+	mux       sync.Mutex
+	url       string
 	conn      *websocket.Conn
 }
 
-type commandMap struct {
-	Map map[int]*Command
-	Mux sync.Mutex
-}
-
-type eventMap struct {
-	Map map[string][]*EventHandler
-	Mux sync.Mutex
-}
-
 /*
-Response represents a socket message
+Close implements Socketer.
 */
-type Response struct {
-	Error  Error           `json:"error"`
-	ID     int             `json:"id"`
-	Method string          `json:"method"`
-	Params json.RawMessage `json:"params"`
-	Result json.RawMessage `json:"result"`
-}
-
-/*
-Error represents an error
-*/
-type Error struct {
-	Code    int    `json:"code"`
-	Message string `json:"message"`
-}
-
-/*
-Close closes the current socket connection
-*/
-func (socket *Socket) Close() error {
+func (socket *socket) Close() error {
 	return socket.conn.Close()
 }
 
 /*
-Listen starts the socket read loop
+GenerateCommandID generates and returns a unique command ID.
 */
-func (socket *Socket) Listen() {
+func (socket *socket) GenerateCommandID() int {
+	socket.commandID++
+	return socket.commandID
+}
+
+/*
+Listen implements Socketer.
+*/
+func (socket *socket) Listen() {
 	for {
 		response := &Response{}
 		err := socket.conn.ReadJSON(&response)
@@ -104,18 +80,60 @@ func (socket *Socket) Listen() {
 			log.Error(err)
 			if err == io.EOF ||
 				websocket.IsCloseError(err, 1006) ||
-				strings.Contains(err.Error(), "use of closed network connection") {
-				log.Error(err)
+				strings.Contains(err.Error(), "closed network connection") {
 				break
 			}
 
 		} else if response.ID > 0 {
-			socket.handleCommand(response)
+			socket.HandleCommand(response)
 
 		} else {
-			socket.handleEvent(response)
+			socket.HandleEvent(response)
 		}
-
-		time.Sleep(100 * time.Millisecond)
 	}
+}
+
+/*
+Lock implements Socketer.
+*/
+func (socket *socket) Lock() {
+	socket.mux.Lock()
+}
+
+/*
+Unlock implements Socketer.
+*/
+func (socket *socket) Unlock() {
+	socket.mux.Unlock()
+}
+
+/*
+URL implements Socketer.
+*/
+func (socket *socket) URL() string {
+	return socket.url
+}
+
+//////////////////////////////////////////////////
+// Socket response data
+//////////////////////////////////////////////////
+
+/*
+Error represents a socket response error.
+*/
+type Error struct {
+	Code    int             `json:"code"`
+	Data    json.RawMessage `json:"data"`
+	Message string          `json:"message"`
+}
+
+/*
+Response represents a socket message.
+*/
+type Response struct {
+	Error  Error           `json:"error"`
+	ID     int             `json:"id"`
+	Method string          `json:"method"`
+	Params json.RawMessage `json:"params"`
+	Result json.RawMessage `json:"result"`
 }

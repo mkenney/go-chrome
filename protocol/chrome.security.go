@@ -22,13 +22,11 @@ Disable disables tracking security state changes.
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-disable
 */
 func (Security) Disable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Security.disable",
-	}
+	command := sock.NewCommand("Security.disable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -37,13 +35,11 @@ Enable tracking security state changes.
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-enable
 */
 func (Security) Enable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Security.enable",
-	}
+	command := sock.NewCommand("Security.enable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -53,15 +49,12 @@ EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setIgnoreCertificateErrors
 */
 func (Security) SetIgnoreCertificateErrors(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *security.SetIgnoreCertificateErrorsParams,
 ) error {
-	command := &sock.Command{
-		Method: "Security.setIgnoreCertificateErrors",
-		Params: params,
-	}
+	command := sock.NewCommand("Security.setIgnoreCertificateErrors", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -70,15 +63,12 @@ HandleCertificateError handles a certificate error that fired a certificateError
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-handleCertificateError
 */
 func (Security) HandleCertificateError(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *security.HandleCertificateErrorParams,
 ) error {
-	command := &sock.Command{
-		Method: "Security.handleCertificateError",
-		Params: params,
-	}
+	command := sock.NewCommand("Security.handleCertificateError", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -89,15 +79,12 @@ handleCertificateError commands.
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setOverrideCertificateErrors
 */
 func (Security) SetOverrideCertificateErrors(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *security.SetOverrideCertificateErrorsParams,
 ) error {
-	command := &sock.Command{
-		Method: "Security.setOverrideCertificateErrors",
-		Params: params,
-	}
+	command := sock.NewCommand("Security.setOverrideCertificateErrors", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -108,12 +95,15 @@ certificate error has been allowed internally.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#event-certificateError
 */
-func (Security) OnCertificateError(socket *sock.Socket, callback func(event *security.CertificateErrorEvent)) {
+func (Security) OnCertificateError(
+	socket sock.Socketer,
+	callback func(event *security.CertificateErrorEvent),
+) {
 	handler := sock.NewEventHandler(
 		"Security.certificateError",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &security.CertificateErrorEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -129,12 +119,15 @@ fires when the security state of the page changed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#event-securityStateChanged
 */
-func (Security) OnSecurityStateChanged(socket *sock.Socket, callback func(event *security.StateChangedEvent)) {
+func (Security) OnSecurityStateChanged(
+	socket sock.Socketer,
+	callback func(event *security.StateChangedEvent),
+) {
 	handler := sock.NewEventHandler(
 		"Security.securityStateChanged",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &security.StateChangedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

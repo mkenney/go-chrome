@@ -24,15 +24,12 @@ Bind requests browser port binding.
 https://chromedevtools.github.io/devtools-protocol/tot/Tethering/#method-bind
 */
 func (Tethering) Bind(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *tethering.BindParams,
 ) error {
-	command := &sock.Command{
-		Method: "Tethering.bind",
-		Params: params,
-	}
+	command := sock.NewCommand("Tethering.bind", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -41,15 +38,12 @@ Unbind requests browser port unbinding.
 https://chromedevtools.github.io/devtools-protocol/tot/Tethering/#method-unbind
 */
 func (Tethering) Unbind(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *tethering.UnbindParams,
 ) error {
-	command := &sock.Command{
-		Method: "Tethering.unbind",
-		Params: params,
-	}
+	command := sock.NewCommand("Tethering.unbind", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -59,14 +53,14 @@ successfully bound and got a specified connection id.
 https://chromedevtools.github.io/devtools-protocol/tot/Tethering/#event-accepted
 */
 func (Tethering) OnAccepted(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *tethering.AcceptedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Tethering.accepted",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &tethering.AcceptedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

@@ -22,20 +22,18 @@ GetDomains returns supported domains.
 https://chromedevtools.github.io/devtools-protocol/tot/Schema/#method-getDomains
 */
 func (Schema) GetDomains(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) (schema.GetDomainsResult, error) {
-	command := &sock.Command{
-		Method: "Schema.getDomains",
-	}
+	command := sock.NewCommand("Schema.getDomains", nil)
 	result := schema.GetDomainsResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -46,5 +44,5 @@ func (Schema) GetDomains(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }

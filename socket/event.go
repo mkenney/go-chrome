@@ -1,126 +1,212 @@
 package socket
 
 import (
-	"encoding/json"
+	"fmt"
+	"sync"
 
 	log "github.com/sirupsen/logrus"
 )
 
 /*
-EventHandlerInterface is the interface definition for a socket event
+NewEventHandler returns a pointer to a generic event handler.
 */
-type EventHandlerInterface interface {
-	OnEvent(name string, params []byte)
-}
-
-/*
-EventHandler is a generic EventHandlerInterface type
-*/
-type EventHandler struct {
-	Callback func(name string, params []byte)
-	Name     string
-}
-
-/*
-NewEventHandler returns a pointer to a generic event handler
-*/
-func NewEventHandler(name string, callback func(name string, params []byte)) *EventHandler {
-	return &EventHandler{
-		Callback: callback,
-		Name:     name,
+func NewEventHandler(name string, callback func(response *Response)) EventHandler {
+	return &handler{
+		callback: callback,
+		name:     name,
 	}
 }
 
 /*
-OnEvent is an EventHandlerInterface implementation
+NewEventHandlerMap creates and returns a pointer to a EventHandlerMap.
 */
-func (e *EventHandler) OnEvent(name string, params []byte) {
-	e.Callback(name, params)
-}
-
-/*
-EventHandlerResult represents the result of the socket event
-*/
-type EventHandlerResult struct {
-	Data string `json:"data"`
-}
-
-/*
-EventHandlerPayload is a representation of a WebSocket JSON payload
-*/
-type EventHandlerPayload struct {
-	ID     int         `json:"id"`
-	Method string      `json:"method"`
-	Params interface{} `json:"params"`
-}
-
-/*
-NewEventHandlerPayload generates a new EventHandlerPayload pointer
-*/
-func NewEventHandlerPayload(id int, method string, params interface{}) *EventHandlerPayload {
-	return &EventHandlerPayload{
-		ID:     id,
-		Method: method,
-		Params: params,
+func NewEventHandlerMap() EventHandlerMapper {
+	return &eventHandlerMap{
+		stack: make(map[string][]EventHandler),
 	}
 }
 
+//////////////////////////////////////////////////
+// Event handler map
+//////////////////////////////////////////////////
+
 /*
-EventHandlerResponse represents a socket message
+eventHandlerMap defines the event handler stacks for all handled events.
 */
-type EventHandlerResponse struct {
-	Error  Error           `json:"error"`
-	ID     int             `json:"id"`
-	Method string          `json:"method"`
-	Params json.RawMessage `json:"params"`
-	Result json.RawMessage `json:"result"`
+type eventHandlerMap struct {
+	stack map[string][]EventHandler
+	mux   sync.Mutex
 }
 
 /*
-AddEventHandler adds an event handler to the socket
+Add implements EventHandlerMapper.
 */
-func (socket *Socket) AddEventHandler(handler *EventHandler) {
-	socket.Events.Mux.Lock()
-	defer socket.Events.Mux.Unlock()
+func (stack *eventHandlerMap) Add(handler EventHandler) {
+	stack.Lock()
+	defer stack.Unlock()
 
-	for _, hndl := range socket.Events.Map[handler.Name] {
+	handlers, err := stack.Get(handler.Name())
+	if nil != err {
+		handlers = make([]EventHandler, 0)
+	}
+
+	for _, hndl := range handlers {
 		if hndl == handler {
-			log.Warnf("Attempted to add a duplicate handler for event '%s'", handler.Name)
+			log.Warnf("Attempted to add a duplicate handler for event '%s'", handler.Name())
 			return
 		}
 	}
-	log.Debugf("Adding handler for event '%s'", handler.Name)
-	socket.Events.Map[handler.Name] = append(socket.Events.Map[handler.Name], handler)
+
+	log.Debugf("Adding handler for event '%s'", handler.Name())
+	handlers = append(handlers, handler)
+	stack.Set(handler.Name(), handlers)
 }
 
 /*
-RemoveEventHandler removes an event handler from the socket
+Delete implements EventHandlerMapper.
 */
-func (socket *Socket) RemoveEventHandler(event *EventHandler) {
-	socket.Events.Mux.Lock()
-	defer socket.Events.Mux.Unlock()
+func (stack *eventHandlerMap) Delete(eventName string) {
+	delete(stack.stack, eventName)
+}
 
-	events := socket.Events.Map[event.Name]
-	for i, evt := range events {
-		if evt == event {
-			evtCount := len(events)
-			events[i] = events[evtCount-1]
-			socket.Events.Map[event.Name] = events[:evtCount-1]
+/*
+Get implements EventHandlerMapper.
+*/
+func (stack *eventHandlerMap) Get(eventName string) ([]EventHandler, error) {
+	if handlers, ok := stack.stack[eventName]; ok {
+		return handlers, nil
+	}
+	return nil, fmt.Errorf("No event listeners found for %s", eventName)
+}
+
+/*
+Lock implements EventHandlerMapper.
+*/
+func (stack *eventHandlerMap) Lock() {
+	stack.mux.Lock()
+}
+
+/*
+Remove implements EventHandlerMapper.
+*/
+func (stack *eventHandlerMap) Remove(handler EventHandler) {
+	stack.Lock()
+	defer stack.Unlock()
+
+	for k, hndl := range stack.stack[handler.Name()] {
+		if hndl == handler {
+			stack.stack[handler.Name()] = append(stack.stack[handler.Name()][:k], stack.stack[handler.Name()][k+1:]...)
 			return
 		}
 	}
+	log.Warnf("Could not remove handler for '%s': not found", handler.Name())
 }
 
-func (socket *Socket) handleEvent(response *Response) {
-	log.Debugf("%s: %s event received", socket.URL, response.Method)
+/*
+Set implements EventHandlerMapper.
+*/
+func (stack *eventHandlerMap) Set(eventName string, handlers []EventHandler) {
+	stack.stack[eventName] = handlers
+}
+
+/*
+Unlock implements EventHandlerMapper.
+*/
+func (stack *eventHandlerMap) Unlock() {
+	stack.mux.Unlock()
+}
+
+//////////////////////////////////////////////////
+// Event handler
+//////////////////////////////////////////////////
+
+/*
+handler implements EventHandler.
+*/
+type handler struct {
+	callback func(response *Response)
+	name     string
+}
+
+/*
+Name implements EventHandler.
+*/
+func (handler *handler) Name() string {
+	return handler.name
+}
+
+/*
+Handle implements EventHandler.
+*/
+func (handler *handler) Handle(response *Response) {
+	handler.callback(response)
+}
+
+//////////////////////////////////////////////////
+// Socketer
+//////////////////////////////////////////////////
+
+/*
+AddEventHandler implements Socketer.
+*/
+func (socket *socket) AddEventHandler(handler EventHandler) {
+	socket.handlers.Lock()
+	defer socket.handlers.Unlock()
+
+	handlers, err := socket.handlers.Get(handler.Name())
+	if nil != err {
+		handlers = make([]EventHandler, 0)
+	}
+	for _, hndl := range handlers {
+		if hndl == handler {
+			log.Warnf("Attempted to add a duplicate handler for event '%s', skipping...", handler.Name())
+			return
+		}
+	}
+
+	log.Debugf("Adding handler for event '%s'", handler.Name())
+	handlers = append(handlers, handler)
+	socket.handlers.Set(handler.Name(), handlers)
+}
+
+/*
+HandleEvent implements Socketer.
+*/
+func (socket *socket) HandleEvent(response *Response) {
+	log.Debugf("%s event received from %s", response.Method, socket.URL())
 	if response.Method == "Inspector.targetCrashed" {
 		log.Fatalf("Chrome has crashed!")
 	}
-	socket.Events.Mux.Lock()
-	defer socket.Events.Mux.Unlock()
+	socket.handlers.Lock()
+	defer socket.handlers.Unlock()
 
-	for _, event := range socket.Events.Map[response.Method] {
-		log.Infof("Handling event '%s'", response.Method)
-		go event.OnEvent(response.Method, []byte(response.Params))
+	if handlers, err := socket.handlers.Get(response.Method); nil != err {
+		log.Debugf("Could not handle event %s: %s", response.Method, err.Error())
+
+	} else {
+		for a, event := range handlers {
+			log.Infof("Executing handler #%d for event %s", a, response.Method)
+			go event.Handle(response)
+		}
+	}
+}
+
+/*
+RemoveEventHandler implements Socketer.
+*/
+func (socket *socket) RemoveEventHandler(handler EventHandler) {
+	socket.handlers.Lock()
+	defer socket.handlers.Unlock()
+
+	if handlers, err := socket.handlers.Get(handler.Name()); nil != err {
+		log.Warnf("Could not remove handler: %s", err.Error())
+	} else {
+		for i, hndlr := range handlers {
+			if hndlr == handler {
+				handlers = append(handlers[:i], handlers[i+1:]...)
+				socket.handlers.Set(handler.Name(), handlers)
+				return
+			}
+		}
 	}
 }

@@ -22,15 +22,12 @@ Close closes the stream and discards any temporary backing storage.
 https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-close
 */
 func (IO) Close(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *io.CloseParams,
 ) error {
-	command := &sock.Command{
-		Method: "IO.close",
-		Params: params,
-	}
+	command := sock.NewCommand("IO.close", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -39,22 +36,19 @@ Read reads a chunk of the stream.
 https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-read
 */
 func (IO) Read(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *io.ReadParams,
 ) (io.ReadResult, error) {
-	command := &sock.Command{
-		Method: "IO.read",
-		Params: params,
-	}
+	command := sock.NewCommand("IO.read", params)
 	result := io.ReadResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -65,7 +59,7 @@ func (IO) Read(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -74,22 +68,19 @@ ResolveBlob returns the UUID of Blob object specified by a remote object id.
 https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-resolveBlob
 */
 func (IO) ResolveBlob(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *io.ResolveBlobParams,
 ) (io.ResolveBlobResult, error) {
-	command := &sock.Command{
-		Method: "IO.resolveBlob",
-		Params: params,
-	}
+	command := sock.NewCommand("IO.resolveBlob", params)
 	result := io.ResolveBlobResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -100,5 +91,5 @@ func (IO) ResolveBlob(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }

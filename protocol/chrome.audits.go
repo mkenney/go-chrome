@@ -15,7 +15,9 @@ EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Audits/
 */
-type Audits struct{}
+var Audits = _audits{}
+
+type _audits struct{}
 
 /*
 GetEncodedResponse returns the response body and size if it were re-encoded with the specified
@@ -23,23 +25,20 @@ settings. Only applies to images.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Audits/#method-getEncodedResponse
 */
-func (Audits) GetEncodedResponse(
-	socket *sock.Socket,
+func (_audits) GetEncodedResponse(
+	socket sock.Socketer,
 	params *audits.GetEncodedResponseParams,
 ) (audits.GetEncodedResponseResult, error) {
-	command := &sock.Command{
-		Method: "Audits.getEncodedResponse",
-		Params: params,
-	}
+	command := sock.NewCommand("Audits.getEncodedResponse", params)
 	result := audits.GetEncodedResponseResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -50,5 +49,5 @@ func (Audits) GetEncodedResponse(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }

@@ -23,15 +23,12 @@ Clear clears  a stored item.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-clear
 */
 func (DOMStorage) Clear(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *domStorage.ClearParams,
 ) error {
-	command := &sock.Command{
-		Method: "DOMStorage.clear",
-		Params: params,
-	}
+	command := sock.NewCommand("DOMStorage.clear", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -40,13 +37,11 @@ Disable disables storage tracking, prevents storage events from being sent to th
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-disable
 */
 func (DOMStorage) Disable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "DOMStorage.disable",
-	}
+	command := sock.NewCommand("DOMStorage.disable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -55,13 +50,11 @@ Enable enables storage tracking, storage events will now be delivered to the cli
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-enable
 */
 func (DOMStorage) Enable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "DOMStorage.enable",
-	}
+	command := sock.NewCommand("DOMStorage.enable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -70,22 +63,19 @@ GetItems gets a stored item.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-getDOMStorageItems
 */
 func (DOMStorage) GetItems(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *domStorage.GetItemsParams,
 ) (domStorage.GetItemsResult, error) {
-	command := &sock.Command{
-		Method: "DOMStorage.getDOMStorageItems",
-		Params: params,
-	}
+	command := sock.NewCommand("DOMStorage.getDOMStorageItems", params)
 	result := domStorage.GetItemsResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -96,7 +86,7 @@ func (DOMStorage) GetItems(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -105,15 +95,12 @@ RemoveItem removes  a stored item.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-removeDOMStorageItem
 */
 func (DOMStorage) RemoveItem(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *domStorage.RemoveItemParams,
 ) error {
-	command := &sock.Command{
-		Method: "DOMStorage.removeDOMStorageItem",
-		Params: params,
-	}
+	command := sock.NewCommand("DOMStorage.removeDOMStorageItem", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -122,15 +109,12 @@ SetItem sets a stored item.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-setDOMStorageItem
 */
 func (DOMStorage) SetItem(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *domStorage.SetItemParams,
 ) error {
-	command := &sock.Command{
-		Method: "DOMStorage.setDOMStorageItem",
-		Params: params,
-	}
+	command := sock.NewCommand("DOMStorage.setDOMStorageItem", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -140,14 +124,14 @@ DOMStorage.domStorageItemAdded fires when an item is added to DOM storage.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#event-domStorageItemAdded
 */
 func (DOM) OnItemAdded(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *domStorage.ItemAddedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"DOMStorage.domStorageItemAdded",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &domStorage.ItemAddedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -164,14 +148,14 @@ DOMStorage.domStorageItemRemoved fires when an item is removed from DOM storage.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#event-domStorageItemRemoved
 */
 func (DOM) OnItemRemoved(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *domStorage.ItemRemovedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"DOMStorage.domStorageItemRemoved",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &domStorage.ItemRemovedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -188,14 +172,14 @@ DOMStorage.domStorageItemUpdated fires when an item in DOM storage is updated.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#event-domStorageItemUpdated
 */
 func (DOM) OnItemUpdated(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *domStorage.ItemUpdatedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"DOMStorage.domStorageItemUpdated",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &domStorage.ItemUpdatedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -212,14 +196,14 @@ DOMStorage.domStorageItemsCleared fires when items in DOM storage are cleared.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#event-domStorageItemsCleared
 */
 func (DOM) OnItemsCleared(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *domStorage.ItemsClearedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"DOMStorage.domStorageItemsCleared",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &domStorage.ItemsClearedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

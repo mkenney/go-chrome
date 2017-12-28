@@ -28,22 +28,19 @@ AwaitPromise adds handler to promise with given promise object ID.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-awaitPromise
 */
 func (Runtime) AwaitPromise(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *runtime.AwaitPromiseParams,
 ) (runtime.AwaitPromiseResult, error) {
-	command := &sock.Command{
-		Method: "Runtime.awaitPromise",
-		Params: params,
-	}
+	command := sock.NewCommand("Runtime.awaitPromise", params)
 	result := runtime.AwaitPromiseResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -54,7 +51,7 @@ func (Runtime) AwaitPromise(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -64,22 +61,19 @@ result is inherited from the target object.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-callFunctionOn
 */
 func (Runtime) CallFunctionOn(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *runtime.CallFunctionOnParams,
 ) (runtime.CallFunctionOnResult, error) {
-	command := &sock.Command{
-		Method: "Runtime.callFunctionOn",
-		Params: params,
-	}
+	command := sock.NewCommand("Runtime.callFunctionOn", params)
 	result := runtime.CallFunctionOnResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -90,7 +84,7 @@ func (Runtime) CallFunctionOn(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -99,22 +93,19 @@ CompileScript compiles an expression.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-compileScript
 */
 func (Runtime) CompileScript(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *runtime.CompileScriptParams,
 ) (runtime.CompileScriptResult, error) {
-	command := &sock.Command{
-		Method: "Runtime.compileScript",
-		Params: params,
-	}
+	command := sock.NewCommand("Runtime.compileScript", params)
 	result := runtime.CompileScriptResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -125,7 +116,7 @@ func (Runtime) CompileScript(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -134,13 +125,11 @@ Disable disables reporting of execution contexts creation.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-disable
 */
 func (Runtime) Disable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Runtime.disable",
-	}
+	command := sock.NewCommand("Runtime.disable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -149,13 +138,11 @@ DiscardConsoleEntries discards collected exceptions and console API calls.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-discardConsoleEntries
 */
 func (Runtime) DiscardConsoleEntries(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Runtime.discardConsoleEntries",
-	}
+	command := sock.NewCommand("Runtime.discardConsoleEntries", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -166,13 +153,11 @@ context.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-enable
 */
 func (Runtime) Enable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Runtime.enable",
-	}
+	command := sock.NewCommand("Runtime.enable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -181,22 +166,19 @@ Evaluate evaluates expression on global object.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-evaluate
 */
 func (Runtime) Evaluate(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *runtime.EvaluateParams,
 ) (runtime.EvaluateResult, error) {
-	command := &sock.Command{
-		Method: "Runtime.evaluate",
-		Params: params,
-	}
+	command := sock.NewCommand("Runtime.evaluate", params)
 	result := runtime.EvaluateResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -207,7 +189,7 @@ func (Runtime) Evaluate(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -217,22 +199,19 @@ target object.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-getProperties
 */
 func (Runtime) GetProperties(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *runtime.GetPropertiesParams,
 ) (runtime.GetPropertiesResult, error) {
-	command := &sock.Command{
-		Method: "Runtime.getProperties",
-		Params: params,
-	}
+	command := sock.NewCommand("Runtime.getProperties", params)
 	result := runtime.GetPropertiesResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -243,7 +222,7 @@ func (Runtime) GetProperties(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -252,22 +231,19 @@ GlobalLexicalScopeNames returns all let, const and class variables from global s
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-globalLexicalScopeNames
 */
 func (Runtime) GlobalLexicalScopeNames(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *runtime.GlobalLexicalScopeNamesParams,
 ) (runtime.GlobalLexicalScopeNamesResult, error) {
-	command := &sock.Command{
-		Method: "Runtime.globalLexicalScopeNames",
-		Params: params,
-	}
+	command := sock.NewCommand("Runtime.globalLexicalScopeNames", params)
 	result := runtime.GlobalLexicalScopeNamesResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -278,7 +254,7 @@ func (Runtime) GlobalLexicalScopeNames(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -287,22 +263,19 @@ QueryObjects returns objects for a given prototype ID.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-queryObjects
 */
 func (Runtime) QueryObjects(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *runtime.QueryObjectsParams,
 ) (runtime.QueryObjectsResult, error) {
-	command := &sock.Command{
-		Method: "Runtime.queryObjects",
-		Params: params,
-	}
+	command := sock.NewCommand("Runtime.queryObjects", params)
 	result := runtime.QueryObjectsResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -313,7 +286,7 @@ func (Runtime) QueryObjects(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -322,15 +295,12 @@ ReleaseObject releases remote object with given id.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseObject
 */
 func (Runtime) ReleaseObject(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *runtime.ReleaseObjectParams,
 ) error {
-	command := &sock.Command{
-		Method: "Runtime.releaseObject",
-		Params: params,
-	}
+	command := sock.NewCommand("Runtime.releaseObject", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -339,15 +309,12 @@ ReleaseObjectGroup releases all remote objects that belong to a given group.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseObjectGroup
 */
 func (Runtime) ReleaseObjectGroup(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *runtime.ReleaseObjectGroupParams,
 ) error {
-	command := &sock.Command{
-		Method: "Runtime.releaseObjectGroup",
-		Params: params,
-	}
+	command := sock.NewCommand("Runtime.releaseObjectGroup", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -356,13 +323,11 @@ RunIfWaitingForDebugger tells inspected instance to run if it was waiting for de
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-runIfWaitingForDebugger
 */
 func (Runtime) RunIfWaitingForDebugger(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Runtime.runIfWaitingForDebugger",
-	}
+	command := sock.NewCommand("Runtime.runIfWaitingForDebugger", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -371,22 +336,19 @@ RunScript runs the script with given ID in a given context.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-runScript
 */
 func (Runtime) RunScript(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *runtime.RunScriptParams,
 ) (runtime.RunScriptResult, error) {
-	command := &sock.Command{
-		Method: "Runtime.runScript",
-		Params: params,
-	}
+	command := sock.NewCommand("Runtime.runScript", params)
 	result := runtime.RunScriptResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -397,7 +359,7 @@ func (Runtime) RunScript(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -406,15 +368,12 @@ SetCustomObjectFormatterEnabled EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-setCustomObjectFormatterEnabled
 */
 func (Runtime) SetCustomObjectFormatterEnabled(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *runtime.SetCustomObjectFormatterEnabledParams,
 ) error {
-	command := &sock.Command{
-		Method: "Runtime.setCustomObjectFormatterEnabled",
-		Params: params,
-	}
+	command := sock.NewCommand("Runtime.setCustomObjectFormatterEnabled", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -424,14 +383,14 @@ fires when the console API is called.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-consoleAPICalled
 */
 func (Runtime) OnConsoleAPICalled(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *runtime.ConsoleAPICalledEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Runtime.consoleAPICalled",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &runtime.ConsoleAPICalledEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -448,14 +407,14 @@ fires when an unhandled exception is revoked.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-exceptionRevoked
 */
 func (Runtime) OnExceptionRevoked(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *runtime.ExceptionRevokedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Runtime.exceptionRevoked",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &runtime.ExceptionRevokedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -472,14 +431,14 @@ when an exception is thrown and is unhandled.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-exceptionThrown
 */
 func (Runtime) OnExceptionThrown(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *runtime.ExceptionThrownEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Runtime.exceptionThrown",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &runtime.ExceptionThrownEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -496,14 +455,14 @@ Runtime.executionContextCreated fires when a new execution context is created.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionContextCreated
 */
 func (Runtime) OnExecutionContextCreated(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *runtime.ExecutionContextCreatedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Runtime.executionContextCreated",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &runtime.ExecutionContextCreatedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -520,14 +479,14 @@ Runtime.executionContextDestroyed fires when execution context is destroyed.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionContextDestroyed
 */
 func (Runtime) OnExecutionContextDestroyed(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *runtime.ExecutionContextDestroyedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Runtime.executionContextDestroyed",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &runtime.ExecutionContextDestroyedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -544,14 +503,14 @@ Runtime.executionContextsCleared fires when all executionContexts were cleared i
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionContextsCleared
 */
 func (Runtime) OnExecutionContextsCleared(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *runtime.ExecutionContextsClearedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Runtime.executionContextsCleared",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &runtime.ExecutionContextsClearedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -569,14 +528,14 @@ call).
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-inspectRequested
 */
 func (Runtime) OnInspectRequested(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *runtime.InspectRequestedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Runtime.inspectRequested",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &runtime.InspectRequestedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

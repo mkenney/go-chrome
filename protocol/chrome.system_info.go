@@ -23,20 +23,18 @@ GetInfo returns information about the system.
 https://chromedevtools.github.io/devtools-protocol/tot/SystemInfo/#method-getInfo
 */
 func (SystemInfo) GetInfo(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) (systemInfo.GetInfoResult, error) {
-	command := &sock.Command{
-		Method: "SystemInfo.getInfo",
-	}
+	command := sock.NewCommand("SystemInfo.getInfo", nil)
 	result := systemInfo.GetInfoResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -47,5 +45,5 @@ func (SystemInfo) GetInfo(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }

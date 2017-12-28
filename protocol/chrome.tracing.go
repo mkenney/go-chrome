@@ -24,13 +24,11 @@ End stops trace events collection.
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-end
 */
 func (Tracing) End(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Tracing.end",
-	}
+	command := sock.NewCommand("Tracing.end", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -39,20 +37,18 @@ GetCategories gets supported tracing categories.
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-getCategories
 */
 func (Tracing) GetCategories(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) (tracing.GetCategoriesResult, error) {
-	command := &sock.Command{
-		Method: "Tracing.getCategories",
-	}
+	command := sock.NewCommand("Tracing.getCategories", nil)
 	result := tracing.GetCategoriesResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -63,7 +59,7 @@ func (Tracing) GetCategories(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -72,15 +68,12 @@ RecordClockSyncMarker records a clock sync marker in the trace.
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-recordClockSyncMarker
 */
 func (Tracing) RecordClockSyncMarker(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *tracing.RecordClockSyncMarkerParams,
 ) error {
-	command := &sock.Command{
-		Method: "Tracing.recordClockSyncMarker",
-		Params: params,
-	}
+	command := sock.NewCommand("Tracing.recordClockSyncMarker", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -89,20 +82,18 @@ RequestMemoryDump requests a global memory dump.
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-requestMemoryDump
 */
 func (Tracing) RequestMemoryDump(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) (tracing.GetCategoriesResult, error) {
-	command := &sock.Command{
-		Method: "Tracing.requestMemoryDump",
-	}
+	command := sock.NewCommand("Tracing.requestMemoryDump", nil)
 	result := tracing.GetCategoriesResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -113,7 +104,7 @@ func (Tracing) RequestMemoryDump(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -122,15 +113,12 @@ Start starts trace events collection.
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-start
 */
 func (Tracing) Start(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	params *tracing.StartParams,
 ) error {
-	command := &sock.Command{
-		Method: "Tracing.start",
-		Params: params,
-	}
+	command := sock.NewCommand("Tracing.start", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -140,14 +128,14 @@ buffer is used.
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-bufferUsage
 */
 func (Tracing) OnBufferUsage(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *tracing.BufferUsageEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Tracing.bufferUsage",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &tracing.BufferUsageEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -165,14 +153,14 @@ tracingComplete event. Contains an bucket of collected trace events.
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-dataCollected
 */
 func (Tracing) OnDataCollected(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *tracing.DataCollectedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Tracing.dataCollected",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &tracing.DataCollectedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -190,14 +178,14 @@ events.
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-tracingComplete
 */
 func (Tracing) OnTracingComplete(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *tracing.CompleteEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Tracing.tracingComplete",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &tracing.CompleteEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

@@ -22,13 +22,11 @@ Disable disables collecting and reporting metrics.
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-disable
 */
 func (Performance) Disable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Performance.disable",
-	}
+	command := sock.NewCommand("Performance.disable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -37,13 +35,11 @@ Enable enables collecting and reporting metrics.
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-enable
 */
 func (Performance) Enable(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Performance.enable",
-	}
+	command := sock.NewCommand("Performance.enable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -52,20 +48,18 @@ GetMetrics retrieves current values of run-time metrics.
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-getMetrics
 */
 func (Overlay) GetMetrics(
-	socket *sock.Socket,
+	socket sock.Socketer,
 ) (performance.GetMetricsResult, error) {
-	command := &sock.Command{
-		Method: "Performance.getMetrics",
-	}
+	command := sock.NewCommand("Performance.getMetrics", nil)
 	result := performance.GetMetricsResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -76,7 +70,7 @@ func (Overlay) GetMetrics(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -86,14 +80,14 @@ values of the metrics.
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#event-metrics
 */
 func (Overlay) OnMetrics(
-	socket *sock.Socket,
+	socket sock.Socketer,
 	callback func(event *performance.MetricsEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Performance.metrics",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &performance.MetricsEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

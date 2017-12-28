@@ -16,21 +16,21 @@ EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/
 */
-type Animation struct{}
+var Animation = _animation{}
+
+type _animation struct{}
 
 /*
 Disable animation domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-disable
 */
-func (Animation) Disable(
-	socket *sock.Socket,
+func (_animation) Disable(
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Animation.disable",
-	}
+	command := sock.NewCommand("Animation.disable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -38,14 +38,12 @@ Enable animation domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-enable
 */
-func (Animation) Enable(
-	socket *sock.Socket,
+func (_animation) Enable(
+	socket sock.Socketer,
 ) error {
-	command := &sock.Command{
-		Method: "Animation.enable",
-	}
+	command := sock.NewCommand("Animation.enable", nil)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -53,23 +51,20 @@ GetCurrentTime returns the current time of the an animation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-getCurrentTime
 */
-func (Animation) GetCurrentTime(
-	socket *sock.Socket,
+func (_animation) GetCurrentTime(
+	socket sock.Socketer,
 	params *animation.GetCurrentTimeParams,
 ) (animation.GetCurrentTimeResult, error) {
-	command := &sock.Command{
-		Method: "Animation.getCurrentTime",
-		Params: params,
-	}
+	command := sock.NewCommand("Animation.getCurrentTime", params)
 	result := animation.GetCurrentTimeResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -80,7 +75,7 @@ func (Animation) GetCurrentTime(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -88,21 +83,19 @@ GetPlaybackRate gets the playback rate of the document timeline.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-getPlaybackRate
 */
-func (Animation) GetPlaybackRate(
-	socket *sock.Socket,
+func (_animation) GetPlaybackRate(
+	socket sock.Socketer,
 ) (animation.GetPlaybackRateResult, error) {
-	command := &sock.Command{
-		Method: "Animation.getPlaybackRate",
-	}
+	command := sock.NewCommand("Animation.getPlaybackRate", nil)
 	result := animation.GetPlaybackRateResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -113,7 +106,7 @@ func (Animation) GetPlaybackRate(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -121,16 +114,13 @@ ReleaseAnimations releases a set of animations to no longer be manipulated.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-releaseAnimations
 */
-func (Animation) ReleaseAnimations(
-	socket *sock.Socket,
+func (_animation) ReleaseAnimations(
+	socket sock.Socketer,
 	params *animation.ReleaseAnimationsParams,
 ) error {
-	command := &sock.Command{
-		Method: "Animation.releaseAnimations",
-		Params: params,
-	}
+	command := sock.NewCommand("Animation.releaseAnimations", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -138,23 +128,20 @@ ResolveAnimation gets the remote object of the Animation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-resolveAnimation
 */
-func (Animation) ResolveAnimation(
-	socket *sock.Socket,
+func (_animation) ResolveAnimation(
+	socket sock.Socketer,
 	params *animation.ResolveAnimationParams,
 ) (animation.ResolveAnimationResult, error) {
-	command := &sock.Command{
-		Method: "Animation.resolveAnimation",
-		Params: params,
-	}
+	command := sock.NewCommand("Animation.resolveAnimation", params)
 	result := animation.ResolveAnimationResult{}
 	socket.SendCommand(command)
 
-	if nil != command.Err {
-		return result, command.Err
+	if nil != command.Error() {
+		return result, command.Error()
 	}
 
-	if nil != command.Result {
-		resultData, err := json.Marshal(command.Result)
+	if nil != command.Result() {
+		resultData, err := json.Marshal(command.Result())
 		if nil != err {
 			return result, err
 		}
@@ -165,7 +152,7 @@ func (Animation) ResolveAnimation(
 		}
 	}
 
-	return result, command.Err
+	return result, command.Error()
 }
 
 /*
@@ -173,16 +160,13 @@ SeekAnimations seeks a set of animations to a particular time within each animat
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-seekAnimations
 */
-func (Animation) SeekAnimations(
-	socket *sock.Socket,
+func (_animation) SeekAnimations(
+	socket sock.Socketer,
 	params *animation.SeekAnimationsParams,
 ) error {
-	command := &sock.Command{
-		Method: "Animation.seekAnimations",
-		Params: params,
-	}
+	command := sock.NewCommand("Animation.seekAnimations", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -190,16 +174,13 @@ SetPaused sets the paused state of a set of animations.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-setPaused
 */
-func (Animation) SetPaused(
-	socket *sock.Socket,
+func (_animation) SetPaused(
+	socket sock.Socketer,
 	params *animation.SetPausedParams,
 ) error {
-	command := &sock.Command{
-		Method: "Animation.setPaused",
-		Params: params,
-	}
+	command := sock.NewCommand("Animation.setPaused", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -207,16 +188,13 @@ SetPlaybackRate sets the playback rate of the document timeline.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-setPlaybackRate
 */
-func (Animation) SetPlaybackRate(
-	socket *sock.Socket,
+func (_animation) SetPlaybackRate(
+	socket sock.Socketer,
 	params *animation.SetPlaybackRateParams,
 ) error {
-	command := &sock.Command{
-		Method: "Animation.setPlaybackRate",
-		Params: params,
-	}
+	command := sock.NewCommand("Animation.setPlaybackRate", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -224,16 +202,13 @@ SetTiming sets the timing of an animation node.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-setTiming
 */
-func (Animation) SetTiming(
-	socket *sock.Socket,
+func (_animation) SetTiming(
+	socket sock.Socketer,
 	params *animation.SetTimingParams,
 ) error {
-	command := &sock.Command{
-		Method: "Animation.setTiming",
-		Params: params,
-	}
+	command := sock.NewCommand("Animation.setTiming", params)
 	socket.SendCommand(command)
-	return command.Err
+	return command.Error()
 }
 
 /*
@@ -242,15 +217,15 @@ when an animation has been cancelled.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#event-animationCanceled
 */
-func (Animation) OnAnimationCanceled(
-	socket *sock.Socket,
+func (_animation) OnAnimationCanceled(
+	socket sock.Socketer,
 	callback func(event *animation.CanceledEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Animation.animationCanceled",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &animation.CanceledEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -266,15 +241,15 @@ animation that has been created.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#event-animationCreated
 */
-func (Animation) OnAnimationCreated(
-	socket *sock.Socket,
+func (_animation) OnAnimationCreated(
+	socket sock.Socketer,
 	callback func(event *animation.CreatedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Animation.animationCreated",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &animation.CreatedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -290,15 +265,15 @@ animation that has been started.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#event-animationStarted
 */
-func (Animation) OnAnimationStarted(
-	socket *sock.Socket,
+func (_animation) OnAnimationStarted(
+	socket sock.Socketer,
 	callback func(event *animation.StartedEvent),
 ) {
 	handler := sock.NewEventHandler(
 		"Animation.animationStarted",
-		func(name string, params []byte) {
+		func(response *sock.Response) {
 			event := &animation.StartedEvent{}
-			if err := json.Unmarshal(params, event); err != nil {
+			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
