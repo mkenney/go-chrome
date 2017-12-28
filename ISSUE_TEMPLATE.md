@@ -5,9 +5,15 @@ context as you can.
 -->
 
 ### What version of `go-chrome` are you using (tagged commit, commit hash or `master`)?
+<!--
+A commit has or tag is preferable. The master branch changes often.
+-->
 
 
 ### What behavior do you expect? What are you trying to accomplish?
+<!--
+Please provide as much context as necessary to describe your goal.
+-->
 
 
 ### What behavior are you experiencing instead?
