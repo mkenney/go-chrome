@@ -15,14 +15,16 @@ JavaScript execution will stop on these operations as if there was a regular bre
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/
 */
-type DOMDebugger struct{}
+var DOMDebugger = _domDebugger{}
+
+type _domDebugger struct{}
 
 /*
 GetEventListeners returns event listeners of the given object.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-getEventListeners
 */
-func (DOMDebugger) GetEventListeners(
+func (_domDebugger) GetEventListeners(
 	socket sock.Socketer,
 	params *domDebugger.GetEventListenersParams,
 ) (domDebugger.GetEventListenersResult, error) {
@@ -54,7 +56,7 @@ RemoveDOMBreakpoint removes the DOM breakpoint that was set using setDOMBreakpoi
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeDOMBreakpoint
 */
-func (DOMDebugger) RemoveDOMBreakpoint(
+func (_domDebugger) RemoveDOMBreakpoint(
 	socket sock.Socketer,
 	params *domDebugger.RemoveDOMBreakpointParams,
 ) error {
@@ -68,7 +70,7 @@ RemoveEventListenerBreakpoint removes breakpoint on particular DOM event.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeEventListenerBreakpoint
 */
-func (DOMDebugger) RemoveEventListenerBreakpoint(
+func (_domDebugger) RemoveEventListenerBreakpoint(
 	socket sock.Socketer,
 	params *domDebugger.RemoveEventListenerBreakpointParams,
 ) error {
@@ -82,7 +84,7 @@ RemoveInstrumentationBreakpoint removes breakpoint on particular native event. E
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeInstrumentationBreakpoint
 */
-func (DOMDebugger) RemoveInstrumentationBreakpoint(
+func (_domDebugger) RemoveInstrumentationBreakpoint(
 	socket sock.Socketer,
 	params *domDebugger.RemoveInstrumentationBreakpointParams,
 ) error {
@@ -96,7 +98,7 @@ RemoveXHRBreakpoint removes breakpoint from XMLHttpRequest.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeXHRBreakpoint
 */
-func (DOMDebugger) RemoveXHRBreakpoint(
+func (_domDebugger) RemoveXHRBreakpoint(
 	socket sock.Socketer,
 	params *domDebugger.RemoveXHRBreakpointParams,
 ) error {
@@ -110,7 +112,7 @@ SetDOMBreakpoint sets a breakpoint on a particular operation with DOM.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setDOMBreakpoint
 */
-func (DOMDebugger) SetDOMBreakpoint(
+func (_domDebugger) SetDOMBreakpoint(
 	socket sock.Socketer,
 	params *domDebugger.SetDOMBreakpointParams,
 ) error {
@@ -124,7 +126,7 @@ SetEventListenerBreakpoint sets the breakpoint on a particular DOM event.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setEventListenerBreakpoint
 */
-func (DOMDebugger) SetEventListenerBreakpoint(
+func (_domDebugger) SetEventListenerBreakpoint(
 	socket sock.Socketer,
 	params *domDebugger.SetEventListenerBreakpointParams,
 ) error {
@@ -138,7 +140,7 @@ SetInstrumentationBreakpoint sets breakpoint on particular native event. EXPERIM
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setInstrumentationBreakpoint
 */
-func (DOMDebugger) SetInstrumentationBreakpoint(
+func (_domDebugger) SetInstrumentationBreakpoint(
 	socket sock.Socketer,
 	params *domDebugger.SetInstrumentationBreakpointParams,
 ) error {
@@ -152,7 +154,7 @@ SetXHRBreakpoint sets breakpoint on XMLHttpRequest.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setXHRBreakpoint
 */
-func (DOMDebugger) SetXHRBreakpoint(
+func (_domDebugger) SetXHRBreakpoint(
 	socket sock.Socketer,
 	params *domDebugger.SetXHRBreakpointParams,
 ) error {

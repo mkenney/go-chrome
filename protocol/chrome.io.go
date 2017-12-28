@@ -14,14 +14,16 @@ The IO protocol provides input/output operations for streams produced by DevTool
 
 https://chromedevtools.github.io/devtools-protocol/tot/IO/
 */
-type IO struct{}
+var IO = _io{}
+
+type _io struct{}
 
 /*
 Close closes the stream and discards any temporary backing storage.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-close
 */
-func (IO) Close(
+func (_io) Close(
 	socket sock.Socketer,
 	params *io.CloseParams,
 ) error {
@@ -35,7 +37,7 @@ Read reads a chunk of the stream.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-read
 */
-func (IO) Read(
+func (_io) Read(
 	socket sock.Socketer,
 	params *io.ReadParams,
 ) (io.ReadResult, error) {
@@ -67,7 +69,7 @@ ResolveBlob returns the UUID of Blob object specified by a remote object id.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-resolveBlob
 */
-func (IO) ResolveBlob(
+func (_io) ResolveBlob(
 	socket sock.Socketer,
 	params *io.ResolveBlobParams,
 ) (io.ResolveBlobResult, error) {

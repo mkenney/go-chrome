@@ -16,14 +16,16 @@ EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/
 */
-type Database struct{}
+var Database = _database{}
+
+type _database struct{}
 
 /*
 Disable disables database tracking, prevents database events from being sent to the client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-disable
 */
-func (Database) Disable(
+func (_database) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Database.disable", nil)
@@ -36,7 +38,7 @@ Enable enables database tracking, database events will now be delivered to the c
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-enable
 */
-func (Database) Enable(
+func (_database) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Database.enable", nil)
@@ -49,7 +51,7 @@ ExecuteSQL executes a SQL query.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-executeSQL
 */
-func (Database) ExecuteSQL(
+func (_database) ExecuteSQL(
 	socket sock.Socketer,
 	params *database.ExecuteSQLParams,
 ) (database.ExecuteSQLResult, error) {
@@ -81,7 +83,7 @@ GetTableNames gets database table names.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-getDatabaseTableNames
 */
-func (Database) GetTableNames(
+func (_database) GetTableNames(
 	socket sock.Socketer,
 	params *database.GetTableNamesParams,
 ) error {
@@ -96,7 +98,7 @@ whenever a database is added
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#event-addDatabase
 */
-func (Database) OnAdd(
+func (_database) OnAdd(
 	socket sock.Socketer,
 	callback func(event *database.AddEvent),
 ) {

@@ -16,7 +16,9 @@ EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/
 */
-type HeapProfiler struct{}
+var HeapProfiler = _heapProfiler{}
+
+type _heapProfiler struct{}
 
 /*
 AddInspectedHeapObject enables console to refer to the node with given id via $x (see Command Line
@@ -24,7 +26,7 @@ API for more details $x functions).
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-addInspectedHeapObject
 */
-func (HeapProfiler) AddInspectedHeapObject(
+func (_heapProfiler) AddInspectedHeapObject(
 	socket sock.Socketer,
 	params *heapProfiler.AddInspectedHeapObjectParams,
 ) error {
@@ -38,7 +40,7 @@ CollectGarbage EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-collectGarbage
 */
-func (HeapProfiler) CollectGarbage(
+func (_heapProfiler) CollectGarbage(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("HeapProfiler.collectGarbage", nil)
@@ -51,7 +53,7 @@ Disable disables the HeapProfiler.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-disable
 */
-func (HeapProfiler) Disable(
+func (_heapProfiler) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("HeapProfiler.disable", nil)
@@ -64,7 +66,7 @@ Enable enables the HeapProfiler.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-enable
 */
-func (HeapProfiler) Enable(
+func (_heapProfiler) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("HeapProfiler.enable", nil)
@@ -77,7 +79,7 @@ GetHeapObjectID EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getHeapObjectId
 */
-func (HeapProfiler) GetHeapObjectID(
+func (_heapProfiler) GetHeapObjectID(
 	socket sock.Socketer,
 	params *heapProfiler.GetHeapObjectIDParams,
 ) (heapProfiler.GetHeapObjectIDResult, error) {
@@ -109,7 +111,7 @@ GetObjectByHeapObjectID EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getObjectByHeapObjectId
 */
-func (HeapProfiler) GetObjectByHeapObjectID(
+func (_heapProfiler) GetObjectByHeapObjectID(
 	socket sock.Socketer,
 	params *heapProfiler.GetObjectByHeapObjectIDParams,
 ) (heapProfiler.GetObjectByHeapObjectIDResult, error) {
@@ -141,7 +143,7 @@ GetSamplingProfile EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getSamplingProfile
 */
-func (HeapProfiler) GetSamplingProfile(
+func (_heapProfiler) GetSamplingProfile(
 	socket sock.Socketer,
 	params *heapProfiler.GetSamplingProfileParams,
 ) error {
@@ -155,7 +157,7 @@ StartSampling EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-startSampling
 */
-func (HeapProfiler) StartSampling(
+func (_heapProfiler) StartSampling(
 	socket sock.Socketer,
 	params *heapProfiler.StartSamplingParams,
 ) error {
@@ -169,7 +171,7 @@ StartTrackingHeapObjects EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-startTrackingHeapObjects
 */
-func (HeapProfiler) StartTrackingHeapObjects(
+func (_heapProfiler) StartTrackingHeapObjects(
 	socket sock.Socketer,
 	params *heapProfiler.StartTrackingHeapObjectsParams,
 ) error {
@@ -183,7 +185,7 @@ StopSampling EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stopSampling
 */
-func (HeapProfiler) StopSampling(
+func (_heapProfiler) StopSampling(
 	socket sock.Socketer,
 	params *heapProfiler.StopSamplingParams,
 ) error {
@@ -197,7 +199,7 @@ StopTrackingHeapObjects EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stopTrackingHeapObjects
 */
-func (HeapProfiler) StopTrackingHeapObjects(
+func (_heapProfiler) StopTrackingHeapObjects(
 	socket sock.Socketer,
 	params *heapProfiler.StopTrackingHeapObjectsParams,
 ) error {
@@ -211,7 +213,7 @@ TakeHeapSnapshot EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-takeHeapSnapshot
 */
-func (HeapProfiler) TakeHeapSnapshot(
+func (_heapProfiler) TakeHeapSnapshot(
 	socket sock.Socketer,
 	params *heapProfiler.TakeHeapSnapshotParams,
 ) error {
@@ -226,7 +228,7 @@ EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-addHeapSnapshotChunk
 */
-func (HeapProfiler) OnAddHeapSnapshotChunk(
+func (_heapProfiler) OnAddHeapSnapshotChunk(
 	socket sock.Socketer,
 	callback func(event *heapProfiler.AddHeapSnapshotChunkEvent),
 ) {
@@ -250,7 +252,7 @@ objects tracking has been started then backend may send update for one or more f
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-heapStatsUpdate
 */
-func (HeapProfiler) OnHeapStatsUpdate(
+func (_heapProfiler) OnHeapStatsUpdate(
 	socket sock.Socketer,
 	callback func(event *heapProfiler.HeapStatsUpdateEvent),
 ) {
@@ -276,7 +278,7 @@ more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-lastSeenObjectId
 */
-func (HeapProfiler) OnLastSeenObjectID(
+func (_heapProfiler) OnLastSeenObjectID(
 	socket sock.Socketer,
 	callback func(event *heapProfiler.LastSeenObjectIDEvent),
 ) {
@@ -300,7 +302,7 @@ EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-reportHeapSnapshotProgress
 */
-func (HeapProfiler) OnReportHeapSnapshotProgress(
+func (_heapProfiler) OnReportHeapSnapshotProgress(
 	socket sock.Socketer,
 	callback func(event *heapProfiler.ReportHeapSnapshotProgressEvent),
 ) {
@@ -323,7 +325,7 @@ OnResetProfiles adds a handler to the HeapProfiler.ResetProfiles event. EXPERIME
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-resetProfiles
 */
-func (HeapProfiler) OnResetProfiles(
+func (_heapProfiler) OnResetProfiles(
 	socket sock.Socketer,
 	callback func(event *heapProfiler.ResetProfilesEvent),
 ) {

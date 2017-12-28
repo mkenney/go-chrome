@@ -14,14 +14,16 @@ EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/
 */
-type IndexedDB struct{}
+var IndexedDB = _indexedDB{}
+
+type _indexedDB struct{}
 
 /*
 ClearObjectStore clears all entries from an object store.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-clearObjectStore
 */
-func (IndexedDB) ClearObjectStore(
+func (_indexedDB) ClearObjectStore(
 	socket sock.Socketer,
 	params *indexedDB.ClearObjectStoreParams,
 ) error {
@@ -35,7 +37,7 @@ DeleteDatabase deletes a database.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-deleteDatabase
 */
-func (IndexedDB) DeleteDatabase(
+func (_indexedDB) DeleteDatabase(
 	socket sock.Socketer,
 	params *indexedDB.DeleteDatabaseParams,
 ) error {
@@ -49,7 +51,7 @@ DeleteObjectStoreEntries deletes a range of entries from an object store.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-deleteObjectStoreEntries
 */
-func (IndexedDB) DeleteObjectStoreEntries(
+func (_indexedDB) DeleteObjectStoreEntries(
 	socket sock.Socketer,
 	params *indexedDB.DeleteObjectStoreEntriesParams,
 ) error {
@@ -63,7 +65,7 @@ Disable disables events from backend.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-disable
 */
-func (IndexedDB) Disable(
+func (_indexedDB) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("IndexedDB.disable", nil)
@@ -76,7 +78,7 @@ Enable enables events from backend.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-enable
 */
-func (IndexedDB) Enable(
+func (_indexedDB) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("IndexedDB.enable", nil)
@@ -89,7 +91,7 @@ RequestData requests data from object store or index.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestData
 */
-func (IndexedDB) RequestData(
+func (_indexedDB) RequestData(
 	socket sock.Socketer,
 	params *indexedDB.RequestDataParams,
 ) (indexedDB.RequestDataResult, error) {
@@ -121,7 +123,7 @@ RequestDatabase requests database with given name in given frame.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestDatabase
 */
-func (IndexedDB) RequestDatabase(
+func (_indexedDB) RequestDatabase(
 	socket sock.Socketer,
 	params *indexedDB.RequestDatabaseParams,
 ) (indexedDB.RequestDatabaseResult, error) {
@@ -153,7 +155,7 @@ RequestDatabaseNames requests database names for given security origin.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestDatabaseNames
 */
-func (IndexedDB) RequestDatabaseNames(
+func (_indexedDB) RequestDatabaseNames(
 	socket sock.Socketer,
 	params *indexedDB.RequestDatabaseNamesParams,
 ) (indexedDB.RequestDatabaseNamesResult, error) {

@@ -15,14 +15,16 @@ EXPERIMENTAL
 
 - https://chromedevtools.github.io/devtools-protocol/tot/SystemInfo/
 */
-type SystemInfo struct{}
+var SystemInfo = _systemInfo{}
+
+type _systemInfo struct{}
 
 /*
 GetInfo returns information about the system.
 
 https://chromedevtools.github.io/devtools-protocol/tot/SystemInfo/#method-getInfo
 */
-func (SystemInfo) GetInfo(
+func (_systemInfo) GetInfo(
 	socket sock.Socketer,
 ) (systemInfo.GetInfoResult, error) {
 	command := sock.NewCommand("SystemInfo.getInfo", nil)

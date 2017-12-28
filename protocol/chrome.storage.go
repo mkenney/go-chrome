@@ -16,14 +16,16 @@ EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/
 */
-type Storage struct{}
+var Storage = _storage{}
+
+type _storage struct{}
 
 /*
 ClearDataForOrigin clears storage for origin.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-clearDataForOrigin
 */
-func (Storage) ClearDataForOrigin(
+func (_storage) ClearDataForOrigin(
 	socket sock.Socketer,
 	params *storage.ClearDataForOriginParams,
 ) error {
@@ -37,7 +39,7 @@ GetUsageAndQuota returns usage and quota in bytes.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-getUsageAndQuota
 */
-func (Storage) GetUsageAndQuota(
+func (_storage) GetUsageAndQuota(
 	socket sock.Socketer,
 	params *storage.GetUsageAndQuotaParams,
 ) (storage.GetUsageAndQuotaResult, error) {
@@ -70,7 +72,7 @@ storage list.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-trackCacheStorageForOrigin
 */
-func (Storage) TrackCacheStorageForOrigin(
+func (_storage) TrackCacheStorageForOrigin(
 	socket sock.Socketer,
 	params *storage.TrackCacheStorageForOriginParams,
 ) error {
@@ -84,7 +86,7 @@ TrackIndexedDBForOrigin registers origin to be notified when an update occurs to
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-trackIndexedDBForOrigin
 */
-func (Storage) TrackIndexedDBForOrigin(
+func (_storage) TrackIndexedDBForOrigin(
 	socket sock.Socketer,
 	params *storage.TrackIndexedDBForOriginParams,
 ) error {
@@ -98,7 +100,7 @@ UntrackCacheStorageForOrigin unregisters origin from receiving notifications for
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-untrackCacheStorageForOrigin
 */
-func (Storage) UntrackCacheStorageForOrigin(
+func (_storage) UntrackCacheStorageForOrigin(
 	socket sock.Socketer,
 	params *storage.UntrackCacheStorageForOriginParams,
 ) error {
@@ -112,7 +114,7 @@ UntrackIndexedDBForOrigin unregisters origin from receiving notifications for In
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-untrackIndexedDBForOrigin
 */
-func (Storage) UntrackIndexedDBForOrigin(
+func (_storage) UntrackIndexedDBForOrigin(
 	socket sock.Socketer,
 	params *storage.UntrackIndexedDBForOriginParams,
 ) error {
@@ -127,7 +129,7 @@ Storage.cacheStorageContentUpdated fires when a cache's contents have been modif
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#event-cacheStorageContentUpdated
 */
-func (Storage) OnCacheStorageContentUpdated(
+func (_storage) OnCacheStorageContentUpdated(
 	socket sock.Socketer,
 	callback func(event *storage.CacheStorageContentUpdatedEvent),
 ) {
@@ -151,7 +153,7 @@ Storage.cacheStorageListUpdated fires when cache has been added/deleted.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#event-cacheStorageListUpdated
 */
-func (Storage) OnCacheStorageListUpdated(
+func (_storage) OnCacheStorageListUpdated(
 	socket sock.Socketer,
 	callback func(event *storage.CacheStorageListUpdatedEvent),
 ) {
@@ -175,7 +177,7 @@ Storage.indexedDBContentUpdated fires when the origin's IndexedDB object store h
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#event-indexedDBContentUpdated
 */
-func (Storage) OnIndexedDBContentUpdated(
+func (_storage) OnIndexedDBContentUpdated(
 	socket sock.Socketer,
 	callback func(event *storage.IndexedDBContentUpdatedEvent),
 ) {
@@ -199,7 +201,7 @@ Storage.indexedDBListUpdated fires when the origin's IndexedDB database list has
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#event-indexedDBListUpdated
 */
-func (Storage) OnIndexedDBListUpdated(
+func (_storage) OnIndexedDBListUpdated(
 	socket sock.Socketer,
 	callback func(event *storage.IndexedDBListUpdatedEvent),
 ) {

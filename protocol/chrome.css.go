@@ -21,7 +21,9 @@ required stylesheet contents using the getStyleSheet[Text]() methods.
 
 - https://chromedevtools.github.io/devtools-protocol/tot/CSS/
 */
-type CSS struct{}
+var CSS = _css{}
+
+type _css struct{}
 
 /*
 AddRule inserts a new rule with the given ruleText in a stylesheet with given styleSheetId, at the
@@ -29,7 +31,7 @@ position specified by location.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-addRule
 */
-func (CSS) AddRule(
+func (_css) AddRule(
 	socket sock.Socketer,
 	params *css.AddRuleParams,
 ) (css.AddRuleResult, error) {
@@ -61,7 +63,7 @@ CollectClassNames returns all class names from specified stylesheet.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-collectClassNames
 */
-func (CSS) CollectClassNames(
+func (_css) CollectClassNames(
 	socket sock.Socketer,
 	params *css.CollectClassNamesParams,
 ) (css.CollectClassNamesResult, error) {
@@ -93,7 +95,7 @@ CreateStyleSheet creates a new special "via-inspector" stylesheet in the frame w
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-createStyleSheet
 */
-func (CSS) CreateStyleSheet(
+func (_css) CreateStyleSheet(
 	socket sock.Socketer,
 	params *css.CreateStyleSheetParams,
 ) (css.CreateStyleSheetResult, error) {
@@ -125,7 +127,7 @@ Disable disables the CSS agent for the given page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-disable
 */
-func (CSS) Disable(
+func (_css) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("CSS.disable", nil)
@@ -139,7 +141,7 @@ been enabled until the result of this command is received.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-enable
 */
-func (CSS) Enable(
+func (_css) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("CSS.enable", nil)
@@ -153,7 +155,7 @@ is computed by the browser.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-forcePseudoState
 */
-func (CSS) ForcePseudoState(
+func (_css) ForcePseudoState(
 	socket sock.Socketer,
 	params *css.ForcePseudoStateParams,
 ) error {
@@ -167,7 +169,7 @@ GetBackgroundColors gets background colors for a node.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getBackgroundColors
 */
-func (CSS) GetBackgroundColors(
+func (_css) GetBackgroundColors(
 	socket sock.Socketer,
 	params *css.GetBackgroundColorsParams,
 ) (css.GetBackgroundColorsResult, error) {
@@ -199,7 +201,7 @@ GetComputedStyleForNode returns the computed style for a DOM node identified by 
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getComputedStyleForNode
 */
-func (CSS) GetComputedStyleForNode(
+func (_css) GetComputedStyleForNode(
 	socket sock.Socketer,
 	params *css.GetComputedStyleForNodeParams,
 ) (css.GetComputedStyleForNodeResult, error) {
@@ -232,7 +234,7 @@ implicitly, using DOM attributes) for a DOM node identified by nodeId.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getInlineStylesForNode
 */
-func (CSS) GetInlineStylesForNode(
+func (_css) GetInlineStylesForNode(
 	socket sock.Socketer,
 	params *css.GetInlineStylesForNodeParams,
 ) (css.GetInlineStylesForNodeResult, error) {
@@ -264,7 +266,7 @@ GetMatchedStylesForNode returns requested styles for a DOM node identified by no
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getMatchedStylesForNode
 */
-func (CSS) GetMatchedStylesForNode(
+func (_css) GetMatchedStylesForNode(
 	socket sock.Socketer,
 	params *css.GetMatchedStylesForNodeParams,
 ) (css.GetMatchedStylesForNodeResult, error) {
@@ -296,7 +298,7 @@ GetMediaQueries returns all media queries parsed by the rendering engine.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getMediaQueries
 */
-func (CSS) GetMediaQueries(
+func (_css) GetMediaQueries(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("CSS.getMediaQueries", nil)
@@ -310,7 +312,7 @@ TextNodes in the given node.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getPlatformFontsForNode
 */
-func (CSS) GetPlatformFontsForNode(
+func (_css) GetPlatformFontsForNode(
 	socket sock.Socketer,
 	params *css.GetPlatformFontsForNodeParams,
 ) (css.GetPlatformFontsForNodeResult, error) {
@@ -342,7 +344,7 @@ GetStyleSheetText returns the current textual content and the URL for a styleshe
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getStyleSheetText
 */
-func (CSS) GetStyleSheetText(
+func (_css) GetStyleSheetText(
 	socket sock.Socketer,
 	params *css.GetStyleSheetTextParams,
 ) (css.GetStyleSheetTextResult, error) {
@@ -375,7 +377,7 @@ sets the new value for that property.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setEffectivePropertyValueForNode
 */
-func (CSS) SetEffectivePropertyValueForNode(
+func (_css) SetEffectivePropertyValueForNode(
 	socket sock.Socketer,
 	params *css.SetEffectivePropertyValueForNodeParams,
 ) error {
@@ -389,7 +391,7 @@ SetKeyframeKey modifies the keyframe rule key text.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setKeyframeKey
 */
-func (CSS) SetKeyframeKey(
+func (_css) SetKeyframeKey(
 	socket sock.Socketer,
 	params *css.SetKeyframeKeyParams,
 ) (css.SetKeyframeKeyResult, error) {
@@ -421,7 +423,7 @@ SetMediaText modifies the rule selector.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setMediaText
 */
-func (CSS) SetMediaText(
+func (_css) SetMediaText(
 	socket sock.Socketer,
 	params *css.SetMediaTextParams,
 ) (css.SetMediaTextResult, error) {
@@ -453,7 +455,7 @@ SetRuleSelector modifies the rule selector.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setRuleSelector
 */
-func (CSS) SetRuleSelector(
+func (_css) SetRuleSelector(
 	socket sock.Socketer,
 	params *css.SetRuleSelectorParams,
 ) (css.SetRuleSelectorResult, error) {
@@ -485,7 +487,7 @@ SetStyleSheetText sets the new stylesheet text.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setStyleSheetText
 */
-func (CSS) SetStyleSheetText(
+func (_css) SetStyleSheetText(
 	socket sock.Socketer,
 	params *css.SetStyleSheetTextParams,
 ) (css.SetStyleSheetTextResult, error) {
@@ -517,7 +519,7 @@ SetStyleTexts applies specified style edits one after another in the given order
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setStyleTexts
 */
-func (CSS) SetStyleTexts(
+func (_css) SetStyleTexts(
 	socket sock.Socketer,
 	params *css.SetStyleTextsParams,
 ) (css.SetStyleTextsResult, error) {
@@ -549,7 +551,7 @@ StartRuleUsageTracking enables the selector recording.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-startRuleUsageTracking
 */
-func (CSS) StartRuleUsageTracking(
+func (_css) StartRuleUsageTracking(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("CSS.startRuleUsageTracking", nil)
@@ -562,7 +564,7 @@ StopRuleUsageTracking returns he list of rules with an indication of whether the
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-stopRuleUsageTracking
 */
-func (CSS) StopRuleUsageTracking(
+func (_css) StopRuleUsageTracking(
 	socket sock.Socketer,
 ) (css.StopRuleUsageTrackingResult, error) {
 	command := sock.NewCommand("CSS.stopRuleUsageTracking", nil)
@@ -594,7 +596,7 @@ since start of coverage instrumentation).
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-takeCoverageDelta
 */
-func (CSS) TakeCoverageDelta(
+func (_css) TakeCoverageDelta(
 	socket sock.Socketer,
 ) (css.TakeCoverageDeltaResult, error) {
 	command := sock.NewCommand("CSS.takeCoverageDelta", nil)
@@ -626,7 +628,7 @@ font gets loaded.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#event-fontsUpdated
 */
-func (CSS) OnFontsUpdated(
+func (_css) OnFontsUpdated(
 	socket sock.Socketer,
 	callback func(event *css.FontsUpdatedEvent),
 ) {
@@ -652,7 +654,7 @@ features.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#event-mediaQueryResultChanged
 */
-func (CSS) OnMediaQueryResultChanged(
+func (_css) OnMediaQueryResultChanged(
 	socket sock.Socketer,
 	callback func(event *css.MediaQueryResultChangedEvent),
 ) {
@@ -676,7 +678,7 @@ whenever an active document stylesheet is added.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#event-styleSheetAdded
 */
-func (CSS) OnStyleSheetAdded(
+func (_css) OnStyleSheetAdded(
 	socket sock.Socketer,
 	callback func(event *css.StyleSheetAddedEvent),
 ) {
@@ -700,7 +702,7 @@ whenever a stylesheet is changed as a result of the client operation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#event-styleSheetChanged
 */
-func (CSS) OnStyleSheetChanged(
+func (_css) OnStyleSheetChanged(
 	socket sock.Socketer,
 	callback func(event *css.StyleSheetChangedEvent),
 ) {
@@ -724,7 +726,7 @@ whenever an active document stylesheet is removed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#event-styleSheetRemoved
 */
-func (CSS) OnStyleSheetRemoved(
+func (_css) OnStyleSheetRemoved(
 	socket sock.Socketer,
 	callback func(event *css.StyleSheetRemovedEvent),
 ) {

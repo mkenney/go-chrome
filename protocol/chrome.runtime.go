@@ -20,14 +20,16 @@ their object group.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/
 */
-type Runtime struct{}
+var Runtime = _runtime{}
+
+type _runtime struct{}
 
 /*
 AwaitPromise adds handler to promise with given promise object ID.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-awaitPromise
 */
-func (Runtime) AwaitPromise(
+func (_runtime) AwaitPromise(
 	socket sock.Socketer,
 	params *runtime.AwaitPromiseParams,
 ) (runtime.AwaitPromiseResult, error) {
@@ -60,7 +62,7 @@ result is inherited from the target object.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-callFunctionOn
 */
-func (Runtime) CallFunctionOn(
+func (_runtime) CallFunctionOn(
 	socket sock.Socketer,
 	params *runtime.CallFunctionOnParams,
 ) (runtime.CallFunctionOnResult, error) {
@@ -92,7 +94,7 @@ CompileScript compiles an expression.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-compileScript
 */
-func (Runtime) CompileScript(
+func (_runtime) CompileScript(
 	socket sock.Socketer,
 	params *runtime.CompileScriptParams,
 ) (runtime.CompileScriptResult, error) {
@@ -124,7 +126,7 @@ Disable disables reporting of execution contexts creation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-disable
 */
-func (Runtime) Disable(
+func (_runtime) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Runtime.disable", nil)
@@ -137,7 +139,7 @@ DiscardConsoleEntries discards collected exceptions and console API calls.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-discardConsoleEntries
 */
-func (Runtime) DiscardConsoleEntries(
+func (_runtime) DiscardConsoleEntries(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Runtime.discardConsoleEntries", nil)
@@ -152,7 +154,7 @@ context.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-enable
 */
-func (Runtime) Enable(
+func (_runtime) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Runtime.enable", nil)
@@ -165,7 +167,7 @@ Evaluate evaluates expression on global object.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-evaluate
 */
-func (Runtime) Evaluate(
+func (_runtime) Evaluate(
 	socket sock.Socketer,
 	params *runtime.EvaluateParams,
 ) (runtime.EvaluateResult, error) {
@@ -198,7 +200,7 @@ target object.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-getProperties
 */
-func (Runtime) GetProperties(
+func (_runtime) GetProperties(
 	socket sock.Socketer,
 	params *runtime.GetPropertiesParams,
 ) (runtime.GetPropertiesResult, error) {
@@ -230,7 +232,7 @@ GlobalLexicalScopeNames returns all let, const and class variables from global s
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-globalLexicalScopeNames
 */
-func (Runtime) GlobalLexicalScopeNames(
+func (_runtime) GlobalLexicalScopeNames(
 	socket sock.Socketer,
 	params *runtime.GlobalLexicalScopeNamesParams,
 ) (runtime.GlobalLexicalScopeNamesResult, error) {
@@ -262,7 +264,7 @@ QueryObjects returns objects for a given prototype ID.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-queryObjects
 */
-func (Runtime) QueryObjects(
+func (_runtime) QueryObjects(
 	socket sock.Socketer,
 	params *runtime.QueryObjectsParams,
 ) (runtime.QueryObjectsResult, error) {
@@ -294,7 +296,7 @@ ReleaseObject releases remote object with given id.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseObject
 */
-func (Runtime) ReleaseObject(
+func (_runtime) ReleaseObject(
 	socket sock.Socketer,
 	params *runtime.ReleaseObjectParams,
 ) error {
@@ -308,7 +310,7 @@ ReleaseObjectGroup releases all remote objects that belong to a given group.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseObjectGroup
 */
-func (Runtime) ReleaseObjectGroup(
+func (_runtime) ReleaseObjectGroup(
 	socket sock.Socketer,
 	params *runtime.ReleaseObjectGroupParams,
 ) error {
@@ -322,7 +324,7 @@ RunIfWaitingForDebugger tells inspected instance to run if it was waiting for de
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-runIfWaitingForDebugger
 */
-func (Runtime) RunIfWaitingForDebugger(
+func (_runtime) RunIfWaitingForDebugger(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Runtime.runIfWaitingForDebugger", nil)
@@ -335,7 +337,7 @@ RunScript runs the script with given ID in a given context.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-runScript
 */
-func (Runtime) RunScript(
+func (_runtime) RunScript(
 	socket sock.Socketer,
 	params *runtime.RunScriptParams,
 ) (runtime.RunScriptResult, error) {
@@ -367,7 +369,7 @@ SetCustomObjectFormatterEnabled EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-setCustomObjectFormatterEnabled
 */
-func (Runtime) SetCustomObjectFormatterEnabled(
+func (_runtime) SetCustomObjectFormatterEnabled(
 	socket sock.Socketer,
 	params *runtime.SetCustomObjectFormatterEnabledParams,
 ) error {
@@ -382,7 +384,7 @@ fires when the console API is called.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-consoleAPICalled
 */
-func (Runtime) OnConsoleAPICalled(
+func (_runtime) OnConsoleAPICalled(
 	socket sock.Socketer,
 	callback func(event *runtime.ConsoleAPICalledEvent),
 ) {
@@ -406,7 +408,7 @@ fires when an unhandled exception is revoked.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-exceptionRevoked
 */
-func (Runtime) OnExceptionRevoked(
+func (_runtime) OnExceptionRevoked(
 	socket sock.Socketer,
 	callback func(event *runtime.ExceptionRevokedEvent),
 ) {
@@ -430,7 +432,7 @@ when an exception is thrown and is unhandled.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-exceptionThrown
 */
-func (Runtime) OnExceptionThrown(
+func (_runtime) OnExceptionThrown(
 	socket sock.Socketer,
 	callback func(event *runtime.ExceptionThrownEvent),
 ) {
@@ -454,7 +456,7 @@ Runtime.executionContextCreated fires when a new execution context is created.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionContextCreated
 */
-func (Runtime) OnExecutionContextCreated(
+func (_runtime) OnExecutionContextCreated(
 	socket sock.Socketer,
 	callback func(event *runtime.ExecutionContextCreatedEvent),
 ) {
@@ -478,7 +480,7 @@ Runtime.executionContextDestroyed fires when execution context is destroyed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionContextDestroyed
 */
-func (Runtime) OnExecutionContextDestroyed(
+func (_runtime) OnExecutionContextDestroyed(
 	socket sock.Socketer,
 	callback func(event *runtime.ExecutionContextDestroyedEvent),
 ) {
@@ -502,7 +504,7 @@ Runtime.executionContextsCleared fires when all executionContexts were cleared i
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionContextsCleared
 */
-func (Runtime) OnExecutionContextsCleared(
+func (_runtime) OnExecutionContextsCleared(
 	socket sock.Socketer,
 	callback func(event *runtime.ExecutionContextsClearedEvent),
 ) {
@@ -527,7 +529,7 @@ call).
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-inspectRequested
 */
-func (Runtime) OnInspectRequested(
+func (_runtime) OnInspectRequested(
 	socket sock.Socketer,
 	callback func(event *runtime.InspectRequestedEvent),
 ) {

@@ -23,7 +23,9 @@ Note that iframe owner elements will return corresponding document elements as t
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/
 */
-type DOM struct{}
+var DOM = _dom{}
+
+type _dom struct{}
 
 /*
 CollectClassNamesFromSubtree creates a deep copy of the specified node and places it into the target container before the
@@ -31,7 +33,7 @@ given anchor. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-collectClassNamesFromSubtree
 */
-func (DOM) CollectClassNamesFromSubtree(
+func (_dom) CollectClassNamesFromSubtree(
 	socket sock.Socketer,
 	params *dom.CollectClassNamesFromSubtreeParams,
 ) (dom.CollectClassNamesFromSubtreeResult, error) {
@@ -64,7 +66,7 @@ given anchor. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-copyTo
 */
-func (DOM) CopyTo(
+func (_dom) CopyTo(
 	socket sock.Socketer,
 	params *dom.CopyToParams,
 ) (dom.CopyToResult, error) {
@@ -97,7 +99,7 @@ tracking any objects, can be used for automation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-describeNode
 */
-func (DOM) DescribeNode(
+func (_dom) DescribeNode(
 	socket sock.Socketer,
 	params *dom.DescribeNodeParams,
 ) (dom.DescribeNodeResult, error) {
@@ -129,7 +131,7 @@ Disable disables the DOM agent for the given page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-disable
 */
-func (DOM) Disable(
+func (_dom) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("DOM.disable", nil)
@@ -143,7 +145,7 @@ should no longer be called for that search. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-discardSearchResults
 */
-func (DOM) DiscardSearchResults(
+func (_dom) DiscardSearchResults(
 	socket sock.Socketer,
 	params *dom.DiscardSearchResultsParams,
 ) error {
@@ -157,7 +159,7 @@ Enable enables the DOM agent for the given page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-enable
 */
-func (DOM) Enable(
+func (_dom) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("DOM.enable", nil)
@@ -170,7 +172,7 @@ Focus focuses the given element.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-focus
 */
-func (DOM) Focus(
+func (_dom) Focus(
 	socket sock.Socketer,
 	params *dom.FocusParams,
 ) error {
@@ -184,7 +186,7 @@ GetAttributes returns attributes for the specified node.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getAttributes
 */
-func (DOM) GetAttributes(
+func (_dom) GetAttributes(
 	socket sock.Socketer,
 	params *dom.GetAttributesParams,
 ) (dom.GetAttributesResult, error) {
@@ -216,7 +218,7 @@ GetBoxModel returns boxes for the given node.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getBoxModel
 */
-func (DOM) GetBoxModel(
+func (_dom) GetBoxModel(
 	socket sock.Socketer,
 	params *dom.GetBoxModelParams,
 ) (dom.GetBoxModelResult, error) {
@@ -248,7 +250,7 @@ GetDocument returns the root DOM node (and optionally the subtree) to the caller
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getDocument
 */
-func (DOM) GetDocument(
+func (_dom) GetDocument(
 	socket sock.Socketer,
 	params *dom.GetDocumentParams,
 ) (dom.GetDocumentResult, error) {
@@ -280,7 +282,7 @@ GetFlattenedDocument returns the root DOM node (and optionally the subtree) to t
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getFlattenedDocument
 */
-func (DOM) GetFlattenedDocument(
+func (_dom) GetFlattenedDocument(
 	socket sock.Socketer,
 	params *dom.GetFlattenedDocumentParams,
 ) (dom.GetFlattenedDocumentResult, error) {
@@ -312,7 +314,7 @@ GetNodeForLocation returns node id at given location. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getNodeForLocation
 */
-func (DOM) GetNodeForLocation(
+func (_dom) GetNodeForLocation(
 	socket sock.Socketer,
 	params *dom.GetNodeForLocationParams,
 ) (dom.GetNodeForLocationResult, error) {
@@ -344,7 +346,7 @@ GetOuterHTML returns node's HTML markup.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getOuterHTML
 */
-func (DOM) GetOuterHTML(
+func (_dom) GetOuterHTML(
 	socket sock.Socketer,
 	params *dom.GetOuterHTMLParams,
 ) (dom.GetOuterHTMLResult, error) {
@@ -376,7 +378,7 @@ GetRelayoutBoundary returns the id of the nearest ancestor that is a relayout bo
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getRelayoutBoundary
 */
-func (DOM) GetRelayoutBoundary(
+func (_dom) GetRelayoutBoundary(
 	socket sock.Socketer,
 	params *dom.GetRelayoutBoundaryParams,
 ) (dom.GetRelayoutBoundaryResult, error) {
@@ -409,7 +411,7 @@ the given identifier. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getSearchResults
 */
-func (DOM) GetSearchResults(
+func (_dom) GetSearchResults(
 	socket sock.Socketer,
 	params *dom.GetSearchResultsParams,
 ) (dom.GetSearchResultsResult, error) {
@@ -441,7 +443,7 @@ MarkUndoableState marks last undoable state. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-markUndoableState
 */
-func (DOM) MarkUndoableState(
+func (_dom) MarkUndoableState(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("DOM.markUndoableState", nil)
@@ -454,7 +456,7 @@ MoveTo moves node into the new container, places it before the given anchor.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-moveTo
 */
-func (DOM) MoveTo(
+func (_dom) MoveTo(
 	socket sock.Socketer,
 	params *dom.MoveToParams,
 ) (dom.MoveToResult, error) {
@@ -487,7 +489,7 @@ results or cancelSearch to end this search session. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-performSearch
 */
-func (DOM) PerformSearch(
+func (_dom) PerformSearch(
 	socket sock.Socketer,
 	params *dom.PerformSearchParams,
 ) (dom.PerformSearchResult, error) {
@@ -520,7 +522,7 @@ PushNodeByPathToFrontend requests that the node is sent to the caller given its 
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-pushNodeByPathToFrontend
 */
-func (DOM) PushNodeByPathToFrontend(
+func (_dom) PushNodeByPathToFrontend(
 	socket sock.Socketer,
 	params *dom.PushNodeByPathToFrontendParams,
 ) (dom.PushNodeByPathToFrontendResult, error) {
@@ -553,7 +555,7 @@ backend node IDs. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-pushNodesByBackendIdsToFrontend
 */
-func (DOM) PushNodesByBackendIDsToFrontend(
+func (_dom) PushNodesByBackendIDsToFrontend(
 	socket sock.Socketer,
 	params *dom.PushNodesByBackendIDsToFrontendParams,
 ) (dom.PushNodesByBackendIDsToFrontendResult, error) {
@@ -585,7 +587,7 @@ QuerySelector executes querySelector on a given node.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-querySelector
 */
-func (DOM) QuerySelector(
+func (_dom) QuerySelector(
 	socket sock.Socketer,
 	params *dom.QuerySelectorParams,
 ) (dom.QuerySelectorResult, error) {
@@ -617,7 +619,7 @@ QuerySelectorAll executes querySelectorAll on a given node.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-querySelectorAll
 */
-func (DOM) QuerySelectorAll(
+func (_dom) QuerySelectorAll(
 	socket sock.Socketer,
 	params *dom.QuerySelectorAllParams,
 ) (dom.QuerySelectorAllResult, error) {
@@ -649,7 +651,7 @@ Redo re-does the last undone action. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-redo
 */
-func (DOM) Redo(
+func (_dom) Redo(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("DOM.redo", nil)
@@ -662,7 +664,7 @@ RemoveAttribute removes attribute with given name from an element with given id.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-removeAttribute
 */
-func (DOM) RemoveAttribute(
+func (_dom) RemoveAttribute(
 	socket sock.Socketer,
 	params *dom.RemoveAttributeParams,
 ) error {
@@ -676,7 +678,7 @@ RemoveNode removes the specified node.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-removeNode
 */
-func (DOM) RemoveNode(
+func (_dom) RemoveNode(
 	socket sock.Socketer,
 	params *dom.RemoveNodeParams,
 ) error {
@@ -692,7 +694,7 @@ to the specified depth.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-requestChildNodes
 */
-func (DOM) RequestChildNodes(
+func (_dom) RequestChildNodes(
 	socket sock.Socketer,
 	params *dom.RequestChildNodesParams,
 ) error {
@@ -708,7 +710,7 @@ setChildNodes notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-requestNode
 */
-func (DOM) RequestNode(
+func (_dom) RequestNode(
 	socket sock.Socketer,
 	params *dom.RequestNodeParams,
 ) (dom.RequestNodeResult, error) {
@@ -740,7 +742,7 @@ ResolveNode resolves the JavaScript node object for a given NodeID or BackendNod
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-resolveNode
 */
-func (DOM) ResolveNode(
+func (_dom) ResolveNode(
 	socket sock.Socketer,
 	params *dom.ResolveNodeParams,
 ) (dom.ResolveNodeResult, error) {
@@ -772,7 +774,7 @@ SetAttributeValue sets attribute for an element with given id.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setAttributeValue
 */
-func (DOM) SetAttributeValue(
+func (_dom) SetAttributeValue(
 	socket sock.Socketer,
 	params *dom.SetAttributeValueParams,
 ) error {
@@ -787,7 +789,7 @@ some existing attribute value and types in several attribute name/value pairs.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setAttributesAsText
 */
-func (DOM) SetAttributesAsText(
+func (_dom) SetAttributesAsText(
 	socket sock.Socketer,
 	params *dom.SetAttributesAsTextParams,
 ) error {
@@ -801,7 +803,7 @@ SetFileInputFiles sets files for the given file input element.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setFileInputFiles
 */
-func (DOM) SetFileInputFiles(
+func (_dom) SetFileInputFiles(
 	socket sock.Socketer,
 	params *dom.SetFileInputFilesParams,
 ) error {
@@ -816,7 +818,7 @@ more details $x functions). EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setInspectedNode
 */
-func (DOM) SetInspectedNode(
+func (_dom) SetInspectedNode(
 	socket sock.Socketer,
 	params *dom.SetInspectedNodeParams,
 ) error {
@@ -830,7 +832,7 @@ SetNodeName sets node name for the specified node.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setNodeName
 */
-func (DOM) SetNodeName(
+func (_dom) SetNodeName(
 	socket sock.Socketer,
 	params *dom.SetNodeNameParams,
 ) (dom.SetNodeNameResult, error) {
@@ -862,7 +864,7 @@ SetNodeValue sets node value for the specified node.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setNodeValue
 */
-func (DOM) SetNodeValue(
+func (_dom) SetNodeValue(
 	socket sock.Socketer,
 	params *dom.SetNodeValueParams,
 ) error {
@@ -876,7 +878,7 @@ SetOuterHTML sets node HTML markup, returns new node id.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setOuterHTML
 */
-func (DOM) SetOuterHTML(
+func (_dom) SetOuterHTML(
 	socket sock.Socketer,
 	params *dom.SetOuterHTMLParams,
 ) error {
@@ -890,7 +892,7 @@ Undo undoes the last performed action. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-undo
 */
-func (DOM) Undo(
+func (_dom) Undo(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("DOM.undo", nil)
@@ -904,7 +906,7 @@ when Element's attribute is modified.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-attributeModified
 */
-func (DOM) OnAttributeModified(
+func (_dom) OnAttributeModified(
 	socket sock.Socketer,
 	callback func(event *dom.AttributeModifiedEvent),
 ) {
@@ -928,7 +930,7 @@ Element's attribute is modified.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-attributeRemoved
 */
-func (DOM) OnAttributeRemoved(
+func (_dom) OnAttributeRemoved(
 	socket sock.Socketer,
 	callback func(event *dom.AttributeRemovedEvent),
 ) {
@@ -952,7 +954,7 @@ DOM.characterDataModified mirrors the DOMCharacterDataModified event.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-characterDataModified
 */
-func (DOM) OnCharacterDataModified(
+func (_dom) OnCharacterDataModified(
 	socket sock.Socketer,
 	callback func(event *dom.CharacterDataModifiedEvent),
 ) {
@@ -976,7 +978,7 @@ DOM.childNodeCountUpdated fires when Container's child node count has changed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-childNodeCountUpdated
 */
-func (DOM) OnChildNodeCountUpdated(
+func (_dom) OnChildNodeCountUpdated(
 	socket sock.Socketer,
 	callback func(event *dom.ChildNodeCountUpdatedEvent),
 ) {
@@ -1000,7 +1002,7 @@ the DOMNodeInserted event.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-childNodeInserted
 */
-func (DOM) OnChildNodeInserted(
+func (_dom) OnChildNodeInserted(
 	socket sock.Socketer,
 	callback func(event *dom.ChildNodeInsertedEvent),
 ) {
@@ -1024,7 +1026,7 @@ DOMNodeRemoved event.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-childNodeRemoved
 */
-func (DOM) OnChildNodeRemoved(
+func (_dom) OnChildNodeRemoved(
 	socket sock.Socketer,
 	callback func(event *dom.ChildNodeRemovedEvent),
 ) {
@@ -1048,7 +1050,7 @@ DOM.distributedNodesUpdated fires when distribution is changed. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-distributedNodesUpdated
 */
-func (DOM) OnDistributedNodesUpdated(
+func (_dom) OnDistributedNodesUpdated(
 	socket sock.Socketer,
 	callback func(event *dom.DistributedNodesUpdatedEvent),
 ) {
@@ -1072,7 +1074,7 @@ fires when Document has been totally updated. Node IDs are no longer valid.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-documentUpdated
 */
-func (DOM) OnDocumentUpdated(
+func (_dom) OnDocumentUpdated(
 	socket sock.Socketer,
 	callback func(event *dom.DocumentUpdatedEvent),
 ) {
@@ -1096,7 +1098,7 @@ DOM.inlineStyleInvalidated fires when Element's attribute is removed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-inlineStyleInvalidated
 */
-func (DOM) OnInlineStyleInvalidated(
+func (_dom) OnInlineStyleInvalidated(
 	socket sock.Socketer,
 	callback func(event *dom.InlineStyleInvalidatedEvent),
 ) {
@@ -1120,7 +1122,7 @@ fires when a pseudo element is added to an element. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-pseudoElementAdded
 */
-func (DOM) OnPseudoElementAdded(
+func (_dom) OnPseudoElementAdded(
 	socket sock.Socketer,
 	callback func(event *dom.PseudoElementAddedEvent),
 ) {
@@ -1144,7 +1146,7 @@ DOM.pseudoElementRemoved fires when a pseudo element is removed from an element.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-pseudoElementRemoved
 */
-func (DOM) OnPseudoElementRemoved(
+func (_dom) OnPseudoElementRemoved(
 	socket sock.Socketer,
 	callback func(event *dom.PseudoElementRemovedEvent),
 ) {
@@ -1169,7 +1171,7 @@ calls requesting node IDs.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-setChildNodes
 */
-func (DOM) OnSetChildNodes(
+func (_dom) OnSetChildNodes(
 	socket sock.Socketer,
 	callback func(event *dom.SetChildNodesEvent),
 ) {
@@ -1193,7 +1195,7 @@ shadow root is popped from the element. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-shadowRootPopped
 */
-func (DOM) OnShadowRootPopped(
+func (_dom) OnShadowRootPopped(
 	socket sock.Socketer,
 	callback func(event *dom.ShadowRootPoppedEvent),
 ) {
@@ -1217,7 +1219,7 @@ shadow root is pushed into the element. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-shadowRootPushed
 */
-func (DOM) OnShadowRootPushed(
+func (_dom) OnShadowRootPushed(
 	socket sock.Socketer,
 	callback func(event *dom.ShadowRootPushedEvent),
 ) {

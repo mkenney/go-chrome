@@ -14,14 +14,16 @@ Security is a struct that provides a namespace for the Chrome Security protocol 
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/
 */
-type Security struct{}
+var Security = _security{}
+
+type _security struct{}
 
 /*
 Disable disables tracking security state changes.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-disable
 */
-func (Security) Disable(
+func (_security) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Security.disable", nil)
@@ -34,7 +36,7 @@ Enable tracking security state changes.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-enable
 */
-func (Security) Enable(
+func (_security) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Security.enable", nil)
@@ -48,7 +50,7 @@ EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setIgnoreCertificateErrors
 */
-func (Security) SetIgnoreCertificateErrors(
+func (_security) SetIgnoreCertificateErrors(
 	socket sock.Socketer,
 	params *security.SetIgnoreCertificateErrorsParams,
 ) error {
@@ -62,7 +64,7 @@ HandleCertificateError handles a certificate error that fired a certificateError
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-handleCertificateError
 */
-func (Security) HandleCertificateError(
+func (_security) HandleCertificateError(
 	socket sock.Socketer,
 	params *security.HandleCertificateErrorParams,
 ) error {
@@ -78,7 +80,7 @@ handleCertificateError commands.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setOverrideCertificateErrors
 */
-func (Security) SetOverrideCertificateErrors(
+func (_security) SetOverrideCertificateErrors(
 	socket sock.Socketer,
 	params *security.SetOverrideCertificateErrorsParams,
 ) error {
@@ -95,7 +97,7 @@ certificate error has been allowed internally.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#event-certificateError
 */
-func (Security) OnCertificateError(
+func (_security) OnCertificateError(
 	socket sock.Socketer,
 	callback func(event *security.CertificateErrorEvent),
 ) {
@@ -119,7 +121,7 @@ fires when the security state of the page changed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#event-securityStateChanged
 */
-func (Security) OnSecurityStateChanged(
+func (_security) OnSecurityStateChanged(
 	socket sock.Socketer,
 	callback func(event *security.StateChangedEvent),
 ) {

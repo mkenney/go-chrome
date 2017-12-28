@@ -16,14 +16,16 @@ EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/
 */
-type Tracing struct{}
+var Tracing = _tracing{}
+
+type _tracing struct{}
 
 /*
 End stops trace events collection.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-end
 */
-func (Tracing) End(
+func (_tracing) End(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Tracing.end", nil)
@@ -36,7 +38,7 @@ GetCategories gets supported tracing categories.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-getCategories
 */
-func (Tracing) GetCategories(
+func (_tracing) GetCategories(
 	socket sock.Socketer,
 ) (tracing.GetCategoriesResult, error) {
 	command := sock.NewCommand("Tracing.getCategories", nil)
@@ -67,7 +69,7 @@ RecordClockSyncMarker records a clock sync marker in the trace.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-recordClockSyncMarker
 */
-func (Tracing) RecordClockSyncMarker(
+func (_tracing) RecordClockSyncMarker(
 	socket sock.Socketer,
 	params *tracing.RecordClockSyncMarkerParams,
 ) error {
@@ -81,7 +83,7 @@ RequestMemoryDump requests a global memory dump.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-requestMemoryDump
 */
-func (Tracing) RequestMemoryDump(
+func (_tracing) RequestMemoryDump(
 	socket sock.Socketer,
 ) (tracing.GetCategoriesResult, error) {
 	command := sock.NewCommand("Tracing.requestMemoryDump", nil)
@@ -112,7 +114,7 @@ Start starts trace events collection.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-start
 */
-func (Tracing) Start(
+func (_tracing) Start(
 	socket sock.Socketer,
 	params *tracing.StartParams,
 ) error {
@@ -127,7 +129,7 @@ buffer is used.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-bufferUsage
 */
-func (Tracing) OnBufferUsage(
+func (_tracing) OnBufferUsage(
 	socket sock.Socketer,
 	callback func(event *tracing.BufferUsageEvent),
 ) {
@@ -152,7 +154,7 @@ tracingComplete event. Contains an bucket of collected trace events.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-dataCollected
 */
-func (Tracing) OnDataCollected(
+func (_tracing) OnDataCollected(
 	socket sock.Socketer,
 	callback func(event *tracing.DataCollectedEvent),
 ) {
@@ -177,7 +179,7 @@ events.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-tracingComplete
 */
-func (Tracing) OnTracingComplete(
+func (_tracing) OnTracingComplete(
 	socket sock.Socketer,
 	callback func(event *tracing.CompleteEvent),
 ) {

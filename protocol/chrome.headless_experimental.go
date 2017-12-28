@@ -17,7 +17,9 @@ The HeadlessExperimental protocol provides experimental commands only supported 
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/
 */
-type HeadlessExperimental struct{}
+var HeadlessExperimental = _headlessExperimental{}
+
+type _headlessExperimental struct{}
 
 /*
 BeginFrame sends a BeginFrame to the target and returns when the frame was completed. Optionally
@@ -26,7 +28,7 @@ BeginFrameControl.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-beginFrame
 */
-func (HeadlessExperimental) BeginFrame(
+func (_headlessExperimental) BeginFrame(
 	socket sock.Socketer,
 	params *headlessExperimental.BeginFrameParams,
 ) (headlessExperimental.BeginFrameResult, error) {
@@ -58,7 +60,7 @@ Disable disables headless events for the target.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-disable
 */
-func (HeadlessExperimental) Disable(
+func (_headlessExperimental) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("HeadlessExperimental.disable", nil)
@@ -71,7 +73,7 @@ Enable enables headless events for the target.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-enable
 */
-func (HeadlessExperimental) Enable(
+func (_headlessExperimental) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("HeadlessExperimental.enable", nil)
@@ -88,7 +90,7 @@ screenshotting requests may fail.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#event-mainFrameReadyForScreenshots
 */
-func (HeadlessExperimental) OnMainFrameReadyForScreenshots(
+func (_headlessExperimental) OnMainFrameReadyForScreenshots(
 	socket sock.Socketer,
 	callback func(event *headlessExperimental.MainFrameReadyForScreenshotsEvent),
 ) {
@@ -112,7 +114,7 @@ HeadlessExperimental.needsBeginFramesChanged fires when the target starts or sto
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#event-needsBeginFramesChanged
 */
-func (HeadlessExperimental) OnNeedsBeginFramesChanged(
+func (_headlessExperimental) OnNeedsBeginFramesChanged(
 	socket sock.Socketer,
 	callback func(event *headlessExperimental.NeedsBeginFramesChangedEvent),
 ) {

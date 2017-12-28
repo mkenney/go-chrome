@@ -12,14 +12,16 @@ EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/
 */
-type Memory struct{}
+var Memory = _memory{}
+
+type _memory struct{}
 
 /*
 GetDOMCounters EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-getDOMCounters
 */
-func (Memory) GetDOMCounters(
+func (_memory) GetDOMCounters(
 	socket sock.Socketer,
 	params *memory.GetDOMCountersParams,
 ) error {
@@ -33,7 +35,7 @@ PrepareForLeakDetection EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-prepareForLeakDetection
 */
-func (Memory) PrepareForLeakDetection(
+func (_memory) PrepareForLeakDetection(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Memory.prepareForLeakDetection", nil)
@@ -47,7 +49,7 @@ processes.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-setPressureNotificationsSuppressed
 */
-func (Memory) SetPressureNotificationsSuppressed(
+func (_memory) SetPressureNotificationsSuppressed(
 	socket sock.Socketer,
 	params *memory.SetPressureNotificationsSuppressedParams,
 ) error {
@@ -61,7 +63,7 @@ SimulatePressureNotification simulates a memory pressure notification in all pro
 
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-simulatePressureNotification
 */
-func (Memory) SimulatePressureNotification(
+func (_memory) SimulatePressureNotification(
 	socket sock.Socketer,
 	params *memory.SimulatePressureNotificationParams,
 ) error {

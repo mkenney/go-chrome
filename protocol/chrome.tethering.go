@@ -16,14 +16,16 @@ The Tethering protocol defines methods and events for browser port binding.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tethering/
 */
-type Tethering struct{}
+var Tethering = _tethering{}
+
+type _tethering struct{}
 
 /*
 Bind requests browser port binding.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tethering/#method-bind
 */
-func (Tethering) Bind(
+func (_tethering) Bind(
 	socket sock.Socketer,
 	params *tethering.BindParams,
 ) error {
@@ -37,7 +39,7 @@ Unbind requests browser port unbinding.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tethering/#method-unbind
 */
-func (Tethering) Unbind(
+func (_tethering) Unbind(
 	socket sock.Socketer,
 	params *tethering.UnbindParams,
 ) error {
@@ -52,7 +54,7 @@ successfully bound and got a specified connection id.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tethering/#event-accepted
 */
-func (Tethering) OnAccepted(
+func (_tethering) OnAccepted(
 	socket sock.Socketer,
 	callback func(event *tethering.AcceptedEvent),
 ) {

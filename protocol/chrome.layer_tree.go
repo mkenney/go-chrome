@@ -16,14 +16,16 @@ EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/
 */
-type LayerTree struct{}
+var LayerTree = _layerTree{}
+
+type _layerTree struct{}
 
 /*
 CompositingReasons provides the reasons why the given layer was composited.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-compositingReasons
 */
-func (LayerTree) CompositingReasons(
+func (_layerTree) CompositingReasons(
 	socket sock.Socketer,
 	params *layerTree.CompositingReasonsParams,
 ) (layerTree.CompositingReasonsResult, error) {
@@ -55,7 +57,7 @@ Disable disables compositing tree inspection.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-disable
 */
-func (LayerTree) Disable(
+func (_layerTree) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("LayerTree.disable", nil)
@@ -68,7 +70,7 @@ Enable enables compositing tree inspection.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-enable
 */
-func (LayerTree) Enable(
+func (_layerTree) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("LayerTree.enable", nil)
@@ -81,7 +83,7 @@ LoadSnapshot returns the snapshot identifier.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-loadSnapshot
 */
-func (LayerTree) LoadSnapshot(
+func (_layerTree) LoadSnapshot(
 	socket sock.Socketer,
 	params *layerTree.LoadSnapshotParams,
 ) (layerTree.LoadSnapshotResult, error) {
@@ -113,7 +115,7 @@ MakeSnapshot returns the layer snapshot identifier.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-makeSnapshot
 */
-func (LayerTree) MakeSnapshot(
+func (_layerTree) MakeSnapshot(
 	socket sock.Socketer,
 	params *layerTree.MakeSnapshotParams,
 ) (layerTree.MakeSnapshotResult, error) {
@@ -145,7 +147,7 @@ ProfileSnapshot profiles a snapshot.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-profileSnapshot
 */
-func (LayerTree) ProfileSnapshot(
+func (_layerTree) ProfileSnapshot(
 	socket sock.Socketer,
 	params *layerTree.ProfileSnapshotParams,
 ) (layerTree.ProfileSnapshotResult, error) {
@@ -177,7 +179,7 @@ ReleaseSnapshot releases layer snapshot captured by the back-end.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-releaseSnapshot
 */
-func (LayerTree) ReleaseSnapshot(
+func (_layerTree) ReleaseSnapshot(
 	socket sock.Socketer,
 	params *layerTree.ReleaseSnapshotParams,
 ) error {
@@ -191,7 +193,7 @@ ReplaySnapshot replays the layer snapshot and returns the resulting bitmap.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-replaySnapshot
 */
-func (LayerTree) ReplaySnapshot(
+func (_layerTree) ReplaySnapshot(
 	socket sock.Socketer,
 	params *layerTree.ReplaySnapshotParams,
 ) (layerTree.ReplaySnapshotResult, error) {
@@ -223,7 +225,7 @@ SnapshotCommandLog replays the layer snapshot and returns canvas log.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-snapshotCommandLog
 */
-func (LayerTree) SnapshotCommandLog(
+func (_layerTree) SnapshotCommandLog(
 	socket sock.Socketer,
 	params *layerTree.SnapshotCommandLogParams,
 ) (layerTree.SnapshotCommandLogResult, error) {
@@ -256,7 +258,7 @@ is painted.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#event-layerPainted
 */
-func (LayerTree) OnLayerPainted(
+func (_layerTree) OnLayerPainted(
 	socket sock.Socketer,
 	callback func(event *layerTree.LayerPaintedEvent),
 ) {
@@ -280,7 +282,7 @@ the layer tree changes.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#event-layerTreeDidChange
 */
-func (LayerTree) OnLayerTreeDidChange(
+func (_layerTree) OnLayerTreeDidChange(
 	socket sock.Socketer,
 	callback func(event *layerTree.DidChangeEvent),
 ) {

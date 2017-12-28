@@ -13,14 +13,16 @@ EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/
 */
-type DeviceOrientation struct{}
+var DeviceOrientation = _deviceOrientation{}
+
+type _deviceOrientation struct{}
 
 /*
 ClearOverride clears the overridden Device Orientation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/#method-clearDeviceOrientationOverride
 */
-func (DeviceOrientation) ClearOverride(
+func (_deviceOrientation) ClearOverride(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("DeviceOrientation.clearDeviceOrientationOverride", nil)
@@ -33,7 +35,7 @@ SetOverride overrides the Device Orientation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/#method-setDeviceOrientationOverride
 */
-func (DeviceOrientation) SetOverride(
+func (_deviceOrientation) SetOverride(
 	socket sock.Socketer,
 	params *deviceOrientation.SetOverrideParams,
 ) error {

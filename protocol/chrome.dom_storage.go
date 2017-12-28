@@ -15,14 +15,16 @@ The DOMStorage protocol queries and modifies DOM storage.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/
 */
-type DOMStorage struct{}
+var DOMStorage = _domStorage{}
+
+type _domStorage struct{}
 
 /*
 Clear clears  a stored item.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-clear
 */
-func (DOMStorage) Clear(
+func (_domStorage) Clear(
 	socket sock.Socketer,
 	params *domStorage.ClearParams,
 ) error {
@@ -36,7 +38,7 @@ Disable disables storage tracking, prevents storage events from being sent to th
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-disable
 */
-func (DOMStorage) Disable(
+func (_domStorage) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("DOMStorage.disable", nil)
@@ -49,7 +51,7 @@ Enable enables storage tracking, storage events will now be delivered to the cli
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-enable
 */
-func (DOMStorage) Enable(
+func (_domStorage) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("DOMStorage.enable", nil)
@@ -62,7 +64,7 @@ GetItems gets a stored item.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-getDOMStorageItems
 */
-func (DOMStorage) GetItems(
+func (_domStorage) GetItems(
 	socket sock.Socketer,
 	params *domStorage.GetItemsParams,
 ) (domStorage.GetItemsResult, error) {
@@ -94,7 +96,7 @@ RemoveItem removes  a stored item.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-removeDOMStorageItem
 */
-func (DOMStorage) RemoveItem(
+func (_domStorage) RemoveItem(
 	socket sock.Socketer,
 	params *domStorage.RemoveItemParams,
 ) error {
@@ -108,7 +110,7 @@ SetItem sets a stored item.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-setDOMStorageItem
 */
-func (DOMStorage) SetItem(
+func (_domStorage) SetItem(
 	socket sock.Socketer,
 	params *domStorage.SetItemParams,
 ) error {

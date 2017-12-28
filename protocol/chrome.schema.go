@@ -14,14 +14,16 @@ DEPRECATED
 
 https://chromedevtools.github.io/devtools-protocol/tot/Schema/
 */
-type Schema struct{}
+var Schema = _schema{}
+
+type _schema struct{}
 
 /*
 GetDomains returns supported domains.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Schema/#method-getDomains
 */
-func (Schema) GetDomains(
+func (_schema) GetDomains(
 	socket sock.Socketer,
 ) (schema.GetDomainsResult, error) {
 	command := sock.NewCommand("Schema.getDomains", nil)

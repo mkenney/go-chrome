@@ -14,14 +14,16 @@ Performance is a struct that provides a namespace for the Chrome Performance pro
 
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/
 */
-type Performance struct{}
+var Performance = _performance{}
+
+type _performance struct{}
 
 /*
 Disable disables collecting and reporting metrics.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-disable
 */
-func (Performance) Disable(
+func (_performance) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Performance.disable", nil)
@@ -34,7 +36,7 @@ Enable enables collecting and reporting metrics.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-enable
 */
-func (Performance) Enable(
+func (_performance) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Performance.enable", nil)
@@ -47,7 +49,7 @@ GetMetrics retrieves current values of run-time metrics.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-getMetrics
 */
-func (Overlay) GetMetrics(
+func (_performance) GetMetrics(
 	socket sock.Socketer,
 ) (performance.GetMetricsResult, error) {
 	command := sock.NewCommand("Performance.getMetrics", nil)
@@ -79,7 +81,7 @@ values of the metrics.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#event-metrics
 */
-func (Overlay) OnMetrics(
+func (_performance) OnMetrics(
 	socket sock.Socketer,
 	callback func(event *performance.MetricsEvent),
 ) {

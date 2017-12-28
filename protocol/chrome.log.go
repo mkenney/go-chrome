@@ -16,14 +16,16 @@ The Log protocol provides access to log entries.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/
 */
-type Log struct{}
+var Log = _log{}
+
+type _log struct{}
 
 /*
 Clear clears the log.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-clear
 */
-func (Log) Clear(
+func (_log) Clear(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Log.clear", nil)
@@ -36,7 +38,7 @@ Disable disables log domain, prevents further log entries from being reported to
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-disable
 */
-func (Log) Disable(
+func (_log) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Log.disable", nil)
@@ -50,7 +52,7 @@ Enable enables log domain, sends the entries collected so far to the client by m
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-enable
 */
-func (Log) Enable(
+func (_log) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Log.enable", nil)
@@ -63,7 +65,7 @@ StartViolationsReport starts violation reporting.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-startViolationsReport
 */
-func (Log) StartViolationsReport(
+func (_log) StartViolationsReport(
 	socket sock.Socketer,
 	params *chromeLog.StartViolationsReportParams,
 ) error {
@@ -77,7 +79,7 @@ StopViolationsReport stops violation reporting.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-stopViolationsReport
 */
-func (Log) StopViolationsReport(
+func (_log) StopViolationsReport(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Log.stopViolationsReport", nil)
@@ -91,7 +93,7 @@ logged.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#event-entryAdded
 */
-func (Log) OnEntryAdded(
+func (_log) OnEntryAdded(
 	socket sock.Socketer,
 	callback func(event *chromeLog.EntryAddedEvent),
 ) {

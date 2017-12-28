@@ -15,7 +15,9 @@ information.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/
 */
-type DOMSnapshot struct{}
+var DOMSnapshot = _domSnapshot{}
+
+type _domSnapshot struct{}
 
 /*
 Get returns a document snapshot, including the full DOM tree of the root node (including iframes,
@@ -24,7 +26,7 @@ computed style information for the nodes. Shadow DOM in the returned DOM tree is
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#method-getSnapshot
 */
-func (DOMSnapshot) Get(
+func (_domSnapshot) Get(
 	socket sock.Socketer,
 	params *domSnapshot.GetParams,
 ) (domSnapshot.GetResult, error) {
