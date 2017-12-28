@@ -8,9 +8,8 @@ import (
 )
 
 /*
-IO is a struct that provides a namespace for the Chrome IO protocol methods.
-
-The IO protocol provides input/output operations for streams produced by DevTools.
+IO is a struct that provides a namespace for the Chrome IO protocol methods. The IO protocol
+provides input/output operations for streams produced by DevTools.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IO/
 */

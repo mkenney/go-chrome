@@ -8,9 +8,8 @@ import (
 )
 
 /*
-Browser is a struct that provides a namespace for the Chrome Browser protocol methods.
-
-The Browser protocol defines methods and events for browser management.
+Browser is a struct that provides a namespace for the Chrome Browser protocol methods. The Browser
+protocol defines methods and events for browser management.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/
 */

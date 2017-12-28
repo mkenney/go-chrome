@@ -10,9 +10,8 @@ import (
 )
 
 /*
-Console is a struct that provides a namespace for the Chrome Console protocol methods.
-
-DEPRECATED - use Runtime or Log instead.
+Console is a struct that provides a namespace for the Chrome Console protocol methods. DEPRECATED -
+use Runtime or Log instead.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Console/
 */

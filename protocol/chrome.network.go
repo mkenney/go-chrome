@@ -10,10 +10,9 @@ import (
 )
 
 /*
-Network is a struct that provides a namespace for the Chrome Network protocol methods.
-
-The Network protocol allows tracking network activities of the page. It exposes information about
-http, file, data and other requests and responses, their headers, bodies, timing, etc.
+Network is a struct that provides a namespace for the Chrome Network protocol methods. The Network
+protocol allows tracking network activities of the page. It exposes information about http, file,
+data and other requests and responses, their headers, bodies, timing, etc.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/
 */

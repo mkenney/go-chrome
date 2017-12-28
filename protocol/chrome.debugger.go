@@ -10,9 +10,8 @@ import (
 )
 
 /*
-Debugger is a struct that provides a namespace for the Chrome Debugger protocol methods.
-
-The Debugger protocol exposes JavaScript debugging capabilities. It allows setting and removing
+Debugger is a struct that provides a namespace for the Chrome Debugger protocol methods. The
+Debugger protocol exposes JavaScript debugging capabilities. It allows setting and removing
 breakpoints, stepping through execution, exploring stack traces, etc.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/

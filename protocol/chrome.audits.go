@@ -8,9 +8,8 @@ import (
 )
 
 /*
-Audits is a struct that provides a namespace for the Chrome Audits protocol methods.
-
-The Audits protocol allows investigation of page violations and possible improvements. EXPERIMENTAL.
+Audits is a struct that provides a namespace for the Chrome Audits protocol methods. The Audits
+protocol allows investigation of page violations and possible improvements. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Audits/
 */

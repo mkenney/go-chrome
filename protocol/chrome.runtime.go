@@ -10,13 +10,12 @@ import (
 )
 
 /*
-Runtime is a struct that provides a namespace for the Chrome Runtime protocol methods.
-
-The Runtime protocol exposes JavaScript runtime by means of remote evaluation and mirror objects.
-Evaluation results are returned as mirror object that expose object type, string representation and
-unique identifier that can be used for further object reference. Original objects are maintained in
-memory unless they are either explicitly released or are released along with the other objects in
-their object group.
+Runtime is a struct that provides a namespace for the Chrome Runtime protocol methods. The Runtime
+protocol exposes JavaScript runtime by means of remote evaluation and mirror objects. Evaluation
+results are returned as mirror object that expose object type, string representation and unique
+identifier that can be used for further object reference. Original objects are maintained in memory
+unless they are either explicitly released or are released along with the other objects in their
+object group.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/
 */

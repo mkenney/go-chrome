@@ -10,10 +10,8 @@ import (
 )
 
 /*
-Page is a struct that provides a namespace for the Chrome Page protocol methods.
-
-The Overlay protocol provides actions and events related to the inspected page that belong to the
-page domain.
+Page is a struct that provides a namespace for the Chrome Page protocol methods. The Page protocol
+provides actions and events related to the inspected page belong to the page domain.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/
 */

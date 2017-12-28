@@ -10,9 +10,8 @@ import (
 )
 
 /*
-DOM is a struct that provides a namespace for the Chrome DOM protocol methods.
-
-The DOM protocol exposes DOM read/write operations. Each DOM Node is represented with its mirror object that has an
+DOM is a struct that provides a namespace for the Chrome DOM protocol methods. The DOM protocol
+exposes DOM read/write operations. Each DOM Node is represented with its mirror object that has an
 ID. This ID can be used to get additional information on the Node, resolve it into the JavaScript
 object wrapper, etc. It is important that client receives DOM events only for the nodes that are
 known to the client. Backend keeps track of the nodes that were sent to the client and never sends

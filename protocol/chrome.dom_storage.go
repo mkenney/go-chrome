@@ -9,9 +9,8 @@ import (
 )
 
 /*
-DOMStorage is a struct that provides a namespace for the Chrome DOMStorage protocol methods.
-
-The DOMStorage protocol queries and modifies DOM storage.
+DOMStorage is a struct that provides a namespace for the Chrome DOMStorage protocol methods. The
+DOMStorage protocol queries and modifies DOM storage.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/
 */

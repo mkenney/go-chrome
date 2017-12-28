@@ -8,9 +8,8 @@ import (
 )
 
 /*
-DOMSnapshot is a struct that provides a namespace for the Chrome DOMSnapshot protocol methods.
-
-The DOMSnapshot protocol facilitates obtaining document snapshots with DOM, layout, and style
+DOMSnapshot is a struct that provides a namespace for the Chrome DOMSnapshot protocol methods. The
+DOMSnapshot protocol facilitates obtaining document snapshots with DOM, layout, and style
 information.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/
