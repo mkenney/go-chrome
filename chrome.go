@@ -1,12 +1,13 @@
 /*
 Package chrome aims to be a complete Chrome DevTools Protocol Viewer implementation
-https://chromedevtools.github.io/devtools-protocol/
 
 Work in progress
 
-You should probably ignore this for now
+You should probably ignore this for now.
 
-From the official documentation
+Official documentation
+
+See https://chromedevtools.github.io/devtools-protocol/
 
 The Chrome DevTools Protocol allows for tools to instrument, inspect, debug and profile Chromium,
 Chrome and other Blink-based browsers. Many existing projects currently use the protocol. The Chrome
@@ -157,80 +158,271 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
-	"strings"
 	"time"
 
-	"github.com/mkenney/go-chrome/socket"
+	chrome_error "github.com/mkenney/go-chrome/error"
 	log "github.com/sirupsen/logrus"
 )
 
 /*
-New returns a pointer to a Chrome struct
+New returns a pointer to a Browser struct
 */
-func New() *Chrome {
-	return &Chrome{
-		Address:          "localhost",
-		Args:             Args{},
-		Binary:           "/usr/bin/google-chrome",
-		DebuggingAddress: "0.0.0.0",
-		DebuggingPort:    9222,
-		Output:           "/dev/stdout",
-		Port:             9222,
-		Tabs:             make([]*Tab, 0),
-		Version:          Version{},
-		Workdir:          "/tmp/headless-chrome",
+func New(
+	args Commander,
+	binary string,
+	output string,
+	workdir string,
+) Chromium {
+	return &Browser{
+		args:    args,
+		binary:  binary,
+		output:  output,
+		workdir: workdir,
 	}
 }
 
 /*
-Chrome is a struct that manages the Chrome process
+Browser is a struct that manages the Chromium process
 */
-type Chrome struct {
-	// Optional. Address is the domain to use for accessing Chrome sockets (e.g. 'localhost')
+type Browser struct {
+	// Optional. address is the domain to use for accessing Chromium sockets (e.g. 'localhost')
 	// Defaults to 'localhost'.
-	Address string `json:"address"`
+	//address string
 
-	// Args contains CLI arguments for the Chrome binary.
-	Args Args `json:"args"`
+	// args contains CLI arguments for the Chromium binary.
+	args Commander
 
-	// Optional. Binary is the path to the Chrome binary. Defaults to '/usr/bin/google-chrome'.
-	Binary string `json:"binary"`
+	// Optional. binary is the path to the Chromium binary. Defaults to '/usr/bin/google-chrome'.
+	binary string
 
-	// Optional. DebuggingAddress is the address number that the remote debugging protocol will be
+	// Optional. debuggingAddress is the address number that the remote debugging protocol will be
 	// available on. Defaults to '0.0.0.0'.
-	DebuggingAddress string `json:"debugging_address"`
+	//debuggingAddress string
 
-	// Optional. DebuggingPort is the port number that the remote debugging protocol will be
+	// Optional. debuggingPort is the port number that the remote debugging protocol will be
 	// available on. Defaults to '9222'.
-	DebuggingPort int `json:"debugging_port"`
+	//debuggingPort int
 
-	// Optional. Output is a path to a file to be used to capture STDOUT and STDERR output. Defaults
+	// Optional. output is a path to a file to be used to capture STDOUT and STDERR output. Defaults
 	// to '/dev/stdout'.
-	Output string `json:"output"`
+	output string
 
-	// Optional. Port is the port number the developer tools endpoints will listen on. Defaults to
+	// Optional. port is the port number the developer tools endpoints will listen on. Defaults to
 	// '9222'
-	Port int `json:"port"`
+	//port int
 
-	// Tabs is a list of the currently open tabs.
-	Tabs []*Tab `json:"tabs"`
+	// tabs is a list of the currently open tabs.
+	tabs []*Tab
 
-	// Version contains Chrome version information.
-	Version Version `json:"version"`
+	// version contains Chromium version information.
+	version *Version
 
-	// Optional. Workdir is the path to the Chrome working directory. Defaults to
+	// Optional. workdir is the path to the Chromium working directory. Defaults to
 	// '/tmp/headless-chrome'.
-	Workdir string `json:"workdir"`
+	workdir string
 
-	// output is a pointer to a file handle to be used to capture STDOUT and STDERR output.
-	output *os.File
+	// outputFile is a pointer to a file handle to be used to capture STDOUT and STDERR output.
+	outputFile *os.File
 
 	// process is a pointer to the os.Process struct containing the process PID.
 	process *os.Process
 }
 
 /*
-Version is a struct representing the Chrome version information.
+Address implements Chromium.
+*/
+func (browser *Browser) Address() string {
+	values, err := browser.args.Get("address")
+	if nil != err {
+		return ""
+	}
+	return values[0].(string)
+}
+
+/*
+Args implements Chromium.
+*/
+func (browser *Browser) Args() Commander {
+	return browser.args
+}
+
+/*
+Binary implements Chromium.
+*/
+func (browser *Browser) Binary() string {
+	return browser.binary
+}
+
+/*
+Close implements Chromium.
+*/
+func (browser *Browser) Close() *chrome_error.Error {
+	if browser.process != nil {
+		if err := browser.process.Signal(os.Interrupt); err != nil {
+			return chrome_error.NewFromErr(err)
+		}
+		ps, err := browser.process.Wait()
+		if err != nil {
+			return chrome_error.NewFromErr(err)
+		}
+		log.Infof("Chromium exited: %s", ps.String())
+	}
+	if browser.outputFile != nil {
+		browser.outputFile.Close()
+	}
+	return nil
+}
+
+/*
+DebuggingAddress implements Chromium.
+*/
+func (browser *Browser) DebuggingAddress() string {
+	values, err := browser.args.Get("remote-debugging-address")
+	if nil != err {
+		return ""
+	}
+	return values[0].(string)
+}
+
+/*
+DebuggingPort implements Chromium.
+*/
+func (browser *Browser) DebuggingPort() int {
+	values, err := browser.args.Get("remote-debugging-port")
+	if nil != err {
+		return 0
+	}
+	return values[0].(int)
+}
+
+/*
+Launch implements Chromium.
+*/
+func (browser *Browser) Launch() *chrome_error.Error {
+	var err error
+
+	if "" == browser.Binary() {
+		browser.binary = "/usr/bin/google-chrome"
+	}
+
+	if !browser.Args().Has("addr") {
+		browser.Args().Set("addr", []interface{}{"localhost"})
+	}
+	if !browser.Args().Has("remote-debugging-address") {
+		browser.Args().Set("remote-debugging-address", []interface{}{"0.0.0.0"})
+	}
+	if !browser.Args().Has("remote-debugging-port") {
+		browser.Args().Set("remote-debugging-port", []interface{}{9222})
+	}
+	if !browser.Args().Has("port") {
+		browser.Args().Set("port", []interface{}{9222})
+	}
+	if !browser.Args().Has("user-data-dir") {
+		browser.Args().Set("user-data-dir", []interface{}{os.TempDir()})
+	}
+
+	if "" == browser.Workdir() {
+		browser.workdir = filepath.Join(os.TempDir(), "headless-chrome")
+	}
+	if err := os.MkdirAll(browser.Workdir(), 0700); err != nil {
+		return chrome_error.New(
+			fmt.Sprintf("Cannot create working directory '%s'", browser.Workdir()),
+			chrome_error.LevelFatal,
+			chrome_error.CodeCannotCreateWorkDir,
+			err,
+		)
+	}
+
+	if "" == browser.Output() {
+		browser.outputFile = os.Stdout
+	} else {
+		browser.outputFile, err = os.OpenFile(browser.Output(), os.O_APPEND|os.O_CREATE|os.O_RDWR, 0600)
+		if err != nil {
+			return chrome_error.New(
+				fmt.Sprintf("Cannot open output file '%s'", browser.Output()),
+				chrome_error.LevelFatal,
+				chrome_error.CodeErrorOpeningOutputFile,
+				err,
+			)
+		}
+	}
+
+	log.Infof("Starting process: %s %s", browser.Binary(), browser.Args())
+	var procAttributes os.ProcAttr
+	procAttributes.Dir = browser.Workdir()
+	procAttributes.Files = []*os.File{nil, browser.outputFile, browser.outputFile}
+	browser.process, err = os.StartProcess(
+		browser.Binary(),
+		browser.Args().List(),
+		&procAttributes,
+	)
+	if err != nil {
+		browser.outputFile.Close()
+		return chrome_error.NewFromErr(err)
+	}
+
+	// Wait up to 10 seconds for Chromium to start
+	for i := 0; i < 10; i++ {
+		time.Sleep(time.Second)
+		if err = browser.checkVersion(); nil == err {
+			break
+		}
+	}
+	if err != nil {
+		log.Errorf("Chromium took too long to start: %s", err.Error())
+		browser.Close()
+		return chrome_error.NewFromErr(err)
+	}
+
+	return nil
+}
+
+/*
+Output implements Chromium.
+*/
+func (browser *Browser) Output() string {
+	return browser.output
+}
+
+/*
+Port implements Chromium.
+*/
+func (browser *Browser) Port() int {
+	values, err := browser.args.Get("port")
+	if nil != err {
+		return 0
+	}
+	return values[0].(int)
+}
+
+/*
+Tabs implements Chromium.
+*/
+func (browser *Browser) Tabs() []*Tab {
+	return browser.tabs
+}
+
+/*
+Version implements Chromium.
+*/
+func (browser *Browser) Version() (*Version, *chrome_error.Error) {
+	if "" == browser.version.Browser {
+		if _, err := browser.Cmd("/json/version", url.Values{}, &browser.version); err != nil {
+			return nil, chrome_error.NewFromErr(err)
+		}
+	}
+	return browser.version, nil
+}
+
+/*
+Workdir implements Chromium.
+*/
+func (browser *Browser) Workdir() string {
+	return browser.workdir
+}
+
+/*
+Version is a struct representing the Chromium version information.
 */
 type Version struct {
 	Browser              string `json:"browser"`
@@ -242,174 +434,11 @@ type Version struct {
 }
 
 /*
-Args contains arguments to the Chrome executable
+GetTab returns an open tab instance.
 */
-type Args map[string]interface{}
-
-/*
-Contains checks to see if an argument is present.
-*/
-func (args Args) Contains(arg string) bool {
-	_, ok := args[arg]
-	return ok
-
-	//r := regexp.MustCompile("(-?-?)([a-z]+[a-z\\-]+)([=]?)(.*)")
-}
-
-/*
-Set sets a CLI argument.
-*/
-func (args Args) Set(arg string, value interface{}) {
-	args[arg] = value
-	if nil != value {
-		switch value.(type) {
-		case int:
-			args[arg] = value.(int)
-		case string:
-			args[arg] = value.(string)
-		default:
-			panic(fmt.Sprintf("Invalid data type %q", value))
-		}
-	}
-}
-
-/*
-List returns an array of formatted CLI parameters
-*/
-func (args Args) List() []string {
-	var list []string
-	for arg, val := range args {
-		if nil == val {
-			arg = fmt.Sprintf("--%s", arg)
-		} else {
-			switch val.(type) {
-			case int:
-				arg = fmt.Sprintf("--%s=%d", arg, val.(int))
-			case string:
-				arg = fmt.Sprintf("--%s=%s", arg, val.(string))
-			default:
-				panic(fmt.Sprintf("Invalid data type %q", val))
-			}
-
-		}
-		list = append(list, arg)
-	}
-	return list
-}
-
-/*
-String returns CLI parameters
-*/
-func (args Args) String() string {
-	return strings.Join(args.List(), " ")
-}
-
-/*
-Launch launches the Chrome process and returns the connected Chrome struct
-*/
-func (chrome *Chrome) Launch(args Args) error {
-	var err error
-
-	if "" == chrome.Binary {
-		chrome.Binary = "/usr/bin/google-chrome"
-	}
-
-	args.Set("addr", chrome.Address)
-	args.Set("port", chrome.Port)
-	args.Set("remote-debugging-port", chrome.DebuggingPort)
-	args.Set("remote-debugging-address", chrome.DebuggingAddress)
-
-	if !args.Contains("user-data-dir") {
-		args.Set("user-data-dir", "/tmp")
-	}
-
-	if "" == chrome.Workdir {
-		chrome.Workdir = filepath.Join(os.TempDir(), "headless-chrome")
-	}
-	if err := os.MkdirAll(chrome.Workdir, 0700); err != nil {
-		return fmt.Errorf("Cannot create working directory '%s': %s", chrome.Workdir, err.Error())
-	}
-
-	if "" == chrome.Output {
-		chrome.Output = "/dev/stdout"
-	}
-
-	if nil == chrome.output {
-		chrome.output, err = os.OpenFile(chrome.Output, os.O_APPEND|os.O_CREATE|os.O_RDWR, 0600)
-		if err != nil {
-			return fmt.Errorf("Cannot open output file '%s': %s", chrome.Output, err.Error())
-		}
-	}
-
-	log.Infof("Starting process: %s %s", chrome.Binary, args)
-	var procAttributes os.ProcAttr
-	procAttributes.Dir = chrome.Workdir
-	procAttributes.Files = []*os.File{nil, chrome.output, chrome.output}
-	chrome.process, err = os.StartProcess(
-		chrome.Binary,
-		args.List(),
-		&procAttributes,
-	)
-	if err != nil {
-		chrome.output.Close()
-		return err
-	}
-
-	// Wait up to 10 seconds for Chrome to start
-	for i := 0; i < 10; i++ {
-		time.Sleep(time.Second)
-		if err = chrome.checkVersion(); nil == err {
-			break
-		}
-	}
-	if err != nil {
-		log.Errorf("Chrome took too long to start: %s", err.Error())
-		chrome.Close()
-		return err
-	}
-
-	return nil
-}
-
-/*
-Close ends the Chrome process and cleans up.
-*/
-func (chrome *Chrome) Close() error {
-	if chrome.process != nil {
-		if err := chrome.process.Signal(os.Interrupt); err != nil {
-			return err
-		}
-		ps, err := chrome.process.Wait()
-		if err != nil {
-			return err
-		}
-		log.Infof("Chrome exited: %s", ps.String())
-	}
-	if chrome.output != nil {
-		chrome.output.Close()
-	}
-	return nil
-}
-
-/*
-NewSocket returns a new websocket connected to the Chrome instance for sending
-commands through.
-*/
-func (chrome *Chrome) NewSocket() (socket.Socketer, error) {
-	tabs, err := chrome.GetTabs()
-	if nil != err {
-		log.Fatal(err)
-	}
-	return socket.New(tabs[0].WebSocketDebuggerURL)
-}
-
-/*
-GetTab returns a web socket connected to an existing tab in the chrome instance
-for sending commands
-*/
-func (chrome *Chrome) GetTab(tabID string) (tab *Tab, err error) {
-	for _, tab = range chrome.Tabs {
-		if tab.ID == tabID {
+func (browser *Browser) GetTab(tabID string) (tab *Tab, err error) {
+	for _, tab = range browser.tabs {
+		if tab.Data().ID == tabID {
 			return tab, nil
 		}
 	}
@@ -417,36 +446,26 @@ func (chrome *Chrome) GetTab(tabID string) (tab *Tab, err error) {
 	return
 }
 
-/*
-GetTabs returns an array of Tab structs representing open tabs in the Chrome
-instance
-*/
-func (chrome *Chrome) GetTabs() ([]*Tab, error) {
-	_, err := chrome.Cmd("/json/list", url.Values{}, &chrome.Tabs)
-	return chrome.Tabs, err
-}
-
-func (chrome *Chrome) checkVersion() error {
-	if _, err := chrome.Cmd("/json/version", url.Values{}, &chrome.Version); err != nil {
+func (browser *Browser) checkVersion() error {
+	if _, err := browser.Cmd("/json/version", url.Values{}, &browser.version); err != nil {
 		return err
 	}
-	log.Infof("Chrome protocol version: %s", chrome.Version.ProtocolVersion)
+	log.Infof("Chromium protocol version: %s", browser.version.ProtocolVersion)
 	return nil
 }
 
 /*
-Cmd queries the developer tools endpoints and returns JSON data in the
-provided struct
+Cmd queries the developer tools endpoints and returns JSON data in the provided struct.
 */
-func (chrome *Chrome) Cmd(path string, params url.Values, msg interface{}) (interface{}, error) {
+func (browser *Browser) Cmd(path string, params url.Values, msg interface{}) (interface{}, *chrome_error.Error) {
 	if len(params) > 0 {
 		path += fmt.Sprintf("?%s", params.Encode())
 	}
-	uri := fmt.Sprintf("http://%s:%d%s", chrome.Address, chrome.Port, path)
+	uri := fmt.Sprintf("http://%s:%d%s", browser.Address(), browser.Port(), path)
 
 	resp, err := http.Get(uri)
 	if err != nil {
-		return "", err
+		return nil, chrome_error.NewFromErr(err)
 	}
 	defer resp.Body.Close()
 
@@ -457,7 +476,7 @@ func (chrome *Chrome) Cmd(path string, params url.Values, msg interface{}) (inte
 
 	content, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return "", err
+		return nil, chrome_error.NewFromErr(err)
 	} else if err := json.Unmarshal(content, &msg); err != nil {
 		return content, nil
 	}

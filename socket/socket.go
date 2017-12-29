@@ -2,24 +2,30 @@ package socket
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/gorilla/websocket"
+	chrome_error "github.com/mkenney/go-chrome/error"
 	log "github.com/sirupsen/logrus"
 )
 
 /*
 New returns a new Socketer websocket connection listening to the specified URL.
 */
-func New(socketURL string) (Socketer, error) {
+func New(socketURL string) (Socketer, *chrome_error.Error) {
 
 	dialer := &websocket.Dialer{EnableCompression: false}
 	header := http.Header{"Origin": []string{socketURL}}
 
 	webSocket, response, err := dialer.Dial(socketURL, header)
 	if err != nil {
-		log.Warningf("Could not create websocket connection. %s responded with '%s'", socketURL, response.Status)
-		return nil, err
+		return nil, chrome_error.New(
+			fmt.Sprintf("Could not create websocket connection. %s responded with '%s'", socketURL, response.Status),
+			chrome_error.LevelWarn,
+			chrome_error.CodeCouldNotConnectToSocket,
+			err,
+		)
 	}
 
 	socket := &socket{
@@ -78,7 +84,7 @@ func (socket *socket) Listen() (err error) {
 		err = socket.conn.ReadJSON(&response)
 		if nil != err {
 			log.Error(err)
-			socket.Stop()
+			socket.Stop() // This will end the loop after handling the current response (if any)
 		}
 
 		if response.ID > 0 {
