@@ -93,11 +93,22 @@ func (mockConn) ReadJSON(v interface{}) error {
 	return nil
 }
 
+// MockJSONData flags for mocking ReadJSON()
 var MockJSONData []byte
+
+// MockJSONRead flags for mocking ReadJSON()
 var MockJSONRead = false
+
+// MockJSONType flags for mocking ReadJSON()
 var MockJSONType = "command"
+
+// MockJSONError flags for mocking ReadJSON()
 var MockJSONError = true
+
+// MockJSONCommandID flags for mocking ReadJSON()
 var MockJSONCommandID = 1
+
+// MockJSONThrowError flags for mocking ReadJSON()
 var MockJSONThrowError = false
 
 /*

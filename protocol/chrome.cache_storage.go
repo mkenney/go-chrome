@@ -1,8 +1,6 @@
 package protocol
 
 import (
-	"encoding/json"
-
 	cacheStorage "github.com/mkenney/go-chrome/protocol/cache_storage"
 	sock "github.com/mkenney/go-chrome/socket"
 )
@@ -106,7 +104,4 @@ func (_cachestorage) RequestEntries(
 
 	err := MarshalResult(command, &result)
 	return result, err
-	}
-
-	return result, command.Error()
 }
