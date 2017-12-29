@@ -30,28 +30,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#met
 func (_headlessExperimental) BeginFrame(
 	socket sock.Socketer,
 	params *headlessExperimental.BeginFrameParams,
-) (headlessExperimental.BeginFrameResult, error) {
+) (*headlessExperimental.BeginFrameResult, error) {
 	command := sock.NewCommand("HeadlessExperimental.beginFrame", params)
-	result := headlessExperimental.BeginFrameResult{}
+	result := &headlessExperimental.BeginFrameResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

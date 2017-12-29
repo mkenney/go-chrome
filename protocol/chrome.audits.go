@@ -1,8 +1,6 @@
 package protocol
 
 import (
-	"encoding/json"
-
 	audits "github.com/mkenney/go-chrome/protocol/audits"
 	sock "github.com/mkenney/go-chrome/socket"
 )
@@ -26,26 +24,15 @@ https://chromedevtools.github.io/devtools-protocol/tot/Audits/#method-getEncoded
 func (_audits) GetEncodedResponse(
 	socket sock.Socketer,
 	params *audits.GetEncodedResponseParams,
-) (audits.GetEncodedResponseResult, error) {
+) (*audits.GetEncodedResponseResult, error) {
 	command := sock.NewCommand("Audits.getEncodedResponse", params)
-	result := audits.GetEncodedResponseResult{}
+	result := &audits.GetEncodedResponseResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }

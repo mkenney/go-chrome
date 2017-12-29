@@ -33,28 +33,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-addRule
 func (_css) AddRule(
 	socket sock.Socketer,
 	params *css.AddRuleParams,
-) (css.AddRuleResult, error) {
+) (*css.AddRuleResult, error) {
 	command := sock.NewCommand("CSS.addRule", params)
-	result := css.AddRuleResult{}
+	result := &css.AddRuleResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -65,28 +54,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-collectClassN
 func (_css) CollectClassNames(
 	socket sock.Socketer,
 	params *css.CollectClassNamesParams,
-) (css.CollectClassNamesResult, error) {
+) (*css.CollectClassNamesResult, error) {
 	command := sock.NewCommand("CSS.collectClassNames", params)
-	result := css.CollectClassNamesResult{}
+	result := &css.CollectClassNamesResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -97,28 +75,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-createStyleSh
 func (_css) CreateStyleSheet(
 	socket sock.Socketer,
 	params *css.CreateStyleSheetParams,
-) (css.CreateStyleSheetResult, error) {
+) (*css.CreateStyleSheetResult, error) {
 	command := sock.NewCommand("CSS.createStyleSheet", params)
-	result := css.CreateStyleSheetResult{}
+	result := &css.CreateStyleSheetResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -171,28 +138,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getBackground
 func (_css) GetBackgroundColors(
 	socket sock.Socketer,
 	params *css.GetBackgroundColorsParams,
-) (css.GetBackgroundColorsResult, error) {
+) (*css.GetBackgroundColorsResult, error) {
 	command := sock.NewCommand("CSS.getBackgroundColors", params)
-	result := css.GetBackgroundColorsResult{}
+	result := &css.GetBackgroundColorsResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -203,28 +159,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getComputedSt
 func (_css) GetComputedStyleForNode(
 	socket sock.Socketer,
 	params *css.GetComputedStyleForNodeParams,
-) (css.GetComputedStyleForNodeResult, error) {
+) (*css.GetComputedStyleForNodeResult, error) {
 	command := sock.NewCommand("CSS.getComputedStyleForNode", params)
-	result := css.GetComputedStyleForNodeResult{}
+	result := &css.GetComputedStyleForNodeResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -236,28 +181,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getInlineStyl
 func (_css) GetInlineStylesForNode(
 	socket sock.Socketer,
 	params *css.GetInlineStylesForNodeParams,
-) (css.GetInlineStylesForNodeResult, error) {
+) (*css.GetInlineStylesForNodeResult, error) {
 	command := sock.NewCommand("CSS.getInlineStylesForNode", params)
-	result := css.GetInlineStylesForNodeResult{}
+	result := &css.GetInlineStylesForNodeResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -268,28 +202,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getMatchedSty
 func (_css) GetMatchedStylesForNode(
 	socket sock.Socketer,
 	params *css.GetMatchedStylesForNodeParams,
-) (css.GetMatchedStylesForNodeResult, error) {
+) (*css.GetMatchedStylesForNodeResult, error) {
 	command := sock.NewCommand("CSS.getMatchedStylesForNode", params)
-	result := css.GetMatchedStylesForNodeResult{}
+	result := &css.GetMatchedStylesForNodeResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -314,28 +237,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getPlatformFo
 func (_css) GetPlatformFontsForNode(
 	socket sock.Socketer,
 	params *css.GetPlatformFontsForNodeParams,
-) (css.GetPlatformFontsForNodeResult, error) {
+) (*css.GetPlatformFontsForNodeResult, error) {
 	command := sock.NewCommand("CSS.getPlatformFontsForNode", params)
-	result := css.GetPlatformFontsForNodeResult{}
+	result := &css.GetPlatformFontsForNodeResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -346,28 +258,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getStyleSheet
 func (_css) GetStyleSheetText(
 	socket sock.Socketer,
 	params *css.GetStyleSheetTextParams,
-) (css.GetStyleSheetTextResult, error) {
+) (*css.GetStyleSheetTextResult, error) {
 	command := sock.NewCommand("CSS.getStyleSheetText", params)
-	result := css.GetStyleSheetTextResult{}
+	result := &css.GetStyleSheetTextResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -393,28 +294,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setKeyframeKe
 func (_css) SetKeyframeKey(
 	socket sock.Socketer,
 	params *css.SetKeyframeKeyParams,
-) (css.SetKeyframeKeyResult, error) {
+) (*css.SetKeyframeKeyResult, error) {
 	command := sock.NewCommand("CSS.setKeyframeKey", params)
-	result := css.SetKeyframeKeyResult{}
+	result := &css.SetKeyframeKeyResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -425,28 +315,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setMediaText
 func (_css) SetMediaText(
 	socket sock.Socketer,
 	params *css.SetMediaTextParams,
-) (css.SetMediaTextResult, error) {
+) (*css.SetMediaTextResult, error) {
 	command := sock.NewCommand("CSS.setMediaText", params)
-	result := css.SetMediaTextResult{}
+	result := &css.SetMediaTextResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -457,28 +336,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setRuleSelect
 func (_css) SetRuleSelector(
 	socket sock.Socketer,
 	params *css.SetRuleSelectorParams,
-) (css.SetRuleSelectorResult, error) {
+) (*css.SetRuleSelectorResult, error) {
 	command := sock.NewCommand("CSS.setRuleSelector", params)
-	result := css.SetRuleSelectorResult{}
+	result := &css.SetRuleSelectorResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -489,28 +357,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setStyleSheet
 func (_css) SetStyleSheetText(
 	socket sock.Socketer,
 	params *css.SetStyleSheetTextParams,
-) (css.SetStyleSheetTextResult, error) {
+) (*css.SetStyleSheetTextResult, error) {
 	command := sock.NewCommand("CSS.setStyleSheetText", params)
-	result := css.SetStyleSheetTextResult{}
+	result := &css.SetStyleSheetTextResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -521,28 +378,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setStyleTexts
 func (_css) SetStyleTexts(
 	socket sock.Socketer,
 	params *css.SetStyleTextsParams,
-) (css.SetStyleTextsResult, error) {
+) (*css.SetStyleTextsResult, error) {
 	command := sock.NewCommand("CSS.setStyleTexts", params)
-	result := css.SetStyleTextsResult{}
+	result := &css.SetStyleTextsResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -565,28 +411,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-stopRuleUsage
 */
 func (_css) StopRuleUsageTracking(
 	socket sock.Socketer,
-) (css.StopRuleUsageTrackingResult, error) {
+) (*css.StopRuleUsageTrackingResult, error) {
 	command := sock.NewCommand("CSS.stopRuleUsageTracking", nil)
-	result := css.StopRuleUsageTrackingResult{}
+	result := &css.StopRuleUsageTrackingResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -597,28 +432,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-takeCoverageD
 */
 func (_css) TakeCoverageDelta(
 	socket sock.Socketer,
-) (css.TakeCoverageDeltaResult, error) {
+) (*css.TakeCoverageDeltaResult, error) {
 	command := sock.NewCommand("CSS.takeCoverageDelta", nil)
-	result := css.TakeCoverageDeltaResult{}
+	result := &css.TakeCoverageDeltaResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

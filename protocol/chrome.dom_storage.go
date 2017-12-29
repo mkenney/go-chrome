@@ -66,28 +66,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-getDOM
 func (_domStorage) GetItems(
 	socket sock.Socketer,
 	params *domStorage.GetItemsParams,
-) (domStorage.GetItemsResult, error) {
+) (*domStorage.GetItemsResult, error) {
 	command := sock.NewCommand("DOMStorage.getDOMStorageItems", params)
-	result := domStorage.GetItemsResult{}
+	result := &domStorage.GetItemsResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

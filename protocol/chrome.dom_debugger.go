@@ -1,8 +1,6 @@
 package protocol
 
 import (
-	"encoding/json"
-
 	domDebugger "github.com/mkenney/go-chrome/protocol/dom_debugger"
 	sock "github.com/mkenney/go-chrome/socket"
 )
@@ -26,28 +24,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-getEv
 func (_domDebugger) GetEventListeners(
 	socket sock.Socketer,
 	params *domDebugger.GetEventListenersParams,
-) (domDebugger.GetEventListenersResult, error) {
+) (*domDebugger.GetEventListenersResult, error) {
 	command := sock.NewCommand("DOMDebugger.getEventListeners", params)
-	result := domDebugger.GetEventListenersResult{}
+	result := &domDebugger.GetEventListenersResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

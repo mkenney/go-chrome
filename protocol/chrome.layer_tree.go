@@ -27,28 +27,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-composi
 func (_layerTree) CompositingReasons(
 	socket sock.Socketer,
 	params *layerTree.CompositingReasonsParams,
-) (layerTree.CompositingReasonsResult, error) {
+) (*layerTree.CompositingReasonsResult, error) {
 	command := sock.NewCommand("LayerTree.compositingReasons", params)
-	result := layerTree.CompositingReasonsResult{}
+	result := &layerTree.CompositingReasonsResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -85,28 +74,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-loadSna
 func (_layerTree) LoadSnapshot(
 	socket sock.Socketer,
 	params *layerTree.LoadSnapshotParams,
-) (layerTree.LoadSnapshotResult, error) {
+) (*layerTree.LoadSnapshotResult, error) {
 	command := sock.NewCommand("LayerTree.loadSnapshot", params)
-	result := layerTree.LoadSnapshotResult{}
+	result := &layerTree.LoadSnapshotResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -117,28 +95,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-makeSna
 func (_layerTree) MakeSnapshot(
 	socket sock.Socketer,
 	params *layerTree.MakeSnapshotParams,
-) (layerTree.MakeSnapshotResult, error) {
+) (*layerTree.MakeSnapshotResult, error) {
 	command := sock.NewCommand("LayerTree.makeSnapshot", params)
-	result := layerTree.MakeSnapshotResult{}
+	result := &layerTree.MakeSnapshotResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -149,28 +116,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-profile
 func (_layerTree) ProfileSnapshot(
 	socket sock.Socketer,
 	params *layerTree.ProfileSnapshotParams,
-) (layerTree.ProfileSnapshotResult, error) {
+) (*layerTree.ProfileSnapshotResult, error) {
 	command := sock.NewCommand("LayerTree.profileSnapshot", params)
-	result := layerTree.ProfileSnapshotResult{}
+	result := &layerTree.ProfileSnapshotResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -195,28 +151,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-replayS
 func (_layerTree) ReplaySnapshot(
 	socket sock.Socketer,
 	params *layerTree.ReplaySnapshotParams,
-) (layerTree.ReplaySnapshotResult, error) {
+) (*layerTree.ReplaySnapshotResult, error) {
 	command := sock.NewCommand("LayerTree.replaySnapshot", params)
-	result := layerTree.ReplaySnapshotResult{}
+	result := &layerTree.ReplaySnapshotResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -227,28 +172,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-snapsho
 func (_layerTree) SnapshotCommandLog(
 	socket sock.Socketer,
 	params *layerTree.SnapshotCommandLogParams,
-) (layerTree.SnapshotCommandLogResult, error) {
+) (*layerTree.SnapshotCommandLogResult, error) {
 	command := sock.NewCommand("LayerTree.snapshotCommandLog", params)
-	result := layerTree.SnapshotCommandLogResult{}
+	result := &layerTree.SnapshotCommandLogResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

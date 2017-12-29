@@ -31,28 +31,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-awaitProm
 func (_runtime) AwaitPromise(
 	socket sock.Socketer,
 	params *runtime.AwaitPromiseParams,
-) (runtime.AwaitPromiseResult, error) {
+) (*runtime.AwaitPromiseResult, error) {
 	command := sock.NewCommand("Runtime.awaitPromise", params)
-	result := runtime.AwaitPromiseResult{}
+	result := &runtime.AwaitPromiseResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -64,28 +53,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-callFunct
 func (_runtime) CallFunctionOn(
 	socket sock.Socketer,
 	params *runtime.CallFunctionOnParams,
-) (runtime.CallFunctionOnResult, error) {
+) (*runtime.CallFunctionOnResult, error) {
 	command := sock.NewCommand("Runtime.callFunctionOn", params)
-	result := runtime.CallFunctionOnResult{}
+	result := &runtime.CallFunctionOnResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -96,28 +74,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-compileSc
 func (_runtime) CompileScript(
 	socket sock.Socketer,
 	params *runtime.CompileScriptParams,
-) (runtime.CompileScriptResult, error) {
+) (*runtime.CompileScriptResult, error) {
 	command := sock.NewCommand("Runtime.compileScript", params)
-	result := runtime.CompileScriptResult{}
+	result := &runtime.CompileScriptResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -169,28 +136,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-evaluate
 func (_runtime) Evaluate(
 	socket sock.Socketer,
 	params *runtime.EvaluateParams,
-) (runtime.EvaluateResult, error) {
+) (*runtime.EvaluateResult, error) {
 	command := sock.NewCommand("Runtime.evaluate", params)
-	result := runtime.EvaluateResult{}
+	result := &runtime.EvaluateResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -202,28 +158,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-getProper
 func (_runtime) GetProperties(
 	socket sock.Socketer,
 	params *runtime.GetPropertiesParams,
-) (runtime.GetPropertiesResult, error) {
+) (*runtime.GetPropertiesResult, error) {
 	command := sock.NewCommand("Runtime.getProperties", params)
-	result := runtime.GetPropertiesResult{}
+	result := &runtime.GetPropertiesResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -234,28 +179,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-globalLex
 func (_runtime) GlobalLexicalScopeNames(
 	socket sock.Socketer,
 	params *runtime.GlobalLexicalScopeNamesParams,
-) (runtime.GlobalLexicalScopeNamesResult, error) {
+) (*runtime.GlobalLexicalScopeNamesResult, error) {
 	command := sock.NewCommand("Runtime.globalLexicalScopeNames", params)
-	result := runtime.GlobalLexicalScopeNamesResult{}
+	result := &runtime.GlobalLexicalScopeNamesResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -266,28 +200,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-queryObje
 func (_runtime) QueryObjects(
 	socket sock.Socketer,
 	params *runtime.QueryObjectsParams,
-) (runtime.QueryObjectsResult, error) {
+) (*runtime.QueryObjectsResult, error) {
 	command := sock.NewCommand("Runtime.queryObjects", params)
-	result := runtime.QueryObjectsResult{}
+	result := &runtime.QueryObjectsResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -339,28 +262,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-runScript
 func (_runtime) RunScript(
 	socket sock.Socketer,
 	params *runtime.RunScriptParams,
-) (runtime.RunScriptResult, error) {
+) (*runtime.RunScriptResult, error) {
 	command := sock.NewCommand("Runtime.runScript", params)
-	result := runtime.RunScriptResult{}
+	result := &runtime.RunScriptResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

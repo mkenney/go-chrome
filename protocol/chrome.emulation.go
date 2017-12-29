@@ -26,28 +26,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-canEmul
 */
 func (_emulation) CanEmulate(
 	socket sock.Socketer,
-) (emulation.CanEmulateResult, error) {
+) (*emulation.CanEmulateResult, error) {
 	command := sock.NewCommand("Emulation.canEmulate", nil)
-	result := emulation.CanEmulateResult{}
+	result := &emulation.CanEmulateResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

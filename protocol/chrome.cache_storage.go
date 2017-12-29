@@ -53,28 +53,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requ
 func (_cachestorage) RequestCacheNames(
 	socket sock.Socketer,
 	params *cacheStorage.RequestCacheNamesParams,
-) (cacheStorage.RequestCacheNamesResult, error) {
+) (*cacheStorage.RequestCacheNamesResult, error) {
 	command := sock.NewCommand("CacheStorage.requestCacheNames", params)
-	result := cacheStorage.RequestCacheNamesResult{}
+	result := &cacheStorage.RequestCacheNamesResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -85,28 +74,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requ
 func (_cachestorage) RequestCachedResponse(
 	socket sock.Socketer,
 	params *cacheStorage.RequestCachedResponseParams,
-) (cacheStorage.RequestCachedResponseResult, error) {
+) (*cacheStorage.RequestCachedResponseResult, error) {
 	command := sock.NewCommand("CacheStorage.requestCachedResponse", params)
-	result := cacheStorage.RequestCachedResponseResult{}
+	result := &cacheStorage.RequestCachedResponseResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -117,25 +95,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requ
 func (_cachestorage) RequestEntries(
 	socket sock.Socketer,
 	params *cacheStorage.RequestEntriesParams,
-) (cacheStorage.RequestEntriesResult, error) {
+) (*cacheStorage.RequestEntriesResult, error) {
 	command := sock.NewCommand("CacheStorage.requestEntries", params)
-	result := cacheStorage.RequestEntriesResult{}
+	result := &cacheStorage.RequestEntriesResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
+	err := MarshalResult(command, &result)
+	return result, err
 	}
 
 	return result, command.Error()

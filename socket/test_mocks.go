@@ -9,9 +9,9 @@ import (
 )
 
 /*
-newMock returns a mock websocket for unit testing
+NewMock returns a mock websocket for unit testing
 */
-func newMock(socketURL string) (Socketer, error) {
+func NewMock(socketURL string) (Socketer, error) {
 	return &socket{
 		conn:     &mockConn{},
 		commands: NewCommandMap(),
@@ -39,26 +39,27 @@ func (mockConn) ReadJSON(v interface{}) error {
 	var err Error
 	var data []byte
 
-	log.Infof("mockJSONType: %s", mockJSONType)
-	log.Infof("mockJSONCommandID: %d", mockJSONCommandID)
-	log.Infof("mockJSONRead: %v", mockJSONRead)
-	log.Infof("mockJSONError: %v", mockJSONError)
-	log.Infof("mockJSONThrowError: %v", mockJSONThrowError)
+	log.Infof("MockJSONData: %s", MockJSONData)
+	log.Infof("MockJSONType: %s", MockJSONType)
+	log.Infof("MockJSONCommandID: %d", MockJSONCommandID)
+	log.Infof("MockJSONRead: %v", MockJSONRead)
+	log.Infof("MockJSONError: %v", MockJSONError)
+	log.Infof("MockJSONThrowError: %v", MockJSONThrowError)
 
 	time.Sleep(time.Millisecond * 100)
-	if !mockJSONRead {
-		if mockJSONThrowError {
+	if !MockJSONRead {
+		if MockJSONThrowError {
 			return fmt.Errorf("Mock Read Error")
 		}
 
-		mockJSONRead = true
-		if mockJSONError {
+		MockJSONRead = true
+		if MockJSONError {
 			err.Code = 1
 			err.Data = []byte(`{"data": "Error data"}`)
 			err.Message = "Mock Error"
 		}
 
-		if "command" == mockJSONType {
+		if "command" == MockJSONType {
 			data, _ = json.Marshal(struct {
 				Error  Error
 				ID     int
@@ -67,12 +68,12 @@ func (mockConn) ReadJSON(v interface{}) error {
 				Result json.RawMessage
 			}{
 				Error:  err,
-				ID:     mockJSONCommandID,
+				ID:     MockJSONCommandID,
 				Method: "Some.method",
 				Params: nil,
-				Result: []byte(`"Mock Command Result"`),
+				Result: MockJSONData,
 			})
-		} else if "event" == mockJSONType {
+		} else if "event" == MockJSONType {
 			data, _ = json.Marshal(struct {
 				Error  Error
 				ID     int
@@ -84,7 +85,7 @@ func (mockConn) ReadJSON(v interface{}) error {
 				ID:     0,
 				Method: "Some.event",
 				Params: nil,
-				Result: []byte(`"Mock Event Result"`),
+				Result: MockJSONData,
 			})
 		}
 		json.Unmarshal(data, &v)
@@ -92,11 +93,12 @@ func (mockConn) ReadJSON(v interface{}) error {
 	return nil
 }
 
-var mockJSONRead = false
-var mockJSONType = "command"
-var mockJSONError = true
-var mockJSONCommandID = 1
-var mockJSONThrowError = false
+var MockJSONData []byte
+var MockJSONRead = false
+var MockJSONType = "command"
+var MockJSONError = true
+var MockJSONCommandID = 1
+var MockJSONThrowError = false
 
 /*
 WriteJSON implements Conner

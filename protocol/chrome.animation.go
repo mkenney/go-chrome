@@ -53,28 +53,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-getCurr
 func (_animation) GetCurrentTime(
 	socket sock.Socketer,
 	params *animation.GetCurrentTimeParams,
-) (animation.GetCurrentTimeResult, error) {
+) (*animation.GetCurrentTimeResult, error) {
 	command := sock.NewCommand("Animation.getCurrentTime", params)
-	result := animation.GetCurrentTimeResult{}
+	result := &animation.GetCurrentTimeResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -84,28 +73,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-getPlay
 */
 func (_animation) GetPlaybackRate(
 	socket sock.Socketer,
-) (animation.GetPlaybackRateResult, error) {
+) (*animation.GetPlaybackRateResult, error) {
 	command := sock.NewCommand("Animation.getPlaybackRate", nil)
-	result := animation.GetPlaybackRateResult{}
+	result := &animation.GetPlaybackRateResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -130,28 +108,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-resolve
 func (_animation) ResolveAnimation(
 	socket sock.Socketer,
 	params *animation.ResolveAnimationParams,
-) (animation.ResolveAnimationResult, error) {
+) (*animation.ResolveAnimationResult, error) {
 	command := sock.NewCommand("Animation.resolveAnimation", params)
-	result := animation.ResolveAnimationResult{}
+	result := &animation.ResolveAnimationResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

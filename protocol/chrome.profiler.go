@@ -52,28 +52,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-getBestE
 */
 func (_profiler) GetBestEffortCoverage(
 	socket sock.Socketer,
-) (profiler.GetBestEffortCoverageResult, error) {
+) (*profiler.GetBestEffortCoverageResult, error) {
 	command := sock.NewCommand("Profiler.getBestEffortCoverage", nil)
-	result := profiler.GetBestEffortCoverageResult{}
+	result := &profiler.GetBestEffortCoverageResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -140,28 +129,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stop
 */
 func (_profiler) Stop(
 	socket sock.Socketer,
-) (profiler.StopResult, error) {
+) (*profiler.StopResult, error) {
 	command := sock.NewCommand("Profiler.stop", nil)
-	result := profiler.StopResult{}
+	result := &profiler.StopResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -200,28 +178,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-takePrec
 */
 func (_profiler) TakePreciseCoverage(
 	socket sock.Socketer,
-) (profiler.TakePreciseCoverageResult, error) {
+) (*profiler.TakePreciseCoverageResult, error) {
 	command := sock.NewCommand("Profiler.takePreciseCoverage", nil)
-	result := profiler.TakePreciseCoverageResult{}
+	result := &profiler.TakePreciseCoverageResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -231,28 +198,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-takeType
 */
 func (_profiler) TakeTypeProfile(
 	socket sock.Socketer,
-) (profiler.TakeTypeProfileResult, error) {
+) (*profiler.TakeTypeProfileResult, error) {
 	command := sock.NewCommand("Profiler.takeTypeProfile", nil)
-	result := profiler.TakeTypeProfileResult{}
+	result := &profiler.TakeTypeProfileResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

@@ -9,14 +9,14 @@ import (
 )
 
 func TestSocketClose(t *testing.T) {
-	mockSocket, _ := newMock("https://www.example.com/")
+	mockSocket, _ := NewMock("https://www.example.com/")
 	if err := mockSocket.Close(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() {
 		t.Errorf("Socketer.Close() must return an error or nil, %s found", reflect.TypeOf(err).String())
 	}
 }
 
 func TestSocketConn(t *testing.T) {
-	mockSocket, _ := newMock("https://www.example.com/")
+	mockSocket, _ := NewMock("https://www.example.com/")
 	conn := mockSocket.Conn()
 	if _, ok := interface{}(conn).(Conner); !ok {
 		t.Errorf("Socketer.Conn() must return a Conner interface")
@@ -32,17 +32,17 @@ func TestGenerateCommandID(t *testing.T) {
 }
 
 func TestListenCommand(t *testing.T) {
-	mockJSONRead = false
-	mockJSONType = "command"
-	mockJSONError = false
-	mockJSONThrowError = false
+	MockJSONData = []byte(`"Mock Command Result"`)
+	MockJSONRead = false
+	MockJSONType = "command"
+	MockJSONError = false
+	MockJSONThrowError = false
 
 	command := NewCommand("Some.method", nil)
 	log.Infof("TestListenCommand: %s", command.ID())
-	mockJSONCommandID = command.ID()
+	MockJSONCommandID = command.ID()
 
-	mockJSONRead = false
-	mockSocket, _ := newMock("https://www.example.com/command")
+	mockSocket, _ := NewMock("https://www.example.com/command")
 	go mockSocket.Listen()
 	mockSocket.SendCommand(command)
 	mockSocket.Stop()
@@ -53,16 +53,17 @@ func TestListenCommand(t *testing.T) {
 }
 
 func TestListenCommandError(t *testing.T) {
-	mockJSONRead = false
-	mockJSONType = "command"
-	mockJSONError = true
-	mockJSONThrowError = false
+	MockJSONData = []byte(`"Mock Command Result"`)
+	MockJSONRead = false
+	MockJSONType = "command"
+	MockJSONError = true
+	MockJSONThrowError = false
 
 	command := NewCommand("Some.methodError", nil)
 	log.Infof("TestListenError: %s", command.ID())
-	mockJSONCommandID = command.ID()
+	MockJSONCommandID = command.ID()
 
-	mockSocket, _ := newMock("https://www.example.com/error")
+	mockSocket, _ := NewMock("https://www.example.com/error")
 	go mockSocket.Listen()
 	mockSocket.SendCommand(command)
 	mockSocket.Stop()
@@ -73,10 +74,11 @@ func TestListenCommandError(t *testing.T) {
 }
 
 func TestListenEvent(t *testing.T) {
-	mockJSONRead = false
-	mockJSONType = "event"
-	mockJSONError = false
-	mockJSONThrowError = false
+	MockJSONData = []byte(`"Mock Event Result"`)
+	MockJSONRead = false
+	MockJSONType = "event"
+	MockJSONError = false
+	MockJSONThrowError = false
 
 	eventResponse1 := make(chan *Response)
 	handler1 := NewEventHandler("Some.event", func(response *Response) {
@@ -89,7 +91,7 @@ func TestListenEvent(t *testing.T) {
 		eventResponse2 <- tmp
 	})
 
-	mockSocket, _ := newMock("https://www.example.com/event")
+	mockSocket, _ := NewMock("https://www.example.com/event")
 	mockSocket.AddEventHandler(handler1)
 	mockSocket.AddEventHandler(handler2)
 	go mockSocket.Listen()
@@ -113,12 +115,13 @@ func TestListenEvent(t *testing.T) {
 }
 
 func TestReadJSONError(t *testing.T) {
-	mockJSONRead = false
-	mockJSONType = "command"
-	mockJSONError = true
-	mockJSONThrowError = true
+	MockJSONData = []byte(`"Mock Read Error"`)
+	MockJSONRead = false
+	MockJSONType = "command"
+	MockJSONError = true
+	MockJSONThrowError = true
 
-	mockSocket, _ := newMock("https://www.example.com/error")
+	mockSocket, _ := NewMock("https://www.example.com/error")
 	err := mockSocket.Listen()
 
 	if nil == err {
@@ -132,7 +135,7 @@ func TestReadJSONError(t *testing.T) {
 
 func TestURL(t *testing.T) {
 	url := "https://www.example.com/"
-	mockSocket, _ := newMock(url)
+	mockSocket, _ := NewMock(url)
 	if mockSocket.URL() != url {
 		t.Errorf("Socketer.URL() failed to return the correct URL")
 	}

@@ -81,28 +81,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getH
 func (_heapProfiler) GetHeapObjectID(
 	socket sock.Socketer,
 	params *heapProfiler.GetHeapObjectIDParams,
-) (heapProfiler.GetHeapObjectIDResult, error) {
+) (*heapProfiler.GetHeapObjectIDResult, error) {
 	command := sock.NewCommand("HeapProfiler.getHeapObjectID", params)
-	result := heapProfiler.GetHeapObjectIDResult{}
+	result := &heapProfiler.GetHeapObjectIDResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -113,28 +102,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getO
 func (_heapProfiler) GetObjectByHeapObjectID(
 	socket sock.Socketer,
 	params *heapProfiler.GetObjectByHeapObjectIDParams,
-) (heapProfiler.GetObjectByHeapObjectIDResult, error) {
+) (*heapProfiler.GetObjectByHeapObjectIDResult, error) {
 	command := sock.NewCommand("HeapProfiler.getObjectByHeapObjectId", params)
-	result := heapProfiler.GetObjectByHeapObjectIDResult{}
+	result := &heapProfiler.GetObjectByHeapObjectIDResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

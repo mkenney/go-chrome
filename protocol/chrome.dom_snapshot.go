@@ -1,8 +1,6 @@
 package protocol
 
 import (
-	"encoding/json"
-
 	domSnapshot "github.com/mkenney/go-chrome/protocol/dom_snapshot"
 	sock "github.com/mkenney/go-chrome/socket"
 )
@@ -28,26 +26,15 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#method-getSn
 func (_domSnapshot) Get(
 	socket sock.Socketer,
 	params *domSnapshot.GetParams,
-) (domSnapshot.GetResult, error) {
+) (*domSnapshot.GetResult, error) {
 	command := sock.NewCommand("DOMSnapshot.getSnapshot", params)
-	result := domSnapshot.GetResult{}
+	result := &domSnapshot.GetResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }

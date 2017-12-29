@@ -27,28 +27,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canClearB
 */
 func (_network) CanClearBrowserCache(
 	socket sock.Socketer,
-) (network.CanClearBrowserCacheResult, error) {
+) (*network.CanClearBrowserCacheResult, error) {
 	command := sock.NewCommand("Network.canClearBrowserCache", nil)
-	result := network.CanClearBrowserCacheResult{}
+	result := &network.CanClearBrowserCacheResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -58,28 +47,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canClearB
 */
 func (_network) CanClearBrowserCookies(
 	socket sock.Socketer,
-) (network.CanClearBrowserCookiesResult, error) {
+) (*network.CanClearBrowserCookiesResult, error) {
 	command := sock.NewCommand("Network.canClearBrowserCookies", nil)
-	result := network.CanClearBrowserCookiesResult{}
+	result := &network.CanClearBrowserCookiesResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -89,28 +67,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canEmulat
 */
 func (_network) CanEmulateConditions(
 	socket sock.Socketer,
-) (network.CanEmulateConditionsResult, error) {
+) (*network.CanEmulateConditionsResult, error) {
 	command := sock.NewCommand("Network.canEmulateNetworkConditions", nil)
-	result := network.CanEmulateConditionsResult{}
+	result := &network.CanEmulateConditionsResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -219,28 +186,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getAllCoo
 */
 func (_network) GetAllCookies(
 	socket sock.Socketer,
-) (network.GetAllCookiesResult, error) {
+) (*network.GetAllCookiesResult, error) {
 	command := sock.NewCommand("Network.getAllCookies", nil)
-	result := network.GetAllCookiesResult{}
+	result := &network.GetAllCookiesResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -251,28 +207,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getCertif
 func (_network) GetCertificate(
 	socket sock.Socketer,
 	params *network.GetCertificateParams,
-) (network.GetCertificateResult, error) {
+) (*network.GetCertificateResult, error) {
 	command := sock.NewCommand("Network.getCertificate", params)
-	result := network.GetCertificateResult{}
+	result := &network.GetCertificateResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -284,28 +229,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getCookie
 func (_network) GetCookies(
 	socket sock.Socketer,
 	params *network.GetCookiesParams,
-) (network.GetCookiesResult, error) {
+) (*network.GetCookiesResult, error) {
 	command := sock.NewCommand("Network.getCookies", params)
-	result := network.GetCookiesResult{}
+	result := &network.GetCookiesResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -316,28 +250,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getRespon
 func (_network) GetResponseBody(
 	socket sock.Socketer,
 	params *network.GetResponseBodyParams,
-) (network.GetResponseBodyResult, error) {
+) (*network.GetResponseBodyResult, error) {
 	command := sock.NewCommand("Network.getResponseBody", params)
-	result := network.GetResponseBodyResult{}
+	result := &network.GetResponseBodyResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -349,28 +272,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getRespon
 func (_network) GetResponseBodyForInterception(
 	socket sock.Socketer,
 	params *network.GetResponseBodyForInterceptionParams,
-) (network.GetResponseBodyForInterceptionResult, error) {
+) (*network.GetResponseBodyForInterceptionResult, error) {
 	command := sock.NewCommand("Network.getResponseBodyForInterception", params)
-	result := network.GetResponseBodyForInterceptionResult{}
+	result := &network.GetResponseBodyForInterceptionResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -397,28 +309,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-searchInR
 func (_network) SearchInResponseBody(
 	socket sock.Socketer,
 	params *network.SearchInResponseBodyParams,
-) (network.SearchInResponseBodyResult, error) {
+) (*network.SearchInResponseBodyResult, error) {
 	command := sock.NewCommand("Network.searchInResponseBody", params)
-	result := network.SearchInResponseBodyResult{}
+	result := &network.SearchInResponseBodyResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -471,28 +372,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCookie
 func (_network) SetCookie(
 	socket sock.Socketer,
 	params *network.SetCookieParams,
-) (network.SetCookieResult, error) {
+) (*network.SetCookieResult, error) {
 	command := sock.NewCommand("Network.setCookie", params)
-	result := network.SetCookieResult{}
+	result := &network.SetCookieResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

@@ -40,28 +40,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-getUsageA
 func (_storage) GetUsageAndQuota(
 	socket sock.Socketer,
 	params *storage.GetUsageAndQuotaParams,
-) (storage.GetUsageAndQuotaResult, error) {
+) (*storage.GetUsageAndQuotaResult, error) {
 	command := sock.NewCommand("storage.getUsageAndQuota", params)
-	result := storage.GetUsageAndQuotaResult{}
+	result := &storage.GetUsageAndQuotaResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

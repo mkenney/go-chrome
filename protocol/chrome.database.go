@@ -53,28 +53,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-executeS
 func (_database) ExecuteSQL(
 	socket sock.Socketer,
 	params *database.ExecuteSQLParams,
-) (database.ExecuteSQLResult, error) {
+) (*database.ExecuteSQLResult, error) {
 	command := sock.NewCommand("Database.executeSQL", params)
-	result := database.ExecuteSQLResult{}
+	result := &database.ExecuteSQLResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

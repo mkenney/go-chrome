@@ -41,28 +41,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-
 func (_applicationcache) GetForFrame(
 	socket sock.Socketer,
 	params *applicationCache.GetForFrameParams,
-) (applicationCache.GetForFrameResult, error) {
+) (*applicationCache.GetForFrameResult, error) {
 	command := sock.NewCommand("ApplicationCache.getApplicationCacheForFrame", params)
-	result := applicationCache.GetForFrameResult{}
+	result := &applicationCache.GetForFrameResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -73,28 +62,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-
 */
 func (_applicationcache) GetFramesWithManifests(
 	socket sock.Socketer,
-) (applicationCache.GetFramesWithManifestsResult, error) {
+) (*applicationCache.GetFramesWithManifestsResult, error) {
 	command := sock.NewCommand("ApplicationCache.getFramesWithManifests", nil)
-	result := applicationCache.GetFramesWithManifestsResult{}
+	result := &applicationCache.GetFramesWithManifestsResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -105,28 +83,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-
 func (_applicationcache) GetManifestForFrame(
 	socket sock.Socketer,
 	params *applicationCache.GetManifestForFrameParams,
-) (applicationCache.GetManifestForFrameResult, error) {
+) (*applicationCache.GetManifestForFrameResult, error) {
 	command := sock.NewCommand("ApplicationCache.getManifestForFrame", params)
-	result := applicationCache.GetManifestForFrameResult{}
+	result := &applicationCache.GetManifestForFrameResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

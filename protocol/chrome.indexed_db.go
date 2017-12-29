@@ -1,8 +1,6 @@
 package protocol
 
 import (
-	"encoding/json"
-
 	indexedDB "github.com/mkenney/go-chrome/protocol/indexed_db"
 	sock "github.com/mkenney/go-chrome/socket"
 )
@@ -93,28 +91,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-request
 func (_indexedDB) RequestData(
 	socket sock.Socketer,
 	params *indexedDB.RequestDataParams,
-) (indexedDB.RequestDataResult, error) {
+) (*indexedDB.RequestDataResult, error) {
 	command := sock.NewCommand("IndexedDB.requestData", params)
-	result := indexedDB.RequestDataResult{}
+	result := &indexedDB.RequestDataResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -125,28 +112,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-request
 func (_indexedDB) RequestDatabase(
 	socket sock.Socketer,
 	params *indexedDB.RequestDatabaseParams,
-) (indexedDB.RequestDatabaseResult, error) {
+) (*indexedDB.RequestDatabaseResult, error) {
 	command := sock.NewCommand("IndexedDB.requestDatabase", params)
-	result := indexedDB.RequestDatabaseResult{}
+	result := &indexedDB.RequestDatabaseResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -157,26 +133,15 @@ https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-request
 func (_indexedDB) RequestDatabaseNames(
 	socket sock.Socketer,
 	params *indexedDB.RequestDatabaseNamesParams,
-) (indexedDB.RequestDatabaseNamesResult, error) {
+) (*indexedDB.RequestDatabaseNamesResult, error) {
 	command := sock.NewCommand("IndexedDB.requestDatabaseNames", params)
-	result := indexedDB.RequestDatabaseNamesResult{}
+	result := &indexedDB.RequestDatabaseNamesResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }

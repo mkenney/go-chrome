@@ -1,8 +1,6 @@
 package protocol
 
 import (
-	"encoding/json"
-
 	systemInfo "github.com/mkenney/go-chrome/protocol/system_info"
 	sock "github.com/mkenney/go-chrome/socket"
 )
@@ -25,26 +23,15 @@ https://chromedevtools.github.io/devtools-protocol/tot/SystemInfo/#method-getInf
 */
 func (_systemInfo) GetInfo(
 	socket sock.Socketer,
-) (systemInfo.GetInfoResult, error) {
+) (*systemInfo.GetInfoResult, error) {
 	command := sock.NewCommand("SystemInfo.getInfo", nil)
-	result := systemInfo.GetInfoResult{}
+	result := &systemInfo.GetInfoResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }

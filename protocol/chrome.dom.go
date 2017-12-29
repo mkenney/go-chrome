@@ -35,28 +35,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-collectClassN
 func (_dom) CollectClassNamesFromSubtree(
 	socket sock.Socketer,
 	params *dom.CollectClassNamesFromSubtreeParams,
-) (dom.CollectClassNamesFromSubtreeResult, error) {
+) (*dom.CollectClassNamesFromSubtreeResult, error) {
 	command := sock.NewCommand("DOM.collectClassNamesFromSubtree", params)
-	result := dom.CollectClassNamesFromSubtreeResult{}
+	result := &dom.CollectClassNamesFromSubtreeResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -68,28 +57,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-copyTo
 func (_dom) CopyTo(
 	socket sock.Socketer,
 	params *dom.CopyToParams,
-) (dom.CopyToResult, error) {
+) (*dom.CopyToResult, error) {
 	command := sock.NewCommand("DOM.copyTo", params)
-	result := dom.CopyToResult{}
+	result := &dom.CopyToResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -101,28 +79,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-describeNode
 func (_dom) DescribeNode(
 	socket sock.Socketer,
 	params *dom.DescribeNodeParams,
-) (dom.DescribeNodeResult, error) {
+) (*dom.DescribeNodeResult, error) {
 	command := sock.NewCommand("DOM.describeNode", params)
-	result := dom.DescribeNodeResult{}
+	result := &dom.DescribeNodeResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -188,28 +155,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getAttributes
 func (_dom) GetAttributes(
 	socket sock.Socketer,
 	params *dom.GetAttributesParams,
-) (dom.GetAttributesResult, error) {
+) (*dom.GetAttributesResult, error) {
 	command := sock.NewCommand("DOM.getAttributes", params)
-	result := dom.GetAttributesResult{}
+	result := &dom.GetAttributesResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -220,28 +176,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getBoxModel
 func (_dom) GetBoxModel(
 	socket sock.Socketer,
 	params *dom.GetBoxModelParams,
-) (dom.GetBoxModelResult, error) {
+) (*dom.GetBoxModelResult, error) {
 	command := sock.NewCommand("DOM.getBoxModel", params)
-	result := dom.GetBoxModelResult{}
+	result := &dom.GetBoxModelResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -252,28 +197,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getDocument
 func (_dom) GetDocument(
 	socket sock.Socketer,
 	params *dom.GetDocumentParams,
-) (dom.GetDocumentResult, error) {
+) (*dom.GetDocumentResult, error) {
 	command := sock.NewCommand("DOM.getDocument", params)
-	result := dom.GetDocumentResult{}
+	result := &dom.GetDocumentResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -284,28 +218,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getFlattenedD
 func (_dom) GetFlattenedDocument(
 	socket sock.Socketer,
 	params *dom.GetFlattenedDocumentParams,
-) (dom.GetFlattenedDocumentResult, error) {
+) (*dom.GetFlattenedDocumentResult, error) {
 	command := sock.NewCommand("DOM.getFlattenedDocument", params)
-	result := dom.GetFlattenedDocumentResult{}
+	result := &dom.GetFlattenedDocumentResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -316,28 +239,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getNodeForLoc
 func (_dom) GetNodeForLocation(
 	socket sock.Socketer,
 	params *dom.GetNodeForLocationParams,
-) (dom.GetNodeForLocationResult, error) {
+) (*dom.GetNodeForLocationResult, error) {
 	command := sock.NewCommand("DOM.getNodeForLocation", params)
-	result := dom.GetNodeForLocationResult{}
+	result := &dom.GetNodeForLocationResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -348,28 +260,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getOuterHTML
 func (_dom) GetOuterHTML(
 	socket sock.Socketer,
 	params *dom.GetOuterHTMLParams,
-) (dom.GetOuterHTMLResult, error) {
+) (*dom.GetOuterHTMLResult, error) {
 	command := sock.NewCommand("DOM.getOuterHTML", params)
-	result := dom.GetOuterHTMLResult{}
+	result := &dom.GetOuterHTMLResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -381,28 +282,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getRelayoutBo
 func (_dom) GetRelayoutBoundary(
 	socket sock.Socketer,
 	params *dom.GetRelayoutBoundaryParams,
-) (dom.GetRelayoutBoundaryResult, error) {
+) (*dom.GetRelayoutBoundaryResult, error) {
 	command := sock.NewCommand("DOM.getRelayoutBoundary", params)
-	result := dom.GetRelayoutBoundaryResult{}
+	result := &dom.GetRelayoutBoundaryResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -414,28 +304,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getSearchResu
 func (_dom) GetSearchResults(
 	socket sock.Socketer,
 	params *dom.GetSearchResultsParams,
-) (dom.GetSearchResultsResult, error) {
+) (*dom.GetSearchResultsResult, error) {
 	command := sock.NewCommand("DOM.getSearchResults", params)
-	result := dom.GetSearchResultsResult{}
+	result := &dom.GetSearchResultsResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -459,28 +338,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-moveTo
 func (_dom) MoveTo(
 	socket sock.Socketer,
 	params *dom.MoveToParams,
-) (dom.MoveToResult, error) {
+) (*dom.MoveToResult, error) {
 	command := sock.NewCommand("DOM.moveTo", params)
-	result := dom.MoveToResult{}
+	result := &dom.MoveToResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -492,28 +360,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-performSearch
 func (_dom) PerformSearch(
 	socket sock.Socketer,
 	params *dom.PerformSearchParams,
-) (dom.PerformSearchResult, error) {
+) (*dom.PerformSearchResult, error) {
 	command := sock.NewCommand("DOM.performSearch", params)
-	result := dom.PerformSearchResult{}
+	result := &dom.PerformSearchResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -525,28 +382,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-pushNodeByPat
 func (_dom) PushNodeByPathToFrontend(
 	socket sock.Socketer,
 	params *dom.PushNodeByPathToFrontendParams,
-) (dom.PushNodeByPathToFrontendResult, error) {
+) (*dom.PushNodeByPathToFrontendResult, error) {
 	command := sock.NewCommand("DOM.pushNodeByPathToFrontend", params)
-	result := dom.PushNodeByPathToFrontendResult{}
+	result := &dom.PushNodeByPathToFrontendResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -558,28 +404,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-pushNodesByBa
 func (_dom) PushNodesByBackendIDsToFrontend(
 	socket sock.Socketer,
 	params *dom.PushNodesByBackendIDsToFrontendParams,
-) (dom.PushNodesByBackendIDsToFrontendResult, error) {
+) (*dom.PushNodesByBackendIDsToFrontendResult, error) {
 	command := sock.NewCommand("DOM.pushNodesByBackendIdsToFrontend", params)
-	result := dom.PushNodesByBackendIDsToFrontendResult{}
+	result := &dom.PushNodesByBackendIDsToFrontendResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -590,28 +425,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-querySelector
 func (_dom) QuerySelector(
 	socket sock.Socketer,
 	params *dom.QuerySelectorParams,
-) (dom.QuerySelectorResult, error) {
+) (*dom.QuerySelectorResult, error) {
 	command := sock.NewCommand("DOM.querySelector", params)
-	result := dom.QuerySelectorResult{}
+	result := &dom.QuerySelectorResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -622,28 +446,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-querySelector
 func (_dom) QuerySelectorAll(
 	socket sock.Socketer,
 	params *dom.QuerySelectorAllParams,
-) (dom.QuerySelectorAllResult, error) {
+) (*dom.QuerySelectorAllResult, error) {
 	command := sock.NewCommand("DOM.querySelectorAll", params)
-	result := dom.QuerySelectorAllResult{}
+	result := &dom.QuerySelectorAllResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -713,28 +526,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-requestNode
 func (_dom) RequestNode(
 	socket sock.Socketer,
 	params *dom.RequestNodeParams,
-) (dom.RequestNodeResult, error) {
+) (*dom.RequestNodeResult, error) {
 	command := sock.NewCommand("DOM.requestNode", params)
-	result := dom.RequestNodeResult{}
+	result := &dom.RequestNodeResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -745,28 +547,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-resolveNode
 func (_dom) ResolveNode(
 	socket sock.Socketer,
 	params *dom.ResolveNodeParams,
-) (dom.ResolveNodeResult, error) {
+) (*dom.ResolveNodeResult, error) {
 	command := sock.NewCommand("DOM.resolveNode", params)
-	result := dom.ResolveNodeResult{}
+	result := &dom.ResolveNodeResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -835,28 +626,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setNodeName
 func (_dom) SetNodeName(
 	socket sock.Socketer,
 	params *dom.SetNodeNameParams,
-) (dom.SetNodeNameResult, error) {
+) (*dom.SetNodeNameResult, error) {
 	command := sock.NewCommand("DOM.setNodeName", params)
-	result := dom.SetNodeNameResult{}
+	result := &dom.SetNodeNameResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

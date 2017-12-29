@@ -53,28 +53,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-getHighli
 func (_overlay) GetHighlightObjectForTest(
 	socket sock.Socketer,
 	params *overlay.GetHighlightObjectForTestParams,
-) (overlay.GetHighlightObjectForTestResult, error) {
+) (*overlay.GetHighlightObjectForTestResult, error) {
 	command := sock.NewCommand("Overlay.getHighlightObjectForTest", params)
-	result := overlay.GetHighlightObjectForTestResult{}
+	result := &overlay.GetHighlightObjectForTestResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

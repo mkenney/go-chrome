@@ -51,28 +51,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-getMe
 */
 func (_performance) GetMetrics(
 	socket sock.Socketer,
-) (performance.GetMetricsResult, error) {
+) (*performance.GetMetricsResult, error) {
 	command := sock.NewCommand("Performance.getMetrics", nil)
-	result := performance.GetMetricsResult{}
+	result := &performance.GetMetricsResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

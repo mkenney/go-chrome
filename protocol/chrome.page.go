@@ -28,29 +28,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-addScriptToE
 func (_page) AddScriptToEvaluateOnLoad(
 	socket sock.Socketer,
 	params *page.AddScriptToEvaluateOnLoadParams,
-) (page.AddScriptToEvaluateOnLoadResult, error) {
+) (*page.AddScriptToEvaluateOnLoadResult, error) {
 	command := sock.NewCommand("Page.addScriptToEvaluateOnLoad", params)
-
-	result := page.AddScriptToEvaluateOnLoadResult{}
+	result := &page.AddScriptToEvaluateOnLoadResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -62,29 +50,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-addScriptToE
 func (_page) AddScriptToEvaluateOnNewDocument(
 	socket sock.Socketer,
 	params *page.AddScriptToEvaluateOnNewDocumentParams,
-) (page.AddScriptToEvaluateOnNewDocumentResult, error) {
+) (*page.AddScriptToEvaluateOnNewDocumentResult, error) {
 	command := sock.NewCommand("Page.addScriptToEvaluateOnNewDocument", params)
-
-	result := page.AddScriptToEvaluateOnNewDocumentResult{}
+	result := &page.AddScriptToEvaluateOnNewDocumentResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -108,29 +84,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScree
 func (_page) CaptureScreenshot(
 	socket sock.Socketer,
 	params *page.CaptureScreenshotParams,
-) (page.CaptureScreenshotResult, error) {
+) (*page.CaptureScreenshotResult, error) {
 	command := sock.NewCommand("Page.captureScreenshot", params)
-
-	result := page.CaptureScreenshotResult{}
+	result := &page.CaptureScreenshotResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -141,29 +105,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-createIsolat
 func (_page) CreateIsolatedWorld(
 	socket sock.Socketer,
 	params *page.CreateIsolatedWorldParams,
-) (page.CreateIsolatedWorldResult, error) {
+) (*page.CreateIsolatedWorldResult, error) {
 	command := sock.NewCommand("Page.createIsolatedWorld", params)
-
-	result := page.CreateIsolatedWorldResult{}
+	result := &page.CreateIsolatedWorldResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -214,28 +166,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getFrameTree
 */
 func (_page) GetFrameTree(
 	socket sock.Socketer,
-) (page.GetFrameTreeResult, error) {
+) (*page.GetFrameTreeResult, error) {
 	command := sock.NewCommand("Page.getFrameTree", nil)
-	result := page.GetFrameTreeResult{}
+	result := &page.GetFrameTreeResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -246,28 +187,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getLayoutMet
 */
 func (_page) GetLayoutMetrics(
 	socket sock.Socketer,
-) (page.GetLayoutMetricsResult, error) {
+) (*page.GetLayoutMetricsResult, error) {
 	command := sock.NewCommand("Page.getLayoutMetrics", nil)
-	result := page.GetLayoutMetricsResult{}
+	result := &page.GetLayoutMetricsResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -277,28 +207,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getNavigatio
 */
 func (_page) GetNavigationHistory(
 	socket sock.Socketer,
-) (page.GetNavigationHistoryResult, error) {
+) (*page.GetNavigationHistoryResult, error) {
 	command := sock.NewCommand("Page.getNavigationHistory", nil)
-	result := page.GetNavigationHistoryResult{}
+	result := &page.GetNavigationHistoryResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -309,29 +228,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceC
 func (_page) GetResourceContent(
 	socket sock.Socketer,
 	params *page.GetResourceContentParams,
-) (page.GetResourceContentResult, error) {
+) (*page.GetResourceContentResult, error) {
 	command := sock.NewCommand("Page.getResourceContent", params)
-
-	result := page.GetResourceContentResult{}
+	result := &page.GetResourceContentResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -341,28 +248,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceT
 */
 func (_page) GetResourceTree(
 	socket sock.Socketer,
-) (page.GetResourceTreeResult, error) {
+) (*page.GetResourceTreeResult, error) {
 	command := sock.NewCommand("Page.getResourceTree", nil)
-	result := page.GetResourceTreeResult{}
+	result := &page.GetResourceTreeResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -389,29 +285,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-navigate
 func (_page) Navigate(
 	socket sock.Socketer,
 	params *page.NavigateParams,
-) (page.NavigateResult, error) {
+) (*page.NavigateResult, error) {
 	command := sock.NewCommand("Page.navigate", params)
-
-	result := page.NavigateResult{}
+	result := &page.NavigateResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -437,29 +321,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-printToPDF
 func (_page) PrintToPDF(
 	socket sock.Socketer,
 	params *page.PrintToPDFParams,
-) (page.PrintToPDFResult, error) {
+) (*page.PrintToPDFResult, error) {
 	command := sock.NewCommand("Page.printToPDF", params)
-
-	result := page.PrintToPDFResult{}
+	result := &page.PrintToPDFResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -545,29 +417,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-searchInReso
 func (_page) SearchInResource(
 	socket sock.Socketer,
 	params *page.SearchInResourceParams,
-) (page.SearchInResourceResult, error) {
+) (*page.SearchInResourceResult, error) {
 	command := sock.NewCommand("Page.searchInResource", params)
-
-	result := page.SearchInResourceResult{}
+	result := &page.SearchInResourceResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

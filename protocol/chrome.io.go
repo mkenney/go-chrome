@@ -1,8 +1,6 @@
 package protocol
 
 import (
-	"encoding/json"
-
 	io "github.com/mkenney/go-chrome/protocol/io"
 	sock "github.com/mkenney/go-chrome/socket"
 )
@@ -39,28 +37,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-read
 func (_io) Read(
 	socket sock.Socketer,
 	params *io.ReadParams,
-) (io.ReadResult, error) {
+) (*io.ReadResult, error) {
 	command := sock.NewCommand("IO.read", params)
-	result := io.ReadResult{}
+	result := &io.ReadResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -71,26 +58,15 @@ https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-resolveBlob
 func (_io) ResolveBlob(
 	socket sock.Socketer,
 	params *io.ResolveBlobParams,
-) (io.ResolveBlobResult, error) {
+) (*io.ResolveBlobResult, error) {
 	command := sock.NewCommand("IO.resolveBlob", params)
-	result := io.ResolveBlobResult{}
+	result := &io.ResolveBlobResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }

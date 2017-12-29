@@ -38,28 +38,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-getCatego
 */
 func (_tracing) GetCategories(
 	socket sock.Socketer,
-) (tracing.GetCategoriesResult, error) {
+) (*tracing.GetCategoriesResult, error) {
 	command := sock.NewCommand("Tracing.getCategories", nil)
-	result := tracing.GetCategoriesResult{}
+	result := &tracing.GetCategoriesResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -83,28 +72,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-requestMe
 */
 func (_tracing) RequestMemoryDump(
 	socket sock.Socketer,
-) (tracing.GetCategoriesResult, error) {
+) (*tracing.GetCategoriesResult, error) {
 	command := sock.NewCommand("Tracing.requestMemoryDump", nil)
-	result := tracing.GetCategoriesResult{}
+	result := &tracing.GetCategoriesResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

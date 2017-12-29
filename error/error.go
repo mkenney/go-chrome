@@ -16,6 +16,7 @@ const (
 	CodeCannotCreateWorkDir     = 3
 	CodeOutOfRange              = 4
 	CodeCouldNotConnectToSocket = 5
+	CodeJSONError               = 6
 
 	LevelDebug = 1
 	LevelInfo  = 2

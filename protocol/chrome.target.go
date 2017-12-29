@@ -55,28 +55,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-closeTarge
 func (_target) CloseTarget(
 	socket sock.Socketer,
 	params *target.CloseTargetParams,
-) (target.CloseTargetResult, error) {
+) (*target.CloseTargetResult, error) {
 	command := sock.NewCommand("Target.closeTarget", params)
-	result := target.CloseTargetResult{}
+	result := &target.CloseTargetResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -87,28 +76,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-createBrow
 */
 func (_target) CreateBrowserContext(
 	socket sock.Socketer,
-) (target.CreateBrowserContextResult, error) {
+) (*target.CreateBrowserContextResult, error) {
 	command := sock.NewCommand("Target.createBrowserContext", nil)
-	result := target.CreateBrowserContextResult{}
+	result := &target.CreateBrowserContextResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -119,28 +97,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-createTarg
 func (_target) CreateTarget(
 	socket sock.Socketer,
 	params *target.CreateTargetParams,
-) (target.CreateTargetResult, error) {
+) (*target.CreateTargetResult, error) {
 	command := sock.NewCommand("Target.createTarget", params)
-	result := target.CreateTargetResult{}
+	result := &target.CreateTargetResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*
@@ -179,28 +146,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargetI
 func (_target) GetTargetInfo(
 	socket sock.Socketer,
 	params *target.GetTargetInfoParams,
-) (target.GetTargetInfoResult, error) {
+) (*target.GetTargetInfoResult, error) {
 	command := sock.NewCommand("Target.getTargetInfo", params)
-	result := target.GetTargetInfoResult{}
+	result := &target.GetTargetInfoResult{}
 	socket.SendCommand(command)
 
 	if nil != command.Error() {
 		return result, command.Error()
 	}
 
-	if nil != command.Result() {
-		resultData, err := json.Marshal(command.Result())
-		if nil != err {
-			return result, err
-		}
-
-		err = json.Unmarshal(resultData, &result)
-		if nil != err {
-			return result, err
-		}
-	}
-
-	return result, command.Error()
+	err := MarshalResult(command, &result)
+	return result, err
 }
 
 /*

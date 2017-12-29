@@ -29,8 +29,8 @@ func TestPartialAXTreeParams(t *testing.T) {
 func TestPartialAXTreeResult(t *testing.T) {
 	var v PartialAXTreeResult
 
-	if "[]accessibility.AXNode" != reflect.TypeOf(v.Nodes).String() {
-		t.Errorf("PartialAXTreeResult.Nodes is expected to be of type []accessibility.AXNode, %s found", reflect.TypeOf(v.Nodes).String())
+	if "[]*accessibility.AXNode" != reflect.TypeOf(v.Nodes).String() {
+		t.Errorf("PartialAXTreeResult.Nodes is expected to be of type []*accessibility.AXNode, %s found", reflect.TypeOf(v.Nodes).String())
 	}
 	if nil != v.Nodes {
 		t.Errorf("PartialAXTreeResult.Nodes should have a default value of nil, %v found", v.Nodes)
@@ -96,17 +96,17 @@ func TestAXNode(t *testing.T) {
 		t.Errorf("AXNode.Properties should have a default value of nil, %v found", v.Properties)
 	}
 
-	if "[]*accessibility.AXNodeID" != reflect.TypeOf(v.ChildIDs).String() {
-		t.Errorf("AXNode.ChildIDs is expected to be of type []*accessibility.AXNodeID, %s found", reflect.TypeOf(v.ChildIDs).String())
+	if "[]accessibility.AXNodeID" != reflect.TypeOf(v.ChildIDs).String() {
+		t.Errorf("AXNode.ChildIDs is expected to be of type []accessibility.AXNodeID, %s found", reflect.TypeOf(v.ChildIDs).String())
 	}
 	if nil != v.ChildIDs {
 		t.Errorf("AXNode.ChildIDs should have a default value of nil, %v found", v.ChildIDs)
 	}
 
-	if "*dom.BackendNodeID" != reflect.TypeOf(v.BackendDOMNodeID).String() {
-		t.Errorf("AXNode.BackendDOMNodeID is expected to be of type *dom.BackendNodeID, %s found", reflect.TypeOf(v.BackendDOMNodeID).String())
+	if "dom.BackendNodeID" != reflect.TypeOf(v.BackendDOMNodeID).String() {
+		t.Errorf("AXNode.BackendDOMNodeID is expected to be of type dom.BackendNodeID, %s found", reflect.TypeOf(v.BackendDOMNodeID).String())
 	}
-	if nil != v.BackendDOMNodeID {
+	if 0 != v.BackendDOMNodeID {
 		t.Errorf("AXNode.BackendDOMNodeID should have a default value of nil, %v found", v.BackendDOMNodeID)
 	}
 }
