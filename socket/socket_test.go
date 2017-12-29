@@ -43,7 +43,7 @@ func TestListenCommand(t *testing.T) {
 	mockSocket.SendCommand(command)
 	mockSocket.Stop()
 
-	if "Mock Command Result" != string(command.Result()) {
+	if `"Mock Command Result"` != string(command.Result()) {
 		t.Errorf("Invalid result: expected 'Mock Command Result', received '%s'", command.Result())
 	}
 }
@@ -61,7 +61,7 @@ func TestListenCommandError(t *testing.T) {
 	mockSocket.SendCommand(command)
 	mockSocket.Stop()
 
-	if "Mock Command Result" != string(command.Result()) {
+	if `"Mock Command Result"` != string(command.Result()) {
 		t.Errorf("Invalid result: expected 'Mock Command Result', received '%s'", command.Result())
 	}
 }
