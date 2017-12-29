@@ -45,6 +45,9 @@ type Tab struct {
 	socket  socket.Socketer
 }
 
+/*
+TabData holds metadata about a browser tab
+*/
 type TabData struct {
 	Description          string `json:"description"`
 	DevtoolsFrontendURL  string `json:"devtoolsFrontendURL"`
