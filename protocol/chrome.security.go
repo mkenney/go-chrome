@@ -49,9 +49,9 @@ func (SecurityProtocol) Enable(
 
 /*
 SetIgnoreCertificateErrors enables/disables whether all certificate errors should be ignored.
-EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setIgnoreCertificateErrors
+EXPERIMENTAL.
 */
 func (SecurityProtocol) SetIgnoreCertificateErrors(
 	socket sock.Socketer,

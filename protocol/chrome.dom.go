@@ -30,9 +30,10 @@ type DOMProtocol struct{}
 
 /*
 CollectClassNamesFromSubtree creates a deep copy of the specified node and places it into the target container before the
-given anchor. EXPERIMENTAL.
+given anchor.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-collectClassNamesFromSubtree
+EXPERIMENTAL.
 */
 func (DOMProtocol) CollectClassNamesFromSubtree(
 	socket sock.Socketer,
@@ -52,9 +53,9 @@ func (DOMProtocol) CollectClassNamesFromSubtree(
 
 /*
 CopyTo creates a deep copy of the specified node and places it into the target container before the
-given anchor. EXPERIMENTAL.
+given anchor.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-copyTo
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-copyTo EXPERIMENTAL.
 */
 func (DOMProtocol) CopyTo(
 	socket sock.Socketer,
@@ -109,9 +110,10 @@ func (DOMProtocol) Disable(
 
 /*
 DiscardSearchResults discards search results from the session with the given id. getSearchResults
-should no longer be called for that search. EXPERIMENTAL.
+should no longer be called for that search.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-discardSearchResults
+EXPERIMENTAL.
 */
 func (DOMProtocol) DiscardSearchResults(
 	socket sock.Socketer,
@@ -234,9 +236,9 @@ func (DOMProtocol) GetFlattenedDocument(
 }
 
 /*
-GetNodeForLocation returns node id at given location. EXPERIMENTAL.
+GetNodeForLocation returns node id at given location.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getNodeForLocation
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getNodeForLocation EXPERIMENTAL.
 */
 func (DOMProtocol) GetNodeForLocation(
 	socket sock.Socketer,
@@ -277,9 +279,8 @@ func (DOMProtocol) GetOuterHTML(
 
 /*
 GetRelayoutBoundary returns the id of the nearest ancestor that is a relayout boundary.
-EXPERIMENTAL.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getRelayoutBoundary
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getRelayoutBoundary EXPERIMENTAL.
 */
 func (DOMProtocol) GetRelayoutBoundary(
 	socket sock.Socketer,
@@ -299,9 +300,9 @@ func (DOMProtocol) GetRelayoutBoundary(
 
 /*
 GetSearchResults returns search results from given fromIndex to given toIndex from the search with
-the given identifier. EXPERIMENTAL.
+the given identifier.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getSearchResults
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getSearchResults EXPERIMENTAL.
 */
 func (DOMProtocol) GetSearchResults(
 	socket sock.Socketer,
@@ -320,9 +321,9 @@ func (DOMProtocol) GetSearchResults(
 }
 
 /*
-MarkUndoableState marks last undoable state. EXPERIMENTAL.
+MarkUndoableState marks last undoable state.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-markUndoableState
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-markUndoableState EXPERIMENTAL.
 */
 func (DOMProtocol) MarkUndoableState(
 	socket sock.Socketer,
@@ -355,9 +356,9 @@ func (DOMProtocol) MoveTo(
 
 /*
 PerformSearch searches for a given string in the DOM tree. Use getSearchResults to access search
-results or cancelSearch to end this search session. EXPERIMENTAL.
+results or cancelSearch to end this search session.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-performSearch
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-performSearch EXPERIMENTAL.
 */
 func (DOMProtocol) PerformSearch(
 	socket sock.Socketer,
@@ -376,10 +377,10 @@ func (DOMProtocol) PerformSearch(
 }
 
 /*
-PushNodeByPathToFrontend requests that the node is sent to the caller given its path. EXPERIMENTAL.
-@TODO, use XPath.
+PushNodeByPathToFrontend requests that the node is sent to the caller given its path.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-pushNodeByPathToFrontend
+EXPERIMENTAL. @TODO, use XPath.
 */
 func (DOMProtocol) PushNodeByPathToFrontend(
 	socket sock.Socketer,
@@ -399,9 +400,10 @@ func (DOMProtocol) PushNodeByPathToFrontend(
 
 /*
 PushNodesByBackendIDsToFrontend requests that a batch of nodes is sent to the caller given their
-backend node IDs. EXPERIMENTAL.
+backend node IDs.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-pushNodesByBackendIdsToFrontend
+EXPERIMENTAL.
 */
 func (DOMProtocol) PushNodesByBackendIDsToFrontend(
 	socket sock.Socketer,
@@ -462,9 +464,9 @@ func (DOMProtocol) QuerySelectorAll(
 }
 
 /*
-Redo re-does the last undone action. EXPERIMENTAL.
+Redo re-does the last undone action.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-redo
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-redo EXPERIMENTAL.
 */
 func (DOMProtocol) Redo(
 	socket sock.Socketer,
@@ -607,9 +609,9 @@ func (DOMProtocol) SetFileInputFiles(
 
 /*
 SetInspectedNode enables console to refer to the node with given id via $x (see Command Line API for
-more details $x functions). EXPERIMENTAL.
+more details $x functions).
 
-https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setInspectedNode
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setInspectedNode EXPERIMENTAL.
 */
 func (DOMProtocol) SetInspectedNode(
 	socket sock.Socketer,
@@ -670,9 +672,9 @@ func (DOMProtocol) SetOuterHTML(
 }
 
 /*
-Undo undoes the last performed action. EXPERIMENTAL.
+Undo undoes the last performed action.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-undo
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-undo EXPERIMENTAL.
 */
 func (DOMProtocol) Undo(
 	socket sock.Socketer,
@@ -828,9 +830,10 @@ func (DOMProtocol) OnChildNodeRemoved(
 
 /*
 OnDistributedNodesUpdated adds a handler to the DOM.distributedNodesUpdated event.
-DOM.distributedNodesUpdated fires when distribution is changed. EXPERIMENTAL.
+DOM.distributedNodesUpdated fires when distribution is changed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-distributedNodesUpdated
+EXPERIMENTAL.
 */
 func (DOMProtocol) OnDistributedNodesUpdated(
 	socket sock.Socketer,
@@ -900,9 +903,9 @@ func (DOMProtocol) OnInlineStyleInvalidated(
 
 /*
 OnPseudoElementAdded adds a handler to the DOM.pseudoElementAdded event. DOM.pseudoElementAdded
-fires when a pseudo element is added to an element. EXPERIMENTAL.
+fires when a pseudo element is added to an element.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-pseudoElementAdded
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-pseudoElementAdded EXPERIMENTAL.
 */
 func (DOMProtocol) OnPseudoElementAdded(
 	socket sock.Socketer,
@@ -924,9 +927,9 @@ func (DOMProtocol) OnPseudoElementAdded(
 
 /*
 OnPseudoElementRemoved adds a handler to the DOM.pseudoElementRemoved event.
-DOM.pseudoElementRemoved fires when a pseudo element is removed from an element. EXPERIMENTAL.
+DOM.pseudoElementRemoved fires when a pseudo element is removed from an element.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-pseudoElementRemoved
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-pseudoElementRemoved EXPERIMENTAL.
 */
 func (DOMProtocol) OnPseudoElementRemoved(
 	socket sock.Socketer,
@@ -973,9 +976,9 @@ func (DOMProtocol) OnSetChildNodes(
 
 /*
 OnShadowRootPopped adds a handler to the DOM.shadowRootPopped event. DOM.shadowRootPopped fires when
-shadow root is popped from the element. EXPERIMENTAL.
+shadow root is popped from the element.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-shadowRootPopped
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-shadowRootPopped EXPERIMENTAL.
 */
 func (DOMProtocol) OnShadowRootPopped(
 	socket sock.Socketer,
@@ -997,9 +1000,9 @@ func (DOMProtocol) OnShadowRootPopped(
 
 /*
 OnShadowRootPushed adds a handler to the DOM.shadowRootPushed event. DOM.shadowRootPushed fires when
-shadow root is pushed into the element. EXPERIMENTAL.
+shadow root is pushed into the element.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-shadowRootPushed
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-shadowRootPushed EXPERIMENTAL.
 */
 func (DOMProtocol) OnShadowRootPushed(
 	socket sock.Socketer,

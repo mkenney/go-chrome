@@ -113,9 +113,10 @@ func (NetworkProtocol) ClearBrowserCookies(
 ContinueInterceptedRequest response to Network.requestIntercepted which either modifies the request
 to continue with any modifications, or blocks it, or completes it with the provided response bytes.
 If a network fetch occurs as a result which encounters a redirect an additional
-Network.requestIntercepted event will be sent with the same InterceptionID. EXPERIMENTAL.
+Network.requestIntercepted event will be sent with the same InterceptionID.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-continueInterceptedRequest
+EXPERIMENTAL.
 */
 func (NetworkProtocol) ContinueInterceptedRequest(
 	socket sock.Socketer,
@@ -203,9 +204,9 @@ func (NetworkProtocol) GetAllCookies(
 }
 
 /*
-GetCertificate returns the DER-encoded certificate. EXPERIMENTAL.
+GetCertificate returns the DER-encoded certificate.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getCertificate
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getCertificate EXPERIMENTAL.
 */
 func (NetworkProtocol) GetCertificate(
 	socket sock.Socketer,
@@ -268,9 +269,9 @@ func (NetworkProtocol) GetResponseBody(
 
 /*
 GetResponseBodyForInterception returns content served for the given currently intercepted request.
-EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getResponseBodyForInterception
+EXPERIMENTAL.
 */
 func (NetworkProtocol) GetResponseBodyForInterception(
 	socket sock.Socketer,
@@ -291,9 +292,9 @@ func (NetworkProtocol) GetResponseBodyForInterception(
 /*
 ReplayXHR sends a new XMLHttpRequest which is identical to the original one. The following
 parameters should be identical: method, url, async, request body, extra headers, withCredentials
-attribute, user, password. EXPERIMENTAL.
+attribute, user, password.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-replayXHR
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-replayXHR EXPERIMENTAL.
 */
 func (NetworkProtocol) ReplayXHR(
 	socket sock.Socketer,
@@ -305,9 +306,10 @@ func (NetworkProtocol) ReplayXHR(
 }
 
 /*
-SearchInResponseBody searches for given string in response content. EXPERIMENTAL.
+SearchInResponseBody searches for given string in response content.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-searchInResponseBody
+EXPERIMENTAL.
 */
 func (NetworkProtocol) SearchInResponseBody(
 	socket sock.Socketer,
@@ -326,9 +328,9 @@ func (NetworkProtocol) SearchInResponseBody(
 }
 
 /*
-SetBlockedURLs blocks URLs from loading. EXPERIMENTAL.
+SetBlockedURLs blocks URLs from loading.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setBlockedURLs
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setBlockedURLs EXPERIMENTAL.
 */
 func (NetworkProtocol) SetBlockedURLs(
 	socket sock.Socketer,
@@ -340,9 +342,10 @@ func (NetworkProtocol) SetBlockedURLs(
 }
 
 /*
-SetBypassServiceWorker toggles ignoring of service worker for each request. EXPERIMENTAL.
+SetBypassServiceWorker toggles ignoring of service worker for each request.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setBypassServiceWorker
+EXPERIMENTAL.
 */
 func (NetworkProtocol) SetBypassServiceWorker(
 	socket sock.Socketer,
@@ -403,9 +406,10 @@ func (NetworkProtocol) SetCookies(
 }
 
 /*
-SetDataSizeLimitsForTest is for testing. EXPERIMENTAL.
+SetDataSizeLimitsForTest is for testing.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setDataSizeLimitsForTest
+EXPERIMENTAL.
 */
 func (NetworkProtocol) SetDataSizeLimitsForTest(
 	socket sock.Socketer,
@@ -433,9 +437,10 @@ func (NetworkProtocol) SetExtraHTTPHeaders(
 
 /*
 SetRequestInterception sets the requests to intercept that match a the provided patterns and
-optionally resource types. EXPERIMENTAL.
+optionally resource types.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setRequestInterception
+EXPERIMENTAL.
 */
 func (NetworkProtocol) SetRequestInterception(
 	socket sock.Socketer,
@@ -559,9 +564,10 @@ func (NetworkProtocol) OnLoadingFinished(
 /*
 OnRequestIntercepted adds a handler to the Network.requestIntercepted event.
 Network.requestIntercepted fires when a HTTP request is intercepted and returns details, which must
-be either allowed, blocked, modified or mocked. EXPERIMENTAL.
+be either allowed, blocked, modified or mocked.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-requestIntercepted
+EXPERIMENTAL.
 */
 func (NetworkProtocol) OnRequestIntercepted(
 	socket sock.Socketer,
@@ -631,9 +637,10 @@ func (NetworkProtocol) OnRequestWillBeSent(
 
 /*
 OnResourceChangedPriority adds a handler to the Network.resourceChangedPriority event.
-Network.resourceChangedPriority fires when resource loading priority is changed EXPERIMENTAL.
+Network.resourceChangedPriority fires when resource loading priority is changed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-resourceChangedPriority
+EXPERIMENTAL.
 */
 func (NetworkProtocol) OnResourceChangedPriority(
 	socket sock.Socketer,

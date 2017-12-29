@@ -10,9 +10,9 @@ import (
 )
 
 /*
-LayerTree provides a namespace for the Chrome LayerTree protocol methods. EXPERIMENTAL.
+LayerTree provides a namespace for the Chrome LayerTree protocol methods.
 
-https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/ EXPERIMENTAL.
 */
 var LayerTree = LayerTreeProtocol{}
 

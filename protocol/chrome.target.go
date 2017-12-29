@@ -73,9 +73,10 @@ func (TargetProtocol) CloseTarget(
 
 /*
 CreateBrowserContext creates a new empty BrowserContext. Similar to an incognito profile but you can
-have more than one. EXPERIMENTAL.
+have more than one.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-createBrowserContext
+EXPERIMENTAL.
 */
 func (TargetProtocol) CreateBrowserContext(
 	socket sock.Socketer,
@@ -128,9 +129,10 @@ func (TargetProtocol) DetachFromTarget(
 }
 
 /*
-DisposeBrowserContext deletes a BrowserContext, will fail of any open page uses it. EXPERIMENTAL.
+DisposeBrowserContext deletes a BrowserContext, will fail of any open page uses it.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-disposeBrowserContext
+EXPERIMENTAL.
 */
 func (TargetProtocol) DisposeBrowserContext(
 	socket sock.Socketer,
@@ -142,9 +144,9 @@ func (TargetProtocol) DisposeBrowserContext(
 }
 
 /*
-GetTargetInfo returns information about a target. EXPERIMENTAL.
+GetTargetInfo returns information about a target.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargetInfo
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargetInfo EXPERIMENTAL.
 */
 func (TargetProtocol) GetTargetInfo(
 	socket sock.Socketer,
@@ -191,9 +193,9 @@ func (TargetProtocol) SendMessageToTarget(
 }
 
 /*
-SetAttachToFrames EXPERIMENTAL.
+SetAttachToFrames is experimental.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAttachToFrames
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAttachToFrames EXPERIMENTAL.
 */
 func (TargetProtocol) SetAttachToFrames(
 	socket sock.Socketer,
@@ -207,9 +209,9 @@ func (TargetProtocol) SetAttachToFrames(
 /*
 SetAutoAttach controls whether to automatically attach to new targets which are considered to be
 related to this one. When turned on, attaches to all existing related targets as well. When turned
-off, automatically detaches from all currently attached targets. EXPERIMENTAL.
+off, automatically detaches from all currently attached targets.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAutoAttach
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAutoAttach EXPERIMENTAL.
 */
 func (TargetProtocol) SetAutoAttach(
 	socket sock.Socketer,
@@ -237,9 +239,10 @@ func (TargetProtocol) SetDiscoverTargets(
 
 /*
 SetRemoteLocations enables target discovery for the specified locations, when `setDiscoverTargets`
-was set to `true`. EXPERIMENTAL.
+was set to `true`.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setRemoteLocations
+EXPERIMENTAL.
 */
 func (TargetProtocol) SetRemoteLocations(
 	socket sock.Socketer,
@@ -253,9 +256,9 @@ func (TargetProtocol) SetRemoteLocations(
 /*
 OnAttachedToTarget adds a handler to the Target.attachedToTarget event.
 Target.attachedToTarget fires when attached to target because of auto-attach or `attachToTarget`
-command. EXPERIMENTAL.
+command.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-attachedToTarget
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-attachedToTarget EXPERIMENTAL.
 */
 func (TargetProtocol) OnAttachedToTarget(
 	socket sock.Socketer,
@@ -279,9 +282,9 @@ func (TargetProtocol) OnAttachedToTarget(
 OnDetachedFromTarget adds a handler to the Target.detachedFromTarget event.
 Target.detachedFromTarget fires when detached from target for any reason (including
 `detachFromTarget` command). Can be issued multiple times per target if multiple sessions have been
-attached to it. EXPERIMENTAL.
+attached to it.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-detachedFromTarget
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-detachedFromTarget EXPERIMENTAL.
 */
 func (TargetProtocol) OnDetachedFromTarget(
 	socket sock.Socketer,

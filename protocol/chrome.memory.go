@@ -6,9 +6,9 @@ import (
 )
 
 /*
-Memory provides a namespace for the Chrome Memory protocol methods. EXPERIMENTAL.
+Memory provides a namespace for the Chrome Memory protocol methods.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Memory/
+https://chromedevtools.github.io/devtools-protocol/tot/Memory/ EXPERIMENTAL.
 */
 var Memory = MemoryProtocol{}
 
@@ -18,9 +18,9 @@ MemoryProtocol defines the Memory protocol methods.
 type MemoryProtocol struct{}
 
 /*
-GetDOMCounters EXPERIMENTAL.
+GetDOMCounters is experimental.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-getDOMCounters
+https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-getDOMCounters EXPERIMENTAL.
 */
 func (MemoryProtocol) GetDOMCounters(
 	socket sock.Socketer,
@@ -32,9 +32,10 @@ func (MemoryProtocol) GetDOMCounters(
 }
 
 /*
-PrepareForLeakDetection EXPERIMENTAL.
+PrepareForLeakDetection experimental
 
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-prepareForLeakDetection
+EXPERIMENTAL.
 */
 func (MemoryProtocol) PrepareForLeakDetection(
 	socket sock.Socketer,

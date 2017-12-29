@@ -129,9 +129,9 @@ func (DebuggerProtocol) GetScriptSource(
 }
 
 /*
-GetStackTrace returns stack trace with given stackTraceId. EXPERIMENTAL.
+GetStackTrace returns stack trace with given stackTraceId.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getStackTrace
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getStackTrace EXPERIMENTAL.
 */
 func (DebuggerProtocol) GetStackTrace(
 	socket sock.Socketer,
@@ -163,9 +163,9 @@ func (DebuggerProtocol) Pause(
 }
 
 /*
-PauseOnAsyncCall EXPERIMENTAL.
+PauseOnAsyncCall
 
-https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-pauseOnAsyncCall
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-pauseOnAsyncCall EXPERIMENTAL.
 */
 func (DebuggerProtocol) PauseOnAsyncCall(
 	socket sock.Socketer,
@@ -228,9 +228,10 @@ func (DebuggerProtocol) Resume(
 ScheduleStepIntoAsync is deprecated - use Debugger.stepInto with breakOnAsyncCall and
 Debugger.pauseOnAsyncTask instead. Steps into next scheduled async task if any is scheduled before
 next pause. Returns success when async task is actually scheduled, returns error if no task were
-scheduled or another scheduleStepIntoAsync was called. EXPERIMENTAL. DEPRECATED.
+scheduled or another scheduleStepIntoAsync was called.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-scheduleStepIntoAsync
+EXPERIMENTAL. DEPRECATED.
 */
 func (DebuggerProtocol) ScheduleStepIntoAsync(
 	socket sock.Socketer,
@@ -279,9 +280,10 @@ func (DebuggerProtocol) SetAsyncCallStackDepth(
 SetBlackboxPatterns replaces previous blackbox patterns with passed ones. Forces backend to skip
 stepping/pausing in scripts with url matching one of the patterns. VM will try to leave blackboxed
 script by performing 'step in' several times, finally resorting to 'step out' if unsuccessful.
-EXPERIMENTAL.
+
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBlackboxPatterns
+EXPERIMENTAL.
 */
 func (DebuggerProtocol) SetBlackboxPatterns(
 	socket sock.Socketer,
@@ -385,9 +387,9 @@ func (DebuggerProtocol) SetPauseOnExceptions(
 
 /*
 SetReturnValue changes return value in top frame. Available only at return break position.
-EXPERIMENTAL.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setReturnValue
+
+https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setReturnValue EXPERIMENTAL.
 */
 func (DebuggerProtocol) SetReturnValue(
 	socket sock.Socketer,

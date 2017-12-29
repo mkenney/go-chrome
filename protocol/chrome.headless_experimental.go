@@ -12,9 +12,8 @@ import (
 /*
 HeadlessExperimental provides a namespace for the Chrome HeadlessExperimental protocol methods. The
 HeadlessExperimental protocol provides experimental commands only supported in headless mode.
-EXPERIMENTAL.
 
-https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/
+https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/ EXPERIMENTAL.
 */
 var HeadlessExperimental = HeadlessExperimentalProtocol{}
 

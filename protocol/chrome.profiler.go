@@ -113,9 +113,10 @@ func (ProfilerProtocol) StartPreciseCoverage(
 }
 
 /*
-StartTypeProfile enables type profile. EXPERIMENTAL.
+StartTypeProfile enables type profile.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-startTypeProfile
+EXPERIMENTAL.
 */
 func (ProfilerProtocol) StartTypeProfile(
 	socket sock.Socketer,
@@ -161,9 +162,9 @@ func (ProfilerProtocol) StopPreciseCoverage(
 
 /*
 StopTypeProfile disables type profile. Disabling releases type profile data collected so far.
-EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stopTypeProfile
+EXPERIMENTAL.
 */
 func (ProfilerProtocol) StopTypeProfile(
 	socket sock.Socketer,
@@ -195,9 +196,10 @@ func (ProfilerProtocol) TakePreciseCoverage(
 }
 
 /*
-TakeTypeProfile collect type profile. EXPERIMENTAL.
+TakeTypeProfile collect type profile.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-takeTypeProfile
+EXPERIMENTAL.
 */
 func (ProfilerProtocol) TakeTypeProfile(
 	socket sock.Socketer,

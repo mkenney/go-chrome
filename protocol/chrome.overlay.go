@@ -11,9 +11,9 @@ import (
 
 /*
 Overlay provides a namespace for the Chrome Overlay protocol methods. The Overlay protocol provides
-various functionality related to drawing atop the inspected page. EXPERIMENTAL.
+various functionality related to drawing atop the inspected page.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Overlay/
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/ EXPERIMENTAL.
 */
 var Overlay = OverlayProtocol{}
 

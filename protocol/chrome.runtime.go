@@ -278,9 +278,10 @@ func (RuntimeProtocol) RunScript(
 }
 
 /*
-SetCustomObjectFormatterEnabled EXPERIMENTAL.
+SetCustomObjectFormatterEnabled
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-setCustomObjectFormatterEnabled
+EXPERIMENTAL.
 */
 func (RuntimeProtocol) SetCustomObjectFormatterEnabled(
 	socket sock.Socketer,

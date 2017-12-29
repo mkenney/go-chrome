@@ -10,9 +10,9 @@ import (
 )
 
 /*
-Tracing provides a namespace for the Chrome Tracing protocol methods. EXPERIMENTAL.
+Tracing provides a namespace for the Chrome Tracing protocol methods.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Tracing/
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/ EXPERIMENTAL.
 */
 var Tracing = TracingProtocol{}
 

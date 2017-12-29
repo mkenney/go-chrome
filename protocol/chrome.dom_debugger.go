@@ -69,9 +69,10 @@ func (DOMDebuggerProtocol) RemoveEventListenerBreakpoint(
 }
 
 /*
-RemoveInstrumentationBreakpoint removes breakpoint on particular native event. EXPERIMENTAL.
+RemoveInstrumentationBreakpoint removes breakpoint on particular native event.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeInstrumentationBreakpoint
+EXPERIMENTAL.
 */
 func (DOMDebuggerProtocol) RemoveInstrumentationBreakpoint(
 	socket sock.Socketer,
@@ -125,9 +126,10 @@ func (DOMDebuggerProtocol) SetEventListenerBreakpoint(
 }
 
 /*
-SetInstrumentationBreakpoint sets breakpoint on particular native event. EXPERIMENTAL.
+SetInstrumentationBreakpoint sets breakpoint on particular native event.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setInstrumentationBreakpoint
+EXPERIMENTAL.
 */
 func (DOMDebuggerProtocol) SetInstrumentationBreakpoint(
 	socket sock.Socketer,

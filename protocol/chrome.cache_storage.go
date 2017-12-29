@@ -6,9 +6,9 @@ import (
 )
 
 /*
-CacheStorage provides a namespace for the Chrome CacheStorage protocol methods. EXPERIMENTAL.
+CacheStorage provides a namespace for the Chrome CacheStorage protocol methods.
 
-https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/ EXPERIMENTAL.
 */
 var CacheStorage = CacheStorageProtocol{}
 

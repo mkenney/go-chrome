@@ -7,9 +7,8 @@ import (
 
 /*
 DeviceOrientation provides a namespace for the Chrome DeviceOrientation protocol methods.
-EXPERIMENTAL.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/
+https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/ EXPERIMENTAL.
 */
 var DeviceOrientation = DeviceOrientationProtocol{}
 

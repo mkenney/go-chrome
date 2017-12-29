@@ -10,9 +10,9 @@ import (
 )
 
 /*
-Animation provides a namespace for the Chrome Animation protocol methods. EXPERIMENTAL.
+Animation provides a namespace for the Chrome Animation protocol methods.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Animation/
+https://chromedevtools.github.io/devtools-protocol/tot/Animation/ EXPERIMENTAL.
 */
 var Animation = AnimationProtocol{}
 

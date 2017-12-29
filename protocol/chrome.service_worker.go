@@ -10,9 +10,9 @@ import (
 )
 
 /*
-ServiceWorker provides a namespace for the Chrome ServiceWorker protocol methods. EXPERIMENTAL.
+ServiceWorker provides a namespace for the Chrome ServiceWorker protocol methods.
 
-https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/ EXPERIMENTAL.
 */
 var ServiceWorker = ServiceWorkerProtocol{}
 
@@ -22,9 +22,10 @@ ServiceWorkerProtocol defines the ServiceWorker protocol methods.
 type ServiceWorkerProtocol struct{}
 
 /*
-DeliverPushMessage EXPERIMENTAL.
+DeliverPushMessage is experimental.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-deliverPushMessage
+EXPERIMENTAL.
 */
 func (ServiceWorkerProtocol) DeliverPushMessage(
 	socket sock.Socketer,
@@ -36,9 +37,9 @@ func (ServiceWorkerProtocol) DeliverPushMessage(
 }
 
 /*
-Disable EXPERIMENTAL.
+Disable is experimental.
 
-https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-disable
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-disable EXPERIMENTAL.
 */
 func (ServiceWorkerProtocol) Disable(
 	socket sock.Socketer,
@@ -49,9 +50,10 @@ func (ServiceWorkerProtocol) Disable(
 }
 
 /*
-DispatchSyncEvent EXPERIMENTAL.
+DispatchSyncEvent is experimental.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-dispatchSyncEvent
+EXPERIMENTAL.
 */
 func (ServiceWorkerProtocol) DispatchSyncEvent(
 	socket sock.Socketer,
@@ -63,9 +65,9 @@ func (ServiceWorkerProtocol) DispatchSyncEvent(
 }
 
 /*
-Enable EXPERIMENTAL.
+Enable is experimental.
 
-https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-enable
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-enable EXPERIMENTAL.
 */
 func (ServiceWorkerProtocol) Enable(
 	socket sock.Socketer,
@@ -76,9 +78,10 @@ func (ServiceWorkerProtocol) Enable(
 }
 
 /*
-InspectWorker EXPERIMENTAL.
+InspectWorker is experimental.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-inspectWorker
+EXPERIMENTAL.
 */
 func (ServiceWorkerProtocol) InspectWorker(
 	socket sock.Socketer,
@@ -90,9 +93,10 @@ func (ServiceWorkerProtocol) InspectWorker(
 }
 
 /*
-SetForceUpdateOnPageLoad EXPERIMENTAL.
+SetForceUpdateOnPageLoad is experimental.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-setForceUpdateOnPageLoad
+EXPERIMENTAL.
 */
 func (ServiceWorkerProtocol) SetForceUpdateOnPageLoad(
 	socket sock.Socketer,
@@ -104,9 +108,10 @@ func (ServiceWorkerProtocol) SetForceUpdateOnPageLoad(
 }
 
 /*
-SkipWaiting EXPERIMENTAL.
+SkipWaiting is experimental.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-skipWaiting
+EXPERIMENTAL.
 */
 func (ServiceWorkerProtocol) SkipWaiting(
 	socket sock.Socketer,
@@ -118,9 +123,10 @@ func (ServiceWorkerProtocol) SkipWaiting(
 }
 
 /*
-StartWorker EXPERIMENTAL.
+StartWorker is experimental.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-startWorker
+EXPERIMENTAL.
 */
 func (ServiceWorkerProtocol) StartWorker(
 	socket sock.Socketer,
@@ -132,9 +138,10 @@ func (ServiceWorkerProtocol) StartWorker(
 }
 
 /*
-StopAllWorkers EXPERIMENTAL.
+StopAllWorkers is experimental.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-stopAllWorkers
+EXPERIMENTAL.
 */
 func (ServiceWorkerProtocol) StopAllWorkers(
 	socket sock.Socketer,
@@ -145,9 +152,10 @@ func (ServiceWorkerProtocol) StopAllWorkers(
 }
 
 /*
-StopWorker EXPERIMENTAL.
+StopWorker is experimental.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-stopWorker
+EXPERIMENTAL.
 */
 func (ServiceWorkerProtocol) StopWorker(
 	socket sock.Socketer,
@@ -159,9 +167,10 @@ func (ServiceWorkerProtocol) StopWorker(
 }
 
 /*
-Unregister EXPERIMENTAL.
+Unregister is experimental.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-unregister
+EXPERIMENTAL.
 */
 func (ServiceWorkerProtocol) Unregister(
 	socket sock.Socketer,
@@ -173,9 +182,10 @@ func (ServiceWorkerProtocol) Unregister(
 }
 
 /*
-UpdateRegistration EXPERIMENTAL.
+UpdateRegistration is experimental.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-updateRegistration
+EXPERIMENTAL.
 */
 func (ServiceWorkerProtocol) UpdateRegistration(
 	socket sock.Socketer,
@@ -187,9 +197,10 @@ func (ServiceWorkerProtocol) UpdateRegistration(
 }
 
 /*
-OnWorkerErrorReported EXPERIMENTAL.
+OnWorkerErrorReported is experimental.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-workerErrorReported
+EXPERIMENTAL.
 */
 func (ServiceWorkerProtocol) OnWorkerErrorReported(
 	socket sock.Socketer,
@@ -210,9 +221,10 @@ func (ServiceWorkerProtocol) OnWorkerErrorReported(
 }
 
 /*
-OnWorkerRegistrationUpdated EXPERIMENTAL.
+OnWorkerRegistrationUpdated is experimental.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-workerRegistrationUpdated
+EXPERIMENTAL.
 */
 func (ServiceWorkerProtocol) OnWorkerRegistrationUpdated(
 	socket sock.Socketer,
@@ -233,9 +245,10 @@ func (ServiceWorkerProtocol) OnWorkerRegistrationUpdated(
 }
 
 /*
-OnWorkerVersionUpdated EXPERIMENTAL.
+OnWorkerVersionUpdated is experimental.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-workerVersionUpdated
+EXPERIMENTAL.
 */
 func (ServiceWorkerProtocol) OnWorkerVersionUpdated(
 	socket sock.Socketer,

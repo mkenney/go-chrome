@@ -52,9 +52,9 @@ func (BrowserProtocol) GetVersion(
 }
 
 /*
-GetWindowBounds sets the position and/or size of the browser window. EXPERIMENTAL.
+GetWindowBounds sets the position and/or size of the browser window.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindowBounds
+https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindowBounds EXPERIMENTAL.
 */
 func (BrowserProtocol) GetWindowBounds(
 	socket sock.Socketer,
@@ -73,9 +73,10 @@ func (BrowserProtocol) GetWindowBounds(
 }
 
 /*
-GetWindowForTarget gets the browser window that contains the devtools target. EXPERIMENTAL.
+GetWindowForTarget gets the browser window that contains the devtools target.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindowForTarget
+EXPERIMENTAL.
 */
 func (BrowserProtocol) GetWindowForTarget(
 	socket sock.Socketer,
@@ -94,9 +95,9 @@ func (BrowserProtocol) GetWindowForTarget(
 }
 
 /*
-SetWindowBounds sets the position and/or size of the browser window. EXPERIMENTAL.
+SetWindowBounds sets the position and/or size of the browser window.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-setWindowBounds
+https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-setWindowBounds EXPERIMENTAL.
 */
 func (BrowserProtocol) SetWindowBounds(
 	socket sock.Socketer,

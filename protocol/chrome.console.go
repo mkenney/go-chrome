@@ -10,10 +10,10 @@ import (
 )
 
 /*
-Console provides a namespace for the Chrome Console protocol methods. DEPRECATED - use Runtime or
-Log instead.
+Console provides a namespace for the Chrome Console protocol methods.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Console/
+https://chromedevtools.github.io/devtools-protocol/tot/Console/ DEPRECATED - use Runtime or Log
+instead.
 */
 var Console = ConsoleProtocol{}
 

@@ -10,9 +10,9 @@ import (
 )
 
 /*
-ApplicationCache provides a namespace for the Chrome Animation protocol methods. EXPERIMENTAL.
+ApplicationCache provides a namespace for the Chrome Animation protocol methods.
 
-https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/
+https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/ EXPERIMENTAL.
 */
 var ApplicationCache = ApplicationCacheProtocol{}
 

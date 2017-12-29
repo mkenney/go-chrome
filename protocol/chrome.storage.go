@@ -10,9 +10,9 @@ import (
 )
 
 /*
-Storage provides a namespace for the Chrome Storage protocol methods. EXPERIMENTAL.
+Storage provides a namespace for the Chrome Storage protocol methods.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Storage/
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/ EXPERIMENTAL.
 */
 var Storage = StorageProtocol{}
 

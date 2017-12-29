@@ -10,9 +10,9 @@ import (
 )
 
 /*
-Database provides a namespace for the Chrome Database protocol methods. EXPERIMENTAL.
+Database provides a namespace for the Chrome Database protocol methods.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Database/
+https://chromedevtools.github.io/devtools-protocol/tot/Database/ EXPERIMENTAL.
 */
 var Database = DatabaseProtocol{}
 

@@ -6,9 +6,9 @@ import (
 )
 
 /*
-Accessibility provides a namespace for the Chrome Accessibility protocol methods. EXPERIMENTAL.
+Accessibility provides a namespace for the Chrome Accessibility protocol methods.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/
+https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/ EXPERIMENTAL.
 */
 var Accessibility = AccessibilityProtocol{}
 

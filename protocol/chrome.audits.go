@@ -7,9 +7,9 @@ import (
 
 /*
 Audits provides a namespace for the Chrome Audits protocol methods. The Audits protocol allows
-investigation of page violations and possible improvements. EXPERIMENTAL.
+investigation of page violations and possible improvements.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Audits/
+https://chromedevtools.github.io/devtools-protocol/tot/Audits/ EXPERIMENTAL.
 */
 var Audits = AuditsProtocol{}
 
