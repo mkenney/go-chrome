@@ -6,14 +6,13 @@ import (
 )
 
 /*
-Accessibility is a struct that provides a namespace for the Chrome Accessibility protocol methods.
-EXPERIMENTAL.
+Accessibility provides a namespace for the Chrome Accessibility protocol methods. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/
 */
-var Accessibility = _accessibility{}
+var Accessibility = Accessibility_{}
 
-type _accessibility struct{}
+type Accessibility_ struct{}
 
 /*
 GetPartialAXTree fetches the accessibility node and partial accessibility tree for this DOM node, if
@@ -21,7 +20,7 @@ it exists.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/#method-getPartialAXTree
 */
-func (_accessibility) GetPartialAXTree(
+func (Accessibility_) GetPartialAXTree(
 	socket sock.Socketer,
 	params *accessibility.PartialAXTreeParams,
 ) (*accessibility.PartialAXTreeResult, error) {
