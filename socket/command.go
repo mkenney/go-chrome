@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"sync"
 
-	chrome_error "github.com/mkenney/go-chrome/error"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -51,7 +50,7 @@ command implements Commander.
 */
 type command struct {
 	// err contains any error resulting from executing the command
-	err *chrome_error.Error
+	err error
 
 	// id contains the command ID
 	id int
@@ -76,18 +75,12 @@ Done implements Commander.
 func (cmd *command) Done(result []byte, err error) {
 	if err != nil {
 		log.Error(err)
-		cmd.err = chrome_error.NewFromErr(err)
+		cmd.err = err
 	}
 
 	err = json.Unmarshal(result, &cmd.result)
 	if err != nil {
-		log.Error(err)
-		cmd.err = chrome_error.New(
-			fmt.Sprintf("%s. In addition, a JSON error occurred while decoding the data", cmd.err.Error()),
-			chrome_error.LevelError,
-			chrome_error.CodeJSONError,
-			err,
-		)
+		cmd.err = fmt.Errorf("%s - In addtion, a JSON error occured: %s", cmd.err.Error(), err.Error())
 	}
 
 	cmd.WaitGroup().Done()
@@ -96,7 +89,7 @@ func (cmd *command) Done(result []byte, err error) {
 /*
 Error implements Commander.
 */
-func (cmd *command) Error() *chrome_error.Error {
+func (cmd *command) Error() error {
 	return cmd.err
 }
 
@@ -216,6 +209,7 @@ Workflow:
 	response and the command unlocks itself.
 */
 func (socket *socket) SendCommand(command Commander) *commandPayload {
+	log.Infof("&&&&&&&&&&&&&&&&&&&&&&&&&&&&& socket.SendCommand()")
 
 	// Safely add a command to the internal stack
 	socket.commands.Lock()

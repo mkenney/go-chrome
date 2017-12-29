@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/url"
 
-	chrome_error "github.com/mkenney/go-chrome/error"
 	"github.com/mkenney/go-chrome/socket"
 	log "github.com/sirupsen/logrus"
 )
@@ -12,7 +11,7 @@ import (
 /*
 NewTab spawns a new tab and returns a reference to it
 */
-func (browser *Browser) NewTab(uri string) (*Tab, *chrome_error.Error) {
+func (browser *Browser) NewTab(uri string) (*Tab, error) {
 	if "" == uri {
 		uri = "about:blank"
 	}
@@ -24,7 +23,7 @@ func (browser *Browser) NewTab(uri string) (*Tab, *chrome_error.Error) {
 
 	_, err := tab.Browser().Cmd(fmt.Sprintf("/json/new?%s", url.QueryEscape(uri)), url.Values{}, tab.data)
 	if nil != err {
-		return nil, chrome_error.NewFromErr(err)
+		return nil, err
 	}
 
 	tab.socket, err = socket.New(tab.Data().WebSocketDebuggerURL)
@@ -68,7 +67,7 @@ func (tab *Tab) Browser() *Browser {
 /*
 Close implements Tabber.
 */
-func (tab *Tab) Close() (interface{}, *chrome_error.Error) {
+func (tab *Tab) Close() (interface{}, error) {
 	var err error
 	var result interface{}
 
@@ -76,7 +75,7 @@ func (tab *Tab) Close() (interface{}, *chrome_error.Error) {
 	log.Debugf("Close result: %s - %s", result, err)
 	if nil != err {
 		log.Warnf("%s: %s", result, err)
-		return nil, chrome_error.NewFromErr(err)
+		return nil, err
 	}
 
 	return result, nil

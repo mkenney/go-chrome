@@ -161,7 +161,6 @@ import (
 	"path/filepath"
 	"time"
 
-	chrome_error "github.com/mkenney/go-chrome/error"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -259,14 +258,14 @@ func (browser *Browser) Binary() string {
 /*
 Close implements Chromium.
 */
-func (browser *Browser) Close() *chrome_error.Error {
+func (browser *Browser) Close() error {
 	if browser.process != nil {
 		if err := browser.process.Signal(os.Interrupt); err != nil {
-			return chrome_error.NewFromErr(err)
+			return err
 		}
 		ps, err := browser.process.Wait()
 		if err != nil {
-			return chrome_error.NewFromErr(err)
+			return err
 		}
 		log.Infof("Chromium exited: %s", ps.String())
 	}
@@ -301,7 +300,7 @@ func (browser *Browser) DebuggingPort() int {
 /*
 Launch implements Chromium.
 */
-func (browser *Browser) Launch() *chrome_error.Error {
+func (browser *Browser) Launch() error {
 	var err error
 
 	if "" == browser.Binary() {
@@ -328,12 +327,7 @@ func (browser *Browser) Launch() *chrome_error.Error {
 		browser.workdir = filepath.Join(os.TempDir(), "headless-chrome")
 	}
 	if err := os.MkdirAll(browser.Workdir(), 0700); err != nil {
-		return chrome_error.New(
-			fmt.Sprintf("Cannot create working directory '%s'", browser.Workdir()),
-			chrome_error.LevelFatal,
-			chrome_error.CodeCannotCreateWorkDir,
-			err,
-		)
+		return fmt.Errorf("Cannot create working directory '%s'", browser.Workdir())
 	}
 
 	if "" == browser.Output() {
@@ -341,12 +335,7 @@ func (browser *Browser) Launch() *chrome_error.Error {
 	} else {
 		browser.outputFile, err = os.OpenFile(browser.Output(), os.O_APPEND|os.O_CREATE|os.O_RDWR, 0600)
 		if err != nil {
-			return chrome_error.New(
-				fmt.Sprintf("Cannot open output file '%s'", browser.Output()),
-				chrome_error.LevelFatal,
-				chrome_error.CodeErrorOpeningOutputFile,
-				err,
-			)
+			return fmt.Errorf("Cannot open output file '%s'", browser.Output())
 		}
 	}
 
@@ -361,7 +350,7 @@ func (browser *Browser) Launch() *chrome_error.Error {
 	)
 	if err != nil {
 		browser.outputFile.Close()
-		return chrome_error.NewFromErr(err)
+		return err
 	}
 
 	// Wait up to 10 seconds for Chromium to start
@@ -374,7 +363,7 @@ func (browser *Browser) Launch() *chrome_error.Error {
 	if err != nil {
 		log.Errorf("Chromium took too long to start: %s", err.Error())
 		browser.Close()
-		return chrome_error.NewFromErr(err)
+		return err
 	}
 
 	return nil
@@ -408,10 +397,10 @@ func (browser *Browser) Tabs() []*Tab {
 /*
 Version implements Chromium.
 */
-func (browser *Browser) Version() (*Version, *chrome_error.Error) {
+func (browser *Browser) Version() (*Version, error) {
 	if "" == browser.version.Browser {
 		if _, err := browser.Cmd("/json/version", url.Values{}, &browser.version); err != nil {
-			return nil, chrome_error.NewFromErr(err)
+			return nil, err
 		}
 	}
 	return browser.version, nil
@@ -460,7 +449,7 @@ func (browser *Browser) checkVersion() error {
 /*
 Cmd queries the developer tools endpoints and returns JSON data in the provided struct.
 */
-func (browser *Browser) Cmd(path string, params url.Values, msg interface{}) (interface{}, *chrome_error.Error) {
+func (browser *Browser) Cmd(path string, params url.Values, msg interface{}) (interface{}, error) {
 	if len(params) > 0 {
 		path += fmt.Sprintf("?%s", params.Encode())
 	}
@@ -468,7 +457,7 @@ func (browser *Browser) Cmd(path string, params url.Values, msg interface{}) (in
 
 	resp, err := http.Get(uri)
 	if err != nil {
-		return nil, chrome_error.NewFromErr(err)
+		return nil, err
 	}
 	defer resp.Body.Close()
 
@@ -479,7 +468,7 @@ func (browser *Browser) Cmd(path string, params url.Values, msg interface{}) (in
 
 	content, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return nil, chrome_error.NewFromErr(err)
+		return nil, err
 	} else if err := json.Unmarshal(content, &msg); err != nil {
 		return content, nil
 	}

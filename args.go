@@ -3,8 +3,6 @@ package chrome
 import (
 	"fmt"
 	"strings"
-
-	chrome_error "github.com/mkenney/go-chrome/error"
 )
 
 /*
@@ -15,15 +13,9 @@ type Args map[string][]interface{}
 /*
 Get implements Commander
 */
-func (args Args) Get(arg string) ([]interface{}, *chrome_error.Error) {
-	var values []interface{}
-	var err *chrome_error.Error
+func (args Args) Get(arg string) (values []interface{}, err error) {
 	if !args.Has(arg) {
-		err = chrome_error.New(
-			fmt.Sprintf("The specified argument '%s' does not exist", arg),
-			chrome_error.LevelWarn,
-			chrome_error.CodeOutOfRange,
-		)
+		err = fmt.Errorf("The specified argument '%s' does not exist", arg)
 	} else {
 		values = args[arg]
 	}
@@ -68,7 +60,7 @@ func (args Args) List() []string {
 /*
 Set implements Commander
 */
-func (args Args) Set(arg string, values []interface{}) (err *chrome_error.Error) {
+func (args Args) Set(arg string, values []interface{}) (err error) {
 	if nil == values {
 		values = make([]interface{}, 0)
 	}
@@ -87,7 +79,7 @@ func (args Args) Set(arg string, values []interface{}) (err *chrome_error.Error)
 		}
 	}
 
-	return err
+	return nil
 }
 
 /*

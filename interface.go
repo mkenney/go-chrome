@@ -1,7 +1,6 @@
 package chrome
 
 import (
-	chrome_error "github.com/mkenney/go-chrome/error"
 	"github.com/mkenney/go-chrome/socket"
 )
 
@@ -23,7 +22,7 @@ type Chromium interface {
 	Binary() string
 
 	// Close ends the Chromium process and cleans up.
-	Close() *chrome_error.Error
+	Close() error
 
 	// DebuggingAddress returns the address that the remote debugging protocol
 	// is available on. Defaults to '0.0.0.0'.
@@ -35,10 +34,10 @@ type Chromium interface {
 
 	// Launch launches the Chromium process and returns the connected Chromium
 	// struct.
-	Launch() *chrome_error.Error
+	Launch() error
 
 	// NewTab spawns a new tab and returns a reference to it.
-	NewTab(url string) (*Tab, *chrome_error.Error)
+	NewTab(url string) (*Tab, error)
 
 	// Output returns the path to a file to be used to capture STDOUT and STDERR
 	// output. Defaults to '/dev/stdout'.
@@ -52,7 +51,7 @@ type Chromium interface {
 	Tabs() []*Tab
 
 	// Version returns Chromium version data.
-	Version() (*Version, *chrome_error.Error)
+	Version() (*Version, error)
 
 	// Workdir returns the path of the Chromium working directory. Defaults to
 	// '/tmp/headless-chrome'.
@@ -73,7 +72,7 @@ Commander provides an interface for managing CLI arguments to the Chromium binar
 type Commander interface {
 
 	// Get returns the specified argument values
-	Get(arg string) ([]interface{}, *chrome_error.Error)
+	Get(arg string) ([]interface{}, error)
 
 	// Has checks to see if an argument is present.
 	Has(arg string) bool
@@ -82,7 +81,7 @@ type Commander interface {
 	List() []string
 
 	// Set sets a CLI argument's values.
-	Set(arg string, values []interface{}) *chrome_error.Error
+	Set(arg string, values []interface{}) error
 
 	// String implments Stringer. It returns the set parameters formatted to be
 	// passed to the command line.
