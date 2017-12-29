@@ -40,14 +40,13 @@ func TestListenCommand(t *testing.T) {
 
 	command := NewCommand("Some.method", nil)
 	log.Infof("TestListenCommand: %s", command.ID())
-	MockJSONCommandID = command.ID()
 
 	mockSocket, _ := NewMock("https://www.example.com/command")
 	go mockSocket.Listen()
 	mockSocket.SendCommand(command)
 	mockSocket.Stop()
 
-	if "Mock Command Result" != command.Result() {
+	if "Mock Command Result" != string(command.Result()) {
 		t.Errorf("Invalid result: expected 'Mock Command Result', received '%s'", command.Result())
 	}
 }
@@ -61,14 +60,13 @@ func TestListenCommandError(t *testing.T) {
 
 	command := NewCommand("Some.methodError", nil)
 	log.Infof("TestListenError: %s", command.ID())
-	MockJSONCommandID = command.ID()
 
 	mockSocket, _ := NewMock("https://www.example.com/error")
 	go mockSocket.Listen()
 	mockSocket.SendCommand(command)
 	mockSocket.Stop()
 
-	if "Mock Command Result" != command.Result() {
+	if "Mock Command Result" != string(command.Result()) {
 		t.Errorf("Invalid result: expected 'Mock Command Result', received '%s'", command.Result())
 	}
 }

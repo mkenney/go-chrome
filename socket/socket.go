@@ -150,7 +150,8 @@ func (socket *socket) Conn() Conner {
 /*
 Listen implements Socketer.
 */
-func (socket *socket) Listen() (err error) {
+func (socket *socket) Listen() error {
+	var err error
 	socket.stopListening = false
 	for {
 		if socket.stopListening {
@@ -160,23 +161,20 @@ func (socket *socket) Listen() (err error) {
 		response := &Response{}
 		err = socket.conn.ReadJSON(&response)
 		if nil != err {
-			log.Infof("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ReadJSON returned an error, scheduling stop")
 			log.Error(err)
 			socket.Stop() // This will end the loop after handling the current response (if any)
 		}
 
 		if response.ID > 0 {
-			log.Infof("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Handling Command %d", response.ID)
 			socket.HandleCommand(response)
 
 		} else {
-			log.Infof("################################ Handling Event")
 			socket.HandleEvent(response)
 		}
 	}
-	log.Infof("Socket shutting down")
+	log.Infof("%s: Socket shutting down", socket.URL())
 
-	return
+	return err
 }
 
 /*

@@ -24,7 +24,7 @@ type Commander interface {
 	Params() interface{}
 
 	// Result returns the result of the method call.
-	Result() interface{}
+	Result() []byte
 
 	// WaitGroup returns the sync.WaitGroup instance.
 	WaitGroup() *sync.WaitGroup
@@ -44,7 +44,7 @@ type CommandMapper interface {
 	Lock()
 
 	// Set sets a command in the stack.
-	Set(commandID int, command Commander)
+	Set(command Commander)
 
 	// Unlock unlocks the sync mutex.
 	Unlock()

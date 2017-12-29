@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
-
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -80,12 +78,11 @@ func (mockConn) ReadJSON(v interface{}) error {
 	var err Error
 	var data []byte
 
-	log.Infof("MockJSONData: %s", MockJSONData)
-	log.Infof("MockJSONType: %s", MockJSONType)
-	log.Infof("MockJSONCommandID: %d", MockJSONCommandID)
-	log.Infof("MockJSONRead: %v", MockJSONRead)
-	log.Infof("MockJSONError: %v", MockJSONError)
-	log.Infof("MockJSONThrowError: %v", MockJSONThrowError)
+	//log.Infof("MockJSONData: %s", MockJSONData)
+	//log.Infof("MockJSONType: %s", MockJSONType)
+	//log.Infof("MockJSONRead: %v", MockJSONRead)
+	//log.Infof("MockJSONError: %v", MockJSONError)
+	//log.Infof("MockJSONThrowError: %v", MockJSONThrowError)
 
 	time.Sleep(time.Millisecond * 100)
 	if !MockJSONRead {
@@ -101,6 +98,7 @@ func (mockConn) ReadJSON(v interface{}) error {
 		}
 
 		if "command" == MockJSONType {
+			//log.Infof("Mocking Command")
 			data, _ = json.Marshal(struct {
 				Error  Error
 				ID     int
@@ -109,12 +107,13 @@ func (mockConn) ReadJSON(v interface{}) error {
 				Result json.RawMessage
 			}{
 				Error:  err,
-				ID:     MockJSONCommandID,
+				ID:     _commandID,
 				Method: "Some.method",
 				Params: nil,
 				Result: MockJSONData,
 			})
 		} else if "event" == MockJSONType {
+			//log.Infof("Mocking Event")
 			data, _ = json.Marshal(struct {
 				Error  Error
 				ID     int
@@ -134,22 +133,19 @@ func (mockConn) ReadJSON(v interface{}) error {
 	return nil
 }
 
-// MockJSONData flags for mocking ReadJSON()
+// MockJSONData flag for mocking ReadJSON()
 var MockJSONData []byte
 
-// MockJSONRead flags for mocking ReadJSON()
+// MockJSONRead flag for mocking ReadJSON()
 var MockJSONRead = false
 
-// MockJSONType flags for mocking ReadJSON()
+// MockJSONType flag for mocking ReadJSON()
 var MockJSONType = "command"
 
-// MockJSONError flags for mocking ReadJSON()
+// MockJSONError flag for mocking ReadJSON()
 var MockJSONError = true
 
-// MockJSONCommandID flags for mocking ReadJSON()
-var MockJSONCommandID = 1
-
-// MockJSONThrowError flags for mocking ReadJSON()
+// MockJSONThrowError flag for mocking ReadJSON()
 var MockJSONThrowError = false
 
 /*

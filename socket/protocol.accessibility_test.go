@@ -34,46 +34,48 @@ func TestGetPartialAXTree(t *testing.T) {
 		t.Errorf("Expected empty set, got '%s'", tmp)
 	}
 
-	mockData := &accessibility.AXNode{
-		NodeID:  accessibility.AXNodeID("NodeID"),
-		Ignored: false,
-		IgnoredReasons: []*accessibility.AXProperty{&accessibility.AXProperty{
-			Name: "PropertyName",
-			Value: &accessibility.AXValue{
-				Type:  accessibility.AXValueType("ValueType"),
-				Value: nil,
-				RelatedNodes: []*accessibility.AXRelatedNode{&accessibility.AXRelatedNode{
-					BackendDOMNodeID: dom.BackendNodeID(1),
-					IDRef:            "idref",
-					Text:             "some text",
-				}},
-				Sources: []*accessibility.AXValueSource{&accessibility.AXValueSource{
-					Type:              accessibility.AXValueSourceType("SourceType"),
-					Value:             &accessibility.AXValue{},
-					Attribute:         "Attribute",
-					AttributeValue:    &accessibility.AXValue{},
-					Superseded:        true,
-					NativeSource:      accessibility.AXValueNativeSourceType("NativeSourceType"),
-					NativeSourceValue: &accessibility.AXValue{},
-					Invalid:           true,
-					InvalidReason:     "InvalidReason",
-				}},
-			},
+	mockData := accessibility.PartialAXTreeResult{
+		Nodes: []*accessibility.AXNode{&accessibility.AXNode{
+			NodeID:  accessibility.AXNodeID("NodeID"),
+			Ignored: false,
+			IgnoredReasons: []*accessibility.AXProperty{&accessibility.AXProperty{
+				Name: "PropertyName",
+				Value: &accessibility.AXValue{
+					Type:  accessibility.AXValueType("ValueType"),
+					Value: nil,
+					RelatedNodes: []*accessibility.AXRelatedNode{&accessibility.AXRelatedNode{
+						BackendDOMNodeID: dom.BackendNodeID(1),
+						IDRef:            "idref",
+						Text:             "some text",
+					}},
+					Sources: []*accessibility.AXValueSource{&accessibility.AXValueSource{
+						Type:              accessibility.AXValueSourceType("SourceType"),
+						Value:             &accessibility.AXValue{},
+						Attribute:         "Attribute",
+						AttributeValue:    &accessibility.AXValue{},
+						Superseded:        true,
+						NativeSource:      accessibility.AXValueNativeSourceType("NativeSourceType"),
+						NativeSourceValue: &accessibility.AXValue{},
+						Invalid:           true,
+						InvalidReason:     "InvalidReason",
+					}},
+				},
+			}},
+			Role:             &accessibility.AXValue{},
+			Name:             &accessibility.AXValue{},
+			Description:      &accessibility.AXValue{},
+			Value:            &accessibility.AXValue{},
+			Properties:       []*accessibility.AXProperty{},
+			ChildIDs:         []accessibility.AXNodeID{accessibility.AXNodeID(1)},
+			BackendDOMNodeID: dom.BackendNodeID(1),
 		}},
-		Role:             &accessibility.AXValue{},
-		Name:             &accessibility.AXValue{},
-		Description:      &accessibility.AXValue{},
-		Value:            &accessibility.AXValue{},
-		Properties:       []*accessibility.AXProperty{},
-		ChildIDs:         []accessibility.AXNodeID{accessibility.AXNodeID(1)},
-		BackendDOMNodeID: dom.BackendNodeID(1),
 	}
 
 	MockJSONRead = false
 	MockJSONType = "command"
 	MockJSONError = false
 	MockJSONThrowError = false
-	MockJSONData, err = json.Marshal(mockData)
+	MockJSONData, _ = json.Marshal(mockData)
 	go mockSocket.Listen()
 	result, err = mockSocket.Accessibility().GetPartialAXTree(
 		&accessibility.PartialAXTreeParams{},
@@ -84,8 +86,8 @@ func TestGetPartialAXTree(t *testing.T) {
 	if nil != err {
 		t.Errorf("Expected success, got error: %s", err.Error())
 	}
-	if 0 != len(result.Nodes) {
+	if 0 == len(result.Nodes) {
 		tmp, _ := json.Marshal(result.Nodes)
-		t.Errorf("Expected empty set, got '%s'", tmp)
+		t.Errorf("Expected dataset, got '%s'", tmp)
 	}
 }

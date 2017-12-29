@@ -9,12 +9,7 @@ MarshalResult abstracts marshalling Commander results into protocol data structs
 */
 func MarshalResult(command Commander, result interface{}) error {
 	if nil != command.Result() {
-		data, err := json.Marshal(command.Result())
-		if nil != err {
-			return err
-		}
-
-		err = json.Unmarshal(data, &result)
+		err := json.Unmarshal(command.Result(), &result)
 		if nil != err {
 			return err
 		}

@@ -1,7 +1,6 @@
 package socket
 
 import (
-	"encoding/json"
 	"fmt"
 	"sync"
 
@@ -24,12 +23,11 @@ func NewCommand(method string, params interface{}) Commander {
 GenerateCommandID generates and returns a unique command ID.
 */
 func GenerateCommandID() int {
-	commandID++
-	log.Infof("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ generated command id %d", commandID)
-	return commandID
+	_commandID++
+	return _commandID
 }
 
-var commandID = 0
+var _commandID = 0
 
 /*
 NewCommandMap creates and returns a pointer to a CommandMapper.
@@ -62,8 +60,9 @@ type command struct {
 	// executed
 	params interface{}
 
-	// Optional. result holds the result struct for the command being executed
-	result interface{}
+	// Optional. result holds the JSON returned by the socket when the command
+	// is complete
+	result []byte
 
 	// sync handles command synchronization
 	wg *sync.WaitGroup
@@ -73,14 +72,11 @@ type command struct {
 Done implements Commander.
 */
 func (cmd *command) Done(result []byte, err error) {
+	cmd.result = result
 	if err != nil {
+		log.Infof("command.Done() ERROR: %s", err.Error())
 		log.Error(err)
 		cmd.err = err
-	}
-
-	err = json.Unmarshal(result, &cmd.result)
-	if err != nil {
-		cmd.err = fmt.Errorf("%s - In addtion, a JSON error occured: %s", cmd.err.Error(), err.Error())
 	}
 
 	cmd.WaitGroup().Done()
@@ -117,7 +113,7 @@ func (cmd *command) Params() interface{} {
 /*
 Result implements Commander.
 */
-func (cmd *command) Result() interface{} {
+func (cmd *command) Result() []byte {
 	return cmd.result
 }
 
@@ -168,8 +164,8 @@ func (stack *commandMap) Lock() {
 /*
 Set implements CommandMapper.
 */
-func (stack *commandMap) Set(id int, cmd Commander) {
-	stack.stack[id] = cmd
+func (stack *commandMap) Set(cmd Commander) {
+	stack.stack[cmd.ID()] = cmd
 }
 
 /*
@@ -209,20 +205,14 @@ Workflow:
 	response and the command unlocks itself.
 */
 func (socket *socket) SendCommand(command Commander) *commandPayload {
-	log.Infof("&&&&&&&&&&&&&&&&&&&&&&&&&&&&& socket.SendCommand()")
-
-	// Safely add a command to the internal stack
-	socket.commands.Lock()
+	// Add the command to the internal stack and create the payload
+	socket.commands.Set(command)
 	payload := &commandPayload{
 		ID:     command.ID(),
 		Method: command.Method(),
 		Params: command.Params(),
 	}
-	socket.commands.Set(payload.ID, command)
-	socket.commands.Unlock() // Do not defer, HandleCommand() also locks
 
-	log.Infof("&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Sending command %d", payload.ID)
-	log.Debugf("Sending command '%s'", payload)
 	command.WaitGroup().Add(1)
 	if err := socket.Conn().WriteJSON(payload); err != nil {
 		command.Done(nil, err)
@@ -253,6 +243,6 @@ func (socket *socket) HandleCommand(response *Response) {
 			)
 		}
 		command.Done(response.Result, err)
-		log.Infof("Command '%s' complete", command.Method())
+		log.Debugf("%s: #%d '%s' - Command complete", socket.URL(), command.ID(), command.Method())
 	}
 }
