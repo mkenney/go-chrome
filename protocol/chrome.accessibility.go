@@ -3,6 +3,7 @@ package protocol
 import (
 	accessibility "github.com/mkenney/go-chrome/protocol/accessibility"
 	sock "github.com/mkenney/go-chrome/socket"
+	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -28,6 +29,7 @@ func (AccessibilityProtocol) GetPartialAXTree(
 	params *accessibility.PartialAXTreeParams,
 ) (*accessibility.PartialAXTreeResult, error) {
 	command := sock.NewCommand("Accessibility.getPartialAXTree", params)
+	log.Infof("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ command id %d", command.ID())
 	result := &accessibility.PartialAXTreeResult{}
 	socket.SendCommand(command)
 

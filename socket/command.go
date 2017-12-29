@@ -26,6 +26,7 @@ GenerateCommandID generates and returns a unique command ID.
 */
 func GenerateCommandID() int {
 	commandID++
+	log.Infof("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ generated command id %d", commandID)
 	return commandID
 }
 
@@ -95,7 +96,7 @@ func (cmd *command) Done(result []byte, err error) {
 /*
 Error implements Commander.
 */
-func (cmd *command) Error() error {
+func (cmd *command) Error() *chrome_error.Error {
 	return cmd.err
 }
 
@@ -226,6 +227,7 @@ func (socket *socket) SendCommand(command Commander) *commandPayload {
 	socket.commands.Set(payload.ID, command)
 	socket.commands.Unlock() // Do not defer, HandleCommand() also locks
 
+	log.Infof("&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Sending command %d", payload.ID)
 	log.Debugf("Sending command '%s'", payload)
 	command.WaitGroup().Add(1)
 	if err := socket.Conn().WriteJSON(payload); err != nil {

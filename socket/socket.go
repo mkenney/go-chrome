@@ -89,7 +89,7 @@ func (socket *socket) Listen() (err error) {
 		}
 
 		if response.ID > 0 {
-			log.Infof("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Handling Command")
+			log.Infof("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Handling Command %d", response.ID)
 			socket.HandleCommand(response)
 
 		} else {

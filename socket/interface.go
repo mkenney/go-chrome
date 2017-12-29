@@ -2,6 +2,8 @@ package socket
 
 import (
 	"sync"
+
+	chrome_error "github.com/mkenney/go-chrome/error"
 )
 
 /*
@@ -12,7 +14,7 @@ type Commander interface {
 	Done(result []byte, err error)
 
 	// Error returns the current error, if any.
-	Error() error
+	Error() *chrome_error.Error
 
 	// ID returns the command ID
 	ID() int

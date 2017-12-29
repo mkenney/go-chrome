@@ -25,7 +25,6 @@ package protocol
 import (
 	"encoding/json"
 
-	chrome_error "github.com/mkenney/go-chrome/error"
 	"github.com/mkenney/go-chrome/socket"
 )
 
@@ -34,14 +33,14 @@ MarshalResult abstracts marshalling socket.Commander results into protocol data 
 */
 func MarshalResult(command socket.Commander, result interface{}) error {
 	if nil != command.Result() {
-		data, err := json.Marshal(command.Result)
+		data, err := json.Marshal(command.Result())
 		if nil != err {
-			return chrome_error.NewFromErr(err)
+			return err
 		}
 
 		err = json.Unmarshal(data, &result)
 		if nil != err {
-			return chrome_error.NewFromErr(err)
+			return err
 		}
 	}
 	return nil
