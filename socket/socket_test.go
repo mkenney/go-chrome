@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"reflect"
 	"testing"
-
-	log "github.com/sirupsen/logrus"
 )
 
 func TestSocketClose(t *testing.T) {
@@ -24,6 +22,7 @@ func TestSocketConn(t *testing.T) {
 }
 
 func TestGenerateCommandID(t *testing.T) {
+	_commandID = 0
 	for a := 1; a <= 10; a++ {
 		if b := GenerateCommandID(); a != b {
 			t.Errorf("GenerateCommandID() failed to generate predictable IDs: %d expected, %d received", a, b)
@@ -39,8 +38,6 @@ func TestListenCommand(t *testing.T) {
 	MockJSONThrowError = false
 
 	command := NewCommand("Some.method", nil)
-	log.Infof("TestListenCommand: %s", command.ID())
-
 	mockSocket, _ := NewMock("https://www.example.com/command")
 	go mockSocket.Listen()
 	mockSocket.SendCommand(command)
@@ -59,8 +56,6 @@ func TestListenCommandError(t *testing.T) {
 	MockJSONThrowError = false
 
 	command := NewCommand("Some.methodError", nil)
-	log.Infof("TestListenError: %s", command.ID())
-
 	mockSocket, _ := NewMock("https://www.example.com/error")
 	go mockSocket.Listen()
 	mockSocket.SendCommand(command)
