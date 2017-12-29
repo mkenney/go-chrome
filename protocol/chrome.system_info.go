@@ -6,22 +6,24 @@ import (
 )
 
 /*
-SystemInfo is a struct that provides a namespace for the Chrome SystemInfo protocol methods. The
-SystemInfo protocol defines methods and events for querying low-level system information.
-EXPERIMENTAL.
+SystemInfo provides a namespace for the Chrome SystemInfo protocol methods. The SystemInfo protocol
+defines methods and events for querying low-level system information. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/SystemInfo/
 */
-var SystemInfo = _systemInfo{}
+var SystemInfo = SystemInfoProtocol{}
 
-type _systemInfo struct{}
+/*
+SystemInfoProtocol defines the SystemInfo protocol methods.
+*/
+type SystemInfoProtocol struct{}
 
 /*
 GetInfo returns information about the system.
 
 https://chromedevtools.github.io/devtools-protocol/tot/SystemInfo/#method-getInfo
 */
-func (_systemInfo) GetInfo(
+func (SystemInfoProtocol) GetInfo(
 	socket sock.Socketer,
 ) (*systemInfo.GetInfoResult, error) {
 	command := sock.NewCommand("SystemInfo.getInfo", nil)

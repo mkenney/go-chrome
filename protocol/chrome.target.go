@@ -10,21 +10,24 @@ import (
 )
 
 /*
-Target is a struct that provides a namespace for the Chrome Target protocol methods. The Target
-protocol supports additional targets discovery and allows to attach to them.
+Target provides a namespace for the Chrome Target protocol methods. The Target protocol supports
+additional targets discovery and allows to attach to them.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/
 */
-var Target = _target{}
+var Target = TargetProtocol{}
 
-type _target struct{}
+/*
+TargetProtocol defines the Target protocol methods.
+*/
+type TargetProtocol struct{}
 
 /*
 ActivateTarget activates (focuses) the target.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-activateTarget
 */
-func (_target) ActivateTarget(
+func (TargetProtocol) ActivateTarget(
 	socket sock.Socketer,
 	params *target.ActivateTargetParams,
 ) error {
@@ -38,7 +41,7 @@ AttachToTarget attaches to the target with given id.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-attachToTarget
 */
-func (_target) AttachToTarget(
+func (TargetProtocol) AttachToTarget(
 	socket sock.Socketer,
 	params *target.AttachToTargetParams,
 ) error {
@@ -52,7 +55,7 @@ CloseTarget closes the target. If the target is a page that gets closed too.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-closeTarget
 */
-func (_target) CloseTarget(
+func (TargetProtocol) CloseTarget(
 	socket sock.Socketer,
 	params *target.CloseTargetParams,
 ) (*target.CloseTargetResult, error) {
@@ -74,7 +77,7 @@ have more than one. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-createBrowserContext
 */
-func (_target) CreateBrowserContext(
+func (TargetProtocol) CreateBrowserContext(
 	socket sock.Socketer,
 ) (*target.CreateBrowserContextResult, error) {
 	command := sock.NewCommand("Target.createBrowserContext", nil)
@@ -94,7 +97,7 @@ CreateTarget creates a new page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-createTarget
 */
-func (_target) CreateTarget(
+func (TargetProtocol) CreateTarget(
 	socket sock.Socketer,
 	params *target.CreateTargetParams,
 ) (*target.CreateTargetResult, error) {
@@ -115,7 +118,7 @@ DetachFromTarget detaches session with given id.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-detachFromTarget
 */
-func (_target) DetachFromTarget(
+func (TargetProtocol) DetachFromTarget(
 	socket sock.Socketer,
 	params *target.DetachFromTargetParams,
 ) error {
@@ -129,7 +132,7 @@ DisposeBrowserContext deletes a BrowserContext, will fail of any open page uses 
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-disposeBrowserContext
 */
-func (_target) DisposeBrowserContext(
+func (TargetProtocol) DisposeBrowserContext(
 	socket sock.Socketer,
 	params *target.DisposeBrowserContextParams,
 ) error {
@@ -143,7 +146,7 @@ GetTargetInfo returns information about a target. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargetInfo
 */
-func (_target) GetTargetInfo(
+func (TargetProtocol) GetTargetInfo(
 	socket sock.Socketer,
 	params *target.GetTargetInfoParams,
 ) (*target.GetTargetInfoResult, error) {
@@ -164,7 +167,7 @@ GetTargets retrieves a list of available targets.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargets
 */
-func (_target) GetTargets(
+func (TargetProtocol) GetTargets(
 	socket sock.Socketer,
 	params *target.GetTargetsParams,
 ) error {
@@ -178,7 +181,7 @@ SendMessageToTarget sends protocol message over session with given id.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-sendMessageToTarget
 */
-func (_target) SendMessageToTarget(
+func (TargetProtocol) SendMessageToTarget(
 	socket sock.Socketer,
 	params *target.SendMessageToTargetParams,
 ) error {
@@ -192,7 +195,7 @@ SetAttachToFrames EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAttachToFrames
 */
-func (_target) SetAttachToFrames(
+func (TargetProtocol) SetAttachToFrames(
 	socket sock.Socketer,
 	params *target.SetAttachToFramesParams,
 ) error {
@@ -208,7 +211,7 @@ off, automatically detaches from all currently attached targets. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAutoAttach
 */
-func (_target) SetAutoAttach(
+func (TargetProtocol) SetAutoAttach(
 	socket sock.Socketer,
 	params *target.SetAutoAttachParams,
 ) error {
@@ -223,7 +226,7 @@ SetDiscoverTargets controls whether to discover available targets and notify via
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setDiscoverTargets
 */
-func (_target) SetDiscoverTargets(
+func (TargetProtocol) SetDiscoverTargets(
 	socket sock.Socketer,
 	params *target.SetDiscoverTargetsParams,
 ) error {
@@ -238,7 +241,7 @@ was set to `true`. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setRemoteLocations
 */
-func (_target) SetRemoteLocations(
+func (TargetProtocol) SetRemoteLocations(
 	socket sock.Socketer,
 	params *target.SetRemoteLocationsParams,
 ) error {
@@ -254,7 +257,7 @@ command. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-attachedToTarget
 */
-func (_target) OnAttachedToTarget(
+func (TargetProtocol) OnAttachedToTarget(
 	socket sock.Socketer,
 	callback func(event *target.AttachedToTargetEvent),
 ) {
@@ -280,7 +283,7 @@ attached to it. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-detachedFromTarget
 */
-func (_target) OnDetachedFromTarget(
+func (TargetProtocol) OnDetachedFromTarget(
 	socket sock.Socketer,
 	callback func(event *target.DetachedFromTargetEvent),
 ) {
@@ -305,7 +308,7 @@ reported in `attachedToTarget` event).
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-receivedMessageFromTarget
 */
-func (_target) OnReceivedMessageFromTarget(
+func (TargetProtocol) OnReceivedMessageFromTarget(
 	socket sock.Socketer,
 	callback func(event *target.ReceivedMessageFromTargetEvent),
 ) {
@@ -329,7 +332,7 @@ inspection target is created.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-targetCreated
 */
-func (_target) OnTargetCreated(
+func (TargetProtocol) OnTargetCreated(
 	socket sock.Socketer,
 	callback func(event *target.CreatedEvent),
 ) {
@@ -353,7 +356,7 @@ is destroyed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-targetDestroyed
 */
-func (_target) OnTargetDestroyed(
+func (TargetProtocol) OnTargetDestroyed(
 	socket sock.Socketer,
 	callback func(event *target.DestroyedEvent),
 ) {
@@ -378,7 +381,7 @@ some information about a target has changed. This only happens between `targetCr
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-targetInfoChanged
 */
-func (_target) OnTargetInfoChanged(
+func (TargetProtocol) OnTargetInfoChanged(
 	socket sock.Socketer,
 	callback func(event *target.InfoChangedEvent),
 ) {

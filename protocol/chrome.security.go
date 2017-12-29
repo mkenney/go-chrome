@@ -10,20 +10,23 @@ import (
 )
 
 /*
-Security is a struct that provides a namespace for the Chrome Security protocol methods.
+Security provides a namespace for the Chrome Security protocol methods.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/
 */
-var Security = _security{}
+var Security = SecurityProtocol{}
 
-type _security struct{}
+/*
+SecurityProtocol defines the Security protocol methods.
+*/
+type SecurityProtocol struct{}
 
 /*
 Disable disables tracking security state changes.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-disable
 */
-func (_security) Disable(
+func (SecurityProtocol) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Security.disable", nil)
@@ -36,7 +39,7 @@ Enable tracking security state changes.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-enable
 */
-func (_security) Enable(
+func (SecurityProtocol) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Security.enable", nil)
@@ -50,7 +53,7 @@ EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setIgnoreCertificateErrors
 */
-func (_security) SetIgnoreCertificateErrors(
+func (SecurityProtocol) SetIgnoreCertificateErrors(
 	socket sock.Socketer,
 	params *security.SetIgnoreCertificateErrorsParams,
 ) error {
@@ -64,7 +67,7 @@ HandleCertificateError handles a certificate error that fired a certificateError
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-handleCertificateError
 */
-func (_security) HandleCertificateError(
+func (SecurityProtocol) HandleCertificateError(
 	socket sock.Socketer,
 	params *security.HandleCertificateErrorParams,
 ) error {
@@ -80,7 +83,7 @@ handleCertificateError commands.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setOverrideCertificateErrors
 */
-func (_security) SetOverrideCertificateErrors(
+func (SecurityProtocol) SetOverrideCertificateErrors(
 	socket sock.Socketer,
 	params *security.SetOverrideCertificateErrorsParams,
 ) error {
@@ -97,7 +100,7 @@ certificate error has been allowed internally.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#event-certificateError
 */
-func (_security) OnCertificateError(
+func (SecurityProtocol) OnCertificateError(
 	socket sock.Socketer,
 	callback func(event *security.CertificateErrorEvent),
 ) {
@@ -121,7 +124,7 @@ fires when the security state of the page changed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#event-securityStateChanged
 */
-func (_security) OnSecurityStateChanged(
+func (SecurityProtocol) OnSecurityStateChanged(
 	socket sock.Socketer,
 	callback func(event *security.StateChangedEvent),
 ) {

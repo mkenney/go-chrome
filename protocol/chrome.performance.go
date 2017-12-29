@@ -10,20 +10,23 @@ import (
 )
 
 /*
-Performance is a struct that provides a namespace for the Chrome Performance protocol methods.
+Performance provides a namespace for the Chrome Performance protocol methods.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/
 */
-var Performance = _performance{}
+var Performance = PerformanceProtocol{}
 
-type _performance struct{}
+/*
+PerformanceProtocol defines the Performance protocol methods.
+*/
+type PerformanceProtocol struct{}
 
 /*
 Disable disables collecting and reporting metrics.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-disable
 */
-func (_performance) Disable(
+func (PerformanceProtocol) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Performance.disable", nil)
@@ -36,7 +39,7 @@ Enable enables collecting and reporting metrics.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-enable
 */
-func (_performance) Enable(
+func (PerformanceProtocol) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Performance.enable", nil)
@@ -49,7 +52,7 @@ GetMetrics retrieves current values of run-time metrics.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-getMetrics
 */
-func (_performance) GetMetrics(
+func (PerformanceProtocol) GetMetrics(
 	socket sock.Socketer,
 ) (*performance.GetMetricsResult, error) {
 	command := sock.NewCommand("Performance.getMetrics", nil)
@@ -70,7 +73,7 @@ values of the metrics.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#event-metrics
 */
-func (_performance) OnMetrics(
+func (PerformanceProtocol) OnMetrics(
 	socket sock.Socketer,
 	callback func(event *performance.MetricsEvent),
 ) {

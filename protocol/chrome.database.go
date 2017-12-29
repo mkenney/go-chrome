@@ -10,21 +10,23 @@ import (
 )
 
 /*
-Database is a struct that provides a namespace for the Chrome Database protocol methods.
-EXPERIMENTAL.
+Database provides a namespace for the Chrome Database protocol methods. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/
 */
-var Database = _database{}
+var Database = DatabaseProtocol{}
 
-type _database struct{}
+/*
+DatabaseProtocol defines the Database protocol methods.
+*/
+type DatabaseProtocol struct{}
 
 /*
 Disable disables database tracking, prevents database events from being sent to the client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-disable
 */
-func (_database) Disable(
+func (DatabaseProtocol) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Database.disable", nil)
@@ -37,7 +39,7 @@ Enable enables database tracking, database events will now be delivered to the c
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-enable
 */
-func (_database) Enable(
+func (DatabaseProtocol) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Database.enable", nil)
@@ -50,7 +52,7 @@ ExecuteSQL executes a SQL query.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-executeSQL
 */
-func (_database) ExecuteSQL(
+func (DatabaseProtocol) ExecuteSQL(
 	socket sock.Socketer,
 	params *database.ExecuteSQLParams,
 ) (*database.ExecuteSQLResult, error) {
@@ -71,7 +73,7 @@ GetTableNames gets database table names.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-getDatabaseTableNames
 */
-func (_database) GetTableNames(
+func (DatabaseProtocol) GetTableNames(
 	socket sock.Socketer,
 	params *database.GetTableNamesParams,
 ) error {
@@ -86,7 +88,7 @@ whenever a database is added
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#event-addDatabase
 */
-func (_database) OnAdd(
+func (DatabaseProtocol) OnAdd(
 	socket sock.Socketer,
 	callback func(event *database.AddEvent),
 ) {

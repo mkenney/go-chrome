@@ -10,21 +10,24 @@ import (
 )
 
 /*
-Overlay is a struct that provides a namespace for the Chrome Overlay protocol methods. The Overlay
-protocol provides various functionality related to drawing atop the inspected page. EXPERIMENTAL.
+Overlay provides a namespace for the Chrome Overlay protocol methods. The Overlay protocol provides
+various functionality related to drawing atop the inspected page. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/
 */
-var Overlay = _overlay{}
+var Overlay = OverlayProtocol{}
 
-type _overlay struct{}
+/*
+OverlayProtocol defines the Overlay protocol methods.
+*/
+type OverlayProtocol struct{}
 
 /*
 Disable disables domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-disable
 */
-func (_overlay) Disable(
+func (OverlayProtocol) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Overlay.disable", nil)
@@ -37,7 +40,7 @@ Enable enables domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-enable
 */
-func (_overlay) Enable(
+func (OverlayProtocol) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Overlay.enable", nil)
@@ -50,7 +53,7 @@ GetHighlightObjectForTest is for testing.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-getHighlightObjectForTest
 */
-func (_overlay) GetHighlightObjectForTest(
+func (OverlayProtocol) GetHighlightObjectForTest(
 	socket sock.Socketer,
 	params *overlay.GetHighlightObjectForTestParams,
 ) (*overlay.GetHighlightObjectForTestResult, error) {
@@ -71,7 +74,7 @@ HideHighlight hides any highlight.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-hideHighlight
 */
-func (_overlay) HideHighlight(
+func (OverlayProtocol) HideHighlight(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Overlay.hideHighlight", nil)
@@ -84,7 +87,7 @@ HighlightFrame highlights owner element of the frame with given ID.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightFrame
 */
-func (_overlay) HighlightFrame(
+func (OverlayProtocol) HighlightFrame(
 	socket sock.Socketer,
 	params *overlay.HighlightFrameParams,
 ) error {
@@ -99,7 +102,7 @@ nodeID or objectID must be specified.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightNode
 */
-func (_overlay) HighlightNode(
+func (OverlayProtocol) HighlightNode(
 	socket sock.Socketer,
 	params *overlay.HighlightNodeParams,
 ) error {
@@ -114,7 +117,7 @@ viewport.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightQuad
 */
-func (_overlay) HighlightQuad(
+func (OverlayProtocol) HighlightQuad(
 	socket sock.Socketer,
 	params *overlay.HighlightQuadParams,
 ) error {
@@ -129,7 +132,7 @@ viewport.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightRect
 */
-func (_overlay) HighlightRect(
+func (OverlayProtocol) HighlightRect(
 	socket sock.Socketer,
 	params *overlay.HighlightRectParams,
 ) error {
@@ -144,7 +147,7 @@ highlighted. Backend then generates 'inspectNodeRequested' event upon element se
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setInspectMode
 */
-func (_overlay) SetInspectMode(
+func (OverlayProtocol) SetInspectMode(
 	socket sock.Socketer,
 	params *overlay.SetInspectModeParams,
 ) error {
@@ -158,7 +161,7 @@ SetPausedInDebuggerMessage sets the paused message
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setPausedInDebuggerMessage
 */
-func (_overlay) SetPausedInDebuggerMessage(
+func (OverlayProtocol) SetPausedInDebuggerMessage(
 	socket sock.Socketer,
 	params *overlay.SetPausedInDebuggerMessageParams,
 ) error {
@@ -172,7 +175,7 @@ SetShowDebugBorders requests that backend shows debug borders on layers.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowDebugBorders
 */
-func (_overlay) SetShowDebugBorders(
+func (OverlayProtocol) SetShowDebugBorders(
 	socket sock.Socketer,
 	params *overlay.SetShowDebugBordersParams,
 ) error {
@@ -186,7 +189,7 @@ SetShowFPSCounter requests that backend shows the FPS counter.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowFPSCounter
 */
-func (_overlay) SetShowFPSCounter(
+func (OverlayProtocol) SetShowFPSCounter(
 	socket sock.Socketer,
 	params *overlay.SetShowFPSCounterParams,
 ) error {
@@ -200,7 +203,7 @@ SetShowPaintRects that backend shows paint rectangles.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowPaintRects
 */
-func (_overlay) SetShowPaintRects(
+func (OverlayProtocol) SetShowPaintRects(
 	socket sock.Socketer,
 	params *overlay.SetShowPaintRectsParams,
 ) error {
@@ -214,7 +217,7 @@ SetShowScrollBottleneckRects requests that backend shows scroll bottleneck rects
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowScrollBottleneckRects
 */
-func (_overlay) SetShowScrollBottleneckRects(
+func (OverlayProtocol) SetShowScrollBottleneckRects(
 	socket sock.Socketer,
 	params *overlay.SetShowScrollBottleneckRectsParams,
 ) error {
@@ -228,7 +231,7 @@ SetShowViewportSizeOnResize paints viewport size upon main frame resize.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowViewportSizeOnResize
 */
-func (_overlay) SetShowViewportSizeOnResize(
+func (OverlayProtocol) SetShowViewportSizeOnResize(
 	socket sock.Socketer,
 	params *overlay.SetShowViewportSizeOnResizeParams,
 ) error {
@@ -242,7 +245,7 @@ SetSuspended sets the suspended state
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setSuspended
 */
-func (_overlay) SetSuspended(
+func (OverlayProtocol) SetSuspended(
 	socket sock.Socketer,
 	params *overlay.SetSuspendedParams,
 ) error {
@@ -258,7 +261,7 @@ Overlay.inspectNodeRequested fires when the node should be inspected. This happe
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#event-inspectNodeRequested
 */
-func (_overlay) OnInspectNodeRequested(
+func (OverlayProtocol) OnInspectNodeRequested(
 	socket sock.Socketer,
 	callback func(event *overlay.InspectNodeRequestedEvent),
 ) {
@@ -283,7 +286,7 @@ Overlay.nodeHighlightRequested fires when the node should be highlighted. This h
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#event-nodeHighlightRequested
 */
-func (_overlay) OnNodeHighlightRequested(
+func (OverlayProtocol) OnNodeHighlightRequested(
 	socket sock.Socketer,
 	callback func(event *overlay.NodeHighlightRequestedEvent),
 ) {
@@ -307,7 +310,7 @@ Overlay.screenshotRequested fires when user asks to capture screenshot of some a
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#event-screenshotRequested
 */
-func (_overlay) OnScreenshotRequested(
+func (OverlayProtocol) OnScreenshotRequested(
 	socket sock.Socketer,
 	callback func(event *overlay.ScreenshotRequestedEvent),
 ) {

@@ -10,22 +10,25 @@ import (
 )
 
 /*
-Network is a struct that provides a namespace for the Chrome Network protocol methods. The Network
-protocol allows tracking network activities of the page. It exposes information about http, file,
-data and other requests and responses, their headers, bodies, timing, etc.
+Network provides a namespace for the Chrome Network protocol methods. The Network protocol allows
+tracking network activities of the page. It exposes information about http, file, data and other
+requests and responses, their headers, bodies, timing, etc.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/
 */
-var Network = _network{}
+var Network = NetworkProtocol{}
 
-type _network struct{}
+/*
+NetworkProtocol defines the Network protocol methods.
+*/
+type NetworkProtocol struct{}
 
 /*
 CanClearBrowserCache tells whether clearing browser cache is supported. DEPRECATED.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canClearBrowserCache
 */
-func (_network) CanClearBrowserCache(
+func (NetworkProtocol) CanClearBrowserCache(
 	socket sock.Socketer,
 ) (*network.CanClearBrowserCacheResult, error) {
 	command := sock.NewCommand("Network.canClearBrowserCache", nil)
@@ -45,7 +48,7 @@ CanClearBrowserCookies tells whether clearing browser cookies is supported. DEPR
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canClearBrowserCookies
 */
-func (_network) CanClearBrowserCookies(
+func (NetworkProtocol) CanClearBrowserCookies(
 	socket sock.Socketer,
 ) (*network.CanClearBrowserCookiesResult, error) {
 	command := sock.NewCommand("Network.canClearBrowserCookies", nil)
@@ -65,7 +68,7 @@ CanEmulateConditions tells whether emulation of network conditions is supported.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canEmulateNetworkConditions
 */
-func (_network) CanEmulateConditions(
+func (NetworkProtocol) CanEmulateConditions(
 	socket sock.Socketer,
 ) (*network.CanEmulateConditionsResult, error) {
 	command := sock.NewCommand("Network.canEmulateNetworkConditions", nil)
@@ -85,7 +88,7 @@ ClearBrowserCache clears browser cache.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-clearBrowserCache
 */
-func (_network) ClearBrowserCache(
+func (NetworkProtocol) ClearBrowserCache(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Network.clearBrowserCache", nil)
@@ -98,7 +101,7 @@ ClearBrowserCookies clears browser cookies.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-clearBrowserCookies
 */
-func (_network) ClearBrowserCookies(
+func (NetworkProtocol) ClearBrowserCookies(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Network.clearBrowserCookies", nil)
@@ -114,7 +117,7 @@ Network.requestIntercepted event will be sent with the same InterceptionID. EXPE
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-continueInterceptedRequest
 */
-func (_network) ContinueInterceptedRequest(
+func (NetworkProtocol) ContinueInterceptedRequest(
 	socket sock.Socketer,
 	params *network.ContinueInterceptedRequestParams,
 ) error {
@@ -128,7 +131,7 @@ DeleteCookies deletes browser cookies with matching name and url or domain/path 
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-deleteCookies
 */
-func (_network) DeleteCookies(
+func (NetworkProtocol) DeleteCookies(
 	socket sock.Socketer,
 	params *network.DeleteCookiesParams,
 ) error {
@@ -142,7 +145,7 @@ Disable disables network tracking, prevents network events from being sent to th
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-disable
 */
-func (_network) Disable(
+func (NetworkProtocol) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Network.disable", nil)
@@ -155,7 +158,7 @@ EmulateConditions activates emulation of network conditions.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-emulateNetworkConditions
 */
-func (_network) EmulateConditions(
+func (NetworkProtocol) EmulateConditions(
 	socket sock.Socketer,
 	params *network.EmulateConditionsParams,
 ) error {
@@ -169,7 +172,7 @@ Enable enables network tracking, network events will now be delivered to the cli
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-enable
 */
-func (_network) Enable(
+func (NetworkProtocol) Enable(
 	socket sock.Socketer,
 	params *network.EnableParams,
 ) error {
@@ -184,7 +187,7 @@ cookie information in the `cookies` field.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getAllCookies
 */
-func (_network) GetAllCookies(
+func (NetworkProtocol) GetAllCookies(
 	socket sock.Socketer,
 ) (*network.GetAllCookiesResult, error) {
 	command := sock.NewCommand("Network.getAllCookies", nil)
@@ -204,7 +207,7 @@ GetCertificate returns the DER-encoded certificate. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getCertificate
 */
-func (_network) GetCertificate(
+func (NetworkProtocol) GetCertificate(
 	socket sock.Socketer,
 	params *network.GetCertificateParams,
 ) (*network.GetCertificateResult, error) {
@@ -226,7 +229,7 @@ return detailed cookie information in the `cookies` field.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getCookies
 */
-func (_network) GetCookies(
+func (NetworkProtocol) GetCookies(
 	socket sock.Socketer,
 	params *network.GetCookiesParams,
 ) (*network.GetCookiesResult, error) {
@@ -247,7 +250,7 @@ GetResponseBody returns content served for the given request.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getResponseBody
 */
-func (_network) GetResponseBody(
+func (NetworkProtocol) GetResponseBody(
 	socket sock.Socketer,
 	params *network.GetResponseBodyParams,
 ) (*network.GetResponseBodyResult, error) {
@@ -269,7 +272,7 @@ EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getResponseBodyForInterception
 */
-func (_network) GetResponseBodyForInterception(
+func (NetworkProtocol) GetResponseBodyForInterception(
 	socket sock.Socketer,
 	params *network.GetResponseBodyForInterceptionParams,
 ) (*network.GetResponseBodyForInterceptionResult, error) {
@@ -292,7 +295,7 @@ attribute, user, password. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-replayXHR
 */
-func (_network) ReplayXHR(
+func (NetworkProtocol) ReplayXHR(
 	socket sock.Socketer,
 	params *network.ReplayXHRParams,
 ) error {
@@ -306,7 +309,7 @@ SearchInResponseBody searches for given string in response content. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-searchInResponseBody
 */
-func (_network) SearchInResponseBody(
+func (NetworkProtocol) SearchInResponseBody(
 	socket sock.Socketer,
 	params *network.SearchInResponseBodyParams,
 ) (*network.SearchInResponseBodyResult, error) {
@@ -327,7 +330,7 @@ SetBlockedURLs blocks URLs from loading. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setBlockedURLs
 */
-func (_network) SetBlockedURLs(
+func (NetworkProtocol) SetBlockedURLs(
 	socket sock.Socketer,
 	params *network.SetBlockedURLsParams,
 ) error {
@@ -341,7 +344,7 @@ SetBypassServiceWorker toggles ignoring of service worker for each request. EXPE
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setBypassServiceWorker
 */
-func (_network) SetBypassServiceWorker(
+func (NetworkProtocol) SetBypassServiceWorker(
 	socket sock.Socketer,
 	params *network.SetBypassServiceWorkerParams,
 ) error {
@@ -355,7 +358,7 @@ SetCacheDisabled toggles ignoring cache for each request. If `true`, cache will 
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCacheDisabled
 */
-func (_network) SetCacheDisabled(
+func (NetworkProtocol) SetCacheDisabled(
 	socket sock.Socketer,
 	params *network.SetCacheDisabledParams,
 ) error {
@@ -369,7 +372,7 @@ SetCookie sets a cookie with the given cookie data; may overwrite equivalent coo
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCookie
 */
-func (_network) SetCookie(
+func (NetworkProtocol) SetCookie(
 	socket sock.Socketer,
 	params *network.SetCookieParams,
 ) (*network.SetCookieResult, error) {
@@ -390,7 +393,7 @@ SetCookies sets given cookies.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCookies
 */
-func (_network) SetCookies(
+func (NetworkProtocol) SetCookies(
 	socket sock.Socketer,
 	params *network.SetCookiesParams,
 ) error {
@@ -404,7 +407,7 @@ SetDataSizeLimitsForTest is for testing. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setDataSizeLimitsForTest
 */
-func (_network) SetDataSizeLimitsForTest(
+func (NetworkProtocol) SetDataSizeLimitsForTest(
 	socket sock.Socketer,
 	params *network.SetDataSizeLimitsForTestParams,
 ) error {
@@ -419,7 +422,7 @@ page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setExtraHTTPHeaders
 */
-func (_network) SetExtraHTTPHeaders(
+func (NetworkProtocol) SetExtraHTTPHeaders(
 	socket sock.Socketer,
 	params *network.SetExtraHTTPHeadersParams,
 ) error {
@@ -434,7 +437,7 @@ optionally resource types. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setRequestInterception
 */
-func (_network) SetRequestInterception(
+func (NetworkProtocol) SetRequestInterception(
 	socket sock.Socketer,
 	params *network.SetRequestInterceptionParams,
 ) error {
@@ -448,7 +451,7 @@ SetUserAgentOverride allows overriding user agent with the given string.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setUserAgentOverride
 */
-func (_network) SetUserAgentOverride(
+func (NetworkProtocol) SetUserAgentOverride(
 	socket sock.Socketer,
 	params *network.SetUserAgentOverrideParams,
 ) error {
@@ -463,7 +466,7 @@ data chunk was received over the network.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-dataReceived
 */
-func (_network) OnDataReceived(
+func (NetworkProtocol) OnDataReceived(
 	socket sock.Socketer,
 	callback func(event *network.DataReceivedEvent),
 ) {
@@ -487,7 +490,7 @@ Network.eventSourceMessageReceived fires when EventSource message is received.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-eventSourceMessageReceived
 */
-func (_network) OnEventSourceMessageReceived(
+func (NetworkProtocol) OnEventSourceMessageReceived(
 	socket sock.Socketer,
 	callback func(event *network.EventSourceMessageReceivedEvent),
 ) {
@@ -511,7 +514,7 @@ HTTP request has failed to load.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-loadingFailed
 */
-func (_network) OnLoadingFailed(
+func (NetworkProtocol) OnLoadingFailed(
 	socket sock.Socketer,
 	callback func(event *network.LoadingFailedEvent),
 ) {
@@ -535,7 +538,7 @@ when HTTP request has finished loading.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-loadingFinished
 */
-func (_network) OnLoadingFinished(
+func (NetworkProtocol) OnLoadingFinished(
 	socket sock.Socketer,
 	callback func(event *network.LoadingFinishedEvent),
 ) {
@@ -560,7 +563,7 @@ be either allowed, blocked, modified or mocked. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-requestIntercepted
 */
-func (_network) OnRequestIntercepted(
+func (NetworkProtocol) OnRequestIntercepted(
 	socket sock.Socketer,
 	callback func(event *network.RequestInterceptedEvent),
 ) {
@@ -584,7 +587,7 @@ Network.requestServedFromCache fires when request ended up loading from cache.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-requestServedFromCache
 */
-func (_network) OnRequestServedFromCache(
+func (NetworkProtocol) OnRequestServedFromCache(
 	socket sock.Socketer,
 	callback func(event *network.RequestServedFromCacheEvent),
 ) {
@@ -608,7 +611,7 @@ fires when the page is about to send HTTP request.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-requestWillBeSent
 */
-func (_network) OnRequestWillBeSent(
+func (NetworkProtocol) OnRequestWillBeSent(
 	socket sock.Socketer,
 	callback func(event *network.RequestWillBeSentEvent),
 ) {
@@ -632,7 +635,7 @@ Network.resourceChangedPriority fires when resource loading priority is changed 
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-resourceChangedPriority
 */
-func (_network) OnResourceChangedPriority(
+func (NetworkProtocol) OnResourceChangedPriority(
 	socket sock.Socketer,
 	callback func(event *network.ResourceChangedPriorityEvent),
 ) {
@@ -656,7 +659,7 @@ fires when HTTP response is available.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-responseReceived
 */
-func (_network) OnResponseReceived(
+func (NetworkProtocol) OnResponseReceived(
 	socket sock.Socketer,
 	callback func(event *network.ResponseReceivedEvent),
 ) {
@@ -680,7 +683,7 @@ fires when WebSocket is closed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketClosed
 */
-func (_network) OnWebSocketClosed(
+func (NetworkProtocol) OnWebSocketClosed(
 	socket sock.Socketer,
 	callback func(event *network.WebSocketClosedEvent),
 ) {
@@ -704,7 +707,7 @@ fires upon WebSocket creation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketCreated
 */
-func (_network) OnWebSocketCreated(
+func (NetworkProtocol) OnWebSocketCreated(
 	socket sock.Socketer,
 	callback func(event *network.WebSocketCreatedEvent),
 ) {
@@ -728,7 +731,7 @@ Network.webSocketFrameError fires when a WebSocket frame error occurs.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketFrameError
 */
-func (_network) OnWebSocketFrameError(
+func (NetworkProtocol) OnWebSocketFrameError(
 	socket sock.Socketer,
 	callback func(event *network.WebSocketFrameErrorEvent),
 ) {
@@ -752,7 +755,7 @@ Network.webSocketFrameReceived fires when WebSocket frame is received.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketFrameReceived
 */
-func (_network) OnWebSocketFrameReceived(
+func (NetworkProtocol) OnWebSocketFrameReceived(
 	socket sock.Socketer,
 	callback func(event *network.WebSocketFrameReceivedEvent),
 ) {
@@ -776,7 +779,7 @@ Network.webSocketFrameSent fires when WebSocket frame is sent.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketFrameSent
 */
-func (_network) OnWebSocketFrameSent(
+func (NetworkProtocol) OnWebSocketFrameSent(
 	socket sock.Socketer,
 	callback func(event *network.WebSocketFrameSentEvent),
 ) {
@@ -801,7 +804,7 @@ when WebSocket handshake response becomes available.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketHandshakeResponseReceived
 */
-func (_network) OnWebSocketHandshakeResponseReceived(
+func (NetworkProtocol) OnWebSocketHandshakeResponseReceived(
 	socket sock.Socketer,
 	callback func(event *network.WebSocketHandshakeResponseReceivedEvent),
 ) {
@@ -826,7 +829,7 @@ when WebSocket is about to initiate handshake.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketWillSendHandshakeRequest
 */
-func (_network) OnWebSocketWillSendHandshakeRequest(
+func (NetworkProtocol) OnWebSocketWillSendHandshakeRequest(
 	socket sock.Socketer,
 	callback func(event *network.WebSocketWillSendHandshakeRequestEvent),
 ) {

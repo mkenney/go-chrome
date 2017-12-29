@@ -6,21 +6,24 @@ import (
 )
 
 /*
-DeviceOrientation is a struct that provides a namespace for the Chrome DeviceOrientation protocol
-methods. EXPERIMENTAL.
+DeviceOrientation provides a namespace for the Chrome DeviceOrientation protocol methods.
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/
 */
-var DeviceOrientation = _deviceOrientation{}
+var DeviceOrientation = DeviceOrientationProtocol{}
 
-type _deviceOrientation struct{}
+/*
+DeviceOrientationProtocol defines the DeviceOrientation protocol methods.
+*/
+type DeviceOrientationProtocol struct{}
 
 /*
 ClearOverride clears the overridden Device Orientation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/#method-clearDeviceOrientationOverride
 */
-func (_deviceOrientation) ClearOverride(
+func (DeviceOrientationProtocol) ClearOverride(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("DeviceOrientation.clearDeviceOrientationOverride", nil)
@@ -33,7 +36,7 @@ SetOverride overrides the Device Orientation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/#method-setDeviceOrientationOverride
 */
-func (_deviceOrientation) SetOverride(
+func (DeviceOrientationProtocol) SetOverride(
 	socket sock.Socketer,
 	params *deviceOrientation.SetOverrideParams,
 ) error {

@@ -10,14 +10,16 @@ import (
 )
 
 /*
-HeapProfiler is a struct that provides a namespace for the Chrome HeapProfiler protocol methods.
-EXPERIMENTAL.
+HeapProfiler provides a namespace for the Chrome HeapProfiler protocol methods. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/
 */
-var HeapProfiler = _heapProfiler{}
+var HeapProfiler = HeapProfilerProtocol{}
 
-type _heapProfiler struct{}
+/*
+HeapProfilerProtocol defines the HeapProfiler protocol methods.
+*/
+type HeapProfilerProtocol struct{}
 
 /*
 AddInspectedHeapObject enables console to refer to the node with given id via $x (see Command Line
@@ -25,7 +27,7 @@ API for more details $x functions).
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-addInspectedHeapObject
 */
-func (_heapProfiler) AddInspectedHeapObject(
+func (HeapProfilerProtocol) AddInspectedHeapObject(
 	socket sock.Socketer,
 	params *heapProfiler.AddInspectedHeapObjectParams,
 ) error {
@@ -39,7 +41,7 @@ CollectGarbage EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-collectGarbage
 */
-func (_heapProfiler) CollectGarbage(
+func (HeapProfilerProtocol) CollectGarbage(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("HeapProfiler.collectGarbage", nil)
@@ -52,7 +54,7 @@ Disable disables the HeapProfiler.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-disable
 */
-func (_heapProfiler) Disable(
+func (HeapProfilerProtocol) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("HeapProfiler.disable", nil)
@@ -65,7 +67,7 @@ Enable enables the HeapProfiler.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-enable
 */
-func (_heapProfiler) Enable(
+func (HeapProfilerProtocol) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("HeapProfiler.enable", nil)
@@ -78,7 +80,7 @@ GetHeapObjectID EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getHeapObjectId
 */
-func (_heapProfiler) GetHeapObjectID(
+func (HeapProfilerProtocol) GetHeapObjectID(
 	socket sock.Socketer,
 	params *heapProfiler.GetHeapObjectIDParams,
 ) (*heapProfiler.GetHeapObjectIDResult, error) {
@@ -99,7 +101,7 @@ GetObjectByHeapObjectID EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getObjectByHeapObjectId
 */
-func (_heapProfiler) GetObjectByHeapObjectID(
+func (HeapProfilerProtocol) GetObjectByHeapObjectID(
 	socket sock.Socketer,
 	params *heapProfiler.GetObjectByHeapObjectIDParams,
 ) (*heapProfiler.GetObjectByHeapObjectIDResult, error) {
@@ -120,7 +122,7 @@ GetSamplingProfile EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getSamplingProfile
 */
-func (_heapProfiler) GetSamplingProfile(
+func (HeapProfilerProtocol) GetSamplingProfile(
 	socket sock.Socketer,
 	params *heapProfiler.GetSamplingProfileParams,
 ) error {
@@ -134,7 +136,7 @@ StartSampling EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-startSampling
 */
-func (_heapProfiler) StartSampling(
+func (HeapProfilerProtocol) StartSampling(
 	socket sock.Socketer,
 	params *heapProfiler.StartSamplingParams,
 ) error {
@@ -148,7 +150,7 @@ StartTrackingHeapObjects EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-startTrackingHeapObjects
 */
-func (_heapProfiler) StartTrackingHeapObjects(
+func (HeapProfilerProtocol) StartTrackingHeapObjects(
 	socket sock.Socketer,
 	params *heapProfiler.StartTrackingHeapObjectsParams,
 ) error {
@@ -162,7 +164,7 @@ StopSampling EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stopSampling
 */
-func (_heapProfiler) StopSampling(
+func (HeapProfilerProtocol) StopSampling(
 	socket sock.Socketer,
 	params *heapProfiler.StopSamplingParams,
 ) error {
@@ -176,7 +178,7 @@ StopTrackingHeapObjects EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stopTrackingHeapObjects
 */
-func (_heapProfiler) StopTrackingHeapObjects(
+func (HeapProfilerProtocol) StopTrackingHeapObjects(
 	socket sock.Socketer,
 	params *heapProfiler.StopTrackingHeapObjectsParams,
 ) error {
@@ -190,7 +192,7 @@ TakeHeapSnapshot EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-takeHeapSnapshot
 */
-func (_heapProfiler) TakeHeapSnapshot(
+func (HeapProfilerProtocol) TakeHeapSnapshot(
 	socket sock.Socketer,
 	params *heapProfiler.TakeHeapSnapshotParams,
 ) error {
@@ -204,7 +206,7 @@ OnAddHeapSnapshotChunk adds a handler to the HeapProfiler.AddHeapSnapshotChunk e
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-addHeapSnapshotChunk
 */
-func (_heapProfiler) OnAddHeapSnapshotChunk(
+func (HeapProfilerProtocol) OnAddHeapSnapshotChunk(
 	socket sock.Socketer,
 	callback func(event *heapProfiler.AddHeapSnapshotChunkEvent),
 ) {
@@ -228,7 +230,7 @@ objects tracking has been started then backend may send update for one or more f
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-heapStatsUpdate
 */
-func (_heapProfiler) OnHeapStatsUpdate(
+func (HeapProfilerProtocol) OnHeapStatsUpdate(
 	socket sock.Socketer,
 	callback func(event *heapProfiler.HeapStatsUpdateEvent),
 ) {
@@ -254,7 +256,7 @@ more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-lastSeenObjectId
 */
-func (_heapProfiler) OnLastSeenObjectID(
+func (HeapProfilerProtocol) OnLastSeenObjectID(
 	socket sock.Socketer,
 	callback func(event *heapProfiler.LastSeenObjectIDEvent),
 ) {
@@ -278,7 +280,7 @@ EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-reportHeapSnapshotProgress
 */
-func (_heapProfiler) OnReportHeapSnapshotProgress(
+func (HeapProfilerProtocol) OnReportHeapSnapshotProgress(
 	socket sock.Socketer,
 	callback func(event *heapProfiler.ReportHeapSnapshotProgressEvent),
 ) {
@@ -301,7 +303,7 @@ OnResetProfiles adds a handler to the HeapProfiler.ResetProfiles event. EXPERIME
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-resetProfiles
 */
-func (_heapProfiler) OnResetProfiles(
+func (HeapProfilerProtocol) OnResetProfiles(
 	socket sock.Socketer,
 	callback func(event *heapProfiler.ResetProfilesEvent),
 ) {

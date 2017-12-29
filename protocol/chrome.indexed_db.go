@@ -6,21 +6,23 @@ import (
 )
 
 /*
-IndexedDB is a struct that provides a namespace for the Chrome IndexedDB protocol methods.
-EXPERIMENTAL.
+IndexedDB provides a namespace for the Chrome IndexedDB protocol methods. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/
 */
-var IndexedDB = _indexedDB{}
+var IndexedDB = IndexedDBProtocol{}
 
-type _indexedDB struct{}
+/*
+IndexedDBProtocol defines the IndexedDB protocol methods.
+*/
+type IndexedDBProtocol struct{}
 
 /*
 ClearObjectStore clears all entries from an object store.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-clearObjectStore
 */
-func (_indexedDB) ClearObjectStore(
+func (IndexedDBProtocol) ClearObjectStore(
 	socket sock.Socketer,
 	params *indexedDB.ClearObjectStoreParams,
 ) error {
@@ -34,7 +36,7 @@ DeleteDatabase deletes a database.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-deleteDatabase
 */
-func (_indexedDB) DeleteDatabase(
+func (IndexedDBProtocol) DeleteDatabase(
 	socket sock.Socketer,
 	params *indexedDB.DeleteDatabaseParams,
 ) error {
@@ -48,7 +50,7 @@ DeleteObjectStoreEntries deletes a range of entries from an object store.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-deleteObjectStoreEntries
 */
-func (_indexedDB) DeleteObjectStoreEntries(
+func (IndexedDBProtocol) DeleteObjectStoreEntries(
 	socket sock.Socketer,
 	params *indexedDB.DeleteObjectStoreEntriesParams,
 ) error {
@@ -62,7 +64,7 @@ Disable disables events from backend.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-disable
 */
-func (_indexedDB) Disable(
+func (IndexedDBProtocol) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("IndexedDB.disable", nil)
@@ -75,7 +77,7 @@ Enable enables events from backend.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-enable
 */
-func (_indexedDB) Enable(
+func (IndexedDBProtocol) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("IndexedDB.enable", nil)
@@ -88,7 +90,7 @@ RequestData requests data from object store or index.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestData
 */
-func (_indexedDB) RequestData(
+func (IndexedDBProtocol) RequestData(
 	socket sock.Socketer,
 	params *indexedDB.RequestDataParams,
 ) (*indexedDB.RequestDataResult, error) {
@@ -109,7 +111,7 @@ RequestDatabase requests database with given name in given frame.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestDatabase
 */
-func (_indexedDB) RequestDatabase(
+func (IndexedDBProtocol) RequestDatabase(
 	socket sock.Socketer,
 	params *indexedDB.RequestDatabaseParams,
 ) (*indexedDB.RequestDatabaseResult, error) {
@@ -130,7 +132,7 @@ RequestDatabaseNames requests database names for given security origin.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestDatabaseNames
 */
-func (_indexedDB) RequestDatabaseNames(
+func (IndexedDBProtocol) RequestDatabaseNames(
 	socket sock.Socketer,
 	params *indexedDB.RequestDatabaseNamesParams,
 ) (*indexedDB.RequestDatabaseNamesResult, error) {

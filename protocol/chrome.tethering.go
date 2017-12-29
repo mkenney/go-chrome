@@ -10,21 +10,24 @@ import (
 )
 
 /*
-Tethering is a struct that provides a namespace for the Chrome Tethering protocol methods. The
-Tethering protocol defines methods and events for browser port binding.
+Tethering provides a namespace for the Chrome Tethering protocol methods. The Tethering protocol
+defines methods and events for browser port binding.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tethering/
 */
-var Tethering = _tethering{}
+var Tethering = TetheringProtocol{}
 
-type _tethering struct{}
+/*
+TetheringProtocol defines the Tethering protocol methods.
+*/
+type TetheringProtocol struct{}
 
 /*
 Bind requests browser port binding.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tethering/#method-bind
 */
-func (_tethering) Bind(
+func (TetheringProtocol) Bind(
 	socket sock.Socketer,
 	params *tethering.BindParams,
 ) error {
@@ -38,7 +41,7 @@ Unbind requests browser port unbinding.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tethering/#method-unbind
 */
-func (_tethering) Unbind(
+func (TetheringProtocol) Unbind(
 	socket sock.Socketer,
 	params *tethering.UnbindParams,
 ) error {
@@ -53,7 +56,7 @@ successfully bound and got a specified connection id.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tethering/#event-accepted
 */
-func (_tethering) OnAccepted(
+func (TetheringProtocol) OnAccepted(
 	socket sock.Socketer,
 	callback func(event *tethering.AcceptedEvent),
 ) {

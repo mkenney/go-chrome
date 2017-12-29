@@ -10,22 +10,25 @@ import (
 )
 
 /*
-Debugger is a struct that provides a namespace for the Chrome Debugger protocol methods. The
-Debugger protocol exposes JavaScript debugging capabilities. It allows setting and removing
-breakpoints, stepping through execution, exploring stack traces, etc.
+Debugger provides a namespace for the Chrome Debugger protocol methods. The Debugger protocol
+exposes JavaScript debugging capabilities. It allows setting and removing breakpoints, stepping
+through execution, exploring stack traces, etc.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/
 */
-var Debugger = _debugger{}
+var Debugger = DebuggerProtocol{}
 
-type _debugger struct{}
+/*
+DebuggerProtocol defines the Debugger protocol methods.
+*/
+type DebuggerProtocol struct{}
 
 /*
 ContinueToLocation continues execution until specific location is reached.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-continueToLocation
 */
-func (_debugger) ContinueToLocation(
+func (DebuggerProtocol) ContinueToLocation(
 	socket sock.Socketer,
 	params *debugger.ContinueToLocationParams,
 ) error {
@@ -39,7 +42,7 @@ Disable disables debugger for given page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-disable
 */
-func (_debugger) Disable(
+func (DebuggerProtocol) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Debugger.disable", nil)
@@ -53,7 +56,7 @@ enabled until the result for this command is received.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-enable
 */
-func (_debugger) Enable(
+func (DebuggerProtocol) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Debugger.enable", nil)
@@ -66,7 +69,7 @@ EvaluateOnCallFrame evaluates expression on a given call frame.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-evaluateOnCallFrame
 */
-func (_debugger) EvaluateOnCallFrame(
+func (DebuggerProtocol) EvaluateOnCallFrame(
 	socket sock.Socketer,
 	params *debugger.EvaluateOnCallFrameParams,
 ) (*debugger.EvaluateOnCallFrameResult, error) {
@@ -88,7 +91,7 @@ locations should be the same.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getPossibleBreakpoints
 */
-func (_debugger) GetPossibleBreakpoints(
+func (DebuggerProtocol) GetPossibleBreakpoints(
 	socket sock.Socketer,
 	params *debugger.GetPossibleBreakpointsParams,
 ) (*debugger.GetPossibleBreakpointsResult, error) {
@@ -109,7 +112,7 @@ GetScriptSource returns source for the script with given id.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getScriptSource
 */
-func (_debugger) GetScriptSource(
+func (DebuggerProtocol) GetScriptSource(
 	socket sock.Socketer,
 	params *debugger.GetScriptSourceParams,
 ) (*debugger.GetScriptSourceResult, error) {
@@ -130,7 +133,7 @@ GetStackTrace returns stack trace with given stackTraceId. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getStackTrace
 */
-func (_debugger) GetStackTrace(
+func (DebuggerProtocol) GetStackTrace(
 	socket sock.Socketer,
 	params *debugger.GetStackTraceParams,
 ) (*debugger.GetStackTraceResult, error) {
@@ -151,7 +154,7 @@ Pause stops on the next JavaScript statement.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-pause
 */
-func (_debugger) Pause(
+func (DebuggerProtocol) Pause(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Debugger.pause", nil)
@@ -164,7 +167,7 @@ PauseOnAsyncCall EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-pauseOnAsyncCall
 */
-func (_debugger) PauseOnAsyncCall(
+func (DebuggerProtocol) PauseOnAsyncCall(
 	socket sock.Socketer,
 	params *debugger.PauseOnAsyncCallParams,
 ) error {
@@ -178,7 +181,7 @@ RemoveBreakpoint removes JavaScript breakpoint.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-removeBreakpoint
 */
-func (_debugger) RemoveBreakpoint(
+func (DebuggerProtocol) RemoveBreakpoint(
 	socket sock.Socketer,
 	params *debugger.RemoveBreakpointParams,
 ) error {
@@ -192,7 +195,7 @@ RestartFrame restarts particular call frame from the beginning.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-restartFrame
 */
-func (_debugger) RestartFrame(
+func (DebuggerProtocol) RestartFrame(
 	socket sock.Socketer,
 	params *debugger.RestartFrameParams,
 ) (*debugger.RestartFrameResult, error) {
@@ -213,7 +216,7 @@ Resume resumes JavaScript execution.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-resume
 */
-func (_debugger) Resume(
+func (DebuggerProtocol) Resume(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Debugger.resume", nil)
@@ -229,7 +232,7 @@ scheduled or another scheduleStepIntoAsync was called. EXPERIMENTAL. DEPRECATED.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-scheduleStepIntoAsync
 */
-func (_debugger) ScheduleStepIntoAsync(
+func (DebuggerProtocol) ScheduleStepIntoAsync(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Debugger.scheduleStepIntoAsync", nil)
@@ -242,7 +245,7 @@ SearchInContent searches for given string in script content.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-searchInContent
 */
-func (_debugger) SearchInContent(
+func (DebuggerProtocol) SearchInContent(
 	socket sock.Socketer,
 	params *debugger.SearchInContentParams,
 ) (*debugger.SearchInContentResult, error) {
@@ -263,7 +266,7 @@ SetAsyncCallStackDepth enables or disables async call stacks tracking.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setAsyncCallStackDepth
 */
-func (_debugger) SetAsyncCallStackDepth(
+func (DebuggerProtocol) SetAsyncCallStackDepth(
 	socket sock.Socketer,
 	params *debugger.SetAsyncCallStackDepthParams,
 ) error {
@@ -280,7 +283,7 @@ EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBlackboxPatterns
 */
-func (_debugger) SetBlackboxPatterns(
+func (DebuggerProtocol) SetBlackboxPatterns(
 	socket sock.Socketer,
 	params *debugger.SetBlackboxPatternsParams,
 ) error {
@@ -297,7 +300,7 @@ isn't blackboxed. Array should be sorted.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBlackboxedRanges
 */
-func (_debugger) SetBlackboxedRanges(
+func (DebuggerProtocol) SetBlackboxedRanges(
 	socket sock.Socketer,
 	params *debugger.SetBlackboxedRangesParams,
 ) error {
@@ -311,7 +314,7 @@ SetBreakpoint sets JavaScript breakpoint at a given location.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreakpoint
 */
-func (_debugger) SetBreakpoint(
+func (DebuggerProtocol) SetBreakpoint(
 	socket sock.Socketer,
 	params *debugger.SetBreakpointParams,
 ) (*debugger.SetBreakpointResult, error) {
@@ -335,7 +338,7 @@ breakpointResolved events issued. This logical breakpoint will survive page relo
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreakpointByUrl
 */
-func (_debugger) SetBreakpointByURL(
+func (DebuggerProtocol) SetBreakpointByURL(
 	socket sock.Socketer,
 	params *debugger.SetBreakpointByURLParams,
 ) (*debugger.SetBreakpointByURLResult, error) {
@@ -356,7 +359,7 @@ SetBreakpointsActive activates / deactivates all breakpoints on the page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreakpointsActive
 */
-func (_debugger) SetBreakpointsActive(
+func (DebuggerProtocol) SetBreakpointsActive(
 	socket sock.Socketer,
 	params *debugger.SetBreakpointsActiveParams,
 ) error {
@@ -371,7 +374,7 @@ uncaught exceptions or no exceptions. Initial pause on exceptions state is none.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setPauseOnExceptions
 */
-func (_debugger) SetPauseOnExceptions(
+func (DebuggerProtocol) SetPauseOnExceptions(
 	socket sock.Socketer,
 	params *debugger.SetPauseOnExceptionsParams,
 ) error {
@@ -386,7 +389,7 @@ EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setReturnValue
 */
-func (_debugger) SetReturnValue(
+func (DebuggerProtocol) SetReturnValue(
 	socket sock.Socketer,
 	params *debugger.SetReturnValueParams,
 ) error {
@@ -400,7 +403,7 @@ SetScriptSource edits JavaScript source live.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setScriptSource
 */
-func (_debugger) SetScriptSource(
+func (DebuggerProtocol) SetScriptSource(
 	socket sock.Socketer,
 	params *debugger.SetScriptSourceParams,
 ) (*debugger.SetScriptSourceResult, error) {
@@ -421,7 +424,7 @@ SetSkipAllPauses makes page not interrupt on any pauses (breakpoint, exception, 
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setSkipAllPauses
 */
-func (_debugger) SetSkipAllPauses(
+func (DebuggerProtocol) SetSkipAllPauses(
 	socket sock.Socketer,
 	params *debugger.SetSkipAllPausesParams,
 ) error {
@@ -436,7 +439,7 @@ must be mutated manually.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setVariableValue
 */
-func (_debugger) SetVariableValue(
+func (DebuggerProtocol) SetVariableValue(
 	socket sock.Socketer,
 	params *debugger.SetVariableValueParams,
 ) error {
@@ -450,7 +453,7 @@ StepInto steps into the function call.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepInto
 */
-func (_debugger) StepInto(
+func (DebuggerProtocol) StepInto(
 	socket sock.Socketer,
 	params *debugger.StepIntoParams,
 ) error {
@@ -464,7 +467,7 @@ StepOut steps out of the function call.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepOut
 */
-func (_debugger) StepOut(
+func (DebuggerProtocol) StepOut(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Debugger.stepOut", nil)
@@ -477,7 +480,7 @@ StepOver steps over the statement.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepOver
 */
-func (_debugger) StepOver(
+func (DebuggerProtocol) StepOver(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Debugger.stepOver", nil)
@@ -491,7 +494,7 @@ Debugger.breakpointResolved fires when breakpoint is resolved to an actual scrip
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-breakpointResolved
 */
-func (_debugger) OnBreakpointResolved(
+func (DebuggerProtocol) OnBreakpointResolved(
 	socket sock.Socketer,
 	callback func(event *debugger.BreakpointResolvedEvent),
 ) {
@@ -515,7 +518,7 @@ stopped on breakpoint or exception or any other stop criteria.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-paused
 */
-func (_debugger) OnPaused(
+func (DebuggerProtocol) OnPaused(
 	socket sock.Socketer,
 	callback func(event *debugger.PausedEvent),
 ) {
@@ -539,7 +542,7 @@ machine resumes execution.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-resumed
 */
-func (_debugger) OnResumed(
+func (DebuggerProtocol) OnResumed(
 	socket sock.Socketer,
 	callback func(event *debugger.ResumedEvent),
 ) {
@@ -563,7 +566,7 @@ Debugger.scriptFailedToParse fires when the virtual machine fails to parse the s
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-scriptFailedToParse
 */
-func (_debugger) OnScriptFailedToParse(
+func (DebuggerProtocol) OnScriptFailedToParse(
 	socket sock.Socketer,
 	callback func(event *debugger.ScriptFailedToParseEvent),
 ) {
@@ -588,7 +591,7 @@ enabling debugger.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-scriptParsed
 */
-func (_debugger) OnScriptParsed(
+func (DebuggerProtocol) OnScriptParsed(
 	socket sock.Socketer,
 	callback func(event *debugger.ScriptParsedEvent),
 ) {

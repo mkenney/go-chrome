@@ -10,21 +10,24 @@ import (
 )
 
 /*
-Log is a struct that provides a namespace for the Chrome Log protocol methods. The Log protocol
-provides access to log entries.
+Log provides a namespace for the Chrome Log protocol methods. The Log protocol provides access to
+log entries.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/
 */
-var Log = _log{}
+var Log = LogProtocol{}
 
-type _log struct{}
+/*
+LogProtocol defines the Log protocol methods.
+*/
+type LogProtocol struct{}
 
 /*
 Clear clears the log.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-clear
 */
-func (_log) Clear(
+func (LogProtocol) Clear(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Log.clear", nil)
@@ -37,7 +40,7 @@ Disable disables log domain, prevents further log entries from being reported to
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-disable
 */
-func (_log) Disable(
+func (LogProtocol) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Log.disable", nil)
@@ -51,7 +54,7 @@ Enable enables log domain, sends the entries collected so far to the client by m
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-enable
 */
-func (_log) Enable(
+func (LogProtocol) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Log.enable", nil)
@@ -64,7 +67,7 @@ StartViolationsReport starts violation reporting.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-startViolationsReport
 */
-func (_log) StartViolationsReport(
+func (LogProtocol) StartViolationsReport(
 	socket sock.Socketer,
 	params *chromeLog.StartViolationsReportParams,
 ) error {
@@ -78,7 +81,7 @@ StopViolationsReport stops violation reporting.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-stopViolationsReport
 */
-func (_log) StopViolationsReport(
+func (LogProtocol) StopViolationsReport(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Log.stopViolationsReport", nil)
@@ -92,7 +95,7 @@ logged.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#event-entryAdded
 */
-func (_log) OnEntryAdded(
+func (LogProtocol) OnEntryAdded(
 	socket sock.Socketer,
 	callback func(event *chromeLog.EntryAddedEvent),
 ) {

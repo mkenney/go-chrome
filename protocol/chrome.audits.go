@@ -6,14 +6,17 @@ import (
 )
 
 /*
-Audits is a struct that provides a namespace for the Chrome Audits protocol methods. The Audits
-protocol allows investigation of page violations and possible improvements. EXPERIMENTAL.
+Audits provides a namespace for the Chrome Audits protocol methods. The Audits protocol allows
+investigation of page violations and possible improvements. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Audits/
 */
-var Audits = _audits{}
+var Audits = AuditsProtocol{}
 
-type _audits struct{}
+/*
+AuditsProtocol defines the Audits protocol methods.
+*/
+type AuditsProtocol struct{}
 
 /*
 GetEncodedResponse returns the response body and size if it were re-encoded with the specified
@@ -21,7 +24,7 @@ settings. Only applies to images.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Audits/#method-getEncodedResponse
 */
-func (_audits) GetEncodedResponse(
+func (AuditsProtocol) GetEncodedResponse(
 	socket sock.Socketer,
 	params *audits.GetEncodedResponseParams,
 ) (*audits.GetEncodedResponseResult, error) {

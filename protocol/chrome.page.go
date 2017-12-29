@@ -10,14 +10,17 @@ import (
 )
 
 /*
-Page is a struct that provides a namespace for the Chrome Page protocol methods. The Page protocol
-provides actions and events related to the inspected page belong to the page domain.
+Page provides a namespace for the Chrome Page protocol methods. The Page protocol provides actions
+and events related to the inspected page belong to the page domain.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/
 */
-var Page = _page{}
+var Page = PageProtocol{}
 
-type _page struct{}
+/*
+PageProtocol defines the Page protocol methods.
+*/
+type PageProtocol struct{}
 
 /*
 AddScriptToEvaluateOnLoad is eprecated, please use addScriptToEvaluateOnNewDocument instead.
@@ -25,7 +28,7 @@ EXPERIMENTAL. DEPRECATED.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-addScriptToEvaluateOnLoad
 */
-func (_page) AddScriptToEvaluateOnLoad(
+func (PageProtocol) AddScriptToEvaluateOnLoad(
 	socket sock.Socketer,
 	params *page.AddScriptToEvaluateOnLoadParams,
 ) (*page.AddScriptToEvaluateOnLoadResult, error) {
@@ -47,7 +50,7 @@ frame's scripts).
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-addScriptToEvaluateOnNewDocument
 */
-func (_page) AddScriptToEvaluateOnNewDocument(
+func (PageProtocol) AddScriptToEvaluateOnNewDocument(
 	socket sock.Socketer,
 	params *page.AddScriptToEvaluateOnNewDocumentParams,
 ) (*page.AddScriptToEvaluateOnNewDocumentResult, error) {
@@ -68,7 +71,7 @@ BringToFront brings page to front (activates tab).
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-bringToFront
 */
-func (_page) BringToFront(
+func (PageProtocol) BringToFront(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Page.bringToFront", nil)
@@ -81,7 +84,7 @@ CaptureScreenshot capture a page screenshot.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot
 */
-func (_page) CaptureScreenshot(
+func (PageProtocol) CaptureScreenshot(
 	socket sock.Socketer,
 	params *page.CaptureScreenshotParams,
 ) (*page.CaptureScreenshotResult, error) {
@@ -102,7 +105,7 @@ CreateIsolatedWorld creates an isolated world for the given frame.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-createIsolatedWorld
 */
-func (_page) CreateIsolatedWorld(
+func (PageProtocol) CreateIsolatedWorld(
 	socket sock.Socketer,
 	params *page.CreateIsolatedWorldParams,
 ) (*page.CreateIsolatedWorldResult, error) {
@@ -123,7 +126,7 @@ Disable disables page domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-disable
 */
-func (_page) Disable(
+func (PageProtocol) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Page.disable", nil)
@@ -136,7 +139,7 @@ Enable Ennables page domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-enable
 */
-func (_page) Enable(
+func (PageProtocol) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Page.enable", nil)
@@ -149,7 +152,7 @@ GetAppManifest gets the app manifest.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getAppManifest
 */
-func (_page) GetAppManifest(
+func (PageProtocol) GetAppManifest(
 	socket sock.Socketer,
 	params *page.GetAppManifestParams,
 ) error {
@@ -164,7 +167,7 @@ GetFrameTree returns present frame tree structure.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getFrameTree
 */
-func (_page) GetFrameTree(
+func (PageProtocol) GetFrameTree(
 	socket sock.Socketer,
 ) (*page.GetFrameTreeResult, error) {
 	command := sock.NewCommand("Page.getFrameTree", nil)
@@ -185,7 +188,7 @@ bounds/scale.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getLayoutMetrics
 */
-func (_page) GetLayoutMetrics(
+func (PageProtocol) GetLayoutMetrics(
 	socket sock.Socketer,
 ) (*page.GetLayoutMetricsResult, error) {
 	command := sock.NewCommand("Page.getLayoutMetrics", nil)
@@ -205,7 +208,7 @@ GetNavigationHistory returns navigation history for the current page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getNavigationHistory
 */
-func (_page) GetNavigationHistory(
+func (PageProtocol) GetNavigationHistory(
 	socket sock.Socketer,
 ) (*page.GetNavigationHistoryResult, error) {
 	command := sock.NewCommand("Page.getNavigationHistory", nil)
@@ -225,7 +228,7 @@ GetResourceContent returns content of the given resource. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceContent
 */
-func (_page) GetResourceContent(
+func (PageProtocol) GetResourceContent(
 	socket sock.Socketer,
 	params *page.GetResourceContentParams,
 ) (*page.GetResourceContentResult, error) {
@@ -246,7 +249,7 @@ GetResourceTree returns present frame / resource tree structure. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceTree
 */
-func (_page) GetResourceTree(
+func (PageProtocol) GetResourceTree(
 	socket sock.Socketer,
 ) (*page.GetResourceTreeResult, error) {
 	command := sock.NewCommand("Page.getResourceTree", nil)
@@ -267,7 +270,7 @@ or onbeforeunload).
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-handleJavaScriptDialog
 */
-func (_page) HandleJavaScriptDialog(
+func (PageProtocol) HandleJavaScriptDialog(
 	socket sock.Socketer,
 	params *page.HandleJavaScriptDialogParams,
 ) error {
@@ -282,7 +285,7 @@ Navigate navigates current page to the given URL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-navigate
 */
-func (_page) Navigate(
+func (PageProtocol) Navigate(
 	socket sock.Socketer,
 	params *page.NavigateParams,
 ) (*page.NavigateResult, error) {
@@ -303,7 +306,7 @@ NavigateToHistoryEntry navigates current page to the given history entry.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-navigateToHistoryEntry
 */
-func (_page) NavigateToHistoryEntry(
+func (PageProtocol) NavigateToHistoryEntry(
 	socket sock.Socketer,
 	params *page.NavigateToHistoryEntryParams,
 ) error {
@@ -318,7 +321,7 @@ PrintToPDF print page as PDF.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-printToPDF
 */
-func (_page) PrintToPDF(
+func (PageProtocol) PrintToPDF(
 	socket sock.Socketer,
 	params *page.PrintToPDFParams,
 ) (*page.PrintToPDFResult, error) {
@@ -339,7 +342,7 @@ Reload reloads given page optionally ignoring the cache.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-reload
 */
-func (_page) Reload(
+func (PageProtocol) Reload(
 	socket sock.Socketer,
 	params *page.ReloadParams,
 ) error {
@@ -355,7 +358,7 @@ EXPERIMENTAL. DEPRECATED.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-removeScriptToEvaluateOnLoad
 */
-func (_page) RemoveScriptToEvaluateOnLoad(
+func (PageProtocol) RemoveScriptToEvaluateOnLoad(
 	socket sock.Socketer,
 	params *page.RemoveScriptToEvaluateOnLoadParams,
 ) error {
@@ -370,7 +373,7 @@ RemoveScriptToEvaluateOnNewDocument removes given script from the list.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-removeScriptToEvaluateOnNewDocument
 */
-func (_page) RemoveScriptToEvaluateOnNewDocument(
+func (PageProtocol) RemoveScriptToEvaluateOnNewDocument(
 	socket sock.Socketer,
 	params *page.RemoveScriptToEvaluateOnNewDocumentParams,
 ) error {
@@ -385,7 +388,7 @@ RequestAppBanner EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-requestAppBanner
 */
-func (_page) RequestAppBanner(
+func (PageProtocol) RequestAppBanner(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Page.requestAppBanner", nil)
@@ -399,7 +402,7 @@ EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-screencastFrameAck
 */
-func (_page) ScreencastFrameAck(
+func (PageProtocol) ScreencastFrameAck(
 	socket sock.Socketer,
 	params *page.ScreencastFrameAckParams,
 ) error {
@@ -414,7 +417,7 @@ SearchInResource searches for given string in resource content. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-searchInResource
 */
-func (_page) SearchInResource(
+func (PageProtocol) SearchInResource(
 	socket sock.Socketer,
 	params *page.SearchInResourceParams,
 ) (*page.SearchInResourceResult, error) {
@@ -435,7 +438,7 @@ SetAdBlockingEnabled enable Chrome's experimental ad filter on all sites. EXPERI
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setAdBlockingEnabled
 */
-func (_page) SetAdBlockingEnabled(
+func (PageProtocol) SetAdBlockingEnabled(
 	socket sock.Socketer,
 	params *page.SetAdBlockingEnabledParams,
 ) error {
@@ -451,7 +454,7 @@ pages. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setAutoAttachToCreatedPages
 */
-func (_page) SetAutoAttachToCreatedPages(
+func (PageProtocol) SetAutoAttachToCreatedPages(
 	socket sock.Socketer,
 	params *page.SetAutoAttachToCreatedPagesParams,
 ) error {
@@ -466,7 +469,7 @@ SetDocumentContent sets given markup as the document's HTML.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setDocumentContent
 */
-func (_page) SetDocumentContent(
+func (PageProtocol) SetDocumentContent(
 	socket sock.Socketer,
 	params *page.SetDocumentContentParams,
 ) error {
@@ -481,7 +484,7 @@ SetDownloadBehavior sets the behavior when downloading a file. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setDownloadBehavior
 */
-func (_page) SetDownloadBehavior(
+func (PageProtocol) SetDownloadBehavior(
 	socket sock.Socketer,
 	params *page.SetDownloadBehaviorParams,
 ) error {
@@ -496,7 +499,7 @@ SetLifecycleEventsEnabled controls whether page will emit lifecycle events. EXPE
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setLifecycleEventsEnabled
 */
-func (_page) SetLifecycleEventsEnabled(
+func (PageProtocol) SetLifecycleEventsEnabled(
 	socket sock.Socketer,
 	params *page.SetLifecycleEventsEnabledParams,
 ) error {
@@ -511,7 +514,7 @@ StartScreencast starts sending each frame using the `screencastFrame` event. EXP
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-startScreencast
 */
-func (_page) StartScreencast(
+func (PageProtocol) StartScreencast(
 	socket sock.Socketer,
 	params *page.StartScreencastParams,
 ) error {
@@ -526,7 +529,7 @@ StopLoading force the page stop all navigations and pending resource fetches.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-stopLoading
 */
-func (_page) StopLoading(
+func (PageProtocol) StopLoading(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Page.stopLoading", nil)
@@ -539,7 +542,7 @@ StopScreencast stops sending each frame in the `screencastFrame`. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-stopScreencast
 */
-func (_page) StopScreencast(
+func (PageProtocol) StopScreencast(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Page.stopScreencast", nil)
@@ -553,7 +556,7 @@ Page.domContentEventFired fires when a content event occurs in the DOM.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-domContentEventFired
 */
-func (_page) OnDOMContentEventFired(
+func (PageProtocol) OnDOMContentEventFired(
 	socket sock.Socketer,
 	callback func(event *page.DOMContentEventFiredEvent),
 ) {
@@ -577,7 +580,7 @@ frame has been attached to its parent.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameAttached
 */
-func (_page) OnFrameAttached(
+func (PageProtocol) OnFrameAttached(
 	socket sock.Socketer,
 	callback func(event *page.FrameAttachedEvent),
 ) {
@@ -602,7 +605,7 @@ EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameClearedScheduledNavigation
 */
-func (_page) OnFrameClearedScheduledNavigation(
+func (PageProtocol) OnFrameClearedScheduledNavigation(
 	socket sock.Socketer,
 	callback func(event *page.FrameClearedScheduledNavigationEvent),
 ) {
@@ -626,7 +629,7 @@ frame has been detached from its parent.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameDetached
 */
-func (_page) OnFrameDetached(
+func (PageProtocol) OnFrameDetached(
 	socket sock.Socketer,
 	callback func(event *page.FrameDetachedEvent),
 ) {
@@ -650,7 +653,7 @@ navigation of the frame has completed. Frame is now associated with the new load
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameNavigated
 */
-func (_page) OnFrameNavigated(
+func (PageProtocol) OnFrameNavigated(
 	socket sock.Socketer,
 	callback func(event *page.FrameNavigatedEvent),
 ) {
@@ -674,7 +677,7 @@ is resized. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameResized
 */
-func (_page) OnFrameResized(
+func (PageProtocol) OnFrameResized(
 	socket sock.Socketer,
 	callback func(event *page.FrameResizedEvent),
 ) {
@@ -698,7 +701,7 @@ Page.frameScheduledNavigation fires when frame schedules a potential navigation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameScheduledNavigation
 */
-func (_page) OnFrameScheduledNavigation(
+func (PageProtocol) OnFrameScheduledNavigation(
 	socket sock.Socketer,
 	callback func(event *page.FrameScheduledNavigationEvent),
 ) {
@@ -722,7 +725,7 @@ fires when frame has started loading. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameStartedLoading
 */
-func (_page) OnFrameStartedLoading(
+func (PageProtocol) OnFrameStartedLoading(
 	socket sock.Socketer,
 	callback func(event *page.FrameStartedLoadingEvent),
 ) {
@@ -746,7 +749,7 @@ fires when frame has stopped loading. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameStoppedLoading
 */
-func (_page) OnFrameStoppedLoading(
+func (PageProtocol) OnFrameStoppedLoading(
 	socket sock.Socketer,
 	callback func(event *page.FrameStoppedLoadingEvent),
 ) {
@@ -770,7 +773,7 @@ fires when interstitial page was hidden.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-interstitialHidden
 */
-func (_page) OnInterstitialHidden(
+func (PageProtocol) OnInterstitialHidden(
 	socket sock.Socketer,
 	callback func(event *page.InterstitialHiddenEvent),
 ) {
@@ -794,7 +797,7 @@ when interstitial page was shown.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-interstitialShown
 */
-func (_page) OnInterstitialShown(
+func (PageProtocol) OnInterstitialShown(
 	socket sock.Socketer,
 	callback func(event *page.InterstitialShownEvent),
 ) {
@@ -819,7 +822,7 @@ onbeforeunload) has been closed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-javascriptDialogClosed
 */
-func (_page) OnJavascriptDialogClosed(
+func (PageProtocol) OnJavascriptDialogClosed(
 	socket sock.Socketer,
 	callback func(event *page.JavascriptDialogClosedEvent),
 ) {
@@ -844,7 +847,7 @@ onbeforeunload) is about to open.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-javascriptDialogOpening
 */
-func (_page) OnJavascriptDialogOpening(
+func (PageProtocol) OnJavascriptDialogOpening(
 	socket sock.Socketer,
 	callback func(event *page.JavascriptDialogOpeningEvent),
 ) {
@@ -868,7 +871,7 @@ level page lifecycle events such as navigation, load, paint, etc.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-lifecycleEvent
 */
-func (_page) OnLifecycleEvent(
+func (PageProtocol) OnLifecycleEvent(
 	socket sock.Socketer,
 	callback func(event *page.LifecycleEventEvent),
 ) {
@@ -892,7 +895,7 @@ page has finished loading.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-loadEventFired
 */
-func (_page) OnLoadEventFired(
+func (PageProtocol) OnLoadEventFired(
 	socket sock.Socketer,
 	callback func(event *page.LoadEventFiredEvent),
 ) {
@@ -916,7 +919,7 @@ compressed image data is requested by the `startScreencast` method. EXPERIMENTAL
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-screencastFrame
 */
-func (_page) OnScreencastFrame(
+func (PageProtocol) OnScreencastFrame(
 	socket sock.Socketer,
 	callback func(event *page.ScreencastFrameEvent),
 ) {
@@ -941,7 +944,7 @@ hidden. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-screencastVisibilityChanged
 */
-func (_page) OnScreencastVisibilityChanged(
+func (PageProtocol) OnScreencastVisibilityChanged(
 	socket sock.Socketer,
 	callback func(event *page.ScreencastVisibilityChangedEvent),
 ) {
@@ -965,7 +968,7 @@ going to be opened, via window.open(), link click, form submission, etc.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-windowOpen
 */
-func (_page) OnWindowOpen(
+func (PageProtocol) OnWindowOpen(
 	socket sock.Socketer,
 	callback func(event *page.WindowOpenEvent),
 ) {

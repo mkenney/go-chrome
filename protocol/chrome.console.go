@@ -10,21 +10,24 @@ import (
 )
 
 /*
-Console is a struct that provides a namespace for the Chrome Console protocol methods. DEPRECATED -
-use Runtime or Log instead.
+Console provides a namespace for the Chrome Console protocol methods. DEPRECATED - use Runtime or
+Log instead.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Console/
 */
-var Console = _console{}
+var Console = ConsoleProtocol{}
 
-type _console struct{}
+/*
+ConsoleProtocol defines the Console protocol methods.
+*/
+type ConsoleProtocol struct{}
 
 /*
 ClearMessages does nothing.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Console/#method-clearMessages
 */
-func (_console) ClearMessages(
+func (ConsoleProtocol) ClearMessages(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Console.clearMessages", nil)
@@ -38,7 +41,7 @@ client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Console/#method-disable
 */
-func (_console) Disable(
+func (ConsoleProtocol) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Console.disable", nil)
@@ -52,7 +55,7 @@ messageAdded notification.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Console/#method-enable
 */
-func (_console) Enable(
+func (ConsoleProtocol) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Console.enable", nil)
@@ -66,7 +69,7 @@ whenever an active document stylesheet is removed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Console/#event-messageAdded
 */
-func (_console) OnMessageAdded(
+func (ConsoleProtocol) OnMessageAdded(
 	socket sock.Socketer,
 	callback func(event *console.MessageAddedEvent),
 ) {

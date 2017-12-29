@@ -10,21 +10,23 @@ import (
 )
 
 /*
-Animation is a struct that provides a namespace for the Chrome Animation protocol methods.
-EXPERIMENTAL.
+Animation provides a namespace for the Chrome Animation protocol methods. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/
 */
-var Animation = _animation{}
+var Animation = AnimationProtocol{}
 
-type _animation struct{}
+/*
+AnimationProtocol defines the Animation protocol methods.
+*/
+type AnimationProtocol struct{}
 
 /*
 Disable animation domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-disable
 */
-func (_animation) Disable(
+func (AnimationProtocol) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Animation.disable", nil)
@@ -37,7 +39,7 @@ Enable animation domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-enable
 */
-func (_animation) Enable(
+func (AnimationProtocol) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Animation.enable", nil)
@@ -50,7 +52,7 @@ GetCurrentTime returns the current time of the an animation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-getCurrentTime
 */
-func (_animation) GetCurrentTime(
+func (AnimationProtocol) GetCurrentTime(
 	socket sock.Socketer,
 	params *animation.GetCurrentTimeParams,
 ) (*animation.GetCurrentTimeResult, error) {
@@ -71,7 +73,7 @@ GetPlaybackRate gets the playback rate of the document timeline.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-getPlaybackRate
 */
-func (_animation) GetPlaybackRate(
+func (AnimationProtocol) GetPlaybackRate(
 	socket sock.Socketer,
 ) (*animation.GetPlaybackRateResult, error) {
 	command := sock.NewCommand("Animation.getPlaybackRate", nil)
@@ -91,7 +93,7 @@ ReleaseAnimations releases a set of animations to no longer be manipulated.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-releaseAnimations
 */
-func (_animation) ReleaseAnimations(
+func (AnimationProtocol) ReleaseAnimations(
 	socket sock.Socketer,
 	params *animation.ReleaseAnimationsParams,
 ) error {
@@ -105,7 +107,7 @@ ResolveAnimation gets the remote object of the Animation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-resolveAnimation
 */
-func (_animation) ResolveAnimation(
+func (AnimationProtocol) ResolveAnimation(
 	socket sock.Socketer,
 	params *animation.ResolveAnimationParams,
 ) (*animation.ResolveAnimationResult, error) {
@@ -126,7 +128,7 @@ SeekAnimations seeks a set of animations to a particular time within each animat
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-seekAnimations
 */
-func (_animation) SeekAnimations(
+func (AnimationProtocol) SeekAnimations(
 	socket sock.Socketer,
 	params *animation.SeekAnimationsParams,
 ) error {
@@ -140,7 +142,7 @@ SetPaused sets the paused state of a set of animations.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-setPaused
 */
-func (_animation) SetPaused(
+func (AnimationProtocol) SetPaused(
 	socket sock.Socketer,
 	params *animation.SetPausedParams,
 ) error {
@@ -154,7 +156,7 @@ SetPlaybackRate sets the playback rate of the document timeline.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-setPlaybackRate
 */
-func (_animation) SetPlaybackRate(
+func (AnimationProtocol) SetPlaybackRate(
 	socket sock.Socketer,
 	params *animation.SetPlaybackRateParams,
 ) error {
@@ -168,7 +170,7 @@ SetTiming sets the timing of an animation node.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-setTiming
 */
-func (_animation) SetTiming(
+func (AnimationProtocol) SetTiming(
 	socket sock.Socketer,
 	params *animation.SetTimingParams,
 ) error {
@@ -183,7 +185,7 @@ when an animation has been cancelled.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#event-animationCanceled
 */
-func (_animation) OnAnimationCanceled(
+func (AnimationProtocol) OnAnimationCanceled(
 	socket sock.Socketer,
 	callback func(event *animation.CanceledEvent),
 ) {
@@ -207,7 +209,7 @@ animation that has been created.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#event-animationCreated
 */
-func (_animation) OnAnimationCreated(
+func (AnimationProtocol) OnAnimationCreated(
 	socket sock.Socketer,
 	callback func(event *animation.CreatedEvent),
 ) {
@@ -231,7 +233,7 @@ animation that has been started.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#event-animationStarted
 */
-func (_animation) OnAnimationStarted(
+func (AnimationProtocol) OnAnimationStarted(
 	socket sock.Socketer,
 	callback func(event *animation.StartedEvent),
 ) {

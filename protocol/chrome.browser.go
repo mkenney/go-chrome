@@ -6,21 +6,24 @@ import (
 )
 
 /*
-Browser is a struct that provides a namespace for the Chrome Browser protocol methods. The Browser
-protocol defines methods and events for browser management.
+Browser provides a namespace for the Chrome Browser protocol methods. The Browser protocol defines
+methods and events for browser management.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/
 */
-var Browser = _browser{}
+var Browser = BrowserProtocol{}
 
-type _browser struct{}
+/*
+BrowserProtocol defines the Browser protocol methods.
+*/
+type BrowserProtocol struct{}
 
 /*
 Close closes the browser gracefully.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-close
 */
-func (_browser) Close(
+func (BrowserProtocol) Close(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Browser.close", nil)
@@ -33,7 +36,7 @@ GetVersion returns version information.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getVersion
 */
-func (_browser) GetVersion(
+func (BrowserProtocol) GetVersion(
 	socket sock.Socketer,
 ) (*browser.GetVersionResult, error) {
 	command := sock.NewCommand("Browser.getVersion", nil)
@@ -53,7 +56,7 @@ GetWindowBounds sets the position and/or size of the browser window. EXPERIMENTA
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindowBounds
 */
-func (_browser) GetWindowBounds(
+func (BrowserProtocol) GetWindowBounds(
 	socket sock.Socketer,
 	params *browser.GetWindowBoundsParams,
 ) (*browser.GetWindowBoundsResult, error) {
@@ -74,7 +77,7 @@ GetWindowForTarget gets the browser window that contains the devtools target. EX
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindowForTarget
 */
-func (_browser) GetWindowForTarget(
+func (BrowserProtocol) GetWindowForTarget(
 	socket sock.Socketer,
 	params *browser.GetWindowForTargetParams,
 ) (*browser.GetWindowForTargetResult, error) {
@@ -95,7 +98,7 @@ SetWindowBounds sets the position and/or size of the browser window. EXPERIMENTA
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-setWindowBounds
 */
-func (_browser) SetWindowBounds(
+func (BrowserProtocol) SetWindowBounds(
 	socket sock.Socketer,
 	params *browser.SetWindowBoundsParams,
 ) (*browser.SetWindowBoundsResult, error) {

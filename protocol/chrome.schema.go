@@ -6,20 +6,23 @@ import (
 )
 
 /*
-Schema is a struct that provides a namespace for the Chrome Schema protocol methods. DEPRECATED.
+Schema provides a namespace for the Chrome Schema protocol methods. DEPRECATED.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Schema/
 */
-var Schema = _schema{}
+var Schema = SchemaProtocol{}
 
-type _schema struct{}
+/*
+SchemaProtocol defines the Schema protocol methods.
+*/
+type SchemaProtocol struct{}
 
 /*
 GetDomains returns supported domains.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Schema/#method-getDomains
 */
-func (_schema) GetDomains(
+func (SchemaProtocol) GetDomains(
 	socket sock.Socketer,
 ) (*schema.GetDomainsResult, error) {
 	command := sock.NewCommand("Schema.getDomains", nil)

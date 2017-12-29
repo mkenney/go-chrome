@@ -10,25 +10,27 @@ import (
 )
 
 /*
-Runtime is a struct that provides a namespace for the Chrome Runtime protocol methods. The Runtime
-protocol exposes JavaScript runtime by means of remote evaluation and mirror objects. Evaluation
-results are returned as mirror object that expose object type, string representation and unique
-identifier that can be used for further object reference. Original objects are maintained in memory
-unless they are either explicitly released or are released along with the other objects in their
-object group.
+Runtime provides a namespace for the Chrome Runtime protocol methods. The Runtime protocol exposes
+JavaScript runtime by means of remote evaluation and mirror objects. Evaluation results are returned
+as mirror object that expose object type, string representation and unique identifier that can be
+used for further object reference. Original objects are maintained in memory unless they are either
+explicitly released or are released along with the other objects in their object group.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/
 */
-var Runtime = _runtime{}
+var Runtime = RuntimeProtocol{}
 
-type _runtime struct{}
+/*
+RuntimeProtocol defines the Runtime protocol methods.
+*/
+type RuntimeProtocol struct{}
 
 /*
 AwaitPromise adds handler to promise with given promise object ID.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-awaitPromise
 */
-func (_runtime) AwaitPromise(
+func (RuntimeProtocol) AwaitPromise(
 	socket sock.Socketer,
 	params *runtime.AwaitPromiseParams,
 ) (*runtime.AwaitPromiseResult, error) {
@@ -50,7 +52,7 @@ result is inherited from the target object.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-callFunctionOn
 */
-func (_runtime) CallFunctionOn(
+func (RuntimeProtocol) CallFunctionOn(
 	socket sock.Socketer,
 	params *runtime.CallFunctionOnParams,
 ) (*runtime.CallFunctionOnResult, error) {
@@ -71,7 +73,7 @@ CompileScript compiles an expression.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-compileScript
 */
-func (_runtime) CompileScript(
+func (RuntimeProtocol) CompileScript(
 	socket sock.Socketer,
 	params *runtime.CompileScriptParams,
 ) (*runtime.CompileScriptResult, error) {
@@ -92,7 +94,7 @@ Disable disables reporting of execution contexts creation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-disable
 */
-func (_runtime) Disable(
+func (RuntimeProtocol) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Runtime.disable", nil)
@@ -105,7 +107,7 @@ DiscardConsoleEntries discards collected exceptions and console API calls.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-discardConsoleEntries
 */
-func (_runtime) DiscardConsoleEntries(
+func (RuntimeProtocol) DiscardConsoleEntries(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Runtime.discardConsoleEntries", nil)
@@ -120,7 +122,7 @@ context.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-enable
 */
-func (_runtime) Enable(
+func (RuntimeProtocol) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Runtime.enable", nil)
@@ -133,7 +135,7 @@ Evaluate evaluates expression on global object.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-evaluate
 */
-func (_runtime) Evaluate(
+func (RuntimeProtocol) Evaluate(
 	socket sock.Socketer,
 	params *runtime.EvaluateParams,
 ) (*runtime.EvaluateResult, error) {
@@ -155,7 +157,7 @@ target object.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-getProperties
 */
-func (_runtime) GetProperties(
+func (RuntimeProtocol) GetProperties(
 	socket sock.Socketer,
 	params *runtime.GetPropertiesParams,
 ) (*runtime.GetPropertiesResult, error) {
@@ -176,7 +178,7 @@ GlobalLexicalScopeNames returns all let, const and class variables from global s
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-globalLexicalScopeNames
 */
-func (_runtime) GlobalLexicalScopeNames(
+func (RuntimeProtocol) GlobalLexicalScopeNames(
 	socket sock.Socketer,
 	params *runtime.GlobalLexicalScopeNamesParams,
 ) (*runtime.GlobalLexicalScopeNamesResult, error) {
@@ -197,7 +199,7 @@ QueryObjects returns objects for a given prototype ID.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-queryObjects
 */
-func (_runtime) QueryObjects(
+func (RuntimeProtocol) QueryObjects(
 	socket sock.Socketer,
 	params *runtime.QueryObjectsParams,
 ) (*runtime.QueryObjectsResult, error) {
@@ -218,7 +220,7 @@ ReleaseObject releases remote object with given id.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseObject
 */
-func (_runtime) ReleaseObject(
+func (RuntimeProtocol) ReleaseObject(
 	socket sock.Socketer,
 	params *runtime.ReleaseObjectParams,
 ) error {
@@ -232,7 +234,7 @@ ReleaseObjectGroup releases all remote objects that belong to a given group.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseObjectGroup
 */
-func (_runtime) ReleaseObjectGroup(
+func (RuntimeProtocol) ReleaseObjectGroup(
 	socket sock.Socketer,
 	params *runtime.ReleaseObjectGroupParams,
 ) error {
@@ -246,7 +248,7 @@ RunIfWaitingForDebugger tells inspected instance to run if it was waiting for de
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-runIfWaitingForDebugger
 */
-func (_runtime) RunIfWaitingForDebugger(
+func (RuntimeProtocol) RunIfWaitingForDebugger(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Runtime.runIfWaitingForDebugger", nil)
@@ -259,7 +261,7 @@ RunScript runs the script with given ID in a given context.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-runScript
 */
-func (_runtime) RunScript(
+func (RuntimeProtocol) RunScript(
 	socket sock.Socketer,
 	params *runtime.RunScriptParams,
 ) (*runtime.RunScriptResult, error) {
@@ -280,7 +282,7 @@ SetCustomObjectFormatterEnabled EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-setCustomObjectFormatterEnabled
 */
-func (_runtime) SetCustomObjectFormatterEnabled(
+func (RuntimeProtocol) SetCustomObjectFormatterEnabled(
 	socket sock.Socketer,
 	params *runtime.SetCustomObjectFormatterEnabledParams,
 ) error {
@@ -295,7 +297,7 @@ fires when the console API is called.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-consoleAPICalled
 */
-func (_runtime) OnConsoleAPICalled(
+func (RuntimeProtocol) OnConsoleAPICalled(
 	socket sock.Socketer,
 	callback func(event *runtime.ConsoleAPICalledEvent),
 ) {
@@ -319,7 +321,7 @@ fires when an unhandled exception is revoked.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-exceptionRevoked
 */
-func (_runtime) OnExceptionRevoked(
+func (RuntimeProtocol) OnExceptionRevoked(
 	socket sock.Socketer,
 	callback func(event *runtime.ExceptionRevokedEvent),
 ) {
@@ -343,7 +345,7 @@ when an exception is thrown and is unhandled.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-exceptionThrown
 */
-func (_runtime) OnExceptionThrown(
+func (RuntimeProtocol) OnExceptionThrown(
 	socket sock.Socketer,
 	callback func(event *runtime.ExceptionThrownEvent),
 ) {
@@ -367,7 +369,7 @@ Runtime.executionContextCreated fires when a new execution context is created.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionContextCreated
 */
-func (_runtime) OnExecutionContextCreated(
+func (RuntimeProtocol) OnExecutionContextCreated(
 	socket sock.Socketer,
 	callback func(event *runtime.ExecutionContextCreatedEvent),
 ) {
@@ -391,7 +393,7 @@ Runtime.executionContextDestroyed fires when execution context is destroyed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionContextDestroyed
 */
-func (_runtime) OnExecutionContextDestroyed(
+func (RuntimeProtocol) OnExecutionContextDestroyed(
 	socket sock.Socketer,
 	callback func(event *runtime.ExecutionContextDestroyedEvent),
 ) {
@@ -415,7 +417,7 @@ Runtime.executionContextsCleared fires when all executionContexts were cleared i
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionContextsCleared
 */
-func (_runtime) OnExecutionContextsCleared(
+func (RuntimeProtocol) OnExecutionContextsCleared(
 	socket sock.Socketer,
 	callback func(event *runtime.ExecutionContextsClearedEvent),
 ) {
@@ -440,7 +442,7 @@ call).
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-inspectRequested
 */
-func (_runtime) OnInspectRequested(
+func (RuntimeProtocol) OnInspectRequested(
 	socket sock.Socketer,
 	callback func(event *runtime.InspectRequestedEvent),
 ) {

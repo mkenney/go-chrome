@@ -10,20 +10,23 @@ import (
 )
 
 /*
-Profiler is a struct that provides a namespace for the Chrome Profiler protocol methods.
+Profiler provides a namespace for the Chrome Profiler protocol methods.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/
 */
-var Profiler = _profiler{}
+var Profiler = ProfilerProtocol{}
 
-type _profiler struct{}
+/*
+ProfilerProtocol defines the Profiler protocol methods.
+*/
+type ProfilerProtocol struct{}
 
 /*
 Disable disables profiling.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-disable
 */
-func (_profiler) Disable(
+func (ProfilerProtocol) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Profiler.disable", nil)
@@ -36,7 +39,7 @@ Enable enables profiling.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-enable
 */
-func (_profiler) Enable(
+func (ProfilerProtocol) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Profiler.enable", nil)
@@ -50,7 +53,7 @@ incomplete due to garbage collection.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-getBestEffortCoverage
 */
-func (_profiler) GetBestEffortCoverage(
+func (ProfilerProtocol) GetBestEffortCoverage(
 	socket sock.Socketer,
 ) (*profiler.GetBestEffortCoverageResult, error) {
 	command := sock.NewCommand("Profiler.getBestEffortCoverage", nil)
@@ -71,7 +74,7 @@ recording started.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-setSamplingInterval
 */
-func (_profiler) SetSamplingInterval(
+func (ProfilerProtocol) SetSamplingInterval(
 	socket sock.Socketer,
 	params *profiler.SetSamplingIntervalParams,
 ) error {
@@ -85,7 +88,7 @@ Start starts profiling.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-start
 */
-func (_profiler) Start(
+func (ProfilerProtocol) Start(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Profiler.start", nil)
@@ -100,7 +103,7 @@ resets execution counters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-startPreciseCoverage
 */
-func (_profiler) StartPreciseCoverage(
+func (ProfilerProtocol) StartPreciseCoverage(
 	socket sock.Socketer,
 	params *profiler.StartPreciseCoverageParams,
 ) error {
@@ -114,7 +117,7 @@ StartTypeProfile enables type profile. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-startTypeProfile
 */
-func (_profiler) StartTypeProfile(
+func (ProfilerProtocol) StartTypeProfile(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Profiler.startTypeProfile", nil)
@@ -127,7 +130,7 @@ Stop stops profiling.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stop
 */
-func (_profiler) Stop(
+func (ProfilerProtocol) Stop(
 	socket sock.Socketer,
 ) (*profiler.StopResult, error) {
 	command := sock.NewCommand("Profiler.stop", nil)
@@ -148,7 +151,7 @@ records and allows executing optimized code.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stopPreciseCoverage
 */
-func (_profiler) StopPreciseCoverage(
+func (ProfilerProtocol) StopPreciseCoverage(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Profiler.stopPreciseCoverage", nil)
@@ -162,7 +165,7 @@ EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stopTypeProfile
 */
-func (_profiler) StopTypeProfile(
+func (ProfilerProtocol) StopTypeProfile(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Profiler.stopTypeProfile", nil)
@@ -176,7 +179,7 @@ Precise code coverage needs to have started.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-takePreciseCoverage
 */
-func (_profiler) TakePreciseCoverage(
+func (ProfilerProtocol) TakePreciseCoverage(
 	socket sock.Socketer,
 ) (*profiler.TakePreciseCoverageResult, error) {
 	command := sock.NewCommand("Profiler.takePreciseCoverage", nil)
@@ -196,7 +199,7 @@ TakeTypeProfile collect type profile. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-takeTypeProfile
 */
-func (_profiler) TakeTypeProfile(
+func (ProfilerProtocol) TakeTypeProfile(
 	socket sock.Socketer,
 ) (*profiler.TakeTypeProfileResult, error) {
 	command := sock.NewCommand("Profiler.takeTypeProfile", nil)
@@ -217,7 +220,7 @@ Profiler.consoleProfileFinished fires when profile recording finishes.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#event-consoleProfileFinished
 */
-func (_profiler) OnConsoleProfileFinished(
+func (ProfilerProtocol) OnConsoleProfileFinished(
 	socket sock.Socketer,
 	callback func(event *profiler.ConsoleProfileFinishedEvent),
 ) {
@@ -242,7 +245,7 @@ call.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#event-consoleProfileStarted
 */
-func (_profiler) OnConsoleProfileStarted(
+func (ProfilerProtocol) OnConsoleProfileStarted(
 	socket sock.Socketer,
 	callback func(event *profiler.ConsoleProfileStartedEvent),
 ) {

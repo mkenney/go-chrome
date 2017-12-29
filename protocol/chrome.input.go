@@ -6,20 +6,23 @@ import (
 )
 
 /*
-Input is a struct that provides a namespace for the Chrome Input protocol methods.
+Input provides a namespace for the Chrome Input protocol methods.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/
 */
-var Input = _input{}
+var Input = InputProtocol{}
 
-type _input struct{}
+/*
+InputProtocol defines the Input protocol methods.
+*/
+type InputProtocol struct{}
 
 /*
 DispatchKeyEvent dispatches a key event to the page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchKeyEvent
 */
-func (_input) DispatchKeyEvent(
+func (InputProtocol) DispatchKeyEvent(
 	socket sock.Socketer,
 	params *input.DispatchKeyEventParams,
 ) error {
@@ -33,7 +36,7 @@ DispatchMouseEvent dispatches a mouse event to the page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchMouseEvent
 */
-func (_input) DispatchMouseEvent(
+func (InputProtocol) DispatchMouseEvent(
 	socket sock.Socketer,
 	params *input.DispatchMouseEventParams,
 ) error {
@@ -47,7 +50,7 @@ DispatchTouchEvent dispatches a touch event to the page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchTouchEvent
 */
-func (_input) DispatchTouchEvent(
+func (InputProtocol) DispatchTouchEvent(
 	socket sock.Socketer,
 	params *input.DispatchTouchEventParams,
 ) error {
@@ -61,7 +64,7 @@ EmulateTouchFromMouseEvent emulates touch event from the mouse event parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-emulateTouchFromMouseEvent
 */
-func (_input) EmulateTouchFromMouseEvent(
+func (InputProtocol) EmulateTouchFromMouseEvent(
 	socket sock.Socketer,
 	params *input.EmulateTouchFromMouseEventParams,
 ) error {
@@ -75,7 +78,7 @@ SetIgnoreEvents ignores input events (useful while auditing page).
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-setIgnoreInputEvents
 */
-func (_input) SetIgnoreEvents(
+func (InputProtocol) SetIgnoreEvents(
 	socket sock.Socketer,
 	params *input.SetIgnoreEventsParams,
 ) error {
@@ -90,7 +93,7 @@ events. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizePinchGesture
 */
-func (_input) SynthesizePinchGesture(
+func (InputProtocol) SynthesizePinchGesture(
 	socket sock.Socketer,
 	params *input.SynthesizePinchGestureParams,
 ) error {
@@ -105,7 +108,7 @@ events. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizeScrollGesture
 */
-func (_input) SynthesizeScrollGesture(
+func (InputProtocol) SynthesizeScrollGesture(
 	socket sock.Socketer,
 	params *input.SynthesizeScrollGestureParams,
 ) error {
@@ -120,7 +123,7 @@ events. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizeTapGesture
 */
-func (_input) SynthesizeTapGesture(
+func (InputProtocol) SynthesizeTapGesture(
 	socket sock.Socketer,
 	params *input.SynthesizeTapGestureParams,
 ) error {

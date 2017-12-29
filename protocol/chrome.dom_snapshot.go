@@ -6,15 +6,17 @@ import (
 )
 
 /*
-DOMSnapshot is a struct that provides a namespace for the Chrome DOMSnapshot protocol methods. The
-DOMSnapshot protocol facilitates obtaining document snapshots with DOM, layout, and style
-information.
+DOMSnapshot provides a namespace for the Chrome DOMSnapshot protocol methods. The DOMSnapshot
+protocol facilitates obtaining document snapshots with DOM, layout, and style information.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/
 */
-var DOMSnapshot = _domSnapshot{}
+var DOMSnapshot = DOMSnapshotProtocol{}
 
-type _domSnapshot struct{}
+/*
+DOMSnapshotProtocol defines the DOMSnapshot protocol methods.
+*/
+type DOMSnapshotProtocol struct{}
 
 /*
 Get returns a document snapshot, including the full DOM tree of the root node (including iframes,
@@ -23,7 +25,7 @@ computed style information for the nodes. Shadow DOM in the returned DOM tree is
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#method-getSnapshot
 */
-func (_domSnapshot) Get(
+func (DOMSnapshotProtocol) Get(
 	socket sock.Socketer,
 	params *domSnapshot.GetParams,
 ) (*domSnapshot.GetResult, error) {

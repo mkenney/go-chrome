@@ -6,21 +6,23 @@ import (
 )
 
 /*
-CacheStorage is a struct that provides a namespace for the Chrome CacheStorage protocol methods.
-EXPERIMENTAL.
+CacheStorage provides a namespace for the Chrome CacheStorage protocol methods. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/
 */
-var CacheStorage = _cachestorage{}
+var CacheStorage = CacheStorageProtocol{}
 
-type _cachestorage struct{}
+/*
+CacheStorageProtocol defines the CacheStorage protocol methods.
+*/
+type CacheStorageProtocol struct{}
 
 /*
 DeleteCache deletes a cache.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-deleteCache
 */
-func (_cachestorage) DeleteCache(
+func (CacheStorageProtocol) DeleteCache(
 	socket sock.Socketer,
 	params *cacheStorage.DeleteCacheParams,
 ) error {
@@ -34,7 +36,7 @@ DeleteEntry deletes a cache entry.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-deleteEntry
 */
-func (_cachestorage) DeleteEntry(
+func (CacheStorageProtocol) DeleteEntry(
 	socket sock.Socketer,
 	params *cacheStorage.DeleteEntryParams,
 ) error {
@@ -48,7 +50,7 @@ RequestCacheNames requests cache names.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requestCacheNames
 */
-func (_cachestorage) RequestCacheNames(
+func (CacheStorageProtocol) RequestCacheNames(
 	socket sock.Socketer,
 	params *cacheStorage.RequestCacheNamesParams,
 ) (*cacheStorage.RequestCacheNamesResult, error) {
@@ -69,7 +71,7 @@ RequestCachedResponse fetches cache entry.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requestCachedResponse
 */
-func (_cachestorage) RequestCachedResponse(
+func (CacheStorageProtocol) RequestCachedResponse(
 	socket sock.Socketer,
 	params *cacheStorage.RequestCachedResponseParams,
 ) (*cacheStorage.RequestCachedResponseResult, error) {
@@ -90,7 +92,7 @@ RequestEntries requests data from cache.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requestEntries
 */
-func (_cachestorage) RequestEntries(
+func (CacheStorageProtocol) RequestEntries(
 	socket sock.Socketer,
 	params *cacheStorage.RequestEntriesParams,
 ) (*cacheStorage.RequestEntriesResult, error) {

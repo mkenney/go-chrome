@@ -6,20 +6,23 @@ import (
 )
 
 /*
-Memory is a struct that provides a namespace for the Chrome Memory protocol methods. EXPERIMENTAL.
+Memory provides a namespace for the Chrome Memory protocol methods. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/
 */
-var Memory = _memory{}
+var Memory = MemoryProtocol{}
 
-type _memory struct{}
+/*
+MemoryProtocol defines the Memory protocol methods.
+*/
+type MemoryProtocol struct{}
 
 /*
 GetDOMCounters EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-getDOMCounters
 */
-func (_memory) GetDOMCounters(
+func (MemoryProtocol) GetDOMCounters(
 	socket sock.Socketer,
 	params *memory.GetDOMCountersParams,
 ) error {
@@ -33,7 +36,7 @@ PrepareForLeakDetection EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-prepareForLeakDetection
 */
-func (_memory) PrepareForLeakDetection(
+func (MemoryProtocol) PrepareForLeakDetection(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Memory.prepareForLeakDetection", nil)
@@ -47,7 +50,7 @@ processes.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-setPressureNotificationsSuppressed
 */
-func (_memory) SetPressureNotificationsSuppressed(
+func (MemoryProtocol) SetPressureNotificationsSuppressed(
 	socket sock.Socketer,
 	params *memory.SetPressureNotificationsSuppressedParams,
 ) error {
@@ -61,7 +64,7 @@ SimulatePressureNotification simulates a memory pressure notification in all pro
 
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-simulatePressureNotification
 */
-func (_memory) SimulatePressureNotification(
+func (MemoryProtocol) SimulatePressureNotification(
 	socket sock.Socketer,
 	params *memory.SimulatePressureNotificationParams,
 ) error {

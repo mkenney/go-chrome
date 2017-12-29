@@ -10,9 +10,12 @@ Accessibility provides a namespace for the Chrome Accessibility protocol methods
 
 https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/
 */
-var Accessibility = Accessibility_{}
+var Accessibility = AccessibilityProtocol{}
 
-type Accessibility_ struct{}
+/*
+AccessibilityProtocol defines the Accessibility protocol methods.
+*/
+type AccessibilityProtocol struct{}
 
 /*
 GetPartialAXTree fetches the accessibility node and partial accessibility tree for this DOM node, if
@@ -20,7 +23,7 @@ it exists.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/#method-getPartialAXTree
 */
-func (Accessibility_) GetPartialAXTree(
+func (AccessibilityProtocol) GetPartialAXTree(
 	socket sock.Socketer,
 	params *accessibility.PartialAXTreeParams,
 ) (*accessibility.PartialAXTreeResult, error) {

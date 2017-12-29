@@ -10,21 +10,23 @@ import (
 )
 
 /*
-LayerTree is a struct that provides a namespace for the Chrome LayerTree protocol methods.
-EXPERIMENTAL.
+LayerTree provides a namespace for the Chrome LayerTree protocol methods. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/
 */
-var LayerTree = _layerTree{}
+var LayerTree = LayerTreeProtocol{}
 
-type _layerTree struct{}
+/*
+LayerTreeProtocol defines the LayerTree protocol methods.
+*/
+type LayerTreeProtocol struct{}
 
 /*
 CompositingReasons provides the reasons why the given layer was composited.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-compositingReasons
 */
-func (_layerTree) CompositingReasons(
+func (LayerTreeProtocol) CompositingReasons(
 	socket sock.Socketer,
 	params *layerTree.CompositingReasonsParams,
 ) (*layerTree.CompositingReasonsResult, error) {
@@ -45,7 +47,7 @@ Disable disables compositing tree inspection.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-disable
 */
-func (_layerTree) Disable(
+func (LayerTreeProtocol) Disable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("LayerTree.disable", nil)
@@ -58,7 +60,7 @@ Enable enables compositing tree inspection.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-enable
 */
-func (_layerTree) Enable(
+func (LayerTreeProtocol) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("LayerTree.enable", nil)
@@ -71,7 +73,7 @@ LoadSnapshot returns the snapshot identifier.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-loadSnapshot
 */
-func (_layerTree) LoadSnapshot(
+func (LayerTreeProtocol) LoadSnapshot(
 	socket sock.Socketer,
 	params *layerTree.LoadSnapshotParams,
 ) (*layerTree.LoadSnapshotResult, error) {
@@ -92,7 +94,7 @@ MakeSnapshot returns the layer snapshot identifier.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-makeSnapshot
 */
-func (_layerTree) MakeSnapshot(
+func (LayerTreeProtocol) MakeSnapshot(
 	socket sock.Socketer,
 	params *layerTree.MakeSnapshotParams,
 ) (*layerTree.MakeSnapshotResult, error) {
@@ -113,7 +115,7 @@ ProfileSnapshot profiles a snapshot.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-profileSnapshot
 */
-func (_layerTree) ProfileSnapshot(
+func (LayerTreeProtocol) ProfileSnapshot(
 	socket sock.Socketer,
 	params *layerTree.ProfileSnapshotParams,
 ) (*layerTree.ProfileSnapshotResult, error) {
@@ -134,7 +136,7 @@ ReleaseSnapshot releases layer snapshot captured by the back-end.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-releaseSnapshot
 */
-func (_layerTree) ReleaseSnapshot(
+func (LayerTreeProtocol) ReleaseSnapshot(
 	socket sock.Socketer,
 	params *layerTree.ReleaseSnapshotParams,
 ) error {
@@ -148,7 +150,7 @@ ReplaySnapshot replays the layer snapshot and returns the resulting bitmap.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-replaySnapshot
 */
-func (_layerTree) ReplaySnapshot(
+func (LayerTreeProtocol) ReplaySnapshot(
 	socket sock.Socketer,
 	params *layerTree.ReplaySnapshotParams,
 ) (*layerTree.ReplaySnapshotResult, error) {
@@ -169,7 +171,7 @@ SnapshotCommandLog replays the layer snapshot and returns canvas log.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-snapshotCommandLog
 */
-func (_layerTree) SnapshotCommandLog(
+func (LayerTreeProtocol) SnapshotCommandLog(
 	socket sock.Socketer,
 	params *layerTree.SnapshotCommandLogParams,
 ) (*layerTree.SnapshotCommandLogResult, error) {
@@ -191,7 +193,7 @@ is painted.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#event-layerPainted
 */
-func (_layerTree) OnLayerPainted(
+func (LayerTreeProtocol) OnLayerPainted(
 	socket sock.Socketer,
 	callback func(event *layerTree.LayerPaintedEvent),
 ) {
@@ -215,7 +217,7 @@ the layer tree changes.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#event-layerTreeDidChange
 */
-func (_layerTree) OnLayerTreeDidChange(
+func (LayerTreeProtocol) OnLayerTreeDidChange(
 	socket sock.Socketer,
 	callback func(event *layerTree.DidChangeEvent),
 ) {

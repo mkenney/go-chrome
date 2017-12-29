@@ -10,20 +10,23 @@ import (
 )
 
 /*
-Storage is a struct that provides a namespace for the Chrome Storage protocol methods. EXPERIMENTAL.
+Storage provides a namespace for the Chrome Storage protocol methods. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/
 */
-var Storage = _storage{}
+var Storage = StorageProtocol{}
 
-type _storage struct{}
+/*
+StorageProtocol defines the Storage protocol methods.
+*/
+type StorageProtocol struct{}
 
 /*
 ClearDataForOrigin clears storage for origin.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-clearDataForOrigin
 */
-func (_storage) ClearDataForOrigin(
+func (StorageProtocol) ClearDataForOrigin(
 	socket sock.Socketer,
 	params *storage.ClearDataForOriginParams,
 ) error {
@@ -37,7 +40,7 @@ GetUsageAndQuota returns usage and quota in bytes.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-getUsageAndQuota
 */
-func (_storage) GetUsageAndQuota(
+func (StorageProtocol) GetUsageAndQuota(
 	socket sock.Socketer,
 	params *storage.GetUsageAndQuotaParams,
 ) (*storage.GetUsageAndQuotaResult, error) {
@@ -59,7 +62,7 @@ storage list.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-trackCacheStorageForOrigin
 */
-func (_storage) TrackCacheStorageForOrigin(
+func (StorageProtocol) TrackCacheStorageForOrigin(
 	socket sock.Socketer,
 	params *storage.TrackCacheStorageForOriginParams,
 ) error {
@@ -73,7 +76,7 @@ TrackIndexedDBForOrigin registers origin to be notified when an update occurs to
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-trackIndexedDBForOrigin
 */
-func (_storage) TrackIndexedDBForOrigin(
+func (StorageProtocol) TrackIndexedDBForOrigin(
 	socket sock.Socketer,
 	params *storage.TrackIndexedDBForOriginParams,
 ) error {
@@ -87,7 +90,7 @@ UntrackCacheStorageForOrigin unregisters origin from receiving notifications for
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-untrackCacheStorageForOrigin
 */
-func (_storage) UntrackCacheStorageForOrigin(
+func (StorageProtocol) UntrackCacheStorageForOrigin(
 	socket sock.Socketer,
 	params *storage.UntrackCacheStorageForOriginParams,
 ) error {
@@ -101,7 +104,7 @@ UntrackIndexedDBForOrigin unregisters origin from receiving notifications for In
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-untrackIndexedDBForOrigin
 */
-func (_storage) UntrackIndexedDBForOrigin(
+func (StorageProtocol) UntrackIndexedDBForOrigin(
 	socket sock.Socketer,
 	params *storage.UntrackIndexedDBForOriginParams,
 ) error {
@@ -116,7 +119,7 @@ Storage.cacheStorageContentUpdated fires when a cache's contents have been modif
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#event-cacheStorageContentUpdated
 */
-func (_storage) OnCacheStorageContentUpdated(
+func (StorageProtocol) OnCacheStorageContentUpdated(
 	socket sock.Socketer,
 	callback func(event *storage.CacheStorageContentUpdatedEvent),
 ) {
@@ -140,7 +143,7 @@ Storage.cacheStorageListUpdated fires when cache has been added/deleted.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#event-cacheStorageListUpdated
 */
-func (_storage) OnCacheStorageListUpdated(
+func (StorageProtocol) OnCacheStorageListUpdated(
 	socket sock.Socketer,
 	callback func(event *storage.CacheStorageListUpdatedEvent),
 ) {
@@ -164,7 +167,7 @@ Storage.indexedDBContentUpdated fires when the origin's IndexedDB object store h
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#event-indexedDBContentUpdated
 */
-func (_storage) OnIndexedDBContentUpdated(
+func (StorageProtocol) OnIndexedDBContentUpdated(
 	socket sock.Socketer,
 	callback func(event *storage.IndexedDBContentUpdatedEvent),
 ) {
@@ -188,7 +191,7 @@ Storage.indexedDBListUpdated fires when the origin's IndexedDB database list has
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#event-indexedDBListUpdated
 */
-func (_storage) OnIndexedDBListUpdated(
+func (StorageProtocol) OnIndexedDBListUpdated(
 	socket sock.Socketer,
 	callback func(event *storage.IndexedDBListUpdatedEvent),
 ) {

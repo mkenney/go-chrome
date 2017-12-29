@@ -10,21 +10,23 @@ import (
 )
 
 /*
-ApplicationCache is a struct that provides a namespace for the Chrome Animation protocol methods.
-EXPERIMENTAL.
+ApplicationCache provides a namespace for the Chrome Animation protocol methods. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/
 */
-var ApplicationCache = _applicationcache{}
+var ApplicationCache = ApplicationCacheProtocol{}
 
-type _applicationcache struct{}
+/*
+ApplicationCacheProtocol defines the ApplicationCache protocol methods.
+*/
+type ApplicationCacheProtocol struct{}
 
 /*
 Enable enables application cache domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-enable
 */
-func (_applicationcache) Enable(
+func (ApplicationCacheProtocol) Enable(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("ApplicationCache.enable", nil)
@@ -38,7 +40,7 @@ in given frame.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getApplicationCacheForFrame
 */
-func (_applicationcache) GetForFrame(
+func (ApplicationCacheProtocol) GetForFrame(
 	socket sock.Socketer,
 	params *applicationCache.GetForFrameParams,
 ) (*applicationCache.GetForFrameResult, error) {
@@ -60,7 +62,7 @@ containing a document associated with some application cache.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getFramesWithManifests
 */
-func (_applicationcache) GetFramesWithManifests(
+func (ApplicationCacheProtocol) GetFramesWithManifests(
 	socket sock.Socketer,
 ) (*applicationCache.GetFramesWithManifestsResult, error) {
 	command := sock.NewCommand("ApplicationCache.getFramesWithManifests", nil)
@@ -80,7 +82,7 @@ GetManifestForFrame returns manifest URL for document in the given frame.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getManifestForFrame
 */
-func (_applicationcache) GetManifestForFrame(
+func (ApplicationCacheProtocol) GetManifestForFrame(
 	socket sock.Socketer,
 	params *applicationCache.GetManifestForFrameParams,
 ) (*applicationCache.GetManifestForFrameResult, error) {
@@ -101,7 +103,7 @@ OnApplicationCacheStatusUpdated adds a handler to the ApplicationCache.StatusUpd
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#event-applicationCacheStatusUpdated
 */
-func (_applicationcache) OnApplicationCacheStatusUpdated(
+func (ApplicationCacheProtocol) OnApplicationCacheStatusUpdated(
 	socket sock.Socketer,
 	callback func(event *applicationCache.StatusUpdatedEvent),
 ) {
@@ -124,7 +126,7 @@ OnNetworkStateUpdated adds a handler to the ApplicationCache.StatusUpdated event
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#event-networkStateUpdated
 */
-func (_applicationcache) OnNetworkStateUpdated(
+func (ApplicationCacheProtocol) OnNetworkStateUpdated(
 	socket sock.Socketer,
 	callback func(event *applicationCache.StatusUpdatedEvent),
 ) {

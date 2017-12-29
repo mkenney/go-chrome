@@ -10,20 +10,23 @@ import (
 )
 
 /*
-Tracing is a struct that provides a namespace for the Chrome Tracing protocol methods. EXPERIMENTAL.
+Tracing provides a namespace for the Chrome Tracing protocol methods. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/
 */
-var Tracing = _tracing{}
+var Tracing = TracingProtocol{}
 
-type _tracing struct{}
+/*
+TracingProtocol defines the Tracing protocol methods.
+*/
+type TracingProtocol struct{}
 
 /*
 End stops trace events collection.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-end
 */
-func (_tracing) End(
+func (TracingProtocol) End(
 	socket sock.Socketer,
 ) error {
 	command := sock.NewCommand("Tracing.end", nil)
@@ -36,7 +39,7 @@ GetCategories gets supported tracing categories.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-getCategories
 */
-func (_tracing) GetCategories(
+func (TracingProtocol) GetCategories(
 	socket sock.Socketer,
 ) (*tracing.GetCategoriesResult, error) {
 	command := sock.NewCommand("Tracing.getCategories", nil)
@@ -56,7 +59,7 @@ RecordClockSyncMarker records a clock sync marker in the trace.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-recordClockSyncMarker
 */
-func (_tracing) RecordClockSyncMarker(
+func (TracingProtocol) RecordClockSyncMarker(
 	socket sock.Socketer,
 	params *tracing.RecordClockSyncMarkerParams,
 ) error {
@@ -70,7 +73,7 @@ RequestMemoryDump requests a global memory dump.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-requestMemoryDump
 */
-func (_tracing) RequestMemoryDump(
+func (TracingProtocol) RequestMemoryDump(
 	socket sock.Socketer,
 ) (*tracing.GetCategoriesResult, error) {
 	command := sock.NewCommand("Tracing.requestMemoryDump", nil)
@@ -90,7 +93,7 @@ Start starts trace events collection.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-start
 */
-func (_tracing) Start(
+func (TracingProtocol) Start(
 	socket sock.Socketer,
 	params *tracing.StartParams,
 ) error {
@@ -105,7 +108,7 @@ buffer is used.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-bufferUsage
 */
-func (_tracing) OnBufferUsage(
+func (TracingProtocol) OnBufferUsage(
 	socket sock.Socketer,
 	callback func(event *tracing.BufferUsageEvent),
 ) {
@@ -130,7 +133,7 @@ tracingComplete event. Contains an bucket of collected trace events.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-dataCollected
 */
-func (_tracing) OnDataCollected(
+func (TracingProtocol) OnDataCollected(
 	socket sock.Socketer,
 	callback func(event *tracing.DataCollectedEvent),
 ) {
@@ -155,7 +158,7 @@ events.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-tracingComplete
 */
-func (_tracing) OnTracingComplete(
+func (TracingProtocol) OnTracingComplete(
 	socket sock.Socketer,
 	callback func(event *tracing.CompleteEvent),
 ) {
