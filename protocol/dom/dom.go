@@ -43,8 +43,8 @@ type CopyToParams struct {
 	// ID of the element to drop the copy into.
 	TargetNodeID NodeID `json:"targetNodeId"`
 
-	// Optional. Drop the copy before this node (if absent, the copy becomes the last child of
-	// targetNodeId).
+	// Optional. Drop the copy before this node (if absent, the copy becomes the
+	// last child of targetNodeId).
 	InsertBeforeNodeID NodeID `json:"insertBeforeNodeId,omitempty"`
 }
 
@@ -73,12 +73,13 @@ type DescribeNodeParams struct {
 	// Optional. JavaScript object ID of the node wrapper.
 	ObjectID runtime.RemoteObjectID `json:"objectId,omitempty"`
 
-	// Optional. The maximum depth at which children should be retrieved, defaults to 1. Use -1 for
-	// the entire subtree or provide an integer larger than 0.
+	// Optional. The maximum depth at which children should be retrieved,
+	// defaults to 1. Use -1 for the entire subtree or provide an integer larger
+	// than 0.
 	Depth int `json:"depth,omitempty"`
 
-	// Optional. Whether or not iframes and shadow roots should be traversed when returning the
-	// subtree (default is false).
+	// Optional. Whether or not iframes and shadow roots should be traversed
+	// when returning the subtree (default is false).
 	Pierce bool `json:"pierce,omitempty"`
 }
 
@@ -99,7 +100,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-discardSearch
 */
 type DiscardSearchResultsParams struct {
 	// Node description.
-	Node Node `json:"node"`
+	Node *Node `json:"node"`
 }
 
 /*
@@ -161,7 +162,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getBoxModel
 */
 type GetBoxModelResult struct {
 	// Box model for the node.
-	Model BoxModel `json:"model"`
+	Model *BoxModel `json:"model"`
 }
 
 /*
@@ -170,12 +171,13 @@ GetDocumentParams represents DOM.getDocument parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getDocument
 */
 type GetDocumentParams struct {
-	// Optional. The maximum depth at which children should be retrieved, defaults to 1. Use -1 for
-	// the entire subtree or provide an integer larger than 0.
+	// Optional. The maximum depth at which children should be retrieved,
+	// defaults to 1. Use -1 for the entire subtree or provide an integer larger
+	// than 0.
 	Depth int `json:"depth,omitempty"`
 
-	// Optional. Whether or not iframes and shadow roots should be traversed when returning the
-	// subtree (default is false).
+	// Optional. Whether or not iframes and shadow roots should be traversed
+	// when returning the subtree (default is false).
 	Pierce bool `json:"pierce,omitempty"`
 }
 
@@ -186,7 +188,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getDocument
 */
 type GetDocumentResult struct {
 	// Resulting node.
-	Root Node `json:"root"`
+	Root *Node `json:"root"`
 }
 
 /*
@@ -195,12 +197,13 @@ GetFlattenedDocumentParams represents DOM.getFlattenedDocument parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getFlattenedDocument
 */
 type GetFlattenedDocumentParams struct {
-	// Optional. The maximum depth at which children should be retrieved, defaults to 1. Use -1 for
-	// the entire subtree or provide an integer larger than 0.
+	// Optional. The maximum depth at which children should be retrieved,
+	// defaults to 1. Use -1 for the entire subtree or provide an integer larger
+	// than 0.
 	Depth int `json:"depth,omitempty"`
 
-	// Optional. Whether or not iframes and shadow roots should be traversed when returning the
-	// subtree (default is false).
+	// Optional. Whether or not iframes and shadow roots should be traversed
+	// when returning the subtree (default is false).
 	Pierce bool `json:"pierce,omitempty"`
 }
 
@@ -211,7 +214,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getFlattenedD
 */
 type GetFlattenedDocumentResult struct {
 	// Resulting nodes.
-	Nodes []Node `json:"nodes"`
+	Nodes []*Node `json:"nodes"`
 }
 
 /*
@@ -226,7 +229,8 @@ type GetNodeForLocationParams struct {
 	// Y coordinate.
 	Y int `json:"y"`
 
-	// Optional. False to skip to the nearest non-UA shadow root ancestor (default: false).
+	// Optional. False to skip to the nearest non-UA shadow root ancestor
+	// (default: false).
 	IncludeUserAgentShadowDOM bool `json:"includeUserAgentShadowDOM,omitempty"`
 }
 
@@ -324,8 +328,8 @@ type MoveToParams struct {
 	// ID of the element to drop the moved node into.
 	TargetNodeID NodeID `json:"targetNodeId"`
 
-	// Optional. Drop node before this one (if absent, the moved node becomes the last child of
-	// targetNodeId).
+	// Optional. Drop node before this one (if absent, the moved node becomes
+	// the last child of targetNodeId).
 	InsertBeforeNodeID NodeID `json:"insertBeforeNodeId,omitempty"`
 }
 
@@ -402,8 +406,8 @@ DOM.pushNodesByBackendIdsToFrontend.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-pushNodesByBackendIdsToFrontend
 */
 type PushNodesByBackendIDsToFrontendResult struct {
-	// The array of IDs of pushed nodes that correspond to the backend IDs specified in
-	// backendNodeIDs.
+	// The array of IDs of pushed nodes that correspond to the backend IDs
+	// specified in backendNodeIDs.
 	NodeIDs []NodeID `json:"nodeIds"`
 }
 
@@ -485,12 +489,13 @@ type RequestChildNodesParams struct {
 	// ID of the node to get children for.
 	NodeID NodeID `json:"nodeId"`
 
-	// Optional. The maximum depth at which children should be retrieved, defaults to 1. Use -1 for
-	// the entire subtree or provide an integer larger than 0.
+	// Optional. The maximum depth at which children should be retrieved,
+	// defaults to 1. Use -1 for the entire subtree or provide an integer larger
+	// than 0.
 	Depth int `json:"depth,omitempty"`
 
-	// Optional. Whether or not iframes and shadow roots should be traversed when returning the
-	// sub-tree (default is false).
+	// Optional. Whether or not iframes and shadow roots should be traversed
+	// when returning the sub-tree (default is false).
 	Pierce bool `json:"pierce,omitempty"`
 }
 
@@ -526,7 +531,8 @@ type ResolveNodeParams struct {
 	// Optional. Backend identifier of the node to resolve.
 	BackendNodeID BackendNodeID `json:"backendNodeId,omitempty"`
 
-	// Optional. Symbolic group name that can be used to release multiple objects.
+	// Optional. Symbolic group name that can be used to release multiple
+	// objects.
 	ObjectGroup string `json:"objectGroup,omitempty"`
 }
 
@@ -537,7 +543,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-resolveNode
 */
 type ResolveNodeResult struct {
 	// JavaScript object wrapper for given node.
-	Object runtime.RemoteObject `json:"object"`
+	Object *runtime.RemoteObject `json:"object"`
 }
 
 /*
@@ -568,8 +574,8 @@ type SetAttributesAsTextParams struct {
 	// Text with a number of attributes. Will parse this text using HTML parser.
 	Text string `json:"text"`
 
-	// Optional. Attribute name to replace with new attributes derived from text in case text parsed
-	// successfully.
+	// Optional. Attribute name to replace with new attributes derived from text
+	// in case text parsed successfully.
 	Name string `json:"name,omitempty"`
 }
 
@@ -706,7 +712,7 @@ type ChildNodeCountUpdatedEvent struct {
 	PreviousNodeID NodeID `json:"previousNodeId"`
 
 	// Inserted node data.
-	Node Node `json:"node"`
+	Node *Node `json:"node"`
 }
 
 /*
@@ -722,7 +728,7 @@ type ChildNodeInsertedEvent struct {
 	PreviousNodeID NodeID `json:"previousNodeId"`
 
 	// Inserted node data.
-	Node Node `json:"node"`
+	Node *Node `json:"node"`
 }
 
 /*
@@ -778,7 +784,7 @@ type PseudoElementAddedEvent struct {
 	ParentID NodeID `json:"parentId"`
 
 	// The added pseudo element.
-	PseudoElement Node `json:"pseudoElement"`
+	PseudoElement *Node `json:"pseudoElement"`
 }
 
 /*
@@ -830,7 +836,7 @@ type ShadowRootPushedEvent struct {
 	HostID NodeID `json:"hostId"`
 
 	// Shadow root.
-	Root Node `json:"root"`
+	Root *Node `json:"root"`
 }
 
 /*
@@ -885,9 +891,10 @@ represent the actual DOM nodes.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-Node
 */
 type Node struct {
-	// Node identifier that is passed into the rest of the DOM messages as the nodeId. Backend will
-	// only push node with given id once. It is aware of all requested nodes and will only fire DOM
-	// events for nodes known to the client.
+	// Node identifier that is passed into the rest of the DOM messages as the
+	// nodeId. Backend will only push node with given id once. It is aware of
+	// all requested nodes and will only fire DOM events for nodes known to the
+	// client.
 	NodeID NodeID `json:"nodeId"`
 
 	// Optional. The ID of the parent node if any.
@@ -1025,10 +1032,7 @@ type BoxModel struct {
 	Height int `json:"height"`
 
 	// Optional. Shape outside coordinates.
-	//
-	// This expects an instance of ShapeOutsideInfo, but that doesn't omitempty correctly so it must
-	// be added manually.
-	ShapeOutside interface{} `json:"shapeOutside,omitempty"`
+	ShapeOutside *ShapeOutsideInfo `json:"shapeOutside,omitempty"`
 }
 
 /*

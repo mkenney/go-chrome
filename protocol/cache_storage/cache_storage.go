@@ -45,7 +45,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requ
 */
 type RequestCacheNamesResult struct {
 	// Caches for the security origin.
-	Caches []Cache `json:"caches"`
+	Caches []*Cache `json:"caches"`
 }
 
 /*
@@ -68,7 +68,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requ
 */
 type RequestCachedResponseResult struct {
 	// Response read from the cache.
-	Response CachedResponse `json:"response"`
+	Response *CachedResponse `json:"response"`
 }
 
 /*
@@ -94,7 +94,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requ
 */
 type RequestEntriesResult struct {
 	// Array of object store data entries.
-	CacheDataEntries []DataEntry `json:"cacheDataEntries"`
+	CacheDataEntries []*DataEntry `json:"cacheDataEntries"`
 
 	// If true, there are more entries to fetch in the given range.
 	HasMore bool `json:"hasMore"`

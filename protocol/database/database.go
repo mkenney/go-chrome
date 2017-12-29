@@ -28,7 +28,7 @@ type ExecuteSQLResult struct {
 	Values []interface{} `json:"values"`
 
 	// Optional. Error, if any.
-	SQLError Error `json:"sqlError,omitempty"`
+	SQLError *Error `json:"sqlError,omitempty"`
 }
 
 /*
@@ -56,7 +56,7 @@ AddEvent represents Database.addDatabase event data.
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#event-addDatabase
 */
 type AddEvent struct {
-	Database Database `json:"database"`
+	Database *Database `json:"database"`
 }
 
 /*

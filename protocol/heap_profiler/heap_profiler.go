@@ -35,7 +35,8 @@ GetHeapObjectIDResult represents the result of calls to HeapProfiler.getHeapObje
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getHeapObjectId
 */
 type GetHeapObjectIDResult struct {
-	// ID of the heap snapshot object corresponding to the passed remote object id.
+	// ID of the heap snapshot object corresponding to the passed remote object
+	// id.
 	HeapSnapshotObjectID HeapSnapshotObjectID `json:"heapSnapshotObjectId"`
 }
 
@@ -48,7 +49,8 @@ type GetObjectByHeapObjectIDParams struct {
 	// desc.
 	ObjectID HeapSnapshotObjectID `json:"objectId"`
 
-	// Optional. Symbolic group name that can be used to release multiple objects.
+	// Optional. Symbolic group name that can be used to release multiple
+	// objects.
 	ObjectGroup string `json:"objectGroup,omitempty"`
 }
 
@@ -60,7 +62,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getO
 */
 type GetObjectByHeapObjectIDResult struct {
 	// Evaluation result.
-	Result runtime.RemoteObject `json:"result"`
+	Result *runtime.RemoteObject `json:"result"`
 }
 
 /*
@@ -70,7 +72,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getS
 */
 type GetSamplingProfileParams struct {
 	// Return the sampling profile being collected.
-	Profile SamplingHeapProfile `json:"profile"`
+	Profile *SamplingHeapProfile `json:"profile"`
 }
 
 /*
@@ -79,8 +81,8 @@ StartSamplingParams represents HeapProfiler.startSampling parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-startSampling
 */
 type StartSamplingParams struct {
-	// Optional. Average sample interval in bytes. Poisson distribution is used for the intervals.
-	// The default value is 32768 bytes.
+	// Optional. Average sample interval in bytes. Poisson distribution is used
+	// for the intervals. The default value is 32768 bytes.
 	SamplingInterval int `json:"samplingInterval,omitempty"`
 }
 
@@ -101,7 +103,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stop
 */
 type StopSamplingParams struct {
 	// Recorded sampling heap profile.
-	Profile SamplingHeapProfile `json:"profile"`
+	Profile *SamplingHeapProfile `json:"profile"`
 }
 
 /*
@@ -110,8 +112,8 @@ StopTrackingHeapObjectsParams represents HeapProfiler.stopTrackingHeapObjects pa
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stopTrackingHeapObjects
 */
 type StopTrackingHeapObjectsParams struct {
-	// Optional. If true 'reportHeapSnapshotProgress' events will be generated while snapshot is
-	// being taken when the tracking is stopped.
+	// Optional. If true 'reportHeapSnapshotProgress' events will be generated
+	// while snapshot is being taken when the tracking is stopped.
 	ReportProgress bool `json:"reportProgress,omitempty"`
 }
 
@@ -121,8 +123,8 @@ TakeHeapSnapshotParams represents HeapProfiler.takeHeapSnapshot parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-takeHeapSnapshot
 */
 type TakeHeapSnapshotParams struct {
-	// Optional. If true 'reportHeapSnapshotProgress' events will be generated while snapshot is
-	// being taken.
+	// Optional. If true 'reportHeapSnapshotProgress' events will be generated
+	// while snapshot is being taken.
 	ReportProgress bool `json:"reportProgress,omitempty"`
 }
 
@@ -141,9 +143,10 @@ HeapStatsUpdateEvent represents DOM.heapStatsUpdate event data.
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-heapStatsUpdate
 */
 type HeapStatsUpdateEvent struct {
-	// An array of triplets. Each triplet describes a fragment. The first integer is the fragment
-	// index, the second integer is a total count of objects for the fragment, the third integer is
-	// a total size of the objects for the fragment.
+	// An array of triplets. Each triplet describes a fragment. The first
+	// integer is the fragment index, the second integer is a total count of
+	// objects for the fragment, the third integer is a total size of the
+	// objects for the fragment.
 	StatsUpdate []int `json:"statsUpdate"`
 }
 
@@ -198,7 +201,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#type-Sampli
 */
 type SamplingHeapProfileNode struct {
 	// Function location.
-	CallFrame runtime.CallFrame `json:"callFrame"`
+	CallFrame *runtime.CallFrame `json:"callFrame"`
 
 	// Allocations size in bytes for the node excluding children.
 	SelfSize int `json:"selfSize"`
@@ -213,5 +216,5 @@ SamplingHeapProfile represents a heap sample profile
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#type-SamplingHeapProfile
 */
 type SamplingHeapProfile struct {
-	Head SamplingHeapProfileNode `json:"head"`
+	Head *SamplingHeapProfileNode `json:"head"`
 }

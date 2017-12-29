@@ -18,7 +18,8 @@ type PartialAXTreeParams struct {
 	// ID of the node to get the partial accessibility tree for.
 	NodeID dom.NodeID `json:"nodeId"`
 
-	// Optional. Whether to fetch this nodes ancestors, siblings and children. Defaults to true.
+	// Optional. Whether to fetch this nodes ancestors, siblings and children.
+	// Defaults to true.
 	FetchRelatives bool `json:"fetchRelatives,omitempty"`
 }
 
@@ -28,9 +29,9 @@ PartialAXTreeResult represents the result of calls to Accessibility.partialAXTre
 https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/#method-getPartialAXTree
 */
 type PartialAXTreeResult struct {
-	// The `Accessibility.AXNode` for this DOM node, if it exists, plus its ancestors, siblings and
-	// children, if requested.
-	Nodes []AXNode `json:"nodes"`
+	// The `Accessibility.AXNode` for this DOM node, if it exists, plus its
+	// ancestors, siblings and children, if requested.
+	Nodes []*AXNode `json:"nodes"`
 }
 
 /*
@@ -64,10 +65,10 @@ type AXNode struct {
 	Properties []*AXProperty `json:"properties,omitempty"`
 
 	// Optional. IDs for each of this node's child nodes.
-	ChildIDs []*AXNodeID `json:"childIds,omitempty"`
+	ChildIDs []AXNodeID `json:"childIds,omitempty"`
 
 	// Optional. The backend ID for the associated DOM node, if any.
-	BackendDOMNodeID *dom.BackendNodeID `json:"backendDOMNodeId,omitempty"`
+	BackendDOMNodeID dom.BackendNodeID `json:"backendDOMNodeId,omitempty"`
 }
 
 /*
@@ -94,7 +95,8 @@ type AXProperty struct {
 AXPropertyName holds
 	- values of AXProperty name: from 'busy' to 'roledescription'
 	- states which apply to every AX node, from 'live' to 'root'
-	- attributes which apply to nodes in live regions, from 'autocomplete' to 'valuetext'
+	- attributes which apply to nodes in live regions, from 'autocomplete' to
+	'valuetext'
 	- attributes which apply to widgets, from 'checked' to 'selected'
 	- states which apply to widgets, from 'activedescendant' to 'owns'
 	- relationships between elements other than parent/child/sibling.
@@ -134,7 +136,8 @@ type AXValue struct {
 	// Optional. One or more related nodes, if applicable.
 	RelatedNodes []*AXRelatedNode `json:"relatedNodes,omitempty"`
 
-	// Optional. The sources which contributed to the computation of this property.
+	// Optional. The sources which contributed to the computation of this
+	// property.
 	Sources []*AXValueSource `json:"sources,omitempty"`
 }
 

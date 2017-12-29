@@ -54,19 +54,20 @@ type StartParams struct {
 	// Optional. Tracing options.
 	Options string `json:"options,omitempty"`
 
-	// Optional. If set, the agent will issue bufferUsage events at this interval, specified in
-	// milliseconds.
+	// Optional. If set, the agent will issue bufferUsage events at this
+	// interval, specified in milliseconds.
 	BufferUsageReportingInterval float64 `json:"bufferUsageReportingInterval,omitempty"`
 
-	// Optional. Whether to report trace events as series of dataCollected events or to save trace
-	// to a stream (defaults to `ReportEvents`). Allowed values: ReportEvents, ReturnAsStream.
+	// Optional. Whether to report trace events as series of dataCollected
+	// events or to save trace to a stream (defaults to `ReportEvents`).
+	//
+	// Allowed values:
+	//	- ReportEvents
+	//	- ReturnAsStream
 	TransferMode string `json:"transferMode,omitempty"`
 
 	// Optional. Trace config.
-	//
-	// This expects an instance of TraceConfig, but that doesn't omitempty correctly so it must be
-	// added manually.
-	TraceConfig interface{} `json:"traceConfig,omitempty"`
+	TraceConfig *TraceConfig `json:"traceConfig,omitempty"`
 }
 
 /*
@@ -75,15 +76,15 @@ BufferUsageEvent represents Overlay.bufferUsage event data.
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-bufferUsage
 */
 type BufferUsageEvent struct {
-	// Optional. A number in range [0..1] that indicates the used size of event buffer as a fraction
-	// of its total size.
+	// Optional. A number in range [0..1] that indicates the used size of event
+	// buffer as a fraction of its total size.
 	PercentFull float64 `json:"percentFull,omitempty"`
 
 	// Optional. An approximate number of events in the trace log.
 	EventCount float64 `json:"eventCount,omitempty"`
 
-	// Optional. A number in range [0..1] that indicates the used size of event buffer as a fraction
-	// of its total size.
+	// Optional. A number in range [0..1] that indicates the used size of event
+	// buffer as a fraction of its total size.
 	Value float64 `json:"value,omitempty"`
 }
 
@@ -120,8 +121,13 @@ TraceConfig is the trace configuration
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#type-TraceConfig
 */
 type TraceConfig struct {
-	// Optional. Controls how the trace buffer stores data. Allowed values: recordUntilFull,
-	// recordContinuously, recordAsMuchAsPossible, echoToConsole.
+	// Optional. Controls how the trace buffer stores data.
+	//
+	// Allowed values:
+	//	- recordUntilFull
+	//	- recordContinuously
+	//	- recordAsMuchAsPossible
+	//	- echoToConsole
 	RecordMode string `json:"recordMode,omitempty"`
 
 	// Optional. Turns on JavaScript stack sampling.
@@ -142,8 +148,8 @@ type TraceConfig struct {
 	// Optional. Configuration to synthesize the delays in tracing.
 	SyntheticDelays []string `json:"syntheticDelays,omitempty"`
 
-	// Optional. Configuration for memory dump triggers. Used only when "memory-infra" category is
-	// enabled.
+	// Optional. Configuration for memory dump triggers. Used only when
+	// "memory-infra" category is enabled.
 	MemoryDumpConfig MemoryDumpConfig `json:"memoryDumpConfig,omitempty"`
 }
 

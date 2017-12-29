@@ -31,17 +31,17 @@ Resources
 
 	* chrome-debugging-protocol mailing list https://groups.google.com/d/forum/chrome-debugging-protocol
 	* devtools-protocol repo issue tracker https://github.com/chromedevtools/devtools-protocol
-		can also be used for concerns with the protocol. It also hosts the canonical copy of the
-		json files.
+		can also be used for concerns with the protocol. It also hosts the
+		canonical copy of the json files.
 	* Getting Started with Headless Chrome https://developers.google.com/web/updates/2017/04/headless-chrome
 	* Headless Chromium readme https://chromium.googlesource.com/chromium/src/+/lkgr/headless/README.md
 	* chrome-remote-interface node module https://github.com/cyrus-and/chrome-remote-interface/
-		Also the wiki https://github.com/cyrus-and/chrome-remote-interface/wiki
-		and issue tracker https://github.com/cyrus-and/chrome-remote-interface/issues?utf8=%E2%9C%93&q=is%3Aissue%20
+		Wiki https://github.com/cyrus-and/chrome-remote-interface/wiki
+		Issue tracker https://github.com/cyrus-and/chrome-remote-interface/issues?utf8=%E2%9C%93&q=is%3Aissue%20
 	*  awesome-chrome-devtools page https://github.com/ChromeDevTools/awesome-chrome-devtools#chrome-devtools-protocol
-		links to many of the tools in the protocol ecosystem, including protocol API libraries in
-		JavaScript, TypeScript, Python, Java, and Go. Many applications and libraries already use
-		the protocol.
+		links to many of the tools in the protocol ecosystem, including protocol
+		API libraries in JavaScript, TypeScript, Python, Java, and Go. Many
+		applications and libraries already use the protocol.
 
 
 Basics: Using DevTools as protocol client
@@ -61,11 +61,12 @@ debugging: http://localhost:9222
 
 You will find the Developer Tools interface identical to the embedded one and here is why:
 
-	* When you navigate your client browser to the remote's Chrome port, Developer Tools front-end
-	  is being served from the host Chrome as a Web Application from the Web Server.
+	* When you navigate your client browser to the remote's Chrome port,
+	Developer Tools front-end is being served from the host Chrome as a Web
+	Application from the Web Server.
 	* It fetches HTML, JavaScript and CSS files over HTTP
-	* Once loaded, Developer Tools establishes a Web Socket connection to its host and starts
-	  exchanging JSON messages with it.
+	* Once loaded, Developer Tools establishes a Web Socket connection to its
+	host and starts exchanging JSON messages with it.
 
 In this scenario, you can substitute Developer Tools front-end with your own implementation. Instead
 of navigating to the HTML page at http://localhost:9222, your application can discover available
@@ -192,23 +193,24 @@ type Browser struct {
 	// args contains CLI arguments for the Chromium binary.
 	args Commander
 
-	// Optional. binary is the path to the Chromium binary. Defaults to '/usr/bin/google-chrome'.
+	// Optional. binary is the path to the Chromium binary. Defaults to
+	// '/usr/bin/google-chrome'.
 	binary string
 
-	// Optional. debuggingAddress is the address number that the remote debugging protocol will be
-	// available on. Defaults to '0.0.0.0'.
+	// Optional. debuggingAddress is the address number that the remote
+	// debugging protocol will be available on. Defaults to '0.0.0.0'.
 	//debuggingAddress string
 
-	// Optional. debuggingPort is the port number that the remote debugging protocol will be
-	// available on. Defaults to '9222'.
+	// Optional. debuggingPort is the port number that the remote debugging
+	// protocol will be available on. Defaults to 9222.
 	//debuggingPort int
 
-	// Optional. output is a path to a file to be used to capture STDOUT and STDERR output. Defaults
-	// to '/dev/stdout'.
+	// Optional. output is a path to a file to be used to capture STDOUT and
+	// STDERR output. Defaults to the system STDOUT.
 	output string
 
-	// Optional. port is the port number the developer tools endpoints will listen on. Defaults to
-	// '9222'
+	// Optional. port is the port number the developer tools endpoints will
+	// listen on. Defaults to 9222.
 	//port int
 
 	// tabs is a list of the currently open tabs.
@@ -217,11 +219,12 @@ type Browser struct {
 	// version contains Chromium version information.
 	version *Version
 
-	// Optional. workdir is the path to the Chromium working directory. Defaults to
-	// '/tmp/headless-chrome'.
+	// Optional. workdir is the path to the Chromium working directory. Defaults
+	// to '/tmp/headless-chrome'.
 	workdir string
 
-	// outputFile is a pointer to a file handle to be used to capture STDOUT and STDERR output.
+	// outputFile is a pointer to a file handle to be used to capture STDOUT and
+	// STDERR output.
 	outputFile *os.File
 
 	// process is a pointer to the os.Process struct containing the process PID.

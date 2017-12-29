@@ -17,7 +17,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-getBestE
 */
 type GetBestEffortCoverageResult struct {
 	// Coverage data for the current isolate.
-	Result []ScriptCoverage `json:"result"`
+	Result []*ScriptCoverage `json:"result"`
 }
 
 /*
@@ -50,7 +50,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stop
 */
 type StopResult struct {
 	// Recorded profile.
-	Profile Profile `json:"profile"`
+	Profile *Profile `json:"profile"`
 }
 
 /*
@@ -60,7 +60,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-takePrec
 */
 type TakePreciseCoverageResult struct {
 	// Coverage data for the current isolate.
-	Result []ScriptCoverage `json:"result"`
+	Result []*ScriptCoverage `json:"result"`
 }
 
 /*
@@ -70,7 +70,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-takeType
 */
 type TakeTypeProfileResult struct {
 	// Type profile for all scripts since startTypeProfile() was turned on.
-	Result []ScriptTypeProfile `json:"result"`
+	Result []*ScriptTypeProfile `json:"result"`
 }
 
 /*
@@ -83,10 +83,10 @@ type ConsoleProfileFinishedEvent struct {
 	ID string `json:"id"`
 
 	// Location of console.profileEnd().
-	Location debugger.Location `json:"location"`
+	Location *debugger.Location `json:"location"`
 
 	// Profile data.
-	Profile Profile `json:"profile"`
+	Profile *Profile `json:"profile"`
 
 	// Profile title passed as an argument to console.profile().
 	Title string `json:"title"`
@@ -102,7 +102,7 @@ type ConsoleProfileStartedEvent struct {
 	ID string `json:"id"`
 
 	// Location of console.profile().
-	Location debugger.Location `json:"location"`
+	Location *debugger.Location `json:"location"`
 
 	// Profile title passed as an argument to console.profile().
 	Title string `json:"title"`
@@ -118,7 +118,7 @@ type ProfileNode struct {
 	ID int `json:"id"`
 
 	// Function location.
-	CallFrame runtime.CallFrame `json:"callFrame"`
+	CallFrame *runtime.CallFrame `json:"callFrame"`
 
 	// Optional. Number of samples where this node was on top of the call stack.
 	HitCount int `json:"hitCount,omitempty"`
@@ -126,8 +126,8 @@ type ProfileNode struct {
 	// Optional. Child node ids.
 	Children []int `json:"children,omitempty"`
 
-	// Optional. The reason of being not optimized. The function may be deoptimized or marked as
-	// don't optimize.
+	// Optional. The reason of being not optimized. The function may be
+	// deoptimized or marked as don't optimize.
 	DeoptReason string `json:"deoptReason,omitempty"`
 
 	// Optional. An array of source position ticks.
@@ -152,8 +152,8 @@ type Profile struct {
 	// Optional. Ids of samples top nodes.
 	Samples []int `json:"samples,omitempty"`
 
-	// Optional. Time intervals between adjacent samples in microseconds. The first delta is
-	// relative to the profile startTime.
+	// Optional. Time intervals between adjacent samples in microseconds. The
+	// first delta is relative to the profile startTime.
 	TimeDeltas []int `json:"timeDeltas,omitempty"`
 }
 
@@ -229,7 +229,7 @@ type TypeObject struct {
 }
 
 /*
-TypeProfileEntry is the source offset and types for a parameter or return value. EXPERIMENTAL
+TypeProfileEntry is the source offset and types for a parameter or return value. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#type-TypeProfileEntry
 */
@@ -243,7 +243,7 @@ type TypeProfileEntry struct {
 
 /*
 ScriptTypeProfile is type profile data collected during runtime for a JavaScript script.
-EXPERIMENTAL
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#type-ScriptTypeProfile
 */
@@ -254,6 +254,7 @@ type ScriptTypeProfile struct {
 	// JavaScript script name or url.
 	URL string `json:"url"`
 
-	// Type profile entries for parameters and return values of the functions in the script.
+	// Type profile entries for parameters and return values of the functions in
+	// the script.
 	Entries []*TypeProfileEntry `json:"entries"`
 }

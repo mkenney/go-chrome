@@ -16,7 +16,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-continue
 */
 type ContinueToLocationParams struct {
 	// Location to continue to.
-	Location Location `json:"location"`
+	Location *Location `json:"location"`
 
 	// Optional. Allowed values: any, current.
 	TargetCallFrames string `json:"targetCallFrames,omitempty"`
@@ -44,25 +44,28 @@ type EvaluateOnCallFrameParams struct {
 	// Expression to evaluate.
 	Expression string `json:"expression"`
 
-	// Optional. String object group name to put result into (allows rapid releasing resulting
-	// object handles using releaseObjectGroup).
+	// Optional. String object group name to put result into (allows rapid
+	// releasing resulting object handles using releaseObjectGroup).
 	ObjectGroup string `json:"objectGroup,omitempty"`
 
-	// Optional. Specifies whether command line API should be available to the evaluated expression,
-	// defaults to false.
+	// Optional. Specifies whether command line API should be available to the
+	// evaluated expression, defaults to false.
 	IncludeCommandLineAPI bool `json:"includeCommandLineAPI,omitempty"`
 
-	// Optional. In silent mode exceptions thrown during evaluation are not reported and do not
-	// pause execution. Overrides setPauseOnException state.
+	// Optional. In silent mode exceptions thrown during evaluation are not
+	// reported and do not pause execution. Overrides setPauseOnException state.
 	Silent bool `json:"silent,omitempty"`
 
-	// Optional. Whether the result is expected to be a JSON object that should be sent by value.
+	// Optional. Whether the result is expected to be a JSON object that should
+	// be sent by value.
 	ReturnByValue bool `json:"returnByValue,omitempty"`
 
-	// Optional. Whether preview should be generated for the result. EXPERIMENTAL
+	// Optional. Whether preview should be generated for the result.
+	// EXPERIMENTAL.
 	GeneratePreview bool `json:"generatePreview,omitempty"`
 
-	// Optional. Whether to throw an exception if side effect cannot be ruled out during evaluation.
+	// Optional. Whether to throw an exception if side effect cannot be ruled
+	// out during evaluation.
 	ThrowOnSideEffect bool `json:"throwOnSideEffect,omitempty"`
 }
 
@@ -73,10 +76,10 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-evaluate
 */
 type EvaluateOnCallFrameResult struct {
 	// Object wrapper for the evaluation result.
-	Result runtime.RemoteObject `json:"result"`
+	Result *runtime.RemoteObject `json:"result"`
 
 	// Optional. Exception details.
-	ExceptionDetails runtime.ExceptionDetails `json:"exceptionDetails,omitempty"`
+	ExceptionDetails *runtime.ExceptionDetails `json:"exceptionDetails,omitempty"`
 }
 
 /*
@@ -86,16 +89,14 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getPossi
 */
 type GetPossibleBreakpointsParams struct {
 	// Start of range to search possible breakpoint locations in.
-	Start Location `json:"start"`
+	Start *Location `json:"start"`
 
-	// Optional. End of range to search possible breakpoint locations in (excluding). When not
-	// specified, end of scripts is used as end of range.
-	//
-	// This expects an instance of Location, but that doesn't omitempty correctly so it must be
-	// added manually.
-	End interface{} `json:"end,omitempty"`
+	// Optional. End of range to search possible breakpoint locations in
+	// (excluding). When not specified, end of scripts is used as end of range.
+	End *Location `json:"end,omitempty"`
 
-	// Optional. Only consider locations which are in the same (non-nested) function as start.
+	// Optional. Only consider locations which are in the same (non-nested)
+	// function as start.
 	RestrictToFunction bool `json:"restrictToFunction,omitempty"`
 }
 
@@ -106,7 +107,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getPossi
 */
 type GetPossibleBreakpointsResult struct {
 	// List of the possible breakpoint locations.
-	Locations []BreakLocation `json:"locations"`
+	Locations []*BreakLocation `json:"locations"`
 }
 
 /*
@@ -144,7 +145,7 @@ GetStackTraceResult represents the result of calls to Debugger.getStackTrace.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getStackTrace
 */
 type GetStackTraceResult struct {
-	StackTrace runtime.StackTrace `json:"stackTrace"`
+	StackTrace *runtime.StackTrace `json:"stackTrace"`
 }
 
 /*
@@ -183,10 +184,10 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-restartF
 */
 type RestartFrameResult struct {
 	// New stack trace.
-	CallFrames []CallFrame `json:"callFrames"`
+	CallFrames []*CallFrame `json:"callFrames"`
 
 	// Optional. Async stack trace, if any.
-	AsyncStackTrace runtime.StackTrace `json:"asyncStackTrace,omitempty"`
+	AsyncStackTrace *runtime.StackTrace `json:"asyncStackTrace,omitempty"`
 
 	// Optional. Async stack trace, if any. EXPERIMENTAL
 	AsyncStackTraceID runtime.StackTraceID `json:"asyncStackTraceId,omitempty"`
@@ -218,7 +219,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-searchIn
 */
 type SearchInContentResult struct {
 	// List of search matches.
-	Result []SearchMatch `json:"result"`
+	Result []*SearchMatch `json:"result"`
 }
 
 /*
@@ -227,8 +228,8 @@ SetAsyncCallStackDepthParams represents Debugger.setAsyncCallStackDepth paramete
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setAsyncCallStackDepth
 */
 type SetAsyncCallStackDepthParams struct {
-	// Maximum depth of async call stacks. Setting to 0 will effectively disable collecting async
-	// call stacks (default).
+	// Maximum depth of async call stacks. Setting to 0 will effectively disable
+	// collecting async call stacks (default).
 	MaxDepth int `json:"maxDepth"`
 }
 
@@ -260,10 +261,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreak
 */
 type SetBreakpointParams struct {
 	// Location to set breakpoint in.
-	Location Location `json:"location"`
+	Location *Location `json:"location"`
 
-	// Optional. Expression to use as a breakpoint condition. When specified, debugger will only
-	// stop on the breakpoint if this expression evaluates to true.
+	// Optional. Expression to use as a breakpoint condition. When specified,
+	// debugger will only stop on the breakpoint if this expression evaluates to
+	// true.
 	Condition string `json:"condition,omitempty"`
 }
 
@@ -277,7 +279,7 @@ type SetBreakpointResult struct {
 	BreakpointID BreakpointID `json:"breakpointId"`
 
 	// Location this breakpoint resolved into.
-	ActualLocation Location `json:"actualLocation"`
+	ActualLocation *Location `json:"actualLocation"`
 }
 
 /*
@@ -292,8 +294,8 @@ type SetBreakpointByURLParams struct {
 	// Optional. URL of the resources to set breakpoint on.
 	URL string `json:"url,omitempty"`
 
-	// Optional. Regex pattern for the URLs of the resources to set breakpoints on. Either url or
-	// urlRegex must be specified.
+	// Optional. Regex pattern for the URLs of the resources to set breakpoints
+	// on. Either url or urlRegex must be specified.
 	URLRegex string `json:"urlRegex,omitempty"`
 
 	// Optional. Script hash of the resources to set breakpoint on.
@@ -302,8 +304,8 @@ type SetBreakpointByURLParams struct {
 	// Optional. Offset in the line to set breakpoint at.
 	ColumnNumber int `json:"columnNumber,omitempty"`
 
-	// Optional. Expression to use as a breakpoint condition. When specified, debugger will only
-	// stop on the breakpoint if this expression evaluates to true.
+	// Optional. Expression to use as a breakpoint condition. When specified,
+	// debugger will only stop on the breakpoint if this expression evaluates to true.
 	Condition string `json:"condition,omitempty"`
 }
 
@@ -317,7 +319,7 @@ type SetBreakpointByURLResult struct {
 	BreakpointID BreakpointID `json:"breakpointId"`
 
 	// List of the locations this breakpoint resolved into upon addition.
-	Locations []Location `json:"locations"`
+	Locations []*Location `json:"locations"`
 }
 
 /*
@@ -347,7 +349,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setRetur
 */
 type SetReturnValueParams struct {
 	// New return value.
-	NewValue runtime.CallArgument `json:"newValue"`
+	NewValue *runtime.CallArgument `json:"newValue"`
 }
 
 /*
@@ -362,8 +364,8 @@ type SetScriptSourceParams struct {
 	// New content of the script.
 	ScriptSource string `json:"scriptSource"`
 
-	// Optional. If true the change will not actually be applied. Dry run may be used to get result
-	// description without actually modifying the code.
+	// Optional. If true the change will not actually be applied. Dry run may be
+	// used to get result description without actually modifying the code.
 	DryRun bool `json:"dryRun,omitempty"`
 }
 
@@ -373,20 +375,22 @@ SetScriptSourceResult represents the result of calls to Debugger.setScriptSource
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setScriptSource
 */
 type SetScriptSourceResult struct {
-	// Optional. New stack trace in case editing has happened while VM was stopped.
-	CallFrames []CallFrame `json:"callFrames,omitempty"`
+	// Optional. New stack trace in case editing has happened while VM was
+	// stopped.
+	CallFrames []*CallFrame `json:"callFrames,omitempty"`
 
-	// Optional. Whether current call stack was modified after applying the changes.
+	// Optional. Whether current call stack was modified after applying the
+	// changes.
 	StackChanged bool `json:"stackChanged,omitempty"`
 
 	// Optional. Async stack trace, if any.
-	AsyncStackTrace runtime.StackTrace `json:"asyncStackTrace,omitempty"`
+	AsyncStackTrace *runtime.StackTrace `json:"asyncStackTrace,omitempty"`
 
-	// Optional. Async stack trace, if any. EXPERIMENTAL
+	// Optional. Async stack trace, if any. EXPERIMENTAL.
 	AsyncStackTraceID runtime.StackTraceID `json:"asyncStackTraceId,omitempty"`
 
 	// Optional. Exception details if any.
-	ExceptionDetails runtime.ExceptionDetails `json:"exceptionDetails,omitempty"`
+	ExceptionDetails *runtime.ExceptionDetails `json:"exceptionDetails,omitempty"`
 }
 
 /*
@@ -405,14 +409,16 @@ SetVariableValueParams represents Debugger.setVariableValue parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setVariableValue
 */
 type SetVariableValueParams struct {
-	// 0-based number of scope as was listed in scope chain. Only 'local', 'closure' and 'catch' scope types are allowed. Other scopes could be manipulated manually.
+	// 0-based number of scope as was listed in scope chain. Only 'local',
+	// 'closure' and 'catch' scope types are allowed. Other scopes could be
+	// manipulated manually.
 	ScopeNumber int `json:"scopeNumber"`
 
 	// Variable name.
 	VariableName string `json:"variableName"`
 
 	// New variable value.
-	NewValue runtime.CallArgument `json:"newValue"`
+	NewValue *runtime.CallArgument `json:"newValue"`
 
 	// ID of callframe that holds variable.
 	CallFrameID CallFrameID `json:"callFrameId"`
@@ -424,8 +430,8 @@ StepIntoParams represents Debugger.stepInto parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepInto
 */
 type StepIntoParams struct {
-	// Optional. Debugger will issue additional Debugger.paused notification if any async task is
-	// scheduled before next pause. EXPERIMENTAL
+	// Optional. Debugger will issue additional Debugger.paused notification if
+	// any async task is scheduled before next pause. EXPERIMENTAL.
 	BreakOnAsyncCall bool `json:"breakOnAsyncCall,omitempty"`
 }
 
@@ -439,7 +445,7 @@ type BreakpointResolvedEvent struct {
 	BreakpointID BreakpointID `json:"breakpointId"`
 
 	// Actual breakpoint location.
-	Location Location `json:"location"`
+	Location *Location `json:"location"`
 }
 
 /*
@@ -451,8 +457,8 @@ type PausedEvent struct {
 	// Call stack the virtual machine stopped on.
 	CallFrames []*CallFrame `json:"callFrames"`
 
-	// Pause reason. Allowed values: XHR, DOM, EventListener, exception, assert, debugCommand,
-	// promiseRejection, OOM, other, ambiguous.
+	// Pause reason. Allowed values: XHR, DOM, EventListener, exception, assert,
+	// debugCommand, promiseRejection, OOM, other, ambiguous.
 	Reason string `json:"reason"`
 
 	// Optional. Object containing break-specific auxiliary properties.
@@ -462,14 +468,14 @@ type PausedEvent struct {
 	HitBreakpoints []string `json:"hitBreakpoints,omitempty"`
 
 	// Optional. Async stack trace, if any.
-	AsyncStackTrace runtime.StackTrace `json:"asyncStackTrace,omitempty"`
+	AsyncStackTrace *runtime.StackTrace `json:"asyncStackTrace,omitempty"`
 
 	// Optional. Async stack trace, if any. EXPERIMENTAL
 	AsyncStackTraceID runtime.StackTraceID `json:"asyncStackTraceId,omitempty"`
 
-	// Optional. Just scheduled async call will have this stack trace as parent stack during async
-	// execution. This field is available only after Debugger.stepInto call with breakOnAsynCall
-	// flag. EXPERIMENTAL
+	// Optional. Just scheduled async call will have this stack trace as parent
+	// stack during async execution. This field is available only after
+	// Debugger.stepInto call with breakOnAsynCall flag. EXPERIMENTAL.
 	AsyncCallStackTraceID runtime.StackTraceID `json:"asyncCallStackTraceId,omitempty"`
 }
 
@@ -492,7 +498,8 @@ type ScriptFailedToParseEvent struct {
 	// URL or name of the script parsed (if any).
 	URL string `json:"url"`
 
-	// Line offset of the script within the resource with given URL (for script tags).
+	// Line offset of the script within the resource with given URL (for script
+	// tags).
 	StartLine int `json:"startLine"`
 
 	// Column offset of the script within the resource with given URL.
@@ -525,9 +532,9 @@ type ScriptFailedToParseEvent struct {
 	// Optional. This script length.
 	Length int `json:"length,omitempty"`
 
-	// Optional. JavaScript top stack frame of where the script parsed event was triggered if
-	// available. EXPERIMENTAL
-	StackTrace runtime.StackTrace `json:"stackTrace,omitempty"`
+	// Optional. JavaScript top stack frame of where the script parsed event was
+	// triggered if available. EXPERIMENTAL.
+	StackTrace *runtime.StackTrace `json:"stackTrace,omitempty"`
 }
 
 /*
@@ -542,7 +549,8 @@ type ScriptParsedEvent struct {
 	// URL or name of the script parsed (if any).
 	URL string `json:"url"`
 
-	// Line offset of the script within the resource with given URL (for script tags).
+	// Line offset of the script within the resource with given URL (for script
+	// tags).
 	StartLine int `json:"startLine"`
 
 	// Column offset of the script within the resource with given URL.
@@ -563,8 +571,8 @@ type ScriptParsedEvent struct {
 	// Optional. Embedder-specific auxiliary data.
 	ExecutionContextAuxData map[string]string `json:"executionContextAuxData,omitempty"`
 
-	// Optional. True, if this script is generated as a result of the live edit operation.
-	// EXPERIMENTAL.
+	// Optional. True, if this script is generated as a result of the live edit
+	// operation. EXPERIMENTAL.
 	IsLiveEdit bool `json:"isLiveEdit,omitempty"`
 
 	// Optional. URL of source map associated with script (if any).
@@ -579,9 +587,9 @@ type ScriptParsedEvent struct {
 	// Optional. This script length.
 	Length int `json:"length,omitempty"`
 
-	// Optional. JavaScript top stack frame of where the script parsed event was triggered if
-	// available. EXPERIMENTAL.
-	StackTrace runtime.StackTrace `json:"stackTrace,omitempty"`
+	// Optional. JavaScript top stack frame of where the script parsed event was
+	// triggered if available. EXPERIMENTAL.
+	StackTrace *runtime.StackTrace `json:"stackTrace,omitempty"`
 }
 
 /*
@@ -633,20 +641,18 @@ CallFrame is a JavaScript call frame. Array of call frames form the call stack.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#type-CallFrame
 */
 type CallFrame struct {
-	// Call frame identifier. This identifier is only valid while the virtual machine is paused.
-	CallFrameID CallFrameID `json:"callFrameId"`
+	// Call frame identifier. This identifier is only valid while the virtual
+	// machine is paused.
+	CallFrameID *CallFrameID `json:"callFrameId"`
 
 	// Name of the JavaScript function called on this call frame.
 	FunctionName string `json:"functionName"`
 
 	// Optional. Location in the source code.
-	//
-	// This expects an instance of Location, but that doesn't omitempty correctly so it must be
-	// added manually.
-	FunctionLocation interface{} `json:"functionLocation,omitempty"`
+	FunctionLocation *Location `json:"functionLocation,omitempty"`
 
 	// Location in the source code.
-	Location Location `json:"location"`
+	Location *Location `json:"location"`
 
 	// JavaScript script name or url.
 	URL string `json:"url"`
@@ -654,14 +660,11 @@ type CallFrame struct {
 	// Scope chain for this call frame.
 	ScopeChain []*Scope `json:"scopeChain"`
 
-	// this object for this call frame.
-	This runtime.RemoteObject `json:"this"`
+	// `this` object for this call frame.
+	This *runtime.RemoteObject `json:"this"`
 
 	// Optional. The value being returned, if the function is at return point.
-	//
-	// This expects an instance of Runtime.RemoteObject, but that doesn't omitempty correctly so it
-	// must be added manually.
-	ReturnValue interface{} `json:"returnValue,omitempty"`
+	ReturnValue *runtime.RemoteObject `json:"returnValue,omitempty"`
 }
 
 /*
@@ -670,28 +673,23 @@ Scope represents a scope description
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#type-Scope
 */
 type Scope struct {
-	// Scope type. Allowed values: global, local, with, closure, catch, block, script, eval, module.
+	// Scope type. Allowed values: global, local, with, closure, catch, block,
+	// script, eval, module.
 	Type string `json:"type"`
 
-	// Object representing the scope. For global and with scopes it represents the actual object;
-	// for the rest of the scopes, it is artificial transient object enumerating scope variables as
-	// its properties.
-	Object runtime.RemoteObject `json:"object"`
+	// Object representing the scope. For global and with scopes it represents
+	// the actual object; for the rest of the scopes, it is artificial transient
+	// object enumerating scope variables as its properties.
+	Object *runtime.RemoteObject `json:"object"`
 
 	// Optional. The scope name.
 	Name string `json:"name,omitempty"`
 
 	// Optional. Location in the source code where scope starts.
-	//
-	// This expects an instance of Location, but that doesn't omitempty correctly so it must be
-	// added manually.
-	StartLocation interface{} `json:"startLocation,omitempty"`
+	StartLocation *Location `json:"startLocation,omitempty"`
 
 	// Optional. Location in the source code where scope ends.
-	//
-	// This expects an instance of Location, but that doesn't omitempty correctly so it must be
-	// added manually.
-	EndLocation interface{} `json:"endLocation,omitempty"`
+	EndLocation *Location `json:"endLocation,omitempty"`
 }
 
 /*

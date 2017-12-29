@@ -47,8 +47,8 @@ GetWindowBoundsResult represents the result of calls to Browser.getWindowBounds.
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindowBounds
 */
 type GetWindowBoundsResult struct {
-	// Bounds information of the window. When window state is 'minimized', the restored window
-	// position and size are returned.
+	// Bounds information of the window. When window state is 'minimized', the
+	// restored window position and size are returned.
 	Bounds Bounds `json:"bounds"`
 }
 
@@ -71,8 +71,8 @@ type GetWindowForTargetResult struct {
 	// Browser window ID.
 	WindowID WindowID `json:"windowId"`
 
-	// Bounds information of the window. When window state is 'minimized', the restored window
-	// position and size are returned.
+	// Bounds information of the window. When window state is 'minimized', the
+	// restored window position and size are returned.
 	Bounds Bounds `json:"bounds"`
 }
 
@@ -85,8 +85,9 @@ type SetWindowBoundsParams struct {
 	// Browser window id.
 	WindowID WindowID `json:"windowId"`
 
-	// New window bounds. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined
-	// with 'left', 'top', 'width' or 'height'. Leaves unspecified fields unchanged.
+	// New window bounds. The 'minimized', 'maximized' and 'fullscreen' states
+	// cannot be combined with 'left', 'top', 'width' or 'height'. Leaves
+	// unspecified fields unchanged.
 	Bounds Bounds `json:"bounds"`
 }
 
@@ -99,8 +100,9 @@ type SetWindowBoundsResult struct {
 	// Browser window ID.
 	WindowID WindowID `json:"windowId"`
 
-	// New window bounds. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined
-	// with 'left', 'top', 'width' or 'height'. Leaves unspecified fields unchanged.
+	// New window bounds. The 'minimized', 'maximized' and 'fullscreen' states
+	// cannot be combined with 'left', 'top', 'width' or 'height'. Leaves
+	// unspecified fields unchanged.
 	Bounds Bounds `json:"bounds"`
 }
 
@@ -124,10 +126,12 @@ Bounds holds the browser window bounds information. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#type-Bounds
 */
 type Bounds struct {
-	// Optional. The offset from the left edge of the screen to the window in pixels.
+	// Optional. The offset from the left edge of the screen to the window in
+	// pixels.
 	Left int `json:"left,omitempty"`
 
-	// Optional. The offset from the top edge of the screen to the window in pixels.
+	// Optional. The offset from the top edge of the screen to the window in
+	// pixels.
 	Top int `json:"top,omitempty"`
 
 	// Optional. The window width in pixels.
@@ -137,8 +141,5 @@ type Bounds struct {
 	Height int `json:"height,omitempty"`
 
 	// Optional. The window state. Default to normal.
-	//
-	// This expects an instance of WindowState, but that doesn't omitempty correctly so it must be
-	// added manually.
-	WindowState interface{} `json:"windowState,omitempty"`
+	WindowState WindowState `json:"windowState,omitempty"`
 }

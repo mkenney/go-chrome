@@ -57,7 +57,8 @@ type command struct {
 	// method is the Chrome protocol method being executed
 	method string
 
-	// Optional. params holds the parameter struct for the command being executed
+	// Optional. params holds the parameter struct for the command being
+	// executed
 	params interface{}
 
 	// Optional. result holds the result struct for the command being executed
@@ -202,8 +203,9 @@ Workflow:
 	2. The command counter is incremented.
 	3. The payload is sent to the socket connection and the mutex is unlocked.
 	4. The command is stored using the generated ID.
-	5. When the command has been executed and the socket responds, socket.HandleCmd() is triggered
-	from the command instance to generate the response and the command unlocks itself.
+	5. When the command has been executed and the socket responds,
+	socket.HandleCmd() is triggered from the command instance to generate the
+	response and the command unlocks itself.
 */
 func (socket *socket) SendCommand(command Commander) *commandPayload {
 
@@ -240,7 +242,12 @@ func (socket *socket) HandleCommand(response *Response) {
 	} else {
 		socket.commands.Delete(command.ID())
 		if nil != response.Error && "" != response.Error.Message {
-			err = fmt.Errorf("%d %s: - %s", response.Error.Code, response.Error.Message, response.Error.Data)
+			err = fmt.Errorf(
+				"%d %s: - %s",
+				response.Error.Code,
+				response.Error.Message,
+				response.Error.Data,
+			)
 		}
 		command.Done(response.Result, err)
 		log.Infof("Command '%s' complete", command.Method())

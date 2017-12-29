@@ -23,7 +23,7 @@ type AddRuleParams struct {
 	RuleText string `json:"ruleText"`
 
 	// Text position of a new rule in the target style sheet.
-	Location SourceRange `json:"location"`
+	Location *SourceRange `json:"location"`
 }
 
 /*
@@ -33,7 +33,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-addRule
 */
 type AddRuleResult struct {
 	// The newly created rule.
-	Rule Rule `json:"rule"`
+	Rule *Rule `json:"rule"`
 }
 
 /*
@@ -104,22 +104,25 @@ GetBackgroundColorsResult represents the result of calls to CSS.getBackgroundCol
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getBackgroundColors
 */
 type GetBackgroundColorsResult struct {
-	// Optional. The range of background colors behind this element, if it contains any visible
-	// text. If no visible text is present, this will be undefined. In the case of a flat background
-	// color, this will consist of simply that color. In the case of a gradient, this will consist
-	// of each of the color stops. For anything more complicated, this will be an empty array.
-	// Images will be ignored (as if the image had failed to load).
+	// Optional. The range of background colors behind this element, if it
+	// contains any visible text. If no visible text is present, this will be
+	// undefined. In the case of a flat background color, this will consist of
+	// simply that color. In the case of a gradient, this will consist of each
+	// of the color stops. For anything more complicated, this will be an empty
+	// array. Images will be ignored (as if the image had failed to load).
 	BackgroundColors []string `json:"backgroundColors,omitempty"`
 
-	// Optional. The computed font size for this node, as a CSS computed value string (e.g. '12px').
+	// Optional. The computed font size for this node, as a CSS computed value
+	// string (e.g. '12px').
 	ComputedFontSize string `json:"computedFontSize,omitempty"`
 
-	// Optional. The computed font weight for this node, as a CSS computed value string (e.g.
+	// Optional. The computed font weight for this node, as a CSS computed value
+	// string (e.g.
 	// 'normal' or '100').
 	ComputedFontWeight string `json:"computedFontWeight,omitempty"`
 
-	// Optional. The computed font size for the document body, as a computed CSS value string (e.g.
-	// '16px').
+	// Optional. The computed font size for the document body, as a computed CSS
+	// value string (e.g. '16px').
 	ComputedBodyFontSize string `json:"computedBodyFontSize,omitempty"`
 }
 
@@ -139,7 +142,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getComputedSt
 */
 type GetComputedStyleForNodeResult struct {
 	// Computed style for the specified DOM node.
-	ComputedStyle []ComputedStyleProperty `json:"computedStyle"`
+	ComputedStyle []*ComputedStyleProperty `json:"computedStyle"`
 }
 
 /*
@@ -158,10 +161,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getInlineStyl
 */
 type GetInlineStylesForNodeResult struct {
 	// Optional. Inline style for the specified DOM node.
-	InlineStyle Style `json:"inlineStyle,omitempty"`
+	InlineStyle *Style `json:"inlineStyle,omitempty"`
 
-	// Optional. Attribute-defined element style (e.g. resulting from "width=20 height=100%").
-	AttributesStyle Style `json:"attributesStyle,omitempty"`
+	// Optional. Attribute-defined element style (e.g. resulting from "width=20
+	// height=100%").
+	AttributesStyle *Style `json:"attributesStyle,omitempty"`
 }
 
 /*
@@ -180,22 +184,24 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getMatchedSty
 */
 type GetMatchedStylesForNodeResult struct {
 	// Inline style for the specified DOM node.
-	InlineStyle Style `json:"inlineStyle,omitempty"`
+	InlineStyle *Style `json:"inlineStyle,omitempty"`
 
-	// Attribute-defined element style (e.g. resulting from "width=20 height=100%").
-	AttributesStyle Style `json:"attributesStyle,omitempty"`
+	// Attribute-defined element style (e.g. resulting from "width=20
+	// height=100%").
+	AttributesStyle *Style `json:"attributesStyle,omitempty"`
 
 	// CSS rules matching this node, from all applicable stylesheets.
-	MatchedRules []RuleMatch `json:"matchedCSSRules,omitempty"`
+	MatchedRules []*RuleMatch `json:"matchedCSSRules,omitempty"`
 
 	// Pseudo style matches for this node.
-	PseudoElements []PseudoElementMatches `json:"pseudoElements,omitempty"`
+	PseudoElements []*PseudoElementMatches `json:"pseudoElements,omitempty"`
 
-	// A chain of inherited styles (from the immediate node parent up to the DOM tree root).
-	Inherited []InheritedStyleEntry `json:"inherited,omitempty"`
+	// A chain of inherited styles (from the immediate node parent up to the DOM
+	// tree root).
+	Inherited []*InheritedStyleEntry `json:"inherited,omitempty"`
 
 	// A list of CSS keyframed animations matching this node.
-	KeyframesRules []KeyframesRule `json:"cssKeyframesRules,omitempty"`
+	KeyframesRules []*KeyframesRule `json:"cssKeyframesRules,omitempty"`
 }
 
 /*
@@ -204,7 +210,7 @@ GetMediaQueriesResult represents the result of calls to CSS.getMediaQueries.
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getMediaQueries
 */
 type GetMediaQueriesResult struct {
-	Medias []Media `json:"medias"`
+	Medias []*Media `json:"medias"`
 }
 
 /*
@@ -223,7 +229,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getPlatformFo
 */
 type GetPlatformFontsForNodeResult struct {
 	// Usage statistics for every employed platform font.
-	Fonts []PlatformFontUsage `json:"fonts"`
+	Fonts []*PlatformFontUsage `json:"fonts"`
 }
 
 /*
@@ -264,7 +270,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setKeyframeKe
 */
 type SetKeyframeKeyParams struct {
 	StyleSheetID StyleSheetID `json:"styleSheetId"`
-	Range        SourceRange  `json:"range"`
+	Range        *SourceRange `json:"range"`
 	Selector     string       `json:"selector"`
 }
 
@@ -275,7 +281,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setKeyframeKe
 */
 type SetKeyframeKeyResult struct {
 	// The resulting key text after modification.
-	KeyText Value `json:"keyText"`
+	KeyText *Value `json:"keyText"`
 }
 
 /*
@@ -285,7 +291,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setMediaText
 */
 type SetMediaTextParams struct {
 	StyleSheetID StyleSheetID `json:"styleSheetId"`
-	Range        SourceRange  `json:"range"`
+	Range        *SourceRange `json:"range"`
 	Text         string       `json:"text"`
 }
 
@@ -306,7 +312,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setRuleSelect
 */
 type SetRuleSelectorParams struct {
 	StyleSheetID StyleSheetID `json:"styleSheetId"`
-	Range        SourceRange  `json:"range"`
+	Range        *SourceRange `json:"range"`
 	Selector     string       `json:"selector"`
 }
 
@@ -317,7 +323,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setRuleSelect
 */
 type SetRuleSelectorResult struct {
 	// The resulting selector list after modification.
-	SelectorList SelectorList `json:"selectorList"`
+	SelectorList *SelectorList `json:"selectorList"`
 }
 
 /*
@@ -356,7 +362,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setStyleTexts
 */
 type SetStyleTextsResult struct {
 	// The resulting styles after modification.
-	Styles []Style `json:"styles"`
+	Styles []*Style `json:"styles"`
 }
 
 /*
@@ -365,7 +371,7 @@ StopRuleUsageTrackingResult represents the result of calls to CSS.stopRuleUsageT
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-stopRuleUsageTracking
 */
 type StopRuleUsageTrackingResult struct {
-	RuleUsage []RuleUsage `json:"ruleUsage"`
+	RuleUsage []*RuleUsage `json:"ruleUsage"`
 }
 
 /*
@@ -374,7 +380,7 @@ TakeCoverageDeltaResult represents the result of calls to CSS.takeCoverageDelta.
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-takeCoverageDelta
 */
 type TakeCoverageDeltaResult struct {
-	Coverage []RuleUsage `json:"coverage"`
+	Coverage []*RuleUsage `json:"coverage"`
 }
 
 /*
@@ -398,7 +404,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#event-styleSheetAdde
 */
 type StyleSheetAddedEvent struct {
 	// Added stylesheet metainfo.
-	Header StyleSheetHeader `json:"header"`
+	Header *StyleSheetHeader `json:"header"`
 }
 
 /*
@@ -459,10 +465,12 @@ InheritedStyleEntry is an inherited CSS rule collection from ancestor node.
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-InheritedStyleEntry
 */
 type InheritedStyleEntry struct {
-	// Optional. The ancestor node's inline style, if any, in the style inheritance chain.
-	InlineStyle Style `json:"inlineStyle,omitempty"`
+	// Optional. The ancestor node's inline style, if any, in the style
+	// inheritance chain.
+	InlineStyle *Style `json:"inlineStyle,omitempty"`
 
-	// Matches of CSS rules matching the ancestor node in the style inheritance chain.
+	// Matches of CSS rules matching the ancestor node in the style
+	// inheritance chain.
 	MatchedRules []*RuleMatch `json:"matchedCSSRules"`
 }
 
@@ -489,7 +497,7 @@ type Value struct {
 	Text string `json:"text"`
 
 	// Optional. Value range in the underlying resource (if available).
-	Range SourceRange `json:"range,omitempty"`
+	Range *SourceRange `json:"range,omitempty"`
 }
 
 /*
@@ -535,10 +543,12 @@ type StyleSheetHeader struct {
 	// Denotes whether the stylesheet is disabled.
 	Disabled bool `json:"disabled"`
 
-	// Optional. Whether the sourceURL field value comes from the sourceURL comment.
+	// Optional. Whether the sourceURL field value comes from the sourceURL
+	// comment.
 	HasSourceURL bool `json:"hasSourceURL,omitempty"`
 
-	// Whether this stylesheet is created for STYLE tag by parser. This flag is not set for
+	// Whether this stylesheet is created for STYLE tag by parser. This flag is
+	// not set for
 	// document.written STYLE tags.
 	IsInline bool `json:"isInline"`
 
@@ -558,21 +568,21 @@ Rule is a CSS rule representation.
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-CSSRule
 */
 type Rule struct {
-	// Optional. The css style sheet identifier (absent for user agent stylesheet and user-specified
-	// stylesheet rules) this rule came from.
+	// Optional. The css style sheet identifier (absent for user agent s
+	// tylesheet and user-specified stylesheet rules) this rule came from.
 	StyleSheetID StyleSheetID `json:"styleSheetId,omitempty"`
 
 	// Rule selector data.
-	SelectorList SelectorList `json:"selectorList"`
+	SelectorList *SelectorList `json:"selectorList"`
 
 	// Parent stylesheet's origin.
 	Origin StyleSheetOrigin `json:"origin"`
 
 	// Associated style declaration.
-	Style Style `json:"style"`
+	Style *Style `json:"style"`
 
-	// Optional. Media list array (for rules involving media queries). The array enumerates media
-	// queries starting with the innermost one, going outwards.
+	// Optional. Media list array (for rules involving media queries). The array
+	// enumerates media queries starting with the innermost one, going outwards.
 	Media []*Media `json:"media,omitempty"`
 }
 
@@ -582,11 +592,12 @@ RuleUsage holds CSS coverage information.
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-RuleUsage
 */
 type RuleUsage struct {
-	// The css style sheet identifier (absent for user agent stylesheet and user-specified
-	// stylesheet rules) this rule came from.
+	// The css style sheet identifier (absent for user agent stylesheet and
+	// user-specified stylesheet rules) this rule came from.
 	StyleSheetID StyleSheetID `json:"styleSheetId"`
 
-	// Offset of the start of the rule (including selector) from the beginning of the stylesheet.
+	// Offset of the start of the rule (including selector) from the beginning
+	// of the stylesheet.
 	StartOffset float64 `json:"startOffset"`
 
 	// Offset of the end of the rule body from the beginning of the stylesheet.
@@ -627,7 +638,8 @@ type ShorthandEntry struct {
 	// Shorthand value.
 	Value string `json:"value"`
 
-	// Optional. Whether the property has "!important" annotation (implies false if absent).
+	// Optional. Whether the property has "!important" annotation (implies false
+	// if absent).
 	Important bool `json:"important,omitempty"`
 }
 
@@ -650,8 +662,8 @@ Style is a CSS style representation.
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-CSSStyle
 */
 type Style struct {
-	// Optional. The css style sheet identifier (absent for user agent stylesheet and user-specified
-	// stylesheet rules) this rule came from.
+	// Optional. The css style sheet identifier (absent for user agent
+	// stylesheet and user-specified stylesheet rules) this rule came from.
 	StyleSheetID StyleSheetID `json:"styleSheetId,omitempty"`
 
 	// CSS properties in the style.
@@ -663,8 +675,9 @@ type Style struct {
 	// Style declaration text (if available).
 	Text string `json:"cssText"`
 
-	// Optional. Style declaration range in the enclosing stylesheet (if available).
-	Range SourceRange `json:"range,omitempty"`
+	// Optional. Style declaration range in the enclosing stylesheet (if
+	// available).
+	Range *SourceRange `json:"range,omitempty"`
 }
 
 /*
@@ -679,7 +692,8 @@ type Property struct {
 	// The property value.
 	Value string `json:"value"`
 
-	// Optional. Whether the property has "!important" annotation (implies false if absent).
+	// Optional. Whether the property has "!important" annotation (implies false
+	// if absent).
 	Important bool `json:"important,omitempty"`
 
 	// Optional. Whether the property is implicit (implies false if absent).
@@ -696,7 +710,8 @@ type Property struct {
 	// source-based properties only).
 	Disabled bool `json:"disabled,omitempty"`
 
-	// Optional. The entire property range in the enclosing style declaration (if available).
+	// Optional. The entire property range in the enclosing style declaration
+	// (if available).
 	Range *SourceRange `json:"range,omitempty"`
 }
 
@@ -712,15 +727,19 @@ type Media struct {
 	// Source of the media query:
 	//	- "mediaRule" if specified by a @media rule
 	//	- "importRule" if specified by an @import rule
-	//	- "linkedSheet" if specified by a "media" attribute in a linked stylesheet's LINK tag
-	//	- "inlineSheet" if specified by a "media" attribute in an inline stylesheet's STYLE tag.
-	//	  Allowed values: mediaRule, importRule, linkedSheet, inlineSheet.
+	//	- "linkedSheet" if specified by a "media" attribute in a linked
+	//    stylesheet's LINK tag
+	//	- "inlineSheet" if specified by a "media" attribute in an inline
+	//    stylesheet's STYLE tag.
+	//
+	// Allowed values: mediaRule, importRule, linkedSheet, inlineSheet.
 	Source string `json:"source"`
 
 	// Optional. URL of the document containing the media query description.
 	SourceURL string `json:"sourceURL,omitempty"`
 
-	// Optional. The associated rule (@media or @import) header range in the enclosing stylesheet
+	// Optional. The associated rule (@media or @import) header range in the
+	// enclosing stylesheet
 	// (if available).
 	Range *SourceRange `json:"range,omitempty"`
 
@@ -759,7 +778,8 @@ type MediaQueryExpression struct {
 	// Media query expression feature.
 	Feature string `json:"feature"`
 
-	// Optional. The associated range of the value text in the enclosing stylesheet (if available).
+	// Optional. The associated range of the value text in the enclosing
+	// stylesheet (if available).
 	ValueRange *SourceRange `json:"valueRange,omitempty"`
 
 	// Optional. Computed length of media query expression (if applicable).
@@ -801,18 +821,18 @@ KeyframeRule is a CSS keyframe rule representation.
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-CSSKeyframeRule
 */
 type KeyframeRule struct {
-	// Optional. The css style sheet identifier (absent for user agent stylesheet and user-specified
-	// stylesheet rules) this rule came from.
+	// Optional. The css style sheet identifier (absent for user agent
+	// stylesheet and user-specified stylesheet rules) this rule came from.
 	StyleSheetID StyleSheetID `json:"styleSheetId,omitempty"`
 
 	// Parent stylesheet's origin.
 	Origin StyleSheetOrigin `json:"origin"`
 
 	// Associated key text.
-	KeyText Value `json:"keyText"`
+	KeyText *Value `json:"keyText"`
 
 	// Associated style declaration.
-	Style Style `json:"style"`
+	Style *Style `json:"style"`
 }
 
 /*

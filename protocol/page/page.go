@@ -56,20 +56,21 @@ CaptureScreenshotParams represents Page.captureScreenshot parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot
 */
 type CaptureScreenshotParams struct {
-	// Optional. Image compression format (defaults to png). Allowed values: jpeg, png.
+	// Optional. Image compression format (defaults to png).
+	//
+	// Allowed values:
+	//	- jpeg
+	//	- png
 	Format string `json:"format,omitempty"`
 
 	// Optional. Compression quality from range [0..100] (jpeg only).
 	Quality int `json:"quality,omitempty"`
 
 	// Optional. Capture the screenshot of a given region only.
-	//
-	// This expects an instance of Viewport, but that doesn't omitempty correctly so it must be
-	// added manually.
-	Clip interface{} `json:"clip,omitempty"`
+	Clip *Viewport `json:"clip,omitempty"`
 
-	// Optional. Capture the screenshot from the surface, rather than the view. Defaults to true.
-	// EXPERIMENTAL
+	// Optional. Capture the screenshot from the surface, rather than the view.
+	// Defaults to true. EXPERIMENTAL.
 	FromSurface bool `json:"fromSurface,omitempty"`
 }
 
@@ -95,8 +96,8 @@ type CreateIsolatedWorldParams struct {
 	// Optional. An optional name which is reported in the Execution Context.
 	WorldName string `json:"worldName,omitempty"`
 
-	// Optional. Whether or not universal access should be granted to the isolated world. This is a
-	// powerful option, use with caution.
+	// Optional. Whether or not universal access should be granted to the
+	// isolated world. This is a powerful option, use with caution.
 	GrantUniveralAccess bool `json:"grantUniveralAccess,omitempty"`
 }
 
@@ -120,7 +121,7 @@ type GetAppManifestParams struct {
 	URL string `json:"url"`
 
 	// Errors.
-	Errors []AppManifestError `json:"errors"`
+	Errors []*AppManifestError `json:"errors"`
 
 	// Optional. Manifest content.
 	Data string `json:"data,omitempty"`
@@ -133,7 +134,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getFrameTree
 */
 type GetFrameTreeResult struct {
 	// Present frame tree structure.
-	FrameTree FrameTree `json:"frameTree"`
+	FrameTree *FrameTree `json:"frameTree"`
 }
 
 /*
@@ -143,13 +144,13 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getLayoutMet
 */
 type GetLayoutMetricsResult struct {
 	// Metrics relating to the layout viewport.
-	LayoutViewport LayoutViewport `json:"layoutViewport"`
+	LayoutViewport *LayoutViewport `json:"layoutViewport"`
 
 	// Metrics relating to the visual viewport.
-	VisualViewport VisualViewport `json:"visualViewport"`
+	VisualViewport *VisualViewport `json:"visualViewport"`
 
 	// Size of scrollable area. Rect is a local implementation of DOM.Rect
-	ContentSize Rect `json:"contentSize"`
+	ContentSize *Rect `json:"contentSize"`
 }
 
 /*
@@ -162,7 +163,7 @@ type GetNavigationHistoryResult struct {
 	CurrentIndex int `json:"currentIndex"`
 
 	// Array of navigation history entries.
-	Entries []NavigationEntry `json:"entries"`
+	Entries []*NavigationEntry `json:"entries"`
 }
 
 /*
@@ -198,7 +199,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceT
 */
 type GetResourceTreeResult struct {
 	// Present frame / resource tree structure.
-	FrameTree FrameResourceTree `json:"frameTree"`
+	FrameTree *FrameResourceTree `json:"frameTree"`
 }
 
 /*
@@ -210,8 +211,8 @@ type HandleJavaScriptDialogParams struct {
 	// Whether to accept or dismiss the dialog.
 	Accept bool `json:"accept"`
 
-	// Optional. The text to enter into the dialog prompt before accepting. Used only if this is a
-	// prompt dialog.
+	// Optional. The text to enter into the dialog prompt before accepting. Used
+	// only if this is a prompt dialog.
 	PromptText string `json:"promptText,omitempty"`
 }
 
@@ -228,7 +229,7 @@ type NavigateParams struct {
 	Referrer string `json:"referrer,omitempty"`
 
 	// Optional. Intended transition type.
-	TransitionType TransitionType `json:"transitionType,omitempty"`
+	TransitionType *TransitionType `json:"transitionType,omitempty"`
 }
 
 /*
@@ -293,12 +294,12 @@ type PrintToPDFParams struct {
 	// Optional. Right margin in inches. Defaults to 1cm (~0.4 inches).
 	MarginRight float64 `json:"marginRight,omitempty"`
 
-	// Optional. Paper ranges to print, e.g., '1-5, 8, 11-13'. Defaults to the empty string, which
-	// means print all pages.
+	// Optional. Paper ranges to print, e.g., '1-5, 8, 11-13'. Defaults to the
+	// empty string, which means print all pages.
 	PageRanges string `json:"pageRanges,omitempty"`
 
-	// Optional. Whether to silently ignore invalid but successfully parsed page ranges, such as
-	// '3-2'. Defaults to false.
+	// Optional. Whether to silently ignore invalid but successfully parsed page
+	// ranges, such as '3-2'. Defaults to false.
 	IgnoreInvalidPageRanges bool `json:"ignoreInvalidPageRanges,omitempty"`
 }
 
@@ -318,11 +319,12 @@ ReloadParams represents Page.reload parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-reload
 */
 type ReloadParams struct {
-	// Optional. If true, browser cache is ignored (as if the user pressed Shift+refresh).
+	// Optional. If true, browser cache is ignored (as if the user pressed
+	// Shift+refresh).
 	IgnoreCache bool `json:"ignoreCache,omitempty"`
 
-	// Optional. If set, the script will be injected into all frames of the inspected page after
-	// reload.
+	// Optional. If set, the script will be injected into all frames of the
+	// inspected page after reload.
 	ScriptToEvaluateOnLoad string `json:"scriptToEvaluateOnLoad,omitempty"`
 }
 
@@ -384,7 +386,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-searchInReso
 */
 type SearchInResourceResult struct {
 	// List of search matches.
-	Result []debugger.SearchMatch `json:"result"`
+	Result []*debugger.SearchMatch `json:"result"`
 }
 
 /*
@@ -403,7 +405,8 @@ SetAutoAttachToCreatedPagesParams represents Page.setAutoAttachToCreatedPages pa
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setAutoAttachToCreatedPages
 */
 type SetAutoAttachToCreatedPagesParams struct {
-	// If true, browser will open a new inspector window for every page created from this one.
+	// If true, browser will open a new inspector window for every page created
+	// from this one.
 	AutoAttach bool `json:"autoAttach"`
 }
 
@@ -426,12 +429,17 @@ SetDownloadBehaviorParams represents Page.setDownloadBehavior parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setDownloadBehavior
 */
 type SetDownloadBehaviorParams struct {
-	// Whether to allow all or deny all download requests, or use default Chrome behavior if
-	// available (otherwise deny). Allowed values: deny, allow, default.
+	// Whether to allow all or deny all download requests, or use default Chrome
+	// behavior if available (otherwise deny).
+	//
+	// Allowed values:
+	//	- deny
+	//	- allow
+	//	- default
 	Behavior string `json:"behavior"`
 
-	// Optional. The default path to save downloaded files to. This is required if behavior is set
-	// to 'allow'.
+	// Optional. The default path to save downloaded files to. This is required
+	// if behavior is set to 'allow'.
 	DownloadPath string `json:"downloadPath,omitempty"`
 }
 
@@ -488,9 +496,9 @@ type FrameAttachedEvent struct {
 	// Parent frame identifier.
 	ParentFrameID FrameID `json:"parentFrameId"`
 
-	// Optional. JavaScript stack trace of when frame was attached, only set if frame initiated from
-	// script.
-	Stack runtime.StackTrace `json:"stack,omitempty"`
+	// Optional. JavaScript stack trace of when frame was attached, only set if
+	// frame initiated from script.
+	Stack *runtime.StackTrace `json:"stack,omitempty"`
 }
 
 /*
@@ -521,7 +529,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameNavigate
 */
 type FrameNavigatedEvent struct {
 	// Frame object.
-	Frame Frame `json:"frame"`
+	Frame *Frame `json:"frame"`
 }
 
 /*
@@ -540,12 +548,20 @@ type FrameScheduledNavigationEvent struct {
 	// ID of the frame that has scheduled a navigation.
 	FrameID FrameID `json:"frameId"`
 
-	// Delay (in seconds) until the navigation is scheduled to begin. The navigation is not
-	// guaranteed to start.
+	// Delay (in seconds) until the navigation is scheduled to begin. The
+	// navigation is not guaranteed to start.
 	Delay float64 `json:"delay"`
 
-	// The reason for the navigation. Allowed values: formSubmissionGet, formSubmissionPost,
-	// httpHeaderRefresh, scriptInitiated, metaTagRefresh, pageBlockInterstitial, reload.
+	// The reason for the navigation.
+	//
+	// Allowed values:
+	//	- formSubmissionGet
+	//	- formSubmissionPost
+	//	- httpHeaderRefresh
+	//	- scriptInitiated
+	//	- metaTagRefresh
+	//	- pageBlockInterstitial
+	//	- reload
 	Reason string `json:"reason"`
 
 	// The destination URL for the scheduled navigation.
@@ -657,7 +673,7 @@ type ScreencastFrameEvent struct {
 	Data string `json:"data"`
 
 	// Screencast frame metadata.
-	Metadata ScreencastFrameMetadata `json:"metadata"`
+	Metadata *ScreencastFrameMetadata `json:"metadata"`
 
 	// Frame number.
 	SessionID int `json:"sessionId"`
@@ -795,8 +811,8 @@ type Frame struct {
 	// Frame document's mimeType as determined by the browser.
 	MimeType string `json:"mimeType"`
 
-	// Optional. If the frame failed to load, this contains the URL that could not be loaded.
-	// EXPERIMENTAL
+	// Optional. If the frame failed to load, this contains the URL that could
+	// not be loaded. EXPERIMENTAL.
 	UnreachableURL string `json:"unreachableUrl,omitempty"`
 }
 
@@ -808,7 +824,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-FrameId
 type FrameID string
 
 /*
-FrameResource provides information about the Resource on the page. EXPERIMENTAL
+FrameResource provides information about the Resource on the page. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-FrameResource
 */
@@ -837,7 +853,7 @@ type FrameResource struct {
 
 /*
 FrameResourceTree provides information about the Frame hierarchy along with their cached resources.
-EXPERIMENTAL
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-FrameResourceTree
 */

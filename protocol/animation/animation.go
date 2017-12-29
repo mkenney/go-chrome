@@ -67,7 +67,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-resolve
 */
 type ResolveAnimationResult struct {
 	// Corresponding remote object.
-	RemoteObject runtime.RemoteObject `json:"remoteObject"`
+	RemoteObject *runtime.RemoteObject `json:"remoteObject"`
 }
 
 /*
@@ -149,7 +149,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#event-animatio
 */
 type StartedEvent struct {
 	// Animation that was started.
-	Animation Animation `json:"animation"`
+	Animation *Animation `json:"animation"`
 }
 
 /*
@@ -179,14 +179,15 @@ type Animation struct {
 	// Animation's current time.
 	CurrentTime float64 `json:"currentTime"`
 
-	// Animation type of Animation. Allowed values: CSSTransition, CSSAnimation, WebAnimation.
+	// Animation type of Animation. Allowed values: CSSTransition, CSSAnimation,
+	// WebAnimation.
 	Type string `json:"type"`
 
 	// Optional. Animation's source animation node.
 	Source *Effect `json:"source,omitempty"`
 
-	// Optional. A unique ID for Animation representing the sources that triggered this CSS
-	// animation/transition.
+	// Optional. A unique ID for Animation representing the sources that
+	// triggered this CSS animation/transition.
 	CSSID string `json:"cssId,omitempty"`
 }
 
@@ -218,7 +219,7 @@ type Effect struct {
 	Fill string `json:"fill"`
 
 	// Optional. Effect's target node.
-	BackendNodeID *dom.BackendNodeID `json:"backendNodeId,omitempty"`
+	BackendNodeID dom.BackendNodeID `json:"backendNodeId,omitempty"`
 
 	// Optional. Effect's keyframes.
 	KeyframesRule *KeyframesRule `json:"keyframesRule,omitempty"`

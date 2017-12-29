@@ -101,7 +101,8 @@ type EventHandlerMapper interface {
 Socketer defines a websocket connection interface for Chrome instances.
 */
 type Socketer interface {
-	// AddEventHandler adds an event handler to the stack of listeners for an event.
+	// AddEventHandler adds an event handler to the stack of listeners for an
+	// event.
 	AddEventHandler(handler EventHandler)
 
 	// Close closes the current socket connection.
@@ -110,7 +111,8 @@ type Socketer interface {
 	// Conn returns the websocket connection
 	Conn() Conner
 
-	// HandleCommand handles all responses to commands sent to the websocket connection.
+	// HandleCommand handles all responses to commands sent to the websocket
+	// connection.
 	HandleCommand(response *Response)
 
 	// HandlEvent handles all events delivered to the websocket listener.
@@ -119,7 +121,8 @@ type Socketer interface {
 	// Listen starts the socket read loop.
 	Listen() error
 
-	// RemoveEventHandler removes a handler from the stack of listeners for an event.
+	// RemoveEventHandler removes a handler from the stack of listeners for an
+	// event.
 	RemoveEventHandler(handler EventHandler)
 
 	// SendCommand sends a command to the websocket connection.

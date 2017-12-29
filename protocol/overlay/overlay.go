@@ -41,16 +41,10 @@ type HighlightFrameParams struct {
 	FrameID page.FrameID `json:"frameId"`
 
 	// Optional. The content box highlight fill color (default: transparent).
-	//
-	// This is an instance of DOM.RGBA, but that doesn't omitempty correctly so it must be added
-	// manually.
-	ContentColor interface{} `json:"contentColor,omitempty"`
+	ContentColor *dom.RGBA `json:"contentColor,omitempty"`
 
 	// Optional. The content box highlight outline color (default: transparent).
-	//
-	// This is an instance of DOM.RGBA, but that doesn't omitempty correctly so it must be added
-	// manually.
-	ContentOutlineColor interface{} `json:"contentOutlineColor,omitempty"`
+	ContentOutlineColor *dom.RGBA `json:"contentOutlineColor,omitempty"`
 }
 
 /*
@@ -60,7 +54,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlight
 */
 type HighlightNodeParams struct {
 	// A descriptor for the highlight appearance.
-	HighlightConfig HighlightConfig `json:"highlightConfig"`
+	HighlightConfig *HighlightConfig `json:"highlightConfig"`
 
 	// Optional. Identifier of the node to highlight.
 	NodeID dom.NodeID `json:"nodeId,omitempty"`
@@ -82,16 +76,10 @@ type HighlightQuadParams struct {
 	Quad dom.Quad `json:"quad"`
 
 	// Optional. The highlight fill color (default: transparent).
-	//
-	// This is an instance of DOM.RGBA, but that doesn't omitempty correctly so it must be added
-	// manually.
-	Color interface{} `json:"color,omitempty"`
+	Color *dom.RGBA `json:"color,omitempty"`
 
 	// Optional. The highlight outline color (default: transparent).
-	//
-	// This is an instance of DOM.RGBA, but that doesn't omitempty correctly so it must be added
-	// manually.
-	OutlineColor interface{} `json:"outlineColor,omitempty"`
+	OutlineColor *dom.RGBA `json:"outlineColor,omitempty"`
 }
 
 /*
@@ -113,16 +101,10 @@ type HighlightRectParams struct {
 	Height int `json:"height"`
 
 	// Optional. The highlight fill color (default: transparent).
-	//
-	// This is an instance of DOM.RGBA, but that doesn't omitempty correctly so it must be added
-	// manually.
-	Color interface{} `json:"color,omitempty"`
+	Color *dom.RGBA `json:"color,omitempty"`
 
 	// Optional. The highlight outline color (default: transparent).
-	//
-	// This is an instance of DOM.RGBA, but that doesn't omitempty correctly so it must be added
-	// manually.
-	OutlineColor interface{} `json:"outlineColor,omitempty"`
+	OutlineColor *dom.RGBA `json:"outlineColor,omitempty"`
 }
 
 /*
@@ -134,12 +116,9 @@ type SetInspectModeParams struct {
 	// Set an inspection mode.
 	Mode InspectMode `json:"mode"`
 
-	// Optional. A descriptor for the highlight appearance of hovered-over nodes. May be omitted if
-	// `enabled == false`.
-	//
-	// This is an instance of HighlightConfig, but that doesn't omitempty correctly so it must be
-	// added manually.
-	HighlightConfig interface{} `json:"highlightConfig,omitempty"`
+	// Optional. A descriptor for the highlight appearance of hovered-over nodes.
+	// May be omitted if `enabled == false`.
+	HighlightConfig *HighlightConfig `json:"highlightConfig,omitempty"`
 }
 
 /*
@@ -148,7 +127,8 @@ SetPausedInDebuggerMessageParams represents Overlay.setPausedInDebuggerMessage p
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setPausedInDebuggerMessage
 */
 type SetPausedInDebuggerMessageParams struct {
-	// Optional. The message to display, also triggers resume and step over controls.
+	// Optional. The message to display, also triggers resume and step over
+	// controls.
 	Message string `json:"message,omitempty"`
 }
 
@@ -208,7 +188,8 @@ SetSuspendedParams represents Overlay.setSuspended parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setSuspended
 */
 type SetSuspendedParams struct {
-	// Whether overlay should be suspended and not consume any resources until resumed.
+	// Whether overlay should be suspended and not consume any resources until
+	// resumed.
 	Suspended bool `json:"suspended"`
 }
 
@@ -239,7 +220,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#event-screenshot
 */
 type ScreenshotRequestedEvent struct {
 	// Viewport to capture, in CSS.
-	Viewport page.Viewport `json:"viewport"`
+	Viewport *page.Viewport `json:"viewport"`
 }
 
 /*
@@ -254,63 +235,40 @@ type HighlightConfig struct {
 	// Optional. Whether the rulers should be shown (default: false).
 	ShowRulers bool `json:"showRulers,omitempty"`
 
-	// Optional. Whether the extension lines from node to the rulers should be shown (default:
-	// false).
+	// Optional. Whether the extension lines from node to the rulers should be
+	// shown (default: false).
 	ShowExtensionLines bool `json:"showExtensionLines,omitempty"`
 
 	// Optional. Display as material.
 	DisplayAsMaterial bool `json:"displayAsMaterial,omitempty"`
 
 	// Optional. The content box highlight fill color (default: transparent).
-	//
-	// This is an instance of DOM.RGBA, but that doesn't omitempty correctly so it must be added
-	// manually.
-	ContentColor interface{} `json:"contentColor,omitempty"`
+	ContentColor *dom.RGBA `json:"contentColor,omitempty"`
 
 	// Optional. The padding highlight fill color (default: transparent).
-	//
-	// This is an instance of DOM.RGBA, but that doesn't omitempty correctly so it must be added
-	// manually.
-	PaddingColor interface{} `json:"paddingColor,omitempty"`
+	PaddingColor *dom.RGBA `json:"paddingColor,omitempty"`
 
 	// Optional. The border highlight fill color (default: transparent).
-	//
-	// This is an instance of DOM.RGBA, but that doesn't omitempty correctly so it must be added
-	// manually.
-	BorderColor interface{} `json:"borderColor,omitempty"`
+	BorderColor *dom.RGBA `json:"borderColor,omitempty"`
 
 	// Optional. The margin highlight fill color (default: transparent).
-	//
-	// This is an instance of DOM.RGBA, but that doesn't omitempty correctly so it must be added
-	// manually.
-	MarginColor interface{} `json:"marginColor,omitempty"`
+	MarginColor *dom.RGBA `json:"marginColor,omitempty"`
 
-	// Optional. The event target element highlight fill color (default: transparent).
-	//
-	// This is an instance of DOM.RGBA, but that doesn't omitempty correctly so it must be added
-	// manually.
-	EventTargetColor interface{} `json:"eventTargetColor,omitempty"`
+	// Optional. The event target element highlight fill color (default:
+	// transparent).
+	EventTargetColor *dom.RGBA `json:"eventTargetColor,omitempty"`
 
 	// Optional. The shape outside fill color (default: transparent).
-	//
-	// This is an instance of DOM.RGBA, but that doesn't omitempty correctly so it must be added
-	// manually.
-	ShapeColor interface{} `json:"shapeColor,omitempty"`
+	ShapeColor *dom.RGBA `json:"shapeColor,omitempty"`
 
 	// Optional. The shape margin fill color (default: transparent).
-	//
-	// This is an instance of DOM.RGBA, but that doesn't omitempty correctly so it must be added
-	// manually.
-	ShapeMarginColor interface{} `json:"shapeMarginColor,omitempty"`
+	ShapeMarginColor *dom.RGBA `json:"shapeMarginColor,omitempty"`
 
 	// Optional. Selectors to highlight relevant nodes.
 	SelectorList string `json:"selectorList,omitempty"`
 
 	// Optional. The grid layout color (default: transparent).
-	//
-	// This is an instance of DOM.RGBA, but that doesn't omitempty correctly so it must be added
-	// manually.
-	CSSGridColor interface{} `json:"cssGridColor,omitempty"`
+	CSSGridColor *dom.RGBA `json:"cssGridColor,omitempty"`
 }
 
 /*

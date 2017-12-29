@@ -15,7 +15,8 @@ CompositingReasonsParams represents LayerTree.compositingReasons parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-compositingReasons
 */
 type CompositingReasonsParams struct {
-	// The ID of the layer for which we want to get the reasons it was composited.
+	// The ID of the layer for which we want to get the reasons it was
+	// composited.
 	LayerID LayerID `json:"layerId"`
 }
 
@@ -25,7 +26,8 @@ CompositingReasonsResult represents the result of calls to LayerTree.compositing
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-compositingReasons
 */
 type CompositingReasonsResult struct {
-	// A list of strings specifying reasons for the given layer to become composited.
+	// A list of strings specifying reasons for the given layer to become
+	// composited.
 	CompositingReasons []string `json:"compositingReasons"`
 }
 
@@ -78,17 +80,15 @@ type ProfileSnapshotParams struct {
 	// The ID of the layer snapshot.
 	SnapshotID SnapshotID `json:"snapshotId"`
 
-	// Optional. The maximum number of times to replay the snapshot (1, if not specified).
+	// Optional. The maximum number of times to replay the snapshot (1, if not
+	// specified).
 	MinRepeatCount int `json:"minRepeatCount,omitempty"`
 
 	// Optional. The minimum duration (in seconds) to replay the snapshot.
 	MinDuration float64 `json:"minDuration,omitempty"`
 
 	// Optional. The clip rectangle to apply when replaying the snapshot.
-	//
-	// This is an instance of DOM.Rect, but that doesn't omitempty correctly so it must be added
-	// manually.
-	ClipRect interface{} `json:"clipRect,omitempty"`
+	ClipRect *dom.Rect `json:"clipRect,omitempty"`
 }
 
 /*
@@ -120,7 +120,8 @@ type ReplaySnapshotParams struct {
 	// The ID of the layer snapshot.
 	SnapshotID SnapshotID `json:"snapshotId"`
 
-	// Optional. The first step to replay from (replay from the very start if not specified).
+	// Optional. The first step to replay from (replay from the very start if
+	// not specified).
 	FromStep int `json:"fromStep,omitempty"`
 
 	// Optional. The last step to replay to (replay till the end if not specified).
@@ -170,7 +171,7 @@ type LayerPaintedEvent struct {
 	LayerID LayerID `json:"layerId"`
 
 	// Clip rectangle.
-	Clip dom.Rect `json:"clip"`
+	Clip *dom.Rect `json:"clip"`
 }
 
 /*
@@ -180,7 +181,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#event-layerTre
 */
 type DidChangeEvent struct {
 	// Optional. Layer tree, absent if not in the comspositing mode.
-	Layers []Layer `json:"layers,omitempty"`
+	Layers []*Layer `json:"layers,omitempty"`
 }
 
 /*
@@ -204,10 +205,14 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#type-ScrollRec
 */
 type ScrollRect struct {
 	// Rectangle itself.
-	Rect dom.Rect `json:"rect"`
+	Rect *dom.Rect `json:"rect"`
 
-	// Reason for rectangle to force scrolling on the main thread Allowed values: RepaintsOnScroll, \
-	// TouchEventHandler, WheelEventHandler.
+	// Reason for rectangle to force scrolling on the main thread
+	//
+	// Allowed values:
+	//	- RepaintsOnScroll
+	//	- TouchEventHandler
+	//	- WheelEventHandler
 	Type string `json:"type"`
 }
 
@@ -218,10 +223,10 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#type-StickyPos
 */
 type StickyPositionConstraint struct {
 	// Layout rectangle of the sticky element before being shifted.
-	StickyBoxRect dom.Rect `json:"stickyBoxRect"`
+	StickyBoxRect *dom.Rect `json:"stickyBoxRect"`
 
 	// Layout rectangle of the containing block of the sticky element.
-	ContainingBlockRect dom.Rect `json:"containingBlockRect"`
+	ContainingBlockRect *dom.Rect `json:"containingBlockRect"`
 
 	// Optional. The nearest sticky layer that shifts the sticky box.
 	NearestLayerShiftingStickyBox LayerID `json:"nearestLayerShiftingStickyBox,omitempty"`
@@ -288,8 +293,8 @@ type Layer struct {
 	// Indicates how many time this layer has painted.
 	PaintCount int `json:"paintCount"`
 
-	// Indicates whether this layer hosts any content, rather than being used for
-	// transform/scrolling purposes only.
+	// Indicates whether this layer hosts any content, rather than being used
+	// for transform/scrolling purposes only.
 	DrawsContent bool `json:"drawsContent"`
 
 	// Optional. Set if layer is not visible.
@@ -299,10 +304,7 @@ type Layer struct {
 	ScrollRects []*ScrollRect `json:"scrollRects,omitempty"`
 
 	// Optional. Sticky position constraint information.
-	//
-	// This is an instance of StickyPositionConstraint, but that doesn't omitempty correctly so it
-	// must be added manually.
-	StickyPositionConstraint interface{} `json:"stickyPositionConstraint,omitempty"`
+	StickyPositionConstraint *StickyPositionConstraint `json:"stickyPositionConstraint,omitempty"`
 }
 
 /*

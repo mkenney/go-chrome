@@ -34,7 +34,8 @@ GetEncodedResponseResult represents the result of calls to Audits.getEncodedResp
 https://chromedevtools.github.io/devtools-protocol/tot/Audits/#method-getEncodedResponse
 */
 type GetEncodedResponseResult struct {
-	// Optional. The encoded body as a base64 string. Omitted if sizeOnly is true.
+	// Optional. The encoded body as a base64 string. Omitted if sizeOnly is
+	// true.
 	Body string `json:"body,omitempty"`
 
 	// Size before re-encoding.

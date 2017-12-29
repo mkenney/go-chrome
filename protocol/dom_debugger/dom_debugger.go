@@ -19,12 +19,14 @@ type GetEventListenersParams struct {
 	// ID of the object to return listeners for.
 	ObjectID runtime.RemoteObjectID `json:"objectId"`
 
-	// Optional. The maximum depth at which Node children should be retrieved, defaults to 1. Use -1
-	// for the entire subtree or provide an integer larger than 0.
+	// Optional. The maximum depth at which Node children should be retrieved,
+	// defaults to 1. Use -1 for the entire subtree or provide an integer larger
+	// than 0.
 	Depth int `json:"depth,omitempty"`
 
-	// Optional. Whether or not iframes and shadow roots should be traversed when returning the
-	// subtree (default is false). Reports listeners for all contexts if pierce is enabled.
+	// Optional. Whether or not iframes and shadow roots should be traversed
+	// when returning the subtree (default is false). Reports listeners for all
+	// contexts if pierce is enabled.
 	Pierce bool `json:"pierce,omitempty"`
 }
 
@@ -35,7 +37,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-getEv
 */
 type GetEventListenersResult struct {
 	// Array of relevant listeners.
-	Listeners []EventListener `json:"listeners"`
+	Listeners []*EventListener `json:"listeners"`
 }
 
 /*
@@ -107,8 +109,8 @@ type SetEventListenerBreakpointParams struct {
 	// DOM Event name to stop on (any DOM event will do).
 	EventName string `json:"eventName"`
 
-	// Optional. EventTarget interface name to stop on. If equal to "*" or not provided, will stop
-	// on any EventTarget. EXPERIMENTAL
+	// Optional. EventTarget interface name to stop on. If equal to "*" or not
+	// provided, will stop on any EventTarget. EXPERIMENTAL
 	TargetName string `json:"targetName,omitempty"`
 }
 
@@ -128,7 +130,8 @@ SetXHRBreakpointParams represents DOMDebugger.setXHRBreakpoint parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setXHRBreakpoint
 */
 type SetXHRBreakpointParams struct {
-	// Resource URL substring. All XHRs having this substring in the URL will get stopped upon.
+	// Resource URL substring. All XHRs having this substring in the URL will
+	// get stopped upon.
 	URL string `json:"url"`
 }
 
@@ -167,16 +170,10 @@ type EventListener struct {
 	ColumnNumber int `json:"columnNumber"`
 
 	// Optional. Event handler function value.
-	//
-	// This expects an instance of Runtime.RemoteObject, but that doesn't omitempty correctly so it
-	// must be added manually.
-	Handler interface{} `json:"handler,omitempty"`
+	Handler *runtime.RemoteObject `json:"handler,omitempty"`
 
 	// Optional. Event original handler function value.
-	//
-	// This expects an instance of Runtime.RemoteObject, but that doesn't omitempty correctly so it
-	// must be added manually.
-	OriginalHandler interface{} `json:"originalHandler,omitempty"`
+	OriginalHandler *runtime.RemoteObject `json:"originalHandler,omitempty"`
 
 	// Optional. Node the listener is added to (if any).
 	BackendNodeID dom.BackendNodeID `json:"backendNodeId,omitempty"`

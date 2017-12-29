@@ -14,7 +14,8 @@ type AwaitPromiseParams struct {
 	// Identifier of the promise.
 	PromiseObjectID RemoteObjectID `json:"promiseObjectId"`
 
-	// Optional. Whether the result is expected to be a JSON object that should be sent by value.
+	// Optional. Whether the result is expected to be a JSON object that should
+	// be sent by value.
 	ReturnByValue bool `json:"returnByValue,omitempty"`
 
 	// Optional. Whether preview should be generated for the result.
@@ -28,7 +29,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-awaitProm
 */
 type AwaitPromiseResult struct {
 	// Promise result. Will contain rejected value if promise was rejected.
-	Result RemoteObject `json:"result"`
+	Result *RemoteObject `json:"result"`
 
 	// Exception details if stack strace is available.
 	ExceptionDetails ExceptionDetails `json:"exceptionDetails"`
@@ -43,37 +44,42 @@ type CallFunctionOnParams struct {
 	// Declaration of the function to call.
 	FunctionDeclaration string `json:"functionDeclaration"`
 
-	// Optional. Identifier of the object to call function on. Either objectID or executionContextID
-	// should be specified.
+	// Optional. Identifier of the object to call function on. Either objectID
+	// or executionContextID should be specified.
 	ObjectID RemoteObjectID `json:"objectId,omitempty"`
 
-	// Optional. Call arguments. All call arguments must belong to the same JavaScript world as the
-	// target object.
-	Arguments []CallArgument `json:"arguments,omitempty"`
+	// Optional. Call arguments. All call arguments must belong to the same
+	// JavaScript world as the target object.
+	Arguments []*CallArgument `json:"arguments,omitempty"`
 
-	// Optional. In silent mode exceptions thrown during evaluation are not reported and do not
-	// pause execution. Overrides setPauseOnException state.
+	// Optional. In silent mode exceptions thrown during evaluation are not
+	// reported and do not pause execution. Overrides setPauseOnException state.
 	Silent bool `json:"silent,omitempty"`
 
-	// Whether the result is expected to be a JSON object which should be sent by value.
+	// Whether the result is expected to be a JSON object which should be sent
+	// by value.
 	ReturnByValue bool `json:"returnByValue,omitempty"`
 
-	// Optional. Whether preview should be generated for the result. EXPERIMENTAL
+	// Optional. Whether preview should be generated for the result.
+	// EXPERIMENTAL.
 	GeneratePreview bool `json:"generatePreview,omitempty"`
 
-	// Optional. Whether execution should be treated as initiated by user in the UI.
+	// Optional. Whether execution should be treated as initiated by user in the
+	// UI.
 	UserGesture bool `json:"userGesture,omitempty"`
 
-	// Optional. Whether execution should await for resulting value and return once awaited promise
-	// is resolved.
+	// Optional. Whether execution should await for resulting value and return
+	// once awaited promise is resolved.
 	AwaitPromise bool `json:"awaitPromise,omitempty"`
 
-	// Optional. Specifies execution context which global object will be used to call function on.
-	// Either executionContextID or objectID should be specified.
+	// Optional. Specifies execution context which global object will be used to
+	// call function on. Either executionContextID or objectID should be
+	// specified.
 	ExecutionContextID ExecutionContextID `json:"executionContextId,omitempty"`
 
-	// Optional. Symbolic group name that can be used to release multiple objects. If objectGroup is
-	// not specified and objectID is, objectGroup will be inherited from object.
+	// Optional. Symbolic group name that can be used to release multiple
+	// objects. If objectGroup is not specified and objectID is, objectGroup
+	// will be inherited from object.
 	ObjectGroup string `json:"objectGroup,omitempty"`
 }
 
@@ -84,10 +90,10 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-callFunct
 */
 type CallFunctionOnResult struct {
 	// Call result.
-	Result RemoteObject `json:"result"`
+	Result *RemoteObject `json:"result"`
 
 	// Exception details.
-	ExceptionDetails ExceptionDetails `json:"exceptionDetails"`
+	ExceptionDetails *ExceptionDetails `json:"exceptionDetails"`
 }
 
 /*
@@ -105,8 +111,9 @@ type CompileScriptParams struct {
 	// Specifies whether the compiled script should be persisted.
 	PersistScript bool `json:"persistScript"`
 
-	// Optional. Specifies in which execution context to perform script run. If the parameter is
-	// omitted the evaluation will be performed in the context of the inspected page.
+	// Optional. Specifies in which execution context to perform script run. If
+	// the parameter is omitted the evaluation will be performed in the context
+	// of the inspected page.
 	ExecutionContextID ExecutionContextID `json:"executionContextId,omitempty"`
 }
 
@@ -120,7 +127,7 @@ type CompileScriptResult struct {
 	ScriptID ScriptID `json:"scriptId"`
 
 	// Exception details.
-	ExceptionDetails ExceptionDetails `json:"exceptionDetails"`
+	ExceptionDetails *ExceptionDetails `json:"exceptionDetails"`
 }
 
 /*
@@ -132,31 +139,37 @@ type EvaluateParams struct {
 	// Expression to evaluate.
 	Expression string `json:"expression"`
 
-	// Optional. Symbolic group name that can be used to release multiple objects.
+	// Optional. Symbolic group name that can be used to release multiple
+	// objects.
 	ObjectGroup string `json:"objectGroup,omitempty"`
 
-	// Optional. Determines whether Command Line API should be available during the evaluation.
+	// Optional. Determines whether Command Line API should be available during
+	// the evaluation.
 	IncludeCommandLineAPI bool `json:"includeCommandLineAPI,omitempty"`
 
-	// Optional. In silent mode exceptions thrown during evaluation are not reported and do not pause
-	// execution. Overrides setPauseOnException state.
+	// Optional. In silent mode exceptions thrown during evaluation are not
+	// reported and do not pause execution. Overrides setPauseOnException state.
 	Silent bool `json:"silent,omitempty"`
 
-	// Optional. Specifies in which execution context to perform evaluation. If the parameter is omitted the
-	// evaluation will be performed in the context of the inspected page.
+	// Optional. Specifies in which execution context to perform evaluation. If
+	// the parameter is omitted the evaluation will be performed in the context
+	// of the inspected page.
 	ContextID ExecutionContextID `json:"contextId,omitempty"`
 
-	// Optional. Whether the result is expected to be a JSON object that should be sent by value.
+	// Optional. Whether the result is expected to be a JSON object that should
+	// be sent by value.
 	ReturnByValue bool `json:"returnByValue,omitempty"`
 
-	// Optional. Whether preview should be generated for the result. EXPERIMENTAL
+	// Optional. Whether preview should be generated for the result.
+	// EXPERIMENTAL.
 	GeneratePreview bool `json:"generatePreview,omitempty"`
 
-	// Optional. Whether execution should be treated as initiated by user in the UI.
+	// Optional. Whether execution should be treated as initiated by user in the
+	// UI.
 	UserGesture bool `json:"userGesture,omitempty"`
 
-	// Optional. Whether execution should await for resulting value and return once awaited promise is
-	// resolved.
+	// Optional. Whether execution should await for resulting value and return
+	// once awaited promise is resolved.
 	AwaitPromise bool `json:"awaitPromise,omitempty"`
 }
 
@@ -167,10 +180,10 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-evaluate
 */
 type EvaluateResult struct {
 	// Evaluation result.
-	Result RemoteObject `json:"result"`
+	Result *RemoteObject `json:"result"`
 
 	// Exception details.
-	ExceptionDetails ExceptionDetails `json:"exceptionDetails"`
+	ExceptionDetails *ExceptionDetails `json:"exceptionDetails"`
 }
 
 /*
@@ -182,15 +195,16 @@ type GetPropertiesParams struct {
 	// Identifier of the object to return properties for.
 	ObjectID RemoteObjectID `json:"objectId"`
 
-	// Optional. If true, returns properties belonging only to the element itself, not to its
-	// prototype chain.
+	// Optional. If true, returns properties belonging only to the element
+	// itself, not to its prototype chain.
 	OwnProperties bool `json:"ownProperties,omitempty"`
 
-	// Optional. If true, returns accessor properties (with getter/setter) only; internal properties
-	// are not returned either. EXPERIMENTAL
+	// Optional. If true, returns accessor properties (with getter/setter) only;
+	// internal properties are not returned either. EXPERIMENTAL.
 	AccessorPropertiesOnly bool `json:"accessorPropertiesOnly,omitempty"`
 
-	// Optional. Whether preview should be generated for the results. EXPERIMENTAL
+	// Optional. Whether preview should be generated for the results.
+	// EXPERIMENTAL.
 	GeneratePreview bool `json:"generatePreview,omitempty"`
 }
 
@@ -201,13 +215,13 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-getProper
 */
 type GetPropertiesResult struct {
 	// Object properties.
-	Result []PropertyDescriptor `json:"result"`
+	Result []*PropertyDescriptor `json:"result"`
 
 	// Internal object properties (only of the element itself).
-	InternalProperties []InternalPropertyDescriptor `json:"internalProperties"`
+	InternalProperties []*InternalPropertyDescriptor `json:"internalProperties"`
 
 	// Exception details.
-	ExceptionDetails ExceptionDetails `json:"exceptionDetails"`
+	ExceptionDetails *ExceptionDetails `json:"exceptionDetails"`
 }
 
 /*
@@ -278,28 +292,32 @@ type RunScriptParams struct {
 	// ID of the script to run.
 	ScriptID ScriptID `json:"scriptId"`
 
-	// Optional. Specifies in which execution context to perform script run. If the parameter is
-	// omitted the evaluation will be performed in the context of the inspected page.
+	// Optional. Specifies in which execution context to perform script run. If
+	// the parameter is omitted the evaluation will be performed in the context
+	// of the inspected page.
 	ExecutionContextID ExecutionContextID `json:"executionContextId,omitempty"`
 
-	// Optional. Symbolic group name that can be used to release multiple objects.
+	// Optional. Symbolic group name that can be used to release multiple
+	// objects.
 	ObjectGroup string `json:"objectGroup,omitempty"`
 
-	// Optional. In silent mode exceptions thrown during evaluation are not reported and do not
-	// pause execution. Overrides setPauseOnException state.
+	// Optional. In silent mode exceptions thrown during evaluation are not
+	// reported and do not pause execution. Overrides setPauseOnException state.
 	Silent bool `json:"silent,omitempty"`
 
-	// Optional. Determines whether Command Line API should be available during the evaluation.
+	// Optional. Determines whether Command Line API should be available during
+	// the evaluation.
 	IncludeCommandLineAPI bool `json:"includeCommandLineAPI,omitempty"`
 
-	// Optional. Whether the result is expected to be a JSON object which should be sent by value.
+	// Optional. Whether the result is expected to be a JSON object which should
+	// be sent by value.
 	ReturnByValue bool `json:"returnByValue,omitempty"`
 
 	// Optional. Whether preview should be generated for the result.
 	GeneratePreview bool `json:"generatePreview,omitempty"`
 
-	// Optional. Whether execution should await for resulting value and return once awaited promise
-	// is resolved.
+	// Optional. Whether execution should await for resulting value and return
+	// once awaited promise is resolved.
 	AwaitPromise bool `json:"awaitPromise,omitempty"`
 }
 
@@ -320,10 +338,10 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-setCustom
 */
 type SetCustomObjectFormatterEnabledParams struct {
 	// Run result.
-	Result RemoteObject `json:"result"`
+	Result *RemoteObject `json:"result"`
 
 	// Exception details.
-	ExceptionDetails ExceptionDetails `json:"exceptionDetails"`
+	ExceptionDetails *ExceptionDetails `json:"exceptionDetails"`
 }
 
 /*
@@ -332,26 +350,44 @@ ConsoleAPICalledEvent represents Runtime.consoleAPICalled event data.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-consoleAPICalled
 */
 type ConsoleAPICalledEvent struct {
-	// Type of the call. Allowed values: log, debug, info, error, warning, dir, dirxml, table,
-	// trace, clear, startGroup, startGroupCollapsed, endGroup, assert, profile, profileEnd, count,
-	// timeEnd.
+	// Type of the call.
+	//
+	// Allowed values:
+	//	- log
+	//	- debug
+	//	- info
+	//	- error
+	//	- warning
+	//	- dir
+	//	- dirxml
+	//	- table
+	//	- trace
+	//	- clear
+	//	- startGroup
+	//	- startGroupCollapsed
+	//	- endGroup
+	//	- assert
+	//	- profile
+	//	- profileEnd
+	//	- count
+	//	- timeEnd
 	Type string `json:"type"`
 
 	// Call arguments.
-	Args []RemoteObject `json:"args"`
+	Args []*RemoteObject `json:"args"`
 
 	// Identifier of the context where the call was made.
-	ExecutionContextID ExecutionContextID `json:"executionContextId"`
+	ExecutionContextID *ExecutionContextID `json:"executionContextId"`
 
 	// Call timestamp.
 	Timestamp Timestamp `json:"timestamp"`
 
 	// Optional. Stack trace captured when the call was made.
-	StackTrace StackTrace `json:"stackTrace,omitempty"`
+	StackTrace *StackTrace `json:"stackTrace,omitempty"`
 
-	// Optional. Console context descriptor for calls on non-default console context (not
-	// console.*): 'anonymous#unique-logger-id' for call on unnamed context, 'name#unique-logger-id'
-	// for call on named context. EXPERIMENTAL
+	// Optional. Console context descriptor for calls on non-default console
+	// context (not console.*): 'anonymous#unique-logger-id' for call on unnamed
+	// context, 'name#unique-logger-id' for call on named context. EXPERIMENTAL.
 	Context string `json:"context,omitempty"`
 }
 
@@ -378,7 +414,7 @@ type ExceptionThrownEvent struct {
 	Timestamp Timestamp `json:"timestamp"`
 
 	// Exception details.
-	ExceptionDetails ExceptionDetails `json:"exceptionDetails"`
+	ExceptionDetails *ExceptionDetails `json:"exceptionDetails"`
 }
 
 /*
@@ -388,7 +424,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionC
 */
 type ExecutionContextCreatedEvent struct {
 	// A newly created execution context.
-	Context ExecutionContextDescription `json:"context"`
+	Context *ExecutionContextDescription `json:"context"`
 }
 
 /*
@@ -415,7 +451,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-inspectReq
 */
 type InspectRequestedEvent struct {
 	// Remote object.
-	Object RemoteObject `json:"object"`
+	Object *RemoteObject `json:"object"`
 
 	// Hints.
 	Hints map[string]string `json:"hints"`
@@ -454,23 +490,48 @@ RemoteObject is a mirror object referencing the original JavaScript object.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-RemoteObject
 */
 type RemoteObject struct {
-	// Object type. Allowed values: object, function, undefined, string, number, boolean, symbol.
+	// Object type.
+	//
+	// Allowed values:
+	//	- object
+	//	- function
+	//	- undefined
+	//	- string
+	//	- number
+	//	- boolean
+	//	- symbol
 	Type string `json:"type"`
 
-	// Optional. Object subtype hint. Specified for object type values only. Allowed values: array,
-	// null, node, regexp, date, map, set, weakmap, weakset, iterator, generator, error, proxy,
-	// promise, typedarray.
+	// Optional. Object subtype hint. Specified for object type values only.
+	//
+	// Allowed values:
+	//	- array
+	//	- null
+	//	- node
+	//	- regexp
+	//	- date
+	//	- map
+	//	- set
+	//	- weakmap
+	//	- weakset
+	//	- iterator
+	//	- generator
+	//	- error
+	//	- proxy
+	//	- promise
+	//	- typedarray
 	Subtype string `json:"subtype,omitempty"`
 
-	// Optional. Object class (constructor) name. Specified for object type values only.
+	// Optional. Object class (constructor) name. Specified for object type
+	// values only.
 	ClassName string `json:"className,omitempty"`
 
-	// Optional. Remote object value in case of primitive values or JSON values (if it was
-	// requested).
+	// Optional. Remote object value in case of primitive values or JSON values
+	// (if it was requested).
 	Value interface{} `json:"value,omitempty"`
 
-	// Optional. Primitive value which can not be JSON-stringified does not have value, but gets
-	// this property.
+	// Optional. Primitive value which can not be JSON-stringified does not have
+	// value, but gets this property.
 	UnserializableValue UnserializableValue `json:"unserializableValue,omitempty"`
 
 	// Optional. String representation of the object.
@@ -479,22 +540,16 @@ type RemoteObject struct {
 	// Optional. Unique object identifier (for non-primitive values).
 	ObjectID RemoteObjectID `json:"objectId,omitempty"`
 
-	// Optional. Preview containing abbreviated property values. Specified for object type values
-	// only. EXPERIMENTAL
-	//
-	// This expects an instance of ObjectPreview, but that doesn't omitempty correctly so it must be
-	// added manually.
-	Preview interface{} `json:"preview,omitempty"`
+	// Optional. Preview containing abbreviated property values. Specified for
+	// object type values only. EXPERIMENTAL.
+	Preview *ObjectPreview `json:"preview,omitempty"`
 
-	// Optional. EXPERIMENTAL
-	//
-	// This expects an instance of CustomPreview, but that doesn't omitempty correctly so it must be
-	// added manually.
-	CustomPreview interface{} `json:"customPreview,omitempty"`
+	// Optional. EXPERIMENTAL.
+	CustomPreview *CustomPreview `json:"customPreview,omitempty"`
 }
 
 /*
-CustomPreview is EXPERIMENTAL
+CustomPreview is EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-CustomPreview
 */
@@ -508,28 +563,52 @@ type CustomPreview struct {
 }
 
 /*
-ObjectPreview is an object containing abbreviated remote object value. EXPERIMENTAL
+ObjectPreview is an object containing abbreviated remote object value. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-ObjectPreview
 */
 type ObjectPreview struct {
-	// Object type. Allowed values: object, function, undefined, string, number, boolean, symbol.
+	// Object type.
+	//
+	// Allowed values:
+	//	- object
+	//	- function
+	//	- undefined
+	//	- string
+	//	- number
+	//	- boolean
+	//	- symbol
 	Type string `json:"type"`
 
-	// Object subtype hint. Specified for object type values only. Allowed values: array, null,
-	// node, regexp, date, map, set, weakmap, weakset, iterator, generator, error.
+	// Object subtype hint. Specified for object type values only.
+	//
+	// Allowed values:
+	//	- array
+	//	- null
+	//	- node
+	//	- regexp
+	//	- date
+	//	- map
+	//	- set
+	//	- weakmap
+	//	- weakset
+	//	- iterator
+	//	- generator
+	//	- error
 	Subtype string `json:"subtype"`
 
 	// Optional. String representation of the object.
 	Description string `json:"description,omitempty"`
 
-	// True iff some of the properties or entries of the original object did not fit.
+	// True iff some of the properties or entries of the original object did not
+	// fit.
 	Overflow bool `json:"overflow"`
 
 	// List of the properties.
 	Properties []*PropertyPreview `json:"properties"`
 
-	// Optional. List of the entries. Specified for map and set subtype values only.
+	// Optional. List of the entries. Specified for map and set subtype values
+	// only.
 	Entries []*EntryPreview `json:"entries,omitempty"`
 }
 
@@ -542,21 +621,41 @@ type PropertyPreview struct {
 	// Property name.
 	Name string `json:"name"`
 
-	// Object type. Accessor means that the property itself is an accessor property. Allowed values:
-	// object, function, undefined, string, number, boolean, symbol, accessor.
+	// Object type. Accessor means that the property itself is an accessor
+	// property.
+	//
+	// Allowed values:
+	//	- object
+	//	- function
+	//	- undefined
+	//	- string
+	//	- number
+	//	- boolean
+	//	- symbol
+	//	- accessor
 	Type string `json:"type"`
 
 	// Optional. User-friendly property value string.
 	Value string `json:"value,omitempty"`
 
 	// Optional. Nested value preview.
-	//
-	// This expects an instance of ObjectPreview, but that doesn't omitempty correctly so it must be
-	// added manually.
-	ValuePreview interface{} `json:"valuePreview,omitempty"`
+	ValuePreview *ObjectPreview `json:"valuePreview,omitempty"`
 
-	// Optional. Object subtype hint. Specified for object type values only. Allowed values: array,
-	// null, node, regexp, date, map, set, weakmap, weakset, iterator, generator, error.
+	// Optional. Object subtype hint. Specified for object type values only.
+	//
+	// Allowed values:
+	//	- array
+	//	- null
+	//	- node
+	//	- regexp
+	//	- date
+	//	- map
+	//	- set
+	//	- weakmap
+	//	- weakset
+	//	- iterator
+	//	- generator
+	//	- error
 	Subtype string `json:"subtype,omitempty"`
 }
 
@@ -567,13 +666,10 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-EntryPrevie
 */
 type EntryPreview struct {
 	// Optional. Preview of the key. Specified for map-like collection entries.
-	//
-	// This expects an instance of ObjectPreview, but that doesn't omitempty correctly so it must be
-	// added manually.
-	Key interface{} `json:"key,omitempty"`
+	Key *ObjectPreview `json:"key,omitempty"`
 
 	// Preview of the value.
-	Value ObjectPreview `json:"value"`
+	Value *ObjectPreview `json:"value"`
 }
 
 /*
@@ -586,35 +682,26 @@ type PropertyDescriptor struct {
 	Name string `json:"name"`
 
 	// Optional. The value associated with the property.
-	//
-	// This expects an instance of RemoteObject, but that doesn't omitempty correctly so it must be
-	// added manually.
-	Value interface{} `json:"value,omitempty"`
+	Value *RemoteObject `json:"value,omitempty"`
 
-	// Optional. True if the value associated with the property may be changed (data descriptors
-	// only).
+	// Optional. True if the value associated with the property may be changed
+	// (data descriptors only).
 	Writable bool `json:"writable,omitempty"`
 
-	// Optional. A function which serves as a getter for the property, or undefined if there is no
-	// getter (accessor descriptors only).
-	//
-	// This expects an instance of RemoteObject, but that doesn't omitempty correctly so it must be
-	// added manually.
-	Get interface{} `json:"get,omitempty"`
+	// Optional. A function which serves as a getter for the property, or
+	// undefined if there is no getter (accessor descriptors only).
+	Get *RemoteObject `json:"get,omitempty"`
 
-	// Optional. A function which serves as a setter for the property, or undefined if there is no
-	// setter (accessor descriptors only).
-	//
-	// This expects an instance of RemoteObject, but that doesn't omitempty correctly so it must be
-	// added manually.
-	Set interface{} `json:"set,omitempty"`
+	// Optional. A function which serves as a setter for the property, or
+	// undefined if there is no setter (accessor descriptors only).
+	Set *RemoteObject `json:"set,omitempty"`
 
-	// True if the type of this property descriptor may be changed and if the property may be
-	// deleted from the corresponding object.
+	// True if the type of this property descriptor may be changed and if the
+	// property may be deleted from the corresponding object.
 	Configurable bool `json:"configurable"`
 
-	// True if this property shows up during enumeration of the properties on the corresponding
-	// object.
+	// True if this property shows up during enumeration of the properties on
+	// the corresponding object.
 	Enumerable bool `json:"enumerable"`
 
 	// Optional. True if the result was thrown during the evaluation.
@@ -624,10 +711,7 @@ type PropertyDescriptor struct {
 	IsOwn bool `json:"isOwn,omitempty"`
 
 	// Optional. Property symbol object, if the property is of the symbol type.
-	//
-	// This expects an instance of RemoteObject, but that doesn't omitempty correctly so it must be
-	// added manually.
-	Symbol interface{} `json:"symbol,omitempty"`
+	Symbol *RemoteObject `json:"symbol,omitempty"`
 }
 
 /*
@@ -641,10 +725,7 @@ type InternalPropertyDescriptor struct {
 	Name string `json:"name"`
 
 	// Optional. The value associated with the property.
-	//
-	// This expects an instance of RemoteObject, but that doesn't omitempty correctly so it must be
-	// added manually.
-	Value interface{} `json:"value,omitempty"`
+	Value *RemoteObject `json:"value,omitempty"`
 }
 
 /*
@@ -677,8 +758,8 @@ ExecutionContextDescription is the description of an isolated world.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-ExecutionContextDescription
 */
 type ExecutionContextDescription struct {
-	// Unique ID of the execution context. It can be used to specify in which execution context
-	// script evaluation should be performed.
+	// Unique ID of the execution context. It can be used to specify in which
+	// execution context script evaluation should be performed.
 	ID ExecutionContextID `json:"id"`
 
 	// Execution context origin.
@@ -701,7 +782,8 @@ type ExceptionDetails struct {
 	// Exception id.
 	ExceptionID int `json:"exceptionId"`
 
-	// Exception text, which should be used together with exception object when available.
+	// Exception text, which should be used together with exception object when
+	// available.
 	Text string `json:"text"`
 
 	// Line number of the exception location (0-based).
@@ -713,20 +795,15 @@ type ExceptionDetails struct {
 	// Optional. Script ID of the exception location.
 	ScriptID ScriptID `json:"scriptId,omitempty"`
 
-	// Optional. URL of the exception location, to be used when the script was not reported.
+	// Optional. URL of the exception location, to be used when the script was
+	// not reported.
 	URL string `json:"url,omitempty"`
 
 	// Optional. JavaScript stack trace if available.
-	//
-	// This expects an instance of StackTrace, but that doesn't omitempty correctly so it must be
-	// added manually.
-	StackTrace interface{} `json:"stackTrace,omitempty"`
+	StackTrace *StackTrace `json:"stackTrace,omitempty"`
 
 	// Optional. Exception object if available.
-	//
-	// This expects an instance of RemoteObject, but that doesn't omitempty correctly so it must be
-	// added manually.
-	Exception interface{} `json:"exception,omitempty"`
+	Exception *RemoteObject `json:"exception,omitempty"`
 
 	// Optional. Identifier of the context where exception happened.
 	ExecutionContextID ExecutionContextID `json:"executionContextId,omitempty"`
@@ -767,26 +844,24 @@ StackTrace contains call frames for assertions or error messages.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-StackTrace
 */
 type StackTrace struct {
-	// Optional. String label of this stack trace. For async traces this may be a name of the
-	// function that initiated the async call.
+	// Optional. String label of this stack trace. For async traces this may be
+	// a name of the function that initiated the async call.
 	Description string `json:"description,omitempty"`
 
 	// JavaScript function name.
 	CallFrames []*CallFrame `json:"callFrames"`
 
-	// Optional. Asynchronous JavaScript stack trace that preceded this stack, if available.
-	//
-	// This expects an instance of StackTrace, but that doesn't omitempty correctly so it must be
-	// added manually.
-	Parent interface{} `json:"parent,omitempty"`
+	// Optional. Asynchronous JavaScript stack trace that preceded this stack,
+	// if available.
+	Parent *StackTrace `json:"parent,omitempty"`
 
-	// Optional. Asynchronous JavaScript stack trace that preceded this stack, if available.
-	// EXPERIMENTAL
+	// Optional. Asynchronous JavaScript stack trace that preceded this stack,
+	// if available. EXPERIMENTAL.
 	ParentID StackTraceID `json:"parentId,omitempty"`
 }
 
 /*
-UniqueDebuggerID is the unique identifier of the  current debugger. EXPERIMENTAL
+UniqueDebuggerID is the unique identifier of the  current debugger. EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-UniqueDebuggerId
 */
@@ -795,7 +870,7 @@ type UniqueDebuggerID string
 /*
 StackTraceID - If debuggerID is set stack trace comes from another debugger and can be resolved
 there. This allows to track cross-debugger calls. See StackTrace and Debugger.paused for usages.
-EXPERIMENTAL
+EXPERIMENTAL.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-StackTraceId
 */

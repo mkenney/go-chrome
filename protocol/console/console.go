@@ -12,7 +12,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Console/#event-messageAdd
 */
 type MessageAddedEvent struct {
 	// Console message that has been added.
-	Message Message `json:"message"`
+	Message *Message `json:"message"`
 }
 
 /*
@@ -21,8 +21,8 @@ Message represents a console message.
 https://chromedevtools.github.io/devtools-protocol/tot/Console/#type-ConsoleMessage
 */
 type Message struct {
-	// Message source. Allowed values: xml, javascript, network, console-api, storage, appcache,
-	// rendering, security, other, deprecation, worker.
+	// Message source. Allowed values: xml, javascript, network, console-api,
+	// storage, appcache, rendering, security, other, deprecation, worker.
 	Source string `json:"source"`
 
 	// Message severity. Allowed values: log, warning, error, debug, info.
@@ -34,9 +34,11 @@ type Message struct {
 	// Optional. URL of the message origin.
 	URL string `json:"url,omitempty"`
 
-	// Optional. Line number in the resource that generated this message (1-based).
+	// Optional. Line number in the resource that generated this message
+	// (1-based).
 	Line int `json:"line,omitempty"`
 
-	// Optional. Column number in the resource that generated this message (1-based).
+	// Optional. Column number in the resource that generated this message
+	// (1-based).
 	Column int `json:"column,omitempty"`
 }

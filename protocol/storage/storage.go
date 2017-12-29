@@ -41,7 +41,7 @@ type GetUsageAndQuotaResult struct {
 	Quota float64 `json:"quota"`
 
 	// Storage usage per type (bytes).
-	UsageBreakdown []UsageForType `json:"usageBreakdown"`
+	UsageBreakdown []*UsageForType `json:"usageBreakdown"`
 }
 
 /*

@@ -66,12 +66,13 @@ type StateChangedEvent struct {
 	// True if the page was loaded over cryptographic transport such as HTTPS.
 	SchemeIsCryptographic bool `json:"schemeIsCryptographic"`
 
-	// List of explanations for the security state. If the overall security state is `insecure` or
-	// `warning`, at least one corresponding explanation should be included.
-	Explanations []StateExplanation `json:"explanations"`
+	// List of explanations for the security state. If the overall security
+	// state is `insecure` or `warning`, at least one corresponding explanation
+	// should be included.
+	Explanations []*StateExplanation `json:"explanations"`
 
 	// Information about insecure content on the page.
-	InsecureContentStatus InsecureContentStatus `json:"insecureContentStatus"`
+	InsecureContentStatus *InsecureContentStatus `json:"insecureContentStatus"`
 
 	// Optional. Overrides user-visible description of the state.
 	Summary string `json:"summary,omitempty"`
@@ -139,21 +140,24 @@ InsecureContentStatus describes information about insecure content on the page.
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#type-InsecureContentStatus
 */
 type InsecureContentStatus struct {
-	// True if the page was loaded over HTTPS and ran mixed (HTTP) content such as scripts.
+	// True if the page was loaded over HTTPS and ran mixed (HTTP) content such
+	// as scripts.
 	RanMixedContent bool `json:"ranMixedContent"`
 
-	// True if the page was loaded over HTTPS and displayed mixed (HTTP) content such as images.
+	// True if the page was loaded over HTTPS and displayed mixed (HTTP) content
+	// such as images.
 	DisplayedMixedContent bool `json:"displayedMixedContent"`
 
-	// True if the page was loaded over HTTPS and contained a form targeting an insecure url.
+	// True if the page was loaded over HTTPS and contained a form targeting an
+	// insecure url.
 	ContainedMixedForm bool `json:"containedMixedForm"`
 
-	// True if the page was loaded over HTTPS without certificate errors, and ran content such as
-	// scripts that were loaded with certificate errors.
+	// True if the page was loaded over HTTPS without certificate errors, and
+	// ran content such as scripts that were loaded with certificate errors.
 	RanContentWithCertErrors bool `json:"ranContentWithCertErrors"`
 
-	// True if the page was loaded over HTTPS without certificate errors, and displayed content such
-	// as images that were loaded with certificate errors.
+	// True if the page was loaded over HTTPS without certificate errors, and
+	// displayed content such as images that were loaded with certificate errors.
 	DisplayedContentWithCertErrors bool `json:"displayedContentWithCertErrors"`
 
 	// Security state representing a page that ran insecure content.

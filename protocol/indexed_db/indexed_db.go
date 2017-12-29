@@ -79,10 +79,7 @@ type RequestDataParams struct {
 	PageSize int `json:"pageSize"`
 
 	// Optional. Key range.
-	//
-	// This is an instance of KeyRange, but that doesn't omitempty correctly so it must be added
-	// manually.
-	KeyRange interface{} `json:"keyRange,omitempty"`
+	KeyRange *KeyRange `json:"keyRange,omitempty"`
 }
 
 /*
@@ -92,7 +89,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-request
 */
 type RequestDataResult struct {
 	// Array of object store data entries.
-	ObjectStoreDataEntries []DataEntry `json:"objectStoreDataEntries"`
+	ObjectStoreDataEntries []*DataEntry `json:"objectStoreDataEntries"`
 
 	// If true, there are more entries to fetch in the given range.
 	HasMore bool `json:"hasMore"`
@@ -118,7 +115,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-request
 */
 type RequestDatabaseResult struct {
 	// Database with an array of object stores.
-	DatabaseWithObjectStores DatabaseWithObjectStores `json:"databaseWithObjectStores"`
+	DatabaseWithObjectStores *DatabaseWithObjectStores `json:"databaseWithObjectStores"`
 }
 
 /*
@@ -167,7 +164,7 @@ type ObjectStore struct {
 	Name string `json:"name"`
 
 	// Object store key path.
-	KeyPath KeyPath `json:"keyPath"`
+	KeyPath *KeyPath `json:"keyPath"`
 
 	// If true, object store has auto increment flag set.
 	AutoIncrement bool `json:"autoIncrement"`
@@ -224,16 +221,10 @@ https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#type-KeyRange
 */
 type KeyRange struct {
 	// Optional. Lower bound.
-	//
-	// This is an instance of Key, but that doesn't omitempty correctly so it must be added
-	// manually.
-	Lower interface{} `json:"lower,omitempty"`
+	Lower *Key `json:"lower,omitempty"`
 
 	// Optional. Upper bound.
-	//
-	// This is an instance of Key, but that doesn't omitempty correctly so it must be added
-	// manually.
-	Upper interface{} `json:"upper,omitempty"`
+	Upper *Key `json:"upper,omitempty"`
 
 	// If true lower bound is open.
 	LowerOpen bool `json:"lowerOpen"`

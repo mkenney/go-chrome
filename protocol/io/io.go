@@ -16,7 +16,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-close
 */
 type CloseParams struct {
 	// Handle of the stream to close.
-	Handle StreamHandle `json:"handle"`
+	Handle *StreamHandle `json:"handle"`
 }
 
 /*
@@ -26,13 +26,14 @@ https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-read
 */
 type ReadParams struct {
 	// Handle of the stream to read.
-	Handle StreamHandle `json:"handle"`
+	Handle *StreamHandle `json:"handle"`
 
-	// Optional. Seek to the specified offset before reading (if not specificed, proceed with offset
-	// following the last read).
+	// Optional. Seek to the specified offset before reading (if not specificed,
+	// proceed with offset following the last read).
 	Offset int `json:"offset,omitempty"`
 
-	// Optional. Maximum number of bytes to read (left upon the agent discretion if not specified).
+	// Optional. Maximum number of bytes to read (left upon the agent discretion
+	// if not specified).
 	Size int `json:"size,omitempty"`
 }
 

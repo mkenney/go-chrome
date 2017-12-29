@@ -121,7 +121,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-work
 */
 type WorkerErrorReportedEvent struct {
 	// Error message.
-	ErrorMessage ErrorMessage `json:"errorMessage"`
+	ErrorMessage *ErrorMessage `json:"errorMessage"`
 }
 
 /*
@@ -131,7 +131,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-work
 */
 type WorkerRegistrationUpdatedEvent struct {
 	// Registrations.
-	Registrations []Registration `json:"registrations"`
+	Registrations []*Registration `json:"registrations"`
 }
 
 /*
@@ -141,7 +141,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-work
 */
 type WorkerVersionUpdatedEvent struct {
 	// Versions.
-	Versions []Version `json:"versions"`
+	Versions []*Version `json:"versions"`
 }
 
 /*
@@ -212,8 +212,9 @@ type Version struct {
 	// Optional. The Last-Modified header value of the main script.
 	ScriptLastModified int `json:"scriptLastModified,omitempty"`
 
-	// Optional. The time at which the response headers of the main script were received from the
-	// server. For cached script it is the last time the cache entry was validated.
+	// Optional. The time at which the response headers of the main script were
+	// received from the server. For cached script it is the last time the cache
+	// entry was validated.
 	ScriptResponseTime int `json:"scriptResponseTime,omitempty"`
 
 	// Optional. controlledClients.

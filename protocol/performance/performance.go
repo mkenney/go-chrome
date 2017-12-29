@@ -12,7 +12,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-getMe
 */
 type GetMetricsResult struct {
 	// Current values for run-time metrics.
-	Metrics []Metric `json:"metrics"`
+	Metrics []*Metric `json:"metrics"`
 }
 
 /*
@@ -22,7 +22,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Performance/#event-metric
 */
 type MetricsEvent struct {
 	// Current values of the metrics.
-	Metrics []Metric `json:"metrics"`
+	Metrics []*Metric `json:"metrics"`
 
 	// Timestamp title.
 	Title string `json:"title"`

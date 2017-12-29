@@ -82,8 +82,9 @@ type CreateTargetParams struct {
 	// Optional. The browser context to create the page in (headless chrome only).
 	BrowserContextID BrowserContextID `json:"browserContextId,omitempty"`
 
-	// Optional. Whether BeginFrames for this target will be controlled via DevTools (headless
-	// chrome only, not supported on MacOS yet, false by default). EXPERIMENTAL
+	// Optional. Whether BeginFrames for this target will be controlled via
+	// DevTools (headless chrome only, not supported on MacOS yet, false by
+	// default). EXPERIMENTAL.
 	EnableBeginFrameControl bool `json:"enableBeginFrameControl,omitempty"`
 }
 
@@ -146,7 +147,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargetI
 */
 type GetTargetInfoResult struct {
 	// The list of targets.
-	Infos []Info `json:"targetInfos"`
+	Infos []*Info `json:"targetInfos"`
 }
 
 /*
@@ -156,7 +157,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargets
 */
 type GetTargetsParams struct {
 	// The list of targets.
-	Infos []Info `json:"targetInfos"`
+	Infos []*Info `json:"targetInfos"`
 }
 
 /*
@@ -194,8 +195,8 @@ type SetAutoAttachParams struct {
 	// Whether to auto-attach to related targets.
 	AutoAttach bool `json:"autoAttach"`
 
-	// Whether to pause new targets when attaching to them. Use `Runtime.runIfWaitingForDebugger` to
-	// run paused targets.
+	// Whether to pause new targets when attaching to them. Use
+	// `Runtime.runIfWaitingForDebugger` to run paused targets.
 	WaitForDebuggerOnStart bool `json:"waitForDebuggerOnStart"`
 }
 
@@ -216,7 +217,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setRemoteL
 */
 type SetRemoteLocationsParams struct {
 	// List of remote locations.
-	Locations []RemoteLocation `json:"locations"`
+	Locations []*RemoteLocation `json:"locations"`
 }
 
 /*
@@ -271,7 +272,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-targetCreat
 */
 type CreatedEvent struct {
 	// Target info.
-	Info Info `json:"targetInfo"`
+	Info *Info `json:"targetInfo"`
 }
 
 /*
@@ -291,7 +292,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-targetInfoC
 */
 type InfoChangedEvent struct {
 	// Target info.
-	Info Info `json:"targetInfo"`
+	Info *Info `json:"targetInfo"`
 }
 
 /*

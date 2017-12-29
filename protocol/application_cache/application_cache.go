@@ -15,7 +15,8 @@ GetForFrameParams represents ApplicationCache.getApplicationCacheForFrame parame
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getApplicationCacheForFrame
 */
 type GetForFrameParams struct {
-	// Identifier of the frame containing document whose application cache is retrieved.
+	// Identifier of the frame containing document whose application cache is
+	// retrieved.
 	FrameID page.FrameID `json:"frameId"`
 }
 
@@ -26,7 +27,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-
 */
 type GetForFrameResult struct {
 	// Relevant application cache data for the document in given frame.
-	ApplicationCache ApplicationCache `json:"applicationCache"`
+	ApplicationCache *ApplicationCache `json:"applicationCache"`
 }
 
 /*
@@ -36,9 +37,9 @@ ApplicationCache.getFramesWithManifests.
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getFramesWithManifests
 */
 type GetFramesWithManifestsResult struct {
-	// Array of frame identifiers with manifest urls for each frame containing a document associated
-	// with some application cache.
-	FrameIDs []FrameWithManifest `json:"frameIds"`
+	// Array of frame identifiers with manifest urls for each frame containing a
+	// document associated with some application cache.
+	FrameIDs []*FrameWithManifest `json:"frameIds"`
 }
 
 /*
@@ -67,7 +68,8 @@ StatusUpdatedEvent represents ApplicationCache.applicationCacheStatusUpdated eve
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#event-applicationCacheStatusUpdated
 */
 type StatusUpdatedEvent struct {
-	// Identifier of the frame containing document whose application cache updated status.
+	// Identifier of the frame containing document whose application cache
+	// updated status.
 	FrameID page.FrameID `json:"frameId"`
 
 	// Manifest URL.
@@ -121,7 +123,7 @@ type ApplicationCache struct {
 	UpdateTime float64 `json:"updateTime"`
 
 	// Application cache resources.
-	Resources []Resource `json:"resources"`
+	Resources []*Resource `json:"resources"`
 }
 
 /*

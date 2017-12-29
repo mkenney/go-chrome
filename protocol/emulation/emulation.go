@@ -6,6 +6,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/
 package emulation
 
 import (
+	"github.com/mkenney/go-chrome/protocol/dom"
 	"github.com/mkenney/go-chrome/protocol/page"
 	"github.com/mkenney/go-chrome/protocol/runtime"
 )
@@ -37,12 +38,9 @@ parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDefaultBackgroundColorOverride
 */
 type SetDefaultBackgroundColorOverrideParams struct {
-	// Optional. RGBA of the default background color. If not specified, any existing override will be
-	// cleared.
-	//
-	// This expects an instance of DOM.RGBA, but that doesn't omitempty correctly so it must be
-	// added manually.
-	Color interface{} `json:"color,omitempty"`
+	// Optional. RGBA of the default background color. If not specified, any
+	// existing override will be cleared.
+	Color *dom.RGBA `json:"color,omitempty"`
 }
 
 /*
@@ -51,46 +49,50 @@ SetDeviceMetricsOverrideParams represents Emulation.setDeviceMetricsOverride par
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDeviceMetricsOverride
 */
 type SetDeviceMetricsOverrideParams struct {
-	// Overriding width value in pixels (minimum 0, maximum 10000000). 0 disables the override.
+	// Overriding width value in pixels (minimum 0, maximum 10000000). 0
+	// disables the override.
 	Width int `json:"width"`
 
-	// Overriding height value in pixels (minimum 0, maximum 10000000). 0 disables the override.
+	// Overriding height value in pixels (minimum 0, maximum 10000000). 0
+	// disables the override.
 	Height int `json:"height"`
 
 	// Overriding device scale factor value. 0 disables the override.
 	DeviceScaleFactor float64 `json:"deviceScaleFactor"`
 
-	// Whether to emulate mobile device. This includes viewport meta tag, overlay scrollbars, text
-	// autosizing and more.
+	// Whether to emulate mobile device. This includes viewport meta tag,
+	// overlay scrollbars, text autosizing and more.
 	Mobile bool `json:"mobile"`
 
 	// Optional. Scale to apply to resulting view image. EXPERIMENTAL
 	Scale int `json:"scale,omitempty"`
 
-	// Optional. Overriding screen width value in pixels (minimum 0, maximum 10000000). EXPERIMENTAL
+	// Optional. Overriding screen width value in pixels (minimum 0, maximum
+	// 10000000). EXPERIMENTAL.
 	ScreenWidth int `json:"screenWidth,omitempty"`
 
-	// Optional. Overriding screen height value in pixels (minimum 0, maximum 10000000).
-	// EXPERIMENTAL
+	// Optional. Overriding screen height value in pixels (minimum 0, maximum
+	// 10000000). EXPERIMENTAL.
 	ScreenHeight int `json:"screenHeight,omitempty"`
 
-	// Optional. Overriding view X position on screen in pixels (minimum 0, maximum 10000000).
-	// EXPERIMENTAL
+	// Optional. Overriding view X position on screen in pixels (minimum 0,
+	// maximum 10000000). EXPERIMENTAL.
 	PositionX int `json:"positionX,omitempty"`
 
-	// Optional. Overriding view Y position on screen in pixels (minimum 0, maximum 10000000).
-	// EXPERIMENTAL
+	// Optional. Overriding view Y position on screen in pixels (minimum 0,
+	// maximum 10000000). EXPERIMENTAL.
 	PositionY int `json:"positionY,omitempty"`
 
-	// Optional. Do not set visible view size, rely upon explicit setVisibleSize call. EXPERIMENTAL
+	// Optional. Do not set visible view size, rely upon explicit setVisibleSize
+	// call. EXPERIMENTAL.
 	DontSetVisibleSize bool `json:"dontSetVisibleSize,omitempty"`
 
 	// Optional. Screen orientation override.
 	ScreenOrientation *ScreenOrientation `json:"screenOrientation,omitempty"`
 
-	// Optional. If set, the visible area of the page will be overridden to this viewport. This
-	// viewport change is not observed by the page, e.g. viewport-relative elements do not change
-	// positions. EXPERIMENTAL
+	// Optional. If set, the visible area of the page will be overridden to this
+	// viewport. This viewport change is not observed by the page, e.g.
+	// viewport-relative elements do not change positions. EXPERIMENTAL.
 	Viewport *page.Viewport `json:"viewport,omitempty"`
 }
 
@@ -103,8 +105,10 @@ type SetEmitTouchEventsForMouseParams struct {
 	// Whether touch emulation based on mouse input should be enabled.
 	Enabled bool `json:"enabled"`
 
-	// Optional. Touch/gesture events configuration. Default: current platform. Allowed values:
-	// mobile, desktop.
+	// Optional. Touch/gesture events configuration. Default: current platform.
+	// Allowed values:
+	//	- mobile
+	//	- desktop
 	Configuration string `json:"configuration,omitempty"`
 }
 
@@ -186,12 +190,12 @@ type SetVirtualTimePolicyParams struct {
 	// desc.
 	Policy VirtualTimePolicy `json:"policy"`
 
-	// Optional. If set, after this many virtual milliseconds have elapsed virtual time will be
-	// paused and a virtualTimeBudgetExpired event is sent.
+	// Optional. If set, after this many virtual milliseconds have elapsed
+	// virtual time will be paused and a virtualTimeBudgetExpired event is sent.
 	Budget int `json:"budget,omitempty"`
 
-	// Optional. If set this specifies the maximum number of tasks that can be run before virtual is
-	// forced forwards to prevent deadlock.
+	// Optional. If set this specifies the maximum number of tasks that can be
+	// run before virtual is forced forwards to prevent deadlock.
 	MaxVirtualTimeTaskStarvationCount int `json:"maxVirtualTimeTaskStarvationCount,omitempty"`
 }
 
@@ -201,7 +205,8 @@ SetVirtualTimePolicyResult represents the result of calls to Emulation.setVirtua
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setVirtualTimePolicy
 */
 type SetVirtualTimePolicyResult struct {
-	// Absolute timestamp at which virtual time was first enabled (milliseconds since epoch).
+	// Absolute timestamp at which virtual time was first enabled (milliseconds
+	// since epoch).
 	VirtualTimeBase runtime.Timestamp `json:"virtualTimeBase"`
 }
 
@@ -224,7 +229,8 @@ VirtualTimeAdvancedEvent represents Emulation.virtualTimeAdvanced event data.
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#event-virtualTimeAdvanced
 */
 type VirtualTimeAdvancedEvent struct {
-	// The amount of virtual time that has elapsed in milliseconds since virtual time was first enabled.
+	// The amount of virtual time that has elapsed in milliseconds since virtual
+	// time was first enabled.
 	VirtualTimeElapsed int `json:"virtualTimeElapsed"`
 }
 
@@ -241,7 +247,8 @@ VirtualTimePausedEvent represents Emulation.virtualTimePaused event data.
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#event-virtualTimePaused
 */
 type VirtualTimePausedEvent struct {
-	// The amount of virtual time that has elapsed in milliseconds since virtual time was first enabled.
+	// The amount of virtual time that has elapsed in milliseconds since virtual
+	// time was first enabled.
 	VirtualTimeElapsed int `json:"virtualTimeElapsed"`
 }
 
@@ -251,8 +258,13 @@ ScreenOrientation represents a screen orientation.
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#type-ScreenOrientation
 */
 type ScreenOrientation struct {
-	// Orientation type. Allowed values: portraitPrimary, portraitSecondary, landscapePrimary,
-	// landscapeSecondary.
+	// Orientation type.
+	//
+	// Allowed values:
+	//	- portraitPrimary
+	//	- portraitSecondary
+	//	- landscapePrimary
+	//	- landscapeSecondary
 	Type string `json:"type"`
 
 	// Orientation angle.
