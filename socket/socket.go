@@ -20,11 +20,11 @@ import (
 /*
 New returns a new Socketer websocket connection listening to the specified URL.
 */
-func New(socketURL string) (Socketer, error) {
+func New(url string) (Socketer, error) {
 	socket := &socket{
 		commands: NewCommandMap(),
 		handlers: NewEventHandlerMap(),
-		url:      socketURL,
+		url:      url,
 	}
 
 	// Init the protocol interfaces for the API.

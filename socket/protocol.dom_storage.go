@@ -8,8 +8,8 @@ import (
 )
 
 /*
-DOMStorageProtocol provides a namespace for the Chrome DOMStorage protocol methods. The DOMStorage
-protocol queries and modifies DOM storage.
+DOMStorageProtocol provides a namespace for the Chrome DOMStorage protocol
+methods. The DOMStorage protocol queries and modifies DOM storage.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/
 */
@@ -31,7 +31,8 @@ func (protocol *DOMStorageProtocol) Clear(
 }
 
 /*
-Disable disables storage tracking, prevents storage events from being sent to the client.
+Disable disables storage tracking, prevents storage events from being sent to
+the client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-disable
 */
@@ -42,7 +43,8 @@ func (protocol *DOMStorageProtocol) Disable() error {
 }
 
 /*
-Enable enables storage tracking, storage events will now be delivered to the client.
+Enable enables storage tracking, storage events will now be delivered to the
+client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-enable
 */

@@ -7,9 +7,10 @@ import (
 )
 
 /*
-DOMDebuggerProtocol provides a namespace for the Chrome DOMDebugger protocol methods. The
-DOMDebugger protocol allows setting breakpoints on particular DOM operations and events. JavaScript
-execution will stop on these operations as if there was a regular breakpoint set.
+DOMDebuggerProtocol provides a namespace for the Chrome DOMDebugger protocol
+methods. The DOMDebugger protocol allows setting breakpoints on particular DOM
+operations and events. JavaScript execution will stop on these operations as if
+there was a regular breakpoint set.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/
 */
@@ -38,7 +39,8 @@ func (protocol *DOMDebuggerProtocol) GetEventListeners(
 }
 
 /*
-RemoveDOMBreakpoint removes the DOM breakpoint that was set using setDOMBreakpoint.
+RemoveDOMBreakpoint removes the DOM breakpoint that was set using
+setDOMBreakpoint.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeDOMBreakpoint
 */

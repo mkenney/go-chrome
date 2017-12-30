@@ -8,7 +8,8 @@ import (
 )
 
 /*
-HeapProfilerProtocol provides a namespace for the Chrome HeapProfiler protocol methods.
+HeapProfilerProtocol provides a namespace for the Chrome HeapProfiler protocol
+methods.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/ EXPERIMENTAL.
 */
@@ -17,8 +18,8 @@ type HeapProfilerProtocol struct {
 }
 
 /*
-AddInspectedHeapObject enables console to refer to the node with given id via $x (see Command Line
-API for more details $x functions).
+AddInspectedHeapObject enables console to refer to the node with given id via $x
+(see Command Line API for more details $x functions).
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-addInspectedHeapObject
 */
@@ -191,7 +192,8 @@ func (protocol *HeapProfilerProtocol) TakeHeapSnapshot(
 }
 
 /*
-OnAddHeapSnapshotChunk adds a handler to the HeapProfiler.AddHeapSnapshotChunk event.
+OnAddHeapSnapshotChunk adds a handler to the HeapProfiler.AddHeapSnapshotChunk
+event.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-addHeapSnapshotChunk
 EXPERIMENTAL.
@@ -214,8 +216,9 @@ func (protocol *HeapProfilerProtocol) OnAddHeapSnapshotChunk(
 }
 
 /*
-OnHeapStatsUpdate adds a handler to the DOM.heapStatsUpdate event. DOM.heapStatsUpdate fires if heap
-objects tracking has been started then backend may send update for one or more fragments.
+OnHeapStatsUpdate adds a handler to the DOM.heapStatsUpdate event. DOM.heapStatsUpdate
+fires if heap objects tracking has been started then backend may send update for
+one or more fragments.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-heapStatsUpdate
 */
@@ -237,10 +240,11 @@ func (protocol *HeapProfilerProtocol) OnHeapStatsUpdate(
 }
 
 /*
-OnLastSeenObjectID adds a handler to the DOM.LastSeenObjectID event. DOM.LastSeenObjectID fires if
-heap objects tracking has been started then backend regularly sends a current value for last seen
-object id and corresponding timestamp. If the were changes in the heap since last event then one or
-more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
+OnLastSeenObjectID adds a handler to the DOM.LastSeenObjectID event. DOM.LastSeenObjectID
+fires if heap objects tracking has been started then backend regularly sends a
+current value for last seen object id and corresponding timestamp. If the were
+changes in the heap since last event then one or more heapStatsUpdate events
+will be sent before a new lastSeenObjectId event.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-lastSeenObjectId
 */
@@ -262,7 +266,8 @@ func (protocol *HeapProfilerProtocol) OnLastSeenObjectID(
 }
 
 /*
-OnReportHeapSnapshotProgress adds a handler to the DOM.ReportHeapSnapshotProgress event.
+OnReportHeapSnapshotProgress adds a handler to the DOM.ReportHeapSnapshotProgress
+event.
 
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-reportHeapSnapshotProgress

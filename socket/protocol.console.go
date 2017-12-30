@@ -10,8 +10,8 @@ import (
 /*
 ConsoleProtocol provides a namespace for the Chrome Console protocol methods.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Console/ DEPRECATED - use Runtime or Log
-instead.
+https://chromedevtools.github.io/devtools-protocol/tot/Console/ DEPRECATED - use
+Runtime or Log instead.
 */
 type ConsoleProtocol struct {
 	Socket Socketer
@@ -29,8 +29,8 @@ func (protocol *ConsoleProtocol) ClearMessages() error {
 }
 
 /*
-Disable disables console domain, prevents further console messages from being reported to the
-client.
+Disable disables console domain, prevents further console messages from being
+reported to the client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Console/#method-disable
 */
@@ -41,8 +41,8 @@ func (protocol *ConsoleProtocol) Disable() error {
 }
 
 /*
-Enable enables console domain, sends the messages collected so far to the client by means of the
-messageAdded notification.
+Enable enables console domain, sends the messages collected so far to the client
+by means of the messageAdded notification.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Console/#method-enable
 */
@@ -53,8 +53,8 @@ func (protocol *ConsoleProtocol) Enable() error {
 }
 
 /*
-OnMessageAdded adds a handler to the Console.messageAdded event. Console.messageAdded fires
-whenever an active document stylesheet is removed.
+OnMessageAdded adds a handler to the Console.messageAdded event.
+Console.messageAdded fires whenever an active document stylesheet is removed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Console/#event-messageAdded
 */

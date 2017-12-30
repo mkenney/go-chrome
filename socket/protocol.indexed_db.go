@@ -7,7 +7,8 @@ import (
 )
 
 /*
-IndexedDBProtocol provides a namespace for the Chrome IndexedDB protocol methods.
+IndexedDBProtocol provides a namespace for the Chrome IndexedDB protocol
+methods.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/ EXPERIMENTAL.
 */

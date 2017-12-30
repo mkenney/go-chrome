@@ -6,25 +6,26 @@ import (
 )
 
 /*
-Commander defines an interface for websocket commands.
+Commander defines the interface for websocket commands.
 */
 type Commander interface {
-	// Done manages the result of a command and signals completion.
+	// Done manages the result of a command and unblockes the sync.WaitGroup.
 	Done(result []byte, err error)
 
-	// Error returns the current error, if any.
+	// Error returns the most recent error, if any.
 	Error() error
 
 	// ID returns the command ID
 	ID() int
 
-	// Method returns the name of the protocol method to be executed.
+	// Method returns the name of the Chrom DevTools Protocol method to be
+	// called.
 	Method() string
 
-	// Params returns the method parameters.
+	// Params returns the command parameters.
 	Params() interface{}
 
-	// Result returns the result of the method call.
+	// Result returns the result of the command returned by the websocket.
 	Result() []byte
 
 	// WaitGroup returns the sync.WaitGroup instance.
@@ -32,7 +33,7 @@ type Commander interface {
 }
 
 /*
-CommandMapper defines the interface for the command stack.
+CommandMapper defines a management interface for the stack of pending commands.
 */
 type CommandMapper interface {
 	// Delete removes a command from the stack.
@@ -52,8 +53,9 @@ type CommandMapper interface {
 }
 
 /*
-Conner defines the websocket.Conn methods used by the API. It's primary purpose is mocking the
-websocket service for testing.
+Conner defines the websocket.Conn connection interface required by the API.
+
+Useful for mocking connections in unit tests.
 */
 type Conner interface {
 	Close() error
@@ -62,7 +64,8 @@ type Conner interface {
 }
 
 /*
-EventHandler is the interface definition for a socket event handler.
+EventHandler defines the event handler interface required by the event handler
+process.
 */
 type EventHandler interface {
 	// Handle executes the event handler callback.
@@ -73,7 +76,8 @@ type EventHandler interface {
 }
 
 /*
-EventHandlerMapper defines the interface for the event handler stack.
+EventHandlerMapper defines a management interface for the stack of event
+handlers.
 */
 type EventHandlerMapper interface {
 	// Add adds a handler to the stack of handlers for an event.
@@ -99,7 +103,7 @@ type EventHandlerMapper interface {
 }
 
 /*
-Socketer defines a websocket connection interface for Chrome instances.
+Socketer defines the websocket connection interface for managing sockets.
 */
 type Socketer interface {
 	// AddEventHandler adds an event handler to the stack of listeners for an

@@ -10,7 +10,10 @@ import (
 /*
 NewEventHandler returns a pointer to an event handler.
 */
-func NewEventHandler(name string, callback func(response *Response)) EventHandler {
+func NewEventHandler(
+	name string,
+	callback func(response *Response),
+) EventHandler {
 	return &handler{
 		callback: callback,
 		name:     name,
@@ -42,7 +45,9 @@ type eventHandlerMap struct {
 /*
 Add implements EventHandlerMapper.
 */
-func (stack *eventHandlerMap) Add(handler EventHandler) {
+func (stack *eventHandlerMap) Add(
+	handler EventHandler,
+) {
 	stack.Lock()
 	defer stack.Unlock()
 
@@ -66,18 +71,22 @@ func (stack *eventHandlerMap) Add(handler EventHandler) {
 /*
 Delete implements EventHandlerMapper.
 */
-func (stack *eventHandlerMap) Delete(eventName string) {
-	delete(stack.stack, eventName)
+func (stack *eventHandlerMap) Delete(
+	name string,
+) {
+	delete(stack.stack, name)
 }
 
 /*
 Get implements EventHandlerMapper.
 */
-func (stack *eventHandlerMap) Get(eventName string) ([]EventHandler, error) {
-	if handlers, ok := stack.stack[eventName]; ok {
+func (stack *eventHandlerMap) Get(
+	name string,
+) ([]EventHandler, error) {
+	if handlers, ok := stack.stack[name]; ok {
 		return handlers, nil
 	}
-	return nil, fmt.Errorf("No event listeners found for %s", eventName)
+	return nil, fmt.Errorf("No event listeners found for %s", name)
 }
 
 /*
@@ -90,7 +99,9 @@ func (stack *eventHandlerMap) Lock() {
 /*
 Remove implements EventHandlerMapper.
 */
-func (stack *eventHandlerMap) Remove(handler EventHandler) {
+func (stack *eventHandlerMap) Remove(
+	handler EventHandler,
+) {
 	stack.Lock()
 	defer stack.Unlock()
 
@@ -106,7 +117,10 @@ func (stack *eventHandlerMap) Remove(handler EventHandler) {
 /*
 Set implements EventHandlerMapper.
 */
-func (stack *eventHandlerMap) Set(eventName string, handlers []EventHandler) {
+func (stack *eventHandlerMap) Set(
+	eventName string,
+	handlers []EventHandler,
+) {
 	stack.stack[eventName] = handlers
 }
 
@@ -139,7 +153,9 @@ func (handler *handler) Name() string {
 /*
 Handle implements EventHandler.
 */
-func (handler *handler) Handle(response *Response) {
+func (handler *handler) Handle(
+	response *Response,
+) {
 	handler.callback(response)
 }
 
@@ -150,7 +166,9 @@ func (handler *handler) Handle(response *Response) {
 /*
 AddEventHandler implements Socketer.
 */
-func (socket *socket) AddEventHandler(handler EventHandler) {
+func (socket *socket) AddEventHandler(
+	handler EventHandler,
+) {
 	socket.handlers.Lock()
 	defer socket.handlers.Unlock()
 
@@ -173,7 +191,9 @@ func (socket *socket) AddEventHandler(handler EventHandler) {
 /*
 HandleEvent implements Socketer.
 */
-func (socket *socket) HandleEvent(response *Response) {
+func (socket *socket) HandleEvent(
+	response *Response,
+) {
 	log.Debugf("%s event received from %s", response.Method, socket.URL())
 	if response.Method == "Inspector.targetCrashed" {
 		log.Fatalf("Chrome has crashed!")
@@ -195,7 +215,9 @@ func (socket *socket) HandleEvent(response *Response) {
 /*
 RemoveEventHandler implements Socketer.
 */
-func (socket *socket) RemoveEventHandler(handler EventHandler) {
+func (socket *socket) RemoveEventHandler(
+	handler EventHandler,
+) {
 	socket.handlers.Lock()
 	defer socket.handlers.Unlock()
 

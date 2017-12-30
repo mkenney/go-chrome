@@ -8,8 +8,9 @@ import (
 )
 
 /*
-OverlayProtocol provides a namespace for the Chrome Overlay protocol methods. The Overlay protocol
-provides various functionality related to drawing atop the inspected page.
+OverlayProtocol provides a namespace for the Chrome Overlay protocol methods.
+The Overlay protocol provides various functionality related to drawing atop the
+inspected page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/ EXPERIMENTAL.
 */
@@ -84,8 +85,8 @@ func (protocol *OverlayProtocol) HighlightFrame(
 }
 
 /*
-HighlightNode highlights DOM node with given ID or with the given JavaScript object wrapper. Either
-nodeID or objectID must be specified.
+HighlightNode highlights DOM node with given ID or with the given JavaScript
+object wrapper. Either nodeID or objectID must be specified.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightNode
 */
@@ -98,8 +99,8 @@ func (protocol *OverlayProtocol) HighlightNode(
 }
 
 /*
-HighlightQuad highlights given quad. Coordinates are absolute with respect to the main frame
-viewport.
+HighlightQuad highlights given quad. Coordinates are absolute with respect to
+the main frame viewport.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightQuad
 */
@@ -112,8 +113,8 @@ func (protocol *OverlayProtocol) HighlightQuad(
 }
 
 /*
-HighlightRect highlights given rectangle. Coordinates are absolute with respect to the main frame
-viewport.
+HighlightRect highlights given rectangle. Coordinates are absolute with respect
+to the main frame viewport.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightRect
 */
@@ -126,8 +127,9 @@ func (protocol *OverlayProtocol) HighlightRect(
 }
 
 /*
-SetInspectMode enters the 'inspect' mode. In this mode, elements that user is hovering over are
-highlighted. Backend then generates 'inspectNodeRequested' event upon element selection.
+SetInspectMode enters the 'inspect' mode. In this mode, elements that user is
+hovering over are highlighted. Backend then generates 'inspectNodeRequested'
+event upon element selection.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setInspectMode
 */
@@ -232,8 +234,9 @@ func (protocol *OverlayProtocol) SetSuspended(
 
 /*
 OnInspectNodeRequested adds a handler to the Overlay.inspectNodeRequested event.
-Overlay.inspectNodeRequested fires when the node should be inspected. This happens after call to
-`setInspectMode` or when user manually inspects an element.
+Overlay.inspectNodeRequested fires when the node should be inspected. This
+happens after call to `setInspectMode` or when user manually inspects an
+element.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#event-inspectNodeRequested
 */
@@ -255,9 +258,9 @@ func (protocol *OverlayProtocol) OnInspectNodeRequested(
 }
 
 /*
-OnNodeHighlightRequested adds a handler to the Overlay.nodeHighlightRequested event.
-Overlay.nodeHighlightRequested fires when the node should be highlighted. This happens after call to
-`setInspectMode`.
+OnNodeHighlightRequested adds a handler to the Overlay.nodeHighlightRequested
+event. Overlay.nodeHighlightRequested fires when the node should be highlighted.
+This happens after call to `setInspectMode`.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#event-nodeHighlightRequested
 */
@@ -280,7 +283,8 @@ func (protocol *OverlayProtocol) OnNodeHighlightRequested(
 
 /*
 OnScreenshotRequested adds a handler to the Overlay.screenshotRequested event.
-Overlay.screenshotRequested fires when user asks to capture screenshot of some area on the page.
+Overlay.screenshotRequested fires when user asks to capture screenshot of some
+area on the page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#event-screenshotRequested
 */

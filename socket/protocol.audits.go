@@ -7,8 +7,9 @@ import (
 )
 
 /*
-AuditsProtocol provides a namespace for the Chrome Audits protocol methods. The Audits protocol
-allows investigation of page violations and possible improvements.
+AuditsProtocol provides a namespace for the Chrome Audits protocol methods. The
+Audits protocol allows investigation of page violations and possible
+improvements.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Audits/ EXPERIMENTAL.
 */
@@ -17,8 +18,8 @@ type AuditsProtocol struct {
 }
 
 /*
-GetEncodedResponse returns the response body and size if it were re-encoded with the specified
-settings. Only applies to images.
+GetEncodedResponse returns the response body and size if it were re-encoded with
+the specified settings. Only applies to images.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Audits/#method-getEncodedResponse
 */

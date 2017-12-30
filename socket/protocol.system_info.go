@@ -7,8 +7,9 @@ import (
 )
 
 /*
-SystemInfoProtocol provides a namespace for the Chrome SystemInfo protocol methods. The SystemInfo
-protocol defines methods and events for querying low-level system information.
+SystemInfoProtocol provides a namespace for the Chrome SystemInfo protocol
+methods. The SystemInfo protocol defines methods and events for querying
+low-level system information.
 
 https://chromedevtools.github.io/devtools-protocol/tot/SystemInfo/ EXPERIMENTAL.
 */

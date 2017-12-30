@@ -8,8 +8,8 @@ import (
 )
 
 /*
-LogProtocol provides a namespace for the Chrome Log protocol methods. The Log protocol provides
-access to log entries.
+LogProtocol provides a namespace for the Chrome Log protocol methods. The Log
+protocol provides access to log entries.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/
 */
@@ -29,7 +29,8 @@ func (protocol *LogProtocol) Clear() error {
 }
 
 /*
-Disable disables log domain, prevents further log entries from being reported to the client.
+Disable disables log domain, prevents further log entries from being reported to
+the client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-disable
 */
@@ -40,8 +41,8 @@ func (protocol *LogProtocol) Disable() error {
 }
 
 /*
-Enable enables log domain, sends the entries collected so far to the client by means of the
-`entryAdded` notification.
+Enable enables log domain, sends the entries collected so far to the client by
+means of the `entryAdded` notification.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-enable
 */
@@ -76,8 +77,8 @@ func (protocol *LogProtocol) StopViolationsReport() error {
 }
 
 /*
-OnEntryAdded adds a handler to the Log.entryAdded event. Log.entryAdded fires when a new message is
-logged.
+OnEntryAdded adds a handler to the Log.entryAdded event. Log.entryAdded fires
+when a new message is logged.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#event-entryAdded
 */

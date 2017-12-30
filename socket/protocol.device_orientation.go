@@ -5,9 +5,11 @@ import (
 )
 
 /*
-DeviceOrientationProtocol provides a namespace for the Chrome DeviceOrientation protocol methods.
+DeviceOrientationProtocol provides a namespace for the Chrome DeviceOrientation
+protocol methods.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/ EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/
+EXPERIMENTAL.
 */
 type DeviceOrientationProtocol struct {
 	Socket Socketer

@@ -90,8 +90,8 @@ func (protocol *TracingProtocol) Start(
 }
 
 /*
-OnBufferUsage adds a handler to the Tracing.bufferUsage event. Tracing.bufferUsage fires when a
-buffer is used.
+OnBufferUsage adds a handler to the Tracing.bufferUsage event. Tracing.bufferUsage
+fires when a buffer is used.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-bufferUsage
 */
@@ -113,9 +113,10 @@ func (protocol *TracingProtocol) OnBufferUsage(
 }
 
 /*
-OnDataCollected adds a handler to the Tracing.dataCollected event. Tracing.dataCollected fires when
-tracing is stopped, collected events will be sent as a sequence of dataCollected events followed by
-tracingComplete event. Contains an bucket of collected trace events.
+OnDataCollected adds a handler to the Tracing.dataCollected event. Tracing.dataCollected
+fires when tracing is stopped, collected events will be sent as a sequence of
+dataCollected events followed by tracingComplete event. Contains an bucket of
+collected trace events.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-dataCollected
 */
@@ -137,9 +138,9 @@ func (protocol *TracingProtocol) OnDataCollected(
 }
 
 /*
-OnTracingComplete adds a handler to the Tracing.Complete event. Tracing.Complete fires when tracing
-is stopped and there is no trace buffers pending flush, all data were delivered via DataCollected
-events.
+OnTracingComplete adds a handler to the Tracing.Complete event. Tracing.Complete
+fires when tracing is stopped and there is no trace buffers pending flush, all
+data were delivered via DataCollected events.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#event-tracingComplete
 */

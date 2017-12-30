@@ -8,7 +8,8 @@ import (
 )
 
 /*
-PerformanceProtocol provides a namespace for the Chrome Performance protocol methods.
+PerformanceProtocol provides a namespace for the Chrome Performance protocol
+methods.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/
 */
@@ -57,8 +58,8 @@ func (protocol *PerformanceProtocol) GetMetrics() (*performance.GetMetricsResult
 }
 
 /*
-OnMetrics adds a handler to the Performance.metrics event. Performance.metrics returns current
-values of the metrics.
+OnMetrics adds a handler to the Performance.metrics event. Performance.metrics
+returns current values of the metrics.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#event-metrics
 */

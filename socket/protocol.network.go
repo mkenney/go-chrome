@@ -8,9 +8,10 @@ import (
 )
 
 /*
-NetworkProtocol provides a namespace for the Chrome Network protocol methods. The Network protocol
-allows tracking network activities of the page. It exposes information about http, file, data and
-other requests and responses, their headers, bodies, timing, etc.
+NetworkProtocol provides a namespace for the Chrome Network protocol methods.
+The Network protocol allows tracking network activities of the page. It exposes
+information about http, file, data and other requests and responses, their
+headers, bodies, timing, etc.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/
 */
@@ -19,9 +20,10 @@ type NetworkProtocol struct {
 }
 
 /*
-CanClearBrowserCache tells whether clearing browser cache is supported. DEPRECATED.
+CanClearBrowserCache tells whether clearing browser cache is supported.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canClearBrowserCache
+DEPRECATED.
 */
 func (protocol *NetworkProtocol) CanClearBrowserCache() (*network.CanClearBrowserCacheResult, error) {
 	command := NewCommand("Network.canClearBrowserCache", nil)
@@ -37,9 +39,10 @@ func (protocol *NetworkProtocol) CanClearBrowserCache() (*network.CanClearBrowse
 }
 
 /*
-CanClearBrowserCookies tells whether clearing browser cookies is supported. DEPRECATED.
+CanClearBrowserCookies tells whether clearing browser cookies is supported.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canClearBrowserCookies
+DEPRECATED.
 */
 func (protocol *NetworkProtocol) CanClearBrowserCookies() (*network.CanClearBrowserCookiesResult, error) {
 	command := NewCommand("Network.canClearBrowserCookies", nil)
@@ -55,9 +58,10 @@ func (protocol *NetworkProtocol) CanClearBrowserCookies() (*network.CanClearBrow
 }
 
 /*
-CanEmulateConditions tells whether emulation of network conditions is supported. DEPRECATED.
+CanEmulateConditions tells whether emulation of network conditions is supported.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canEmulateNetworkConditions
+DEPRECATED.
 */
 func (protocol *NetworkProtocol) CanEmulateConditions() (*network.CanEmulateConditionsResult, error) {
 	command := NewCommand("Network.canEmulateNetworkConditions", nil)
@@ -95,10 +99,11 @@ func (protocol *NetworkProtocol) ClearBrowserCookies() error {
 }
 
 /*
-ContinueInterceptedRequest response to Network.requestIntercepted which either modifies the request
-to continue with any modifications, or blocks it, or completes it with the provided response bytes.
-If a network fetch occurs as a result which encounters a redirect an additional
-Network.requestIntercepted event will be sent with the same InterceptionID.
+ContinueInterceptedRequest response to Network.requestIntercepted which either
+modifies the request to continue with any modifications, or blocks it, or
+completes it with the provided response bytes. If a network fetch occurs as a
+result which encounters a redirect an additional Network.requestIntercepted
+event will be sent with the same InterceptionID.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-continueInterceptedRequest
 EXPERIMENTAL.
@@ -112,7 +117,8 @@ func (protocol *NetworkProtocol) ContinueInterceptedRequest(
 }
 
 /*
-DeleteCookies deletes browser cookies with matching name and url or domain/path pair.
+DeleteCookies deletes browser cookies with matching name and url or domain/path
+pair.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-deleteCookies
 */
@@ -125,7 +131,8 @@ func (protocol *NetworkProtocol) DeleteCookies(
 }
 
 /*
-Disable disables network tracking, prevents network events from being sent to the client.
+Disable disables network tracking, prevents network events from being sent to
+the client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-disable
 */
@@ -149,7 +156,8 @@ func (protocol *NetworkProtocol) EmulateConditions(
 }
 
 /*
-Enable enables network tracking, network events will now be delivered to the client.
+Enable enables network tracking, network events will now be delivered to the
+client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-enable
 */
@@ -162,8 +170,8 @@ func (protocol *NetworkProtocol) Enable(
 }
 
 /*
-GetAllCookies returns all browser cookies. Depending on the backend support, will return detailed
-cookie information in the `cookies` field.
+GetAllCookies returns all browser cookies. Depending on the backend support,
+will return detailed cookie information in the `cookies` field.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getAllCookies
 */
@@ -183,7 +191,8 @@ func (protocol *NetworkProtocol) GetAllCookies() (*network.GetAllCookiesResult, 
 /*
 GetCertificate returns the DER-encoded certificate.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getCertificate EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getCertificate
+EXPERIMENTAL.
 */
 func (protocol *NetworkProtocol) GetCertificate(
 	params *network.GetCertificateParams,
@@ -201,8 +210,8 @@ func (protocol *NetworkProtocol) GetCertificate(
 }
 
 /*
-GetCookies returns all browser cookies for the current URL. Depending on the backend support, will
-return detailed cookie information in the `cookies` field.
+GetCookies returns all browser cookies for the current URL. Depending on the
+backend support, will return detailed cookie information in the `cookies` field.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getCookies
 */
@@ -242,7 +251,8 @@ func (protocol *NetworkProtocol) GetResponseBody(
 }
 
 /*
-GetResponseBodyForInterception returns content served for the given currently intercepted request.
+GetResponseBodyForInterception returns content served for the given currently
+intercepted request.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getResponseBodyForInterception
 EXPERIMENTAL.
@@ -263,9 +273,9 @@ func (protocol *NetworkProtocol) GetResponseBodyForInterception(
 }
 
 /*
-ReplayXHR sends a new XMLHttpRequest which is identical to the original one. The following
-parameters should be identical: method, url, async, request body, extra headers, withCredentials
-attribute, user, password.
+ReplayXHR sends a new XMLHttpRequest which is identical to the original one. The
+following parameters should be identical: method, url, async, request body,
+extra headers, withCredentials attribute, user, password.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-replayXHR EXPERIMENTAL.
 */
@@ -301,7 +311,8 @@ func (protocol *NetworkProtocol) SearchInResponseBody(
 /*
 SetBlockedURLs blocks URLs from loading.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setBlockedURLs EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setBlockedURLs
+EXPERIMENTAL.
 */
 func (protocol *NetworkProtocol) SetBlockedURLs(
 	params *network.SetBlockedURLsParams,
@@ -326,7 +337,8 @@ func (protocol *NetworkProtocol) SetBypassServiceWorker(
 }
 
 /*
-SetCacheDisabled toggles ignoring cache for each request. If `true`, cache will not be used.
+SetCacheDisabled toggles ignoring cache for each request. If `true`, cache will
+not be used.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCacheDisabled
 */
@@ -339,7 +351,8 @@ func (protocol *NetworkProtocol) SetCacheDisabled(
 }
 
 /*
-SetCookie sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist.
+SetCookie sets a cookie with the given cookie data; may overwrite equivalent
+cookies if they exist.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCookie
 */
@@ -386,8 +399,8 @@ func (protocol *NetworkProtocol) SetDataSizeLimitsForTest(
 }
 
 /*
-SetExtraHTTPHeaders specifies whether to always send extra HTTP headers with the requests from this
-page.
+SetExtraHTTPHeaders specifies whether to always send extra HTTP headers with the
+requests from this page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setExtraHTTPHeaders
 */
@@ -400,8 +413,8 @@ func (protocol *NetworkProtocol) SetExtraHTTPHeaders(
 }
 
 /*
-SetRequestInterception sets the requests to intercept that match a the provided patterns and
-optionally resource types.
+SetRequestInterception sets the requests to intercept that match a the provided
+patterns and optionally resource types.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setRequestInterception
 EXPERIMENTAL.
@@ -428,8 +441,8 @@ func (protocol *NetworkProtocol) SetUserAgentOverride(
 }
 
 /*
-OnDataReceived adds a handler to the Network.dataReceived event. Network.dataReceived fires when a
-data chunk was received over the network.
+OnDataReceived adds a handler to the Network.dataReceived event. Network.dataReceived
+fires when a data chunk was received over the network.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-dataReceived
 */
@@ -451,8 +464,9 @@ func (protocol *NetworkProtocol) OnDataReceived(
 }
 
 /*
-OnEventSourceMessageReceived adds a handler to the Network.eventSourceMessageReceived event.
-Network.eventSourceMessageReceived fires when EventSource message is received.
+OnEventSourceMessageReceived adds a handler to the Network.eventSourceMessageReceived
+event. Network.eventSourceMessageReceived fires when EventSource message is
+received.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-eventSourceMessageReceived
 */
@@ -474,8 +488,8 @@ func (protocol *NetworkProtocol) OnEventSourceMessageReceived(
 }
 
 /*
-OnLoadingFailed adds a handler to the Network.loadingFailed event. Network.loadingFailed fires when
-HTTP request has failed to load.
+OnLoadingFailed adds a handler to the Network.loadingFailed event. Network.loadingFailed
+fires when HTTP request has failed to load.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-loadingFailed
 */
@@ -497,8 +511,8 @@ func (protocol *NetworkProtocol) OnLoadingFailed(
 }
 
 /*
-OnLoadingFinished adds a handler to the Network.loadingFinished event. Network.loadingFinished fires
-when HTTP request has finished loading.
+OnLoadingFinished adds a handler to the Network.loadingFinished event.
+Network.loadingFinished fires when HTTP request has finished loading.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-loadingFinished
 */
@@ -521,8 +535,8 @@ func (protocol *NetworkProtocol) OnLoadingFinished(
 
 /*
 OnRequestIntercepted adds a handler to the Network.requestIntercepted event.
-Network.requestIntercepted fires when a HTTP request is intercepted and returns details, which must
-be either allowed, blocked, modified or mocked.
+Network.requestIntercepted fires when a HTTP request is intercepted and returns
+details, which must be either allowed, blocked, modified or mocked.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-requestIntercepted
 EXPERIMENTAL.
@@ -545,8 +559,9 @@ func (protocol *NetworkProtocol) OnRequestIntercepted(
 }
 
 /*
-OnRequestServedFromCache adds a handler to the Network.requestServedFromCache event.
-Network.requestServedFromCache fires when request ended up loading from cache.
+OnRequestServedFromCache adds a handler to the Network.requestServedFromCache
+event. Network.requestServedFromCache fires when request ended up loading from
+cache.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-requestServedFromCache
 */
@@ -568,8 +583,8 @@ func (protocol *NetworkProtocol) OnRequestServedFromCache(
 }
 
 /*
-OnRequestWillBeSent adds a handler to the Network.requestWillBeSent event. Network.requestWillBeSent
-fires when the page is about to send HTTP request.
+OnRequestWillBeSent adds a handler to the Network.requestWillBeSent event.
+Network.requestWillBeSent fires when the page is about to send HTTP request.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-requestWillBeSent
 */
@@ -591,8 +606,9 @@ func (protocol *NetworkProtocol) OnRequestWillBeSent(
 }
 
 /*
-OnResourceChangedPriority adds a handler to the Network.resourceChangedPriority event.
-Network.resourceChangedPriority fires when resource loading priority is changed.
+OnResourceChangedPriority adds a handler to the Network.resourceChangedPriority
+event. Network.resourceChangedPriority fires when resource loading priority is
+changed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-resourceChangedPriority
 EXPERIMENTAL.
@@ -615,8 +631,8 @@ func (protocol *NetworkProtocol) OnResourceChangedPriority(
 }
 
 /*
-OnResponseReceived adds a handler to the Network.responseReceived event. Network.responseReceived
-fires when HTTP response is available.
+OnResponseReceived adds a handler to the Network.responseReceived event.
+Network.responseReceived fires when HTTP response is available.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-responseReceived
 */
@@ -638,8 +654,8 @@ func (protocol *NetworkProtocol) OnResponseReceived(
 }
 
 /*
-OnWebSocketClosed adds a handler to the Network.webSocketClosed event. Network.webSocketClosed
-fires when WebSocket is closed.
+OnWebSocketClosed adds a handler to the Network.webSocketClosed event.
+Network.webSocketClosed fires when WebSocket is closed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketClosed
 */
@@ -661,8 +677,8 @@ func (protocol *NetworkProtocol) OnWebSocketClosed(
 }
 
 /*
-OnWebSocketCreated adds a handler to the Network.webSocketCreated event. Network.webSocketCreated
-fires upon WebSocket creation.
+OnWebSocketCreated adds a handler to the Network.webSocketCreated event.
+Network.webSocketCreated fires upon WebSocket creation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketCreated
 */
@@ -707,8 +723,8 @@ func (protocol *NetworkProtocol) OnWebSocketFrameError(
 }
 
 /*
-OnWebSocketFrameReceived adds a handler to the Network.webSocketFrameReceived event.
-Network.webSocketFrameReceived fires when WebSocket frame is received.
+OnWebSocketFrameReceived adds a handler to the Network.webSocketFrameReceived
+event. Network.webSocketFrameReceived fires when WebSocket frame is received.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketFrameReceived
 */
@@ -753,9 +769,9 @@ func (protocol *NetworkProtocol) OnWebSocketFrameSent(
 }
 
 /*
-OnWebSocketHandshakeResponseReceived adds a handler to the
-Network.webSocketHandshakeResponseReceived event. Network.webSocketHandshakeResponseReceived fires
-when WebSocket handshake response becomes available.
+OnWebSocketHandshakeResponseReceived adds a handler to the Network.webSocketHandshakeResponseReceived
+event. Network.webSocketHandshakeResponseReceived fires when WebSocket handshake
+response becomes available.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketHandshakeResponseReceived
 */
@@ -777,9 +793,9 @@ func (protocol *NetworkProtocol) OnWebSocketHandshakeResponseReceived(
 }
 
 /*
-OnWebSocketWillSendHandshakeRequest adds a handler to the
-Network.webSocketWillSendHandshakeRequest event. Network.webSocketWillSendHandshakeRequest fires
-when WebSocket is about to initiate handshake.
+OnWebSocketWillSendHandshakeRequest adds a handler to the Network.webSocketWillSendHandshakeRequest
+event. Network.webSocketWillSendHandshakeRequest fires when WebSocket is about
+to initiate handshake.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-webSocketWillSendHandshakeRequest
 */

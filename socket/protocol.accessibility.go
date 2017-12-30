@@ -7,17 +7,19 @@ import (
 )
 
 /*
-AccessibilityProtocol provides a namespace for the Chrome Accessibility protocol methods.
+AccessibilityProtocol provides a namespace for the Chrome Accessibility protocol
+methods.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/ EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/
+EXPERIMENTAL.
 */
 type AccessibilityProtocol struct {
 	Socket Socketer
 }
 
 /*
-GetPartialAXTree fetches the accessibility node and partial accessibility tree for this DOM node, if
-it exists.
+GetPartialAXTree fetches the accessibility node and partial accessibility tree
+for this DOM node, if it exists.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/#method-getPartialAXTree
 */

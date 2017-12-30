@@ -8,8 +8,9 @@ import (
 )
 
 /*
-PageProtocol provides a namespace for the Chrome Page protocol methods. The Page protocol provides
-actions and events related to the inspected page belong to the page domain.
+PageProtocol provides a namespace for the Chrome Page protocol methods. The Page
+protocol provides actions and events related to the inspected page belong to the
+page domain.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/
 */
@@ -18,7 +19,8 @@ type PageProtocol struct {
 }
 
 /*
-AddScriptToEvaluateOnLoad is eprecated, please use addScriptToEvaluateOnNewDocument instead.
+AddScriptToEvaluateOnLoad is eprecated, please use addScriptToEvaluateOnNewDocument
+instead.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-addScriptToEvaluateOnLoad
 EXPERIMENTAL. DEPRECATED.
@@ -39,8 +41,8 @@ func (protocol *PageProtocol) AddScriptToEvaluateOnLoad(
 }
 
 /*
-AddScriptToEvaluateOnNewDocument evaluates given script in every frame upon creation (before loading
-frame's scripts).
+AddScriptToEvaluateOnNewDocument evaluates given script in every frame upon
+creation (before loading frame's scripts).
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-addScriptToEvaluateOnNewDocument
 */
@@ -165,8 +167,8 @@ func (protocol *PageProtocol) GetFrameTree() (*page.GetFrameTreeResult, error) {
 }
 
 /*
-GetLayoutMetrics returns metrics relating to the layouting of the page, such as viewport
-bounds/scale.
+GetLayoutMetrics returns metrics relating to the layouting of the page, such as
+viewport bounds/scale.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getLayoutMetrics
 */
@@ -204,7 +206,8 @@ func (protocol *PageProtocol) GetNavigationHistory() (*page.GetNavigationHistory
 /*
 GetResourceContent returns content of the given resource.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceContent EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceContent
+EXPERIMENTAL.
 */
 func (protocol *PageProtocol) GetResourceContent(
 	params *page.GetResourceContentParams,
@@ -224,7 +227,8 @@ func (protocol *PageProtocol) GetResourceContent(
 /*
 GetResourceTree returns present frame / resource tree structure.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceTree EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceTree
+EXPERIMENTAL.
 */
 func (protocol *PageProtocol) GetResourceTree() (*page.GetResourceTreeResult, error) {
 	command := NewCommand("Page.getResourceTree", nil)
@@ -240,8 +244,8 @@ func (protocol *PageProtocol) GetResourceTree() (*page.GetResourceTreeResult, er
 }
 
 /*
-HandleJavaScriptDialog accepts or dismisses a JavaScript initiated dialog (alert, confirm, prompt,
-or onbeforeunload).
+HandleJavaScriptDialog accepts or dismisses a JavaScript initiated dialog
+(alert, confirm, prompt, or onbeforeunload).
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-handleJavaScriptDialog
 */
@@ -323,7 +327,8 @@ func (protocol *PageProtocol) Reload(
 }
 
 /*
-RemoveScriptToEvaluateOnLoad deprecated, please use removeScriptToEvaluateOnNewDocument instead.
+RemoveScriptToEvaluateOnLoad deprecated, please use removeScriptToEvaluateOnNewDocument
+instead.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-removeScriptToEvaluateOnLoad
 EXPERIMENTAL. DEPRECATED.
@@ -363,7 +368,8 @@ func (protocol *PageProtocol) RequestAppBanner() error {
 }
 
 /*
-ScreencastFrameAck acknowledges that a screencast frame has been received by the frontend.
+ScreencastFrameAck acknowledges that a screencast frame has been received by the
+frontend.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-screencastFrameAck EXPERIMENTAL.
 */
@@ -379,7 +385,8 @@ func (protocol *PageProtocol) ScreencastFrameAck(
 /*
 SearchInResource searches for given string in resource content.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-searchInResource EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-searchInResource
+EXPERIMENTAL.
 */
 func (protocol *PageProtocol) SearchInResource(
 	params *page.SearchInResourceParams,
@@ -412,8 +419,8 @@ func (protocol *PageProtocol) SetAdBlockingEnabled(
 }
 
 /*
-SetAutoAttachToCreatedPages controls whether browser will open a new inspector window for connected
-pages.
+SetAutoAttachToCreatedPages controls whether browser will open a new inspector
+window for connected pages.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setAutoAttachToCreatedPages
 EXPERIMENTAL.
@@ -474,7 +481,8 @@ func (protocol *PageProtocol) SetLifecycleEventsEnabled(
 /*
 StartScreencast starts sending each frame using the `screencastFrame` event.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-startScreencast EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-startScreencast
+EXPERIMENTAL.
 */
 func (protocol *PageProtocol) StartScreencast(
 	params *page.StartScreencastParams,
@@ -499,7 +507,8 @@ func (protocol *PageProtocol) StopLoading() error {
 /*
 StopScreencast stops sending each frame in the `screencastFrame`.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-stopScreencast EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-stopScreencast
+EXPERIMENTAL.
 */
 func (protocol *PageProtocol) StopScreencast() error {
 	command := NewCommand("Page.stopScreencast", nil)
@@ -531,8 +540,8 @@ func (protocol *PageProtocol) OnDOMContentEventFired(
 }
 
 /*
-OnFrameAttached adds a handler to the Page.frameAttached event. Page.frameAttached fires when a
-frame has been attached to its parent.
+OnFrameAttached adds a handler to the Page.frameAttached event. Page.frameAttached
+fires when a frame has been attached to its parent.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameAttached
 */
@@ -554,8 +563,9 @@ func (protocol *PageProtocol) OnFrameAttached(
 }
 
 /*
-OnFrameClearedScheduledNavigation adds a handler to the Page.frameClearedScheduledNavigation event.
-Page.frameClearedScheduledNavigation fires when a frame no longer has a scheduled navigation.
+OnFrameClearedScheduledNavigation adds a handler to the Page.frameClearedScheduledNavigation
+event. Page.frameClearedScheduledNavigation fires when a frame no longer has a
+scheduled navigation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameClearedScheduledNavigation
 EXPERIMENTAL.
@@ -578,8 +588,8 @@ func (protocol *PageProtocol) OnFrameClearedScheduledNavigation(
 }
 
 /*
-OnFrameDetached adds a handler to the Page.frameDetached event. Page.frameDetached fires when a
-frame has been detached from its parent.
+OnFrameDetached adds a handler to the Page.frameDetached event. Page.frameDetached
+fires when a frame has been detached from its parent.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameDetached
 */
@@ -601,8 +611,9 @@ func (protocol *PageProtocol) OnFrameDetached(
 }
 
 /*
-OnFrameNavigated adds a handler to the Page.frameNavigated event. Page.frameNavigated fires once
-navigation of the frame has completed. Frame is now associated with the new loader.
+OnFrameNavigated adds a handler to the Page.frameNavigated event. Page.frameNavigated
+fires once navigation of the frame has completed. Frame is now associated with
+the new loader.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameNavigated
 */
@@ -624,10 +635,11 @@ func (protocol *PageProtocol) OnFrameNavigated(
 }
 
 /*
-OnFrameResized adds a handler to the Page.frameResized event. Page.frameResized fires when frame
-is resized.
+OnFrameResized adds a handler to the Page.frameResized event. Page.frameResized
+fires when frame is resized.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameResized EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameResized
+EXPERIMENTAL.
 */
 func (protocol *PageProtocol) OnFrameResized(
 	callback func(event *page.FrameResizedEvent),
@@ -647,8 +659,9 @@ func (protocol *PageProtocol) OnFrameResized(
 }
 
 /*
-OnFrameScheduledNavigation adds a handler to the Page.frameScheduledNavigation event.
-Page.frameScheduledNavigation fires when frame schedules a potential navigation.
+OnFrameScheduledNavigation adds a handler to the Page.frameScheduledNavigation
+event. Page.frameScheduledNavigation fires when frame schedules a potential
+navigation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameScheduledNavigation
 EXPERIMENTAL.
@@ -671,10 +684,11 @@ func (protocol *PageProtocol) OnFrameScheduledNavigation(
 }
 
 /*
-OnFrameStartedLoading adds a handler to the Page.frameStartedLoading event. Page.frameStartedLoading
-fires when frame has started loading.
+OnFrameStartedLoading adds a handler to the Page.frameStartedLoading event.
+Page.frameStartedLoading fires when frame has started loading.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameStartedLoading EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameStartedLoading
+EXPERIMENTAL.
 */
 func (protocol *PageProtocol) OnFrameStartedLoading(
 	callback func(event *page.FrameStartedLoadingEvent),
@@ -694,10 +708,11 @@ func (protocol *PageProtocol) OnFrameStartedLoading(
 }
 
 /*
-OnFrameStoppedLoading adds a handler to the Page.frameStoppedLoading event. Page.frameStoppedLoading
-fires when frame has stopped loading.
+OnFrameStoppedLoading adds a handler to the Page.frameStoppedLoading event.
+Page.frameStoppedLoading fires when frame has stopped loading.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameStoppedLoading EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameStoppedLoading
+EXPERIMENTAL.
 */
 func (protocol *PageProtocol) OnFrameStoppedLoading(
 	callback func(event *page.FrameStoppedLoadingEvent),
@@ -717,8 +732,8 @@ func (protocol *PageProtocol) OnFrameStoppedLoading(
 }
 
 /*
-OnInterstitialHidden adds a handler to the Page.interstitialHidden event. Page.interstitialHidden
-fires when interstitial page was hidden.
+OnInterstitialHidden adds a handler to the Page.interstitialHidden event.
+Page.interstitialHidden fires when interstitial page was hidden.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-interstitialHidden
 */
@@ -740,8 +755,8 @@ func (protocol *PageProtocol) OnInterstitialHidden(
 }
 
 /*
-OnInterstitialShown adds a handler to the Page.interstitialShown event. Page.interstitialShown fires
-when interstitial page was shown.
+OnInterstitialShown adds a handler to the Page.interstitialShown event.
+Page.interstitialShown fires when interstitial page was shown.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-interstitialShown
 */
@@ -763,9 +778,9 @@ func (protocol *PageProtocol) OnInterstitialShown(
 }
 
 /*
-OnJavascriptDialogClosed adds a handler to the Page.javascriptDialogClosed event.
-Page.javascriptDialogClosed fires when a JavaScript initiated dialog (alert, confirm, prompt, or
-onbeforeunload) has been closed.
+OnJavascriptDialogClosed adds a handler to the Page.javascriptDialogClosed
+event. Page.javascriptDialogClosed fires when a JavaScript initiated dialog
+(alert, confirm, prompt, or onbeforeunload) has been closed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-javascriptDialogClosed
 */
@@ -787,9 +802,9 @@ func (protocol *PageProtocol) OnJavascriptDialogClosed(
 }
 
 /*
-OnJavascriptDialogOpening adds a handler to the Page.javascriptDialogOpening event.
-Page.javascriptDialogOpening fires when a JavaScript initiated dialog (alert, confirm, prompt, or
-onbeforeunload) is about to open.
+OnJavascriptDialogOpening adds a handler to the Page.javascriptDialogOpening
+event. Page.javascriptDialogOpening fires when a JavaScript initiated dialog
+(alert, confirm, prompt, or onbeforeunload) is about to open.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-javascriptDialogOpening
 */
@@ -811,8 +826,8 @@ func (protocol *PageProtocol) OnJavascriptDialogOpening(
 }
 
 /*
-OnLifecycleEvent adds a handler to the Page.lifecycleEvent event. Page.lifecycleEvent fires for top
-level page lifecycle events such as navigation, load, paint, etc.
+OnLifecycleEvent adds a handler to the Page.lifecycleEvent event. Page.lifecycleEvent
+fires for top level page lifecycle events such as navigation, load, paint, etc.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-lifecycleEvent
 */
@@ -834,8 +849,8 @@ func (protocol *PageProtocol) OnLifecycleEvent(
 }
 
 /*
-OnLoadEventFired adds a handler to the Page.loadEventFired event. Page.loadEventFired fires when the
-page has finished loading.
+OnLoadEventFired adds a handler to the Page.loadEventFired event. Page.loadEventFired
+fires when the page has finished loading.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-loadEventFired
 */
@@ -857,10 +872,11 @@ func (protocol *PageProtocol) OnLoadEventFired(
 }
 
 /*
-OnScreencastFrame adds a handler to the Page.screencastFrame event. Page.screencastFrame fires when
-compressed image data is requested by the `startScreencast` method.
+OnScreencastFrame adds a handler to the Page.screencastFrame event. Page.screencastFrame
+fires when compressed image data is requested by the `startScreencast` method.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-screencastFrame EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-screencastFrame
+EXPERIMENTAL.
 */
 func (protocol *PageProtocol) OnScreencastFrame(
 	callback func(event *page.ScreencastFrameEvent),
@@ -880,9 +896,9 @@ func (protocol *PageProtocol) OnScreencastFrame(
 }
 
 /*
-OnScreencastVisibilityChanged adds a handler to the Page.screencastVisibilityChanged event.
-Page.screencastVisibilityChanged fires when the page with currently enabled screencast was shown or
-hidden.
+OnScreencastVisibilityChanged adds a handler to the Page.screencastVisibilityChanged
+event. Page.screencastVisibilityChanged fires when the page with currently
+enabled screencast was shown or hidden.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-screencastVisibilityChanged
 EXPERIMENTAL.
@@ -905,8 +921,9 @@ func (protocol *PageProtocol) OnScreencastVisibilityChanged(
 }
 
 /*
-OnWindowOpen adds a handler to the Page.windowOpen event. Page.windowOpen fires when a new window is
-going to be opened, via window.open(), link click, form submission, etc.
+OnWindowOpen adds a handler to the Page.windowOpen event. Page.windowOpen fires
+when a new window is going to be opened, via window.open(), link click, form
+submission, etc.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-windowOpen
 */

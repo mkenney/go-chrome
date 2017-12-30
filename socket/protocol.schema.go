@@ -7,9 +7,10 @@ import (
 )
 
 /*
-SchemaProtocol provides a namespace for the Chrome Schema protocol methods. DEPRECATED.
+SchemaProtocol provides a namespace for the Chrome Schema protocol methods.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Schema/
+DEPRECATED.
 */
 type SchemaProtocol struct {
 	Socket Socketer

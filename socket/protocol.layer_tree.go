@@ -8,7 +8,8 @@ import (
 )
 
 /*
-LayerTreeProtocol provides a namespace for the Chrome LayerTree protocol methods.
+LayerTreeProtocol provides a namespace for the Chrome LayerTree protocol
+methods.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/ EXPERIMENTAL.
 */
@@ -172,8 +173,8 @@ func (protocol *LayerTreeProtocol) SnapshotCommandLog(
 }
 
 /*
-OnLayerPainted adds a handler to the LayerTree.layerPainted event. LayerTree.layerPainted fires when the layer
-is painted.
+OnLayerPainted adds a handler to the LayerTree.layerPainted event. LayerTree.layerPainted
+fires when the layer is painted.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#event-layerPainted
 */
@@ -195,8 +196,8 @@ func (protocol *LayerTreeProtocol) OnLayerPainted(
 }
 
 /*
-OnLayerTreeDidChange adds a handler to the LayerTree.DidChange event. LayerTree.DidChange fires when
-the layer tree changes.
+OnLayerTreeDidChange adds a handler to the LayerTree.DidChange event.
+LayerTree.DidChange fires when the layer tree changes.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#event-layerTreeDidChange
 */

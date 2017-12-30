@@ -8,9 +8,9 @@ import (
 )
 
 /*
-HeadlessExperimentalProtocol provides a namespace for the Chrome HeadlessExperimental protocol
-methods. The HeadlessExperimental protocol provides experimental commands only supported in headless
-mode.
+HeadlessExperimentalProtocol provides a namespace for the Chrome
+HeadlessExperimental protocol methods. The HeadlessExperimental protocol
+provides experimental commands only supported in headless mode.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/ EXPERIMENTAL.
 */
@@ -19,9 +19,9 @@ type HeadlessExperimentalProtocol struct {
 }
 
 /*
-BeginFrame sends a BeginFrame to the target and returns when the frame was completed. Optionally
-captures a screenshot from the resulting frame. Requires that the target was created with enabled
-BeginFrameControl.
+BeginFrame sends a BeginFrame to the target and returns when the frame was
+completed. Optionally captures a screenshot from the resulting frame. Requires
+that the target was created with enabled BeginFrameControl.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-beginFrame
 */
@@ -63,11 +63,10 @@ func (protocol *HeadlessExperimentalProtocol) Enable() error {
 }
 
 /*
-OnMainFrameReadyForScreenshots adds a handler to the
-HeadlessExperimental.mainFrameReadyForScreenshots event.
-HeadlessExperimental.mainFrameReadyForScreenshots fires when the main frame has first submitted a
-frame to the browser. May only be fired while a BeginFrame is in flight. Before this event,
-screenshotting requests may fail.
+OnMainFrameReadyForScreenshots adds a handler to the HeadlessExperimental.mainFrameReadyForScreenshots
+event. HeadlessExperimental.mainFrameReadyForScreenshots fires when the main
+frame has first submitted a frame to the browser. May only be fired while a
+BeginFrame is in flight. Before this event, screenshotting requests may fail.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#event-mainFrameReadyForScreenshots
 */
@@ -89,9 +88,9 @@ func (protocol *HeadlessExperimentalProtocol) OnMainFrameReadyForScreenshots(
 }
 
 /*
-OnNeedsBeginFramesChanged adds a handler to the HeadlessExperimental.needsBeginFramesChanged event.
-HeadlessExperimental.needsBeginFramesChanged fires when the target starts or stops needing
-BeginFrames.
+OnNeedsBeginFramesChanged adds a handler to the HeadlessExperimental.needsBeginFramesChanged
+event. HeadlessExperimental.needsBeginFramesChanged fires when the target starts
+or stops needing BeginFrames.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#event-needsBeginFramesChanged
 */

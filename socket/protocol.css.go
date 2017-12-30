@@ -8,13 +8,15 @@ import (
 )
 
 /*
-CSSProtocol provides a namespace for the Chrome CSS protocol methods. The CSS protocol exposes CSS
-read/write operations. All CSS objects (stylesheets, rules, and styles) have an associated id used
-in subsequent operations on the related object. Each object type has a specific ID structure, and
-those are not interchangeable between objects of different kinds. CSS objects can be loaded using
-the get*ForNode() calls (which accept a DOM node id). A client can also keep track of stylesheets
-via the styleSheetAdded/styleSheetRemoved events and subsequently load the required stylesheet
-contents using the getStyleSheet[Text]() methods.
+CSSProtocol provides a namespace for the Chrome CSS protocol methods. The CSS
+protocol exposes CSS read/write operations. All CSS objects (stylesheets, rules,
+and styles) have an associated id used in subsequent operations on the related
+object. Each object type has a specific ID structure, and those are not
+interchangeable between objects of different kinds. CSS objects can be loaded
+using the get*ForNode() calls (which accept a DOM node id). A client can also
+keep track of stylesheets via the styleSheetAdded/styleSheetRemoved events and
+subsequently load the required stylesheet contents using the
+getStyleSheet[Text]() methods.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/
 */
@@ -23,8 +25,8 @@ type CSSProtocol struct {
 }
 
 /*
-AddRule inserts a new rule with the given ruleText in a stylesheet with given styleSheetId, at the
-position specified by location.
+AddRule inserts a new rule with the given ruleText in a stylesheet with given
+styleSheetId, at the position specified by location.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-addRule
 */
@@ -64,7 +66,8 @@ func (protocol *CSSProtocol) CollectClassNames(
 }
 
 /*
-CreateStyleSheet creates a new special "via-inspector" stylesheet in the frame with given frameId.
+CreateStyleSheet creates a new special "via-inspector" stylesheet in the frame
+with given frameId.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-createStyleSheet
 */
@@ -95,8 +98,8 @@ func (protocol *CSSProtocol) Disable() error {
 }
 
 /*
-Enable enables the CSS agent for the given page. Clients should not assume that the CSS agent has
-been enabled until the result of this command is received.
+Enable enables the CSS agent for the given page. Clients should not assume that
+the CSS agent has been enabled until the result of this command is received.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-enable
 */
@@ -107,8 +110,8 @@ func (protocol *CSSProtocol) Enable() error {
 }
 
 /*
-ForcePseudoState ensures that the given node will have specified pseudo-classes whenever its style
-is computed by the browser.
+ForcePseudoState ensures that the given node will have specified pseudo-classes
+whenever its style is computed by the browser.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-forcePseudoState
 */
@@ -141,7 +144,8 @@ func (protocol *CSSProtocol) GetBackgroundColors(
 }
 
 /*
-GetComputedStyleForNode returns the computed style for a DOM node identified by nodeId.
+GetComputedStyleForNode returns the computed style for a DOM node identified by
+nodeId.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getComputedStyleForNode
 */
@@ -161,8 +165,9 @@ func (protocol *CSSProtocol) GetComputedStyleForNode(
 }
 
 /*
-GetInlineStylesForNode returns the styles defined inline (explicitly in the "style" attribute and
-implicitly, using DOM attributes) for a DOM node identified by nodeId.
+GetInlineStylesForNode returns the styles defined inline (explicitly in the
+"style" attribute and  implicitly, using DOM attributes) for a DOM node
+identified by nodeId.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getInlineStylesForNode
 */
@@ -182,7 +187,8 @@ func (protocol *CSSProtocol) GetInlineStylesForNode(
 }
 
 /*
-GetMatchedStylesForNode returns requested styles for a DOM node identified by nodeId.
+GetMatchedStylesForNode returns requested styles for a DOM node identified by
+nodeId.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getMatchedStylesForNode
 */
@@ -213,8 +219,8 @@ func (protocol *CSSProtocol) GetMediaQueries() error {
 }
 
 /*
-GetPlatformFontsForNode requests information about platform fonts which we used to render child
-TextNodes in the given node.
+GetPlatformFontsForNode requests information about platform fonts which we used
+to render child TextNodes in the given node.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getPlatformFontsForNode
 */
@@ -234,7 +240,8 @@ func (protocol *CSSProtocol) GetPlatformFontsForNode(
 }
 
 /*
-GetStyleSheetText returns the current textual content and the URL for a stylesheet.
+GetStyleSheetText returns the current textual content and the URL for a
+stylesheet.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getStyleSheetText
 */
@@ -254,8 +261,8 @@ func (protocol *CSSProtocol) GetStyleSheetText(
 }
 
 /*
-SetEffectivePropertyValueForNode finds a rule with the given active property for the given node and
-sets the new value for that property.
+SetEffectivePropertyValueForNode finds a rule with the given active property for
+the given node and sets the new value for that property.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setEffectivePropertyValueForNode
 */
@@ -379,7 +386,8 @@ func (protocol *CSSProtocol) StartRuleUsageTracking() error {
 }
 
 /*
-StopRuleUsageTracking returns he list of rules with an indication of whether they were used.
+StopRuleUsageTracking returns he list of rules with an indication of whether
+they were used.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-stopRuleUsageTracking
 */
@@ -397,8 +405,8 @@ func (protocol *CSSProtocol) StopRuleUsageTracking() (*css.StopRuleUsageTracking
 }
 
 /*
-TakeCoverageDelta obtains the list of rules that became used since last call to this method (or
-since start of coverage instrumentation).
+TakeCoverageDelta obtains the list of rules that became used since last call to
+this method (or since start of coverage instrumentation).
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-takeCoverageDelta
 */
@@ -416,8 +424,8 @@ func (protocol *CSSProtocol) TakeCoverageDelta() (*css.TakeCoverageDeltaResult, 
 }
 
 /*
-OnFontsUpdated adds a handler to the CSS.fontsUpdated event. CSS.fontsUpdated fires whenever a web
-font gets loaded.
+OnFontsUpdated adds a handler to the CSS.fontsUpdated event. CSS.fontsUpdated
+fires whenever a web font gets loaded.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#event-fontsUpdated
 */
@@ -439,10 +447,10 @@ func (protocol *CSSProtocol) OnFontsUpdated(
 }
 
 /*
-OnMediaQueryResultChanged adds a handler to the CSS.mediaQueryResultChanged event.
-CSS.mediaQueryResultChanged fires whenever a MediaQuery result changes (for example, after a browser
-window has been resized.) The current implementation considers only viewport-dependent media
-features.
+OnMediaQueryResultChanged adds a handler to the CSS.mediaQueryResultChanged
+event. CSS.mediaQueryResultChanged fires whenever a MediaQuery result changes
+(for example, after a browser window has been resized.) The current
+implementation considers only viewport-dependent media features.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#event-mediaQueryResultChanged
 */
@@ -464,8 +472,8 @@ func (protocol *CSSProtocol) OnMediaQueryResultChanged(
 }
 
 /*
-OnStyleSheetAdded adds a handler to the CSS.styleSheetAdded event. CSS.styleSheetAdded fires
-whenever an active document stylesheet is added.
+OnStyleSheetAdded adds a handler to the CSS.styleSheetAdded event.
+CSS.styleSheetAdded fires whenever an active document stylesheet is added.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#event-styleSheetAdded
 */
@@ -487,8 +495,9 @@ func (protocol *CSSProtocol) OnStyleSheetAdded(
 }
 
 /*
-OnStyleSheetChanged adds a handler to the CSS.styleSheetChanged event. CSS.styleSheetChanged fires
-whenever a stylesheet is changed as a result of the client operation.
+OnStyleSheetChanged adds a handler to the CSS.styleSheetChanged event.
+CSS.styleSheetChanged fires whenever a stylesheet is changed as a result of the
+client operation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#event-styleSheetChanged
 */
@@ -510,8 +519,8 @@ func (protocol *CSSProtocol) OnStyleSheetChanged(
 }
 
 /*
-OnStyleSheetRemoved adds a handler to the CSS.styleSheetRemoved event. CSS.styleSheetRemoved fires
-whenever an active document stylesheet is removed.
+OnStyleSheetRemoved adds a handler to the CSS.styleSheetRemoved event.
+CSS.styleSheetRemoved fires whenever an active document stylesheet is removed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#event-styleSheetRemoved
 */

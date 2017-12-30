@@ -8,9 +8,11 @@ import (
 )
 
 /*
-ServiceWorkerProtocol provides a namespace for the Chrome ServiceWorker protocol methods.
+ServiceWorkerProtocol provides a namespace for the Chrome ServiceWorker protocol
+methods.
 
-https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/ EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/
+EXPERIMENTAL.
 */
 type ServiceWorkerProtocol struct {
 	Socket Socketer
@@ -33,7 +35,8 @@ func (protocol *ServiceWorkerProtocol) DeliverPushMessage(
 /*
 Disable is experimental.
 
-https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-disable EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-disable
+EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) Disable() error {
 	command := NewCommand("ServiceWorker.disable", nil)
@@ -58,7 +61,8 @@ func (protocol *ServiceWorkerProtocol) DispatchSyncEvent(
 /*
 Enable is experimental.
 
-https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-enable EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-enable
+EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) Enable() error {
 	command := NewCommand("ServiceWorker.enable", nil)

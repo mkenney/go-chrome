@@ -7,9 +7,9 @@ import (
 )
 
 /*
-DOMSnapshotProtocol provides a namespace for the Chrome DOMSnapshot protocol methods. The
-DOMSnapshot protocol facilitates obtaining document snapshots with DOM, layout, and style
-information.
+DOMSnapshotProtocol provides a namespace for the Chrome DOMSnapshot protocol
+methods. The DOMSnapshot protocol facilitates obtaining document snapshots with
+DOM, layout, and style information.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/
 */
@@ -18,9 +18,10 @@ type DOMSnapshotProtocol struct {
 }
 
 /*
-Get returns a document snapshot, including the full DOM tree of the root node (including iframes,
-template contents, and imported documents) in a flattened array, as well as layout and white-listed
-computed style information for the nodes. Shadow DOM in the returned DOM tree is flattened.
+Get returns a document snapshot, including the full DOM tree of the root node
+(including iframes, template contents, and imported documents) in a flattened
+array, as well as layout and white-listed computed style information for the
+nodes. Shadow DOM in the returned DOM tree is flattened.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#method-getSnapshot
 */

@@ -8,8 +8,8 @@ import (
 )
 
 /*
-EmulationProtocol provides a namespace for the Chrome Emulation protocol methods. The Emulation
-protocol emulates different environments for the page.
+EmulationProtocol provides a namespace for the Chrome Emulation protocol
+methods. The Emulation protocol emulates different environments for the page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/
 */
@@ -84,8 +84,9 @@ func (protocol *EmulationProtocol) SetCPUThrottlingRate(
 }
 
 /*
-SetDefaultBackgroundColorOverride sets or clears an override of the default background color of the
-frame. This override is used if the content does not specify one.
+SetDefaultBackgroundColorOverride sets or clears an override of the default
+background color of the frame. This override is used if the content does not
+specify one.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDefaultBackgroundColorOverride
 */
@@ -98,9 +99,10 @@ func (protocol *EmulationProtocol) SetDefaultBackgroundColorOverride(
 }
 
 /*
-SetDeviceMetricsOverride overrides the values of device screen dimensions (window.screen.width,
-window.screen.height, window.innerWidth, window.innerHeight, and "device-width"/"device-height"
-related CSS media query results).
+SetDeviceMetricsOverride overrides the values of device screen dimensions
+(window.screen.width, window.screen.height, window.innerWidth,
+window.innerHeight, and "device-width"/"device-height" related CSS media query
+results).
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDeviceMetricsOverride
 */
@@ -140,8 +142,8 @@ func (protocol *EmulationProtocol) SetEmulatedMedia(
 }
 
 /*
-SetGeolocationOverride overrides the Geolocation Position or Error. Omitting any of the parameters
-emulates position unavailable.
+SetGeolocationOverride overrides the Geolocation Position or Error. Omitting any
+of the parameters emulates position unavailable.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setGeolocationOverride
 */
@@ -154,7 +156,8 @@ func (protocol *EmulationProtocol) SetGeolocationOverride(
 }
 
 /*
-SetNavigatorOverrides overrides value returned by the javascript navigator object.
+SetNavigatorOverrides overrides value returned by the javascript navigator
+object.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setNavigatorOverrides
 EXPERIMENTAL.
@@ -208,8 +211,9 @@ func (protocol *EmulationProtocol) SetTouchEmulationEnabled(
 }
 
 /*
-SetVirtualTimePolicy turns on virtual time for all frames (replacing real-time with a synthetic time
-source) and sets the current virtual time policy. Note this supersedes any previous time budget.
+SetVirtualTimePolicy turns on virtual time for all frames (replacing real-time
+with a synthetic time source) and sets the current virtual time policy. Note
+this supersedes any previous time budget.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setVirtualTimePolicy
 EXPERIMENTAL.
@@ -223,9 +227,9 @@ func (protocol *EmulationProtocol) SetVirtualTimePolicy(
 }
 
 /*
-SetVisibleSize resizes the frame/viewport of the page. Note that this does not affect the frame's
-container (e.g. browser window). Can be used to produce screenshots of the specified size. Not
-supported on Android.
+SetVisibleSize resizes the frame/viewport of the page. Note that this does not
+affect the frame's container (e.g. browser window). Can be used to produce
+screenshots of the specified size. Not supported on Android.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setVisibleSize
 EXPERIMENTAL. DEPRECATED.
@@ -263,9 +267,9 @@ func (protocol *EmulationProtocol) OnVirtualTimeAdvanced(
 }
 
 /*
-OnVirtualTimeBudgetExpired adds a handler to the Emulation.virtualTimeBudgetExpired event.
-Emulation.virtualTimeBudgetExpired fires after the virtual time budget for the current
-VirtualTimePolicy has run out.
+OnVirtualTimeBudgetExpired adds a handler to the Emulation.virtualTimeBudgetExpired
+event. Emulation.virtualTimeBudgetExpired fires after the virtual time budget
+for the current VirtualTimePolicy has run out.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#event-virtualTimeBudgetExpired
 EXPERIMENTAL.

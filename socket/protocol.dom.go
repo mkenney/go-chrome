@@ -8,12 +8,14 @@ import (
 )
 
 /*
-DOMProtocol provides a namespace for the Chrome DOM protocol methods. The DOM protocol exposes DOM
-read/write operations. Each DOM Node is represented with its mirror object that has an ID. This ID
-can be used to get additional information on the Node, resolve it into the JavaScript object wrapper,
-etc. It is important that client receives DOM events only for the nodes that are known to the client.
-Backend keeps track of the nodes that were sent to the client and never sends the same node twice.
-It is client's responsibility to collect information about the nodes that were sent to the client.
+DOMProtocol provides a namespace for the Chrome DOM protocol methods. The DOM
+protocol exposes DOM read/write operations. Each DOM Node is represented with
+its mirror object that has an ID. This ID can be used to get additional
+information on the Node, resolve it into the JavaScript object wrapper, etc. It
+is important that client receives DOM events only for the nodes that are known
+to the client. Backend keeps track of the nodes that were sent to the client and
+never sends the same node twice. It is client's responsibility to collect
+information about the nodes that were sent to the client.
 
 Note that iframe owner elements will return corresponding document elements as their child nodes.
 
@@ -24,8 +26,8 @@ type DOMProtocol struct {
 }
 
 /*
-CollectClassNamesFromSubtree creates a deep copy of the specified node and places it into the target
-container before the given anchor.
+CollectClassNamesFromSubtree creates a deep copy of the specified node and
+places it into the target container before the given anchor.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-collectClassNamesFromSubtree
 EXPERIMENTAL.
@@ -46,8 +48,8 @@ func (protocol *DOMProtocol) CollectClassNamesFromSubtree(
 }
 
 /*
-CopyTo creates a deep copy of the specified node and places it into the target container before the
-given anchor.
+CopyTo creates a deep copy of the specified node and places it into the target
+container before the given anchor.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-copyTo EXPERIMENTAL.
 */
@@ -67,8 +69,8 @@ func (protocol *DOMProtocol) CopyTo(
 }
 
 /*
-DescribeNode describes node given its id, does not require domain to be enabled. Does not start
-tracking any objects, can be used for automation.
+DescribeNode describes node given its id, does not require domain to be enabled.
+Does not start tracking any objects, can be used for automation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-describeNode
 */
@@ -99,8 +101,8 @@ func (protocol *DOMProtocol) Disable() error {
 }
 
 /*
-DiscardSearchResults discards search results from the session with the given id. getSearchResults
-should no longer be called for that search.
+DiscardSearchResults discards search results from the session with the given id.
+getSearchResults should no longer be called for that search.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-discardSearchResults
 EXPERIMENTAL.
@@ -178,7 +180,8 @@ func (protocol *DOMProtocol) GetBoxModel(
 }
 
 /*
-GetDocument returns the root DOM node (and optionally the subtree) to the caller.
+GetDocument returns the root DOM node (and optionally the subtree) to the
+caller.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getDocument
 */
@@ -198,7 +201,8 @@ func (protocol *DOMProtocol) GetDocument(
 }
 
 /*
-GetFlattenedDocument returns the root DOM node (and optionally the subtree) to the caller.
+GetFlattenedDocument returns the root DOM node (and optionally the subtree) to
+the caller.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getFlattenedDocument
 */
@@ -258,7 +262,8 @@ func (protocol *DOMProtocol) GetOuterHTML(
 }
 
 /*
-GetRelayoutBoundary returns the id of the nearest ancestor that is a relayout boundary.
+GetRelayoutBoundary returns the id of the nearest ancestor that is a relayout
+boundary.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getRelayoutBoundary EXPERIMENTAL.
 */
@@ -278,10 +283,11 @@ func (protocol *DOMProtocol) GetRelayoutBoundary(
 }
 
 /*
-GetSearchResults returns search results from given fromIndex to given toIndex from the search with
-the given identifier.
+GetSearchResults returns search results from given fromIndex to given toIndex
+from the search with the given identifier.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getSearchResults EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getSearchResults
+EXPERIMENTAL.
 */
 func (protocol *DOMProtocol) GetSearchResults(
 	params *dom.GetSearchResultsParams,
@@ -301,7 +307,8 @@ func (protocol *DOMProtocol) GetSearchResults(
 /*
 MarkUndoableState marks last undoable state.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-markUndoableState EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-markUndoableState
+EXPERIMENTAL.
 */
 func (protocol *DOMProtocol) MarkUndoableState() error {
 	command := NewCommand("DOM.markUndoableState", nil)
@@ -330,10 +337,11 @@ func (protocol *DOMProtocol) MoveTo(
 }
 
 /*
-PerformSearch searches for a given string in the DOM tree. Use getSearchResults to access search
-results or cancelSearch to end this search session.
+PerformSearch searches for a given string in the DOM tree. Use getSearchResults
+to access search results or cancelSearch to end this search session.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-performSearch EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-performSearch
+EXPERIMENTAL.
 */
 func (protocol *DOMProtocol) PerformSearch(
 	params *dom.PerformSearchParams,
@@ -351,7 +359,8 @@ func (protocol *DOMProtocol) PerformSearch(
 }
 
 /*
-PushNodeByPathToFrontend requests that the node is sent to the caller given its path.
+PushNodeByPathToFrontend requests that the node is sent to the caller given its
+path.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-pushNodeByPathToFrontend
 EXPERIMENTAL. @TODO, use XPath.
@@ -372,8 +381,8 @@ func (protocol *DOMProtocol) PushNodeByPathToFrontend(
 }
 
 /*
-PushNodesByBackendIDsToFrontend requests that a batch of nodes is sent to the caller given their
-backend node IDs.
+PushNodesByBackendIDsToFrontend requests that a batch of nodes is sent to the
+caller given their backend node IDs.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-pushNodesByBackendIdsToFrontend
 EXPERIMENTAL.
@@ -471,9 +480,9 @@ func (protocol *DOMProtocol) RemoveNode(
 }
 
 /*
-RequestChildNodes requests that children of the node with given id are returned to the caller in
-form of setChildNodes events where not only immediate children are retrieved, but all children down
-to the specified depth.
+RequestChildNodes requests that children of the node with given id are returned
+to the caller in form of setChildNodes events where not only immediate children
+are retrieved, but all children down to the specified depth.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-requestChildNodes
 */
@@ -486,9 +495,9 @@ func (protocol *DOMProtocol) RequestChildNodes(
 }
 
 /*
-RequestNode requests that the node is sent to the caller given the JavaScript node object reference.
-All nodes that form the path from the node to the root are also sent to the client as a series of
-setChildNodes notifications.
+RequestNode requests that the node is sent to the caller given the JavaScript
+node object reference. All nodes that form the path from the node to the root
+are also sent to the client as a series of setChildNodes notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-requestNode
 */
@@ -508,7 +517,8 @@ func (protocol *DOMProtocol) RequestNode(
 }
 
 /*
-ResolveNode resolves the JavaScript node object for a given NodeID or BackendNodeID.
+ResolveNode resolves the JavaScript node object for a given NodeID or
+BackendNodeID.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-resolveNode
 */
@@ -541,8 +551,9 @@ func (protocol *DOMProtocol) SetAttributeValue(
 }
 
 /*
-SetAttributesAsText sets attributes on element with given id. This method is useful when user edits
-some existing attribute value and types in several attribute name/value pairs.
+SetAttributesAsText sets attributes on element with given id. This method is
+useful when user edits some existing attribute value and types in several
+attribute name/value pairs.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setAttributesAsText
 */
@@ -568,8 +579,8 @@ func (protocol *DOMProtocol) SetFileInputFiles(
 }
 
 /*
-SetInspectedNode enables console to refer to the node with given id via $x (see Command Line API for
-more details $x functions).
+SetInspectedNode enables console to refer to the node with given id via $x (see
+Command Line API for more details $x functions).
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setInspectedNode EXPERIMENTAL.
 */
@@ -630,7 +641,8 @@ func (protocol *DOMProtocol) SetOuterHTML(
 /*
 Undo undoes the last performed action.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-undo EXPERIMENTAL.
+https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-undo
+EXPERIMENTAL.
 */
 func (protocol *DOMProtocol) Undo() error {
 	command := NewCommand("DOM.undo", nil)
@@ -639,8 +651,8 @@ func (protocol *DOMProtocol) Undo() error {
 }
 
 /*
-OnAttributeModified adds a handler to the DOM.attributeModified event. DOM.attributeModified fires
-when Element's attribute is modified.
+OnAttributeModified adds a handler to the DOM.attributeModified event.
+DOM.attributeModified fires when Element's attribute is modified.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-attributeModified
 */
@@ -662,8 +674,8 @@ func (protocol *DOMProtocol) OnAttributeModified(
 }
 
 /*
-OnAttributeRemoved adds a handler to the DOM.attributeRemoved event. DOM.attributeRemoved fires when
-Element's attribute is modified.
+OnAttributeRemoved adds a handler to the DOM.attributeRemoved event.
+DOM.attributeRemoved fires when Element's attribute is modified.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-attributeRemoved
 */
@@ -731,8 +743,8 @@ func (protocol *DOMProtocol) OnChildNodeCountUpdated(
 }
 
 /*
-OnChildNodeInserted adds a handler to the DOM.childNodeInserted event. DOM.childNodeInserted mirrors
-the DOMNodeInserted event.
+OnChildNodeInserted adds a handler to the DOM.childNodeInserted event.
+DOM.childNodeInserted mirrors the DOMNodeInserted event.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-childNodeInserted
 */
@@ -754,8 +766,8 @@ func (protocol *DOMProtocol) OnChildNodeInserted(
 }
 
 /*
-OnChildNodeRemoved adds a handler to the DOM.childNodeRemoved event.DOM.childNodeRemoved mirrors the
-DOMNodeRemoved event.
+OnChildNodeRemoved adds a handler to the DOM.childNodeRemoved event.
+DOM.childNodeRemoved mirrors the DOMNodeRemoved event.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-childNodeRemoved
 */
@@ -777,8 +789,8 @@ func (protocol *DOMProtocol) OnChildNodeRemoved(
 }
 
 /*
-OnDistributedNodesUpdated adds a handler to the DOM.distributedNodesUpdated event.
-DOM.distributedNodesUpdated fires when distribution is changed.
+OnDistributedNodesUpdated adds a handler to the DOM.distributedNodesUpdated
+event. DOM.distributedNodesUpdated fires when distribution is changed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-distributedNodesUpdated
 EXPERIMENTAL.
@@ -801,8 +813,9 @@ func (protocol *DOMProtocol) OnDistributedNodesUpdated(
 }
 
 /*
-OnDocumentUpdated adds a handler to the DOM.documentUpdated event. DOM.documentUpdated
-fires when Document has been totally updated. Node IDs are no longer valid.
+OnDocumentUpdated adds a handler to the DOM.documentUpdated event.
+DOM.documentUpdated fires when Document has been totally updated. Node IDs are
+no longer valid.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-documentUpdated
 */
@@ -847,8 +860,8 @@ func (protocol *DOMProtocol) OnInlineStyleInvalidated(
 }
 
 /*
-OnPseudoElementAdded adds a handler to the DOM.pseudoElementAdded event. DOM.pseudoElementAdded
-fires when a pseudo element is added to an element.
+OnPseudoElementAdded adds a handler to the DOM.pseudoElementAdded event.
+DOM.pseudoElementAdded fires when a pseudo element is added to an element.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-pseudoElementAdded EXPERIMENTAL.
 */
@@ -893,9 +906,9 @@ func (protocol *DOMProtocol) OnPseudoElementRemoved(
 }
 
 /*
-OnSetChildNodes adds a handler to the DOM.setChildNodes event. DOM.setChildNodes fires
-when backend wants to provide client with the missing DOM structure. This happens upon most of the
-calls requesting node IDs.
+OnSetChildNodes adds a handler to the DOM.setChildNodes event. DOM.setChildNodes
+fires when backend wants to provide client with the missing DOM structure. This
+happens upon most of the calls requesting node IDs.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-setChildNodes
 */
@@ -917,8 +930,8 @@ func (protocol *DOMProtocol) OnSetChildNodes(
 }
 
 /*
-OnShadowRootPopped adds a handler to the DOM.shadowRootPopped event. DOM.shadowRootPopped fires when
-shadow root is popped from the element.
+OnShadowRootPopped adds a handler to the DOM.shadowRootPopped event.
+DOM.shadowRootPopped fires when shadow root is popped from the element.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-shadowRootPopped EXPERIMENTAL.
 */
@@ -940,8 +953,8 @@ func (protocol *DOMProtocol) OnShadowRootPopped(
 }
 
 /*
-OnShadowRootPushed adds a handler to the DOM.shadowRootPushed event. DOM.shadowRootPushed fires when
-shadow root is pushed into the element.
+OnShadowRootPushed adds a handler to the DOM.shadowRootPushed event.
+DOM.shadowRootPushed fires when shadow root is pushed into the element.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-shadowRootPushed EXPERIMENTAL.
 */

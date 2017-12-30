@@ -17,7 +17,8 @@ type DatabaseProtocol struct {
 }
 
 /*
-Disable disables database tracking, prevents database events from being sent to the client.
+Disable disables database tracking, prevents database events from being sent to
+the client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-disable
 */
@@ -28,7 +29,8 @@ func (protocol *DatabaseProtocol) Disable() error {
 }
 
 /*
-Enable enables database tracking, database events will now be delivered to the client.
+Enable enables database tracking, database events will now be delivered to the
+client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-enable
 */
@@ -72,8 +74,8 @@ func (protocol *DatabaseProtocol) GetTableNames(
 }
 
 /*
-OnAdd adds a handler to the Database.addDatabase event. Database.addDatabase fires
-whenever a database is added
+OnAdd adds a handler to the Database.addDatabase event. Database.addDatabase
+fires whenever a database is added
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#event-addDatabase
 */

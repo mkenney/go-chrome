@@ -39,8 +39,8 @@ func (protocol *ProfilerProtocol) Enable() error {
 }
 
 /*
-GetBestEffortCoverage collects coverage data for the current isolate. The coverage data may be
-incomplete due to garbage collection.
+GetBestEffortCoverage collects coverage data for the current isolate. The
+coverage data may be incomplete due to garbage collection.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-getBestEffortCoverage
 */
@@ -58,8 +58,8 @@ func (protocol *ProfilerProtocol) GetBestEffortCoverage() (*profiler.GetBestEffo
 }
 
 /*
-SetSamplingInterval changes CPU profiler sampling interval. Must be called before CPU profiles
-recording started.
+SetSamplingInterval changes CPU profiler sampling interval. Must be called
+before CPU profiles recording started.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-setSamplingInterval
 */
@@ -83,9 +83,9 @@ func (protocol *ProfilerProtocol) Start() error {
 }
 
 /*
-StartPreciseCoverage enable precise code coverage. Coverage data for JavaScript executed before
-enabling precise code coverage may be incomplete. Enabling prevents running optimized code and
-resets execution counters.
+StartPreciseCoverage enable precise code coverage. Coverage data for JavaScript
+executed before enabling precise code coverage may be incomplete. Enabling
+prevents running optimized code and resets execution counters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-startPreciseCoverage
 */
@@ -128,8 +128,8 @@ func (protocol *ProfilerProtocol) Stop() (*profiler.StopResult, error) {
 }
 
 /*
-StopPreciseCoverage disable precise code coverage. Disabling releases unnecessary execution count
-records and allows executing optimized code.
+StopPreciseCoverage disable precise code coverage. Disabling releases
+unnecessary execution count records and allows executing optimized code.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stopPreciseCoverage
 */
@@ -140,7 +140,8 @@ func (protocol *ProfilerProtocol) StopPreciseCoverage() error {
 }
 
 /*
-StopTypeProfile disables type profile. Disabling releases type profile data collected so far.
+StopTypeProfile disables type profile. Disabling releases type profile data
+collected so far.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stopTypeProfile
 EXPERIMENTAL.
@@ -152,8 +153,8 @@ func (protocol *ProfilerProtocol) StopTypeProfile() error {
 }
 
 /*
-TakePreciseCoverage collects coverage data for the current isolate, and resets execution counters.
-Precise code coverage needs to have started.
+TakePreciseCoverage collects coverage data for the current isolate, and resets
+execution counters. Precise code coverage needs to have started.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-takePreciseCoverage
 */
@@ -190,8 +191,8 @@ func (protocol *ProfilerProtocol) TakeTypeProfile() (*profiler.TakeTypeProfileRe
 }
 
 /*
-OnConsoleProfileFinished adds a handler to the Profiler.consoleProfileFinished event.
-Profiler.consoleProfileFinished fires when profile recording finishes.
+OnConsoleProfileFinished adds a handler to the Profiler.consoleProfileFinished
+event. Profiler.consoleProfileFinished fires when profile recording finishes.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#event-consoleProfileFinished
 */
@@ -213,9 +214,9 @@ func (protocol *ProfilerProtocol) OnConsoleProfileFinished(
 }
 
 /*
-OnConsoleProfileStarted adds a handler to the Profiler.consoleProfileStarted event.
-Profiler.consoleProfileStarted fires when new profile recording is started using console.profile()
-call.
+OnConsoleProfileStarted adds a handler to the Profiler.consoleProfileStarted
+event. Profiler.consoleProfileStarted fires when new profile recording is
+started using console.profile() call.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#event-consoleProfileStarted
 */

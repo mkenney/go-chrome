@@ -7,8 +7,8 @@ import (
 )
 
 /*
-BrowserProtocol provides a namespace for the Chrome Browser protocol methods. The Browser protocol
-defines methods and events for browser management.
+BrowserProtocol provides a namespace for the Chrome Browser protocol methods.
+The Browser protocol defines methods and events for browser management.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/
 */

@@ -8,7 +8,8 @@ import (
 )
 
 /*
-ApplicationCacheProtocol provides a namespace for the Chrome Animation protocol methods.
+ApplicationCacheProtocol provides a namespace for the Chrome Animation protocol
+methods.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/ EXPERIMENTAL.
 */
@@ -49,8 +50,8 @@ func (protocol *ApplicationCacheProtocol) GetForFrame(
 }
 
 /*
-GetFramesWithManifests returns array of frame identifiers with manifest urls for each frame
-containing a document associated with some application cache.
+GetFramesWithManifests returns array of frame identifiers with manifest urls for
+each frame containing a document associated with some application cache.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getFramesWithManifests
 */
@@ -88,7 +89,8 @@ func (protocol *ApplicationCacheProtocol) GetManifestForFrame(
 }
 
 /*
-OnApplicationCacheStatusUpdated adds a handler to the ApplicationCache.StatusUpdated event.
+OnApplicationCacheStatusUpdated adds a handler to the
+ApplicationCache.StatusUpdated event.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#event-applicationCacheStatusUpdated
 */

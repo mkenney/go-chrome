@@ -80,8 +80,8 @@ func (protocol *InputProtocol) SetIgnoreEvents(
 }
 
 /*
-SynthesizePinchGesture synthesizes a pinch gesture over a time period by issuing appropriate touch
-events.
+SynthesizePinchGesture synthesizes a pinch gesture over a time period by issuing
+appropriate touch events.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizePinchGesture
 EXPERIMENTAL.
@@ -95,8 +95,8 @@ func (protocol *InputProtocol) SynthesizePinchGesture(
 }
 
 /*
-SynthesizeScrollGesture synthesizes a scroll gesture over a time period by issuing appropriate touch
-events.
+SynthesizeScrollGesture synthesizes a scroll gesture over a time period by
+issuing appropriate touch events.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizeScrollGesture
 EXPERIMENTAL.
@@ -110,8 +110,8 @@ func (protocol *InputProtocol) SynthesizeScrollGesture(
 }
 
 /*
-SynthesizeTapGesture synthesizes a tap gesture over a time period by issuing appropriate touch
-events.
+SynthesizeTapGesture synthesizes a tap gesture over a time period by issuing
+appropriate touch events.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizeTapGesture
 EXPERIMENTAL.

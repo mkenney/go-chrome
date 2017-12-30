@@ -8,9 +8,10 @@ import (
 )
 
 /*
-DebuggerProtocol provides a namespace for the Chrome Debugger protocol methods. The Debugger
-protocol exposes JavaScript debugging capabilities. It allows setting and removing breakpoints,
-stepping through execution, exploring stack traces, etc.
+DebuggerProtocol provides a namespace for the Chrome Debugger protocol methods.
+The Debugger protocol exposes JavaScript debugging capabilities. It allows
+setting and removing breakpoints, stepping through execution, exploring stack
+traces, etc.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/
 */
@@ -43,8 +44,8 @@ func (protocol *DebuggerProtocol) Disable() error {
 }
 
 /*
-Enable enables debugger for the given page. Clients should not assume that the debugging has been
-enabled until the result for this command is received.
+Enable enables debugger for the given page. Clients should not assume that the
+debugging has been enabled until the result for this command is received.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-enable
 */
@@ -75,8 +76,8 @@ func (protocol *DebuggerProtocol) EvaluateOnCallFrame(
 }
 
 /*
-GetPossibleBreakpoints returns possible locations for breakpoint. scriptId in start and end range
-locations should be the same.
+GetPossibleBreakpoints returns possible locations for breakpoint. scriptId in
+start and end range locations should be the same.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getPossibleBreakpoints
 */
@@ -204,10 +205,11 @@ func (protocol *DebuggerProtocol) Resume() error {
 }
 
 /*
-ScheduleStepIntoAsync is deprecated - use Debugger.stepInto with breakOnAsyncCall and
-Debugger.pauseOnAsyncTask instead. Steps into next scheduled async task if any is scheduled before
-next pause. Returns success when async task is actually scheduled, returns error if no task were
-scheduled or another scheduleStepIntoAsync was called.
+ScheduleStepIntoAsync is deprecated - use Debugger.stepInto with
+breakOnAsyncCall and Debugger.pauseOnAsyncTask instead. Steps into next
+scheduled async task if any is scheduled before next pause. Returns success when
+async task is actually scheduled, returns error if no task were scheduled or
+another scheduleStepIntoAsync was called.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-scheduleStepIntoAsync
 EXPERIMENTAL. DEPRECATED.
@@ -252,9 +254,10 @@ func (protocol *DebuggerProtocol) SetAsyncCallStackDepth(
 }
 
 /*
-SetBlackboxPatterns replaces previous blackbox patterns with passed ones. Forces backend to skip
-stepping/pausing in scripts with url matching one of the patterns. VM will try to leave blackboxed
-script by performing 'step in' several times, finally resorting to 'step out' if unsuccessful.
+SetBlackboxPatterns replaces previous blackbox patterns with passed ones. Forces
+backend to skip stepping/pausing in scripts with url matching one of the
+patterns. VM will try to leave blackboxed script by performing 'step in' several
+times, finally resorting to 'step out' if unsuccessful.
 
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBlackboxPatterns

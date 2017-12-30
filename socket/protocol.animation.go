@@ -110,7 +110,8 @@ func (protocol *AnimationProtocol) ResolveAnimation(
 }
 
 /*
-SeekAnimations seeks a set of animations to a particular time within each animation.
+SeekAnimations seeks a set of animations to a particular time within each
+animation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-seekAnimations
 */
@@ -162,8 +163,8 @@ func (protocol *AnimationProtocol) SetTiming(
 }
 
 /*
-OnAnimationCanceled adds a handler to the Animation.Canceled event. Animation.Canceled fires when
-when an animation has been cancelled.
+OnAnimationCanceled adds a handler to the Animation.Canceled event.
+Animation.Canceled fires when when an animation has been cancelled.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#event-animationCanceled
 */
@@ -185,8 +186,8 @@ func (protocol *AnimationProtocol) OnAnimationCanceled(
 }
 
 /*
-OnAnimationCreated adds a handler to the Animation.Created event. Animation.Created fires for each
-animation that has been created.
+OnAnimationCreated adds a handler to the Animation.Created event.
+Animation.Created fires for each animation that has been created.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#event-animationCreated
 */
@@ -208,8 +209,8 @@ func (protocol *AnimationProtocol) OnAnimationCreated(
 }
 
 /*
-OnAnimationStarted adds a handler to the Animation.Started event. Animation.Started fires for each
-animation that has been started.
+OnAnimationStarted adds a handler to the Animation.Started event.
+Animation.Started fires for each animation that has been started.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#event-animationStarted
 */

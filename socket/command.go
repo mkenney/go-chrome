@@ -230,12 +230,21 @@ func (socket *socket) HandleCommand(response *Response) {
 	defer socket.commands.Unlock()
 
 	if command, err := socket.commands.Get(response.ID); nil != err {
-		log.Errorf("%s: result=%s err=%s", err.Error(), response.Result, response.Error.Message)
+		log.Errorf(
+			"%s: result=%s err=%s",
+			err.Error(),
+			response.Result,
+			response.Error.Message,
+		)
 
 	} else {
 		socket.commands.Delete(command.ID())
 		if nil != response.Error && "" != response.Error.Message {
-			log.Errorf("Socket command responded with error: result=%s err=%s", response.Result, response.Error.Message)
+			log.Errorf(
+				"Socket command responded with error: result=%s err=%s",
+				response.Result,
+				response.Error.Message,
+			)
 			err = errors.SocketErrorResponse{Type: errors.Type{
 				Caller: errors.GetCaller(),
 				Err: fmt.Errorf(
@@ -247,7 +256,13 @@ func (socket *socket) HandleCommand(response *Response) {
 				Msg: "The socket command failed",
 			}}
 		}
+
 		command.Done(response.Result, err)
-		log.Debugf("Command #%d complete: - %s {%s}", command.ID(), socket.URL(), command.Method())
+		log.Debugf(
+			"Command #%d complete: - %s {%s}",
+			command.ID(),
+			socket.URL(),
+			command.Method(),
+		)
 	}
 }

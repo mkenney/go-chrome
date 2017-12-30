@@ -39,7 +39,8 @@ func (protocol *SecurityProtocol) Enable() error {
 }
 
 /*
-SetIgnoreCertificateErrors enables/disables whether all certificate errors should be ignored.
+SetIgnoreCertificateErrors enables/disables whether all certificate errors
+should be ignored.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setIgnoreCertificateErrors
 EXPERIMENTAL.
@@ -53,7 +54,8 @@ func (protocol *SecurityProtocol) SetIgnoreCertificateErrors(
 }
 
 /*
-HandleCertificateError handles a certificate error that fired a certificateError event.
+HandleCertificateError handles a certificate error that fired a certificateError
+event.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-handleCertificateError
 */
@@ -66,9 +68,9 @@ func (protocol *SecurityProtocol) HandleCertificateError(
 }
 
 /*
-SetOverrideCertificateErrors enables/disables overriding certificate errors. If enabled, all
-certificate error events need to be handled by the DevTools client and should be answered with
-handleCertificateError commands.
+SetOverrideCertificateErrors enables/disables overriding certificate errors. If
+enabled, all certificate error events need to be handled by the DevTools client
+and should be answered with HandleCertificateError commands.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setOverrideCertificateErrors
 */
@@ -81,9 +83,10 @@ func (protocol *SecurityProtocol) SetOverrideCertificateErrors(
 }
 
 /*
-OnCertificateError adds a handler to the Security.certificateError event. Security.certificateError
-fires when there is a certificate error. If overriding certificate errors is enabled, then it should
-be handled with the handleCertificateError command. Note: this event does not fire if the
+OnCertificateError adds a handler to the Security.certificateError event.
+Security.certificateError fires when there is a certificate error. If overriding
+certificate errors is enabled, then it should be handled with the
+HandleCertificateError command. Note: this event does not fire if the
 certificate error has been allowed internally.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#event-certificateError
@@ -106,8 +109,8 @@ func (protocol *SecurityProtocol) OnCertificateError(
 }
 
 /*
-OnSecurityStateChanged adds a handler to the Security.StateChanged event. Security.StateChanged
-fires when the security state of the page changed.
+OnSecurityStateChanged adds a handler to the Security.StateChanged event.
+Security.StateChanged fires when the security state of the page changed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#event-securityStateChanged
 */

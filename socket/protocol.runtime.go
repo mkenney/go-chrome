@@ -8,11 +8,13 @@ import (
 )
 
 /*
-RuntimeProtocol provides a namespace for the Chrome Runtime protocol methods. The Runtime protocol
-exposes JavaScript runtime by means of remote evaluation and mirror objects. Evaluation results are
-returned as mirror object that expose object type, string representation and unique identifier that
-can be used for further object reference. Original objects are maintained in memory unless they are
-either explicitly released or are released along with the other objects in their object group.
+RuntimeProtocol provides a namespace for the Chrome Runtime protocol methods.
+The Runtime protocol exposes JavaScript runtime by means of remote evaluation
+and mirror objects. Evaluation results are returned as mirror object that expose
+object type, string representation and unique identifier that can be used for
+further object reference. Original objects are maintained in memory unless they
+are either explicitly released or are released along with the other objects in
+their object group.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/
 */
@@ -41,8 +43,8 @@ func (protocol *RuntimeProtocol) AwaitPromise(
 }
 
 /*
-CallFunctionOn calls a function with given declaration on the given object. Object group of the
-result is inherited from the target object.
+CallFunctionOn calls a function with given declaration on the given object.
+Object group of the result is inherited from the target object.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-callFunctionOn
 */
@@ -104,9 +106,9 @@ func (protocol *RuntimeProtocol) DiscardConsoleEntries() error {
 }
 
 /*
-Enable enables reporting of execution contexts creation by means of executionContextCreated event.
-When the reporting gets enabled the event will be sent immediately for each existing execution
-context.
+Enable enables reporting of execution contexts creation by means of the
+Runtime.executionContextCreated event. When the reporting gets enabled the event
+will be sent immediately for each existing execution context.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-enable
 */
@@ -137,8 +139,8 @@ func (protocol *RuntimeProtocol) Evaluate(
 }
 
 /*
-GetProperties returns properties of a given object. Object group of the result is inherited from the
-target object.
+GetProperties returns properties of a given object. Object group of the result
+is inherited from the target object.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-getProperties
 */
@@ -158,7 +160,8 @@ func (protocol *RuntimeProtocol) GetProperties(
 }
 
 /*
-GlobalLexicalScopeNames returns all let, const and class variables from global scope.
+GlobalLexicalScopeNames returns all let, const and class variables from global
+scope.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-globalLexicalScopeNames
 */
@@ -224,7 +227,8 @@ func (protocol *RuntimeProtocol) ReleaseObjectGroup(
 }
 
 /*
-RunIfWaitingForDebugger tells inspected instance to run if it was waiting for debugger to attach.
+RunIfWaitingForDebugger tells inspected instance to run if it was waiting for
+debugger to attach.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-runIfWaitingForDebugger
 */
@@ -269,8 +273,8 @@ func (protocol *RuntimeProtocol) SetCustomObjectFormatterEnabled(
 }
 
 /*
-OnConsoleAPICalled adds a handler to the Runtime.consoleAPICalled event. Runtime.consoleAPICalled
-fires when the console API is called.
+OnConsoleAPICalled adds a handler to the Runtime.consoleAPICalled event.
+Runtime.consoleAPICalled fires when the console API is called.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-consoleAPICalled
 */
@@ -292,8 +296,8 @@ func (protocol *RuntimeProtocol) OnConsoleAPICalled(
 }
 
 /*
-OnExceptionRevoked adds a handler to the Runtime.exceptionRevoked event. Runtime.exceptionRevoked
-fires when an unhandled exception is revoked.
+OnExceptionRevoked adds a handler to the Runtime.exceptionRevoked event.
+Runtime.exceptionRevoked fires when an unhandled exception is revoked.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-exceptionRevoked
 */
@@ -315,8 +319,8 @@ func (protocol *RuntimeProtocol) OnExceptionRevoked(
 }
 
 /*
-OnExceptionThrown adds a handler to the Runtime.exceptionThrown event. Runtime.exceptionThrown fires
-when an exception is thrown and is unhandled.
+OnExceptionThrown adds a handler to the Runtime.exceptionThrown event.
+Runtime.exceptionThrown fires when an exception is thrown and is unhandled.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-exceptionThrown
 */
@@ -338,8 +342,9 @@ func (protocol *RuntimeProtocol) OnExceptionThrown(
 }
 
 /*
-OnExecutionContextCreated adds a handler to the Runtime.executionContextCreated event.
-Runtime.executionContextCreated fires when a new execution context is created.
+OnExecutionContextCreated adds a handler to the Runtime.executionContextCreated
+event. Runtime.executionContextCreated fires when a new execution context is
+created.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionContextCreated
 */
@@ -361,8 +366,9 @@ func (protocol *RuntimeProtocol) OnExecutionContextCreated(
 }
 
 /*
-OnExecutionContextDestroyed adds a handler to the Runtime.executionContextDestroyed event.
-Runtime.executionContextDestroyed fires when execution context is destroyed.
+OnExecutionContextDestroyed adds a handler to the Runtime.executionContextDestroyed
+event. Runtime.executionContextDestroyed fires when execution context is
+destroyed.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionContextDestroyed
 */
@@ -384,8 +390,9 @@ func (protocol *RuntimeProtocol) OnExecutionContextDestroyed(
 }
 
 /*
-OnExecutionContextsCleared adds a handler to the Runtime.executionContextsCleared event.
-Runtime.executionContextsCleared fires when all executionContexts were cleared in browser.
+OnExecutionContextsCleared adds a handler to the Runtime.executionContextsCleared
+event. Runtime.executionContextsCleared fires when all executionContexts were
+cleared in browser.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionContextsCleared
 */
@@ -407,9 +414,9 @@ func (protocol *RuntimeProtocol) OnExecutionContextsCleared(
 }
 
 /*
-OnInspectRequested adds a handler to the Runtime.inspectRequested event. Runtime.inspectRequested
-fires when an object should be inspected (for example, as a result of inspect() command line API
-call).
+OnInspectRequested adds a handler to the Runtime.inspectRequested event.
+Runtime.inspectRequested fires when an object should be inspected (for example,
+as a result of inspect() command line API call).
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-inspectRequested
 */
