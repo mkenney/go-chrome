@@ -8,6 +8,11 @@ import (
 )
 
 /*
+SocketErrorResponse is used when a socket connection responds with error data.
+*/
+type SocketErrorResponse struct{ Type }
+
+/*
 SocketReadFailed is used when an attempt to read from a socket connection fails.
 */
 type SocketReadFailed struct{ Type }
@@ -16,11 +21,6 @@ type SocketReadFailed struct{ Type }
 SocketWriteFailed is used when an attempt to write to a socket connection fails.
 */
 type SocketWriteFailed struct{ Type }
-
-/*
-SocketErrorResponse is used when a socket connection responds with error data.
-*/
-type SocketErrorResponse struct{ Type }
 
 /*
 Type defines the data type for errors.
