@@ -21,17 +21,7 @@ import (
 New returns a new Socketer websocket connection listening to the specified URL.
 */
 func New(socketURL string) (Socketer, error) {
-
-	dialer := &websocket.Dialer{EnableCompression: false}
-	header := http.Header{"Origin": []string{socketURL}}
-
-	webSocket, response, err := dialer.Dial(socketURL, header)
-	if err != nil {
-		return nil, fmt.Errorf("Could not create websocket connection. %s responded with '%s'", socketURL, response.Status)
-	}
-
 	socket := &socket{
-		conn:     webSocket,
 		commands: NewCommandMap(),
 		handlers: NewEventHandlerMap(),
 		url:      socketURL,
@@ -78,8 +68,8 @@ func New(socketURL string) (Socketer, error) {
 	socket.tracing = &TracingProtocol{Socket: socket}
 
 	go socket.Listen()
+	log.Infof("New socket connection listening on %s", socket.url)
 
-	log.Infof("New socket connection listening on %s: %s", socket.url, response.Status)
 	return socket, nil
 }
 
@@ -154,10 +144,39 @@ func (socket *socket) Conn() Conner {
 }
 
 /*
+Connect implements Socketer.
+*/
+func (socket *socket) Connect() (Conner, *http.Response, error) {
+	dialer := &websocket.Dialer{EnableCompression: false}
+	header := http.Header{"Origin": []string{socket.url}}
+
+	conn, response, err := dialer.Dial(socket.url, header)
+	if err != nil {
+		return nil, nil, fmt.Errorf(
+			"Could not create websocket connection. %s responded with '%s': %s",
+			socket.url,
+			response.Status,
+			err.Error(),
+		)
+	}
+
+	socket.conn = conn
+	return socket.conn, response, nil
+}
+
+/*
 Listen implements Socketer.
 */
 func (socket *socket) Listen() error {
 	var err error
+
+	_, response, err := socket.Connect()
+	if nil != err {
+		log.Errorf("Failed to connect to socket '%s': %s", socket.url, response.Status)
+		return err
+	}
+	defer socket.Close()
+
 	socket.stopListening = false
 	for {
 		if socket.stopListening {

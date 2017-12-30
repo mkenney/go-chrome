@@ -1,6 +1,7 @@
 package socket
 
 import (
+	"net/http"
 	"sync"
 )
 
@@ -61,7 +62,7 @@ type Conner interface {
 }
 
 /*
-EventHandler is the interface definition for a socket event.
+EventHandler is the interface definition for a socket event handler.
 */
 type EventHandler interface {
 	// Handle executes the event handler callback.
@@ -108,27 +109,33 @@ type Socketer interface {
 	// Close closes the current socket connection.
 	Close() error
 
-	// Conn returns the websocket connection
+	// Conn returns the websocket connection interface.
 	Conn() Conner
 
-	// HandleCommand handles all responses to commands sent to the websocket
+	// Connect creates a new websocket connection.
+	Connect() (Conner, *http.Response, error)
+
+	// HandleCommand receives the responses to requests sent to the websocket
 	// connection.
 	HandleCommand(response *Response)
 
-	// HandlEvent handles all events delivered to the websocket listener.
+	// HandlEvent receives all events and associated data read from the
+	// websocket connection.
 	HandleEvent(response *Response)
 
-	// Listen starts the socket read loop.
+	// Listen starts the socket read loop and delivers messages to
+	// HandleCommand() and HandleEvent() as appropriate
 	Listen() error
 
 	// RemoveEventHandler removes a handler from the stack of listeners for an
 	// event.
 	RemoveEventHandler(handler EventHandler)
 
-	// SendCommand sends a command to the websocket connection.
+	// SendCommand delivers a command payload to the websocket connection.
 	SendCommand(command Commander) *commandPayload
 
-	// Stop tells the socket connection to stop listening for data
+	// Stop signals the socket read loop to stop listening for data and close
+	// the websocket connection.
 	Stop()
 
 	// URL returns the URL of the websocket connection
