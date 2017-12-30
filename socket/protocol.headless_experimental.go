@@ -36,7 +36,7 @@ func (protocol *HeadlessExperimentalProtocol) BeginFrame(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 

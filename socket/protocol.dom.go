@@ -41,7 +41,7 @@ func (protocol *DOMProtocol) CollectClassNamesFromSubtree(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -62,7 +62,7 @@ func (protocol *DOMProtocol) CopyTo(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -83,7 +83,7 @@ func (protocol *DOMProtocol) DescribeNode(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -153,7 +153,7 @@ func (protocol *DOMProtocol) GetAttributes(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -173,7 +173,7 @@ func (protocol *DOMProtocol) GetBoxModel(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -193,7 +193,7 @@ func (protocol *DOMProtocol) GetDocument(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -213,7 +213,7 @@ func (protocol *DOMProtocol) GetFlattenedDocument(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -233,7 +233,7 @@ func (protocol *DOMProtocol) GetNodeForLocation(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -253,7 +253,7 @@ func (protocol *DOMProtocol) GetOuterHTML(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -273,7 +273,7 @@ func (protocol *DOMProtocol) GetRelayoutBoundary(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -294,7 +294,7 @@ func (protocol *DOMProtocol) GetSearchResults(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -325,7 +325,7 @@ func (protocol *DOMProtocol) MoveTo(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -346,7 +346,7 @@ func (protocol *DOMProtocol) PerformSearch(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -367,7 +367,7 @@ func (protocol *DOMProtocol) PushNodeByPathToFrontend(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -389,7 +389,7 @@ func (protocol *DOMProtocol) PushNodesByBackendIDsToFrontend(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -409,7 +409,7 @@ func (protocol *DOMProtocol) QuerySelector(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -429,7 +429,7 @@ func (protocol *DOMProtocol) QuerySelectorAll(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -503,7 +503,7 @@ func (protocol *DOMProtocol) RequestNode(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -523,7 +523,7 @@ func (protocol *DOMProtocol) ResolveNode(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -597,7 +597,7 @@ func (protocol *DOMProtocol) SetNodeName(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 

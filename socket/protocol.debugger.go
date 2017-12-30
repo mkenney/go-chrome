@@ -70,7 +70,7 @@ func (protocol *DebuggerProtocol) EvaluateOnCallFrame(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -91,7 +91,7 @@ func (protocol *DebuggerProtocol) GetPossibleBreakpoints(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -111,7 +111,7 @@ func (protocol *DebuggerProtocol) GetScriptSource(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -131,7 +131,7 @@ func (protocol *DebuggerProtocol) GetStackTrace(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -188,7 +188,7 @@ func (protocol *DebuggerProtocol) RestartFrame(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -234,7 +234,7 @@ func (protocol *DebuggerProtocol) SearchInContent(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -300,7 +300,7 @@ func (protocol *DebuggerProtocol) SetBreakpoint(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -323,7 +323,7 @@ func (protocol *DebuggerProtocol) SetBreakpointByURL(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -384,7 +384,7 @@ func (protocol *DebuggerProtocol) SetScriptSource(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 

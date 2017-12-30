@@ -34,7 +34,7 @@ func (protocol *PageProtocol) AddScriptToEvaluateOnLoad(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -55,7 +55,7 @@ func (protocol *PageProtocol) AddScriptToEvaluateOnNewDocument(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -86,7 +86,7 @@ func (protocol *PageProtocol) CaptureScreenshot(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -106,7 +106,7 @@ func (protocol *PageProtocol) CreateIsolatedWorld(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -160,7 +160,7 @@ func (protocol *PageProtocol) GetFrameTree() (*page.GetFrameTreeResult, error) {
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -179,7 +179,7 @@ func (protocol *PageProtocol) GetLayoutMetrics() (*page.GetLayoutMetricsResult, 
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -197,7 +197,7 @@ func (protocol *PageProtocol) GetNavigationHistory() (*page.GetNavigationHistory
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -217,7 +217,7 @@ func (protocol *PageProtocol) GetResourceContent(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -235,7 +235,7 @@ func (protocol *PageProtocol) GetResourceTree() (*page.GetResourceTreeResult, er
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -270,7 +270,7 @@ func (protocol *PageProtocol) Navigate(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -304,7 +304,7 @@ func (protocol *PageProtocol) PrintToPDF(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -392,7 +392,7 @@ func (protocol *PageProtocol) SearchInResource(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 

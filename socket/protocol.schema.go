@@ -1,6 +1,8 @@
 package socket
 
 import (
+	"encoding/json"
+
 	schema "github.com/mkenney/go-chrome/protocol/schema"
 )
 
@@ -27,6 +29,6 @@ func (protocol *SchemaProtocol) GetDomains() (*schema.GetDomainsResult, error) {
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }

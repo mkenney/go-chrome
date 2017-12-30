@@ -1,6 +1,8 @@
 package socket
 
 import (
+	"encoding/json"
+
 	browser "github.com/mkenney/go-chrome/protocol/browser"
 )
 
@@ -39,7 +41,7 @@ func (protocol *BrowserProtocol) GetVersion() (*browser.GetVersionResult, error)
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -59,7 +61,7 @@ func (protocol *BrowserProtocol) GetWindowBounds(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -80,7 +82,7 @@ func (protocol *BrowserProtocol) GetWindowForTarget(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -100,6 +102,6 @@ func (protocol *BrowserProtocol) SetWindowBounds(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }

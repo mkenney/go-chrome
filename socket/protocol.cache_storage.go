@@ -1,6 +1,8 @@
 package socket
 
 import (
+	"encoding/json"
+
 	cacheStorage "github.com/mkenney/go-chrome/protocol/cache_storage"
 )
 
@@ -55,7 +57,7 @@ func (protocol *CacheStorageProtocol) RequestCacheNames(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -75,7 +77,7 @@ func (protocol *CacheStorageProtocol) RequestCachedResponse(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -95,6 +97,6 @@ func (protocol *CacheStorageProtocol) RequestEntries(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }

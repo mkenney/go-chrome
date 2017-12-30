@@ -1,6 +1,8 @@
 package socket
 
 import (
+	"encoding/json"
+
 	io "github.com/mkenney/go-chrome/protocol/io"
 )
 
@@ -43,7 +45,7 @@ func (protocol *IOProtocol) Read(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -63,6 +65,6 @@ func (protocol *IOProtocol) ResolveBlob(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }

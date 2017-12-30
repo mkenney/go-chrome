@@ -59,7 +59,7 @@ func (protocol *TargetProtocol) CloseTarget(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -79,7 +79,7 @@ func (protocol *TargetProtocol) CreateBrowserContext() (*target.CreateBrowserCon
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -99,7 +99,7 @@ func (protocol *TargetProtocol) CreateTarget(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -146,7 +146,7 @@ func (protocol *TargetProtocol) GetTargetInfo(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 

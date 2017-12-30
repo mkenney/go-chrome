@@ -32,7 +32,7 @@ func (protocol *NetworkProtocol) CanClearBrowserCache() (*network.CanClearBrowse
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -50,7 +50,7 @@ func (protocol *NetworkProtocol) CanClearBrowserCookies() (*network.CanClearBrow
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -68,7 +68,7 @@ func (protocol *NetworkProtocol) CanEmulateConditions() (*network.CanEmulateCond
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -176,7 +176,7 @@ func (protocol *NetworkProtocol) GetAllCookies() (*network.GetAllCookiesResult, 
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -196,7 +196,7 @@ func (protocol *NetworkProtocol) GetCertificate(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -217,7 +217,7 @@ func (protocol *NetworkProtocol) GetCookies(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -237,7 +237,7 @@ func (protocol *NetworkProtocol) GetResponseBody(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -258,7 +258,7 @@ func (protocol *NetworkProtocol) GetResponseBodyForInterception(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -294,7 +294,7 @@ func (protocol *NetworkProtocol) SearchInResponseBody(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -354,7 +354,7 @@ func (protocol *NetworkProtocol) SetCookie(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 

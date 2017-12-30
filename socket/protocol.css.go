@@ -39,7 +39,7 @@ func (protocol *CSSProtocol) AddRule(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -59,7 +59,7 @@ func (protocol *CSSProtocol) CollectClassNames(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -79,7 +79,7 @@ func (protocol *CSSProtocol) CreateStyleSheet(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -136,7 +136,7 @@ func (protocol *CSSProtocol) GetBackgroundColors(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -156,7 +156,7 @@ func (protocol *CSSProtocol) GetComputedStyleForNode(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -177,7 +177,7 @@ func (protocol *CSSProtocol) GetInlineStylesForNode(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -197,7 +197,7 @@ func (protocol *CSSProtocol) GetMatchedStylesForNode(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -229,7 +229,7 @@ func (protocol *CSSProtocol) GetPlatformFontsForNode(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -249,7 +249,7 @@ func (protocol *CSSProtocol) GetStyleSheetText(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -283,7 +283,7 @@ func (protocol *CSSProtocol) SetKeyframeKey(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -303,7 +303,7 @@ func (protocol *CSSProtocol) SetMediaText(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -323,7 +323,7 @@ func (protocol *CSSProtocol) SetRuleSelector(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -343,7 +343,7 @@ func (protocol *CSSProtocol) SetStyleSheetText(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -363,7 +363,7 @@ func (protocol *CSSProtocol) SetStyleTexts(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -392,7 +392,7 @@ func (protocol *CSSProtocol) StopRuleUsageTracking() (*css.StopRuleUsageTracking
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -411,7 +411,7 @@ func (protocol *CSSProtocol) TakeCoverageDelta() (*css.TakeCoverageDeltaResult, 
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 

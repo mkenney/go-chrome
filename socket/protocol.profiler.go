@@ -53,7 +53,7 @@ func (protocol *ProfilerProtocol) GetBestEffortCoverage() (*profiler.GetBestEffo
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -123,7 +123,7 @@ func (protocol *ProfilerProtocol) Stop() (*profiler.StopResult, error) {
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -166,7 +166,7 @@ func (protocol *ProfilerProtocol) TakePreciseCoverage() (*profiler.TakePreciseCo
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -185,7 +185,7 @@ func (protocol *ProfilerProtocol) TakeTypeProfile() (*profiler.TakeTypeProfileRe
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 

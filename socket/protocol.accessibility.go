@@ -1,6 +1,8 @@
 package socket
 
 import (
+	"encoding/json"
+
 	accessibility "github.com/mkenney/go-chrome/protocol/accessibility"
 )
 
@@ -30,6 +32,6 @@ func (protocol *AccessibilityProtocol) GetPartialAXTree(
 		return nil, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }

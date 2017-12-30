@@ -1,22 +1,5 @@
 package socket
 
-import (
-	"encoding/json"
-)
-
-/*
-MarshalResult abstracts marshalling Commander results into protocol data structs
-*/
-func MarshalResult(command Commander, result interface{}) error {
-	if nil != command.Result() {
-		err := json.Unmarshal(command.Result(), &result)
-		if nil != err {
-			return err
-		}
-	}
-	return nil
-}
-
 /*
 Accessibility implements Socketer
 */

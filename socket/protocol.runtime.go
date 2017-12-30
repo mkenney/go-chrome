@@ -36,7 +36,7 @@ func (protocol *RuntimeProtocol) AwaitPromise(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -57,7 +57,7 @@ func (protocol *RuntimeProtocol) CallFunctionOn(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -77,7 +77,7 @@ func (protocol *RuntimeProtocol) CompileScript(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -132,7 +132,7 @@ func (protocol *RuntimeProtocol) Evaluate(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -153,7 +153,7 @@ func (protocol *RuntimeProtocol) GetProperties(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -173,7 +173,7 @@ func (protocol *RuntimeProtocol) GlobalLexicalScopeNames(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -193,7 +193,7 @@ func (protocol *RuntimeProtocol) QueryObjects(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -250,7 +250,7 @@ func (protocol *RuntimeProtocol) RunScript(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 

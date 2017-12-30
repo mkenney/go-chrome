@@ -54,7 +54,7 @@ func (protocol *AnimationProtocol) GetCurrentTime(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -72,7 +72,7 @@ func (protocol *AnimationProtocol) GetPlaybackRate() (*animation.GetPlaybackRate
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -105,7 +105,7 @@ func (protocol *AnimationProtocol) ResolveAnimation(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 

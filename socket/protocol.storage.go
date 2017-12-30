@@ -45,7 +45,7 @@ func (protocol *StorageProtocol) GetUsageAndQuota(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 

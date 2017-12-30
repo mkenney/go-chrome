@@ -32,7 +32,7 @@ func (protocol *LayerTreeProtocol) CompositingReasons(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -74,7 +74,7 @@ func (protocol *LayerTreeProtocol) LoadSnapshot(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -94,7 +94,7 @@ func (protocol *LayerTreeProtocol) MakeSnapshot(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -114,7 +114,7 @@ func (protocol *LayerTreeProtocol) ProfileSnapshot(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -147,7 +147,7 @@ func (protocol *LayerTreeProtocol) ReplaySnapshot(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
@@ -167,7 +167,7 @@ func (protocol *LayerTreeProtocol) SnapshotCommandLog(
 		return result, command.Error()
 	}
 
-	err := MarshalResult(command, &result)
+	err := json.Unmarshal(command.Result(), &result)
 	return result, err
 }
 
