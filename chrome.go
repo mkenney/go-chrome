@@ -164,6 +164,16 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+func init() {
+	levelFlag := os.Getenv("LOG_LEVEL")
+	if "" != levelFlag {
+		level, err := log.ParseLevel(levelFlag)
+		if nil == err {
+			log.SetLevel(level)
+		}
+	}
+}
+
 /*
 New returns a pointer to a Browser struct
 */
@@ -361,7 +371,8 @@ func (browser *Browser) Launch() error {
 		}
 	}
 	if err != nil {
-		log.Errorf("Chromium took too long to start: %s", err.Error())
+		log.Errorf("Chromium took too long to start")
+		log.Debugf(err.Error())
 		browser.Close()
 		return err
 	}
