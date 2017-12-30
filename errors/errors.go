@@ -53,9 +53,9 @@ GetCaller returns caller information.
 */
 func GetCaller() map[string]string {
 	caller := map[string]string{
-		"pc":   "nil",
 		"file": "nil",
 		"line": "nil",
+		"pc":   "nil",
 	}
 	a := 1
 	for {
