@@ -36,6 +36,7 @@ func New(socketURL string) (Socketer, error) {
 		url:      socketURL,
 	}
 
+	// Init the protocol interfaces for the API.
 	socket.accessibility = &AccessibilityProtocol{Socket: socket}
 	socket.animation = &AnimationProtocol{Socket: socket}
 	socket.applicationCache = &ApplicationCacheProtocol{Socket: socket}
@@ -96,10 +97,7 @@ type socket struct {
 	conn          Conner
 	stopListening bool
 
-	//////////////////////////////////////////////////
-	// Protocol interfaces
-	//////////////////////////////////////////////////
-
+	// Protocol interfaces for the API.
 	accessibility        *AccessibilityProtocol
 	animation            *AnimationProtocol
 	applicationCache     *ApplicationCacheProtocol
