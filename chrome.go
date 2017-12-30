@@ -356,7 +356,7 @@ func (browser *Browser) Launch() error {
 	// Wait up to 10 seconds for Chromium to start
 	for i := 0; i < 10; i++ {
 		time.Sleep(time.Second)
-		if err = browser.checkVersion(); nil == err {
+		if _, err = browser.Version(); nil == err {
 			break
 		}
 	}
@@ -426,7 +426,7 @@ type Version struct {
 }
 
 /*
-GetTab returns an open tab instance.
+GetTab returns an open Tab instance.
 */
 func (browser *Browser) GetTab(tabID string) (tab *Tab, err error) {
 	for _, tab = range browser.tabs {
@@ -436,14 +436,6 @@ func (browser *Browser) GetTab(tabID string) (tab *Tab, err error) {
 	}
 	err = fmt.Errorf("Tab '%s' not found", tabID)
 	return
-}
-
-func (browser *Browser) checkVersion() error {
-	if _, err := browser.Cmd("/json/version", url.Values{}, &browser.version); err != nil {
-		return err
-	}
-	log.Infof("Chromium protocol version: %s", browser.version.ProtocolVersion)
-	return nil
 }
 
 /*
