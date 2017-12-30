@@ -9,7 +9,7 @@ Chromium defines an interface for interacting with Chromium based web browsers
 */
 type Chromium interface {
 	// Address returns the domain to use for accessing Chrome sockets (e.g.
-	// 'localhost'). Defaults to 'localhost'.
+	// 'localhost'). Should return a sane default value such as 'localhost'.
 	Address() string
 
 	// Args returns a Commander interface used to define and manage CLI
@@ -17,19 +17,19 @@ type Chromium interface {
 	// from the API.
 	Args() Commander
 
-	// Binary returns the path to the Chromium binary. Defaults to
-	// '/usr/bin/google-chrome'.
+	// Binary returns the path to the Chromium binary. Should return a sane
+	// default value such as '/usr/bin/google-chrome'.
 	Binary() string
 
 	// Close ends the Chromium process and cleans up.
 	Close() error
 
 	// DebuggingAddress returns the address that the remote debugging protocol
-	// is available on. Defaults to '0.0.0.0'.
+	// is available on. Should return a sane default value such as '0.0.0.0'.
 	DebuggingAddress() string
 
 	// DebuggingPort is the port number that the remote debugging protocol is
-	// available on. Defaults to 9222.
+	// available on. Should return a sane default value such as 9222.
 	DebuggingPort() int
 
 	// Launch launches the Chromium process and returns the connected Chromium
@@ -40,11 +40,12 @@ type Chromium interface {
 	NewTab(url string) (*Tab, error)
 
 	// Output returns the path to a file to be used to capture STDOUT and STDERR
-	// output. Defaults to '/dev/stdout'.
+	// output. Defaut value should be an empty string, in which case all output
+	// is delivered to STDOUT.
 	Output() string
 
 	// Port returns the port number the developer tools endpoints will listen
-	// on. Defaults to 9222.
+	// on. Should return a sane default value such as 9222.
 	Port() int
 
 	// Tabs returns the list of the currently open tabs.
@@ -53,17 +54,9 @@ type Chromium interface {
 	// Version returns Chromium version data.
 	Version() (*Version, error)
 
-	// Workdir returns the path of the Chromium working directory. Defaults to
-	// '/tmp/headless-chrome'.
+	// Workdir returns the path of the Chromium working directory. Should return
+	// a sane default value such as '/tmp/headless-chrome'.
 	Workdir() string
-
-	// output is a pointer to a file handle to be used to capture STDOUT and
-	// STDERR output.
-	//output *os.File
-
-	// process is a pointer to the os.Process struct containing the process PID.
-	//process *os.Process
-
 }
 
 /*

@@ -242,13 +242,15 @@ type Browser struct {
 
 /*
 Address implements Chromium.
+
+Default value is 'localhost'
 */
 func (browser *Browser) Address() string {
-	values, err := browser.args.Get("address")
-	if nil != err {
-		return ""
+	if !browser.Args().Has("addr") {
+		browser.Args().Set("addr", []interface{}{"localhost"})
 	}
-	return values[0].(string)
+	value, _ := browser.Args().Get("addr")
+	return value[0].(string)
 }
 
 /*
@@ -260,8 +262,13 @@ func (browser *Browser) Args() Commander {
 
 /*
 Binary implements Chromium.
+
+Default value is '/usr/bin/google-chrome' for use with the mkenney/chromium-headless Docker image.
 */
 func (browser *Browser) Binary() string {
+	if "" == browser.binary {
+		browser.binary = "/usr/bin/google-chrome"
+	}
 	return browser.binary
 }
 
@@ -287,24 +294,26 @@ func (browser *Browser) Close() error {
 
 /*
 DebuggingAddress implements Chromium.
+
+Default value is '0.0.0.0'.
 */
 func (browser *Browser) DebuggingAddress() string {
-	values, err := browser.args.Get("remote-debugging-address")
-	if nil != err {
-		return ""
+	if !browser.Args().Has("remote-debugging-address") {
+		browser.Args().Set("remote-debugging-address", []interface{}{"0.0.0.0"})
 	}
-	return values[0].(string)
+	value, _ := browser.Args().Get("remote-debugging-address")
+	return value[0].(string)
 }
 
 /*
 DebuggingPort implements Chromium.
 */
 func (browser *Browser) DebuggingPort() int {
-	values, err := browser.args.Get("remote-debugging-port")
-	if nil != err {
-		return 0
+	if !browser.Args().Has("remote-debugging-port") {
+		browser.Args().Set("remote-debugging-port", []interface{}{9222})
 	}
-	return values[0].(int)
+	value, _ := browser.Args().Get("remote-debugging-port")
+	return value[0].(int)
 }
 
 /*
@@ -313,21 +322,18 @@ Launch implements Chromium.
 func (browser *Browser) Launch() error {
 	var err error
 
-	if "" == browser.Binary() {
-		browser.binary = "/usr/bin/google-chrome"
-	}
-
+	// Default values for required parameters
 	if !browser.Args().Has("addr") {
-		browser.Args().Set("addr", []interface{}{"localhost"})
+		browser.Args().Set("addr", []interface{}{browser.Address()})
 	}
 	if !browser.Args().Has("remote-debugging-address") {
-		browser.Args().Set("remote-debugging-address", []interface{}{"0.0.0.0"})
+		browser.Args().Set("remote-debugging-address", []interface{}{browser.DebuggingAddress()})
 	}
 	if !browser.Args().Has("remote-debugging-port") {
-		browser.Args().Set("remote-debugging-port", []interface{}{9222})
+		browser.Args().Set("remote-debugging-port", []interface{}{browser.DebuggingPort()})
 	}
 	if !browser.Args().Has("port") {
-		browser.Args().Set("port", []interface{}{9222})
+		browser.Args().Set("port", []interface{}{browser.Port()})
 	}
 	if !browser.Args().Has("user-data-dir") {
 		browser.Args().Set("user-data-dir", []interface{}{os.TempDir()})
@@ -384,18 +390,23 @@ func (browser *Browser) Launch() error {
 Output implements Chromium.
 */
 func (browser *Browser) Output() string {
+	if "" == browser.output {
+		browser.output = "/dev/stdout"
+	}
 	return browser.output
 }
 
 /*
 Port implements Chromium.
+
+Default value is 9222
 */
 func (browser *Browser) Port() int {
-	values, err := browser.args.Get("port")
-	if nil != err {
-		return 0
+	if !browser.Args().Has("port") {
+		browser.Args().Set("port", []interface{}{9222})
 	}
-	return values[0].(int)
+	value, _ := browser.Args().Get("port")
+	return value[0].(int)
 }
 
 /*
@@ -419,8 +430,13 @@ func (browser *Browser) Version() (*Version, error) {
 
 /*
 Workdir implements Chromium.
+
+Default value is /tmp/headless-chrome
 */
 func (browser *Browser) Workdir() string {
+	if "" == browser.workdir {
+		browser.workdir = filepath.Join(os.TempDir(), "headless-chrome")
+	}
 	return browser.workdir
 }
 
