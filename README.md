@@ -7,4 +7,8 @@ This package aims to be a complete [Chrome DevTools Protocol](https://chromedevt
 
 This is a work in progress. I think most things are workable now but I still need to add tests and happy-path test more of the APIs. I have [`Page.captureScreenshot`](https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot) working fairly well and have been using that for validating changes so far.
 
-I think the API is stable but is not yet production ready.
+API should be stable but is not yet production ready.
+
+# TODO
+
+Add more tests. So many tests...
