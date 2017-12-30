@@ -33,20 +33,20 @@ func TestGetPartialAXTree(t *testing.T) {
 	}
 
 	mockData := accessibility.PartialAXTreeResult{
-		Nodes: []*accessibility.AXNode{&accessibility.AXNode{
+		Nodes: []*accessibility.AXNode{{
 			NodeID:  accessibility.AXNodeID("NodeID"),
 			Ignored: false,
-			IgnoredReasons: []*accessibility.AXProperty{&accessibility.AXProperty{
+			IgnoredReasons: []*accessibility.AXProperty{{
 				Name: "PropertyName",
 				Value: &accessibility.AXValue{
 					Type:  accessibility.AXValueType("ValueType"),
 					Value: nil,
-					RelatedNodes: []*accessibility.AXRelatedNode{&accessibility.AXRelatedNode{
+					RelatedNodes: []*accessibility.AXRelatedNode{{
 						BackendDOMNodeID: dom.BackendNodeID(1),
 						IDRef:            "idref",
 						Text:             "some text",
 					}},
-					Sources: []*accessibility.AXValueSource{&accessibility.AXValueSource{
+					Sources: []*accessibility.AXValueSource{{
 						Type:              accessibility.AXValueSourceType("SourceType"),
 						Value:             &accessibility.AXValue{},
 						Attribute:         "Attribute",
