@@ -398,7 +398,7 @@ func (browser *Browser) Tabs() []*Tab {
 Version implements Chromium.
 */
 func (browser *Browser) Version() (*Version, error) {
-	if "" == browser.version.Browser {
+	if nil == browser.version {
 		if _, err := browser.Cmd("/json/version", url.Values{}, &browser.version); err != nil {
 			return nil, err
 		}
