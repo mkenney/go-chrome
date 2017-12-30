@@ -9,8 +9,6 @@ import (
 	"github.com/mkenney/go-chrome/protocol/dom"
 )
 
-//var mux = sync.Mutex{}
-
 func TestGetPartialAXTree(t *testing.T) {
 	MockJSONRead = false
 	MockJSONType = "command"
