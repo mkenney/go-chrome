@@ -49,7 +49,7 @@ func (err Type) Error() string {
 GetCaller returns caller information.
 */
 func GetCaller() map[string]string {
-	var caller map[string]string
+	caller := make(map[string]string)
 	a := 1
 	for {
 		if pc, file, line, ok := runtime.Caller(a); ok {
