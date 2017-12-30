@@ -8,17 +8,17 @@ import (
 )
 
 /*
-SocketReadFailed is used when an attempt to from a socket connection fails.
+SocketReadFailed is used when an attempt to read from a socket connection fails.
 */
 type SocketReadFailed struct{ Type }
 
 /*
-SocketWriteFailed is used when an attempt to write to a socket fails.
+SocketWriteFailed is used when an attempt to write to a socket connection fails.
 */
 type SocketWriteFailed struct{ Type }
 
 /*
-SocketErrorResponse is used when a socket responds with error data.
+SocketErrorResponse is used when a socket connection responds with error data.
 */
 type SocketErrorResponse struct{ Type }
 
