@@ -52,7 +52,11 @@ func (err Type) Error() string {
 GetCaller returns caller information.
 */
 func GetCaller() map[string]string {
-	caller := make(map[string]string)
+	caller := map[string]string{
+		"pc":   "nil",
+		"file": "nil",
+		"line": "nil",
+	}
 	a := 1
 	for {
 		if pc, file, line, ok := runtime.Caller(a); ok {
