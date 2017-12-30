@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"sync"
 
+	"github.com/mkenney/go-chrome/errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -73,12 +74,7 @@ Done implements Commander.
 */
 func (cmd *command) Done(result []byte, err error) {
 	cmd.result = result
-	if err != nil {
-		log.Infof("command.Done() ERROR: %s", err.Error())
-		log.Error(err)
-		cmd.err = err
-	}
-
+	cmd.err = err
 	cmd.WaitGroup().Done()
 }
 
@@ -215,7 +211,11 @@ func (socket *socket) SendCommand(command Commander) *commandPayload {
 
 	command.WaitGroup().Add(1)
 	if err := socket.Conn().WriteJSON(payload); err != nil {
-		command.Done(nil, err)
+		command.Done(nil, errors.SocketWriteFailed{Type: errors.Type{
+			Caller: errors.GetCaller(),
+			Err:    err,
+			Msg:    "Failed to send command payload to socket connection",
+		}})
 	}
 	command.WaitGroup().Wait()
 
@@ -235,14 +235,19 @@ func (socket *socket) HandleCommand(response *Response) {
 	} else {
 		socket.commands.Delete(command.ID())
 		if nil != response.Error && "" != response.Error.Message {
-			err = fmt.Errorf(
-				"%d %s: - %s",
-				response.Error.Code,
-				response.Error.Message,
-				response.Error.Data,
-			)
+			log.Errorf("Socket command responded with error: result=%s err=%s", response.Result, response.Error.Message)
+			err = errors.SocketErrorResponse{Type: errors.Type{
+				Caller: errors.GetCaller(),
+				Err: fmt.Errorf(
+					"%d %s: %s",
+					response.Error.Code,
+					response.Error.Message,
+					response.Error.Data,
+				),
+				Msg: "The socket command failed",
+			}}
 		}
 		command.Done(response.Result, err)
-		log.Debugf("%s: #%d '%s' - Command complete", socket.URL(), command.ID(), command.Method())
+		log.Debugf("Command #%d complete: - %s {%s}", command.ID(), socket.URL(), command.Method())
 	}
 }

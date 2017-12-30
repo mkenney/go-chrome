@@ -13,6 +13,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/websocket"
+	"github.com/mkenney/go-chrome/errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -166,13 +167,17 @@ func (socket *socket) Listen() error {
 		response := &Response{}
 		err = socket.conn.ReadJSON(&response)
 		if nil != err {
+			err = errors.SocketReadFailed{Type: errors.Type{
+				Caller: errors.GetCaller(),
+				Err:    err,
+				Msg:    "Failed to read from the socket",
+			}}
 			log.Error(err)
 			socket.Stop() // This will end the loop after handling the current response (if any)
 		}
 
 		if response.ID > 0 {
 			socket.HandleCommand(response)
-
 		} else {
 			socket.HandleEvent(response)
 		}
