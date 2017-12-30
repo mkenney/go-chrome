@@ -36,13 +36,16 @@ Error implements errors.
 */
 func (err Type) Error() string {
 	msg := fmt.Sprintf(
-		"%s:%s:%s - %s",
+		"[%s] %s:%s - %s",
 		err.Caller["pc"],
 		err.Caller["file"],
 		err.Caller["line"],
 		err.Msg,
 	)
-	return fmt.Sprintf("%s; %s", msg, err.Err.Error())
+	if nil != err.Err {
+		msg = fmt.Sprintf("%s; %s", msg, err.Err.Error())
+	}
+	return msg
 }
 
 /*
