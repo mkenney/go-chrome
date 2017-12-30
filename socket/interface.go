@@ -135,7 +135,8 @@ type Socketer interface {
 	URL() string
 
 	//////////////////////////////////////////////////
-	// Protocol interface
+	// Chrome DevTools Protocol API methods
+	// https://chromedevtools.github.io/devtools-protocol/
 	//////////////////////////////////////////////////
 
 	// Accessibility returns the AccessibilityProtocol instance
