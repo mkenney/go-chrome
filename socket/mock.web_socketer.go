@@ -34,21 +34,26 @@ ReadJSON implements WebSocketer
 This uses a stack of responses to attempt to emulate Chromium behavior for
 testsing. To use, add a response to the stack with addMockWebsocketResponse().
 
-There is a potential timing issue when emulating command. "Commands" are structs
-that implement the Commander interface and are a type of event handler that
-makes a request to the socket and only handles responses to that request.
+There is a potential timing issue when emulating commands. "Commands" are
+structs that implement the Commander interface and are a type of event handler
+that makes a request to the socket and only handles responses to that request.
 
-Due to the nature the socket read loop, which is a stream, Commander objects use
-`sync.WaitGroup` to wait for the socket response for the request that was
+Due to the nature of the socket read loop, which is a stream, Commander objects
+use `sync.WaitGroup` to wait for the socket response to the request that was
 submitted. Because of this, your mock data must be added to the response stack
-BEFORE the Commander handler is executed or the test routine will lock forever
+BEFORE the Commander handler is executed or the test routine will lock forever,
 preventing you from adding your mock data.
 
 That means that it's possible for the socket read loop to receive your mock
-response before Commanderthe handler command is registered with the socket. If
-that happens and a handler isn't present to receive it then the response is
-discarded, and then when the Commander handler is executed the routine will lock
-forever and the test won't finish.
+response before the Commander handler command is registered with the socket read
+loop. If that happens and a handler isn't present to receive it then the
+response is discarded, and then when the Commander handler is executed the
+routine will lock forever waiting for a response that will never come.
+
+As a workaround, each response is set to take 1 second to return, giving command
+registration some time to complete. Alternatively, you could launch the command
+registration in a goroutine and then add the mock response data to the stack.
+I'll refactor it that way when the tests start taking too long.
 
 This is only a problem with mocking the socket stream data for unit tests. It
 does impact interacting Chrome in any way.
@@ -71,25 +76,10 @@ func (sock *MockWebSocket) ReadJSON(v interface{}) error {
 	}
 
 	jsonBytes, err := json.Marshal(data)
-	log.Debugf("ReadJSON(): returning data %s", jsonBytes)
+	log.Debugf("ReadJSON(): returning mock data %s", jsonBytes)
 	err = json.Unmarshal(jsonBytes, &v)
 	return err
 }
-
-// MockJSONData flag for mocking ReadJSON()
-var MockJSONData []byte
-
-// MockJSONRead flag for mocking ReadJSON()
-var MockJSONRead = false
-
-// MockJSONType flag for mocking ReadJSON()
-var MockJSONType = "command"
-
-// MockJSONError flag for mocking ReadJSON()
-var MockJSONError = true
-
-// MockJSONThrowError flag for mocking ReadJSON()
-var MockJSONThrowError = false
 
 /*
 WriteJSON implements WebSocketer
@@ -110,7 +100,6 @@ func addMockWebsocketResponse(id int, error *Error, method string, data ...inter
 	if len(data) > 1 {
 		response.Params, _ = json.Marshal(data[1])
 	}
-
 	_mockWebsocketResponses = append(_mockWebsocketResponses, response)
 }
 
