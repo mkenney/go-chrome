@@ -30,6 +30,28 @@ func (sock *MockWebSocket) Close() error {
 
 /*
 ReadJSON implements WebSocketer
+
+This uses a stack of responses to attempt to emulate Chromium behavior for
+testsing. To use, add a response to the stack with addMockWebsocketResponse().
+
+There is a potential timing issue when emulating command. "Commands" are structs
+that implement the Commander interface and are a type of event handler that
+makes a request to the socket and only handles responses to that request.
+
+Due to the nature the socket read loop, which is a stream, Commander objects use
+`sync.WaitGroup` to wait for the socket response for the request that was
+submitted. Because of this, your mock data must be added to the response stack
+BEFORE the Commander handler is executed or the test routine will lock forever
+preventing you from adding your mock data.
+
+That means that it's possible for the socket read loop to receive your mock
+response before Commanderthe handler command is registered with the socket. If
+that happens and a handler isn't present to receive it then the response is
+discarded, and then when the Commander handler is executed the routine will lock
+forever and the test won't finish.
+
+This is only a problem with mocking the socket stream data for unit tests. It
+does impact interacting Chrome in any way.
 */
 func (sock *MockWebSocket) ReadJSON(v interface{}) error {
 	var data interface{}
