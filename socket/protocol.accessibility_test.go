@@ -7,8 +7,15 @@ import (
 
 	"github.com/mkenney/go-chrome/protocol/accessibility"
 	"github.com/mkenney/go-chrome/protocol/dom"
+	log "github.com/sirupsen/logrus"
 )
 
+func init() {
+	level, err := log.ParseLevel("debug")
+	if nil == err {
+		log.SetLevel(level)
+	}
+}
 func TestGetPartialAXTree(t *testing.T) {
 	MockJSONRead = false
 	MockJSONType = "command"

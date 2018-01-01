@@ -166,295 +166,27 @@ button.
 package chrome
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/http"
-	"net/url"
+	"html/template"
 	"os"
-	"path/filepath"
-	"time"
+	"path"
+	"runtime"
+	"strings"
 
 	log "github.com/sirupsen/logrus"
 )
 
-func init() {
-	levelFlag := os.Getenv("LOG_LEVEL")
-	if "" != levelFlag {
-		level, err := log.ParseLevel(levelFlag)
-		if nil == err {
-			log.SetLevel(level)
-		}
-	}
-}
-
-/*
-New returns a pointer to a Browser struct
-*/
-func New(
-	args Commander,
-	binary string,
-	output string,
-	workdir string,
-) Chromium {
-	return &Browser{
-		args:    args,
-		binary:  binary,
-		output:  output,
-		workdir: workdir,
-	}
-}
-
-/*
-Browser is a struct that manages the Chromium process
-*/
-type Browser struct {
-	// Optional. address is the domain to use for accessing Chromium sockets
-	// (e.g. 'localhost').
-	// Defaults to 'localhost'.
-	//address string
-
-	// args contains CLI arguments for the Chromium binary.
-	args Commander
-
-	// Optional. binary is the path to the Chromium binary. Defaults to
-	// '/usr/bin/google-chrome'.
-	binary string
-
-	// Optional. debuggingAddress is the address number that the remote
-	// debugging protocol will be available on. Defaults to '0.0.0.0'.
-	//debuggingAddress string
-
-	// Optional. debuggingPort is the port number that the remote debugging
-	// protocol will be available on. Defaults to 9222.
-	//debuggingPort int
-
-	// Optional. output is a path to a file to be used to capture STDOUT and
-	// STDERR output. Defaults to the system STDOUT.
-	output string
-
-	// Optional. port is the port number the developer tools endpoints will
-	// listen on. Defaults to 9222.
-	//port int
-
-	// tabs is a list of the currently open tabs.
-	tabs []*Tab
-
-	// version contains Chromium version information.
-	version *Version
-
-	// Optional. workdir is the path to the Chromium working directory. Defaults
-	// to '/tmp/headless-chrome'.
-	workdir string
-
-	// outputFile is a pointer to a file handle to be used to capture STDOUT and
-	// STDERR output.
-	outputFile *os.File
-
-	// process is a pointer to the os.Process struct containing the process PID.
-	process *os.Process
-}
-
-/*
-Address implements Chromium.
-
-Default value is 'localhost'
-*/
-func (browser *Browser) Address() string {
-	if !browser.Args().Has("addr") {
-		browser.Args().Set("addr", []interface{}{"localhost"})
-	}
-	value, _ := browser.Args().Get("addr")
-	return value[0].(string)
-}
-
-/*
-Args implements Chromium.
-*/
-func (browser *Browser) Args() Commander {
-	return browser.args
-}
-
-/*
-Binary implements Chromium.
-
-Default value is '/usr/bin/google-chrome' for use with the mkenney/chromium-headless
-Docker image.
-*/
-func (browser *Browser) Binary() string {
-	if "" == browser.binary {
-		browser.binary = "/usr/bin/google-chrome"
-	}
-	return browser.binary
-}
-
-/*
-Close implements Chromium.
-*/
-func (browser *Browser) Close() error {
-	if browser.process != nil {
-		if err := browser.process.Signal(os.Interrupt); err != nil {
-			return err
-		}
-		ps, err := browser.process.Wait()
-		if err != nil {
-			return err
-		}
-		log.Infof("Chromium exited: %s", ps.String())
-	}
-	if browser.outputFile != nil {
-		browser.outputFile.Close()
-	}
-	return nil
-}
-
-/*
-DebuggingAddress implements Chromium.
-
-Default value is '0.0.0.0'.
-*/
-func (browser *Browser) DebuggingAddress() string {
-	if !browser.Args().Has("remote-debugging-address") {
-		browser.Args().Set("remote-debugging-address", []interface{}{"0.0.0.0"})
-	}
-	value, _ := browser.Args().Get("remote-debugging-address")
-	return value[0].(string)
-}
-
-/*
-DebuggingPort implements Chromium.
-*/
-func (browser *Browser) DebuggingPort() int {
-	if !browser.Args().Has("remote-debugging-port") {
-		browser.Args().Set("remote-debugging-port", []interface{}{9222})
-	}
-	value, _ := browser.Args().Get("remote-debugging-port")
-	return value[0].(int)
-}
-
-/*
-Launch implements Chromium.
-*/
-func (browser *Browser) Launch() error {
-	var err error
-
-	// Default values for required parameters
-	if !browser.Args().Has("addr") {
-		browser.Args().Set("addr", []interface{}{browser.Address()})
-	}
-	if !browser.Args().Has("remote-debugging-address") {
-		browser.Args().Set("remote-debugging-address", []interface{}{browser.DebuggingAddress()})
-	}
-	if !browser.Args().Has("remote-debugging-port") {
-		browser.Args().Set("remote-debugging-port", []interface{}{browser.DebuggingPort()})
-	}
-	if !browser.Args().Has("port") {
-		browser.Args().Set("port", []interface{}{browser.Port()})
-	}
-	if !browser.Args().Has("user-data-dir") {
-		browser.Args().Set("user-data-dir", []interface{}{os.TempDir()})
-	}
-
-	if "" == browser.Workdir() {
-		browser.workdir = filepath.Join(os.TempDir(), "headless-chrome")
-	}
-	if err := os.MkdirAll(browser.Workdir(), 0700); err != nil {
-		return fmt.Errorf("Cannot create working directory '%s'", browser.Workdir())
-	}
-
-	if "" == browser.Output() {
-		browser.outputFile = os.Stdout
-	} else {
-		browser.outputFile, err = os.OpenFile(browser.Output(), os.O_APPEND|os.O_CREATE|os.O_RDWR, 0600)
-		if err != nil {
-			return fmt.Errorf("Cannot open output file '%s'", browser.Output())
-		}
-	}
-
-	log.Infof("Starting process: %s %s", browser.Binary(), browser.Args())
-	var procAttributes os.ProcAttr
-	procAttributes.Dir = browser.Workdir()
-	procAttributes.Files = []*os.File{nil, browser.outputFile, browser.outputFile}
-	browser.process, err = os.StartProcess(
-		browser.Binary(),
-		browser.Args().List(),
-		&procAttributes,
-	)
-	if err != nil {
-		browser.outputFile.Close()
-		return err
-	}
-
-	// Wait up to 10 seconds for Chromium to start
-	for i := 0; i < 10; i++ {
-		time.Sleep(time.Second)
-		if _, err = browser.Version(); nil == err {
-			break
-		}
-	}
-	if err != nil {
-		log.Errorf("Chromium took too long to start")
-		log.Debugf(err.Error())
-		browser.Close()
-		return err
-	}
-
-	return nil
-}
-
-/*
-Output implements Chromium.
-*/
-func (browser *Browser) Output() string {
-	if "" == browser.output {
-		browser.output = "/dev/stdout"
-	}
-	return browser.output
-}
-
-/*
-Port implements Chromium.
-
-Default value is 9222
-*/
-func (browser *Browser) Port() int {
-	if !browser.Args().Has("port") {
-		browser.Args().Set("port", []interface{}{9222})
-	}
-	value, _ := browser.Args().Get("port")
-	return value[0].(int)
-}
-
-/*
-Tabs implements Chromium.
-*/
-func (browser *Browser) Tabs() []*Tab {
-	return browser.tabs
-}
-
-/*
-Version implements Chromium.
-*/
-func (browser *Browser) Version() (*Version, error) {
-	if nil == browser.version {
-		if _, err := browser.Cmd("/json/version", url.Values{}, &browser.version); err != nil {
-			return nil, err
-		}
-	}
-	return browser.version, nil
-}
-
-/*
-Workdir implements Chromium.
-
-Default value is /tmp/headless-chrome
-*/
-func (browser *Browser) Workdir() string {
-	if "" == browser.workdir {
-		browser.workdir = filepath.Join(os.TempDir(), "headless-chrome")
-	}
-	return browser.workdir
-}
+//func init() {
+//	levelFlag := os.Getenv("LOG_LEVEL")
+//	if "" != levelFlag {
+//		level, err := log.ParseLevel(levelFlag)
+//		if nil == err {
+//			log.SetLevel(level)
+//		}
+//	}
+//}
 
 /*
 Version is a struct representing the Chromium version information.
@@ -469,44 +201,106 @@ type Version struct {
 }
 
 /*
-GetTab returns an open Tab instance.
+Set the formatter and the default level
+The level is defined by the LOG_LEVEL environment variable. Default is 'info'
 */
-func (browser *Browser) GetTab(tabID string) (tab *Tab, err error) {
-	for _, tab = range browser.tabs {
-		if tab.Data().ID == tabID {
-			return tab, nil
-		}
+func init() {
+	levelFlag := os.Getenv("LOG_LEVEL")
+	if "" == levelFlag {
+		levelFlag = "info"
 	}
-	err = fmt.Errorf("Tab '%s' not found", tabID)
-	return
+
+	level, err := log.ParseLevel(levelFlag)
+	if nil != err {
+		log.Fatalf("Could not parse log level flag: %s", err)
+	}
+
+	log.SetFormatter(&textFormat{})
+	log.SetLevel(level)
 }
 
 /*
-Cmd queries the developer tools endpoints and returns JSON data in the provided struct.
+RFC3339Milli defines an RFC3339 date format with miliseconds
 */
-func (browser *Browser) Cmd(path string, params url.Values, msg interface{}) (interface{}, error) {
-	if len(params) > 0 {
-		path += fmt.Sprintf("?%s", params.Encode())
-	}
-	uri := fmt.Sprintf("http://%s:%d%s", browser.Address(), browser.Port(), path)
+const RFC3339Milli = "2006-01-02T15:04:05.000Z07:00"
 
-	resp, err := http.Get(uri)
-	if err != nil {
-		return nil, err
+func getCaller() string {
+	caller := ""
+	a := 0
+	for {
+		if pc, file, line, ok := runtime.Caller(a + 2); ok {
+			if !strings.Contains(file, "github.com/sirupsen/logrus") {
+				caller = fmt.Sprintf("%s:%d %s", path.Base(file), line, runtime.FuncForPC(pc).Name())
+				break
+			}
+		} else {
+			break
+		}
+		a++
 	}
-	defer resp.Body.Close()
-
-	log.Infof("chrome:/%s %s", path, resp.Status)
-	if 200 != resp.StatusCode {
-		return resp.Status, nil
-	}
-
-	content, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	} else if err := json.Unmarshal(content, &msg); err != nil {
-		return content, nil
-	}
-
-	return msg, nil
+	return caller
 }
+
+type logData struct {
+	Timestamp string `json:"time"`
+	Level     string `json:"level"`
+	Hostname  string `json:"host"`
+	Caller    string `json:"caller"`
+	Message   string `json:"msg"`
+}
+
+type jsonFormat struct {
+	*log.JSONFormatter
+}
+
+/*
+Format is a custom log format method
+*/
+func (l *jsonFormat) Format(entry *log.Entry) ([]byte, error) {
+	data := &logData{
+		Timestamp: entry.Time.Format(RFC3339Milli),
+		Level:     entry.Level.String(),
+		Hostname:  os.Getenv("HOSTNAME"),
+		Caller:    getCaller(),
+		Message:   entry.Message,
+	}
+
+	serialized, err := json.Marshal(data)
+	if err != nil {
+		return nil, fmt.Errorf("Failed to marshal log data as JSON: %s", err.Error())
+	}
+	return append(serialized, '\n'), nil
+}
+
+type textFormat struct {
+	*log.TextFormatter
+}
+
+/*
+Format is a custom log format method
+*/
+func (l *textFormat) Format(entry *log.Entry) ([]byte, error) {
+	var logLine *bytes.Buffer
+	RFC3339Milli := "2006-01-02T15:04:05.000Z07:00"
+
+	if entry.Buffer != nil {
+		logLine = entry.Buffer
+	} else {
+		logLine = &bytes.Buffer{}
+	}
+
+	data := &logData{
+		Timestamp: entry.Time.Format(RFC3339Milli),
+		Hostname:  os.Getenv("HOSTNAME"),
+		Level:     entry.Level.String(),
+		Caller:    getCaller(),
+		Message:   entry.Message,
+	}
+	textTemplate.Execute(logLine, data)
+	logLine.WriteByte('\n')
+	return logLine.Bytes(), nil
+}
+
+var textTemplate = template.Must(
+	template.New("log").Parse(`time="{{ .Timestamp }}" level="{{ .Level }}" host="{{ .Hostname }}" caller="{{ .Caller }}" msg="{{ .Message }}"`),
+)

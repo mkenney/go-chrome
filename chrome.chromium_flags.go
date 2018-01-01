@@ -6,37 +6,37 @@ import (
 )
 
 /*
-Args contains CLI arguments to the Chromium executable.
+Flags contains CLI arguments to the Chromium executable.
 */
-type Args map[string][]interface{}
+type Flags map[string][]interface{}
 
 /*
-Get implements Commander
+Get implements ChromiumFlags
 */
-func (args Args) Get(arg string) (values []interface{}, err error) {
-	if !args.Has(arg) {
+func (flags Flags) Get(arg string) (values []interface{}, err error) {
+	if !flags.Has(arg) {
 		err = fmt.Errorf("The specified argument '%s' does not exist", arg)
 	} else {
-		values = args[arg]
+		values = flags[arg]
 	}
 	return values, err
 }
 
 /*
-Has implements Commander
+Has implements ChromiumFlags
 */
-func (args Args) Has(arg string) bool {
-	_, ok := args[arg]
+func (flags Flags) Has(arg string) bool {
+	_, ok := flags[arg]
 	return ok
 }
 
 /*
-List implements Commander
+List implements ChromiumFlags
 */
-func (args Args) List() []string {
+func (flags Flags) List() []string {
 	var list []string
 
-	for arg, vals := range args {
+	for arg, vals := range flags {
 		if nil == vals {
 			list = append(list, fmt.Sprintf("--%s", arg))
 		} else {
@@ -58,21 +58,21 @@ func (args Args) List() []string {
 }
 
 /*
-Set implements Commander
+Set implements ChromiumFlags
 */
-func (args Args) Set(arg string, values []interface{}) (err error) {
+func (flags Flags) Set(arg string, values []interface{}) (err error) {
 	if nil == values {
 		values = make([]interface{}, 0)
 	}
-	args[arg] = values
+	flags[arg] = values
 
 	for k, value := range values {
 		if nil != value {
 			switch value.(type) {
 			case int:
-				args[arg][k] = value.(int)
+				flags[arg][k] = value.(int)
 			case string:
-				args[arg][k] = value.(string)
+				flags[arg][k] = value.(string)
 			default:
 				panic(fmt.Sprintf("Invalid data type %v for argument %s", value, arg))
 			}
@@ -83,8 +83,8 @@ func (args Args) Set(arg string, values []interface{}) (err error) {
 }
 
 /*
-String implements Commander
+String implements ChromiumFlags
 */
-func (args Args) String() string {
-	return strings.Join(args.List(), " ")
+func (flags Flags) String() string {
+	return strings.Join(flags.List(), " ")
 }

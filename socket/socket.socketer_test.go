@@ -6,27 +6,10 @@ import (
 	"testing"
 )
 
-func TestSocketClose(t *testing.T) {
-	mockSocket, _ := NewMock("https://www.example.com/")
-	if err := mockSocket.Close(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() {
-		t.Errorf("Socketer.Close() must return an error or nil, %s found", reflect.TypeOf(err).String())
-	}
-}
-
-func TestSocketConn(t *testing.T) {
-	mockSocket, _ := NewMock("https://www.example.com/")
-	conn := mockSocket.Conn()
-	if _, ok := interface{}(conn).(Conner); !ok {
-		t.Errorf("Socketer.Conn() must return a Conner interface")
-	}
-}
-
-func TestGenerateCommandID(t *testing.T) {
-	_commandID = 0
-	for a := 1; a <= 10; a++ {
-		if b := GenerateCommandID(); a != b {
-			t.Errorf("GenerateCommandID() failed to generate predictable IDs: %d expected, %d received", a, b)
-		}
+func TestSocketDisconnect(t *testing.T) {
+	socket, _ := NewMock("https://www.example.com/")
+	if err := socket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() {
+		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
 	}
 }
 
@@ -129,7 +112,7 @@ func TestReadJSONError(t *testing.T) {
 func TestURL(t *testing.T) {
 	url := "https://www.example.com/"
 	mockSocket, _ := NewMock(url)
-	if mockSocket.URL() != url {
+	if mockSocket.URL().String() != url {
 		t.Errorf("Socketer.URL() failed to return the correct URL")
 	}
 }
