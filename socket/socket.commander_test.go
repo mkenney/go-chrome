@@ -3,7 +3,6 @@ package socket
 import (
 	"encoding/json"
 	"fmt"
-	"sync"
 	"testing"
 
 	log "github.com/sirupsen/logrus"
@@ -42,23 +41,22 @@ func TestNewCommander(t *testing.T) {
 
 func TestCommanderNextID(t *testing.T) {
 	// Ids generated in order
-	_commandID = 0
-	mux := &sync.Mutex{}
-	mux.Lock()
-	for a := 1; a <= 1000; a++ {
+	testMux.Lock()
+	start := _commandID
+	for a := start + 1; a <= start+1000; a++ {
 		cmd := NewCommand("Some.method", nil)
 		if a != cmd.ID() {
 			t.Errorf("nextID() failed to generate consecutive IDs - expeted %d, received %d", a, cmd.ID())
 		}
 	}
-	mux.Unlock()
+	testMux.Unlock()
 
 	// Ids generated safely
-	_commandID = 0
 	id := make(chan int)
-	for a := 1; a <= 1000; a++ {
+	for a := 0; a <= 1000; a++ {
 		go func(id chan int) {
 			cmd := NewCommand("Some.method", nil)
+			log.Debugf("Sending id %d", cmd.ID())
 			id <- cmd.ID()
 		}(id)
 	}

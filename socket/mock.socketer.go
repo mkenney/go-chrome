@@ -5,20 +5,18 @@ import (
 	"sync"
 )
 
+var testMux = &sync.Mutex{}
+
 /*
 NewMock returns a mock Chromium socket for unit testing
 */
-func NewMock(socketURL string) (*Socket, error) {
-	URL, err := url.Parse(socketURL)
+func NewMock(socketURL *url.URL) *Socket {
 	socket := &Socket{
 		mux:       &sync.Mutex{},
 		commands:  NewCommandMap(),
 		handlers:  NewEventHandlerMap(),
 		newSocket: NewMockWebsocket,
-		url:       URL,
-	}
-	if nil != err {
-		return nil, err
+		url:       socketURL,
 	}
 
 	socket.accessibility = &AccessibilityProtocol{Socket: socket}
@@ -60,5 +58,5 @@ func NewMock(socketURL string) (*Socket, error) {
 	socket.tethering = &TetheringProtocol{Socket: socket}
 	socket.tracing = &TracingProtocol{Socket: socket}
 
-	return socket, nil
+	return socket
 }

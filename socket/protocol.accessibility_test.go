@@ -2,8 +2,8 @@ package socket
 
 import (
 	"encoding/json"
+	"net/url"
 	"testing"
-	"time"
 
 	"github.com/mkenney/go-chrome/protocol/accessibility"
 	"github.com/mkenney/go-chrome/protocol/dom"
@@ -16,20 +16,22 @@ func init() {
 		log.SetLevel(level)
 	}
 }
-func TestGetPartialAXTree(t *testing.T) {
-	MockJSONRead = false
-	MockJSONType = "command"
-	MockJSONError = false
-	MockJSONThrowError = false
-	MockJSONData = []byte(`{"nodes":[]}`)
 
-	mockSocket, _ := NewMock("https://www.example.com/")
+func TestGetPartialAXTree(t *testing.T) {
+	socketURL, _ := url.Parse("https://www.example.com/")
+	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
+	defer mockSocket.Stop()
+
+	addMockWebsocketResponse(
+		_commandID+1,
+		&Error{},
+		"Accessibility.partialAXTreeParams",
+		&accessibility.PartialAXTreeResult{},
+	)
 	result, err := mockSocket.Accessibility().GetPartialAXTree(
 		&accessibility.PartialAXTreeParams{},
 	)
-	mockSocket.Stop()
-	time.Sleep(time.Millisecond * 100) // give it time to stop
 
 	if nil != err {
 		t.Errorf("Expected success, got error: %s", err.Error())
@@ -76,17 +78,15 @@ func TestGetPartialAXTree(t *testing.T) {
 		}},
 	}
 
-	MockJSONRead = false
-	MockJSONType = "command"
-	MockJSONError = false
-	MockJSONThrowError = false
-	MockJSONData, _ = json.Marshal(mockData)
-	go mockSocket.Listen()
+	addMockWebsocketResponse(
+		_commandID+1,
+		&Error{},
+		"Accessibility.partialAXTreeParams",
+		mockData,
+	)
 	result, err = mockSocket.Accessibility().GetPartialAXTree(
 		&accessibility.PartialAXTreeParams{},
 	)
-	mockSocket.Stop()
-	time.Sleep(time.Millisecond * 100) // give it time to stop
 
 	if nil != err {
 		t.Errorf("Expected success, got error: %s", err.Error())

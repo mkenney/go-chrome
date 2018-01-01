@@ -12,7 +12,7 @@ import (
 /*
 New returns a new Socketer websocket connection listening to the specified URL.
 */
-func New(url *url.URL) (*Socket, error) {
+func New(url *url.URL) *Socket {
 	socket := &Socket{
 		commands:  NewCommandMap(),
 		handlers:  NewEventHandlerMap(),
@@ -66,7 +66,7 @@ func New(url *url.URL) (*Socket, error) {
 	go socket.Listen()
 	log.Infof("New socket connection listening on %s", socket.url)
 
-	return socket, nil
+	return socket
 }
 
 /*
@@ -155,7 +155,7 @@ func (socket *Socket) HandleCommand(response *Response) {
 	socket.commands.Lock()
 	defer socket.commands.Unlock()
 
-	log.Debugf("*********************************** response for command #%d received", response.ID)
+	log.Debugf("socket.HandleCommand(): executing handler for command #%d", response.ID)
 	if command, err := socket.commands.Get(response.ID); nil != err {
 		errorMessage := ""
 		if nil != response.Error && 0 != response.Error.Code {
@@ -208,15 +208,16 @@ HandleEvent implements Socketer.
 func (socket *Socket) HandleEvent(
 	response *Response,
 ) {
-	log.Debugf("%s event received from %s", response.Method, socket.URL())
+	log.Debugf("socket.HandleEvent(): handling event %s:{%s}", socket.URL(), response.Method)
 	if response.Method == "Inspector.targetCrashed" {
-		log.Fatalf("Chrome has crashed!")
+		log.Errorf("Chrome has crashed!")
 	}
+
 	socket.handlers.Lock()
 	defer socket.handlers.Unlock()
 
 	if handlers, err := socket.handlers.Get(response.Method); nil != err {
-		log.Debugf("Could not handle event %s: %s", response.Method, err.Error())
+		log.Error(err)
 
 	} else {
 		for a, event := range handlers {
@@ -241,20 +242,16 @@ func (socket *Socket) Listen() error {
 	socket.stopListening = false
 	for {
 		response := &Response{}
-		log.Debugf("&&&&&&&&&&&&&& Listen(): Reading from socket...")
 		err = socket.ReadJSON(&response)
-		log.Debugf("&&&&&&&&&&&&&& Listen(): Socket read...")
 		if nil != err {
-			log.Debugf("&&&&&&&&&&&&&& Listen(): Error received %s", err.Error())
 			log.Error(err)
 			socket.Stop() // This will end the loop after handling the current response (if any)
-
-		} else {
+		} else if "" != response.Method {
 			if response.ID > 0 {
-				log.Debugf("Handling command #%d: %s", response.ID, response.Method)
+				log.Debugf("socket.Listen(): Handling command #%d - %s", response.ID, response.Method)
 				socket.HandleCommand(response)
 			} else {
-				log.Errorf("Handling event: %s", response.Method)
+				log.Debugf("socket.Listen(): Handling event %s", response.Method)
 				socket.HandleEvent(response)
 			}
 		}
@@ -303,7 +300,7 @@ Workflow:
 	response and the command unlocks itself.
 */
 func (socket *Socket) SendCommand(command Commander) *Payload {
-	log.Debugf("$$$$$$$$$$$ SendCommand(): sending command #%d", command.ID())
+	log.Debugf("socket.SendCommand(): sending command #%d - %s", command.ID(), command.Method())
 
 	// Add the command to the internal stack and create the payload
 	socket.commands.Set(command)
@@ -313,9 +310,7 @@ func (socket *Socket) SendCommand(command Commander) *Payload {
 		Params: command.Params(),
 	}
 
-	log.Debugf("$$$$$$$$$$$ SendCommand() adding waitgroup")
 	command.WaitGroup().Add(1)
-	log.Debugf("$$$$$$$$$$$ SendCommand() waitgroup added, writing JSON")
 	if err := socket.WriteJSON(payload); err != nil {
 		command.Done(nil, errors.SocketWriteFailed{Type: errors.Type{
 			Caller: errors.GetCaller(),
@@ -323,7 +318,7 @@ func (socket *Socket) SendCommand(command Commander) *Payload {
 			Msg:    "Failed to send command payload to socket connection",
 		}})
 	}
-	log.Debugf("$$$$$$$$$$$ SendCommand() waiting")
+	log.Debugf("socket.SendCommand(): waiting for response to command #%d - %s", command.ID(), command.Method())
 	command.WaitGroup().Wait()
 
 	return payload

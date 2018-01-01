@@ -79,9 +79,9 @@ nextCommandID generates and returns a unique command ID.
 */
 func nextCommandID() int {
 	_commandIDMux.Lock()
+	defer _commandIDMux.Unlock()
 	_commandID++
 	id := _commandID
-	_commandIDMux.Unlock()
 	return id
 }
 

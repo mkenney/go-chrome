@@ -2,7 +2,6 @@ package socket
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/url"
 	"time"
 
@@ -33,62 +32,26 @@ func (sock *MockWebSocket) Close() error {
 ReadJSON implements WebSocketer
 */
 func (sock *MockWebSocket) ReadJSON(v interface{}) error {
-	var err Error
-	var data []byte
+	var data interface{}
 
-	//log.Infof("MockJSONData: %s", MockJSONData)
-	//log.Infof("MockJSONType: %s", MockJSONType)
-	//log.Infof("MockJSONRead: %v", MockJSONRead)
-	//log.Infof("MockJSONError: %v", MockJSONError)
-	//log.Infof("MockJSONThrowError: %v", MockJSONThrowError)
+	if len(_mockWebsocketResponses) > 0 {
+		time.Sleep(time.Second * 1)
+		data = _mockWebsocketResponses[0]
+		_mockWebsocketResponses = _mockWebsocketResponses[1:]
 
-	time.Sleep(time.Millisecond * 100)
-	if !MockJSONRead {
-		if MockJSONThrowError {
-			return fmt.Errorf("Mock Read Error")
+	} else {
+		time.Sleep(time.Millisecond * 100)
+		data = &Response{
+			Error:  &Error{},
+			ID:     0,
+			Method: "Unknown.event",
 		}
-
-		MockJSONRead = true
-		if MockJSONError {
-			err.Code = 1
-			err.Data = []byte(`{"data": "Error data"}`)
-			err.Message = "Mock Error"
-		}
-
-		if "command" == MockJSONType {
-			//log.Infof("Mocking Command")
-			data, _ = json.Marshal(struct {
-				Error  Error
-				ID     int
-				Method string
-				Params json.RawMessage
-				Result json.RawMessage
-			}{
-				Error:  err,
-				ID:     _commandID,
-				Method: "Some.method",
-				Params: nil,
-				Result: MockJSONData,
-			})
-		} else if "event" == MockJSONType {
-			//log.Infof("Mocking Event")
-			data, _ = json.Marshal(struct {
-				Error  Error
-				ID     int
-				Method string
-				Params json.RawMessage
-				Result json.RawMessage
-			}{
-				Error:  err,
-				ID:     0,
-				Method: "Some.event",
-				Params: nil,
-				Result: MockJSONData,
-			})
-		}
-		json.Unmarshal(data, &v)
 	}
-	return nil
+
+	jsonBytes, err := json.Marshal(data)
+	log.Debugf("ReadJSON(): returning data %s", jsonBytes)
+	err = json.Unmarshal(jsonBytes, &v)
+	return err
 }
 
 // MockJSONData flag for mocking ReadJSON()
@@ -112,3 +75,21 @@ WriteJSON implements WebSocketer
 func (sock *MockWebSocket) WriteJSON(v interface{}) error {
 	return nil
 }
+
+func addMockWebsocketResponse(id int, error *Error, method string, data ...interface{}) {
+	response := &Response{
+		Error:  error,
+		ID:     id,
+		Method: method,
+	}
+	if len(data) > 0 {
+		response.Result, _ = json.Marshal(data[0])
+	}
+	if len(data) > 1 {
+		response.Params, _ = json.Marshal(data[1])
+	}
+
+	_mockWebsocketResponses = append(_mockWebsocketResponses, response)
+}
+
+var _mockWebsocketResponses = make([]*Response, 0)

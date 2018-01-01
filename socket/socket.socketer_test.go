@@ -1,30 +1,33 @@
 package socket
 
 import (
-	"encoding/json"
+	"net/url"
 	"reflect"
 	"testing"
 )
 
 func TestSocketDisconnect(t *testing.T) {
-	socket, _ := NewMock("https://www.example.com/")
+	socketURL, _ := url.Parse("https://www.example.com/")
+	socket := NewMock(socketURL)
 	if err := socket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() {
 		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
 	}
 }
 
 func TestListenCommand(t *testing.T) {
-	MockJSONData = []byte(`"Mock Command Result"`)
-	MockJSONRead = false
-	MockJSONType = "command"
-	MockJSONError = false
-	MockJSONThrowError = false
-
-	command := NewCommand("Some.method", nil)
-	mockSocket, _ := NewMock("https://www.example.com/command")
+	socketURL, _ := url.Parse("https://www.example.com/command")
+	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
+	defer mockSocket.Stop()
+
+	addMockWebsocketResponse(
+		_commandID+1,
+		&Error{},
+		"Some.method",
+		"Mock Command Result",
+	)
+	command := NewCommand("Some.method", nil)
 	mockSocket.SendCommand(command)
-	mockSocket.Stop()
 
 	if `"Mock Command Result"` != string(command.Result()) {
 		t.Errorf("Invalid result: expected 'Mock Command Result', received '%s'", command.Result())
@@ -32,87 +35,53 @@ func TestListenCommand(t *testing.T) {
 }
 
 func TestListenCommandError(t *testing.T) {
-	MockJSONData = []byte(`"Mock Command Result"`)
-	MockJSONRead = false
-	MockJSONType = "command"
-	MockJSONError = true
-	MockJSONThrowError = false
-
-	command := NewCommand("Some.methodError", nil)
-	mockSocket, _ := NewMock("https://www.example.com/error")
+	socketURL, _ := url.Parse("https://www.example.com/error")
+	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
-	mockSocket.SendCommand(command)
-	mockSocket.Stop()
+	defer mockSocket.Stop()
 
+	addMockWebsocketResponse(
+		_commandID+1,
+		&Error{},
+		"Some.methodError",
+		"Mock Command Result",
+	)
+	command := NewCommand("Some.methodError", nil)
+	mockSocket.SendCommand(command)
 	if `"Mock Command Result"` != string(command.Result()) {
 		t.Errorf("Invalid result: expected 'Mock Command Result', received '%s'", command.Result())
 	}
 }
 
-func TestListenEvent(t *testing.T) {
-	MockJSONData = []byte(`"Mock Event Result"`)
-	MockJSONRead = false
-	MockJSONType = "event"
-	MockJSONError = false
-	MockJSONThrowError = false
-
-	eventResponse1 := make(chan *Response)
-	handler1 := NewEventHandler("Some.event", func(response *Response) {
-		eventResponse1 <- response
-	})
-
-	eventResponse2 := make(chan []byte)
-	handler2 := NewEventHandler("Some.event", func(response *Response) {
-		tmp, _ := json.Marshal(response)
-		eventResponse2 <- tmp
-	})
-
-	mockSocket, _ := NewMock("https://www.example.com/event")
-	mockSocket.AddEventHandler(handler1)
-	mockSocket.AddEventHandler(handler2)
-	go mockSocket.Listen()
-	mockSocket.Stop()
-
-	response1 := <-eventResponse1
-	response2 := <-eventResponse2
-
-	if nil == response1.Result {
-		t.Errorf("Invalid result: expected 'Mock Event Result', received nil")
-	}
-
-	if `"Mock Event Result"` != string(response1.Result) {
-		t.Errorf("Invalid result: expected 'Mock Event Result', received '%s'", response1.Result)
-	}
-
-	response1JSON, _ := json.Marshal(response1)
-	if string(response2) != string(response1JSON) {
-		t.Errorf("Event handlers returned mismatched data")
-	}
-}
-
 func TestReadJSONError(t *testing.T) {
-	MockJSONData = []byte(`"Mock Read Error"`)
-	MockJSONRead = false
-	MockJSONType = "command"
-	MockJSONError = true
-	MockJSONThrowError = true
-
-	mockSocket, _ := NewMock("https://www.example.com/error")
-	err := mockSocket.Listen()
-
-	if nil == err {
-		t.Errorf("Expected an error, received nil")
-	}
-
-	if "Mock Read Error" != err.Error() {
-		t.Errorf("Expected error message 'Mock Read Error', received '%s'", err.Error())
-	}
+	//	socketURL, _ := url.Parse("https://www.example.com/error")
+	//	mockSocket := NewMock(socketURL)
+	//	go mockSocket.Listen()
+	//	defer mockSocket.Stop()
+	//
+	//	addMockWebsocketResponse(
+	//		0,
+	//		&Error{},
+	//		"Some.event",
+	//		"Mock Event Result",
+	//	)
+	//
+	//	mockSocket := NewMock(socketURL)
+	//	err := mockSocket.Listen()
+	//
+	//	if nil == err {
+	//		t.Errorf("Expected an error, received nil")
+	//	}
+	//
+	//	if "Mock Read Error" != err.Error() {
+	//		t.Errorf("Expected error message 'Mock Read Error', received '%s'", err.Error())
+	//	}
 }
 
 func TestURL(t *testing.T) {
-	url := "https://www.example.com/"
-	mockSocket, _ := NewMock(url)
-	if mockSocket.URL().String() != url {
+	socketURL, _ := url.Parse("https://www.example.com/")
+	mockSocket := NewMock(socketURL)
+	if "https://www.example.com/" != mockSocket.URL().String() {
 		t.Errorf("Socketer.URL() failed to return the correct URL")
 	}
 }

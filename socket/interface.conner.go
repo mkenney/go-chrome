@@ -7,6 +7,9 @@ type Conner interface {
 	// Connect establishes a websocket connection
 	Connect() error
 
+	// Connected returns whether a connection exists
+	Connected() bool
+
 	// Connect closes a websocket connection
 	Disconnect() error
 

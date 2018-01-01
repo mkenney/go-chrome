@@ -17,16 +17,16 @@ func (socket *Socket) Connect() error {
 		return nil
 	}
 
-	log.Debug("socket.Connect(): connecting. to %s..", socket.url.String())
+	log.Debugf("socket.Connect(): connecting. to %s..", socket.url.String())
 	websocket, err := socket.newSocket(socket.url)
 	if nil != err {
-		log.Debug("socket.Connect(): received error %s", err.Error())
+		log.Debugf("socket.Connect(): received error %s", err.Error())
 		socket.connected = false
 		return err
 	}
 	socket.conn = websocket
 
-	log.Debug("socket.Connect(): connection to %s established...", socket.url.String())
+	log.Debugf("socket.Connect(): connection to %s established...", socket.url.String())
 	socket.connected = true
 
 	return nil

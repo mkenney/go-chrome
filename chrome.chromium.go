@@ -297,9 +297,9 @@ func (chrome *Chrome) Query(
 	}
 	defer resp.Body.Close()
 
-	log.Infof("chrome:/%s %s", path, resp.Status)
+	log.Debugf("chrome:/%s %s", path, resp.Status)
 	if 200 != resp.StatusCode {
-		return resp.Status, nil
+		return nil, fmt.Errorf("%s", resp.Status)
 	}
 
 	content, err := ioutil.ReadAll(resp.Body)

@@ -1,12 +1,14 @@
 package socket
 
 import (
+	"net/url"
 	"testing"
 )
 
 func TestConner(t *testing.T) {
 	var err error
-	socket, _ := NewMock("http://www.example.com/")
+	socketURL, _ := url.Parse("http://www.example.com/")
+	socket := NewMock(socketURL)
 
 	err = socket.Connect()
 	if nil != err {
