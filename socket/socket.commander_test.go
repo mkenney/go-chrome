@@ -41,7 +41,6 @@ func TestNewCommander(t *testing.T) {
 
 func TestCommanderNextID(t *testing.T) {
 	// Ids generated in order
-	testMux.Lock()
 	start := _commandID
 	for a := start + 1; a <= start+1000; a++ {
 		cmd := NewCommand("Some.method", nil)
@@ -49,7 +48,6 @@ func TestCommanderNextID(t *testing.T) {
 			t.Errorf("nextID() failed to generate consecutive IDs - expeted %d, received %d", a, cmd.ID())
 		}
 	}
-	testMux.Unlock()
 
 	// Ids generated safely
 	id := make(chan int)

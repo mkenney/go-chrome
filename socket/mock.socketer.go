@@ -5,8 +5,6 @@ import (
 	"sync"
 )
 
-var testMux = &sync.Mutex{}
-
 /*
 NewMock returns a mock Chromium socket for unit testing
 */

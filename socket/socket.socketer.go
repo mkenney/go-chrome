@@ -129,23 +129,7 @@ AddEventHandler implements Socketer.
 func (socket *Socket) AddEventHandler(
 	handler EventHandler,
 ) {
-	socket.handlers.Lock()
-	defer socket.handlers.Unlock()
-
-	handlers, err := socket.handlers.Get(handler.Name())
-	if nil != err {
-		handlers = make([]EventHandler, 0)
-	}
-	for _, hndl := range handlers {
-		if hndl == handler {
-			log.Warnf("Attempted to add a duplicate handler for event '%s', skipping...", handler.Name())
-			return
-		}
-	}
-
-	log.Debugf("Adding handler for event '%s'", handler.Name())
-	handlers = append(handlers, handler)
-	socket.handlers.Set(handler.Name(), handlers)
+	socket.handlers.Add(handler)
 }
 
 /*

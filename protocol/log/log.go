@@ -11,26 +11,6 @@ import (
 )
 
 /*
-StartViolationsReportParams represents LayerTree.startViolationsReport parameters.
-
-https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-startViolationsReport
-*/
-type StartViolationsReportParams struct {
-	// Configuration for violations.
-	Config []*ViolationSetting `json:"config"`
-}
-
-/*
-EntryAddedEvent represents LayerTree.entryAdded event data.
-
-https://chromedevtools.github.io/devtools-protocol/tot/Log/#event-entryAdded
-*/
-type EntryAddedEvent struct {
-	// The entry.
-	Entry *Entry `json:"entry"`
-}
-
-/*
 Entry is a log entry.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#type-LogEntry

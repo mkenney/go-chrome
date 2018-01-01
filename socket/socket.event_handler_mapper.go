@@ -38,10 +38,9 @@ func (stack *eventHandlerMap) Add(
 	if nil != err {
 		handlers = make([]EventHandler, 0)
 	}
-
 	for _, hndl := range handlers {
 		if hndl == handler {
-			log.Warnf("Attempted to add a duplicate handler for event '%s'", handler.Name())
+			log.Warnf("Attempted to add a duplicate handler for event '%s', skipping...", handler.Name())
 			return
 		}
 	}
