@@ -1,7 +1,6 @@
 # go-chrome
 
-[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/mkenney/stability-badges#unstable) [![Build status](https://travis-ci.org/mkenney/go-chrome.svg?branch=master)](https://travis-ci.org/mkenney/go-chrome) [![Github issues](https://img.shields.io/github/issues-raw/mkenney/go-chrome.svg)](https://github.com/mkenney/go-chrome/issues)
- [![Go Report Card](https://goreportcard.com/badge/github.com/mkenney/go-chrome)](https://goreportcard.com/report/github.com/mkenney/go-chrome) [![GoDoc](https://godoc.org/github.com/mkenney/go-chrome?status.svg)](https://godoc.org/github.com/mkenney/go-chrome)
+[![Build status](https://travis-ci.org/mkenney/go-chrome.svg?branch=master)](https://travis-ci.org/mkenney/go-chrome) [![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/mkenney/stability-badges#unstable) [![Github issues](https://img.shields.io/github/issues-raw/mkenney/go-chrome.svg)](https://github.com/mkenney/go-chrome/issues) [![Go Report Card](https://goreportcard.com/badge/github.com/mkenney/go-chrome)](https://goreportcard.com/report/github.com/mkenney/go-chrome) [![GoDoc](https://godoc.org/github.com/mkenney/go-chrome?status.svg)](https://godoc.org/github.com/mkenney/go-chrome)
 
 
 This package aims to be a complete [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) implementation. My primary use-case is interacting with [headless Google Chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) in a container environment, but this should be appropriate for developing server side and desktop applications as well.
