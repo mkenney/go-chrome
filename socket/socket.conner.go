@@ -17,7 +17,7 @@ func (socket *Socket) Connect() error {
 		return nil
 	}
 
-	log.Debugf("socket.Connect(): connecting. to %s..", socket.url.String())
+	log.Debugf("socket.Connect(): connecting to %s", socket.url.String())
 	websocket, err := socket.newSocket(socket.url)
 	if nil != err {
 		log.Debugf("socket.Connect(): received error %s", err.Error())
@@ -26,7 +26,7 @@ func (socket *Socket) Connect() error {
 	}
 	socket.conn = websocket
 
-	log.Debugf("socket.Connect(): connection to %s established...", socket.url.String())
+	log.Debugf("socket.Connect(): connection to %s established", socket.url.String())
 	socket.connected = true
 
 	return nil

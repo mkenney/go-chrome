@@ -42,11 +42,7 @@ func (chrome *Chrome) NewTab(uri string) (*Tab, error) {
 		return nil, err
 	}
 
-	socket, err := socket.New(websocketURL)
-	if nil != err {
-		return nil, err
-	}
-
+	socket := socket.New(websocketURL)
 	tab.socket = socket
 	tab.protocol = socket
 	chrome.tabs = append(chrome.tabs, tab)
