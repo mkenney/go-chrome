@@ -1,3 +1,14 @@
+/*
+Package errors provides typed errors that are used internally for branched
+error handling logic. All typed errors are also opaque errors for idomatic
+usage.
+
+https://dave.cheney.net/2016/04/27/dont-just-check-errors-handle-them-gracefully
+
+TODO
+
+Migrate to https://godoc.org/github.com/pkg/errors
+*/
 package errors
 
 import (
