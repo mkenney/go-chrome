@@ -10,6 +10,13 @@ import (
 )
 
 /*
+ChromeWebSocket represents a WebSocketer interface
+*/
+type ChromeWebSocket struct {
+	*websocket.Conn
+}
+
+/*
 NewWebsocket returns a connected socket connection
 */
 func NewWebsocket(socketURL *url.URL) (WebSocketer, error) {
@@ -26,5 +33,12 @@ func NewWebsocket(socketURL *url.URL) (WebSocketer, error) {
 	}
 	log.Infof("Websocket connection to %s established: %s", socketURL.String(), response.Status)
 
-	return websocket, nil
+	return &ChromeWebSocket{websocket}, nil
+}
+
+/*
+AddMockData implements WebSocketer
+*/
+func (sock *ChromeWebSocket) AddMockData(id int, error *Error, method string, data ...interface{}) {
+	log.Errorf("Attempted to add mock data outside of unit tests")
 }

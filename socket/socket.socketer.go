@@ -22,9 +22,7 @@ func New(url *url.URL) *Socket {
 	}
 
 	// Init the protocol interfaces for the API.
-	socket.accessibility = &AccessibilityProtocol{
-		Socket: socket,
-	}
+	socket.accessibility = &AccessibilityProtocol{Socket: socket}
 	socket.animation = &AnimationProtocol{Socket: socket}
 	socket.applicationCache = &ApplicationCacheProtocol{Socket: socket}
 	socket.audits = &AuditsProtocol{Socket: socket}
