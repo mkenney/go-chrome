@@ -5,10 +5,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/mkenney/go-chrome/protocol/animation"
 	"github.com/mkenney/go-chrome/protocol/dom"
-
-	animation "github.com/mkenney/go-chrome/protocol/animation"
-	runtime "github.com/mkenney/go-chrome/protocol/runtime"
+	"github.com/mkenney/go-chrome/protocol/runtime"
 	log "github.com/sirupsen/logrus"
 )
 

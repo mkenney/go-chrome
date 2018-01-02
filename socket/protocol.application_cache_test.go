@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	applicationCache "github.com/mkenney/go-chrome/protocol/application_cache"
-	page "github.com/mkenney/go-chrome/protocol/page"
+	application_cache "github.com/mkenney/go-chrome/protocol/application_cache"
+	"github.com/mkenney/go-chrome/protocol/page"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -42,13 +42,13 @@ func TestApplicationCacheGetForFrame(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	mockGetForFrameResult := &applicationCache.GetForFrameResult{
-		ApplicationCache: &applicationCache.ApplicationCache{
+	mockGetForFrameResult := &application_cache.GetForFrameResult{
+		ApplicationCache: &application_cache.ApplicationCache{
 			ManifestURL:  "http://example.com/manifest",
 			Size:         1.1,
 			CreationTime: float64(time.Now().Unix()),
 			UpdateTime:   float64(time.Now().Unix()),
-			Resources: []*applicationCache.Resource{{
+			Resources: []*application_cache.Resource{{
 				URL:  "http://example.com/",
 				Size: 1,
 				Type: "Type",
@@ -60,10 +60,10 @@ func TestApplicationCacheGetForFrame(t *testing.T) {
 		&Error{},
 		"ApplicationCache.getForFrame",
 		mockGetForFrameResult,
-		&applicationCache.GetForFrameParams{FrameID: page.FrameID("mock-frame-id")},
+		&application_cache.GetForFrameParams{FrameID: page.FrameID("mock-frame-id")},
 	)
 	go func() {
-		result, err := mockSocket.ApplicationCache().GetForFrame(&applicationCache.GetForFrameParams{})
+		result, err := mockSocket.ApplicationCache().GetForFrame(&application_cache.GetForFrameParams{})
 		if nil != err {
 			t.Errorf("Expected nil, got error: '%s'", err.Error())
 		}
@@ -83,8 +83,8 @@ func TestApplicationCacheGetFramesWithManifests(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	mockGetFramesWithManifestsResult := &applicationCache.GetFramesWithManifestsResult{
-		FrameIDs: []*applicationCache.FrameWithManifest{{
+	mockGetFramesWithManifestsResult := &application_cache.GetFramesWithManifestsResult{
+		FrameIDs: []*application_cache.FrameWithManifest{{
 			FrameID:     page.FrameID(1),
 			ManifestURL: "http://example.com/manifest",
 			Status:      1,
@@ -118,7 +118,7 @@ func TestApplicationCacheGetManifestForFrame(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	mockGetManifestForFrameResult := &applicationCache.GetManifestForFrameResult{
+	mockGetManifestForFrameResult := &application_cache.GetManifestForFrameResult{
 		ManifestURL: "http://example.com/manifest",
 	}
 	mockSocket.Conn().AddMockData(
@@ -129,7 +129,7 @@ func TestApplicationCacheGetManifestForFrame(t *testing.T) {
 		nil,
 	)
 	go func() {
-		result, err := mockSocket.ApplicationCache().GetManifestForFrame(&applicationCache.GetManifestForFrameParams{
+		result, err := mockSocket.ApplicationCache().GetManifestForFrame(&application_cache.GetManifestForFrameParams{
 			FrameID: page.FrameID("mock-frame-id"),
 		})
 		if nil != err {
@@ -151,7 +151,7 @@ func TestApplicationCacheOnApplicationCacheStatusUpdated(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	mockOnApplicationCacheStatusUpdatedEvent := &applicationCache.StatusUpdatedEvent{
+	mockOnApplicationCacheStatusUpdatedEvent := &application_cache.StatusUpdatedEvent{
 		FrameID:     page.FrameID("mock-frame-id"),
 		ManifestURL: "http://example.com/manifest",
 		Status:      1,
@@ -163,8 +163,8 @@ func TestApplicationCacheOnApplicationCacheStatusUpdated(t *testing.T) {
 		mockOnApplicationCacheStatusUpdatedEvent,
 		nil,
 	)
-	results := make(chan *applicationCache.StatusUpdatedEvent)
-	mockSocket.ApplicationCache().OnApplicationCacheStatusUpdated(func(event *applicationCache.StatusUpdatedEvent) {
+	results := make(chan *application_cache.StatusUpdatedEvent)
+	mockSocket.ApplicationCache().OnApplicationCacheStatusUpdated(func(event *application_cache.StatusUpdatedEvent) {
 		results <- mockOnApplicationCacheStatusUpdatedEvent
 	})
 	result := <-results
@@ -183,7 +183,7 @@ func TestApplicationCacheOnNetworkStateUpdated(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	mockOnNetworkStateUpdatedEvent := &applicationCache.NetworkStateUpdatedEvent{
+	mockOnNetworkStateUpdatedEvent := &application_cache.NetworkStateUpdatedEvent{
 		IsNowOnline: true,
 	}
 	mockSocket.Conn().AddMockData(
@@ -193,8 +193,8 @@ func TestApplicationCacheOnNetworkStateUpdated(t *testing.T) {
 		mockOnNetworkStateUpdatedEvent,
 		nil,
 	)
-	results := make(chan *applicationCache.NetworkStateUpdatedEvent)
-	mockSocket.ApplicationCache().OnNetworkStateUpdated(func(event *applicationCache.NetworkStateUpdatedEvent) {
+	results := make(chan *application_cache.NetworkStateUpdatedEvent)
+	mockSocket.ApplicationCache().OnNetworkStateUpdated(func(event *application_cache.NetworkStateUpdatedEvent) {
 		results <- mockOnNetworkStateUpdatedEvent
 	})
 	result := <-results
