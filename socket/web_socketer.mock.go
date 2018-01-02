@@ -9,14 +9,15 @@ import (
 )
 
 /*
-MockWebSocket implements WebSocketer for mocking
+MockWebSocket implements WebSocketer for test dependencies.
 */
 type MockWebSocket struct {
 	mockResponses []*Response
 }
 
 /*
-NewMockWebsocket returns a mock websocket connection
+NewMockWebsocket returns a WebSocketer mock for tests that have socket
+connection dependencies.
 */
 func NewMockWebsocket(socketURL *url.URL) (WebSocketer, error) {
 	log.Infof("Mock websocket connection to %s established", socketURL.String())
@@ -26,14 +27,14 @@ func NewMockWebsocket(socketURL *url.URL) (WebSocketer, error) {
 }
 
 /*
-Close implements WebSocketer
+Close implements WebSocketer.
 */
 func (socket *MockWebSocket) Close() error {
 	return nil
 }
 
 /*
-ReadJSON implements WebSocketer
+ReadJSON implements WebSocketer.
 
 This uses a stack of responses to attempt to emulate Chromium behavior for
 testsing. To use, add a response to the stack with addMockWebsocketResponse().
@@ -86,14 +87,14 @@ func (socket *MockWebSocket) ReadJSON(v interface{}) error {
 }
 
 /*
-WriteJSON implements WebSocketer
+WriteJSON implements WebSocketer.
 */
 func (socket *MockWebSocket) WriteJSON(v interface{}) error {
 	return nil
 }
 
 /*
-AddMockData implements WebSocketer
+AddMockData implements WebSocketer.
 */
 func (socket *MockWebSocket) AddMockData(id int, err *Error, method string, data ...interface{}) {
 	response := &Response{
