@@ -21,7 +21,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-getCurr
 */
 type GetCurrentTimeResult struct {
 	// ID of animation.
-	ID string `json:"id"`
+	CurrentTime int64 `json:"currentTime"`
 }
 
 /*
