@@ -32,10 +32,10 @@ type Animation struct {
 	PlaybackRate float64 `json:"playbackRate"`
 
 	// Animation's start time.
-	StartTime float64 `json:"startTime"`
+	StartTime int64 `json:"startTime"`
 
 	// Animation's current time.
-	CurrentTime float64 `json:"currentTime"`
+	CurrentTime int64 `json:"currentTime"`
 
 	// Animation type of Animation. Allowed values: CSSTransition, CSSAnimation,
 	// WebAnimation.
@@ -56,19 +56,19 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#type-Animation
 */
 type Effect struct {
 	// Effect's delay.
-	Delay float64 `json:"delay"`
+	Delay int64 `json:"delay"`
 
 	// Effect's end delay.
-	EndDelay float64 `json:"endDelay"`
+	EndDelay int64 `json:"endDelay"`
 
 	// Effect's iteration start.
-	IterationStart float64 `json:"iterationStart"`
+	IterationStart int64 `json:"iterationStart"`
 
 	// Effect's iterations.
-	Iterations float64 `json:"iterations"`
+	Iterations int64 `json:"iterations"`
 
 	// Effect's iteration duration.
-	Duration float64 `json:"duration"`
+	Duration int64 `json:"duration"`
 
 	// Effect's playback direction.
 	Direction string `json:"direction"`
