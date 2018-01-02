@@ -44,7 +44,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindow
 type GetWindowBoundsResult struct {
 	// Bounds information of the window. When window state is 'minimized', the
 	// restored window position and size are returned.
-	Bounds Bounds `json:"bounds"`
+	Bounds *Bounds `json:"bounds"`
 }
 
 /*
@@ -68,7 +68,7 @@ type GetWindowForTargetResult struct {
 
 	// Bounds information of the window. When window state is 'minimized', the
 	// restored window position and size are returned.
-	Bounds Bounds `json:"bounds"`
+	Bounds *Bounds `json:"bounds"`
 }
 
 /*
@@ -83,7 +83,7 @@ type SetWindowBoundsParams struct {
 	// New window bounds. The 'minimized', 'maximized' and 'fullscreen' states
 	// cannot be combined with 'left', 'top', 'width' or 'height'. Leaves
 	// unspecified fields unchanged.
-	Bounds Bounds `json:"bounds"`
+	Bounds *Bounds `json:"bounds"`
 }
 
 /*
@@ -98,5 +98,5 @@ type SetWindowBoundsResult struct {
 	// New window bounds. The 'minimized', 'maximized' and 'fullscreen' states
 	// cannot be combined with 'left', 'top', 'width' or 'height'. Leaves
 	// unspecified fields unchanged.
-	Bounds Bounds `json:"bounds"`
+	Bounds *Bounds `json:"bounds"`
 }
