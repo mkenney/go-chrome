@@ -34,8 +34,8 @@ type GetEncodedResponseResult struct {
 	Body string `json:"body,omitempty"`
 
 	// Size before re-encoding.
-	OriginalSize int `json:"originalSize"`
+	OriginalSize int64 `json:"originalSize"`
 
 	// Size after re-encoding.
-	EncodedSize int `json:"encodedSize"`
+	EncodedSize int64 `json:"encodedSize"`
 }
