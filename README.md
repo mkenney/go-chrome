@@ -13,4 +13,4 @@ The API should be stable but is not yet production ready.
 
 # TODO
 
-Add more tests. So many tests... If you would like to contribute but aren't sure how, there are several [open issues](https://github.com/mkenney/go-chrome/issues?q=is%3Aopen+is%3Aissue+project%3Amkenney%2Fgo-chrome%2F1) for that need to be written, I'll try to keep that list up to date. There are also [several examples](https://github.com/mkenney/go-chrome/blob/master/socket/protocol.animation_test.go) of tests that have already be written. Any contributes to tests or otherwise are welcome!
+Add more tests. So many tests... If you would like to contribute but aren't sure how, there are several [open issues](https://github.com/mkenney/go-chrome/issues?q=is%3Aopen+is%3Aissue+project%3Amkenney%2Fgo-chrome%2F1) for that need to be written, I'll try to keep that list up to date. There are also [several examples](https://github.com/mkenney/go-chrome/blob/master/socket/protocol.animation_test.go) of tests that have already be written. Any contributions to tests or otherwise are welcome!
