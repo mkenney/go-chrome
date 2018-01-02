@@ -6,7 +6,7 @@ import (
 )
 
 /*
-NewMock returns a mock Chromium socket for unit testing
+NewMock returns a Chromium Socketer mock for unit testing
 */
 func NewMock(socketURL *url.URL) *Socket {
 	socket := &Socket{
