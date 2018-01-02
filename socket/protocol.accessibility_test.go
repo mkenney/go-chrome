@@ -17,13 +17,13 @@ func init() {
 	}
 }
 
-func TestGetPartialAXTree(t *testing.T) {
+func TestAccessibilityGetPartialAXTree(t *testing.T) {
 	socketURL, _ := url.Parse("https://www.example.com/")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	addMockWebsocketResponse(
+	mockSocket.Conn().AddMockData(
 		_commandID+1,
 		&Error{},
 		"Accessibility.partialAXTreeParams",
@@ -78,7 +78,7 @@ func TestGetPartialAXTree(t *testing.T) {
 		}},
 	}
 
-	addMockWebsocketResponse(
+	mockSocket.Conn().AddMockData(
 		_commandID+1,
 		&Error{},
 		"Accessibility.partialAXTreeParams",

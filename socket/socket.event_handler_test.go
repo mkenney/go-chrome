@@ -31,13 +31,13 @@ func TestHandleEvent(t *testing.T) {
 	mockSocket.AddEventHandler(handler2)
 	mockSocket.AddEventHandler(handler3)
 
-	addMockWebsocketResponse(
+	mockSocket.Conn().AddMockData(
 		0,
 		&Error{},
 		"Some.event",
 		"Mock Event Result",
 	)
-	addMockWebsocketResponse(
+	mockSocket.Conn().AddMockData(
 		0,
 		&Error{},
 		"Inspector.targetCrashed",

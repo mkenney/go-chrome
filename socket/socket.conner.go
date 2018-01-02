@@ -7,6 +7,14 @@ import (
 )
 
 /*
+Conn returns the current WebSocketer interface
+*/
+func (socket *Socket) Conn() WebSocketer {
+	socket.Connect()
+	return socket.conn
+}
+
+/*
 Connect implements Conner.
 */
 func (socket *Socket) Connect() error {

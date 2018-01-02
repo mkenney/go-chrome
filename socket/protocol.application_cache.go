@@ -117,12 +117,12 @@ OnNetworkStateUpdated adds a handler to the ApplicationCache.StatusUpdated event
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#event-networkStateUpdated
 */
 func (protocol *ApplicationCacheProtocol) OnNetworkStateUpdated(
-	callback func(event *applicationCache.StatusUpdatedEvent),
+	callback func(event *applicationCache.NetworkStateUpdatedEvent),
 ) {
 	handler := NewEventHandler(
 		"ApplicationCache.networkStateUpdated",
 		func(response *Response) {
-			event := &applicationCache.StatusUpdatedEvent{}
+			event := &applicationCache.NetworkStateUpdatedEvent{}
 			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
 				log.Error(err)
 			} else {

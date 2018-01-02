@@ -40,15 +40,6 @@ func TestNewCommander(t *testing.T) {
 }
 
 func TestCommanderNextID(t *testing.T) {
-	// Ids generated in order
-	start := _commandID
-	for a := start + 1; a <= start+1000; a++ {
-		cmd := NewCommand("Some.method", nil)
-		if a != cmd.ID() {
-			t.Errorf("nextID() failed to generate consecutive IDs - expeted %d, received %d", a, cmd.ID())
-		}
-	}
-
 	// Ids generated safely
 	id := make(chan int)
 	for a := 0; a <= 1000; a++ {

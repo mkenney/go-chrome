@@ -15,6 +15,9 @@ type Socketer interface {
 	// Connect creates a new websocket connection.
 	Connect() error
 
+	// Connected returns the current socket connection status.
+	Connected() bool
+
 	// Disconnect closes the current socket connection.
 	Disconnect() error
 

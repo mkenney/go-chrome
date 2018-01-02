@@ -20,7 +20,7 @@ func TestListenCommand(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	addMockWebsocketResponse(
+	mockSocket.Conn().AddMockData(
 		_commandID+1,
 		&Error{},
 		"Some.method",
@@ -40,7 +40,7 @@ func TestListenCommandError(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	addMockWebsocketResponse(
+	mockSocket.Conn().AddMockData(
 		_commandID+1,
 		&Error{},
 		"Some.methodError",
@@ -59,7 +59,7 @@ func TestReadJSONError(t *testing.T) {
 	//	go mockSocket.Listen()
 	//	defer mockSocket.Stop()
 	//
-	//	addMockWebsocketResponse(
+	//	mockSocket.Conn().AddMockData(
 	//		0,
 	//		&Error{},
 	//		"Some.event",

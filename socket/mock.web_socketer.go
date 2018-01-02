@@ -11,20 +11,24 @@ import (
 /*
 MockWebSocket implements WebSocketer for mocking
 */
-type MockWebSocket struct{}
+type MockWebSocket struct {
+	mockResponses []*Response
+}
 
 /*
 NewMockWebsocket returns a mock websocket connection
 */
 func NewMockWebsocket(socketURL *url.URL) (WebSocketer, error) {
 	log.Infof("Mock websocket connection to %s established", socketURL.String())
-	return &MockWebSocket{}, nil
+	return &MockWebSocket{
+		mockResponses: make([]*Response, 0),
+	}, nil
 }
 
 /*
 Close implements WebSocketer
 */
-func (sock *MockWebSocket) Close() error {
+func (socket *MockWebSocket) Close() error {
 	return nil
 }
 
@@ -58,16 +62,16 @@ I'll refactor it that way when the tests start taking too long.
 This is only a problem with mocking the socket stream data for unit tests. It
 does impact interacting Chrome in any way.
 */
-func (sock *MockWebSocket) ReadJSON(v interface{}) error {
+func (socket *MockWebSocket) ReadJSON(v interface{}) error {
 	var data interface{}
 
-	if len(_mockWebsocketResponses) > 0 {
-		time.Sleep(time.Second * 1)
-		data = _mockWebsocketResponses[0]
-		_mockWebsocketResponses = _mockWebsocketResponses[1:]
+	if len(socket.mockResponses) > 0 {
+		time.Sleep(time.Millisecond * 100)
+		data = socket.mockResponses[0]
+		socket.mockResponses = socket.mockResponses[1:]
 
 	} else {
-		time.Sleep(time.Millisecond * 100)
+		time.Sleep(time.Second * 1)
 		data = &Response{
 			Error:  &Error{},
 			ID:     0,
@@ -84,13 +88,16 @@ func (sock *MockWebSocket) ReadJSON(v interface{}) error {
 /*
 WriteJSON implements WebSocketer
 */
-func (sock *MockWebSocket) WriteJSON(v interface{}) error {
+func (socket *MockWebSocket) WriteJSON(v interface{}) error {
 	return nil
 }
 
-func addMockWebsocketResponse(id int, error *Error, method string, data ...interface{}) {
+/*
+AddMockData implements WebSocketer
+*/
+func (socket *MockWebSocket) AddMockData(id int, err *Error, method string, data ...interface{}) {
 	response := &Response{
-		Error:  error,
+		Error:  err,
 		ID:     id,
 		Method: method,
 	}
@@ -100,7 +107,5 @@ func addMockWebsocketResponse(id int, error *Error, method string, data ...inter
 	if len(data) > 1 {
 		response.Params, _ = json.Marshal(data[1])
 	}
-	_mockWebsocketResponses = append(_mockWebsocketResponses, response)
+	socket.mockResponses = append(socket.mockResponses, response)
 }
-
-var _mockWebsocketResponses = make([]*Response, 0)
