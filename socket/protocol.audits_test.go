@@ -30,7 +30,7 @@ func TestAuditsGetEncodedResponse(t *testing.T) {
 	mockSocket.Conn().AddMockData(
 		_commandID+1,
 		&Error{},
-		"Audits.GetEncodedResponse",
+		"Audits.getEncodedResponse",
 		mockResult,
 	)
 	go func() {
