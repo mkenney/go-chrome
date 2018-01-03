@@ -8,15 +8,7 @@ import (
 	"github.com/mkenney/go-chrome/cdtp/animation"
 	"github.com/mkenney/go-chrome/cdtp/dom"
 	"github.com/mkenney/go-chrome/cdtp/runtime"
-	log "github.com/sirupsen/logrus"
 )
-
-func init() {
-	level, err := log.ParseLevel("debug")
-	if nil == err {
-		log.SetLevel(level)
-	}
-}
 
 func TestAnimationDisable(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/")

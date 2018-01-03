@@ -7,15 +7,7 @@ import (
 
 	"github.com/mkenney/go-chrome/cdtp/accessibility"
 	"github.com/mkenney/go-chrome/cdtp/dom"
-	log "github.com/sirupsen/logrus"
 )
-
-func init() {
-	level, err := log.ParseLevel("debug")
-	if nil == err {
-		log.SetLevel(level)
-	}
-}
 
 func TestAccessibilityGetPartialAXTree(t *testing.T) {
 	socketURL, _ := url.Parse("https://www.example.com/")
