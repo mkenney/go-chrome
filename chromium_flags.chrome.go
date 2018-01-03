@@ -2,7 +2,10 @@ package chrome
 
 import (
 	"fmt"
+	"sort"
 	"strings"
+
+	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -36,8 +39,18 @@ List implements ChromiumFlags
 func (flags Flags) List() []string {
 	var list []string
 
-	for arg, vals := range flags {
-		if nil == vals {
+	orderedFlags := []string{}
+	for arg := range flags {
+		orderedFlags = append(orderedFlags, arg)
+	}
+	sort.Strings(orderedFlags)
+
+	for _, arg := range orderedFlags {
+		vals, err := flags.Get(arg)
+		if nil != err {
+			log.Fatal(err)
+		}
+		if nil == vals || 0 == len(vals) {
 			list = append(list, fmt.Sprintf("--%s", arg))
 		} else {
 			for _, val := range vals {
@@ -62,19 +75,21 @@ Set implements ChromiumFlags
 */
 func (flags Flags) Set(arg string, values []interface{}) (err error) {
 	if nil == values {
-		values = make([]interface{}, 0)
+		if _, ok := flags[arg]; !ok {
+			flags[arg] = nil
+		}
 	}
-	flags[arg] = values
 
-	for k, value := range values {
+	for _, value := range values {
 		if nil != value {
 			switch value.(type) {
 			case int:
-				flags[arg][k] = value.(int)
+				flags[arg] = append(flags[arg], value.(int))
 			case string:
-				flags[arg][k] = value.(string)
+				flags[arg] = append(flags[arg], value.(string))
 			default:
-				panic(fmt.Sprintf("Invalid data type %v for argument %s", value, arg))
+				log.Errorf("invalid")
+				return fmt.Errorf("Invalid data type %v for argument %s", value, arg)
 			}
 		}
 	}
