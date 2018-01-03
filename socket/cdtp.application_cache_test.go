@@ -7,15 +7,7 @@ import (
 
 	application_cache "github.com/mkenney/go-chrome/cdtp/application_cache"
 	"github.com/mkenney/go-chrome/cdtp/page"
-	log "github.com/sirupsen/logrus"
 )
-
-func init() {
-	level, err := log.ParseLevel("debug")
-	if nil == err {
-		log.SetLevel(level)
-	}
-}
 
 func TestApplicationCacheEnable(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/")

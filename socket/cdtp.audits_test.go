@@ -6,15 +6,7 @@ import (
 
 	audits "github.com/mkenney/go-chrome/cdtp/audits"
 	network "github.com/mkenney/go-chrome/cdtp/network"
-	log "github.com/sirupsen/logrus"
 )
-
-func init() {
-	level, err := log.ParseLevel("debug")
-	if nil == err {
-		log.SetLevel(level)
-	}
-}
 
 func TestAuditsGetEncodedResponse(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/")
