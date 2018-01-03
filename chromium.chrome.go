@@ -185,25 +185,14 @@ func (chrome *Chrome) Launch() error {
 	var err error
 
 	// Default values for required parameters
-	if !chrome.Flags().Has("addr") {
-		chrome.Flags().Set("addr", []interface{}{chrome.Address()})
-	}
-	if !chrome.Flags().Has("remote-debugging-address") {
-		chrome.Flags().Set("remote-debugging-address", []interface{}{chrome.DebuggingAddress()})
-	}
-	if !chrome.Flags().Has("remote-debugging-port") {
-		chrome.Flags().Set("remote-debugging-port", []interface{}{chrome.DebuggingPort()})
-	}
-	if !chrome.Flags().Has("port") {
-		chrome.Flags().Set("port", []interface{}{chrome.Port()})
-	}
+	chrome.Address()
+	chrome.DebuggingAddress()
+	chrome.DebuggingPort()
+	chrome.Port()
 	if !chrome.Flags().Has("user-data-dir") {
 		chrome.Flags().Set("user-data-dir", []interface{}{os.TempDir()})
 	}
 
-	if "" == chrome.Workdir() {
-		chrome.workdir = filepath.Join(os.TempDir(), "headless-chrome")
-	}
 	if err := os.MkdirAll(chrome.Workdir(), 0700); err != nil {
 		return fmt.Errorf("Cannot create working directory '%s'", chrome.Workdir())
 	}
@@ -243,7 +232,7 @@ func (chrome *Chrome) Launch() error {
 		chrome.Flags().List(),
 		&procAttributes,
 	)
-	if err != nil {
+	if nil != err {
 		chrome.stdOUTFile.Close()
 		return err
 	}
@@ -290,6 +279,7 @@ func (chrome *Chrome) Query(
 		path += fmt.Sprintf("?%s", params.Encode())
 	}
 	uri := fmt.Sprintf("http://%s:%d%s", chrome.Address(), chrome.Port(), path)
+	log.Errorf("%s", uri)
 
 	resp, err := http.Get(uri)
 	if err != nil {

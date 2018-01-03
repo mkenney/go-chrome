@@ -88,7 +88,6 @@ func (flags Flags) Set(arg string, values []interface{}) (err error) {
 			case string:
 				flags[arg] = append(flags[arg], value.(string))
 			default:
-				log.Errorf("invalid")
 				return fmt.Errorf("Invalid data type %v for argument %s", value, arg)
 			}
 		}
