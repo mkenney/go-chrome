@@ -1,7 +1,7 @@
 # go-chrome
 <table>
 <tr>
-	<td>
+	<td width="100">
 		<a href="https://travis-ci.org/mkenney/go-chrome"><img src="https://travis-ci.org/mkenney/go-chrome.svg?branch=master" alt="Build status"></a>
 	</td>
 	<td rowspan="5">
