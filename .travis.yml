@@ -21,7 +21,7 @@ before_install:
 script:
     - golint ./...
     - dep ensure
-    - go test -race -coverprofile=coverage.txt -covermode=atomic ./...
+    - ./.travis-coverage.sh
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)
