@@ -3,7 +3,7 @@ set -e
 echo "" > coverage.txt
 
 for d in $(go list ./... | grep -v vendor); do
-    go test -coverprofile=profile.out -covermode=atomic $d
+    go test -coverprofile=profile.out $d
     exit_code=$?
     if [ 0 -ne $exit_code ]; then
         exit $exit_code
