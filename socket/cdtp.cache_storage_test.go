@@ -161,21 +161,21 @@ func TestCacheStorageRequestEntries(t *testing.T) {
 		"CacheStorage.RequestEntries",
 		mockResult,
 	)
-	go func() {
-		result, err := mockSocket.CacheStorage().RequestEntries(&cacheStorage.RequestEntriesParams{
-			CacheID:   cacheStorage.CacheID("security-origin"),
-			SkipCount: 1,
-			PageSize:  1,
-		})
-		if nil != err {
-			t.Errorf("Expected nil, got error: '%s'", err.Error())
-		}
-		if result.CacheDataEntries[0].RequestURL != mockResult.CacheDataEntries[0].RequestURL {
-			t.Errorf(
-				"Expected %s, received %s",
-				mockResult.CacheDataEntries[0].RequestURL,
-				result.CacheDataEntries[0].RequestURL,
-			)
-		}
-	}()
+	//go func() {
+	result, err := mockSocket.CacheStorage().RequestEntries(&cacheStorage.RequestEntriesParams{
+		CacheID:   cacheStorage.CacheID("security-origin"),
+		SkipCount: 1,
+		PageSize:  1,
+	})
+	if nil != err {
+		t.Errorf("Expected nil, got error: '%s'", err.Error())
+	}
+	if result.CacheDataEntries[0].RequestURL != mockResult.CacheDataEntries[0].RequestURL {
+		t.Errorf(
+			"Expected %s, received %s",
+			mockResult.CacheDataEntries[0].RequestURL,
+			result.CacheDataEntries[0].RequestURL,
+		)
+	}
+	//}()
 }
