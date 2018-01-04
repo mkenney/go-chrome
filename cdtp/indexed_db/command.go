@@ -17,6 +17,15 @@ type ClearObjectStoreParams struct {
 }
 
 /*
+ClearObjectStoreResult represents the result of calls to IndexedDB.clearObjectStore.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-clearObjectStore
+*/
+type ClearObjectStoreResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 DeleteDatabaseParams represents IndexedDB.deleteDatabase parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-deleteDatabase
@@ -33,7 +42,17 @@ type DeleteDatabaseParams struct {
 }
 
 /*
-DeleteObjectStoreEntriesParams represents IndexedDB.deleteObjectStoreEntries parameters.
+DeleteDatabaseResult represents the result of calls to IndexedDB.deleteDatabase.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-deleteDatabase
+*/
+type DeleteDatabaseResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+DeleteObjectStoreEntriesParams represents IndexedDB.deleteObjectStoreEntries
+parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-deleteObjectStoreEntries
 */
@@ -43,6 +62,34 @@ type DeleteObjectStoreEntriesParams struct {
 
 	// Database name.
 	DatabaseName string `json:"databaseName"`
+}
+
+/*
+DeleteObjectStoreEntriesResult represents the result of calls to
+IndexedDB.deleteObjectStoreEntries.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-deleteObjectStoreEntries
+*/
+type DeleteObjectStoreEntriesResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+DisableResult represents the result of calls to IndexedDB.disable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-disable
+*/
+type DisableResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+EnableResult represents the result of calls to IndexedDB.enable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-enable
+*/
+type EnableResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -84,6 +131,8 @@ type RequestDataResult struct {
 
 	// If true, there are more entries to fetch in the given range.
 	HasMore bool `json:"hasMore"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -107,6 +156,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-request
 type RequestDatabaseResult struct {
 	// Database with an array of object stores.
 	DatabaseWithObjectStores *DatabaseWithObjectStores `json:"databaseWithObjectStores"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -127,4 +178,6 @@ https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-request
 type RequestDatabaseNamesResult struct {
 	// Database names for origin.
 	DatabaseNames []string `json:"databaseNames"`
+
+	CDTPError error `json:"-"`
 }

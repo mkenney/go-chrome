@@ -1,6 +1,24 @@
 package database
 
 /*
+DisableResult represents the result of calls to Database.disable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-disable
+*/
+type DisableResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+EnableResult represents the result of calls to Database.enable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-enable
+*/
+type EnableResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 ExecuteSQLParams represents Database.executeSQL parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-executeSQL
@@ -24,6 +42,8 @@ type ExecuteSQLResult struct {
 
 	// Optional. Error, if any.
 	SQLError *Error `json:"sqlError,omitempty"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -43,4 +63,6 @@ https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-getDatab
 type GetTableNamesResult struct {
 	// Table names.
 	TableNames []string `json:"tableNames"`
+
+	CDTPError error `json:"-"`
 }

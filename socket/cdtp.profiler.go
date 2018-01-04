@@ -21,10 +21,20 @@ Disable disables profiling.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-disable
 */
-func (protocol *ProfilerProtocol) Disable() error {
-	command := NewCommand("Profiler.disable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *ProfilerProtocol) Disable() chan *profiler.DisableResult {
+	resultChan := make(chan *profiler.DisableResult)
+	command := NewCommand(protocol.Socket, "Profiler.disable", nil)
+	result := &profiler.DisableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -32,10 +42,20 @@ Enable enables profiling.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-enable
 */
-func (protocol *ProfilerProtocol) Enable() error {
-	command := NewCommand("Profiler.enable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *ProfilerProtocol) Enable() chan *profiler.EnableResult {
+	resultChan := make(chan *profiler.EnableResult)
+	command := NewCommand(protocol.Socket, "Profiler.enable", nil)
+	result := &profiler.EnableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -44,17 +64,22 @@ coverage data may be incomplete due to garbage collection.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-getBestEffortCoverage
 */
-func (protocol *ProfilerProtocol) GetBestEffortCoverage() (*profiler.GetBestEffortCoverageResult, error) {
-	command := NewCommand("Profiler.getBestEffortCoverage", nil)
+func (protocol *ProfilerProtocol) GetBestEffortCoverage() chan *profiler.GetBestEffortCoverageResult {
+	resultChan := make(chan *profiler.GetBestEffortCoverageResult)
+	command := NewCommand(protocol.Socket, "Profiler.getBestEffortCoverage", nil)
 	result := &profiler.GetBestEffortCoverageResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -65,10 +90,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-setSampl
 */
 func (protocol *ProfilerProtocol) SetSamplingInterval(
 	params *profiler.SetSamplingIntervalParams,
-) error {
-	command := NewCommand("Profiler.setSamplingInterval", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *profiler.SetSamplingIntervalResult {
+	resultChan := make(chan *profiler.SetSamplingIntervalResult)
+	command := NewCommand(protocol.Socket, "Profiler.setSamplingInterval", params)
+	result := &profiler.SetSamplingIntervalResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -76,10 +111,20 @@ Start starts profiling.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-start
 */
-func (protocol *ProfilerProtocol) Start() error {
-	command := NewCommand("Profiler.start", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *ProfilerProtocol) Start() chan *profiler.StartResult {
+	resultChan := make(chan *profiler.StartResult)
+	command := NewCommand(protocol.Socket, "Profiler.start", nil)
+	result := &profiler.StartResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -91,10 +136,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-startPre
 */
 func (protocol *ProfilerProtocol) StartPreciseCoverage(
 	params *profiler.StartPreciseCoverageParams,
-) error {
-	command := NewCommand("Profiler.startPreciseCoverage", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *profiler.StartPreciseCoverageResult {
+	resultChan := make(chan *profiler.StartPreciseCoverageResult)
+	command := NewCommand(protocol.Socket, "Profiler.startPreciseCoverage", params)
+	result := &profiler.StartPreciseCoverageResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -103,10 +158,20 @@ StartTypeProfile enables type profile.
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-startTypeProfile
 EXPERIMENTAL.
 */
-func (protocol *ProfilerProtocol) StartTypeProfile() error {
-	command := NewCommand("Profiler.startTypeProfile", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *ProfilerProtocol) StartTypeProfile() chan *profiler.StartTypeProfileResult {
+	resultChan := make(chan *profiler.StartTypeProfileResult)
+	command := NewCommand(protocol.Socket, "Profiler.startTypeProfile", nil)
+	result := &profiler.StartTypeProfileResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -114,17 +179,22 @@ Stop stops profiling.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stop
 */
-func (protocol *ProfilerProtocol) Stop() (*profiler.StopResult, error) {
-	command := NewCommand("Profiler.stop", nil)
+func (protocol *ProfilerProtocol) Stop() chan *profiler.StopResult {
+	resultChan := make(chan *profiler.StopResult)
+	command := NewCommand(protocol.Socket, "Profiler.stop", nil)
 	result := &profiler.StopResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -133,10 +203,20 @@ unnecessary execution count records and allows executing optimized code.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stopPreciseCoverage
 */
-func (protocol *ProfilerProtocol) StopPreciseCoverage() error {
-	command := NewCommand("Profiler.stopPreciseCoverage", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *ProfilerProtocol) StopPreciseCoverage() chan *profiler.StopPreciseCoverageResult {
+	resultChan := make(chan *profiler.StopPreciseCoverageResult)
+	command := NewCommand(protocol.Socket, "Profiler.stopPreciseCoverage", nil)
+	result := &profiler.StopPreciseCoverageResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -146,10 +226,20 @@ collected so far.
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stopTypeProfile
 EXPERIMENTAL.
 */
-func (protocol *ProfilerProtocol) StopTypeProfile() error {
-	command := NewCommand("Profiler.stopTypeProfile", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *ProfilerProtocol) StopTypeProfile() chan *profiler.StopTypeProfileResult {
+	resultChan := make(chan *profiler.StopTypeProfileResult)
+	command := NewCommand(protocol.Socket, "Profiler.stopTypeProfile", nil)
+	result := &profiler.StopTypeProfileResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -158,17 +248,22 @@ execution counters. Precise code coverage needs to have started.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-takePreciseCoverage
 */
-func (protocol *ProfilerProtocol) TakePreciseCoverage() (*profiler.TakePreciseCoverageResult, error) {
-	command := NewCommand("Profiler.takePreciseCoverage", nil)
+func (protocol *ProfilerProtocol) TakePreciseCoverage() chan *profiler.TakePreciseCoverageResult {
+	resultChan := make(chan *profiler.TakePreciseCoverageResult)
+	command := NewCommand(protocol.Socket, "Profiler.takePreciseCoverage", nil)
 	result := &profiler.TakePreciseCoverageResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -177,17 +272,22 @@ TakeTypeProfile collect type profile.
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-takeTypeProfile
 EXPERIMENTAL.
 */
-func (protocol *ProfilerProtocol) TakeTypeProfile() (*profiler.TakeTypeProfileResult, error) {
-	command := NewCommand("Profiler.takeTypeProfile", nil)
+func (protocol *ProfilerProtocol) TakeTypeProfile() chan *profiler.TakeTypeProfileResult {
+	resultChan := make(chan *profiler.TakeTypeProfileResult)
+	command := NewCommand(protocol.Socket, "Profiler.takeTypeProfile", nil)
 	result := &profiler.TakeTypeProfileResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*

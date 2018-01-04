@@ -10,6 +10,7 @@ package socket
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 //////////////////////////////////////////////////
@@ -23,6 +24,10 @@ type Error struct {
 	Code    int             `json:"code"`
 	Data    json.RawMessage `json:"data"`
 	Message string          `json:"message"`
+}
+
+func (err Error) Error() string {
+	return fmt.Sprintf("code=%d, data=%s, msg=%s", err.Code, err.Data, err.Message)
 }
 
 /*

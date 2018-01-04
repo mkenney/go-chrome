@@ -29,17 +29,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-awaitProm
 */
 func (protocol *RuntimeProtocol) AwaitPromise(
 	params *runtime.AwaitPromiseParams,
-) (*runtime.AwaitPromiseResult, error) {
-	command := NewCommand("Runtime.awaitPromise", params)
+) chan *runtime.AwaitPromiseResult {
+	resultChan := make(chan *runtime.AwaitPromiseResult)
+	command := NewCommand(protocol.Socket, "Runtime.awaitPromise", params)
 	result := &runtime.AwaitPromiseResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -50,17 +55,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-callFunct
 */
 func (protocol *RuntimeProtocol) CallFunctionOn(
 	params *runtime.CallFunctionOnParams,
-) (*runtime.CallFunctionOnResult, error) {
-	command := NewCommand("Runtime.callFunctionOn", params)
+) chan *runtime.CallFunctionOnResult {
+	resultChan := make(chan *runtime.CallFunctionOnResult)
+	command := NewCommand(protocol.Socket, "Runtime.callFunctionOn", params)
 	result := &runtime.CallFunctionOnResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -70,17 +80,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-compileSc
 */
 func (protocol *RuntimeProtocol) CompileScript(
 	params *runtime.CompileScriptParams,
-) (*runtime.CompileScriptResult, error) {
-	command := NewCommand("Runtime.compileScript", params)
+) chan *runtime.CompileScriptResult {
+	resultChan := make(chan *runtime.CompileScriptResult)
+	command := NewCommand(protocol.Socket, "Runtime.compileScript", params)
 	result := &runtime.CompileScriptResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -88,10 +103,20 @@ Disable disables reporting of execution contexts creation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-disable
 */
-func (protocol *RuntimeProtocol) Disable() error {
-	command := NewCommand("Runtime.disable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *RuntimeProtocol) Disable() chan *runtime.DisableResult {
+	resultChan := make(chan *runtime.DisableResult)
+	command := NewCommand(protocol.Socket, "Runtime.disable", nil)
+	result := &runtime.DisableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -99,10 +124,20 @@ DiscardConsoleEntries discards collected exceptions and console API calls.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-discardConsoleEntries
 */
-func (protocol *RuntimeProtocol) DiscardConsoleEntries() error {
-	command := NewCommand("Runtime.discardConsoleEntries", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *RuntimeProtocol) DiscardConsoleEntries() chan *runtime.DiscardConsoleEntriesResult {
+	resultChan := make(chan *runtime.DiscardConsoleEntriesResult)
+	command := NewCommand(protocol.Socket, "Runtime.discardConsoleEntries", nil)
+	result := &runtime.DiscardConsoleEntriesResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -112,10 +147,20 @@ will be sent immediately for each existing execution context.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-enable
 */
-func (protocol *RuntimeProtocol) Enable() error {
-	command := NewCommand("Runtime.enable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *RuntimeProtocol) Enable() chan *runtime.EnableResult {
+	resultChan := make(chan *runtime.EnableResult)
+	command := NewCommand(protocol.Socket, "Runtime.enable", nil)
+	result := &runtime.EnableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -125,17 +170,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-evaluate
 */
 func (protocol *RuntimeProtocol) Evaluate(
 	params *runtime.EvaluateParams,
-) (*runtime.EvaluateResult, error) {
-	command := NewCommand("Runtime.evaluate", params)
+) chan *runtime.EvaluateResult {
+	resultChan := make(chan *runtime.EvaluateResult)
+	command := NewCommand(protocol.Socket, "Runtime.evaluate", params)
 	result := &runtime.EvaluateResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -146,17 +196,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-getProper
 */
 func (protocol *RuntimeProtocol) GetProperties(
 	params *runtime.GetPropertiesParams,
-) (*runtime.GetPropertiesResult, error) {
-	command := NewCommand("Runtime.getProperties", params)
+) chan *runtime.GetPropertiesResult {
+	resultChan := make(chan *runtime.GetPropertiesResult)
+	command := NewCommand(protocol.Socket, "Runtime.getProperties", params)
 	result := &runtime.GetPropertiesResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -167,17 +222,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-globalLex
 */
 func (protocol *RuntimeProtocol) GlobalLexicalScopeNames(
 	params *runtime.GlobalLexicalScopeNamesParams,
-) (*runtime.GlobalLexicalScopeNamesResult, error) {
-	command := NewCommand("Runtime.globalLexicalScopeNames", params)
+) chan *runtime.GlobalLexicalScopeNamesResult {
+	resultChan := make(chan *runtime.GlobalLexicalScopeNamesResult)
+	command := NewCommand(protocol.Socket, "Runtime.globalLexicalScopeNames", params)
 	result := &runtime.GlobalLexicalScopeNamesResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -187,17 +247,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-queryObje
 */
 func (protocol *RuntimeProtocol) QueryObjects(
 	params *runtime.QueryObjectsParams,
-) (*runtime.QueryObjectsResult, error) {
-	command := NewCommand("Runtime.queryObjects", params)
+) chan *runtime.QueryObjectsResult {
+	resultChan := make(chan *runtime.QueryObjectsResult)
+	command := NewCommand(protocol.Socket, "Runtime.queryObjects", params)
 	result := &runtime.QueryObjectsResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -207,10 +272,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseOb
 */
 func (protocol *RuntimeProtocol) ReleaseObject(
 	params *runtime.ReleaseObjectParams,
-) error {
-	command := NewCommand("Runtime.releaseObject", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *runtime.ReleaseObjectResult {
+	resultChan := make(chan *runtime.ReleaseObjectResult)
+	command := NewCommand(protocol.Socket, "Runtime.releaseObject", params)
+	result := &runtime.ReleaseObjectResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -220,10 +295,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseOb
 */
 func (protocol *RuntimeProtocol) ReleaseObjectGroup(
 	params *runtime.ReleaseObjectGroupParams,
-) error {
-	command := NewCommand("Runtime.releaseObjectGroup", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *runtime.ReleaseObjectGroupResult {
+	resultChan := make(chan *runtime.ReleaseObjectGroupResult)
+	command := NewCommand(protocol.Socket, "Runtime.releaseObjectGroup", params)
+	result := &runtime.ReleaseObjectGroupResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -232,10 +317,20 @@ debugger to attach.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-runIfWaitingForDebugger
 */
-func (protocol *RuntimeProtocol) RunIfWaitingForDebugger() error {
-	command := NewCommand("Runtime.runIfWaitingForDebugger", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *RuntimeProtocol) RunIfWaitingForDebugger() chan *runtime.RunIfWaitingForDebuggerResult {
+	resultChan := make(chan *runtime.RunIfWaitingForDebuggerResult)
+	command := NewCommand(protocol.Socket, "Runtime.runIfWaitingForDebugger", nil)
+	result := &runtime.RunIfWaitingForDebuggerResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -245,17 +340,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-runScript
 */
 func (protocol *RuntimeProtocol) RunScript(
 	params *runtime.RunScriptParams,
-) (*runtime.RunScriptResult, error) {
-	command := NewCommand("Runtime.runScript", params)
+) chan *runtime.RunScriptResult {
+	resultChan := make(chan *runtime.RunScriptResult)
+	command := NewCommand(protocol.Socket, "Runtime.runScript", params)
 	result := &runtime.RunScriptResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -266,10 +366,20 @@ EXPERIMENTAL.
 */
 func (protocol *RuntimeProtocol) SetCustomObjectFormatterEnabled(
 	params *runtime.SetCustomObjectFormatterEnabledParams,
-) error {
-	command := NewCommand("Runtime.setCustomObjectFormatterEnabled", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *runtime.SetCustomObjectFormatterEnabledResult {
+	resultChan := make(chan *runtime.SetCustomObjectFormatterEnabledResult)
+	command := NewCommand(protocol.Socket, "Runtime.setCustomObjectFormatterEnabled", params)
+	result := &runtime.SetCustomObjectFormatterEnabledResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*

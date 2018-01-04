@@ -10,6 +10,33 @@ type ClearParams struct {
 }
 
 /*
+ClearResult represents the result of calls to DOMStorage.clear.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-clear
+*/
+type ClearResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+DisableResult represents the result of calls to DOMStorage.disable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-disable
+*/
+type DisableResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+EnableResult represents the result of calls to DOMStorage.enable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-enable
+*/
+type EnableResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 GetItemsParams represents DOMStorage.getDOMStorageItems parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-getDOMStorageItems
@@ -25,6 +52,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-getDOM
 */
 type GetItemsResult struct {
 	Entries []Item `json:"entries"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -38,6 +67,15 @@ type RemoveItemParams struct {
 }
 
 /*
+RemoveItemResult represents the result of calls to DOMStorage.removeItem.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-removeItem
+*/
+type RemoveItemResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 SetItemParams represents DOMStorage.setDOMStorageItem parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-setDOMStorageItem
@@ -46,4 +84,13 @@ type SetItemParams struct {
 	StorageID StorageID `json:"storageId"`
 	Key       string    `json:"key"`
 	Value     string    `json:"value"`
+}
+
+/*
+SetItemResult represents the result of calls to DOMStorage.setItem.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-setItem
+*/
+type SetItemResult struct {
+	CDTPError error `json:"-"`
 }

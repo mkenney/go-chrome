@@ -20,10 +20,20 @@ ClearOverride clears the overridden Device Orientation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/#method-clearDeviceOrientationOverride
 */
-func (protocol *DeviceOrientationProtocol) ClearOverride() error {
-	command := NewCommand("DeviceOrientation.clearDeviceOrientationOverride", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *DeviceOrientationProtocol) ClearOverride() chan *deviceOrientation.ClearOverrideResult {
+	resultChan := make(chan *deviceOrientation.ClearOverrideResult)
+	command := NewCommand(protocol.Socket, "DeviceOrientation.clearDeviceOrientationOverride", nil)
+	result := &deviceOrientation.ClearOverrideResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -33,8 +43,18 @@ https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/#method
 */
 func (protocol *DeviceOrientationProtocol) SetOverride(
 	params *deviceOrientation.SetOverrideParams,
-) error {
-	command := NewCommand("DeviceOrientation.setDeviceOrientationOverride", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *deviceOrientation.SetOverrideResult {
+	resultChan := make(chan *deviceOrientation.SetOverrideResult)
+	command := NewCommand(protocol.Socket, "DeviceOrientation.setDeviceOrientationOverride", params)
+	result := &deviceOrientation.SetOverrideResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }

@@ -27,17 +27,22 @@ EXPERIMENTAL. DEPRECATED.
 */
 func (protocol *PageProtocol) AddScriptToEvaluateOnLoad(
 	params *page.AddScriptToEvaluateOnLoadParams,
-) (*page.AddScriptToEvaluateOnLoadResult, error) {
-	command := NewCommand("Page.addScriptToEvaluateOnLoad", params)
+) chan *page.AddScriptToEvaluateOnLoadResult {
+	resultChan := make(chan *page.AddScriptToEvaluateOnLoadResult)
+	command := NewCommand(protocol.Socket, "Page.addScriptToEvaluateOnLoad", params)
 	result := &page.AddScriptToEvaluateOnLoadResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -48,17 +53,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-addScriptToE
 */
 func (protocol *PageProtocol) AddScriptToEvaluateOnNewDocument(
 	params *page.AddScriptToEvaluateOnNewDocumentParams,
-) (*page.AddScriptToEvaluateOnNewDocumentResult, error) {
-	command := NewCommand("Page.addScriptToEvaluateOnNewDocument", params)
+) chan *page.AddScriptToEvaluateOnNewDocumentResult {
+	resultChan := make(chan *page.AddScriptToEvaluateOnNewDocumentResult)
+	command := NewCommand(protocol.Socket, "Page.addScriptToEvaluateOnNewDocument", params)
 	result := &page.AddScriptToEvaluateOnNewDocumentResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -66,10 +76,20 @@ BringToFront brings page to front (activates tab).
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-bringToFront
 */
-func (protocol *PageProtocol) BringToFront() error {
-	command := NewCommand("Page.bringToFront", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *PageProtocol) BringToFront() chan *page.BringToFrontResult {
+	resultChan := make(chan *page.BringToFrontResult)
+	command := NewCommand(protocol.Socket, "Page.bringToFront", nil)
+	result := &page.BringToFrontResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -79,17 +99,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScree
 */
 func (protocol *PageProtocol) CaptureScreenshot(
 	params *page.CaptureScreenshotParams,
-) (*page.CaptureScreenshotResult, error) {
-	command := NewCommand("Page.captureScreenshot", params)
+) chan *page.CaptureScreenshotResult {
+	resultChan := make(chan *page.CaptureScreenshotResult)
+	command := NewCommand(protocol.Socket, "Page.captureScreenshot", params)
 	result := &page.CaptureScreenshotResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -99,17 +124,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-createIsolat
 */
 func (protocol *PageProtocol) CreateIsolatedWorld(
 	params *page.CreateIsolatedWorldParams,
-) (*page.CreateIsolatedWorldResult, error) {
-	command := NewCommand("Page.createIsolatedWorld", params)
+) chan *page.CreateIsolatedWorldResult {
+	resultChan := make(chan *page.CreateIsolatedWorldResult)
+	command := NewCommand(protocol.Socket, "Page.createIsolatedWorld", params)
 	result := &page.CreateIsolatedWorldResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -117,10 +147,20 @@ Disable disables page domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-disable
 */
-func (protocol *PageProtocol) Disable() error {
-	command := NewCommand("Page.disable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *PageProtocol) Disable() chan *page.DisableResult {
+	resultChan := make(chan *page.DisableResult)
+	command := NewCommand(protocol.Socket, "Page.disable", nil)
+	result := &page.DisableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -128,10 +168,20 @@ Enable Ennables page domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-enable
 */
-func (protocol *PageProtocol) Enable() error {
-	command := NewCommand("Page.enable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *PageProtocol) Enable() chan *page.EnableResult {
+	resultChan := make(chan *page.EnableResult)
+	command := NewCommand(protocol.Socket, "Page.enable", nil)
+	result := &page.EnableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -141,11 +191,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getAppManife
 */
 func (protocol *PageProtocol) GetAppManifest(
 	params *page.GetAppManifestParams,
-) error {
-	command := NewCommand("Page.getAppManifest", params)
+) chan *page.GetAppManifestResult {
+	resultChan := make(chan *page.GetAppManifestResult)
+	command := NewCommand(protocol.Socket, "Page.getAppManifest", params)
+	result := &page.GetAppManifestResult{}
 
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -153,17 +212,22 @@ GetFrameTree returns present frame tree structure.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getFrameTree
 */
-func (protocol *PageProtocol) GetFrameTree() (*page.GetFrameTreeResult, error) {
-	command := NewCommand("Page.getFrameTree", nil)
+func (protocol *PageProtocol) GetFrameTree() chan *page.GetFrameTreeResult {
+	resultChan := make(chan *page.GetFrameTreeResult)
+	command := NewCommand(protocol.Socket, "Page.getFrameTree", nil)
 	result := &page.GetFrameTreeResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -172,17 +236,22 @@ viewport bounds/scale.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getLayoutMetrics
 */
-func (protocol *PageProtocol) GetLayoutMetrics() (*page.GetLayoutMetricsResult, error) {
-	command := NewCommand("Page.getLayoutMetrics", nil)
+func (protocol *PageProtocol) GetLayoutMetrics() chan *page.GetLayoutMetricsResult {
+	resultChan := make(chan *page.GetLayoutMetricsResult)
+	command := NewCommand(protocol.Socket, "Page.getLayoutMetrics", nil)
 	result := &page.GetLayoutMetricsResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -190,17 +259,22 @@ GetNavigationHistory returns navigation history for the current page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getNavigationHistory
 */
-func (protocol *PageProtocol) GetNavigationHistory() (*page.GetNavigationHistoryResult, error) {
-	command := NewCommand("Page.getNavigationHistory", nil)
+func (protocol *PageProtocol) GetNavigationHistory() chan *page.GetNavigationHistoryResult {
+	resultChan := make(chan *page.GetNavigationHistoryResult)
+	command := NewCommand(protocol.Socket, "Page.getNavigationHistory", nil)
 	result := &page.GetNavigationHistoryResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -211,17 +285,22 @@ EXPERIMENTAL.
 */
 func (protocol *PageProtocol) GetResourceContent(
 	params *page.GetResourceContentParams,
-) (*page.GetResourceContentResult, error) {
-	command := NewCommand("Page.getResourceContent", params)
+) chan *page.GetResourceContentResult {
+	resultChan := make(chan *page.GetResourceContentResult)
+	command := NewCommand(protocol.Socket, "Page.getResourceContent", params)
 	result := &page.GetResourceContentResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -230,17 +309,22 @@ GetResourceTree returns present frame / resource tree structure.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceTree
 EXPERIMENTAL.
 */
-func (protocol *PageProtocol) GetResourceTree() (*page.GetResourceTreeResult, error) {
-	command := NewCommand("Page.getResourceTree", nil)
+func (protocol *PageProtocol) GetResourceTree() chan *page.GetResourceTreeResult {
+	resultChan := make(chan *page.GetResourceTreeResult)
+	command := NewCommand(protocol.Socket, "Page.getResourceTree", nil)
 	result := &page.GetResourceTreeResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -251,11 +335,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-handleJavaSc
 */
 func (protocol *PageProtocol) HandleJavaScriptDialog(
 	params *page.HandleJavaScriptDialogParams,
-) error {
-	command := NewCommand("Page.handleJavaScriptDialog", params)
+) chan *page.HandleJavaScriptDialogResult {
+	resultChan := make(chan *page.HandleJavaScriptDialogResult)
+	command := NewCommand(protocol.Socket, "Page.handleJavaScriptDialog", params)
+	result := &page.HandleJavaScriptDialogResult{}
 
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -265,17 +358,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-navigate
 */
 func (protocol *PageProtocol) Navigate(
 	params *page.NavigateParams,
-) (*page.NavigateResult, error) {
-	command := NewCommand("Page.navigate", params)
+) chan *page.NavigateResult {
+	resultChan := make(chan *page.NavigateResult)
+	command := NewCommand(protocol.Socket, "Page.navigate", params)
 	result := &page.NavigateResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -285,11 +383,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-navigateToHi
 */
 func (protocol *PageProtocol) NavigateToHistoryEntry(
 	params *page.NavigateToHistoryEntryParams,
-) error {
-	command := NewCommand("Page.navigateToHistoryEntry", params)
+) chan *page.NavigateToHistoryEntryResult {
+	resultChan := make(chan *page.NavigateToHistoryEntryResult)
+	command := NewCommand(protocol.Socket, "Page.navigateToHistoryEntry", params)
+	result := &page.NavigateToHistoryEntryResult{}
 
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -299,17 +406,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-printToPDF
 */
 func (protocol *PageProtocol) PrintToPDF(
 	params *page.PrintToPDFParams,
-) (*page.PrintToPDFResult, error) {
-	command := NewCommand("Page.printToPDF", params)
+) chan *page.PrintToPDFResult {
+	resultChan := make(chan *page.PrintToPDFResult)
+	command := NewCommand(protocol.Socket, "Page.printToPDF", params)
 	result := &page.PrintToPDFResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -319,11 +431,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-reload
 */
 func (protocol *PageProtocol) Reload(
 	params *page.ReloadParams,
-) error {
-	command := NewCommand("Page.reload", params)
+) chan *page.ReloadResult {
+	resultChan := make(chan *page.ReloadResult)
+	command := NewCommand(protocol.Socket, "Page.reload", params)
+	result := &page.ReloadResult{}
 
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -335,11 +456,20 @@ EXPERIMENTAL. DEPRECATED.
 */
 func (protocol *PageProtocol) RemoveScriptToEvaluateOnLoad(
 	params *page.RemoveScriptToEvaluateOnLoadParams,
-) error {
-	command := NewCommand("Page.removeScriptToEvaluateOnLoad", params)
+) chan *page.RemoveScriptToEvaluateOnLoadResult {
+	resultChan := make(chan *page.RemoveScriptToEvaluateOnLoadResult)
+	command := NewCommand(protocol.Socket, "Page.removeScriptToEvaluateOnLoad", params)
+	result := &page.RemoveScriptToEvaluateOnLoadResult{}
 
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -349,11 +479,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-removeScript
 */
 func (protocol *PageProtocol) RemoveScriptToEvaluateOnNewDocument(
 	params *page.RemoveScriptToEvaluateOnNewDocumentParams,
-) error {
-	command := NewCommand("Page.removeScriptToEvaluateOnNewDocument", params)
+) chan *page.RemoveScriptToEvaluateOnNewDocumentResult {
+	resultChan := make(chan *page.RemoveScriptToEvaluateOnNewDocumentResult)
+	command := NewCommand(protocol.Socket, "Page.removeScriptToEvaluateOnNewDocument", params)
+	result := &page.RemoveScriptToEvaluateOnNewDocumentResult{}
 
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -361,10 +500,20 @@ RequestAppBanner is experimental.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-requestAppBanner EXPERIMENTAL.
 */
-func (protocol *PageProtocol) RequestAppBanner() error {
-	command := NewCommand("Page.requestAppBanner", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *PageProtocol) RequestAppBanner() chan *page.RequestAppBannerResult {
+	resultChan := make(chan *page.RequestAppBannerResult)
+	command := NewCommand(protocol.Socket, "Page.requestAppBanner", nil)
+	result := &page.RequestAppBannerResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -375,11 +524,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-screencastFr
 */
 func (protocol *PageProtocol) ScreencastFrameAck(
 	params *page.ScreencastFrameAckParams,
-) error {
-	command := NewCommand("Page.screencastFrameAck", params)
+) chan *page.ScreencastFrameAckResult {
+	resultChan := make(chan *page.ScreencastFrameAckResult)
+	command := NewCommand(protocol.Socket, "Page.screencastFrameAck", params)
+	result := &page.ScreencastFrameAckResult{}
 
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -390,17 +548,22 @@ EXPERIMENTAL.
 */
 func (protocol *PageProtocol) SearchInResource(
 	params *page.SearchInResourceParams,
-) (*page.SearchInResourceResult, error) {
-	command := NewCommand("Page.searchInResource", params)
+) chan *page.SearchInResourceResult {
+	resultChan := make(chan *page.SearchInResourceResult)
+	command := NewCommand(protocol.Socket, "Page.searchInResource", params)
 	result := &page.SearchInResourceResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -411,11 +574,20 @@ EXPERIMENTAL.
 */
 func (protocol *PageProtocol) SetAdBlockingEnabled(
 	params *page.SetAdBlockingEnabledParams,
-) error {
-	command := NewCommand("Page.setAdBlockingEnabled", params)
+) chan *page.SetAdBlockingEnabledResult {
+	resultChan := make(chan *page.SetAdBlockingEnabledResult)
+	command := NewCommand(protocol.Socket, "Page.setAdBlockingEnabled", params)
+	result := &page.SetAdBlockingEnabledResult{}
 
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -427,11 +599,20 @@ EXPERIMENTAL.
 */
 func (protocol *PageProtocol) SetAutoAttachToCreatedPages(
 	params *page.SetAutoAttachToCreatedPagesParams,
-) error {
-	command := NewCommand("Page.setAutoAttachToCreatedPages", params)
+) chan *page.SetAutoAttachToCreatedPagesResult {
+	resultChan := make(chan *page.SetAutoAttachToCreatedPagesResult)
+	command := NewCommand(protocol.Socket, "Page.setAutoAttachToCreatedPages", params)
+	result := &page.SetAutoAttachToCreatedPagesResult{}
 
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -441,11 +622,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setDocumentC
 */
 func (protocol *PageProtocol) SetDocumentContent(
 	params *page.SetDocumentContentParams,
-) error {
-	command := NewCommand("Page.setDocumentContent", params)
+) chan *page.SetDocumentContentResult {
+	resultChan := make(chan *page.SetDocumentContentResult)
+	command := NewCommand(protocol.Socket, "Page.setDocumentContent", params)
+	result := &page.SetDocumentContentResult{}
 
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -456,11 +646,20 @@ EXPERIMENTAL.
 */
 func (protocol *PageProtocol) SetDownloadBehavior(
 	params *page.SetDownloadBehaviorParams,
-) error {
-	command := NewCommand("Page.setDownloadBehavior", params)
+) chan *page.SetDownloadBehaviorResult {
+	resultChan := make(chan *page.SetDownloadBehaviorResult)
+	command := NewCommand(protocol.Socket, "Page.setDownloadBehavior", params)
+	result := &page.SetDownloadBehaviorResult{}
 
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -471,11 +670,20 @@ EXPERIMENTAL.
 */
 func (protocol *PageProtocol) SetLifecycleEventsEnabled(
 	params *page.SetLifecycleEventsEnabledParams,
-) error {
-	command := NewCommand("Page.setLifecycleEventsEnabled", params)
+) chan *page.SetLifecycleEventsEnabledResult {
+	resultChan := make(chan *page.SetLifecycleEventsEnabledResult)
+	command := NewCommand(protocol.Socket, "Page.setLifecycleEventsEnabled", params)
+	result := &page.SetLifecycleEventsEnabledResult{}
 
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -486,11 +694,20 @@ EXPERIMENTAL.
 */
 func (protocol *PageProtocol) StartScreencast(
 	params *page.StartScreencastParams,
-) error {
-	command := NewCommand("Page.startScreencast", params)
+) chan *page.StartScreencastResult {
+	resultChan := make(chan *page.StartScreencastResult)
+	command := NewCommand(protocol.Socket, "Page.startScreencast", params)
+	result := &page.StartScreencastResult{}
 
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -498,10 +715,20 @@ StopLoading force the page stop all navigations and pending resource fetches.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-stopLoading
 */
-func (protocol *PageProtocol) StopLoading() error {
-	command := NewCommand("Page.stopLoading", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *PageProtocol) StopLoading() chan *page.StopLoadingResult {
+	resultChan := make(chan *page.StopLoadingResult)
+	command := NewCommand(protocol.Socket, "Page.stopLoading", nil)
+	result := &page.StopLoadingResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -510,10 +737,20 @@ StopScreencast stops sending each frame in the `screencastFrame`.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-stopScreencast
 EXPERIMENTAL.
 */
-func (protocol *PageProtocol) StopScreencast() error {
-	command := NewCommand("Page.stopScreencast", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *PageProtocol) StopScreencast() chan *page.StopScreencastResult {
+	resultChan := make(chan *page.StopScreencastResult)
+	command := NewCommand(protocol.Socket, "Page.stopScreencast", nil)
+	result := &page.StopScreencastResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*

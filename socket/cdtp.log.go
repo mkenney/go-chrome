@@ -22,10 +22,20 @@ Clear clears the log.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-clear
 */
-func (protocol *LogProtocol) Clear() error {
-	command := NewCommand("Log.clear", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *LogProtocol) Clear() chan *chromeLog.ClearResult {
+	resultChan := make(chan *chromeLog.ClearResult)
+	command := NewCommand(protocol.Socket, "Log.clear", nil)
+	result := &chromeLog.ClearResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -34,10 +44,20 @@ the client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-disable
 */
-func (protocol *LogProtocol) Disable() error {
-	command := NewCommand("Log.disable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *LogProtocol) Disable() chan *chromeLog.DisableResult {
+	resultChan := make(chan *chromeLog.DisableResult)
+	command := NewCommand(protocol.Socket, "Log.disable", nil)
+	result := &chromeLog.DisableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -46,10 +66,20 @@ means of the `entryAdded` notification.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-enable
 */
-func (protocol *LogProtocol) Enable() error {
-	command := NewCommand("Log.enable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *LogProtocol) Enable() chan *chromeLog.EnableResult {
+	resultChan := make(chan *chromeLog.EnableResult)
+	command := NewCommand(protocol.Socket, "Log.enable", nil)
+	result := &chromeLog.EnableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -59,10 +89,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-startViolatio
 */
 func (protocol *LogProtocol) StartViolationsReport(
 	params *chromeLog.StartViolationsReportParams,
-) error {
-	command := NewCommand("Log.startViolationsReport", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *chromeLog.StartViolationsReportResult {
+	resultChan := make(chan *chromeLog.StartViolationsReportResult)
+	command := NewCommand(protocol.Socket, "Log.startViolationsReport", params)
+	result := &chromeLog.StartViolationsReportResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -70,10 +110,20 @@ StopViolationsReport stops violation reporting.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-stopViolationsReport
 */
-func (protocol *LogProtocol) StopViolationsReport() error {
-	command := NewCommand("Log.stopViolationsReport", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *LogProtocol) StopViolationsReport() chan *chromeLog.StopViolationsReportResult {
+	resultChan := make(chan *chromeLog.StopViolationsReportResult)
+	command := NewCommand(protocol.Socket, "Log.stopViolationsReport", nil)
+	result := &chromeLog.StopViolationsReportResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*

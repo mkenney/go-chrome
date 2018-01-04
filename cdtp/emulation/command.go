@@ -14,6 +14,36 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-canEmul
 type CanEmulateResult struct {
 	// True if emulation is supported.
 	Result bool `json:"result"`
+
+	CDTPError error `json:"-"`
+}
+
+/*
+ClearDeviceMetricsOverrideResult represents the result of calls to
+Emulation.clearDeviceMetricsOverride.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-clearDeviceMetricsOverride
+*/
+type ClearDeviceMetricsOverrideResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+ClearGeolocationOverrideResult represents the result of calls to Emulation.clearGeolocationOverride.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-clearGeolocationOverride
+*/
+type ClearGeolocationOverrideResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+ResetPageScaleFactorResult represents the result of calls to Emulation.resetPageScaleFactor.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-resetPageScaleFactor
+*/
+type ResetPageScaleFactorResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -27,6 +57,15 @@ type SetCPUThrottlingRateParams struct {
 }
 
 /*
+SetCPUThrottlingRateResult represents the result of calls to Emulation.setCPUThrottlingRate.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setCPUThrottlingRate
+*/
+type SetCPUThrottlingRateResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 SetDefaultBackgroundColorOverrideParams represents Emulation.setDefaultBackgroundColorOverride
 parameters.
 
@@ -36,6 +75,16 @@ type SetDefaultBackgroundColorOverrideParams struct {
 	// Optional. RGBA of the default background color. If not specified, any
 	// existing override will be cleared.
 	Color *dom.RGBA `json:"color,omitempty"`
+}
+
+/*
+SetDefaultBackgroundColorOverrideResult represents the result of calls to
+Emulation.setDefaultBackgroundColorOverride.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDefaultBackgroundColorOverride
+*/
+type SetDefaultBackgroundColorOverrideResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -92,6 +141,16 @@ type SetDeviceMetricsOverrideParams struct {
 }
 
 /*
+SetDeviceMetricsOverrideResult represents the result of calls to
+Emulation.setDeviceMetricsOverride.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDeviceMetricsOverride
+*/
+type SetDeviceMetricsOverrideResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 SetEmitTouchEventsForMouseParams represents Emulation.setEmitTouchEventsForMouse parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setEmitTouchEventsForMouse
@@ -108,6 +167,16 @@ type SetEmitTouchEventsForMouseParams struct {
 }
 
 /*
+SetEmitTouchEventsForMouseResult represents the result of calls to
+Emulation.setEmitTouchEventsForMouse.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setEmitTouchEventsForMouse
+*/
+type SetEmitTouchEventsForMouseResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 SetEmulatedMediaParams represents Emulation.setEmulatedMedia parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setEmulatedMedia
@@ -115,6 +184,15 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setEmul
 type SetEmulatedMediaParams struct {
 	// Media type to emulate. Empty string disables the override.
 	Media string `json:"media"`
+}
+
+/*
+SetEmulatedMediaResult represents the result of calls to Emulation.setEmulatedMedia.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setEmulatedMedia
+*/
+type SetEmulatedMediaResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -134,6 +212,15 @@ type SetGeolocationOverrideParams struct {
 }
 
 /*
+SetGeolocationOverrideResult represents the result of calls to Emulation.setGeolocationOverride.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setGeolocationOverride
+*/
+type SetGeolocationOverrideResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 SetNavigatorOverridesParams represents Emulation.setNavigatorOverrides parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setNavigatorOverrides
@@ -141,6 +228,15 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setNavi
 type SetNavigatorOverridesParams struct {
 	// The platform navigator.platform should return.
 	Platform string `json:"platform"`
+}
+
+/*
+SetNavigatorOverridesResult represents the result of calls to Emulation.setNavigatorOverrides.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setNavigatorOverrides
+*/
+type SetNavigatorOverridesResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -154,6 +250,15 @@ type SetPageScaleFactorParams struct {
 }
 
 /*
+SetPageScaleFactorResult represents the result of calls to Emulation.setPageScaleFactor.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setPageScaleFactor
+*/
+type SetPageScaleFactorResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 SetScriptExecutionDisabledParams represents Emulation.setScriptExecutionDisabled parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setScriptExecutionDisabled
@@ -161,6 +266,16 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setScri
 type SetScriptExecutionDisabledParams struct {
 	// Whether script execution should be disabled in the page.
 	Value bool `json:"value"`
+}
+
+/*
+SetScriptExecutionDisabledResult represents the result of calls to
+Emulation.setScriptExecutionDisabled.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setScriptExecutionDisabled
+*/
+type SetScriptExecutionDisabledResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -174,6 +289,16 @@ type SetTouchEmulationEnabledParams struct {
 
 	// Optional. Maximum touch points supported. Defaults to one.
 	MaxTouchPoints int `json:"maxTouchPoints,omitempty"`
+}
+
+/*
+SetTouchEmulationEnabledResult represents the result of calls to
+Emulation.setTouchEmulationEnabled.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setTouchEmulationEnabled
+*/
+type SetTouchEmulationEnabledResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -203,6 +328,8 @@ type SetVirtualTimePolicyResult struct {
 	// Absolute timestamp at which virtual time was first enabled (milliseconds
 	// since epoch).
 	VirtualTimeBase runtime.Timestamp `json:"virtualTimeBase"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -216,4 +343,13 @@ type SetVisibleSizeParams struct {
 
 	// Frame height (DIP).
 	Height int `json:"height"`
+}
+
+/*
+SetVisibleSizeResult represents the result of calls to Emulation.setVisibleSize.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setVisibleSize
+*/
+type SetVisibleSizeResult struct {
+	CDTPError error `json:"-"`
 }

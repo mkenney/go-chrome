@@ -25,10 +25,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Tethering/#method-bind
 */
 func (protocol *TetheringProtocol) Bind(
 	params *tethering.BindParams,
-) error {
-	command := NewCommand("Tethering.bind", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *tethering.BindResult {
+	resultChan := make(chan *tethering.BindResult)
+	command := NewCommand(protocol.Socket, "Tethering.bind", params)
+	result := &tethering.BindResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -38,10 +48,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Tethering/#method-unbind
 */
 func (protocol *TetheringProtocol) Unbind(
 	params *tethering.UnbindParams,
-) error {
-	command := NewCommand("Tethering.unbind", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *tethering.UnbindResult {
+	resultChan := make(chan *tethering.UnbindResult)
+	command := NewCommand(protocol.Socket, "Tethering.unbind", params)
+	result := &tethering.UnbindResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*

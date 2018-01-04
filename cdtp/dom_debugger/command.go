@@ -33,6 +33,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-getEv
 type GetEventListenersResult struct {
 	// Array of relevant listeners.
 	Listeners []*EventListener `json:"listeners"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -49,7 +51,17 @@ type RemoveDOMBreakpointParams struct {
 }
 
 /*
-RemoveEventListenerBreakpointParams represents DOMDebugger.removeEventListenerBreakpoint parameters.
+RemoveDOMBreakpointResult represents the result of calls to DOMDebugger.removeDOMBreakpoint.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeDOMBreakpoint
+*/
+type RemoveDOMBreakpointResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+RemoveEventListenerBreakpointParams represents DOMDebugger.removeEventListenerBreakpoint
+parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeEventListenerBreakpoint
 */
@@ -59,6 +71,16 @@ type RemoveEventListenerBreakpointParams struct {
 
 	// Optional. EventTarget interface name. EXPERIMENTAL
 	TargetName string `json:"targetName,omitempty"`
+}
+
+/*
+RemoveEventListenerBreakpointResult represents the result of calls to
+DOMDebugger.removeEventListenerBreakpoint.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeEventListenerBreakpoint
+*/
+type RemoveEventListenerBreakpointResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -73,6 +95,16 @@ type RemoveInstrumentationBreakpointParams struct {
 }
 
 /*
+RemoveInstrumentationBreakpointResult represents the result of calls to
+DOMDebugger.removeInstrumentationBreakpoint.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeInstrumentationBreakpoint
+*/
+type RemoveInstrumentationBreakpointResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 RemoveXHRBreakpointParams represents DOMDebugger.removeXHRBreakpoint parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeXHRBreakpoint
@@ -80,6 +112,15 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-remov
 type RemoveXHRBreakpointParams struct {
 	// Resource URL substring.
 	URL string `json:"url"`
+}
+
+/*
+RemoveXHRBreakpointResult represents the result of calls to DOMDebugger.removeXHRBreakpoint.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeXHRBreakpoint
+*/
+type RemoveXHRBreakpointResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -96,7 +137,17 @@ type SetDOMBreakpointParams struct {
 }
 
 /*
-SetEventListenerBreakpointParams represents DOMDebugger.setEventListenerBreakpoint parameters.
+SetDOMBreakpointResult represents the result of calls to DOMDebugger.setDOMBreakpoint.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setDOMBreakpoint
+*/
+type SetDOMBreakpointResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+SetEventListenerBreakpointParams represents DOMDebugger.setEventListenerBreakpoint
+parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setEventListenerBreakpoint
 */
@@ -110,13 +161,34 @@ type SetEventListenerBreakpointParams struct {
 }
 
 /*
-SetInstrumentationBreakpointParams represents DOMDebugger.setInstrumentationBreakpoint parameters.
+SetEventListenerBreakpointResult represents the result of calls to
+DOMDebugger.setEventListenerBreakpoint.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setEventListenerBreakpoint
+*/
+type SetEventListenerBreakpointResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+SetInstrumentationBreakpointParams represents DOMDebugger.setInstrumentationBreakpoint
+parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setInstrumentationBreakpoint
 */
 type SetInstrumentationBreakpointParams struct {
 	// Instrumentation name to stop on.
 	EventName string `json:"eventName"`
+}
+
+/*
+SetInstrumentationBreakpointResult represents the result of calls to
+DOMDebugger.setInstrumentationBreakpoint.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setInstrumentationBreakpoint
+*/
+type SetInstrumentationBreakpointResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -128,4 +200,13 @@ type SetXHRBreakpointParams struct {
 	// Resource URL substring. All XHRs having this substring in the URL will
 	// get stopped upon.
 	URL string `json:"url"`
+}
+
+/*
+SetXHRBreakpointResult represents the result of calls to DOMDebugger.setXHRBreakpoint.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setXHRBreakpoint
+*/
+type SetXHRBreakpointResult struct {
+	CDTPError error `json:"-"`
 }

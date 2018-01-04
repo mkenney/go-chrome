@@ -27,17 +27,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#met
 */
 func (protocol *HeadlessExperimentalProtocol) BeginFrame(
 	params *headlessExperimental.BeginFrameParams,
-) (*headlessExperimental.BeginFrameResult, error) {
-	command := NewCommand("HeadlessExperimental.beginFrame", params)
+) chan *headlessExperimental.BeginFrameResult {
+	resultChan := make(chan *headlessExperimental.BeginFrameResult)
+	command := NewCommand(protocol.Socket, "HeadlessExperimental.beginFrame", params)
 	result := &headlessExperimental.BeginFrameResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -45,10 +50,20 @@ Disable disables headless events for the target.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-disable
 */
-func (protocol *HeadlessExperimentalProtocol) Disable() error {
-	command := NewCommand("HeadlessExperimental.disable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *HeadlessExperimentalProtocol) Disable() chan *headlessExperimental.DisableResult {
+	resultChan := make(chan *headlessExperimental.DisableResult)
+	command := NewCommand(protocol.Socket, "HeadlessExperimental.disable", nil)
+	result := &headlessExperimental.DisableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -56,10 +71,20 @@ Enable enables headless events for the target.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-enable
 */
-func (protocol *HeadlessExperimentalProtocol) Enable() error {
-	command := NewCommand("HeadlessExperimental.enable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *HeadlessExperimentalProtocol) Enable() chan *headlessExperimental.EnableResult {
+	resultChan := make(chan *headlessExperimental.EnableResult)
+	command := NewCommand(protocol.Socket, "HeadlessExperimental.enable", nil)
+	result := &headlessExperimental.EnableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*

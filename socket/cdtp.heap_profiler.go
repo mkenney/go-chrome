@@ -25,10 +25,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-addI
 */
 func (protocol *HeapProfilerProtocol) AddInspectedHeapObject(
 	params *heapProfiler.AddInspectedHeapObjectParams,
-) error {
-	command := NewCommand("HeapProfiler.addInspectedHeapObject", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *heapProfiler.AddInspectedHeapObjectResult {
+	resultChan := make(chan *heapProfiler.AddInspectedHeapObjectResult)
+	command := NewCommand(protocol.Socket, "HeapProfiler.addInspectedHeapObject", params)
+	result := &heapProfiler.AddInspectedHeapObjectResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -37,10 +47,20 @@ CollectGarbage is experimental.
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-collectGarbage
 EXPERIMENTAL.
 */
-func (protocol *HeapProfilerProtocol) CollectGarbage() error {
-	command := NewCommand("HeapProfiler.collectGarbage", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *HeapProfilerProtocol) CollectGarbage() chan *heapProfiler.CollectGarbageResult {
+	resultChan := make(chan *heapProfiler.CollectGarbageResult)
+	command := NewCommand(protocol.Socket, "HeapProfiler.collectGarbage", nil)
+	result := &heapProfiler.CollectGarbageResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -48,10 +68,20 @@ Disable disables the HeapProfiler.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-disable
 */
-func (protocol *HeapProfilerProtocol) Disable() error {
-	command := NewCommand("HeapProfiler.disable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *HeapProfilerProtocol) Disable() chan *heapProfiler.DisableResult {
+	resultChan := make(chan *heapProfiler.DisableResult)
+	command := NewCommand(protocol.Socket, "HeapProfiler.disable", nil)
+	result := &heapProfiler.DisableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -59,10 +89,20 @@ Enable enables the HeapProfiler.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-enable
 */
-func (protocol *HeapProfilerProtocol) Enable() error {
-	command := NewCommand("HeapProfiler.enable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *HeapProfilerProtocol) Enable() chan *heapProfiler.EnableResult {
+	resultChan := make(chan *heapProfiler.EnableResult)
+	command := NewCommand(protocol.Socket, "HeapProfiler.enable", nil)
+	result := &heapProfiler.EnableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -73,17 +113,22 @@ EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) GetHeapObjectID(
 	params *heapProfiler.GetHeapObjectIDParams,
-) (*heapProfiler.GetHeapObjectIDResult, error) {
-	command := NewCommand("HeapProfiler.getHeapObjectID", params)
+) chan *heapProfiler.GetHeapObjectIDResult {
+	resultChan := make(chan *heapProfiler.GetHeapObjectIDResult)
+	command := NewCommand(protocol.Socket, "HeapProfiler.getHeapObjectID", params)
 	result := &heapProfiler.GetHeapObjectIDResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -94,17 +139,22 @@ EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) GetObjectByHeapObjectID(
 	params *heapProfiler.GetObjectByHeapObjectIDParams,
-) (*heapProfiler.GetObjectByHeapObjectIDResult, error) {
-	command := NewCommand("HeapProfiler.getObjectByHeapObjectId", params)
+) chan *heapProfiler.GetObjectByHeapObjectIDResult {
+	resultChan := make(chan *heapProfiler.GetObjectByHeapObjectIDResult)
+	command := NewCommand(protocol.Socket, "HeapProfiler.getObjectByHeapObjectId", params)
 	result := &heapProfiler.GetObjectByHeapObjectIDResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -115,10 +165,20 @@ EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) GetSamplingProfile(
 	params *heapProfiler.GetSamplingProfileParams,
-) error {
-	command := NewCommand("HeapProfiler.getSamplingProfile", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *heapProfiler.GetSamplingProfileResult {
+	resultChan := make(chan *heapProfiler.GetSamplingProfileResult)
+	command := NewCommand(protocol.Socket, "HeapProfiler.getSamplingProfile", params)
+	result := &heapProfiler.GetSamplingProfileResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -129,10 +189,20 @@ EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) StartSampling(
 	params *heapProfiler.StartSamplingParams,
-) error {
-	command := NewCommand("HeapProfiler.startSampling", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *heapProfiler.StartSamplingResult {
+	resultChan := make(chan *heapProfiler.StartSamplingResult)
+	command := NewCommand(protocol.Socket, "HeapProfiler.startSampling", params)
+	result := &heapProfiler.StartSamplingResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -143,10 +213,20 @@ EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) StartTrackingHeapObjects(
 	params *heapProfiler.StartTrackingHeapObjectsParams,
-) error {
-	command := NewCommand("HeapProfiler.startTrackingHeapObjects", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *heapProfiler.StartTrackingHeapObjectsResult {
+	resultChan := make(chan *heapProfiler.StartTrackingHeapObjectsResult)
+	command := NewCommand(protocol.Socket, "HeapProfiler.startTrackingHeapObjects", params)
+	result := &heapProfiler.StartTrackingHeapObjectsResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -157,10 +237,20 @@ EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) StopSampling(
 	params *heapProfiler.StopSamplingParams,
-) error {
-	command := NewCommand("HeapProfiler.stopSampling", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *heapProfiler.StopSamplingResult {
+	resultChan := make(chan *heapProfiler.StopSamplingResult)
+	command := NewCommand(protocol.Socket, "HeapProfiler.stopSampling", params)
+	result := &heapProfiler.StopSamplingResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -171,10 +261,20 @@ EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) StopTrackingHeapObjects(
 	params *heapProfiler.StopTrackingHeapObjectsParams,
-) error {
-	command := NewCommand("HeapProfiler.stopTrackingHeapObjects", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *heapProfiler.StopTrackingHeapObjectsResult {
+	resultChan := make(chan *heapProfiler.StopTrackingHeapObjectsResult)
+	command := NewCommand(protocol.Socket, "HeapProfiler.stopTrackingHeapObjects", params)
+	result := &heapProfiler.StopTrackingHeapObjectsResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -185,10 +285,20 @@ EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) TakeHeapSnapshot(
 	params *heapProfiler.TakeHeapSnapshotParams,
-) error {
-	command := NewCommand("HeapProfiler.takeHeapSnapshot", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *heapProfiler.TakeHeapSnapshotResult {
+	resultChan := make(chan *heapProfiler.TakeHeapSnapshotResult)
+	command := NewCommand(protocol.Socket, "HeapProfiler.takeHeapSnapshot", params)
+	result := &heapProfiler.TakeHeapSnapshotResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*

@@ -11,6 +11,15 @@ type DeleteCacheParams struct {
 }
 
 /*
+DeleteCacheResult represents the result of calls to CacheStorage.deleteCache.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-deleteCache
+*/
+type DeleteCacheResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 DeleteEntryParams represents CacheStorage.deleteEntry parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-deleteEntry
@@ -21,6 +30,15 @@ type DeleteEntryParams struct {
 
 	// URL spec of the request.
 	Request string `json:"request"`
+}
+
+/*
+DeleteEntryResult represents the result of calls to CacheStorage.deleteEntry.
+
+https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-deleteEntry
+*/
+type DeleteEntryResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -41,6 +59,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requ
 type RequestCacheNamesResult struct {
 	// Caches for the security origin.
 	Caches []*Cache `json:"caches"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -64,6 +84,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requ
 type RequestCachedResponseResult struct {
 	// Response read from the cache.
 	Response *CachedResponse `json:"response"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -93,4 +115,6 @@ type RequestEntriesResult struct {
 
 	// If true, there are more entries to fetch in the given range.
 	HasMore bool `json:"hasMore"`
+
+	CDTPError error `json:"-"`
 }

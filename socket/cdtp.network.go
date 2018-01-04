@@ -25,17 +25,22 @@ CanClearBrowserCache tells whether clearing browser cache is supported.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canClearBrowserCache
 DEPRECATED.
 */
-func (protocol *NetworkProtocol) CanClearBrowserCache() (*network.CanClearBrowserCacheResult, error) {
-	command := NewCommand("Network.canClearBrowserCache", nil)
+func (protocol *NetworkProtocol) CanClearBrowserCache() chan *network.CanClearBrowserCacheResult {
+	resultChan := make(chan *network.CanClearBrowserCacheResult)
+	command := NewCommand(protocol.Socket, "Network.canClearBrowserCache", nil)
 	result := &network.CanClearBrowserCacheResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -44,17 +49,22 @@ CanClearBrowserCookies tells whether clearing browser cookies is supported.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canClearBrowserCookies
 DEPRECATED.
 */
-func (protocol *NetworkProtocol) CanClearBrowserCookies() (*network.CanClearBrowserCookiesResult, error) {
-	command := NewCommand("Network.canClearBrowserCookies", nil)
+func (protocol *NetworkProtocol) CanClearBrowserCookies() chan *network.CanClearBrowserCookiesResult {
+	resultChan := make(chan *network.CanClearBrowserCookiesResult)
+	command := NewCommand(protocol.Socket, "Network.canClearBrowserCookies", nil)
 	result := &network.CanClearBrowserCookiesResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -63,17 +73,22 @@ CanEmulateConditions tells whether emulation of network conditions is supported.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canEmulateNetworkConditions
 DEPRECATED.
 */
-func (protocol *NetworkProtocol) CanEmulateConditions() (*network.CanEmulateConditionsResult, error) {
-	command := NewCommand("Network.canEmulateNetworkConditions", nil)
+func (protocol *NetworkProtocol) CanEmulateConditions() chan *network.CanEmulateConditionsResult {
+	resultChan := make(chan *network.CanEmulateConditionsResult)
+	command := NewCommand(protocol.Socket, "Network.canEmulateNetworkConditions", nil)
 	result := &network.CanEmulateConditionsResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -81,10 +96,20 @@ ClearBrowserCache clears browser cache.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-clearBrowserCache
 */
-func (protocol *NetworkProtocol) ClearBrowserCache() error {
-	command := NewCommand("Network.clearBrowserCache", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *NetworkProtocol) ClearBrowserCache() chan *network.ClearBrowserCacheResult {
+	resultChan := make(chan *network.ClearBrowserCacheResult)
+	command := NewCommand(protocol.Socket, "Network.clearBrowserCache", nil)
+	result := &network.ClearBrowserCacheResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -92,10 +117,20 @@ ClearBrowserCookies clears browser cookies.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-clearBrowserCookies
 */
-func (protocol *NetworkProtocol) ClearBrowserCookies() error {
-	command := NewCommand("Network.clearBrowserCookies", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *NetworkProtocol) ClearBrowserCookies() chan *network.ClearBrowserCookiesResult {
+	resultChan := make(chan *network.ClearBrowserCookiesResult)
+
+	go func() {
+		result := &network.ClearBrowserCookiesResult{}
+		command := NewCommand(protocol.Socket, "Network.clearBrowserCookies", nil)
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -110,10 +145,20 @@ EXPERIMENTAL.
 */
 func (protocol *NetworkProtocol) ContinueInterceptedRequest(
 	params *network.ContinueInterceptedRequestParams,
-) error {
-	command := NewCommand("Network.continueInterceptedRequest", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *network.ContinueInterceptedRequestResult {
+	resultChan := make(chan *network.ContinueInterceptedRequestResult)
+
+	go func() {
+		result := &network.ContinueInterceptedRequestResult{}
+		command := NewCommand(protocol.Socket, "Network.continueInterceptedRequest", params)
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -124,10 +169,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-deleteCoo
 */
 func (protocol *NetworkProtocol) DeleteCookies(
 	params *network.DeleteCookiesParams,
-) error {
-	command := NewCommand("Network.deleteCookies", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *network.DeleteCookiesResult {
+	resultChan := make(chan *network.DeleteCookiesResult)
+
+	go func() {
+		result := &network.DeleteCookiesResult{}
+		command := NewCommand(protocol.Socket, "Network.deleteCookies", params)
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -136,10 +191,20 @@ the client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-disable
 */
-func (protocol *NetworkProtocol) Disable() error {
-	command := NewCommand("Network.disable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *NetworkProtocol) Disable() chan *network.DisableResult {
+	resultChan := make(chan *network.DisableResult)
+
+	go func() {
+		result := &network.DisableResult{}
+		command := NewCommand(protocol.Socket, "Network.disable", nil)
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -149,10 +214,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-emulateNe
 */
 func (protocol *NetworkProtocol) EmulateConditions(
 	params *network.EmulateConditionsParams,
-) error {
-	command := NewCommand("Network.emulateNetworkConditions", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *network.EmulateConditionsResult {
+	resultChan := make(chan *network.EmulateConditionsResult)
+
+	go func() {
+		result := &network.EmulateConditionsResult{}
+		command := NewCommand(protocol.Socket, "Network.emulateNetworkConditions", params)
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -163,10 +238,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-enable
 */
 func (protocol *NetworkProtocol) Enable(
 	params *network.EnableParams,
-) error {
-	command := NewCommand("Network.enable", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *network.EnableResult {
+	resultChan := make(chan *network.EnableResult)
+
+	go func() {
+		result := &network.EnableResult{}
+		command := NewCommand(protocol.Socket, "Network.enable", params)
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -175,17 +260,22 @@ will return detailed cookie information in the `cookies` field.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getAllCookies
 */
-func (protocol *NetworkProtocol) GetAllCookies() (*network.GetAllCookiesResult, error) {
-	command := NewCommand("Network.getAllCookies", nil)
+func (protocol *NetworkProtocol) GetAllCookies() chan *network.GetAllCookiesResult {
+	resultChan := make(chan *network.GetAllCookiesResult)
+	command := NewCommand(protocol.Socket, "Network.getAllCookies", nil)
 	result := &network.GetAllCookiesResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -196,17 +286,22 @@ EXPERIMENTAL.
 */
 func (protocol *NetworkProtocol) GetCertificate(
 	params *network.GetCertificateParams,
-) (*network.GetCertificateResult, error) {
-	command := NewCommand("Network.getCertificate", params)
+) chan *network.GetCertificateResult {
+	resultChan := make(chan *network.GetCertificateResult)
+	command := NewCommand(protocol.Socket, "Network.getCertificate", params)
 	result := &network.GetCertificateResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -217,17 +312,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getCookie
 */
 func (protocol *NetworkProtocol) GetCookies(
 	params *network.GetCookiesParams,
-) (*network.GetCookiesResult, error) {
-	command := NewCommand("Network.getCookies", params)
+) chan *network.GetCookiesResult {
+	resultChan := make(chan *network.GetCookiesResult)
+	command := NewCommand(protocol.Socket, "Network.getCookies", params)
 	result := &network.GetCookiesResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -237,17 +337,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getRespon
 */
 func (protocol *NetworkProtocol) GetResponseBody(
 	params *network.GetResponseBodyParams,
-) (*network.GetResponseBodyResult, error) {
-	command := NewCommand("Network.getResponseBody", params)
+) chan *network.GetResponseBodyResult {
+	resultChan := make(chan *network.GetResponseBodyResult)
+	command := NewCommand(protocol.Socket, "Network.getResponseBody", params)
 	result := &network.GetResponseBodyResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -259,17 +364,22 @@ EXPERIMENTAL.
 */
 func (protocol *NetworkProtocol) GetResponseBodyForInterception(
 	params *network.GetResponseBodyForInterceptionParams,
-) (*network.GetResponseBodyForInterceptionResult, error) {
-	command := NewCommand("Network.getResponseBodyForInterception", params)
+) chan *network.GetResponseBodyForInterceptionResult {
+	resultChan := make(chan *network.GetResponseBodyForInterceptionResult)
+	command := NewCommand(protocol.Socket, "Network.getResponseBodyForInterception", params)
 	result := &network.GetResponseBodyForInterceptionResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -281,10 +391,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-replayXHR
 */
 func (protocol *NetworkProtocol) ReplayXHR(
 	params *network.ReplayXHRParams,
-) error {
-	command := NewCommand("Network.replayXHR", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *network.ReplayXHRResult {
+	resultChan := make(chan *network.ReplayXHRResult)
+
+	go func() {
+		result := &network.ReplayXHRResult{}
+		command := NewCommand(protocol.Socket, "Network.replayXHR", params)
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -295,17 +415,22 @@ EXPERIMENTAL.
 */
 func (protocol *NetworkProtocol) SearchInResponseBody(
 	params *network.SearchInResponseBodyParams,
-) (*network.SearchInResponseBodyResult, error) {
-	command := NewCommand("Network.searchInResponseBody", params)
+) chan *network.SearchInResponseBodyResult {
+	resultChan := make(chan *network.SearchInResponseBodyResult)
+	command := NewCommand(protocol.Socket, "Network.searchInResponseBody", params)
 	result := &network.SearchInResponseBodyResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -316,10 +441,20 @@ EXPERIMENTAL.
 */
 func (protocol *NetworkProtocol) SetBlockedURLs(
 	params *network.SetBlockedURLsParams,
-) error {
-	command := NewCommand("Network.setBlockedURLs", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *network.SetBlockedURLsResult {
+	resultChan := make(chan *network.SetBlockedURLsResult)
+
+	go func() {
+		result := &network.SetBlockedURLsResult{}
+		command := NewCommand(protocol.Socket, "Network.setBlockedURLs", params)
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -330,10 +465,20 @@ EXPERIMENTAL.
 */
 func (protocol *NetworkProtocol) SetBypassServiceWorker(
 	params *network.SetBypassServiceWorkerParams,
-) error {
-	command := NewCommand("Network.setBypassServiceWorker", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *network.SetBypassServiceWorkerResult {
+	resultChan := make(chan *network.SetBypassServiceWorkerResult)
+
+	go func() {
+		result := &network.SetBypassServiceWorkerResult{}
+		command := NewCommand(protocol.Socket, "Network.setBypassServiceWorker", params)
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -344,10 +489,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCacheD
 */
 func (protocol *NetworkProtocol) SetCacheDisabled(
 	params *network.SetCacheDisabledParams,
-) error {
-	command := NewCommand("Network.setCacheDisabled", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *network.SetCacheDisabledResult {
+	resultChan := make(chan *network.SetCacheDisabledResult)
+
+	go func() {
+		result := &network.SetCacheDisabledResult{}
+		command := NewCommand(protocol.Socket, "Network.setCacheDisabled", params)
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -358,17 +513,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCookie
 */
 func (protocol *NetworkProtocol) SetCookie(
 	params *network.SetCookieParams,
-) (*network.SetCookieResult, error) {
-	command := NewCommand("Network.setCookie", params)
+) chan *network.SetCookieResult {
+	resultChan := make(chan *network.SetCookieResult)
+	command := NewCommand(protocol.Socket, "Network.setCookie", params)
 	result := &network.SetCookieResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -378,10 +538,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCookie
 */
 func (protocol *NetworkProtocol) SetCookies(
 	params *network.SetCookiesParams,
-) error {
-	command := NewCommand("Network.setCookies", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *network.SetCookiesResult {
+	resultChan := make(chan *network.SetCookiesResult)
+
+	go func() {
+		result := &network.SetCookiesResult{}
+		command := NewCommand(protocol.Socket, "Network.setCookies", params)
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -392,10 +562,20 @@ EXPERIMENTAL.
 */
 func (protocol *NetworkProtocol) SetDataSizeLimitsForTest(
 	params *network.SetDataSizeLimitsForTestParams,
-) error {
-	command := NewCommand("Network.setDataSizeLimitsForTest", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *network.SetDataSizeLimitsForTestResult {
+	resultChan := make(chan *network.SetDataSizeLimitsForTestResult)
+
+	go func() {
+		result := &network.SetDataSizeLimitsForTestResult{}
+		command := NewCommand(protocol.Socket, "Network.setDataSizeLimitsForTest", params)
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -406,10 +586,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setExtraH
 */
 func (protocol *NetworkProtocol) SetExtraHTTPHeaders(
 	params *network.SetExtraHTTPHeadersParams,
-) error {
-	command := NewCommand("Network.setExtraHTTPHeaders", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *network.SetExtraHTTPHeadersResult {
+	resultChan := make(chan *network.SetExtraHTTPHeadersResult)
+
+	go func() {
+		result := &network.SetExtraHTTPHeadersResult{}
+		command := NewCommand(protocol.Socket, "Network.setExtraHTTPHeaders", params)
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -421,10 +611,20 @@ EXPERIMENTAL.
 */
 func (protocol *NetworkProtocol) SetRequestInterception(
 	params *network.SetRequestInterceptionParams,
-) error {
-	command := NewCommand("Network.setRequestInterception", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *network.SetRequestInterceptionResult {
+	resultChan := make(chan *network.SetRequestInterceptionResult)
+
+	go func() {
+		result := &network.SetRequestInterceptionResult{}
+		command := NewCommand(protocol.Socket, "Network.setRequestInterception", params)
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -434,10 +634,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setUserAg
 */
 func (protocol *NetworkProtocol) SetUserAgentOverride(
 	params *network.SetUserAgentOverrideParams,
-) error {
-	command := NewCommand("Network.setUserAgentOverride", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *network.SetUserAgentOverrideResult {
+	resultChan := make(chan *network.SetUserAgentOverrideResult)
+
+	go func() {
+		result := &network.SetUserAgentOverrideResult{}
+		command := NewCommand(protocol.Socket, "Network.setUserAgentOverride", params)
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*

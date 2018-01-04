@@ -22,10 +22,20 @@ Disable disables collecting and reporting metrics.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-disable
 */
-func (protocol *PerformanceProtocol) Disable() error {
-	command := NewCommand("Performance.disable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *PerformanceProtocol) Disable() chan *performance.DisableResult {
+	resultChan := make(chan *performance.DisableResult)
+	command := NewCommand(protocol.Socket, "Performance.disable", nil)
+	result := &performance.DisableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -33,10 +43,20 @@ Enable enables collecting and reporting metrics.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-enable
 */
-func (protocol *PerformanceProtocol) Enable() error {
-	command := NewCommand("Performance.enable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *PerformanceProtocol) Enable() chan *performance.EnableResult {
+	resultChan := make(chan *performance.EnableResult)
+	command := NewCommand(protocol.Socket, "Performance.enable", nil)
+	result := &performance.EnableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -44,17 +64,22 @@ GetMetrics retrieves current values of run-time metrics.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-getMetrics
 */
-func (protocol *PerformanceProtocol) GetMetrics() (*performance.GetMetricsResult, error) {
-	command := NewCommand("Performance.getMetrics", nil)
+func (protocol *PerformanceProtocol) GetMetrics() chan *performance.GetMetricsResult {
+	resultChan := make(chan *performance.GetMetricsResult)
+	command := NewCommand(protocol.Socket, "Performance.getMetrics", nil)
 	result := &performance.GetMetricsResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*

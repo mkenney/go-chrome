@@ -21,10 +21,20 @@ Disable disables tracking security state changes.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-disable
 */
-func (protocol *SecurityProtocol) Disable() error {
-	command := NewCommand("Security.disable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *SecurityProtocol) Disable() chan *security.DisableResult {
+	resultChan := make(chan *security.DisableResult)
+	command := NewCommand(protocol.Socket, "Security.disable", nil)
+	result := &security.DisableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -32,10 +42,44 @@ Enable tracking security state changes.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-enable
 */
-func (protocol *SecurityProtocol) Enable() error {
-	command := NewCommand("Security.enable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *SecurityProtocol) Enable() chan *security.EnableResult {
+	resultChan := make(chan *security.EnableResult)
+	command := NewCommand(protocol.Socket, "Security.enable", nil)
+	result := &security.EnableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
+}
+
+/*
+HandleCertificateError handles a certificate error that fired a certificateError
+event.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-handleCertificateError
+*/
+func (protocol *SecurityProtocol) HandleCertificateError(
+	params *security.HandleCertificateErrorParams,
+) chan *security.HandleCertificateErrorResult {
+	resultChan := make(chan *security.HandleCertificateErrorResult)
+	command := NewCommand(protocol.Socket, "Security.handleCertificateError", params)
+	result := &security.HandleCertificateErrorResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -47,24 +91,20 @@ EXPERIMENTAL.
 */
 func (protocol *SecurityProtocol) SetIgnoreCertificateErrors(
 	params *security.SetIgnoreCertificateErrorsParams,
-) error {
-	command := NewCommand("Security.setIgnoreCertificateErrors", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
-}
+) chan *security.SetIgnoreCertificateErrorsResult {
+	resultChan := make(chan *security.SetIgnoreCertificateErrorsResult)
+	command := NewCommand(protocol.Socket, "Security.setIgnoreCertificateErrors", params)
+	result := &security.SetIgnoreCertificateErrorsResult{}
 
-/*
-HandleCertificateError handles a certificate error that fired a certificateError
-event.
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
 
-https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-handleCertificateError
-*/
-func (protocol *SecurityProtocol) HandleCertificateError(
-	params *security.HandleCertificateErrorParams,
-) error {
-	command := NewCommand("Security.handleCertificateError", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+	return resultChan
 }
 
 /*
@@ -76,10 +116,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setOverr
 */
 func (protocol *SecurityProtocol) SetOverrideCertificateErrors(
 	params *security.SetOverrideCertificateErrorsParams,
-) error {
-	command := NewCommand("Security.setOverrideCertificateErrors", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *security.SetOverrideCertificateErrorsResult {
+	resultChan := make(chan *security.SetOverrideCertificateErrorsResult)
+	command := NewCommand(protocol.Socket, "Security.setOverrideCertificateErrors", params)
+	result := &security.SetOverrideCertificateErrorsResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*

@@ -1,8 +1,7 @@
 package socket
 
 import (
-	"encoding/json"
-	"fmt"
+	"net/url"
 	"testing"
 
 	log "github.com/sirupsen/logrus"
@@ -28,7 +27,8 @@ func TestNewCommander(t *testing.T) {
 	params := mockParams{
 		Value: 1,
 	}
-	cmd := NewCommand("Some.method", params)
+	socketURL, _ := url.Parse("https://www.example.com/mock")
+	cmd := NewCommand(NewMock(socketURL), "Some.method", params)
 
 	if "Some.method" != cmd.Method() {
 		t.Errorf("Expected 'Some.method', got '%s'", cmd.Method())
@@ -42,12 +42,14 @@ func TestNewCommander(t *testing.T) {
 func TestCommanderNextID(t *testing.T) {
 	// Ids generated safely
 	id := make(chan int)
+	socketURL, _ := url.Parse("https://www.example.com/mock")
+	mockSocket := NewMock(socketURL)
 	for a := 0; a <= 1000; a++ {
-		go func(id chan int) {
-			cmd := NewCommand("Some.method", nil)
+		go func() {
+			cmd := NewCommand(mockSocket, "Some.method", nil)
 			log.Debugf("Sending id %d", cmd.ID())
 			id <- cmd.ID()
-		}(id)
+		}()
 	}
 	results := make(map[int]bool)
 	recCount := 0
@@ -62,52 +64,5 @@ func TestCommanderNextID(t *testing.T) {
 		if recCount >= 1000 {
 			break
 		}
-	}
-}
-
-func TestCommanderDone(t *testing.T) {
-	cmd := NewCommand("Some.method", nil)
-	for a := 0; a < 1000; a++ {
-		result := mockResult{
-			Message: "Mock Message",
-			Data: map[string]int{
-				"value": a,
-			},
-		}
-		cmd.WaitGroup().Add(1)
-		go func() {
-			resultData, err := json.Marshal(result)
-			cmd.Done(resultData, err)
-			if string(resultData) != string(cmd.Result()) {
-				t.Errorf("Expected '%s', got '%s'", resultData, cmd.Result())
-			}
-		}()
-		cmd.WaitGroup().Wait()
-	}
-}
-
-func TestCommanderError(t *testing.T) {
-	cmd := NewCommand("Some.method", nil)
-	result := mockResult{
-		Message: "Mock Message",
-		Data: map[string]int{
-			"value": 1,
-		},
-	}
-	resultBytes, err := json.Marshal(result)
-	cmd.WaitGroup().Add(1)
-	cmd.Done(resultBytes, err)
-	if nil != cmd.Error() {
-		t.Errorf("Expected nil, got error: '%s'", cmd.Error().Error())
-	}
-
-	cmd = NewCommand("Some.method", nil)
-	cmd.WaitGroup().Add(1)
-	cmd.Done(nil, fmt.Errorf("This is an error"))
-	if nil == cmd.Error() {
-		t.Errorf("Expected error, got nil")
-	}
-	if "This is an error" != cmd.Error().Error() {
-		t.Errorf("Expected error 'This is an error', got error: '%s'", cmd.Error().Error())
 	}
 }

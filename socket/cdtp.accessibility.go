@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 
 	accessibility "github.com/mkenney/go-chrome/cdtp/accessibility"
+	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -25,15 +26,21 @@ https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/#method-get
 */
 func (protocol *AccessibilityProtocol) GetPartialAXTree(
 	params *accessibility.PartialAXTreeParams,
-) (*accessibility.PartialAXTreeResult, error) {
-	command := NewCommand("Accessibility.getPartialAXTree", params)
+) chan *accessibility.PartialAXTreeResult {
+	resultChan := make(chan *accessibility.PartialAXTreeResult)
+	command := NewCommand(protocol.Socket, "Accessibility.getPartialAXTree", params)
 	result := &accessibility.PartialAXTreeResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return nil, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		log.Debugf("GOT HERE")
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }

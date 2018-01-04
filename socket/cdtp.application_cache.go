@@ -22,10 +22,20 @@ Enable enables application cache domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-enable
 */
-func (protocol *ApplicationCacheProtocol) Enable() error {
-	command := NewCommand("ApplicationCache.enable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *ApplicationCacheProtocol) Enable() chan *applicationCache.EnableResult {
+	resultChan := make(chan *applicationCache.EnableResult)
+	command := NewCommand(protocol.Socket, "ApplicationCache.enable", nil)
+	result := &applicationCache.EnableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -36,17 +46,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-
 */
 func (protocol *ApplicationCacheProtocol) GetForFrame(
 	params *applicationCache.GetForFrameParams,
-) (*applicationCache.GetForFrameResult, error) {
-	command := NewCommand("ApplicationCache.getApplicationCacheForFrame", params)
+) chan *applicationCache.GetForFrameResult {
+	resultChan := make(chan *applicationCache.GetForFrameResult)
+	command := NewCommand(protocol.Socket, "ApplicationCache.getApplicationCacheForFrame", params)
 	result := &applicationCache.GetForFrameResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -55,17 +70,22 @@ each frame containing a document associated with some application cache.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getFramesWithManifests
 */
-func (protocol *ApplicationCacheProtocol) GetFramesWithManifests() (*applicationCache.GetFramesWithManifestsResult, error) {
-	command := NewCommand("ApplicationCache.getFramesWithManifests", nil)
+func (protocol *ApplicationCacheProtocol) GetFramesWithManifests() chan *applicationCache.GetFramesWithManifestsResult {
+	resultChan := make(chan *applicationCache.GetFramesWithManifestsResult)
+	command := NewCommand(protocol.Socket, "ApplicationCache.getFramesWithManifests", nil)
 	result := &applicationCache.GetFramesWithManifestsResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -75,17 +95,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-
 */
 func (protocol *ApplicationCacheProtocol) GetManifestForFrame(
 	params *applicationCache.GetManifestForFrameParams,
-) (*applicationCache.GetManifestForFrameResult, error) {
-	command := NewCommand("ApplicationCache.getManifestForFrame", params)
+) chan *applicationCache.GetManifestForFrameResult {
+	resultChan := make(chan *applicationCache.GetManifestForFrameResult)
+	command := NewCommand(protocol.Socket, "ApplicationCache.getManifestForFrame", params)
 	result := &applicationCache.GetManifestForFrameResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*

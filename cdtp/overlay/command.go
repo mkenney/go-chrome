@@ -7,6 +7,24 @@ import (
 )
 
 /*
+DisableResult represents the result of calls to Overlay.disable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-disable
+*/
+type DisableResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+EnableResult represents the result of calls to Overlay.enable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-enable
+*/
+type EnableResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 GetHighlightObjectForTestParams represents Overlay.getHighlightObjectForTest parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-getHighlightObjectForTest
@@ -24,6 +42,17 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-getHighli
 type GetHighlightObjectForTestResult struct {
 	// Highlight data for the node.
 	Highlight map[string]string `json:"highlight"`
+
+	CDTPError error `json:"-"`
+}
+
+/*
+HideHighlightResult represents the result of calls to Overlay.hideHighlight.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-hideHighlight
+*/
+type HideHighlightResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -40,6 +69,15 @@ type HighlightFrameParams struct {
 
 	// Optional. The content box highlight outline color (default: transparent).
 	ContentOutlineColor *dom.RGBA `json:"contentOutlineColor,omitempty"`
+}
+
+/*
+HighlightFrameResult represents the result of calls to Overlay.highlightFrame.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightFrame
+*/
+type HighlightFrameResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -62,6 +100,15 @@ type HighlightNodeParams struct {
 }
 
 /*
+HighlightNodeResult represents the result of calls to Overlay.highlightNode.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightNode
+*/
+type HighlightNodeResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 HighlightQuadParams represents Overlay.highlightQuad parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightQuad
@@ -75,6 +122,15 @@ type HighlightQuadParams struct {
 
 	// Optional. The highlight outline color (default: transparent).
 	OutlineColor *dom.RGBA `json:"outlineColor,omitempty"`
+}
+
+/*
+HighlightQuadResult represents the result of calls to Overlay.highlightQuad.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightQuad
+*/
+type HighlightQuadResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -103,6 +159,15 @@ type HighlightRectParams struct {
 }
 
 /*
+HighlightRectResult represents the result of calls to Overlay.highlightRect.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightRect
+*/
+type HighlightRectResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 SetInspectModeParams represents Overlay.setInspectMode parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setInspectMode
@@ -117,7 +182,17 @@ type SetInspectModeParams struct {
 }
 
 /*
-SetPausedInDebuggerMessageParams represents Overlay.setPausedInDebuggerMessage parameters.
+SetInspectModeResult represents the result of calls to Overlay.setInspectMode.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setInspectMode
+*/
+type SetInspectModeResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+SetPausedInDebuggerMessageParams represents Overlay.setPausedInDebuggerMessage
+parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setPausedInDebuggerMessage
 */
@@ -125,6 +200,16 @@ type SetPausedInDebuggerMessageParams struct {
 	// Optional. The message to display, also triggers resume and step over
 	// controls.
 	Message string `json:"message,omitempty"`
+}
+
+/*
+SetPausedInDebuggerMessageResult represents the result of calls to
+Overlay.setPausedInDebuggerMessage.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setPausedInDebuggerMessage
+*/
+type SetPausedInDebuggerMessageResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -138,6 +223,15 @@ type SetShowDebugBordersParams struct {
 }
 
 /*
+SetShowDebugBordersResult represents the result of calls to Overlay.setShowDebugBorders.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowDebugBorders
+*/
+type SetShowDebugBordersResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 SetShowFPSCounterParams represents Overlay.setShowFPSCounter parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowFPSCounter
@@ -145,6 +239,15 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowFP
 type SetShowFPSCounterParams struct {
 	// True for showing paint rectangles.
 	Show bool `json:"show"`
+}
+
+/*
+SetShowFPSCounterResult represents the result of calls to Overlay.setShowFPSCounter.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowFPSCounter
+*/
+type SetShowFPSCounterResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -158,6 +261,15 @@ type SetShowPaintRectsParams struct {
 }
 
 /*
+SetShowPaintRectsResult represents the result of calls to Overlay.setShowPaintRects.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowPaintRects
+*/
+type SetShowPaintRectsResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 SetShowScrollBottleneckRectsParams represents Overlay.setShowScrollBottleneckRects parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowScrollBottleneckRects
@@ -165,6 +277,16 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowSc
 type SetShowScrollBottleneckRectsParams struct {
 	// True for showing scroll bottleneck rects.
 	Show bool `json:"show"`
+}
+
+/*
+SetShowScrollBottleneckRectsResult represents the result of calls to
+Overlay.SetShowScrollBottleneckRects.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-SetShowScrollBottleneckRects
+*/
+type SetShowScrollBottleneckRectsResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -178,6 +300,16 @@ type SetShowViewportSizeOnResizeParams struct {
 }
 
 /*
+SetShowViewportSizeOnResizeResult represents the result of calls to
+Overlay.SetShowViewportSizeOnResize.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-SetShowViewportSizeOnResize
+*/
+type SetShowViewportSizeOnResizeResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 SetSuspendedParams represents Overlay.setSuspended parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setSuspended
@@ -186,4 +318,13 @@ type SetSuspendedParams struct {
 	// Whether overlay should be suspended and not consume any resources until
 	// resumed.
 	Suspended bool `json:"suspended"`
+}
+
+/*
+SetSuspendedResult represents the result of calls to Overlay.setSuspended.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setSuspended
+*/
+type SetSuspendedResult struct {
+	CDTPError error `json:"-"`
 }

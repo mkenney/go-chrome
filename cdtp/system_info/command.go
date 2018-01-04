@@ -21,4 +21,6 @@ type GetInfoResult struct {
 	// The command line string used to launch the browser. Will be the empty
 	// string if not supported.
 	CommandLine string `json:"commandLine"`
+
+	CDTPError error `json:"-"`
 }

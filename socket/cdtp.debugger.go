@@ -26,10 +26,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-continue
 */
 func (protocol *DebuggerProtocol) ContinueToLocation(
 	params *debugger.ContinueToLocationParams,
-) error {
-	command := NewCommand("Debugger.continueToLocation", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *debugger.ContinueToLocationResult {
+	resultChan := make(chan *debugger.ContinueToLocationResult)
+	command := NewCommand(protocol.Socket, "Debugger.continueToLocation", params)
+	result := &debugger.ContinueToLocationResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -37,10 +47,20 @@ Disable disables debugger for given page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-disable
 */
-func (protocol *DebuggerProtocol) Disable() error {
-	command := NewCommand("Debugger.disable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *DebuggerProtocol) Disable() chan *debugger.DisableResult {
+	resultChan := make(chan *debugger.DisableResult)
+	command := NewCommand(protocol.Socket, "Debugger.disable", nil)
+	result := &debugger.DisableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -49,10 +69,22 @@ debugging has been enabled until the result for this command is received.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-enable
 */
-func (protocol *DebuggerProtocol) Enable() error {
-	command := NewCommand("Debugger.enable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *DebuggerProtocol) Enable() chan *debugger.EnableResult {
+	resultChan := make(chan *debugger.EnableResult)
+	command := NewCommand(protocol.Socket, "Debugger.enable", nil)
+	result := &debugger.EnableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -62,17 +94,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-evaluate
 */
 func (protocol *DebuggerProtocol) EvaluateOnCallFrame(
 	params *debugger.EvaluateOnCallFrameParams,
-) (*debugger.EvaluateOnCallFrameResult, error) {
-	command := NewCommand("Debugger.evaluateOnCallFrame", params)
+) chan *debugger.EvaluateOnCallFrameResult {
+	resultChan := make(chan *debugger.EvaluateOnCallFrameResult)
+	command := NewCommand(protocol.Socket, "Debugger.evaluateOnCallFrame", params)
 	result := &debugger.EvaluateOnCallFrameResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -83,17 +120,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getPossi
 */
 func (protocol *DebuggerProtocol) GetPossibleBreakpoints(
 	params *debugger.GetPossibleBreakpointsParams,
-) (*debugger.GetPossibleBreakpointsResult, error) {
-	command := NewCommand("Debugger.getPossibleBreakpoints", params)
+) chan *debugger.GetPossibleBreakpointsResult {
+	resultChan := make(chan *debugger.GetPossibleBreakpointsResult)
+	command := NewCommand(protocol.Socket, "Debugger.getPossibleBreakpoints", params)
 	result := &debugger.GetPossibleBreakpointsResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -103,17 +145,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getScrip
 */
 func (protocol *DebuggerProtocol) GetScriptSource(
 	params *debugger.GetScriptSourceParams,
-) (*debugger.GetScriptSourceResult, error) {
-	command := NewCommand("Debugger.getScriptSource", params)
+) chan *debugger.GetScriptSourceResult {
+	resultChan := make(chan *debugger.GetScriptSourceResult)
+	command := NewCommand(protocol.Socket, "Debugger.getScriptSource", params)
 	result := &debugger.GetScriptSourceResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -123,17 +170,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getStack
 */
 func (protocol *DebuggerProtocol) GetStackTrace(
 	params *debugger.GetStackTraceParams,
-) (*debugger.GetStackTraceResult, error) {
-	command := NewCommand("Debugger.getStackTrace", params)
+) chan *debugger.GetStackTraceResult {
+	resultChan := make(chan *debugger.GetStackTraceResult)
+	command := NewCommand(protocol.Socket, "Debugger.getStackTrace", params)
 	result := &debugger.GetStackTraceResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -141,10 +193,20 @@ Pause stops on the next JavaScript statement.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-pause
 */
-func (protocol *DebuggerProtocol) Pause() error {
-	command := NewCommand("Debugger.pause", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *DebuggerProtocol) Pause() chan *debugger.PauseResult {
+	resultChan := make(chan *debugger.PauseResult)
+	command := NewCommand(protocol.Socket, "Debugger.pause", nil)
+	result := &debugger.PauseResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -154,10 +216,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-pauseOnA
 */
 func (protocol *DebuggerProtocol) PauseOnAsyncCall(
 	params *debugger.PauseOnAsyncCallParams,
-) error {
-	command := NewCommand("Debugger.pauseOnAsyncCall", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *debugger.PauseOnAsyncCallResult {
+	resultChan := make(chan *debugger.PauseOnAsyncCallResult)
+	command := NewCommand(protocol.Socket, "Debugger.pauseOnAsyncCall", params)
+	result := &debugger.PauseOnAsyncCallResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -167,10 +239,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-removeBr
 */
 func (protocol *DebuggerProtocol) RemoveBreakpoint(
 	params *debugger.RemoveBreakpointParams,
-) error {
-	command := NewCommand("Debugger.removeBreakpoint", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *debugger.RemoveBreakpointResult {
+	resultChan := make(chan *debugger.RemoveBreakpointResult)
+	command := NewCommand(protocol.Socket, "Debugger.removeBreakpoint", params)
+	result := &debugger.RemoveBreakpointResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -180,17 +262,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-restartF
 */
 func (protocol *DebuggerProtocol) RestartFrame(
 	params *debugger.RestartFrameParams,
-) (*debugger.RestartFrameResult, error) {
-	command := NewCommand("Debugger.restartFrame", params)
+) chan *debugger.RestartFrameResult {
+	resultChan := make(chan *debugger.RestartFrameResult)
+	command := NewCommand(protocol.Socket, "Debugger.restartFrame", params)
 	result := &debugger.RestartFrameResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -198,10 +285,20 @@ Resume resumes JavaScript execution.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-resume
 */
-func (protocol *DebuggerProtocol) Resume() error {
-	command := NewCommand("Debugger.resume", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *DebuggerProtocol) Resume() chan *debugger.ResumeResult {
+	resultChan := make(chan *debugger.ResumeResult)
+	command := NewCommand(protocol.Socket, "Debugger.resume", nil)
+	result := &debugger.ResumeResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -214,10 +311,20 @@ another scheduleStepIntoAsync was called.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-scheduleStepIntoAsync
 EXPERIMENTAL. DEPRECATED.
 */
-func (protocol *DebuggerProtocol) ScheduleStepIntoAsync() error {
-	command := NewCommand("Debugger.scheduleStepIntoAsync", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *DebuggerProtocol) ScheduleStepIntoAsync() chan *debugger.ScheduleStepIntoAsyncResult {
+	resultChan := make(chan *debugger.ScheduleStepIntoAsyncResult)
+	command := NewCommand(protocol.Socket, "Debugger.scheduleStepIntoAsync", nil)
+	result := &debugger.ScheduleStepIntoAsyncResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -227,17 +334,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-searchIn
 */
 func (protocol *DebuggerProtocol) SearchInContent(
 	params *debugger.SearchInContentParams,
-) (*debugger.SearchInContentResult, error) {
-	command := NewCommand("Debugger.searchInContent", params)
+) chan *debugger.SearchInContentResult {
+	resultChan := make(chan *debugger.SearchInContentResult)
+	command := NewCommand(protocol.Socket, "Debugger.searchInContent", params)
 	result := &debugger.SearchInContentResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -247,10 +359,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setAsync
 */
 func (protocol *DebuggerProtocol) SetAsyncCallStackDepth(
 	params *debugger.SetAsyncCallStackDepthParams,
-) error {
-	command := NewCommand("Debugger.setAsyncCallStackDepth", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *debugger.SetAsyncCallStackDepthResult {
+	resultChan := make(chan *debugger.SetAsyncCallStackDepthResult)
+	command := NewCommand(protocol.Socket, "Debugger.setAsyncCallStackDepth", params)
+	result := &debugger.SetAsyncCallStackDepthResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -265,10 +387,20 @@ EXPERIMENTAL.
 */
 func (protocol *DebuggerProtocol) SetBlackboxPatterns(
 	params *debugger.SetBlackboxPatternsParams,
-) error {
-	command := NewCommand("Debugger.setBlackboxPatterns", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *debugger.SetBlackboxPatternsResult {
+	resultChan := make(chan *debugger.SetBlackboxPatternsResult)
+	command := NewCommand(protocol.Socket, "Debugger.setBlackboxPatterns", params)
+	result := &debugger.SetBlackboxPatternsResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -281,10 +413,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBlack
 */
 func (protocol *DebuggerProtocol) SetBlackboxedRanges(
 	params *debugger.SetBlackboxedRangesParams,
-) error {
-	command := NewCommand("Debugger.setBlackboxedRanges", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *debugger.SetBlackboxedRangesResult {
+	resultChan := make(chan *debugger.SetBlackboxedRangesResult)
+	command := NewCommand(protocol.Socket, "Debugger.setBlackboxedRanges", params)
+	result := &debugger.SetBlackboxedRangesResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -294,17 +436,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreak
 */
 func (protocol *DebuggerProtocol) SetBreakpoint(
 	params *debugger.SetBreakpointParams,
-) (*debugger.SetBreakpointResult, error) {
-	command := NewCommand("Debugger.setBreakpoint", params)
+) chan *debugger.SetBreakpointResult {
+	resultChan := make(chan *debugger.SetBreakpointResult)
+	command := NewCommand(protocol.Socket, "Debugger.setBreakpoint", params)
 	result := &debugger.SetBreakpointResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -317,17 +464,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreak
 */
 func (protocol *DebuggerProtocol) SetBreakpointByURL(
 	params *debugger.SetBreakpointByURLParams,
-) (*debugger.SetBreakpointByURLResult, error) {
-	command := NewCommand("Debugger.setBreakpointByUrl", params)
+) chan *debugger.SetBreakpointByURLResult {
+	resultChan := make(chan *debugger.SetBreakpointByURLResult)
+	command := NewCommand(protocol.Socket, "Debugger.setBreakpointByUrl", params)
 	result := &debugger.SetBreakpointByURLResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -337,10 +489,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreak
 */
 func (protocol *DebuggerProtocol) SetBreakpointsActive(
 	params *debugger.SetBreakpointsActiveParams,
-) error {
-	command := NewCommand("Debugger.setBreakpointsActive", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *debugger.SetBreakpointsActiveResult {
+	resultChan := make(chan *debugger.SetBreakpointsActiveResult)
+	command := NewCommand(protocol.Socket, "Debugger.setBreakpointsActive", params)
+	result := &debugger.SetBreakpointsActiveResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -351,10 +513,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setPause
 */
 func (protocol *DebuggerProtocol) SetPauseOnExceptions(
 	params *debugger.SetPauseOnExceptionsParams,
-) error {
-	command := NewCommand("Debugger.setPauseOnExceptions", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *debugger.SetPauseOnExceptionsResult {
+	resultChan := make(chan *debugger.SetPauseOnExceptionsResult)
+	command := NewCommand(protocol.Socket, "Debugger.setPauseOnExceptions", params)
+	result := &debugger.SetPauseOnExceptionsResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -365,10 +537,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setRetur
 */
 func (protocol *DebuggerProtocol) SetReturnValue(
 	params *debugger.SetReturnValueParams,
-) error {
-	command := NewCommand("Debugger.setReturnValue", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *debugger.SetReturnValueResult {
+	resultChan := make(chan *debugger.SetReturnValueResult)
+	command := NewCommand(protocol.Socket, "Debugger.setReturnValue", params)
+	result := &debugger.SetReturnValueResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -378,17 +560,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setScrip
 */
 func (protocol *DebuggerProtocol) SetScriptSource(
 	params *debugger.SetScriptSourceParams,
-) (*debugger.SetScriptSourceResult, error) {
-	command := NewCommand("Debugger.setScriptSource", params)
+) chan *debugger.SetScriptSourceResult {
+	resultChan := make(chan *debugger.SetScriptSourceResult)
+	command := NewCommand(protocol.Socket, "Debugger.setScriptSource", params)
 	result := &debugger.SetScriptSourceResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -398,10 +585,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setSkipA
 */
 func (protocol *DebuggerProtocol) SetSkipAllPauses(
 	params *debugger.SetSkipAllPausesParams,
-) error {
-	command := NewCommand("Debugger.setSkipAllPauses", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *debugger.SetSkipAllPausesResult {
+	resultChan := make(chan *debugger.SetSkipAllPausesResult)
+	command := NewCommand(protocol.Socket, "Debugger.setSkipAllPauses", params)
+	result := &debugger.SetSkipAllPausesResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -412,10 +609,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setVaria
 */
 func (protocol *DebuggerProtocol) SetVariableValue(
 	params *debugger.SetVariableValueParams,
-) error {
-	command := NewCommand("Debugger.setVariableValue", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *debugger.SetVariableValueResult {
+	resultChan := make(chan *debugger.SetVariableValueResult)
+	command := NewCommand(protocol.Socket, "Debugger.setVariableValue", params)
+	result := &debugger.SetVariableValueResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -425,10 +632,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepInto
 */
 func (protocol *DebuggerProtocol) StepInto(
 	params *debugger.StepIntoParams,
-) error {
-	command := NewCommand("Debugger.stepInto", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *debugger.StepIntoResult {
+	resultChan := make(chan *debugger.StepIntoResult)
+	command := NewCommand(protocol.Socket, "Debugger.stepInto", params)
+	result := &debugger.StepIntoResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -436,10 +653,20 @@ StepOut steps out of the function call.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepOut
 */
-func (protocol *DebuggerProtocol) StepOut() error {
-	command := NewCommand("Debugger.stepOut", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *DebuggerProtocol) StepOut() chan *debugger.StepOutResult {
+	resultChan := make(chan *debugger.StepOutResult)
+	command := NewCommand(protocol.Socket, "Debugger.stepOut", nil)
+	result := &debugger.StepOutResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -447,10 +674,20 @@ StepOver steps over the statement.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepOver
 */
-func (protocol *DebuggerProtocol) StepOver() error {
-	command := NewCommand("Debugger.stepOver", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *DebuggerProtocol) StepOver() chan *debugger.StepOverResult {
+	resultChan := make(chan *debugger.StepOverResult)
+	command := NewCommand(protocol.Socket, "Debugger.stepOver", nil)
+	result := &debugger.StepOverResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
