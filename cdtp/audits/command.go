@@ -38,4 +38,6 @@ type GetEncodedResponseResult struct {
 
 	// Size after re-encoding.
 	EncodedSize int64 `json:"encodedSize"`
+
+	CDTPError error `json:"-"`
 }

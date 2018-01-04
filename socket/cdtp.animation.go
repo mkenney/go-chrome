@@ -21,10 +21,20 @@ Disable animation domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-disable
 */
-func (protocol *AnimationProtocol) Disable() error {
-	command := NewCommand("Animation.disable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *AnimationProtocol) Disable() chan *animation.DisableResult {
+	resultChan := make(chan *animation.DisableResult)
+	command := NewCommand(protocol.Socket, "Animation.disable", nil)
+	result := &animation.DisableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -32,10 +42,20 @@ Enable animation domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-enable
 */
-func (protocol *AnimationProtocol) Enable() error {
-	command := NewCommand("Animation.enable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *AnimationProtocol) Enable() chan *animation.EnableResult {
+	resultChan := make(chan *animation.EnableResult)
+	command := NewCommand(protocol.Socket, "Animation.enable", nil)
+	result := &animation.EnableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -45,17 +65,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-getCurr
 */
 func (protocol *AnimationProtocol) GetCurrentTime(
 	params *animation.GetCurrentTimeParams,
-) (*animation.GetCurrentTimeResult, error) {
-	command := NewCommand("Animation.getCurrentTime", params)
+) chan *animation.GetCurrentTimeResult {
+	resultChan := make(chan *animation.GetCurrentTimeResult)
+	command := NewCommand(protocol.Socket, "Animation.getCurrentTime", params)
 	result := &animation.GetCurrentTimeResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -63,17 +88,22 @@ GetPlaybackRate gets the playback rate of the document timeline.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-getPlaybackRate
 */
-func (protocol *AnimationProtocol) GetPlaybackRate() (*animation.GetPlaybackRateResult, error) {
-	command := NewCommand("Animation.getPlaybackRate", nil)
+func (protocol *AnimationProtocol) GetPlaybackRate() chan *animation.GetPlaybackRateResult {
+	resultChan := make(chan *animation.GetPlaybackRateResult)
+	command := NewCommand(protocol.Socket, "Animation.getPlaybackRate", nil)
 	result := &animation.GetPlaybackRateResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -83,10 +113,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-release
 */
 func (protocol *AnimationProtocol) ReleaseAnimations(
 	params *animation.ReleaseAnimationsParams,
-) error {
-	command := NewCommand("Animation.releaseAnimations", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *animation.ReleaseAnimationsResult {
+	resultChan := make(chan *animation.ReleaseAnimationsResult)
+	command := NewCommand(protocol.Socket, "Animation.releaseAnimations", params)
+	result := &animation.ReleaseAnimationsResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -96,17 +136,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-resolve
 */
 func (protocol *AnimationProtocol) ResolveAnimation(
 	params *animation.ResolveAnimationParams,
-) (*animation.ResolveAnimationResult, error) {
-	command := NewCommand("Animation.resolveAnimation", params)
+) chan *animation.ResolveAnimationResult {
+	resultChan := make(chan *animation.ResolveAnimationResult)
+	command := NewCommand(protocol.Socket, "Animation.resolveAnimation", params)
 	result := &animation.ResolveAnimationResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -117,10 +162,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-seekAni
 */
 func (protocol *AnimationProtocol) SeekAnimations(
 	params *animation.SeekAnimationsParams,
-) error {
-	command := NewCommand("Animation.seekAnimations", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *animation.SeekAnimationsResult {
+	resultChan := make(chan *animation.SeekAnimationsResult)
+	command := NewCommand(protocol.Socket, "Animation.seekAnimations", params)
+	result := &animation.SeekAnimationsResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -130,10 +185,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-setPaus
 */
 func (protocol *AnimationProtocol) SetPaused(
 	params *animation.SetPausedParams,
-) error {
-	command := NewCommand("Animation.setPaused", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *animation.SetPausedResult {
+	resultChan := make(chan *animation.SetPausedResult)
+	command := NewCommand(protocol.Socket, "Animation.setPaused", params)
+	result := &animation.SetPausedResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -143,10 +208,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-setPlay
 */
 func (protocol *AnimationProtocol) SetPlaybackRate(
 	params *animation.SetPlaybackRateParams,
-) error {
-	command := NewCommand("Animation.setPlaybackRate", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *animation.SetPlaybackRateResult {
+	resultChan := make(chan *animation.SetPlaybackRateResult)
+	command := NewCommand(protocol.Socket, "Animation.setPlaybackRate", params)
+	result := &animation.SetPlaybackRateResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -156,10 +231,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-setTimi
 */
 func (protocol *AnimationProtocol) SetTiming(
 	params *animation.SetTimingParams,
-) error {
-	command := NewCommand("Animation.setTiming", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *animation.SetTimingResult {
+	resultChan := make(chan *animation.SetTimingResult)
+	command := NewCommand(protocol.Socket, "Animation.setTiming", params)
+	result := &animation.SetTimingResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*

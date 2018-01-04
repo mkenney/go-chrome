@@ -12,6 +12,24 @@ type GetDOMCountersParams struct {
 }
 
 /*
+GetDOMCountersResult represents the result of calls to Memory.getDOMCounters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-getDOMCounters
+*/
+type GetDOMCountersResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+PrepareForLeakDetectionResult represents the result of calls to Memory.prepareForLeakDetection.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-prepareForLeakDetection
+*/
+type PrepareForLeakDetectionResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 SetPressureNotificationsSuppressedParams represents Memory.setPressureNotificationsSuppressed
 parameters.
 
@@ -23,6 +41,16 @@ type SetPressureNotificationsSuppressedParams struct {
 }
 
 /*
+SetPressureNotificationsSuppressedResult represents the result of calls to
+Memory.setPressureNotificationsSuppressed.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-setPressureNotificationsSuppressed
+*/
+type SetPressureNotificationsSuppressedResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 SimulatePressureNotificationParams represents Memory.simulatePressureNotification parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-simulatePressureNotification
@@ -30,4 +58,14 @@ https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-simulatePr
 type SimulatePressureNotificationParams struct {
 	// Memory pressure level of the notification.
 	Level PressureLevel `json:"level"`
+}
+
+/*
+SimulatePressureNotificationResult represents the result of calls to
+Memory.simulatePressureNotification.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-simulatePressureNotification
+*/
+type SimulatePressureNotificationResult struct {
+	CDTPError error `json:"-"`
 }

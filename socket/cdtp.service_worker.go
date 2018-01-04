@@ -26,10 +26,20 @@ EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) DeliverPushMessage(
 	params *serviceWorker.DeliverPushMessageParams,
-) error {
-	command := NewCommand("ServiceWorker.deliverPushMessage", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *serviceWorker.DeliverPushMessageResult {
+	resultChan := make(chan *serviceWorker.DeliverPushMessageResult)
+	command := NewCommand(protocol.Socket, "ServiceWorker.deliverPushMessage", params)
+	result := &serviceWorker.DeliverPushMessageResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -38,10 +48,20 @@ Disable is experimental.
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-disable
 EXPERIMENTAL.
 */
-func (protocol *ServiceWorkerProtocol) Disable() error {
-	command := NewCommand("ServiceWorker.disable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *ServiceWorkerProtocol) Disable() chan *serviceWorker.DisableResult {
+	resultChan := make(chan *serviceWorker.DisableResult)
+	command := NewCommand(protocol.Socket, "ServiceWorker.disable", nil)
+	result := &serviceWorker.DisableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -52,10 +72,20 @@ EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) DispatchSyncEvent(
 	params *serviceWorker.DispatchSyncEventParams,
-) error {
-	command := NewCommand("ServiceWorker.dispatchSyncEvent", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *serviceWorker.DispatchSyncEventResult {
+	resultChan := make(chan *serviceWorker.DispatchSyncEventResult)
+	command := NewCommand(protocol.Socket, "ServiceWorker.dispatchSyncEvent", params)
+	result := &serviceWorker.DispatchSyncEventResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -64,10 +94,20 @@ Enable is experimental.
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-enable
 EXPERIMENTAL.
 */
-func (protocol *ServiceWorkerProtocol) Enable() error {
-	command := NewCommand("ServiceWorker.enable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *ServiceWorkerProtocol) Enable() chan *serviceWorker.EnableResult {
+	resultChan := make(chan *serviceWorker.EnableResult)
+	command := NewCommand(protocol.Socket, "ServiceWorker.enable", nil)
+	result := &serviceWorker.EnableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -78,10 +118,20 @@ EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) InspectWorker(
 	params *serviceWorker.InspectWorkerParams,
-) error {
-	command := NewCommand("ServiceWorker.inspectWorker", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *serviceWorker.InspectWorkerResult {
+	resultChan := make(chan *serviceWorker.InspectWorkerResult)
+	command := NewCommand(protocol.Socket, "ServiceWorker.inspectWorker", params)
+	result := &serviceWorker.InspectWorkerResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -92,10 +142,20 @@ EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) SetForceUpdateOnPageLoad(
 	params *serviceWorker.SetForceUpdateOnPageLoadParams,
-) error {
-	command := NewCommand("ServiceWorker.setForceUpdateOnPageLoad", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *serviceWorker.SetForceUpdateOnPageLoadResult {
+	resultChan := make(chan *serviceWorker.SetForceUpdateOnPageLoadResult)
+	command := NewCommand(protocol.Socket, "ServiceWorker.setForceUpdateOnPageLoad", params)
+	result := &serviceWorker.SetForceUpdateOnPageLoadResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -106,10 +166,20 @@ EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) SkipWaiting(
 	params *serviceWorker.SkipWaitingParams,
-) error {
-	command := NewCommand("ServiceWorker.skipWaiting", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *serviceWorker.SkipWaitingResult {
+	resultChan := make(chan *serviceWorker.SkipWaitingResult)
+	command := NewCommand(protocol.Socket, "ServiceWorker.skipWaiting", params)
+	result := &serviceWorker.SkipWaitingResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -120,10 +190,20 @@ EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) StartWorker(
 	params *serviceWorker.StartWorkerParams,
-) error {
-	command := NewCommand("ServiceWorker.startWorker", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *serviceWorker.StartWorkerResult {
+	resultChan := make(chan *serviceWorker.StartWorkerResult)
+	command := NewCommand(protocol.Socket, "ServiceWorker.startWorker", params)
+	result := &serviceWorker.StartWorkerResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -132,10 +212,20 @@ StopAllWorkers is experimental.
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-stopAllWorkers
 EXPERIMENTAL.
 */
-func (protocol *ServiceWorkerProtocol) StopAllWorkers() error {
-	command := NewCommand("ServiceWorker.stopAllWorkers", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *ServiceWorkerProtocol) StopAllWorkers() chan *serviceWorker.StopAllWorkersResult {
+	resultChan := make(chan *serviceWorker.StopAllWorkersResult)
+	command := NewCommand(protocol.Socket, "ServiceWorker.stopAllWorkers", nil)
+	result := &serviceWorker.StopAllWorkersResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -146,10 +236,20 @@ EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) StopWorker(
 	params *serviceWorker.StopWorkerParams,
-) error {
-	command := NewCommand("ServiceWorker.stopWorker", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *serviceWorker.StopWorkerResult {
+	resultChan := make(chan *serviceWorker.StopWorkerResult)
+	command := NewCommand(protocol.Socket, "ServiceWorker.stopWorker", params)
+	result := &serviceWorker.StopWorkerResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -160,10 +260,20 @@ EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) Unregister(
 	params *serviceWorker.UnregisterParams,
-) error {
-	command := NewCommand("ServiceWorker.unregister", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *serviceWorker.UnregisterResult {
+	resultChan := make(chan *serviceWorker.UnregisterResult)
+	command := NewCommand(protocol.Socket, "ServiceWorker.unregister", params)
+	result := &serviceWorker.UnregisterResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -174,10 +284,20 @@ EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) UpdateRegistration(
 	params *serviceWorker.UpdateRegistrationParams,
-) error {
-	command := NewCommand("ServiceWorker.updateRegistration", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *serviceWorker.UpdateRegistrationResult {
+	resultChan := make(chan *serviceWorker.UpdateRegistrationResult)
+	command := NewCommand(protocol.Socket, "ServiceWorker.updateRegistration", params)
+	result := &serviceWorker.UpdateRegistrationResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*

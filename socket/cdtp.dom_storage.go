@@ -24,10 +24,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-clear
 */
 func (protocol *DOMStorageProtocol) Clear(
 	params *domStorage.ClearParams,
-) error {
-	command := NewCommand("DOMStorage.clear", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *domStorage.ClearResult {
+	resultChan := make(chan *domStorage.ClearResult)
+	command := NewCommand(protocol.Socket, "DOMStorage.clear", params)
+	result := &domStorage.ClearResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -36,10 +46,20 @@ the client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-disable
 */
-func (protocol *DOMStorageProtocol) Disable() error {
-	command := NewCommand("DOMStorage.disable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *DOMStorageProtocol) Disable() chan *domStorage.DisableResult {
+	resultChan := make(chan *domStorage.DisableResult)
+	command := NewCommand(protocol.Socket, "DOMStorage.disable", nil)
+	result := &domStorage.DisableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -48,10 +68,20 @@ client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-enable
 */
-func (protocol *DOMStorageProtocol) Enable() error {
-	command := NewCommand("DOMStorage.enable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *DOMStorageProtocol) Enable() chan *domStorage.EnableResult {
+	resultChan := make(chan *domStorage.EnableResult)
+	command := NewCommand(protocol.Socket, "DOMStorage.enable", nil)
+	result := &domStorage.EnableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -61,17 +91,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-getDOM
 */
 func (protocol *DOMStorageProtocol) GetItems(
 	params *domStorage.GetItemsParams,
-) (*domStorage.GetItemsResult, error) {
-	command := NewCommand("DOMStorage.getDOMStorageItems", params)
+) chan *domStorage.GetItemsResult {
+	resultChan := make(chan *domStorage.GetItemsResult)
+	command := NewCommand(protocol.Socket, "DOMStorage.getDOMStorageItems", params)
 	result := &domStorage.GetItemsResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -81,10 +116,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-remove
 */
 func (protocol *DOMStorageProtocol) RemoveItem(
 	params *domStorage.RemoveItemParams,
-) error {
-	command := NewCommand("DOMStorage.removeDOMStorageItem", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *domStorage.RemoveItemResult {
+	resultChan := make(chan *domStorage.RemoveItemResult)
+	command := NewCommand(protocol.Socket, "DOMStorage.removeDOMStorageItem", params)
+	result := &domStorage.RemoveItemResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -94,10 +139,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-setDOM
 */
 func (protocol *DOMStorageProtocol) SetItem(
 	params *domStorage.SetItemParams,
-) error {
-	command := NewCommand("DOMStorage.setDOMStorageItem", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *domStorage.SetItemResult {
+	resultChan := make(chan *domStorage.SetItemResult)
+	command := NewCommand(protocol.Socket, "DOMStorage.setDOMStorageItem", params)
+	result := &domStorage.SetItemResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*

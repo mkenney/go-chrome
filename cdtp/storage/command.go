@@ -14,6 +14,15 @@ type ClearDataForOriginParams struct {
 }
 
 /*
+ClearDataForOriginResult represents the result of calls to Storage.clearDataForOrigin.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-clearDataForOrigin
+*/
+type ClearDataForOriginResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 GetUsageAndQuotaParams represents Storage.getUsageAndQuota parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-getUsageAndQuota
@@ -37,6 +46,8 @@ type GetUsageAndQuotaResult struct {
 
 	// Storage usage per type (bytes).
 	UsageBreakdown []*UsageForType `json:"usageBreakdown"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -50,6 +61,16 @@ type TrackCacheStorageForOriginParams struct {
 }
 
 /*
+TrackCacheStorageForOriginResult represents the result of calls to
+Storage.trackCacheStorageForOrigin.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-trackCacheStorageForOrigin
+*/
+type TrackCacheStorageForOriginResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 TrackIndexedDBForOriginParams represents Storage.trackIndexedDBForOrigin parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-trackIndexedDBForOrigin
@@ -57,6 +78,15 @@ https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-trackInde
 type TrackIndexedDBForOriginParams struct {
 	// Security origin.
 	Origin string `json:"origin"`
+}
+
+/*
+TrackIndexedDBForOriginResult represents the result of calls to Storage.trackIndexedDBForOrigin.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-trackIndexedDBForOrigin
+*/
+type TrackIndexedDBForOriginResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -70,6 +100,16 @@ type UntrackCacheStorageForOriginParams struct {
 }
 
 /*
+UntrackCacheStorageForOriginResult represents the result of calls to
+Storage.untrackCacheStorageForOrigin.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-untrackCacheStorageForOrigin
+*/
+type UntrackCacheStorageForOriginResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 UntrackIndexedDBForOriginParams represents Storage.untrackIndexedDBForOrigin parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-untrackIndexedDBForOrigin
@@ -77,4 +117,14 @@ https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-untrackIn
 type UntrackIndexedDBForOriginParams struct {
 	// Security origin.
 	Origin string `json:"origin"`
+}
+
+/*
+UntrackIndexedDBForOriginResult represents the result of calls to
+Storage.untrackIndexedDBForOrigin.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-untrackIndexedDBForOrigin
+*/
+type UntrackIndexedDBForOriginResult struct {
+	CDTPError error `json:"-"`
 }

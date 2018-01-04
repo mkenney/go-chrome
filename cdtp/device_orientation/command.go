@@ -1,6 +1,15 @@
 package deviceOrientation
 
 /*
+ClearOverrideResult represents the result of calls to DeviceOrientation.clearOverride.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/#method-clearDeviceOrientationOverride
+*/
+type ClearOverrideResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 SetOverrideParams represents DeviceOrientation.setDeviceOrientationOverride
 parameters.
 
@@ -15,4 +24,13 @@ type SetOverrideParams struct {
 
 	// Mock gamma.
 	Gamma float64 `json:"gamma"`
+}
+
+/*
+SetOverrideResult represents the result of calls to DeviceOrientation.setOverride.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/#method-setDeviceOrientationOverride
+*/
+type SetOverrideResult struct {
+	CDTPError error `json:"-"`
 }

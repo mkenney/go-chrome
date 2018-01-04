@@ -21,10 +21,20 @@ Close closes the browser gracefully.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-close
 */
-func (protocol *BrowserProtocol) Close() error {
-	command := NewCommand("Browser.close", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *BrowserProtocol) Close() chan *browser.CloseResult {
+	resultChan := make(chan *browser.CloseResult)
+	command := NewCommand(protocol.Socket, "Browser.close", nil)
+	result := &browser.CloseResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -32,17 +42,22 @@ GetVersion returns version information.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getVersion
 */
-func (protocol *BrowserProtocol) GetVersion() (*browser.GetVersionResult, error) {
-	command := NewCommand("Browser.getVersion", nil)
+func (protocol *BrowserProtocol) GetVersion() chan *browser.GetVersionResult {
+	resultChan := make(chan *browser.GetVersionResult)
+	command := NewCommand(protocol.Socket, "Browser.getVersion", nil)
 	result := &browser.GetVersionResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -52,17 +67,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindow
 */
 func (protocol *BrowserProtocol) GetWindowBounds(
 	params *browser.GetWindowBoundsParams,
-) (*browser.GetWindowBoundsResult, error) {
-	command := NewCommand("Browser.getWindowBounds", params)
+) chan *browser.GetWindowBoundsResult {
+	resultChan := make(chan *browser.GetWindowBoundsResult)
+	command := NewCommand(protocol.Socket, "Browser.getWindowBounds", params)
 	result := &browser.GetWindowBoundsResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -73,17 +93,22 @@ EXPERIMENTAL.
 */
 func (protocol *BrowserProtocol) GetWindowForTarget(
 	params *browser.GetWindowForTargetParams,
-) (*browser.GetWindowForTargetResult, error) {
-	command := NewCommand("Browser.getWindowForTarget", params)
+) chan *browser.GetWindowForTargetResult {
+	resultChan := make(chan *browser.GetWindowForTargetResult)
+	command := NewCommand(protocol.Socket, "Browser.getWindowForTarget", params)
 	result := &browser.GetWindowForTargetResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -93,15 +118,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-setWindow
 */
 func (protocol *BrowserProtocol) SetWindowBounds(
 	params *browser.SetWindowBoundsParams,
-) (*browser.SetWindowBoundsResult, error) {
-	command := NewCommand("Browser.setWindowBounds", params)
+) chan *browser.SetWindowBoundsResult {
+	resultChan := make(chan *browser.SetWindowBoundsResult)
+	command := NewCommand(protocol.Socket, "Browser.setWindowBounds", params)
 	result := &browser.SetWindowBoundsResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }

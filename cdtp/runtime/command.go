@@ -28,6 +28,8 @@ type AwaitPromiseResult struct {
 
 	// Exception details if stack strace is available.
 	ExceptionDetails ExceptionDetails `json:"exceptionDetails"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -89,6 +91,8 @@ type CallFunctionOnResult struct {
 
 	// Exception details.
 	ExceptionDetails *ExceptionDetails `json:"exceptionDetails"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -123,6 +127,35 @@ type CompileScriptResult struct {
 
 	// Exception details.
 	ExceptionDetails *ExceptionDetails `json:"exceptionDetails"`
+
+	CDTPError error `json:"-"`
+}
+
+/*
+DisableResult represents the result of calls to Runtime.disable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-disable
+*/
+type DisableResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+DiscardConsoleEntriesResult represents the result of calls to Runtime.discardConsoleEntries.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-discardConsoleEntries
+*/
+type DiscardConsoleEntriesResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+EnableResult represents the result of calls to Runtime.enable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-enable
+*/
+type EnableResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -179,6 +212,8 @@ type EvaluateResult struct {
 
 	// Exception details.
 	ExceptionDetails *ExceptionDetails `json:"exceptionDetails"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -217,6 +252,8 @@ type GetPropertiesResult struct {
 
 	// Exception details.
 	ExceptionDetails *ExceptionDetails `json:"exceptionDetails"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -236,6 +273,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-globalLex
 */
 type GlobalLexicalScopeNamesResult struct {
 	Names []string `json:"names"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -256,6 +295,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-queryObje
 type QueryObjectsResult struct {
 	// Identifier of the object to release.
 	ObjectID RemoteObjectID `json:"objectId"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -269,6 +310,15 @@ type ReleaseObjectParams struct {
 }
 
 /*
+ReleaseObjectResult represents the result of calls to Runtime.releaseObject.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseObject
+*/
+type ReleaseObjectResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 ReleaseObjectGroupParams represents Runtime.releaseObjectGroup parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseObjectGroup
@@ -276,6 +326,24 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseOb
 type ReleaseObjectGroupParams struct {
 	// Symbolic object group name.
 	ObjectGroup string `json:"objectGroup"`
+}
+
+/*
+ReleaseObjectGroupResult represents the result of calls to Runtime.releaseObjectGroup.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseObjectGroup
+*/
+type ReleaseObjectGroupResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+RunIfWaitingForDebuggerResult represents the result of calls to Runtime.runIfWaitingForDebugger.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-runIfWaitingForDebugger
+*/
+type RunIfWaitingForDebuggerResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -324,6 +392,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-runScript
 type RunScriptResult struct {
 	// Identifier of the object to release.
 	ObjectID RemoteObjectID `json:"objectId"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -337,4 +407,14 @@ type SetCustomObjectFormatterEnabledParams struct {
 
 	// Exception details.
 	ExceptionDetails *ExceptionDetails `json:"exceptionDetails"`
+}
+
+/*
+SetCustomObjectFormatterEnabledResult represents the result of calls to
+Runtime.setCustomObjectFormatterEnabled.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-setCustomObjectFormatterEnabled
+*/
+type SetCustomObjectFormatterEnabledResult struct {
+	CDTPError error `json:"-"`
 }

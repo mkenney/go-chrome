@@ -23,10 +23,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-close
 */
 func (protocol *IOProtocol) Close(
 	params *io.CloseParams,
-) error {
-	command := NewCommand("IO.close", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *io.CloseResult {
+	resultChan := make(chan *io.CloseResult)
+	command := NewCommand(protocol.Socket, "IO.close", params)
+	result := &io.CloseResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -36,17 +46,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-read
 */
 func (protocol *IOProtocol) Read(
 	params *io.ReadParams,
-) (*io.ReadResult, error) {
-	command := NewCommand("IO.read", params)
+) chan *io.ReadResult {
+	resultChan := make(chan *io.ReadResult)
+	command := NewCommand(protocol.Socket, "IO.read", params)
 	result := &io.ReadResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -56,15 +71,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-resolveBlob
 */
 func (protocol *IOProtocol) ResolveBlob(
 	params *io.ResolveBlobParams,
-) (*io.ResolveBlobResult, error) {
-	command := NewCommand("IO.resolveBlob", params)
+) chan *io.ResolveBlobResult {
+	resultChan := make(chan *io.ResolveBlobResult)
+	command := NewCommand(protocol.Socket, "IO.resolveBlob", params)
 	result := &io.ResolveBlobResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }

@@ -14,33 +14,32 @@ func TestAuditsGetEncodedResponse(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
+	resultChan := mockSocket.Audits().GetEncodedResponse(&audits.GetEncodedResponseParams{
+		RequestID: network.RequestID("audit-id"),
+		Encoding:  "encoding",
+		Quality:   1,
+		SizeOnly:  true,
+	})
 	mockResult := &audits.GetEncodedResponseResult{
 		Body:         "Response body",
 		OriginalSize: 1,
 		EncodedSize:  2,
 	}
 	mockSocket.Conn().AddMockData(
-		_commandID+1,
+		mockSocket.CurCommandID(),
 		&Error{},
 		"Audits.getEncodedResponse",
 		mockResult,
 	)
-	go func() {
-		result, err := mockSocket.Audits().GetEncodedResponse(&audits.GetEncodedResponseParams{
-			RequestID: network.RequestID("audit-id"),
-			Encoding:  "encoding",
-			Quality:   1,
-			SizeOnly:  true,
-		})
-		if nil != err {
-			t.Errorf("Expected nil, got error: '%s'", err.Error())
-		}
-		if result.Body != mockResult.Body {
-			t.Errorf(
-				"Expected %s, received %s",
-				mockResult.Body,
-				result.Body,
-			)
-		}
-	}()
+	result := <-resultChan
+	if nil != result.CDTPError {
+		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	}
+	if result.Body != mockResult.Body {
+		t.Errorf(
+			"Expected %s, received %s",
+			mockResult.Body,
+			result.Body,
+		)
+	}
 }

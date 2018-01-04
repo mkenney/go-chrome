@@ -18,6 +18,9 @@ type Socketer interface {
 	// Connected returns the current socket connection status.
 	Connected() bool
 
+	// Return the latest command ID
+	CurCommandID() int
+
 	// Disconnect closes the current socket connection.
 	Disconnect() error
 
@@ -33,12 +36,15 @@ type Socketer interface {
 	// HandleCommand() and HandleEvent() as appropriate
 	Listen() error
 
+	// Generate and return the next command ID
+	NextCommandID() int
+
 	// RemoveEventHandler removes a handler from the stack of listeners for an
 	// event.
 	RemoveEventHandler(handler EventHandler)
 
 	// SendCommand delivers a command payload to the websocket connection.
-	SendCommand(command Commander) *Payload
+	SendCommand(command Commander) chan *Response
 
 	// Stop signals the socket read loop to stop listening for data and close
 	// the websocket connection.

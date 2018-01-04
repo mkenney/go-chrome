@@ -25,4 +25,6 @@ type GetResult struct {
 
 	// Whitelisted ComputedStyle properties for each node in the layout tree.
 	ComputedStyles []*ComputedStyle `json:"computedStyles"`
+
+	CDTPError error `json:"-"`
 }

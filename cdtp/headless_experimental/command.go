@@ -43,4 +43,24 @@ type BeginFrameResult struct {
 	// Base64-encoded image data of the screenshot, if one was requested and
 	// successfully taken.
 	ScreenshotData string `json:"screenshotData"`
+
+	CDTPError error `json:"-"`
+}
+
+/*
+DisableResult represents the result of calls to HeadlessExperimental.disable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-disable
+*/
+type DisableResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+EnableResult represents the result of calls to HeadlessExperimental.enable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-enable
+*/
+type EnableResult struct {
+	CDTPError error `json:"-"`
 }

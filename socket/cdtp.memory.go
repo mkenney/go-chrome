@@ -21,10 +21,20 @@ EXPERIMENTAL.
 */
 func (protocol *MemoryProtocol) GetDOMCounters(
 	params *memory.GetDOMCountersParams,
-) error {
-	command := NewCommand("Memory.getDOMCounters", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *memory.GetDOMCountersResult {
+	resultChan := make(chan *memory.GetDOMCountersResult)
+	command := NewCommand(protocol.Socket, "Memory.getDOMCounters", params)
+	result := &memory.GetDOMCountersResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -33,10 +43,20 @@ PrepareForLeakDetection experimental
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-prepareForLeakDetection
 EXPERIMENTAL.
 */
-func (protocol *MemoryProtocol) PrepareForLeakDetection() error {
-	command := NewCommand("Memory.prepareForLeakDetection", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *MemoryProtocol) PrepareForLeakDetection() chan *memory.PrepareForLeakDetectionResult {
+	resultChan := make(chan *memory.PrepareForLeakDetectionResult)
+	command := NewCommand(protocol.Socket, "Memory.prepareForLeakDetection", nil)
+	result := &memory.PrepareForLeakDetectionResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -47,10 +67,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-setPressur
 */
 func (protocol *MemoryProtocol) SetPressureNotificationsSuppressed(
 	params *memory.SetPressureNotificationsSuppressedParams,
-) error {
-	command := NewCommand("Memory.setPressureNotificationsSuppressed", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *memory.SetPressureNotificationsSuppressedResult {
+	resultChan := make(chan *memory.SetPressureNotificationsSuppressedResult)
+	command := NewCommand(protocol.Socket, "Memory.setPressureNotificationsSuppressed", params)
+	result := &memory.SetPressureNotificationsSuppressedResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -61,8 +91,18 @@ https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-simulatePr
 */
 func (protocol *MemoryProtocol) SimulatePressureNotification(
 	params *memory.SimulatePressureNotificationParams,
-) error {
-	command := NewCommand("Memory.simulatePressureNotification", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *memory.SimulatePressureNotificationResult {
+	resultChan := make(chan *memory.SimulatePressureNotificationResult)
+	command := NewCommand(protocol.Socket, "Memory.simulatePressureNotification", params)
+	result := &memory.SimulatePressureNotificationResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }

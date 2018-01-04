@@ -23,10 +23,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-dele
 */
 func (protocol *CacheStorageProtocol) DeleteCache(
 	params *cacheStorage.DeleteCacheParams,
-) error {
-	command := NewCommand("CacheStorage.deleteCache", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *cacheStorage.DeleteCacheResult {
+	resultChan := make(chan *cacheStorage.DeleteCacheResult)
+	command := NewCommand(protocol.Socket, "CacheStorage.deleteCache", params)
+	result := &cacheStorage.DeleteCacheResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -36,10 +46,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-dele
 */
 func (protocol *CacheStorageProtocol) DeleteEntry(
 	params *cacheStorage.DeleteEntryParams,
-) error {
-	command := NewCommand("CacheStorage.deleteEntry", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *cacheStorage.DeleteEntryResult {
+	resultChan := make(chan *cacheStorage.DeleteEntryResult)
+	command := NewCommand(protocol.Socket, "CacheStorage.deleteEntry", params)
+	result := &cacheStorage.DeleteEntryResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -49,17 +69,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requ
 */
 func (protocol *CacheStorageProtocol) RequestCacheNames(
 	params *cacheStorage.RequestCacheNamesParams,
-) (*cacheStorage.RequestCacheNamesResult, error) {
-	command := NewCommand("CacheStorage.requestCacheNames", params)
+) chan *cacheStorage.RequestCacheNamesResult {
+	resultChan := make(chan *cacheStorage.RequestCacheNamesResult)
+	command := NewCommand(protocol.Socket, "CacheStorage.requestCacheNames", params)
 	result := &cacheStorage.RequestCacheNamesResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -69,17 +94,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requ
 */
 func (protocol *CacheStorageProtocol) RequestCachedResponse(
 	params *cacheStorage.RequestCachedResponseParams,
-) (*cacheStorage.RequestCachedResponseResult, error) {
-	command := NewCommand("CacheStorage.requestCachedResponse", params)
+) chan *cacheStorage.RequestCachedResponseResult {
+	resultChan := make(chan *cacheStorage.RequestCachedResponseResult)
+	command := NewCommand(protocol.Socket, "CacheStorage.requestCachedResponse", params)
 	result := &cacheStorage.RequestCachedResponseResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -89,15 +119,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requ
 */
 func (protocol *CacheStorageProtocol) RequestEntries(
 	params *cacheStorage.RequestEntriesParams,
-) (*cacheStorage.RequestEntriesResult, error) {
-	command := NewCommand("CacheStorage.requestEntries", params)
+) chan *cacheStorage.RequestEntriesResult {
+	resultChan := make(chan *cacheStorage.RequestEntriesResult)
+	command := NewCommand(protocol.Socket, "CacheStorage.requestEntries", params)
 	result := &cacheStorage.RequestEntriesResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }

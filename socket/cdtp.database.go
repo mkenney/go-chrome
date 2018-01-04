@@ -22,10 +22,20 @@ the client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-disable
 */
-func (protocol *DatabaseProtocol) Disable() error {
-	command := NewCommand("Database.disable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *DatabaseProtocol) Disable() chan *database.DisableResult {
+	resultChan := make(chan *database.DisableResult)
+	command := NewCommand(protocol.Socket, "Database.disable", nil)
+	result := &database.DisableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -34,10 +44,20 @@ client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-enable
 */
-func (protocol *DatabaseProtocol) Enable() error {
-	command := NewCommand("Database.enable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *DatabaseProtocol) Enable() chan *database.EnableResult {
+	resultChan := make(chan *database.EnableResult)
+	command := NewCommand(protocol.Socket, "Database.enable", nil)
+	result := &database.EnableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -47,17 +67,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-executeS
 */
 func (protocol *DatabaseProtocol) ExecuteSQL(
 	params *database.ExecuteSQLParams,
-) (*database.ExecuteSQLResult, error) {
-	command := NewCommand("Database.executeSQL", params)
+) chan *database.ExecuteSQLResult {
+	resultChan := make(chan *database.ExecuteSQLResult)
+	command := NewCommand(protocol.Socket, "Database.executeSQL", params)
 	result := &database.ExecuteSQLResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -67,10 +92,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-getDatab
 */
 func (protocol *DatabaseProtocol) GetTableNames(
 	params *database.GetTableNamesParams,
-) error {
-	command := NewCommand("Database.getDatabaseTableNames", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *database.GetTableNamesResult {
+	resultChan := make(chan *database.GetTableNamesResult)
+	command := NewCommand(protocol.Socket, "Database.executeSQL", params)
+	result := &database.GetTableNamesResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*

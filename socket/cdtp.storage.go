@@ -23,10 +23,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-clearData
 */
 func (protocol *StorageProtocol) ClearDataForOrigin(
 	params *storage.ClearDataForOriginParams,
-) error {
-	command := NewCommand("storage.clearDataForOrigin", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *storage.ClearDataForOriginResult {
+	resultChan := make(chan *storage.ClearDataForOriginResult)
+	command := NewCommand(protocol.Socket, "Storage.clearDataForOrigin", params)
+	result := &storage.ClearDataForOriginResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -36,17 +46,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-getUsageA
 */
 func (protocol *StorageProtocol) GetUsageAndQuota(
 	params *storage.GetUsageAndQuotaParams,
-) (*storage.GetUsageAndQuotaResult, error) {
-	command := NewCommand("storage.getUsageAndQuota", params)
+) chan *storage.GetUsageAndQuotaResult {
+	resultChan := make(chan *storage.GetUsageAndQuotaResult)
+	command := NewCommand(protocol.Socket, "storage.getUsageAndQuota", params)
 	result := &storage.GetUsageAndQuotaResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -57,10 +72,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-trackCach
 */
 func (protocol *StorageProtocol) TrackCacheStorageForOrigin(
 	params *storage.TrackCacheStorageForOriginParams,
-) error {
-	command := NewCommand("storage.trackCacheStorageForOrigin", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *storage.TrackCacheStorageForOriginResult {
+	resultChan := make(chan *storage.TrackCacheStorageForOriginResult)
+	command := NewCommand(protocol.Socket, "Storage.trackCacheStorageForOrigin", params)
+	result := &storage.TrackCacheStorageForOriginResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -71,10 +96,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-trackInde
 */
 func (protocol *StorageProtocol) TrackIndexedDBForOrigin(
 	params *storage.TrackIndexedDBForOriginParams,
-) error {
-	command := NewCommand("storage.trackIndexedDBForOrigin", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *storage.TrackIndexedDBForOriginResult {
+	resultChan := make(chan *storage.TrackIndexedDBForOriginResult)
+	command := NewCommand(protocol.Socket, "Storage.trackIndexedDBForOrigin", params)
+	result := &storage.TrackIndexedDBForOriginResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -85,10 +120,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-untrackCa
 */
 func (protocol *StorageProtocol) UntrackCacheStorageForOrigin(
 	params *storage.UntrackCacheStorageForOriginParams,
-) error {
-	command := NewCommand("storage.untrackCacheStorageForOrigin", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *storage.UntrackCacheStorageForOriginResult {
+	resultChan := make(chan *storage.UntrackCacheStorageForOriginResult)
+	command := NewCommand(protocol.Socket, "Storage.untrackCacheStorageForOrigin", params)
+	result := &storage.UntrackCacheStorageForOriginResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -99,10 +144,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-untrackIn
 */
 func (protocol *StorageProtocol) UntrackIndexedDBForOrigin(
 	params *storage.UntrackIndexedDBForOriginParams,
-) error {
-	command := NewCommand("storage.untrackIndexedDBForOrigin", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *storage.UntrackIndexedDBForOriginResult {
+	resultChan := make(chan *storage.UntrackIndexedDBForOriginResult)
+	command := NewCommand(protocol.Socket, "Storage.untrackIndexedDBForOrigin", params)
+	result := &storage.UntrackIndexedDBForOriginResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*

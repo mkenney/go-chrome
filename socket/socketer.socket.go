@@ -5,7 +5,6 @@ import (
 	"net/url"
 	"sync"
 
-	"github.com/mkenney/go-chrome/errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -14,11 +13,12 @@ New returns a new Socketer websocket connection listening to the specified URL.
 */
 func New(url *url.URL) *Socket {
 	socket := &Socket{
-		commands:  NewCommandMap(),
-		handlers:  NewEventHandlerMap(),
-		url:       url,
-		newSocket: NewWebsocket,
-		mux:       &sync.Mutex{},
+		commands:     NewCommandMap(),
+		commandIDMux: &sync.Mutex{},
+		handlers:     NewEventHandlerMap(),
+		mux:          &sync.Mutex{},
+		newSocket:    NewWebsocket,
+		url:          url,
 	}
 
 	// Init the protocol interfaces for the API.
@@ -72,6 +72,8 @@ Socket implements Socketer.
 */
 type Socket struct {
 	commands      CommandMapper
+	commandID     int
+	commandIDMux  *sync.Mutex
 	conn          WebSocketer
 	connected     bool
 	handlers      EventHandlerMapper
@@ -131,6 +133,16 @@ func (socket *Socket) AddEventHandler(
 }
 
 /*
+CurCommandID implements Socketer.
+*/
+func (socket *Socket) CurCommandID() int {
+	socket.commandIDMux.Lock()
+	defer socket.commandIDMux.Unlock()
+	id := socket.commandID
+	return id
+}
+
+/*
 HandleCommand implements Socketer.
 */
 func (socket *Socket) HandleCommand(response *Response) {
@@ -140,10 +152,10 @@ func (socket *Socket) HandleCommand(response *Response) {
 	if command, err := socket.commands.Get(response.ID); nil != err {
 		errorMessage := ""
 		if nil != response.Error && 0 != response.Error.Code {
-			errorMessage = response.Error.Message
+			errorMessage = response.Error.Error()
 		}
 		log.Debugf(
-			"socket.HandleCommand(): %s - result=%s err=%s",
+			"socket.HandleCommand(): %s - result=%s err='%s'",
 			err.Error(),
 			response.Result,
 			errorMessage,
@@ -155,36 +167,37 @@ func (socket *Socket) HandleCommand(response *Response) {
 			command.ID(),
 			command.Method(),
 		)
+		command.Respond(response)
 		socket.commands.Delete(command.ID())
-		if nil != response.Error && "" != response.Error.Message {
-			errorMessage := ""
-			if nil != response.Error && 0 != response.Error.Code {
-				errorMessage = response.Error.Message
-			}
-			log.Errorf(
-				"Socket command responded with error: result=%s err=%s",
-				response.Result,
-				errorMessage,
-			)
-			err = errors.SocketErrorResponse{Type: errors.Type{
-				Caller: errors.GetCaller(),
-				Err: fmt.Errorf(
-					"%d %s: %s",
-					response.Error.Code,
-					response.Error.Message,
-					response.Error.Data,
-				),
-				Msg: "The socket command failed",
-			}}
-		}
-
-		command.Done(response.Result, err)
 		log.Debugf(
 			"Command #%d complete: %s{%s}",
 			command.ID(),
 			socket.URL().String(),
 			command.Method(),
 		)
+		//		if nil != response.Error && "" != response.Error.Message {
+		//			errorMessage := ""
+		//			if nil != response.Error && 0 != response.Error.Code {
+		//				errorMessage = response.Error.Message
+		//			}
+		//			log.Errorf(
+		//				"Socket command responded with error: result=%s err=%s",
+		//				response.Result,
+		//				errorMessage,
+		//			)
+		//			err = errors.SocketErrorResponse{Type: errors.Type{
+		//				Caller: errors.GetCaller(),
+		//				Err: fmt.Errorf(
+		//					"%d %s: %s",
+		//					response.Error.Code,
+		//					response.Error.Message,
+		//					response.Error.Data,
+		//				),
+		//				Msg: "The socket command failed",
+		//			}}
+		//		}
+		//
+		//		command.Done(response.Result, err)
 	}
 }
 
@@ -262,6 +275,17 @@ func (socket *Socket) Listen() error {
 }
 
 /*
+NextCommandID implements Socketer.
+*/
+func (socket *Socket) NextCommandID() int {
+	socket.commandIDMux.Lock()
+	defer socket.commandIDMux.Unlock()
+	socket.commandID++
+	id := socket.commandID
+	return id
+}
+
+/*
 RemoveEventHandler implements Socketer.
 */
 func (socket *Socket) RemoveEventHandler(
@@ -295,32 +319,33 @@ Workflow:
 	socket.HandleCmd() is triggered from the command instance to generate the
 	response and the command unlocks itself.
 */
-func (socket *Socket) SendCommand(command Commander) *Payload {
-
-	// Add the command to the internal stack and create the payload
-	socket.commands.Set(command)
-	payload := &Payload{
-		ID:     command.ID(),
-		Method: command.Method(),
-		Params: command.Params(),
-	}
-
-	command.WaitGroup().Add(1)
+func (socket *Socket) SendCommand(command Commander) chan *Response {
 	log.Debugf(
 		"socket.SendCommand(): sending command #%d (%s) payload to socket",
 		command.ID(),
 		command.Method(),
 	)
-	if err := socket.WriteJSON(payload); err != nil {
-		command.Done(nil, errors.SocketWriteFailed{Type: errors.Type{
-			Caller: errors.GetCaller(),
-			Err:    err,
-			Msg:    "Failed to send command payload to socket connection",
-		}})
-	}
-	command.WaitGroup().Wait()
 
-	return payload
+	go func() {
+		payload := &Payload{
+			ID:     command.ID(),
+			Method: command.Method(),
+			Params: command.Params(),
+		}
+
+		if err := socket.WriteJSON(payload); err != nil {
+			command.Respond(&Response{Error: &Error{
+				Code:    1,
+				Data:    []byte(fmt.Sprintf(`"%s"`, err.Error())),
+				Message: "Failed to send command payload to socket connection",
+			}})
+			return
+		}
+
+		socket.commands.Set(command)
+	}()
+
+	return command.Response()
 }
 
 /*

@@ -24,6 +24,26 @@ type CompositingReasonsResult struct {
 	// A list of strings specifying reasons for the given layer to become
 	// composited.
 	CompositingReasons []string `json:"compositingReasons"`
+
+	CDTPError error `json:"-"`
+}
+
+/*
+DisableResult represents the result of calls to LayerTree.Disable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-Disable
+*/
+type DisableResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+EnableResult represents the result of calls to LayerTree.enable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-enable
+*/
+type EnableResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -44,6 +64,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-loadSna
 type LoadSnapshotResult struct {
 	// The ID of the snapshot.
 	SnapshotID SnapshotID `json:"snapshotId"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -64,6 +86,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-makeSna
 type MakeSnapshotResult struct {
 	// The ID of the layer snapshot.
 	SnapshotID SnapshotID `json:"snapshotId"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -94,6 +118,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-profile
 type ProfileSnapshotResult struct {
 	// The array of paint profiles, one per run.
 	Timings []PaintProfile `json:"timings"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -104,6 +130,15 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-release
 type ReleaseSnapshotParams struct {
 	// The ID of the layer snapshot.
 	SnapshotID SnapshotID `json:"snapshotId"`
+}
+
+/*
+ReleaseSnapshotResult represents the result of calls to LayerTree.releaseSnapshot.
+
+https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-releaseSnapshot
+*/
+type ReleaseSnapshotResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -134,6 +169,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-replayS
 type ReplaySnapshotResult struct {
 	// A data: URL for resulting image.
 	DataURL string `json:"dataURL"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -154,4 +191,6 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-snapsho
 type SnapshotCommandLogResult struct {
 	// The array of canvas function calls.
 	CommandLog []map[string]string `json:"commandLog"`
+
+	CDTPError error `json:"-"`
 }
