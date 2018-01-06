@@ -10,6 +10,3 @@ services:
     - docker
 script:
     - docker run -ti -v $(pwd):/go/src/github.com/mkenney/go-chrome --entrypoint="/go/src/github.com/mkenney/go-chrome/.travis-coverage.sh" golang:1.9
-
-after_success:
-    - bash <(curl -s https://codecov.io/bash)
