@@ -21,6 +21,6 @@ func (tab *Tab) RemoveEventHandler(handler socket.EventHandler) {
 /*
 SendCommand implements Socketer
 */
-func (tab *Tab) SendCommand(command socket.Commander) *socket.Payload {
+func (tab *Tab) SendCommand(command socket.Commander) chan *socket.Response {
 	return tab.Socket().SendCommand(command)
 }

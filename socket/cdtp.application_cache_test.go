@@ -15,18 +15,17 @@ func TestApplicationCacheEnable(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
+	resultChan := mockSocket.ApplicationCache().Enable()
 	mockSocket.Conn().AddMockData(
-		_commandID+1,
+		mockSocket.CurCommandID(),
 		&Error{},
 		"ApplicationCache.enable",
 		nil,
 	)
-	go func() {
-		err := mockSocket.ApplicationCache().Enable()
-		if nil != err {
-			t.Errorf("Expected nil, got error: '%s'", err.Error())
-		}
-	}()
+	result := <-resultChan
+	if nil != result.CDTPError {
+		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	}
 }
 func TestApplicationCacheGetForFrame(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/")
@@ -34,6 +33,7 @@ func TestApplicationCacheGetForFrame(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
+	resultChan := mockSocket.ApplicationCache().GetForFrame(&application_cache.GetForFrameParams{})
 	mockGetForFrameResult := &application_cache.GetForFrameResult{
 		ApplicationCache: &application_cache.ApplicationCache{
 			ManifestURL:  "http://example.com/manifest",
@@ -48,25 +48,23 @@ func TestApplicationCacheGetForFrame(t *testing.T) {
 		},
 	}
 	mockSocket.Conn().AddMockData(
-		_commandID+2,
+		mockSocket.CurCommandID(),
 		&Error{},
 		"ApplicationCache.getForFrame",
 		mockGetForFrameResult,
 		&application_cache.GetForFrameParams{FrameID: page.FrameID("mock-frame-id")},
 	)
-	go func() {
-		result, err := mockSocket.ApplicationCache().GetForFrame(&application_cache.GetForFrameParams{})
-		if nil != err {
-			t.Errorf("Expected nil, got error: '%s'", err.Error())
-		}
-		if result.ApplicationCache.CreationTime != mockGetForFrameResult.ApplicationCache.CreationTime {
-			t.Errorf(
-				"Expected creation time %f, '%f'",
-				mockGetForFrameResult.ApplicationCache.CreationTime,
-				result.ApplicationCache.CreationTime,
-			)
-		}
-	}()
+	result := <-resultChan
+	if nil != result.CDTPError {
+		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	}
+	if result.ApplicationCache.CreationTime != mockGetForFrameResult.ApplicationCache.CreationTime {
+		t.Errorf(
+			"Expected creation time %f, '%f'",
+			mockGetForFrameResult.ApplicationCache.CreationTime,
+			result.ApplicationCache.CreationTime,
+		)
+	}
 }
 
 func TestApplicationCacheGetFramesWithManifests(t *testing.T) {
@@ -75,6 +73,7 @@ func TestApplicationCacheGetFramesWithManifests(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
+	resultChan := mockSocket.ApplicationCache().GetFramesWithManifests()
 	mockGetFramesWithManifestsResult := &application_cache.GetFramesWithManifestsResult{
 		FrameIDs: []*application_cache.FrameWithManifest{{
 			FrameID:     page.FrameID(1),
@@ -83,25 +82,23 @@ func TestApplicationCacheGetFramesWithManifests(t *testing.T) {
 		}},
 	}
 	mockSocket.Conn().AddMockData(
-		_commandID+2,
+		mockSocket.CurCommandID(),
 		&Error{},
 		"ApplicationCache.getFramesWithManifests",
 		mockGetFramesWithManifestsResult,
 		nil,
 	)
-	go func() {
-		result, err := mockSocket.ApplicationCache().GetFramesWithManifests()
-		if nil != err {
-			t.Errorf("Expected nil, got error: '%s'", err.Error())
-		}
-		if result.FrameIDs[0].FrameID != mockGetFramesWithManifestsResult.FrameIDs[0].FrameID {
-			t.Errorf(
-				"Expected frame ID %s, got %s",
-				mockGetFramesWithManifestsResult.FrameIDs[0].FrameID,
-				result.FrameIDs[0].FrameID,
-			)
-		}
-	}()
+	result := <-resultChan
+	if nil != result.CDTPError {
+		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	}
+	if result.FrameIDs[0].FrameID != mockGetFramesWithManifestsResult.FrameIDs[0].FrameID {
+		t.Errorf(
+			"Expected frame ID %s, got %s",
+			mockGetFramesWithManifestsResult.FrameIDs[0].FrameID,
+			result.FrameIDs[0].FrameID,
+		)
+	}
 }
 
 func TestApplicationCacheGetManifestForFrame(t *testing.T) {
@@ -110,31 +107,30 @@ func TestApplicationCacheGetManifestForFrame(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
+	resultChan := mockSocket.ApplicationCache().GetManifestForFrame(&application_cache.GetManifestForFrameParams{
+		FrameID: page.FrameID("mock-frame-id"),
+	})
 	mockGetManifestForFrameResult := &application_cache.GetManifestForFrameResult{
 		ManifestURL: "http://example.com/manifest",
 	}
 	mockSocket.Conn().AddMockData(
-		_commandID+2,
+		mockSocket.CurCommandID(),
 		&Error{},
 		"ApplicationCache.getManifestForFrame",
 		mockGetManifestForFrameResult,
 		nil,
 	)
-	go func() {
-		result, err := mockSocket.ApplicationCache().GetManifestForFrame(&application_cache.GetManifestForFrameParams{
-			FrameID: page.FrameID("mock-frame-id"),
-		})
-		if nil != err {
-			t.Errorf("Expected nil, got error: '%s'", err.Error())
-		}
-		if result.ManifestURL != mockGetManifestForFrameResult.ManifestURL {
-			t.Errorf(
-				"Expected frame ID %s, got %s",
-				mockGetManifestForFrameResult.ManifestURL,
-				result.ManifestURL,
-			)
-		}
-	}()
+	result := <-resultChan
+	if nil != result.CDTPError {
+		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	}
+	if result.ManifestURL != mockGetManifestForFrameResult.ManifestURL {
+		t.Errorf(
+			"Expected frame ID %s, got %s",
+			mockGetManifestForFrameResult.ManifestURL,
+			result.ManifestURL,
+		)
+	}
 }
 
 func TestApplicationCacheOnApplicationCacheStatusUpdated(t *testing.T) {

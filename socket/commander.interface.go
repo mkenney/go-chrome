@@ -1,14 +1,9 @@
 package socket
 
-import "sync"
-
 /*
 Commander defines the interface for websocket commands.
 */
 type Commander interface {
-	// Done manages the result of a command and unblockes the sync.WaitGroup.
-	Done(result []byte, err error)
-
 	// Error returns the most recent error, if any.
 	Error() error
 
@@ -22,9 +17,9 @@ type Commander interface {
 	// Params returns the command parameters.
 	Params() interface{}
 
-	// Result returns the result of the command returned by the websocket.
-	Result() []byte
+	// Respond sends a response to the command response channel
+	Respond(response *Response)
 
-	// WaitGroup returns the sync.WaitGroup instance.
-	WaitGroup() *sync.WaitGroup
+	// Response returns the command response channel
+	Response() chan *Response
 }

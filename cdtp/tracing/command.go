@@ -1,6 +1,15 @@
 package tracing
 
 /*
+EndResult represents the result of calls to Tracing.end.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-end
+*/
+type EndResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 GetCategoriesResult represents the result of calls to Tracing.getCategories.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-getCategories
@@ -8,6 +17,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-getCatego
 type GetCategoriesResult struct {
 	// A list of supported tracing categories.
 	Categories []string `json:"categories"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -21,6 +32,15 @@ type RecordClockSyncMarkerParams struct {
 }
 
 /*
+RecordClockSyncMarkerResult represents the result of calls to Tracing.recordClockSyncMarker.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-recordClockSyncMarker
+*/
+type RecordClockSyncMarkerResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 RequestMemoryDumpResult represents the result of calls to Tracing.requestMemoryDump.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-requestMemoryDump
@@ -31,6 +51,8 @@ type RequestMemoryDumpResult struct {
 
 	// True if the global memory dump succeeded.
 	Success bool `json:"success"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -59,4 +81,13 @@ type StartParams struct {
 
 	// Optional. Trace config.
 	TraceConfig *TraceConfig `json:"traceConfig,omitempty"`
+}
+
+/*
+StartResult represents the result of calls to Tracing.start.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-start
+*/
+type StartResult struct {
+	CDTPError error `json:"-"`
 }

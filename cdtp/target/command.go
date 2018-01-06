@@ -11,6 +11,15 @@ type ActivateTargetParams struct {
 }
 
 /*
+ActivateTargetResult represents the result of calls to Target.activateTarget.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-activateTarget
+*/
+type ActivateTargetResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 AttachToTargetParams represents Target.attachToTarget parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-attachToTarget
@@ -28,6 +37,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-attachToTa
 type AttachToTargetResult struct {
 	// Id assigned to the session.
 	SessionID SessionID `json:"sessionId"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -46,7 +57,10 @@ CloseTargetResult represents the result of calls to Target.closeTarget.
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-closeTarget
 */
 type CloseTargetResult struct {
+	// Target close status
 	Success bool `json:"success"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -57,6 +71,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-createBrow
 type CreateBrowserContextResult struct {
 	// The ID of the context created.
 	BrowserContextID BrowserContextID `json:"browserContextId"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -91,6 +107,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-createTarg
 type CreateTargetResult struct {
 	// The ID of the page opened.
 	ID ID `json:"targetId"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -104,6 +122,15 @@ type DetachFromTargetParams struct {
 
 	// Optional. DEPRECATED
 	ID ID `json:"targetId,omitempty"`
+}
+
+/*
+DetachFromTargetResult represents the result of calls to Target.detachFromTarget.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-detachFromTarget
+*/
+type DetachFromTargetResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -123,6 +150,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-disposeBro
 */
 type DisposeBrowserContextResult struct {
 	Success bool `json:"success"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -143,6 +172,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargetI
 type GetTargetInfoResult struct {
 	// The list of targets.
 	Infos []*Info `json:"targetInfos"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -153,6 +184,15 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargets
 type GetTargetsParams struct {
 	// The list of targets.
 	Infos []*Info `json:"targetInfos"`
+}
+
+/*
+GetTargetsResult represents the result of calls to Target.getTargets.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargets
+*/
+type GetTargetsResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -172,6 +212,15 @@ type SendMessageToTargetParams struct {
 }
 
 /*
+SendMessageToTargetResult represents the result of calls to Target.sendMessageToTarget.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-sendMessageToTarget
+*/
+type SendMessageToTargetResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 SetAttachToFramesParams represents Target.setAttachToFrames parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAttachToFrames
@@ -179,6 +228,15 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAttachT
 type SetAttachToFramesParams struct {
 	// Whether to attach to frames.
 	Value bool `json:"value"`
+}
+
+/*
+SetAttachToFramesResult represents the result of calls to Target.setAttachToFrames.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAttachToFrames
+*/
+type SetAttachToFramesResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -196,6 +254,15 @@ type SetAutoAttachParams struct {
 }
 
 /*
+SetAutoAttachResult represents the result of calls to Target.setAutoAttach.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAutoAttach
+*/
+type SetAutoAttachResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 SetDiscoverTargetsParams represents Target.setDiscoverTargets parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setDiscoverTargets
@@ -206,6 +273,15 @@ type SetDiscoverTargetsParams struct {
 }
 
 /*
+SetDiscoverTargetsResult represents the result of calls to Target.setDiscoverTargets.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setDiscoverTargets
+*/
+type SetDiscoverTargetsResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 SetRemoteLocationsParams represents Target.setRemoteLocations parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setRemoteLocations
@@ -213,4 +289,13 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setRemoteL
 type SetRemoteLocationsParams struct {
 	// List of remote locations.
 	Locations []*RemoteLocation `json:"locations"`
+}
+
+/*
+SetRemoteLocationsResult represents the result of calls to Target.setRemoteLocations.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setRemoteLocations
+*/
+type SetRemoteLocationsResult struct {
+	CDTPError error `json:"-"`
 }

@@ -20,10 +20,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchKey
 */
 func (protocol *InputProtocol) DispatchKeyEvent(
 	params *input.DispatchKeyEventParams,
-) error {
-	command := NewCommand("Input.dispatchKeyEvent", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *input.DispatchKeyEventResult {
+	resultChan := make(chan *input.DispatchKeyEventResult)
+	command := NewCommand(protocol.Socket, "Input.dispatchKeyEvent", params)
+	result := &input.DispatchKeyEventResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -33,10 +43,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchMou
 */
 func (protocol *InputProtocol) DispatchMouseEvent(
 	params *input.DispatchMouseEventParams,
-) error {
-	command := NewCommand("Input.dispatchMouseEvent", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *input.DispatchMouseEventResult {
+	resultChan := make(chan *input.DispatchMouseEventResult)
+	command := NewCommand(protocol.Socket, "Input.dispatchMouseEvent", params)
+	result := &input.DispatchMouseEventResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -46,10 +66,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchTou
 */
 func (protocol *InputProtocol) DispatchTouchEvent(
 	params *input.DispatchTouchEventParams,
-) error {
-	command := NewCommand("Input.dispatchTouchEvent", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *input.DispatchTouchEventResult {
+	resultChan := make(chan *input.DispatchTouchEventResult)
+	command := NewCommand(protocol.Socket, "Input.dispatchTouchEvent", params)
+	result := &input.DispatchTouchEventResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -60,10 +90,20 @@ EXPERIMENTAL.
 */
 func (protocol *InputProtocol) EmulateTouchFromMouseEvent(
 	params *input.EmulateTouchFromMouseEventParams,
-) error {
-	command := NewCommand("Input.emulateTouchFromMouseEvent", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *input.EmulateTouchFromMouseEventResult {
+	resultChan := make(chan *input.EmulateTouchFromMouseEventResult)
+	command := NewCommand(protocol.Socket, "Input.emulateTouchFromMouseEvent", params)
+	result := &input.EmulateTouchFromMouseEventResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -73,10 +113,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-setIgnoreIn
 */
 func (protocol *InputProtocol) SetIgnoreEvents(
 	params *input.SetIgnoreEventsParams,
-) error {
-	command := NewCommand("Input.setIgnoreInputEvents", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *input.SetIgnoreEventsResult {
+	resultChan := make(chan *input.SetIgnoreEventsResult)
+	command := NewCommand(protocol.Socket, "Input.setIgnoreInputEvents", params)
+	result := &input.SetIgnoreEventsResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -88,10 +138,20 @@ EXPERIMENTAL.
 */
 func (protocol *InputProtocol) SynthesizePinchGesture(
 	params *input.SynthesizePinchGestureParams,
-) error {
-	command := NewCommand("Input.synthesizePinchGesture", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *input.SynthesizePinchGestureResult {
+	resultChan := make(chan *input.SynthesizePinchGestureResult)
+	command := NewCommand(protocol.Socket, "Input.synthesizePinchGesture", params)
+	result := &input.SynthesizePinchGestureResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -103,10 +163,20 @@ EXPERIMENTAL.
 */
 func (protocol *InputProtocol) SynthesizeScrollGesture(
 	params *input.SynthesizeScrollGestureParams,
-) error {
-	command := NewCommand("Input.synthesizeScrollGesture", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *input.SynthesizeScrollGestureResult {
+	resultChan := make(chan *input.SynthesizeScrollGestureResult)
+	command := NewCommand(protocol.Socket, "Input.synthesizeScrollGesture", params)
+	result := &input.SynthesizeScrollGestureResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -118,8 +188,18 @@ EXPERIMENTAL.
 */
 func (protocol *InputProtocol) SynthesizeTapGesture(
 	params *input.SynthesizeTapGestureParams,
-) error {
-	command := NewCommand("Input.synthesizeTapGesture", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *input.SynthesizeTapGestureResult {
+	resultChan := make(chan *input.SynthesizeTapGestureResult)
+	command := NewCommand(protocol.Socket, "Input.synthesizeTapGesture", params)
+	result := &input.SynthesizeTapGestureResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }

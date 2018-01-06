@@ -1,13 +1,21 @@
 package security
 
 /*
-SetIgnoreCertificateErrorsParams represents Security.setIgnoreCertificateErrors parameters.
+DisableResult represents the result of calls to Security.disable.
 
-https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setIgnoreCertificateErrors
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-disable
 */
-type SetIgnoreCertificateErrorsParams struct {
-	// If true, all certificate errors will be ignored.
-	Ignore bool `json:"ignore"`
+type DisableResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+EnableResult represents the result of calls to Security.enable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-enable
+*/
+type EnableResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -24,6 +32,35 @@ type HandleCertificateErrorParams struct {
 }
 
 /*
+HandleCertificateErrorResult represents the result of calls to Security.handleCertificateError.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-handleCertificateError
+*/
+type HandleCertificateErrorResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+SetIgnoreCertificateErrorsParams represents Security.setIgnoreCertificateErrors parameters.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setIgnoreCertificateErrors
+*/
+type SetIgnoreCertificateErrorsParams struct {
+	// If true, all certificate errors will be ignored.
+	Ignore bool `json:"ignore"`
+}
+
+/*
+SetIgnoreCertificateErrorsResult represents the result of calls to
+Security.setIgnoreCertificateErrors.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setIgnoreCertificateErrors
+*/
+type SetIgnoreCertificateErrorsResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 SetOverrideCertificateErrorsParams represents Security.setOverrideCertificateErrors parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setOverrideCertificateErrors
@@ -31,4 +68,14 @@ https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setOverr
 type SetOverrideCertificateErrorsParams struct {
 	// If true, certificate errors will be overridden.
 	Override bool `json:"override"`
+}
+
+/*
+SetOverrideCertificateErrorsResult represents the result of calls to
+Security.setOverrideCertificateErrors.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setOverrideCertificateErrors
+*/
+type SetOverrideCertificateErrorsResult struct {
+	CDTPError error `json:"-"`
 }

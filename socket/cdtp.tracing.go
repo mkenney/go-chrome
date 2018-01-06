@@ -21,10 +21,20 @@ End stops trace events collection.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-end
 */
-func (protocol *TracingProtocol) End() error {
-	command := NewCommand("Tracing.end", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *TracingProtocol) End() chan *tracing.EndResult {
+	resultChan := make(chan *tracing.EndResult)
+	command := NewCommand(protocol.Socket, "Tracing.end", nil)
+	result := &tracing.EndResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -32,17 +42,21 @@ GetCategories gets supported tracing categories.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-getCategories
 */
-func (protocol *TracingProtocol) GetCategories() (*tracing.GetCategoriesResult, error) {
-	command := NewCommand("Tracing.getCategories", nil)
+func (protocol *TracingProtocol) GetCategories() chan *tracing.GetCategoriesResult {
+	resultChan := make(chan *tracing.GetCategoriesResult)
+	command := NewCommand(protocol.Socket, "Tracing.getCategories", nil)
 	result := &tracing.GetCategoriesResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
-
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
+	return resultChan
 }
 
 /*
@@ -52,10 +66,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-recordClo
 */
 func (protocol *TracingProtocol) RecordClockSyncMarker(
 	params *tracing.RecordClockSyncMarkerParams,
-) error {
-	command := NewCommand("Tracing.recordClockSyncMarker", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *tracing.RecordClockSyncMarkerResult {
+	resultChan := make(chan *tracing.RecordClockSyncMarkerResult)
+	command := NewCommand(protocol.Socket, "Tracing.recordClockSyncMarker", params)
+	result := &tracing.RecordClockSyncMarkerResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -63,17 +87,21 @@ RequestMemoryDump requests a global memory dump.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-requestMemoryDump
 */
-func (protocol *TracingProtocol) RequestMemoryDump() (*tracing.GetCategoriesResult, error) {
-	command := NewCommand("Tracing.requestMemoryDump", nil)
+func (protocol *TracingProtocol) RequestMemoryDump() chan *tracing.GetCategoriesResult {
+	resultChan := make(chan *tracing.GetCategoriesResult)
+	command := NewCommand(protocol.Socket, "Tracing.requestMemoryDump", nil)
 	result := &tracing.GetCategoriesResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
-
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
+	return resultChan
 }
 
 /*
@@ -83,10 +111,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-start
 */
 func (protocol *TracingProtocol) Start(
 	params *tracing.StartParams,
-) error {
-	command := NewCommand("Tracing.start", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *tracing.StartResult {
+	resultChan := make(chan *tracing.StartResult)
+	command := NewCommand(protocol.Socket, "Tracing.start", params)
+	result := &tracing.StartResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*

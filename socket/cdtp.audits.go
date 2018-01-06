@@ -25,15 +25,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Audits/#method-getEncoded
 */
 func (protocol *AuditsProtocol) GetEncodedResponse(
 	params *audits.GetEncodedResponseParams,
-) (*audits.GetEncodedResponseResult, error) {
-	command := NewCommand("Audits.getEncodedResponse", params)
+) chan *audits.GetEncodedResponseResult {
+	resultChan := make(chan *audits.GetEncodedResponseResult)
+	command := NewCommand(protocol.Socket, "Audits.getEncodedResponse", params)
 	result := &audits.GetEncodedResponseResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }

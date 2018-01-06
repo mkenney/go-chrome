@@ -13,6 +13,43 @@ type AddInspectedHeapObjectParams struct {
 }
 
 /*
+AddInspectedHeapObjectResult represents the result of calls to
+HeapProfiler.AddInspectedHeapObject.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-addInspectedHeapObject
+*/
+type AddInspectedHeapObjectResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+CollectGarbageResult represents the result of calls to HeapProfiler.collectGarbage.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-collectGarbage
+*/
+type CollectGarbageResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+DisableResult represents the result of calls to HeapProfiler.disable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-disable
+*/
+type DisableResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
+EnableResult represents the result of calls to HeapProfiler.enable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-enable
+*/
+type EnableResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 GetHeapObjectIDParams represents HeapProfiler.getHeapObjectId parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getHeapObjectId
@@ -31,6 +68,8 @@ type GetHeapObjectIDResult struct {
 	// ID of the heap snapshot object corresponding to the passed remote object
 	// id.
 	HeapSnapshotObjectID HeapSnapshotObjectID `json:"heapSnapshotObjectId"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -56,6 +95,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getO
 type GetObjectByHeapObjectIDResult struct {
 	// Evaluation result.
 	Result *runtime.RemoteObject `json:"result"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -66,6 +107,15 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getS
 type GetSamplingProfileParams struct {
 	// Return the sampling profile being collected.
 	Profile *SamplingHeapProfile `json:"profile"`
+}
+
+/*
+GetSamplingProfileResult represents the result of calls to HeapProfiler.getSamplingProfile.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getSamplingProfile
+*/
+type GetSamplingProfileResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -80,6 +130,15 @@ type StartSamplingParams struct {
 }
 
 /*
+StartSamplingResult represents the result of calls to HeapProfiler.startSampling.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-startSampling
+*/
+type StartSamplingResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 StartTrackingHeapObjectsParams represents HeapProfiler.startTrackingHeapObjects parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-startTrackingHeapObjects
@@ -90,6 +149,16 @@ type StartTrackingHeapObjectsParams struct {
 }
 
 /*
+StartTrackingHeapObjectsResult represents the result of calls to
+HeapProfiler.startTrackingHeapObjects.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-startTrackingHeapObjects
+*/
+type StartTrackingHeapObjectsResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 StopSamplingParams represents HeapProfiler.stopSampling parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stopSampling
@@ -97,6 +166,15 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stop
 type StopSamplingParams struct {
 	// Recorded sampling heap profile.
 	Profile *SamplingHeapProfile `json:"profile"`
+}
+
+/*
+StopSamplingResult represents the result of calls to HeapProfiler.stopSampling.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stopSampling
+*/
+type StopSamplingResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -111,6 +189,16 @@ type StopTrackingHeapObjectsParams struct {
 }
 
 /*
+StopTrackingHeapObjectsResult represents the result of calls to
+HeapProfiler.stopTrackingHeapObjects.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stopTrackingHeapObjects
+*/
+type StopTrackingHeapObjectsResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 TakeHeapSnapshotParams represents HeapProfiler.takeHeapSnapshot parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-takeHeapSnapshot
@@ -119,4 +207,13 @@ type TakeHeapSnapshotParams struct {
 	// Optional. If true 'reportHeapSnapshotProgress' events will be generated
 	// while snapshot is being taken.
 	ReportProgress bool `json:"reportProgress,omitempty"`
+}
+
+/*
+TakeHeapSnapshotResult represents the result of calls to HeapProfiler.takeHeapSnapshot.
+
+https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-takeHeapSnapshot
+*/
+type TakeHeapSnapshotResult struct {
+	CDTPError error `json:"-"`
 }

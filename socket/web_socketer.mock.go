@@ -66,13 +66,12 @@ does impact interacting Chrome in any way.
 func (socket *MockWebSocket) ReadJSON(v interface{}) error {
 	var data interface{}
 
+	time.Sleep(time.Millisecond * 10)
+
 	if len(socket.mockResponses) > 0 {
-		time.Sleep(time.Millisecond * 100)
 		data = socket.mockResponses[0]
 		socket.mockResponses = socket.mockResponses[1:]
-
 	} else {
-		time.Sleep(time.Second * 1)
 		data = &Response{
 			Error:  &Error{},
 			ID:     0,

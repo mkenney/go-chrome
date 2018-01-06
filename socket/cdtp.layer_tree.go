@@ -24,17 +24,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-composi
 */
 func (protocol *LayerTreeProtocol) CompositingReasons(
 	params *layerTree.CompositingReasonsParams,
-) (*layerTree.CompositingReasonsResult, error) {
-	command := NewCommand("LayerTree.compositingReasons", params)
+) chan *layerTree.CompositingReasonsResult {
+	resultChan := make(chan *layerTree.CompositingReasonsResult)
+	command := NewCommand(protocol.Socket, "LayerTree.compositingReasons", params)
 	result := &layerTree.CompositingReasonsResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -42,10 +47,20 @@ Disable disables compositing tree inspection.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-disable
 */
-func (protocol *LayerTreeProtocol) Disable() error {
-	command := NewCommand("LayerTree.disable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *LayerTreeProtocol) Disable() chan *layerTree.DisableResult {
+	resultChan := make(chan *layerTree.DisableResult)
+	command := NewCommand(protocol.Socket, "LayerTree.disable", nil)
+	result := &layerTree.DisableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -53,10 +68,20 @@ Enable enables compositing tree inspection.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-enable
 */
-func (protocol *LayerTreeProtocol) Enable() error {
-	command := NewCommand("LayerTree.enable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *LayerTreeProtocol) Enable() chan *layerTree.EnableResult {
+	resultChan := make(chan *layerTree.EnableResult)
+	command := NewCommand(protocol.Socket, "LayerTree.enable", nil)
+	result := &layerTree.EnableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -66,17 +91,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-loadSna
 */
 func (protocol *LayerTreeProtocol) LoadSnapshot(
 	params *layerTree.LoadSnapshotParams,
-) (*layerTree.LoadSnapshotResult, error) {
-	command := NewCommand("LayerTree.loadSnapshot", params)
+) chan *layerTree.LoadSnapshotResult {
+	resultChan := make(chan *layerTree.LoadSnapshotResult)
+	command := NewCommand(protocol.Socket, "LayerTree.loadSnapshot", params)
 	result := &layerTree.LoadSnapshotResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -86,17 +116,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-makeSna
 */
 func (protocol *LayerTreeProtocol) MakeSnapshot(
 	params *layerTree.MakeSnapshotParams,
-) (*layerTree.MakeSnapshotResult, error) {
-	command := NewCommand("LayerTree.makeSnapshot", params)
+) chan *layerTree.MakeSnapshotResult {
+	resultChan := make(chan *layerTree.MakeSnapshotResult)
+	command := NewCommand(protocol.Socket, "LayerTree.makeSnapshot", params)
 	result := &layerTree.MakeSnapshotResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -106,17 +141,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-profile
 */
 func (protocol *LayerTreeProtocol) ProfileSnapshot(
 	params *layerTree.ProfileSnapshotParams,
-) (*layerTree.ProfileSnapshotResult, error) {
-	command := NewCommand("LayerTree.profileSnapshot", params)
+) chan *layerTree.ProfileSnapshotResult {
+	resultChan := make(chan *layerTree.ProfileSnapshotResult)
+	command := NewCommand(protocol.Socket, "LayerTree.profileSnapshot", params)
 	result := &layerTree.ProfileSnapshotResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -126,10 +166,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-release
 */
 func (protocol *LayerTreeProtocol) ReleaseSnapshot(
 	params *layerTree.ReleaseSnapshotParams,
-) error {
-	command := NewCommand("LayerTree.releaseSnapshot", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *layerTree.ReleaseSnapshotResult {
+	resultChan := make(chan *layerTree.ReleaseSnapshotResult)
+	command := NewCommand(protocol.Socket, "LayerTree.releaseSnapshot", params)
+	result := &layerTree.ReleaseSnapshotResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -139,17 +189,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-replayS
 */
 func (protocol *LayerTreeProtocol) ReplaySnapshot(
 	params *layerTree.ReplaySnapshotParams,
-) (*layerTree.ReplaySnapshotResult, error) {
-	command := NewCommand("LayerTree.replaySnapshot", params)
+) chan *layerTree.ReplaySnapshotResult {
+	resultChan := make(chan *layerTree.ReplaySnapshotResult)
+	command := NewCommand(protocol.Socket, "LayerTree.replaySnapshot", params)
 	result := &layerTree.ReplaySnapshotResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -159,17 +214,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-snapsho
 */
 func (protocol *LayerTreeProtocol) SnapshotCommandLog(
 	params *layerTree.SnapshotCommandLogParams,
-) (*layerTree.SnapshotCommandLogResult, error) {
-	command := NewCommand("LayerTree.snapshotCommandLog", params)
+) chan *layerTree.SnapshotCommandLogResult {
+	resultChan := make(chan *layerTree.SnapshotCommandLogResult)
+	command := NewCommand(protocol.Socket, "LayerTree.snapshotCommandLog", params)
 	result := &layerTree.SnapshotCommandLogResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*

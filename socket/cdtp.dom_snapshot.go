@@ -27,15 +27,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#method-getSn
 */
 func (protocol *DOMSnapshotProtocol) Get(
 	params *domSnapshot.GetParams,
-) (*domSnapshot.GetResult, error) {
-	command := NewCommand("DOMSnapshot.getSnapshot", params)
+) chan *domSnapshot.GetResult {
+	resultChan := make(chan *domSnapshot.GetResult)
+	command := NewCommand(protocol.Socket, "DOMSnapshot.getSnapshot", params)
 	result := &domSnapshot.GetResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }

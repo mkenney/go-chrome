@@ -1,16 +1,15 @@
 package socket
 
-import "sync"
-
 /*
 NewCommand creates and returns a pointer to a Commander instance.
 */
-func NewCommand(method string, params interface{}) *Command {
+func NewCommand(socket Socketer, method string, params interface{}) *Command {
 	return &Command{
-		method: method,
-		params: params,
-		wg:     &sync.WaitGroup{},
-		mux:    &sync.Mutex{},
+		id:       socket.NextCommandID(),
+		method:   method,
+		params:   params,
+		response: make(chan *Response),
+		socket:   socket,
 	}
 }
 
@@ -33,21 +32,10 @@ type Command struct {
 
 	// Optional. result holds the JSON results returned by the socket when the
 	// command is complete.
-	result []byte
+	response chan *Response
 
-	// sync handles command synchronization.
-	wg *sync.WaitGroup
-
-	mux *sync.Mutex
-}
-
-/*
-Done implements Commander.
-*/
-func (cmd *Command) Done(result []byte, err error) {
-	cmd.result = result
-	cmd.err = err
-	cmd.WaitGroup().Done()
+	// socket contains the Socketer instance
+	socket Socketer
 }
 
 /*
@@ -61,9 +49,6 @@ func (cmd *Command) Error() error {
 ID implements Commander.
 */
 func (cmd *Command) ID() int {
-	if 0 == cmd.id {
-		cmd.id = nextCommandID()
-	}
 	return cmd.id
 }
 
@@ -75,20 +60,6 @@ func (cmd *Command) Method() string {
 }
 
 /*
-nextCommandID generates and returns a unique command ID.
-*/
-func nextCommandID() int {
-	_commandIDMux.Lock()
-	defer _commandIDMux.Unlock()
-	_commandID++
-	id := _commandID
-	return id
-}
-
-var _commandIDMux = &sync.Mutex{}
-var _commandID = 0
-
-/*
 Params implements Commander.
 */
 func (cmd *Command) Params() interface{} {
@@ -96,15 +67,15 @@ func (cmd *Command) Params() interface{} {
 }
 
 /*
-Result implements Commander.
+Respond implements Commander.
 */
-func (cmd *Command) Result() []byte {
-	return cmd.result
+func (cmd *Command) Respond(response *Response) {
+	cmd.response <- response
 }
 
 /*
-WaitGroup implements Commander.
+Response implements Commander.
 */
-func (cmd *Command) WaitGroup() *sync.WaitGroup {
-	return cmd.wg
+func (cmd *Command) Response() chan *Response {
+	return cmd.response
 }

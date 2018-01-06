@@ -22,17 +22,22 @@ CanEmulate tells whether emulation is supported.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-canEmulate
 */
-func (protocol *EmulationProtocol) CanEmulate() (*emulation.CanEmulateResult, error) {
-	command := NewCommand("Emulation.canEmulate", nil)
+func (protocol *EmulationProtocol) CanEmulate() chan *emulation.CanEmulateResult {
+	resultChan := make(chan *emulation.CanEmulateResult)
+	command := NewCommand(protocol.Socket, "Emulation.canEmulate", nil)
 	result := &emulation.CanEmulateResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -40,10 +45,20 @@ ClearDeviceMetricsOverride clears the overridden device metrics.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-clearDeviceMetricsOverride
 */
-func (protocol *EmulationProtocol) ClearDeviceMetricsOverride() error {
-	command := NewCommand("Emulation.clearDeviceMetricsOverride", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *EmulationProtocol) ClearDeviceMetricsOverride() chan *emulation.ClearDeviceMetricsOverrideResult {
+	resultChan := make(chan *emulation.ClearDeviceMetricsOverrideResult)
+	command := NewCommand(protocol.Socket, "Emulation.clearDeviceMetricsOverride", nil)
+	result := &emulation.ClearDeviceMetricsOverrideResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -51,10 +66,20 @@ ClearGeolocationOverride clears the overridden Geolocation Position and Error.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-clearGeolocationOverride
 */
-func (protocol *EmulationProtocol) ClearGeolocationOverride() error {
-	command := NewCommand("Emulation.clearGeolocationOverride", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *EmulationProtocol) ClearGeolocationOverride() chan *emulation.ClearGeolocationOverrideResult {
+	resultChan := make(chan *emulation.ClearGeolocationOverrideResult)
+	command := NewCommand(protocol.Socket, "Emulation.clearGeolocationOverride", nil)
+	result := &emulation.ClearGeolocationOverrideResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -63,10 +88,20 @@ ResetPageScaleFactor requests that page scale factor is reset to initial values.
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-resetPageScaleFactor
 EXPERIMENTAL.
 */
-func (protocol *EmulationProtocol) ResetPageScaleFactor() error {
-	command := NewCommand("Emulation.resetPageScaleFactor", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *EmulationProtocol) ResetPageScaleFactor() chan *emulation.ResetPageScaleFactorResult {
+	resultChan := make(chan *emulation.ResetPageScaleFactorResult)
+	command := NewCommand(protocol.Socket, "Emulation.resetPageScaleFactor", nil)
+	result := &emulation.ResetPageScaleFactorResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -77,10 +112,20 @@ EXPERIMENTAL.
 */
 func (protocol *EmulationProtocol) SetCPUThrottlingRate(
 	params *emulation.SetCPUThrottlingRateParams,
-) error {
-	command := NewCommand("Emulation.setCPUThrottlingRate", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *emulation.SetCPUThrottlingRateResult {
+	resultChan := make(chan *emulation.SetCPUThrottlingRateResult)
+	command := NewCommand(protocol.Socket, "Emulation.setCPUThrottlingRate", params)
+	result := &emulation.SetCPUThrottlingRateResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -92,10 +137,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDefa
 */
 func (protocol *EmulationProtocol) SetDefaultBackgroundColorOverride(
 	params *emulation.SetDefaultBackgroundColorOverrideParams,
-) error {
-	command := NewCommand("Emulation.setDefaultBackgroundColorOverride", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *emulation.SetDefaultBackgroundColorOverrideResult {
+	resultChan := make(chan *emulation.SetDefaultBackgroundColorOverrideResult)
+	command := NewCommand(protocol.Socket, "Emulation.setDefaultBackgroundColorOverride", params)
+	result := &emulation.SetDefaultBackgroundColorOverrideResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -108,10 +163,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDevi
 */
 func (protocol *EmulationProtocol) SetDeviceMetricsOverride(
 	params *emulation.SetDeviceMetricsOverrideParams,
-) error {
-	command := NewCommand("Emulation.setDeviceMetricsOverride", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *emulation.SetDeviceMetricsOverrideResult {
+	resultChan := make(chan *emulation.SetDeviceMetricsOverrideResult)
+	command := NewCommand(protocol.Socket, "Emulation.setDeviceMetricsOverride", params)
+	result := &emulation.SetDeviceMetricsOverrideResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -122,10 +187,20 @@ EXPERIMENTAL.
 */
 func (protocol *EmulationProtocol) SetEmitTouchEventsForMouse(
 	params *emulation.SetEmitTouchEventsForMouseParams,
-) error {
-	command := NewCommand("Emulation.setEmitTouchEventsForMouse", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *emulation.SetEmitTouchEventsForMouseResult {
+	resultChan := make(chan *emulation.SetEmitTouchEventsForMouseResult)
+	command := NewCommand(protocol.Socket, "Emulation.setEmitTouchEventsForMouse", params)
+	result := &emulation.SetEmitTouchEventsForMouseResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -135,10 +210,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setEmul
 */
 func (protocol *EmulationProtocol) SetEmulatedMedia(
 	params *emulation.SetEmulatedMediaParams,
-) error {
-	command := NewCommand("Emulation.setEmulatedMedia", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *emulation.SetEmulatedMediaResult {
+	resultChan := make(chan *emulation.SetEmulatedMediaResult)
+	command := NewCommand(protocol.Socket, "Emulation.setEmulatedMedia", params)
+	result := &emulation.SetEmulatedMediaResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -149,10 +234,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setGeol
 */
 func (protocol *EmulationProtocol) SetGeolocationOverride(
 	params *emulation.SetGeolocationOverrideParams,
-) error {
-	command := NewCommand("Emulation.setGeolocationOverride", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *emulation.SetGeolocationOverrideResult {
+	resultChan := make(chan *emulation.SetGeolocationOverrideResult)
+	command := NewCommand(protocol.Socket, "Emulation.setGeolocationOverride", params)
+	result := &emulation.SetGeolocationOverrideResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -164,10 +259,20 @@ EXPERIMENTAL.
 */
 func (protocol *EmulationProtocol) SetNavigatorOverrides(
 	params *emulation.SetNavigatorOverridesParams,
-) error {
-	command := NewCommand("Emulation.setNavigatorOverrides", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *emulation.SetNavigatorOverridesResult {
+	resultChan := make(chan *emulation.SetNavigatorOverridesResult)
+	command := NewCommand(protocol.Socket, "Emulation.setNavigatorOverrides", params)
+	result := &emulation.SetNavigatorOverridesResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -178,10 +283,20 @@ EXPERIMENTAL.
 */
 func (protocol *EmulationProtocol) SetPageScaleFactor(
 	params *emulation.SetPageScaleFactorParams,
-) error {
-	command := NewCommand("Emulation.setPageScaleFactor", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *emulation.SetPageScaleFactorResult {
+	resultChan := make(chan *emulation.SetPageScaleFactorResult)
+	command := NewCommand(protocol.Socket, "Emulation.setPageScaleFactor", params)
+	result := &emulation.SetPageScaleFactorResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -191,10 +306,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setScri
 */
 func (protocol *EmulationProtocol) SetScriptExecutionDisabled(
 	params *emulation.SetScriptExecutionDisabledParams,
-) error {
-	command := NewCommand("Emulation.setScriptExecutionDisabled", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *emulation.SetScriptExecutionDisabledResult {
+	resultChan := make(chan *emulation.SetScriptExecutionDisabledResult)
+	command := NewCommand(protocol.Socket, "Emulation.setScriptExecutionDisabled", params)
+	result := &emulation.SetScriptExecutionDisabledResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -204,10 +329,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setTouc
 */
 func (protocol *EmulationProtocol) SetTouchEmulationEnabled(
 	params *emulation.SetTouchEmulationEnabledParams,
-) error {
-	command := NewCommand("Emulation.setTouchEmulationEnabled", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *emulation.SetTouchEmulationEnabledResult {
+	resultChan := make(chan *emulation.SetTouchEmulationEnabledResult)
+	command := NewCommand(protocol.Socket, "Emulation.setTouchEmulationEnabled", params)
+	result := &emulation.SetTouchEmulationEnabledResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -220,10 +355,22 @@ EXPERIMENTAL.
 */
 func (protocol *EmulationProtocol) SetVirtualTimePolicy(
 	params *emulation.SetVirtualTimePolicyParams,
-) error {
-	command := NewCommand("Emulation.setVirtualTimePolicy", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *emulation.SetVirtualTimePolicyResult {
+	resultChan := make(chan *emulation.SetVirtualTimePolicyResult)
+	command := NewCommand(protocol.Socket, "Emulation.SetVirtualTimePolicy", nil)
+	result := &emulation.SetVirtualTimePolicyResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -236,10 +383,20 @@ EXPERIMENTAL. DEPRECATED.
 */
 func (protocol *EmulationProtocol) SetVisibleSize(
 	params *emulation.SetVisibleSizeParams,
-) error {
-	command := NewCommand("Emulation.setVisibleSize", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *emulation.SetVisibleSizeResult {
+	resultChan := make(chan *emulation.SetVisibleSizeResult)
+	command := NewCommand(protocol.Socket, "Emulation.setVisibleSize", params)
+	result := &emulation.SetVisibleSizeResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*

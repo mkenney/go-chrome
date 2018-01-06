@@ -27,4 +27,6 @@ type PartialAXTreeResult struct {
 	// The `Accessibility.AXNode` for this DOM node, if it exists, plus its
 	// ancestors, siblings and children, if requested.
 	Nodes []*AXNode `json:"nodes"`
+
+	CDTPError error `json:"-"`
 }

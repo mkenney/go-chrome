@@ -32,17 +32,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-addRule
 */
 func (protocol *CSSProtocol) AddRule(
 	params *css.AddRuleParams,
-) (*css.AddRuleResult, error) {
-	command := NewCommand("CSS.addRule", params)
+) chan *css.AddRuleResult {
+	resultChan := make(chan *css.AddRuleResult)
+	command := NewCommand(protocol.Socket, "CSS.addRule", params)
 	result := &css.AddRuleResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -52,17 +57,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-collectClassN
 */
 func (protocol *CSSProtocol) CollectClassNames(
 	params *css.CollectClassNamesParams,
-) (*css.CollectClassNamesResult, error) {
-	command := NewCommand("CSS.collectClassNames", params)
+) chan *css.CollectClassNamesResult {
+	resultChan := make(chan *css.CollectClassNamesResult)
+	command := NewCommand(protocol.Socket, "CSS.collectClassNames", params)
 	result := &css.CollectClassNamesResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -73,17 +83,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-createStyleSh
 */
 func (protocol *CSSProtocol) CreateStyleSheet(
 	params *css.CreateStyleSheetParams,
-) (*css.CreateStyleSheetResult, error) {
-	command := NewCommand("CSS.createStyleSheet", params)
+) chan *css.CreateStyleSheetResult {
+	resultChan := make(chan *css.CreateStyleSheetResult)
+	command := NewCommand(protocol.Socket, "CSS.createStyleSheet", params)
 	result := &css.CreateStyleSheetResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -91,10 +106,20 @@ Disable disables the CSS agent for the given page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-disable
 */
-func (protocol *CSSProtocol) Disable() error {
-	command := NewCommand("CSS.disable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *CSSProtocol) Disable() chan *css.DisableResult {
+	resultChan := make(chan *css.DisableResult)
+	command := NewCommand(protocol.Socket, "CSS.disable", nil)
+	result := &css.DisableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -103,10 +128,20 @@ the CSS agent has been enabled until the result of this command is received.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-enable
 */
-func (protocol *CSSProtocol) Enable() error {
-	command := NewCommand("CSS.enable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *CSSProtocol) Enable() chan *css.EnableResult {
+	resultChan := make(chan *css.EnableResult)
+	command := NewCommand(protocol.Socket, "CSS.enable", nil)
+	result := &css.EnableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -117,10 +152,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-forcePseudoSt
 */
 func (protocol *CSSProtocol) ForcePseudoState(
 	params *css.ForcePseudoStateParams,
-) error {
-	command := NewCommand("CSS.forcePseudoState", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *css.ForcePseudoStateResult {
+	resultChan := make(chan *css.ForcePseudoStateResult)
+	command := NewCommand(protocol.Socket, "CSS.forcePseudoState", params)
+	result := &css.ForcePseudoStateResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -130,17 +175,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getBackground
 */
 func (protocol *CSSProtocol) GetBackgroundColors(
 	params *css.GetBackgroundColorsParams,
-) (*css.GetBackgroundColorsResult, error) {
-	command := NewCommand("CSS.getBackgroundColors", params)
+) chan *css.GetBackgroundColorsResult {
+	resultChan := make(chan *css.GetBackgroundColorsResult)
+	command := NewCommand(protocol.Socket, "CSS.getBackgroundColors", params)
 	result := &css.GetBackgroundColorsResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -151,17 +201,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getComputedSt
 */
 func (protocol *CSSProtocol) GetComputedStyleForNode(
 	params *css.GetComputedStyleForNodeParams,
-) (*css.GetComputedStyleForNodeResult, error) {
-	command := NewCommand("CSS.getComputedStyleForNode", params)
+) chan *css.GetComputedStyleForNodeResult {
+	resultChan := make(chan *css.GetComputedStyleForNodeResult)
+	command := NewCommand(protocol.Socket, "CSS.getComputedStyleForNode", params)
 	result := &css.GetComputedStyleForNodeResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -173,17 +228,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getInlineStyl
 */
 func (protocol *CSSProtocol) GetInlineStylesForNode(
 	params *css.GetInlineStylesForNodeParams,
-) (*css.GetInlineStylesForNodeResult, error) {
-	command := NewCommand("CSS.getInlineStylesForNode", params)
+) chan *css.GetInlineStylesForNodeResult {
+	resultChan := make(chan *css.GetInlineStylesForNodeResult)
+	command := NewCommand(protocol.Socket, "CSS.getInlineStylesForNode", params)
 	result := &css.GetInlineStylesForNodeResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -194,17 +254,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getMatchedSty
 */
 func (protocol *CSSProtocol) GetMatchedStylesForNode(
 	params *css.GetMatchedStylesForNodeParams,
-) (*css.GetMatchedStylesForNodeResult, error) {
-	command := NewCommand("CSS.getMatchedStylesForNode", params)
+) chan *css.GetMatchedStylesForNodeResult {
+	resultChan := make(chan *css.GetMatchedStylesForNodeResult)
+	command := NewCommand(protocol.Socket, "CSS.getMatchedStylesForNode", params)
 	result := &css.GetMatchedStylesForNodeResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -212,10 +277,22 @@ GetMediaQueries returns all media queries parsed by the rendering engine.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getMediaQueries
 */
-func (protocol *CSSProtocol) GetMediaQueries() error {
-	command := NewCommand("CSS.getMediaQueries", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *CSSProtocol) GetMediaQueries() chan *css.GetMediaQueriesResult {
+	resultChan := make(chan *css.GetMediaQueriesResult)
+	command := NewCommand(protocol.Socket, "CSS.getMediaQueries", nil)
+	result := &css.GetMediaQueriesResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -226,17 +303,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getPlatformFo
 */
 func (protocol *CSSProtocol) GetPlatformFontsForNode(
 	params *css.GetPlatformFontsForNodeParams,
-) (*css.GetPlatformFontsForNodeResult, error) {
-	command := NewCommand("CSS.getPlatformFontsForNode", params)
+) chan *css.GetPlatformFontsForNodeResult {
+	resultChan := make(chan *css.GetPlatformFontsForNodeResult)
+	command := NewCommand(protocol.Socket, "CSS.getPlatformFontsForNode", params)
 	result := &css.GetPlatformFontsForNodeResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -247,17 +329,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getStyleSheet
 */
 func (protocol *CSSProtocol) GetStyleSheetText(
 	params *css.GetStyleSheetTextParams,
-) (*css.GetStyleSheetTextResult, error) {
-	command := NewCommand("CSS.getStyleSheetText", params)
+) chan *css.GetStyleSheetTextResult {
+	resultChan := make(chan *css.GetStyleSheetTextResult)
+	command := NewCommand(protocol.Socket, "CSS.getStyleSheetText", params)
 	result := &css.GetStyleSheetTextResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -268,10 +355,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setEffectiveP
 */
 func (protocol *CSSProtocol) SetEffectivePropertyValueForNode(
 	params *css.SetEffectivePropertyValueForNodeParams,
-) error {
-	command := NewCommand("CSS.setEffectivePropertyValueForNode", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *css.SetEffectivePropertyValueForNodeResult {
+	resultChan := make(chan *css.SetEffectivePropertyValueForNodeResult)
+	command := NewCommand(protocol.Socket, "CSS.setEffectivePropertyValueForNode", params)
+	result := &css.SetEffectivePropertyValueForNodeResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -281,17 +378,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setKeyframeKe
 */
 func (protocol *CSSProtocol) SetKeyframeKey(
 	params *css.SetKeyframeKeyParams,
-) (*css.SetKeyframeKeyResult, error) {
-	command := NewCommand("CSS.setKeyframeKey", params)
+) chan *css.SetKeyframeKeyResult {
+	resultChan := make(chan *css.SetKeyframeKeyResult)
+	command := NewCommand(protocol.Socket, "CSS.setKeyframeKey", params)
 	result := &css.SetKeyframeKeyResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -301,17 +403,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setMediaText
 */
 func (protocol *CSSProtocol) SetMediaText(
 	params *css.SetMediaTextParams,
-) (*css.SetMediaTextResult, error) {
-	command := NewCommand("CSS.setMediaText", params)
+) chan *css.SetMediaTextResult {
+	resultChan := make(chan *css.SetMediaTextResult)
+	command := NewCommand(protocol.Socket, "CSS.setMediaText", params)
 	result := &css.SetMediaTextResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -321,17 +428,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setRuleSelect
 */
 func (protocol *CSSProtocol) SetRuleSelector(
 	params *css.SetRuleSelectorParams,
-) (*css.SetRuleSelectorResult, error) {
-	command := NewCommand("CSS.setRuleSelector", params)
+) chan *css.SetRuleSelectorResult {
+	resultChan := make(chan *css.SetRuleSelectorResult)
+	command := NewCommand(protocol.Socket, "CSS.setRuleSelector", params)
 	result := &css.SetRuleSelectorResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -341,17 +453,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setStyleSheet
 */
 func (protocol *CSSProtocol) SetStyleSheetText(
 	params *css.SetStyleSheetTextParams,
-) (*css.SetStyleSheetTextResult, error) {
-	command := NewCommand("CSS.setStyleSheetText", params)
+) chan *css.SetStyleSheetTextResult {
+	resultChan := make(chan *css.SetStyleSheetTextResult)
+	command := NewCommand(protocol.Socket, "CSS.setStyleSheetText", params)
 	result := &css.SetStyleSheetTextResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -361,17 +478,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setStyleTexts
 */
 func (protocol *CSSProtocol) SetStyleTexts(
 	params *css.SetStyleTextsParams,
-) (*css.SetStyleTextsResult, error) {
-	command := NewCommand("CSS.setStyleTexts", params)
+) chan *css.SetStyleTextsResult {
+	resultChan := make(chan *css.SetStyleTextsResult)
+	command := NewCommand(protocol.Socket, "CSS.setStyleTexts", params)
 	result := &css.SetStyleTextsResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -379,10 +501,20 @@ StartRuleUsageTracking enables the selector recording.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-startRuleUsageTracking
 */
-func (protocol *CSSProtocol) StartRuleUsageTracking() error {
-	command := NewCommand("CSS.startRuleUsageTracking", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *CSSProtocol) StartRuleUsageTracking() chan *css.StartRuleUsageTrackingResult {
+	resultChan := make(chan *css.StartRuleUsageTrackingResult)
+	command := NewCommand(protocol.Socket, "CSS.startRuleUsageTracking", nil)
+	result := &css.StartRuleUsageTrackingResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -391,17 +523,22 @@ they were used.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-stopRuleUsageTracking
 */
-func (protocol *CSSProtocol) StopRuleUsageTracking() (*css.StopRuleUsageTrackingResult, error) {
-	command := NewCommand("CSS.stopRuleUsageTracking", nil)
+func (protocol *CSSProtocol) StopRuleUsageTracking() chan *css.StopRuleUsageTrackingResult {
+	resultChan := make(chan *css.StopRuleUsageTrackingResult)
+	command := NewCommand(protocol.Socket, "CSS.stopRuleUsageTracking", nil)
 	result := &css.StopRuleUsageTrackingResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -410,17 +547,22 @@ this method (or since start of coverage instrumentation).
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-takeCoverageDelta
 */
-func (protocol *CSSProtocol) TakeCoverageDelta() (*css.TakeCoverageDeltaResult, error) {
-	command := NewCommand("CSS.takeCoverageDelta", nil)
+func (protocol *CSSProtocol) TakeCoverageDelta() chan *css.TakeCoverageDeltaResult {
+	resultChan := make(chan *css.TakeCoverageDeltaResult)
+	command := NewCommand(protocol.Socket, "CSS.takeCoverageDelta", nil)
 	result := &css.TakeCoverageDeltaResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*

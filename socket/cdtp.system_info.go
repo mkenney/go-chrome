@@ -22,15 +22,20 @@ GetInfo returns information about the system.
 
 https://chromedevtools.github.io/devtools-protocol/tot/SystemInfo/#method-getInfo
 */
-func (protocol *SystemInfoProtocol) GetInfo() (*systemInfo.GetInfoResult, error) {
-	command := NewCommand("SystemInfo.getInfo", nil)
+func (protocol *SystemInfoProtocol) GetInfo() chan *systemInfo.GetInfoResult {
+	resultChan := make(chan *systemInfo.GetInfoResult)
+	command := NewCommand(protocol.Socket, "SystemInfo.getInfo", nil)
 	result := &systemInfo.GetInfoResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }

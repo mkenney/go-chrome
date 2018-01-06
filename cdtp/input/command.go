@@ -61,6 +61,15 @@ type DispatchKeyEventParams struct {
 }
 
 /*
+DispatchKeyEventResult represents the result of calls to Input.dispatchKeyEvent.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchKeyEvent
+*/
+type DispatchKeyEventResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 DispatchMouseEventParams represents Input.dispatchMouseEvent parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchMouseEvent
@@ -106,6 +115,15 @@ type DispatchMouseEventParams struct {
 }
 
 /*
+DispatchMouseEventResult represents the result of calls to Input.dispatchMouseEvent.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchMouseEvent
+*/
+type DispatchMouseEventResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 DispatchTouchEventParams represents Input.dispatchTouchEvent parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchTouchEvent
@@ -131,6 +149,15 @@ type DispatchTouchEventParams struct {
 
 	// Optional. Time at which the event occurred.
 	Timestamp TimeSinceEpoch `json:"timestamp,omitempty"`
+}
+
+/*
+DispatchTouchEventResult represents the result of calls to Input.dispatchTouchEvent.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchTouchEvent
+*/
+type DispatchTouchEventResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -175,6 +202,16 @@ type EmulateTouchFromMouseEventParams struct {
 }
 
 /*
+EmulateTouchFromMouseEventResult represents the result of calls to
+Input.emulateTouchFromMouseEvent.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-emulateTouchFromMouseEvent
+*/
+type EmulateTouchFromMouseEventResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 SetIgnoreEventsParams represents Input.setIgnoreInputEvents parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-setIgnoreInputEvents
@@ -182,6 +219,15 @@ https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-setIgnoreIn
 type SetIgnoreEventsParams struct {
 	// Ignores input events processing when set to true.
 	Ignore bool `json:"ignore"`
+}
+
+/*
+SetIgnoreEventsResult represents the result of calls to Input.setIgnoreEvents.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-setIgnoreEvents
+*/
+type SetIgnoreEventsResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -205,6 +251,15 @@ type SynthesizePinchGestureParams struct {
 	// Optional. Which type of input events to be generated (default: 'default',
 	// which queries the platform for the preferred input type).
 	GestureSourceType *GestureSourceType `json:"gestureSourceType,omitempty"`
+}
+
+/*
+SynthesizePinchGestureResult represents the result of calls to Input.synthesizePinchGesture.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizePinchGesture
+*/
+type SynthesizePinchGestureResult struct {
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -257,6 +312,15 @@ type SynthesizeScrollGestureParams struct {
 }
 
 /*
+SynthesizeScrollGestureResult represents the result of calls to Input.SynthesizeScrollGesture.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-SynthesizeScrollGesture
+*/
+type SynthesizeScrollGestureResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 SynthesizeTapGestureParams represents Input.synthesizeTapGesture parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizeTapGesture
@@ -279,4 +343,13 @@ type SynthesizeTapGestureParams struct {
 	// Optional. Which type of input events to be generated (default: 'default',
 	// which queries the platform for the preferred input type).
 	GestureSourceType *GestureSourceType `json:"gestureSourceType,omitempty"`
+}
+
+/*
+SynthesizeTapGestureResult represents the result of calls to Input.SynthesizeTapGesture.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-SynthesizeTapGesture
+*/
+type SynthesizeTapGestureResult struct {
+	CDTPError error `json:"-"`
 }

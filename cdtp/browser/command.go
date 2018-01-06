@@ -5,6 +5,15 @@ import (
 )
 
 /*
+CloseResult represents the result of calls to Browser.close.
+
+https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-close
+*/
+type CloseResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 GetVersionResult represents the result of calls to Browser.getVersion.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getVersion
@@ -24,6 +33,8 @@ type GetVersionResult struct {
 
 	// V8 version.
 	JSVersion string `json:"jsVersion"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -45,6 +56,8 @@ type GetWindowBoundsResult struct {
 	// Bounds information of the window. When window state is 'minimized', the
 	// restored window position and size are returned.
 	Bounds *Bounds `json:"bounds"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -69,6 +82,8 @@ type GetWindowForTargetResult struct {
 	// Bounds information of the window. When window state is 'minimized', the
 	// restored window position and size are returned.
 	Bounds *Bounds `json:"bounds"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -99,4 +114,6 @@ type SetWindowBoundsResult struct {
 	// cannot be combined with 'left', 'top', 'width' or 'height'. Leaves
 	// unspecified fields unchanged.
 	Bounds *Bounds `json:"bounds"`
+
+	CDTPError error `json:"-"`
 }

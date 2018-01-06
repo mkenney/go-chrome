@@ -16,18 +16,17 @@ func TestAnimationDisable(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
+	resultChan := mockSocket.Animation().Disable()
 	mockSocket.Conn().AddMockData(
-		_commandID+1,
+		mockSocket.CurCommandID(),
 		&Error{},
 		"Animation.disable",
 		nil,
 	)
-	go func() {
-		err := mockSocket.Animation().Disable()
-		if nil != err {
-			t.Errorf("Expected nil, got error: '%s'", err.Error())
-		}
-	}()
+	result := <-resultChan
+	if nil != result.CDTPError {
+		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	}
 }
 
 func TestAnimationEnable(t *testing.T) {
@@ -36,18 +35,17 @@ func TestAnimationEnable(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
+	resultChan := mockSocket.Animation().Enable()
 	mockSocket.Conn().AddMockData(
-		_commandID+1,
+		mockSocket.CurCommandID(),
 		&Error{},
 		"Animation.enable",
 		nil,
 	)
-	go func() {
-		err := mockSocket.Animation().Enable()
-		if nil != err {
-			t.Errorf("Expected nil, got error: '%s'", err.Error())
-		}
-	}()
+	result := <-resultChan
+	if nil != result.CDTPError {
+		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	}
 }
 
 func TestAnimationGetCurrentTime(t *testing.T) {
@@ -56,46 +54,46 @@ func TestAnimationGetCurrentTime(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
+	resultChan := mockSocket.Animation().GetCurrentTime(
+		&animation.GetCurrentTimeParams{},
+	)
 	mockSocket.Conn().AddMockData(
-		_commandID+1,
+		mockSocket.CurCommandID(),
 		&Error{},
 		"Animation.getCurrentTime",
 		&animation.GetCurrentTimeResult{},
 	)
-	result, err := mockSocket.Animation().GetCurrentTime(
-		&animation.GetCurrentTimeParams{},
-	)
-	if nil != err {
-		t.Errorf("Expected success, got error: %s", err.Error())
+	result := <-resultChan
+	if nil != result.CDTPError {
+		t.Errorf("Expected success, got error: '%s'", result.CDTPError.Error())
 	}
 	if 0 != result.CurrentTime {
 		t.Errorf("Expected 0, got %d", result.CurrentTime)
 	}
 
+	resultChan = mockSocket.Animation().GetCurrentTime(&animation.GetCurrentTimeParams{
+		ID: "animation-id",
+	})
 	mockResult := &animation.GetCurrentTimeResult{
 		CurrentTime: time.Now().Unix(),
 	}
 	mockSocket.Conn().AddMockData(
-		_commandID+1,
+		mockSocket.CurCommandID(),
 		&Error{},
 		"Animation.getCurrentTime",
 		mockResult,
 	)
-	go func() {
-		result, err := mockSocket.Animation().GetCurrentTime(&animation.GetCurrentTimeParams{
-			ID: "animation-id",
-		})
-		if nil != err {
-			t.Errorf("Expected nil, got error: '%s'", err.Error())
-		}
-		if result.CurrentTime != mockResult.CurrentTime {
-			t.Errorf(
-				"Expected %d, received %d",
-				mockResult.CurrentTime,
-				result.CurrentTime,
-			)
-		}
-	}()
+	result = <-resultChan
+	if nil != result.CDTPError {
+		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	}
+	if result.CurrentTime != mockResult.CurrentTime {
+		t.Errorf(
+			"Expected %d, received %d",
+			mockResult.CurrentTime,
+			result.CurrentTime,
+		)
+	}
 }
 
 func TestAnimationGetPlaybackRate(t *testing.T) {
@@ -104,28 +102,27 @@ func TestAnimationGetPlaybackRate(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
+	resultChan := mockSocket.Animation().GetPlaybackRate()
 	mockResult := &animation.GetPlaybackRateResult{
 		PlaybackRate: 1.0,
 	}
 	mockSocket.Conn().AddMockData(
-		_commandID+1,
+		mockSocket.CurCommandID(),
 		&Error{},
 		"Animation.getPlaybackRate",
 		mockResult,
 	)
-	go func() {
-		result, err := mockSocket.Animation().GetPlaybackRate()
-		if nil != err {
-			t.Errorf("Expected nil, got error: '%s'", err.Error())
-		}
-		if result.PlaybackRate != mockResult.PlaybackRate {
-			t.Errorf(
-				"Expected %f, received %f",
-				mockResult.PlaybackRate,
-				result.PlaybackRate,
-			)
-		}
-	}()
+	result := <-resultChan
+	if nil != result.CDTPError {
+		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	}
+	if result.PlaybackRate != mockResult.PlaybackRate {
+		t.Errorf(
+			"Expected %f, received %f",
+			mockResult.PlaybackRate,
+			result.PlaybackRate,
+		)
+	}
 }
 
 func TestAnimationReleaseAnimations(t *testing.T) {
@@ -133,13 +130,17 @@ func TestAnimationReleaseAnimations(t *testing.T) {
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
-
-	go func() {
-		err := mockSocket.Animation().ReleaseAnimations(&animation.ReleaseAnimationsParams{})
-		if nil != err {
-			t.Errorf("Expected nil, got error: '%s'", err.Error())
-		}
-	}()
+	resultChan := mockSocket.Animation().ReleaseAnimations(&animation.ReleaseAnimationsParams{})
+	mockSocket.Conn().AddMockData(
+		mockSocket.CurCommandID(),
+		&Error{},
+		"Animation.releaseAnimationsParams",
+		nil,
+	)
+	result := <-resultChan
+	if nil != result.CDTPError {
+		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	}
 }
 
 func TestAnimationResolveAnimation(t *testing.T) {
@@ -148,6 +149,7 @@ func TestAnimationResolveAnimation(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
+	resultChan := mockSocket.Animation().ResolveAnimation(&animation.ResolveAnimationParams{})
 	mockResult := &animation.ResolveAnimationResult{
 		RemoteObject: &runtime.RemoteObject{
 			Type:                "array",
@@ -174,24 +176,22 @@ func TestAnimationResolveAnimation(t *testing.T) {
 		},
 	}
 	mockSocket.Conn().AddMockData(
-		_commandID+1,
+		mockSocket.CurCommandID(),
 		&Error{},
 		"Animation.resolveAnimation",
 		mockResult,
 	)
-	go func() {
-		result, err := mockSocket.Animation().ResolveAnimation(&animation.ResolveAnimationParams{})
-		if nil != err {
-			t.Errorf("Expected nil, got error: '%s'", err.Error())
-		}
-		if result.RemoteObject.Type != mockResult.RemoteObject.Type {
-			t.Errorf(
-				"Expected %s, received %s",
-				mockResult.RemoteObject.Type,
-				result.RemoteObject.Type,
-			)
-		}
-	}()
+	result := <-resultChan
+	if nil != result.CDTPError {
+		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	}
+	if result.RemoteObject.Type != mockResult.RemoteObject.Type {
+		t.Errorf(
+			"Expected %s, received %s",
+			mockResult.RemoteObject.Type,
+			result.RemoteObject.Type,
+		)
+	}
 }
 
 func TestAnimationSeekAnimations(t *testing.T) {
@@ -200,12 +200,17 @@ func TestAnimationSeekAnimations(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	go func() {
-		err := mockSocket.Animation().SeekAnimations(&animation.SeekAnimationsParams{})
-		if nil != err {
-			t.Errorf("Expected nil, got error: '%s'", err.Error())
-		}
-	}()
+	resultChan := mockSocket.Animation().SeekAnimations(&animation.SeekAnimationsParams{})
+	mockSocket.Conn().AddMockData(
+		mockSocket.CurCommandID(),
+		&Error{},
+		"Animation.seekAnimationsParams",
+		nil,
+	)
+	result := <-resultChan
+	if nil != result.CDTPError {
+		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	}
 }
 
 func TestAnimationSetPaused(t *testing.T) {
@@ -214,12 +219,17 @@ func TestAnimationSetPaused(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	go func() {
-		err := mockSocket.Animation().SetPaused(&animation.SetPausedParams{})
-		if nil != err {
-			t.Errorf("Expected nil, got error: '%s'", err.Error())
-		}
-	}()
+	resultChan := mockSocket.Animation().SetPaused(&animation.SetPausedParams{})
+	mockSocket.Conn().AddMockData(
+		mockSocket.CurCommandID(),
+		&Error{},
+		"Animation.setPausedParams",
+		nil,
+	)
+	result := <-resultChan
+	if nil != result.CDTPError {
+		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	}
 }
 
 func TestAnimationSetPlaybackRate(t *testing.T) {
@@ -228,12 +238,17 @@ func TestAnimationSetPlaybackRate(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	go func() {
-		err := mockSocket.Animation().SetPlaybackRate(&animation.SetPlaybackRateParams{})
-		if nil != err {
-			t.Errorf("Expected nil, got error: '%s'", err.Error())
-		}
-	}()
+	resultChan := mockSocket.Animation().SetPlaybackRate(&animation.SetPlaybackRateParams{})
+	mockSocket.Conn().AddMockData(
+		mockSocket.CurCommandID(),
+		&Error{},
+		"Animation.SetPlaybackRateParams",
+		nil,
+	)
+	result := <-resultChan
+	if nil != result.CDTPError {
+		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	}
 }
 
 func TestAnimationSetTiming(t *testing.T) {
@@ -242,12 +257,17 @@ func TestAnimationSetTiming(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	go func() {
-		err := mockSocket.Animation().SetTiming(&animation.SetTimingParams{})
-		if nil != err {
-			t.Errorf("Expected nil, got error: '%s'", err.Error())
-		}
-	}()
+	resultChan := mockSocket.Animation().SetTiming(&animation.SetTimingParams{})
+	mockSocket.Conn().AddMockData(
+		mockSocket.CurCommandID(),
+		&Error{},
+		"Animation.setTimingParams",
+		nil,
+	)
+	result := <-resultChan
+	if nil != result.CDTPError {
+		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	}
 }
 
 func TestAnimationOnAnimationCanceled(t *testing.T) {
@@ -264,7 +284,6 @@ func TestAnimationOnAnimationCanceled(t *testing.T) {
 		&Error{},
 		"Animation.animationCanceled",
 		mockData,
-		nil,
 	)
 	results := make(chan *animation.CanceledEvent)
 	mockSocket.Animation().OnAnimationCanceled(func(event *animation.CanceledEvent) {
@@ -294,7 +313,6 @@ func TestAnimationOnAnimationCreated(t *testing.T) {
 		&Error{},
 		"Animation.animationCreated",
 		mockData,
-		nil,
 	)
 	results := make(chan *animation.CreatedEvent)
 	mockSocket.Animation().OnAnimationCreated(func(event *animation.CreatedEvent) {
@@ -349,7 +367,6 @@ func TestAnimationOnAnimationStarted(t *testing.T) {
 		&Error{},
 		"Animation.animationStarted",
 		mockData,
-		nil,
 	)
 	results := make(chan *animation.StartedEvent)
 	mockSocket.Animation().OnAnimationStarted(func(event *animation.StartedEvent) {

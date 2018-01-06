@@ -34,17 +34,22 @@ EXPERIMENTAL.
 */
 func (protocol *DOMProtocol) CollectClassNamesFromSubtree(
 	params *dom.CollectClassNamesFromSubtreeParams,
-) (*dom.CollectClassNamesFromSubtreeResult, error) {
-	command := NewCommand("DOM.collectClassNamesFromSubtree", params)
+) chan *dom.CollectClassNamesFromSubtreeResult {
+	resultChan := make(chan *dom.CollectClassNamesFromSubtreeResult)
+	command := NewCommand(protocol.Socket, "DOM.collectClassNamesFromSubtree", params)
 	result := &dom.CollectClassNamesFromSubtreeResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -55,17 +60,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-copyTo EXPERI
 */
 func (protocol *DOMProtocol) CopyTo(
 	params *dom.CopyToParams,
-) (*dom.CopyToResult, error) {
-	command := NewCommand("DOM.copyTo", params)
+) chan *dom.CopyToResult {
+	resultChan := make(chan *dom.CopyToResult)
+	command := NewCommand(protocol.Socket, "DOM.copyTo", params)
 	result := &dom.CopyToResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -76,17 +86,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-describeNode
 */
 func (protocol *DOMProtocol) DescribeNode(
 	params *dom.DescribeNodeParams,
-) (*dom.DescribeNodeResult, error) {
-	command := NewCommand("DOM.describeNode", params)
+) chan *dom.DescribeNodeResult {
+	resultChan := make(chan *dom.DescribeNodeResult)
+	command := NewCommand(protocol.Socket, "DOM.describeNode", params)
 	result := &dom.DescribeNodeResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -94,10 +109,20 @@ Disable disables the DOM agent for the given page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-disable
 */
-func (protocol *DOMProtocol) Disable() error {
-	command := NewCommand("DOM.disable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *DOMProtocol) Disable() chan *dom.DisableResult {
+	resultChan := make(chan *dom.DisableResult)
+	command := NewCommand(protocol.Socket, "DOM.disable", nil)
+	result := &dom.DisableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -109,10 +134,20 @@ EXPERIMENTAL.
 */
 func (protocol *DOMProtocol) DiscardSearchResults(
 	params *dom.DiscardSearchResultsParams,
-) error {
-	command := NewCommand("DOM.discardSearchResults", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *dom.DiscardSearchResultsResult {
+	resultChan := make(chan *dom.DiscardSearchResultsResult)
+	command := NewCommand(protocol.Socket, "DOM.discardSearchResults", params)
+	result := &dom.DiscardSearchResultsResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -120,10 +155,20 @@ Enable enables the DOM agent for the given page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-enable
 */
-func (protocol *DOMProtocol) Enable() error {
-	command := NewCommand("DOM.enable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *DOMProtocol) Enable() chan *dom.EnableResult {
+	resultChan := make(chan *dom.EnableResult)
+	command := NewCommand(protocol.Socket, "DOM.enable", nil)
+	result := &dom.EnableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -133,10 +178,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-focus
 */
 func (protocol *DOMProtocol) Focus(
 	params *dom.FocusParams,
-) error {
-	command := NewCommand("DOM.focus", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *dom.FocusResult {
+	resultChan := make(chan *dom.FocusResult)
+	command := NewCommand(protocol.Socket, "DOM.focus", params)
+	result := &dom.FocusResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -146,17 +201,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getAttributes
 */
 func (protocol *DOMProtocol) GetAttributes(
 	params *dom.GetAttributesParams,
-) (*dom.GetAttributesResult, error) {
-	command := NewCommand("DOM.getAttributes", params)
+) chan *dom.GetAttributesResult {
+	resultChan := make(chan *dom.GetAttributesResult)
+	command := NewCommand(protocol.Socket, "DOM.getAttributes", params)
 	result := &dom.GetAttributesResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -166,17 +226,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getBoxModel
 */
 func (protocol *DOMProtocol) GetBoxModel(
 	params *dom.GetBoxModelParams,
-) (*dom.GetBoxModelResult, error) {
-	command := NewCommand("DOM.getBoxModel", params)
+) chan *dom.GetBoxModelResult {
+	resultChan := make(chan *dom.GetBoxModelResult)
+	command := NewCommand(protocol.Socket, "DOM.getBoxModel", params)
 	result := &dom.GetBoxModelResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -187,17 +252,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getDocument
 */
 func (protocol *DOMProtocol) GetDocument(
 	params *dom.GetDocumentParams,
-) (*dom.GetDocumentResult, error) {
-	command := NewCommand("DOM.getDocument", params)
+) chan *dom.GetDocumentResult {
+	resultChan := make(chan *dom.GetDocumentResult)
+	command := NewCommand(protocol.Socket, "DOM.getDocument", params)
 	result := &dom.GetDocumentResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -208,17 +278,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getFlattenedD
 */
 func (protocol *DOMProtocol) GetFlattenedDocument(
 	params *dom.GetFlattenedDocumentParams,
-) (*dom.GetFlattenedDocumentResult, error) {
-	command := NewCommand("DOM.getFlattenedDocument", params)
+) chan *dom.GetFlattenedDocumentResult {
+	resultChan := make(chan *dom.GetFlattenedDocumentResult)
+	command := NewCommand(protocol.Socket, "DOM.getFlattenedDocument", params)
 	result := &dom.GetFlattenedDocumentResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -228,17 +303,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getNodeForLoc
 */
 func (protocol *DOMProtocol) GetNodeForLocation(
 	params *dom.GetNodeForLocationParams,
-) (*dom.GetNodeForLocationResult, error) {
-	command := NewCommand("DOM.getNodeForLocation", params)
+) chan *dom.GetNodeForLocationResult {
+	resultChan := make(chan *dom.GetNodeForLocationResult)
+	command := NewCommand(protocol.Socket, "DOM.getNodeForLocation", params)
 	result := &dom.GetNodeForLocationResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -248,17 +328,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getOuterHTML
 */
 func (protocol *DOMProtocol) GetOuterHTML(
 	params *dom.GetOuterHTMLParams,
-) (*dom.GetOuterHTMLResult, error) {
-	command := NewCommand("DOM.getOuterHTML", params)
+) chan *dom.GetOuterHTMLResult {
+	resultChan := make(chan *dom.GetOuterHTMLResult)
+	command := NewCommand(protocol.Socket, "DOM.getOuterHTML", params)
 	result := &dom.GetOuterHTMLResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -269,17 +354,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getRelayoutBo
 */
 func (protocol *DOMProtocol) GetRelayoutBoundary(
 	params *dom.GetRelayoutBoundaryParams,
-) (*dom.GetRelayoutBoundaryResult, error) {
-	command := NewCommand("DOM.getRelayoutBoundary", params)
+) chan *dom.GetRelayoutBoundaryResult {
+	resultChan := make(chan *dom.GetRelayoutBoundaryResult)
+	command := NewCommand(protocol.Socket, "DOM.getRelayoutBoundary", params)
 	result := &dom.GetRelayoutBoundaryResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -291,17 +381,22 @@ EXPERIMENTAL.
 */
 func (protocol *DOMProtocol) GetSearchResults(
 	params *dom.GetSearchResultsParams,
-) (*dom.GetSearchResultsResult, error) {
-	command := NewCommand("DOM.getSearchResults", params)
+) chan *dom.GetSearchResultsResult {
+	resultChan := make(chan *dom.GetSearchResultsResult)
+	command := NewCommand(protocol.Socket, "DOM.getSearchResults", params)
 	result := &dom.GetSearchResultsResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -310,10 +405,20 @@ MarkUndoableState marks last undoable state.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-markUndoableState
 EXPERIMENTAL.
 */
-func (protocol *DOMProtocol) MarkUndoableState() error {
-	command := NewCommand("DOM.markUndoableState", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *DOMProtocol) MarkUndoableState() chan *dom.MarkUndoableStateResult {
+	resultChan := make(chan *dom.MarkUndoableStateResult)
+	command := NewCommand(protocol.Socket, "DOM.markUndoableState", nil)
+	result := &dom.MarkUndoableStateResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -323,17 +428,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-moveTo
 */
 func (protocol *DOMProtocol) MoveTo(
 	params *dom.MoveToParams,
-) (*dom.MoveToResult, error) {
-	command := NewCommand("DOM.moveTo", params)
+) chan *dom.MoveToResult {
+	resultChan := make(chan *dom.MoveToResult)
+	command := NewCommand(protocol.Socket, "DOM.moveTo", params)
 	result := &dom.MoveToResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -345,17 +455,22 @@ EXPERIMENTAL.
 */
 func (protocol *DOMProtocol) PerformSearch(
 	params *dom.PerformSearchParams,
-) (*dom.PerformSearchResult, error) {
-	command := NewCommand("DOM.performSearch", params)
+) chan *dom.PerformSearchResult {
+	resultChan := make(chan *dom.PerformSearchResult)
+	command := NewCommand(protocol.Socket, "DOM.performSearch", params)
 	result := &dom.PerformSearchResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -367,17 +482,22 @@ EXPERIMENTAL. @TODO, use XPath.
 */
 func (protocol *DOMProtocol) PushNodeByPathToFrontend(
 	params *dom.PushNodeByPathToFrontendParams,
-) (*dom.PushNodeByPathToFrontendResult, error) {
-	command := NewCommand("DOM.pushNodeByPathToFrontend", params)
+) chan *dom.PushNodeByPathToFrontendResult {
+	resultChan := make(chan *dom.PushNodeByPathToFrontendResult)
+	command := NewCommand(protocol.Socket, "DOM.pushNodeByPathToFrontend", params)
 	result := &dom.PushNodeByPathToFrontendResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -389,17 +509,22 @@ EXPERIMENTAL.
 */
 func (protocol *DOMProtocol) PushNodesByBackendIDsToFrontend(
 	params *dom.PushNodesByBackendIDsToFrontendParams,
-) (*dom.PushNodesByBackendIDsToFrontendResult, error) {
-	command := NewCommand("DOM.pushNodesByBackendIdsToFrontend", params)
+) chan *dom.PushNodesByBackendIDsToFrontendResult {
+	resultChan := make(chan *dom.PushNodesByBackendIDsToFrontendResult)
+	command := NewCommand(protocol.Socket, "DOM.pushNodesByBackendIdsToFrontend", params)
 	result := &dom.PushNodesByBackendIDsToFrontendResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -409,17 +534,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-querySelector
 */
 func (protocol *DOMProtocol) QuerySelector(
 	params *dom.QuerySelectorParams,
-) (*dom.QuerySelectorResult, error) {
-	command := NewCommand("DOM.querySelector", params)
+) chan *dom.QuerySelectorResult {
+	resultChan := make(chan *dom.QuerySelectorResult)
+	command := NewCommand(protocol.Socket, "DOM.querySelector", params)
 	result := &dom.QuerySelectorResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -429,17 +559,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-querySelector
 */
 func (protocol *DOMProtocol) QuerySelectorAll(
 	params *dom.QuerySelectorAllParams,
-) (*dom.QuerySelectorAllResult, error) {
-	command := NewCommand("DOM.querySelectorAll", params)
+) chan *dom.QuerySelectorAllResult {
+	resultChan := make(chan *dom.QuerySelectorAllResult)
+	command := NewCommand(protocol.Socket, "DOM.querySelectorAll", params)
 	result := &dom.QuerySelectorAllResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -447,10 +582,20 @@ Redo re-does the last undone action.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-redo EXPERIMENTAL.
 */
-func (protocol *DOMProtocol) Redo() error {
-	command := NewCommand("DOM.redo", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *DOMProtocol) Redo() chan *dom.RedoResult {
+	resultChan := make(chan *dom.RedoResult)
+	command := NewCommand(protocol.Socket, "DOM.redo", nil)
+	result := &dom.RedoResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -460,10 +605,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-removeAttribu
 */
 func (protocol *DOMProtocol) RemoveAttribute(
 	params *dom.RemoveAttributeParams,
-) error {
-	command := NewCommand("DOM.removeAttribute", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *dom.RemoveAttributeResult {
+	resultChan := make(chan *dom.RemoveAttributeResult)
+	command := NewCommand(protocol.Socket, "DOM.removeAttribute", params)
+	result := &dom.RemoveAttributeResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -473,10 +628,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-removeNode
 */
 func (protocol *DOMProtocol) RemoveNode(
 	params *dom.RemoveNodeParams,
-) error {
-	command := NewCommand("DOM.removeNode", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *dom.RemoveNodeResult {
+	resultChan := make(chan *dom.RemoveNodeResult)
+	command := NewCommand(protocol.Socket, "DOM.removeNode", params)
+	result := &dom.RemoveNodeResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -488,10 +653,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-requestChildN
 */
 func (protocol *DOMProtocol) RequestChildNodes(
 	params *dom.RequestChildNodesParams,
-) error {
-	command := NewCommand("DOM.requestChildNodes", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *dom.RequestChildNodesResult {
+	resultChan := make(chan *dom.RequestChildNodesResult)
+	command := NewCommand(protocol.Socket, "DOM.requestChildNodes", params)
+	result := &dom.RequestChildNodesResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -503,17 +678,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-requestNode
 */
 func (protocol *DOMProtocol) RequestNode(
 	params *dom.RequestNodeParams,
-) (*dom.RequestNodeResult, error) {
-	command := NewCommand("DOM.requestNode", params)
+) chan *dom.RequestNodeResult {
+	resultChan := make(chan *dom.RequestNodeResult)
+	command := NewCommand(protocol.Socket, "DOM.requestNode", params)
 	result := &dom.RequestNodeResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -524,17 +704,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-resolveNode
 */
 func (protocol *DOMProtocol) ResolveNode(
 	params *dom.ResolveNodeParams,
-) (*dom.ResolveNodeResult, error) {
-	command := NewCommand("DOM.resolveNode", params)
+) chan *dom.ResolveNodeResult {
+	resultChan := make(chan *dom.ResolveNodeResult)
+	command := NewCommand(protocol.Socket, "DOM.resolveNode", params)
 	result := &dom.ResolveNodeResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -544,10 +729,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setAttributeV
 */
 func (protocol *DOMProtocol) SetAttributeValue(
 	params *dom.SetAttributeValueParams,
-) error {
-	command := NewCommand("DOM.setAttributeValue", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *dom.SetAttributeValueResult {
+	resultChan := make(chan *dom.SetAttributeValueResult)
+	command := NewCommand(protocol.Socket, "DOM.setAttributeValue", params)
+	result := &dom.SetAttributeValueResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -559,10 +754,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setAttributes
 */
 func (protocol *DOMProtocol) SetAttributesAsText(
 	params *dom.SetAttributesAsTextParams,
-) error {
-	command := NewCommand("DOM.setAttributesAsText", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *dom.SetAttributesAsTextResult {
+	resultChan := make(chan *dom.SetAttributesAsTextResult)
+	command := NewCommand(protocol.Socket, "DOM.setAttributesAsText", params)
+	result := &dom.SetAttributesAsTextResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -572,10 +777,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setFileInputF
 */
 func (protocol *DOMProtocol) SetFileInputFiles(
 	params *dom.SetFileInputFilesParams,
-) error {
-	command := NewCommand("DOM.setFileInputFiles", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *dom.SetFileInputFilesResult {
+	resultChan := make(chan *dom.SetFileInputFilesResult)
+	command := NewCommand(protocol.Socket, "DOM.setFileInputFiles", params)
+	result := &dom.SetFileInputFilesResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -586,10 +801,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setInspectedN
 */
 func (protocol *DOMProtocol) SetInspectedNode(
 	params *dom.SetInspectedNodeParams,
-) error {
-	command := NewCommand("DOM.setInspectedNode", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *dom.SetInspectedNodeResult {
+	resultChan := make(chan *dom.SetInspectedNodeResult)
+	command := NewCommand(protocol.Socket, "DOM.setInspectedNode", params)
+	result := &dom.SetInspectedNodeResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -599,17 +824,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setNodeName
 */
 func (protocol *DOMProtocol) SetNodeName(
 	params *dom.SetNodeNameParams,
-) (*dom.SetNodeNameResult, error) {
-	command := NewCommand("DOM.setNodeName", params)
+) chan *dom.SetNodeNameResult {
+	resultChan := make(chan *dom.SetNodeNameResult)
+	command := NewCommand(protocol.Socket, "DOM.setNodeName", params)
 	result := &dom.SetNodeNameResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -619,10 +849,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setNodeValue
 */
 func (protocol *DOMProtocol) SetNodeValue(
 	params *dom.SetNodeValueParams,
-) error {
-	command := NewCommand("DOM.setNodeValue", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *dom.SetNodeValueResult {
+	resultChan := make(chan *dom.SetNodeValueResult)
+	command := NewCommand(protocol.Socket, "DOM.setNodeValue", params)
+	result := &dom.SetNodeValueResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -632,10 +872,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setOuterHTML
 */
 func (protocol *DOMProtocol) SetOuterHTML(
 	params *dom.SetOuterHTMLParams,
-) error {
-	command := NewCommand("DOM.setOuterHTML", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *dom.SetOuterHTMLResult {
+	resultChan := make(chan *dom.SetOuterHTMLResult)
+	command := NewCommand(protocol.Socket, "DOM.setOuterHTML", params)
+	result := &dom.SetOuterHTMLResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -644,10 +894,20 @@ Undo undoes the last performed action.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-undo
 EXPERIMENTAL.
 */
-func (protocol *DOMProtocol) Undo() error {
-	command := NewCommand("DOM.undo", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *DOMProtocol) Undo() chan *dom.UndoResult {
+	resultChan := make(chan *dom.UndoResult)
+	command := NewCommand(protocol.Socket, "DOM.undo", nil)
+	result := &dom.UndoResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*

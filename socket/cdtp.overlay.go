@@ -23,10 +23,20 @@ Disable disables domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-disable
 */
-func (protocol *OverlayProtocol) Disable() error {
-	command := NewCommand("Overlay.disable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *OverlayProtocol) Disable() chan *overlay.DisableResult {
+	resultChan := make(chan *overlay.DisableResult)
+	command := NewCommand(protocol.Socket, "Overlay.disable", nil)
+	result := &overlay.DisableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -34,10 +44,20 @@ Enable enables domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-enable
 */
-func (protocol *OverlayProtocol) Enable() error {
-	command := NewCommand("Overlay.enable", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *OverlayProtocol) Enable() chan *overlay.EnableResult {
+	resultChan := make(chan *overlay.EnableResult)
+	command := NewCommand(protocol.Socket, "Overlay.enable", nil)
+	result := &overlay.EnableResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -47,17 +67,22 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-getHighli
 */
 func (protocol *OverlayProtocol) GetHighlightObjectForTest(
 	params *overlay.GetHighlightObjectForTestParams,
-) (*overlay.GetHighlightObjectForTestResult, error) {
-	command := NewCommand("Overlay.getHighlightObjectForTest", params)
+) chan *overlay.GetHighlightObjectForTestResult {
+	resultChan := make(chan *overlay.GetHighlightObjectForTestResult)
+	command := NewCommand(protocol.Socket, "Overlay.getHighlightObjectForTest", params)
 	result := &overlay.GetHighlightObjectForTestResult{}
-	protocol.Socket.SendCommand(command)
 
-	if nil != command.Error() {
-		return result, command.Error()
-	}
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		} else {
+			result.CDTPError = json.Unmarshal(response.Result, &result)
+		}
+		resultChan <- result
+	}()
 
-	err := json.Unmarshal(command.Result(), &result)
-	return result, err
+	return resultChan
 }
 
 /*
@@ -65,10 +90,20 @@ HideHighlight hides any highlight.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-hideHighlight
 */
-func (protocol *OverlayProtocol) HideHighlight() error {
-	command := NewCommand("Overlay.hideHighlight", nil)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+func (protocol *OverlayProtocol) HideHighlight() chan *overlay.HideHighlightResult {
+	resultChan := make(chan *overlay.HideHighlightResult)
+	command := NewCommand(protocol.Socket, "Overlay.hideHighlight", nil)
+	result := &overlay.HideHighlightResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -78,10 +113,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlight
 */
 func (protocol *OverlayProtocol) HighlightFrame(
 	params *overlay.HighlightFrameParams,
-) error {
-	command := NewCommand("Overlay.highlightFrame", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *overlay.HighlightFrameResult {
+	resultChan := make(chan *overlay.HighlightFrameResult)
+	command := NewCommand(protocol.Socket, "Overlay.highlightFrame", params)
+	result := &overlay.HighlightFrameResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -92,10 +137,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlight
 */
 func (protocol *OverlayProtocol) HighlightNode(
 	params *overlay.HighlightNodeParams,
-) error {
-	command := NewCommand("Overlay.highlightNode", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *overlay.HighlightNodeResult {
+	resultChan := make(chan *overlay.HighlightNodeResult)
+	command := NewCommand(protocol.Socket, "Overlay.highlightNode", params)
+	result := &overlay.HighlightNodeResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -106,10 +161,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlight
 */
 func (protocol *OverlayProtocol) HighlightQuad(
 	params *overlay.HighlightQuadParams,
-) error {
-	command := NewCommand("Overlay.highlightQuad", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *overlay.HighlightQuadResult {
+	resultChan := make(chan *overlay.HighlightQuadResult)
+	command := NewCommand(protocol.Socket, "Overlay.highlightQuad", params)
+	result := &overlay.HighlightQuadResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -120,10 +185,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlight
 */
 func (protocol *OverlayProtocol) HighlightRect(
 	params *overlay.HighlightRectParams,
-) error {
-	command := NewCommand("Overlay.highlightRect", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *overlay.HighlightRectResult {
+	resultChan := make(chan *overlay.HighlightRectResult)
+	command := NewCommand(protocol.Socket, "Overlay.highlightRect", params)
+	result := &overlay.HighlightRectResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -135,10 +210,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setInspec
 */
 func (protocol *OverlayProtocol) SetInspectMode(
 	params *overlay.SetInspectModeParams,
-) error {
-	command := NewCommand("Overlay.setInspectMode", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *overlay.SetInspectModeResult {
+	resultChan := make(chan *overlay.SetInspectModeResult)
+	command := NewCommand(protocol.Socket, "Overlay.setInspectMode", params)
+	result := &overlay.SetInspectModeResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -148,10 +233,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setPaused
 */
 func (protocol *OverlayProtocol) SetPausedInDebuggerMessage(
 	params *overlay.SetPausedInDebuggerMessageParams,
-) error {
-	command := NewCommand("Overlay.setPausedInDebuggerMessage", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *overlay.SetPausedInDebuggerMessageResult {
+	resultChan := make(chan *overlay.SetPausedInDebuggerMessageResult)
+	command := NewCommand(protocol.Socket, "Overlay.setPausedInDebuggerMessage", params)
+	result := &overlay.SetPausedInDebuggerMessageResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -161,10 +256,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowDe
 */
 func (protocol *OverlayProtocol) SetShowDebugBorders(
 	params *overlay.SetShowDebugBordersParams,
-) error {
-	command := NewCommand("Overlay.setShowDebugBorders", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *overlay.SetShowDebugBordersResult {
+	resultChan := make(chan *overlay.SetShowDebugBordersResult)
+	command := NewCommand(protocol.Socket, "Overlay.setShowDebugBorders", params)
+	result := &overlay.SetShowDebugBordersResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -174,10 +279,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowFP
 */
 func (protocol *OverlayProtocol) SetShowFPSCounter(
 	params *overlay.SetShowFPSCounterParams,
-) error {
-	command := NewCommand("Overlay.setShowFPSCounter", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *overlay.SetShowFPSCounterResult {
+	resultChan := make(chan *overlay.SetShowFPSCounterResult)
+	command := NewCommand(protocol.Socket, "Overlay.setShowFPSCounter", params)
+	result := &overlay.SetShowFPSCounterResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -187,10 +302,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowPa
 */
 func (protocol *OverlayProtocol) SetShowPaintRects(
 	params *overlay.SetShowPaintRectsParams,
-) error {
-	command := NewCommand("Overlay.setShowPaintRects", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *overlay.SetShowPaintRectsResult {
+	resultChan := make(chan *overlay.SetShowPaintRectsResult)
+	command := NewCommand(protocol.Socket, "Overlay.setShowPaintRects", params)
+	result := &overlay.SetShowPaintRectsResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -200,10 +325,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowSc
 */
 func (protocol *OverlayProtocol) SetShowScrollBottleneckRects(
 	params *overlay.SetShowScrollBottleneckRectsParams,
-) error {
-	command := NewCommand("Overlay.setShowScrollBottleneckRects", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *overlay.SetShowScrollBottleneckRectsResult {
+	resultChan := make(chan *overlay.SetShowScrollBottleneckRectsResult)
+	command := NewCommand(protocol.Socket, "Overlay.setShowScrollBottleneckRects", params)
+	result := &overlay.SetShowScrollBottleneckRectsResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -213,10 +348,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowVi
 */
 func (protocol *OverlayProtocol) SetShowViewportSizeOnResize(
 	params *overlay.SetShowViewportSizeOnResizeParams,
-) error {
-	command := NewCommand("Overlay.setShowViewportSizeOnResize", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *overlay.SetShowViewportSizeOnResizeResult {
+	resultChan := make(chan *overlay.SetShowViewportSizeOnResizeResult)
+	command := NewCommand(protocol.Socket, "Overlay.setShowViewportSizeOnResize", params)
+	result := &overlay.SetShowViewportSizeOnResizeResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*
@@ -226,10 +371,20 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setSuspen
 */
 func (protocol *OverlayProtocol) SetSuspended(
 	params *overlay.SetSuspendedParams,
-) error {
-	command := NewCommand("Overlay.setSuspended", params)
-	protocol.Socket.SendCommand(command)
-	return command.Error()
+) chan *overlay.SetSuspendedResult {
+	resultChan := make(chan *overlay.SetSuspendedResult)
+	command := NewCommand(protocol.Socket, "Overlay.setSuspended", params)
+	result := &overlay.SetSuspendedResult{}
+
+	go func() {
+		response := <-protocol.Socket.SendCommand(command)
+		if nil != response.Error && 0 != response.Error.Code {
+			result.CDTPError = response.Error
+		}
+		resultChan <- result
+	}()
+
+	return resultChan
 }
 
 /*

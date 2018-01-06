@@ -10,11 +10,13 @@ NewMock returns a Chromium Socketer mock for unit testing
 */
 func NewMock(socketURL *url.URL) *Socket {
 	socket := &Socket{
-		mux:       &sync.Mutex{},
-		commands:  NewCommandMap(),
-		handlers:  NewEventHandlerMap(),
-		newSocket: NewMockWebsocket,
-		url:       socketURL,
+		commands:     NewCommandMap(),
+		commandIDMux: &sync.Mutex{},
+		handlers:     NewEventHandlerMap(),
+		mux:          &sync.Mutex{},
+		newSocket:    NewMockWebsocket,
+		socketID:     NextSocketID(),
+		url:          socketURL,
 	}
 
 	socket.accessibility = &AccessibilityProtocol{Socket: socket}

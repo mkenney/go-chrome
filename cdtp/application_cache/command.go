@@ -5,6 +5,15 @@ import (
 )
 
 /*
+EnableResult represents the result of calls to ApplicationCache.enable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-enable
+*/
+type EnableResult struct {
+	CDTPError error `json:"-"`
+}
+
+/*
 GetForFrameParams represents ApplicationCache.getApplicationCacheForFrame parameters
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getApplicationCacheForFrame
@@ -23,6 +32,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-
 type GetForFrameResult struct {
 	// Relevant application cache data for the document in given frame.
 	ApplicationCache *ApplicationCache `json:"applicationCache"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -35,6 +46,8 @@ type GetFramesWithManifestsResult struct {
 	// Array of frame identifiers with manifest urls for each frame containing a
 	// document associated with some application cache.
 	FrameIDs []*FrameWithManifest `json:"frameIds"`
+
+	CDTPError error `json:"-"`
 }
 
 /*
@@ -55,4 +68,6 @@ https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-
 type GetManifestForFrameResult struct {
 	// Manifest URL for document in the given frame.
 	ManifestURL string `json:"manifestURL"`
+
+	CDTPError error `json:"-"`
 }
