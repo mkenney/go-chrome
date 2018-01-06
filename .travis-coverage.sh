@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 echo "" > coverage.txt
-
+env
+exit
 go get -v github.com/golang/lint/golint
 [ "0" = "$?" ] || exit 1
 
