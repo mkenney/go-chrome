@@ -27,8 +27,5 @@ for dir in $(go list ./... | grep -v vendor); do
     fi
 done
 
-bash <(curl -s https://codecov.io/bash)
-[ "0" = "$?" ] || exit 5
-
 exit 0
 
