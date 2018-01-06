@@ -27,10 +27,10 @@ func (protocol *AuditsProtocol) GetEncodedResponse(
 	params *audits.GetEncodedResponseParams,
 ) chan *audits.GetEncodedResponseResult {
 	resultChan := make(chan *audits.GetEncodedResponseResult)
+	command := NewCommand(protocol.Socket, "Audits.getEncodedResponse", params)
+	result := &audits.GetEncodedResponseResult{}
 
 	go func() {
-		command := NewCommand(protocol.Socket, "Audits.getEncodedResponse", params)
-		result := &audits.GetEncodedResponseResult{}
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
 			result.CDTPError = response.Error
