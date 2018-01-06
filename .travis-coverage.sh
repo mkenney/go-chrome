@@ -14,8 +14,9 @@ cd /go/src/github.com/mkenney/go-chrome
 dep ensure
 [ "0" = "$?" ] || exit 4
 
-for d in $(go list ./... | grep -v vendor); do
-    go test -coverprofile=profile.out $d
+for dir in $(go list ./... | grep -v vendor); do
+    echo "go test -timeout 20s -coverprofile=profile.out $dir"
+    go test -timeout 20s -coverprofile=profile.out $dir
     exit_code=$?
     if [ "0" != "$exit_code" ]; then
         exit $exit_code

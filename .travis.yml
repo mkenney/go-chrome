@@ -1,5 +1,6 @@
+group: deprecated-2017Q4
 sudo: required
-language: go
+language: docker
 branches:
     only:
         - master
@@ -9,4 +10,4 @@ notifications:
 services:
     - docker
 script:
-    - docker run -ti -v $(pwd):/go/src/github.com/mkenney/go-chrome --entrypoint="/go/src/github.com/mkenney/go-chrome/.travis-coverage.sh" golang:1.9
+    - ci_env=`bash <(curl -s https://codecov.io/env)` docker run --rm -v $(pwd):/go/src/github.com/mkenney/go-chrome $ci_env --entrypoint="/go/src/github.com/mkenney/go-chrome/.travis-coverage.sh" golang:1.9
