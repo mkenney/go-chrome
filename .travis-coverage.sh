@@ -26,7 +26,7 @@ for dir in $(go list ./... | grep -v vendor); do
         rm profile.out
     fi
 done
-env
+
 bash <(curl -s https://codecov.io/bash)
 [ "0" = "$?" ] || exit 5
 

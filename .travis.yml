@@ -10,4 +10,5 @@ notifications:
 services:
     - docker
 script:
-    - ci_env=`bash <(curl -s https://codecov.io/env)` docker run --rm $ci_env -v $(pwd):/go/src/github.com/mkenney/go-chrome --entrypoint="/go/src/github.com/mkenney/go-chrome/.travis-coverage.sh" golang:1.9
+    - bash <(curl -s https://codecov.io/env)
+    #- ci_env=`bash <(curl -s https://codecov.io/env)` docker run --rm $ci_env -v $(pwd):/go/src/github.com/mkenney/go-chrome --entrypoint="/go/src/github.com/mkenney/go-chrome/.travis-coverage.sh" golang:1.9
