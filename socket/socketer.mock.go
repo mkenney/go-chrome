@@ -15,6 +15,7 @@ func NewMock(socketURL *url.URL) *Socket {
 		handlers:     NewEventHandlerMap(),
 		mux:          &sync.Mutex{},
 		newSocket:    NewMockWebsocket,
+		socketID:     NextSocketID(),
 		url:          socketURL,
 	}
 
