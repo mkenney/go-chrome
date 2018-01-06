@@ -31,18 +31,18 @@ func TestHandleEvent(t *testing.T) {
 	mockSocket.AddEventHandler(handler2)
 	mockSocket.AddEventHandler(handler3)
 
-	mockSocket.Conn().AddMockData(
-		0,
-		&Error{},
-		"Some.event",
-		"Mock Event Result",
-	)
-	mockSocket.Conn().AddMockData(
-		0,
-		&Error{},
-		"Inspector.targetCrashed",
-		"Mock Target Crashed",
-	)
+	mockSocket.Conn().AddMockData(&Response{
+		ID:     0,
+		Error:  &Error{},
+		Method: "Some.event",
+		Result: []byte(`"Mock Event Result"`),
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID:     0,
+		Error:  &Error{},
+		Method: "Inspector.targetCrashed",
+		Result: []byte(`"Mock Target Crashed"`),
+	})
 
 	response1 := <-eventResponse1
 	response2 := <-eventResponse2

@@ -29,7 +29,7 @@ func (protocol *TracingProtocol) End() chan *tracing.EndResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -50,9 +50,9 @@ func (protocol *TracingProtocol) GetCategories() chan *tracing.GetCategoriesResu
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -74,7 +74,7 @@ func (protocol *TracingProtocol) RecordClockSyncMarker(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -95,9 +95,9 @@ func (protocol *TracingProtocol) RequestMemoryDump() chan *tracing.GetCategories
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -119,7 +119,7 @@ func (protocol *TracingProtocol) Start(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -140,7 +140,7 @@ func (protocol *TracingProtocol) OnBufferUsage(
 		"Tracing.bufferUsage",
 		func(response *Response) {
 			event := &tracing.BufferUsageEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -165,7 +165,7 @@ func (protocol *TracingProtocol) OnDataCollected(
 		"Tracing.dataCollected",
 		func(response *Response) {
 			event := &tracing.DataCollectedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -189,7 +189,7 @@ func (protocol *TracingProtocol) OnTracingComplete(
 		"Tracing.tracingComplete",
 		func(response *Response) {
 			event := &tracing.CompleteEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

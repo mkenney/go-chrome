@@ -22,5 +22,6 @@ type GetInfoResult struct {
 	// string if not supported.
 	CommandLine string `json:"commandLine"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

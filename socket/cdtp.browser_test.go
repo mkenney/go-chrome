@@ -1,6 +1,7 @@
 package socket
 
 import (
+	"encoding/json"
 	"net/url"
 	"testing"
 
@@ -15,15 +16,14 @@ func TestBrowserClose(t *testing.T) {
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Browser().Close()
-	mockSocket.Conn().AddMockData(
-		mockSocket.CurCommandID(),
-		&Error{},
-		"Browser.close",
-		nil,
-	)
+	mockSocket.Conn().AddMockData(&Response{
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
+		Method: "Browser.close",
+	})
 	result := <-resultChan
-	if nil != result.CDTPError {
-		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	if nil != result.Err {
+		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 }
 
@@ -41,15 +41,16 @@ func TestBrowserGetVersion(t *testing.T) {
 		UserAgent:       "user-agent",
 		JSVersion:       "V8 version",
 	}
-	mockSocket.Conn().AddMockData(
-		mockSocket.CurCommandID(),
-		&Error{},
-		"Browser.getVersion",
-		mockResult,
-	)
+	mockResultBytes, _ := json.Marshal(mockResult)
+	mockSocket.Conn().AddMockData(&Response{
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
+		Method: "Browser.getVersion",
+		Result: mockResultBytes,
+	})
 	result := <-resultChan
-	if nil != result.CDTPError {
-		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	if nil != result.Err {
+		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 	if result.ProtocolVersion != mockResult.ProtocolVersion {
 		t.Errorf(
@@ -78,15 +79,16 @@ func TestBrowserGetWindowBounds(t *testing.T) {
 			WindowState: browser.WindowState("window-state"),
 		},
 	}
-	mockSocket.Conn().AddMockData(
-		mockSocket.CurCommandID(),
-		&Error{},
-		"Browser.getWindowBounds",
-		mockResult,
-	)
+	mockResultBytes, _ := json.Marshal(mockResult)
+	mockSocket.Conn().AddMockData(&Response{
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
+		Method: "Browser.getWindowBounds",
+		Result: mockResultBytes,
+	})
 	result := <-resultChan
-	if nil != result.CDTPError {
-		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	if nil != result.Err {
+		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 	if result.Bounds.Height != mockResult.Bounds.Height {
 		t.Errorf(
@@ -116,15 +118,16 @@ func TestBrowserGetWindowForTarget(t *testing.T) {
 			WindowState: browser.WindowState("window-state"),
 		},
 	}
-	mockSocket.Conn().AddMockData(
-		mockSocket.CurCommandID(),
-		&Error{},
-		"Browser.getWindowForTarget",
-		mockResult,
-	)
+	mockResultBytes, _ := json.Marshal(mockResult)
+	mockSocket.Conn().AddMockData(&Response{
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
+		Method: "Browser.getWindowForTarget",
+		Result: mockResultBytes,
+	})
 	result := <-resultChan
-	if nil != result.CDTPError {
-		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	if nil != result.Err {
+		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 	if result.WindowID != mockResult.WindowID {
 		t.Errorf(
@@ -168,15 +171,16 @@ func TestBrowserSetWindowBounds(t *testing.T) {
 			WindowState: browser.WindowState("window-state"),
 		},
 	}
-	mockSocket.Conn().AddMockData(
-		mockSocket.CurCommandID(),
-		&Error{},
-		"Browser.setWindowBounds",
-		mockResult,
-	)
+	mockResultBytes, _ := json.Marshal(mockResult)
+	mockSocket.Conn().AddMockData(&Response{
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
+		Method: "Browser.setWindowBounds",
+		Result: mockResultBytes,
+	})
 	result := <-resultChan
-	if nil != result.CDTPError {
-		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	if nil != result.Err {
+		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 	if result.WindowID != mockResult.WindowID {
 		t.Errorf(

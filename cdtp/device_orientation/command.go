@@ -6,7 +6,8 @@ ClearOverrideResult represents the result of calls to DeviceOrientation.clearOve
 https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/#method-clearDeviceOrientationOverride
 */
 type ClearOverrideResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -32,5 +33,6 @@ SetOverrideResult represents the result of calls to DeviceOrientation.setOverrid
 https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/#method-setDeviceOrientationOverride
 */
 type SetOverrideResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

@@ -33,7 +33,7 @@ func (protocol *TetheringProtocol) Bind(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -56,7 +56,7 @@ func (protocol *TetheringProtocol) Unbind(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -77,7 +77,7 @@ func (protocol *TetheringProtocol) OnAccepted(
 		"Tethering.accepted",
 		func(response *Response) {
 			event := &tethering.AcceptedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

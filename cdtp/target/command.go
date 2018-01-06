@@ -16,7 +16,8 @@ ActivateTargetResult represents the result of calls to Target.activateTarget.
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-activateTarget
 */
 type ActivateTargetResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -38,7 +39,8 @@ type AttachToTargetResult struct {
 	// Id assigned to the session.
 	SessionID SessionID `json:"sessionId"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -60,7 +62,8 @@ type CloseTargetResult struct {
 	// Target close status
 	Success bool `json:"success"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -72,7 +75,8 @@ type CreateBrowserContextResult struct {
 	// The ID of the context created.
 	BrowserContextID BrowserContextID `json:"browserContextId"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -108,7 +112,8 @@ type CreateTargetResult struct {
 	// The ID of the page opened.
 	ID ID `json:"targetId"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -130,7 +135,8 @@ DetachFromTargetResult represents the result of calls to Target.detachFromTarget
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-detachFromTarget
 */
 type DetachFromTargetResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -151,7 +157,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-disposeBro
 type DisposeBrowserContextResult struct {
 	Success bool `json:"success"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -173,7 +180,8 @@ type GetTargetInfoResult struct {
 	// The list of targets.
 	Infos []*Info `json:"targetInfos"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -192,7 +200,8 @@ GetTargetsResult represents the result of calls to Target.getTargets.
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargets
 */
 type GetTargetsResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -217,7 +226,8 @@ SendMessageToTargetResult represents the result of calls to Target.sendMessageTo
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-sendMessageToTarget
 */
 type SendMessageToTargetResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -236,7 +246,8 @@ SetAttachToFramesResult represents the result of calls to Target.setAttachToFram
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAttachToFrames
 */
 type SetAttachToFramesResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -259,7 +270,8 @@ SetAutoAttachResult represents the result of calls to Target.setAutoAttach.
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAutoAttach
 */
 type SetAutoAttachResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -278,7 +290,8 @@ SetDiscoverTargetsResult represents the result of calls to Target.setDiscoverTar
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setDiscoverTargets
 */
 type SetDiscoverTargetsResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -297,5 +310,6 @@ SetRemoteLocationsResult represents the result of calls to Target.setRemoteLocat
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setRemoteLocations
 */
 type SetRemoteLocationsResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

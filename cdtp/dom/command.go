@@ -24,7 +24,8 @@ type CollectClassNamesFromSubtreeResult struct {
 	// Class name list.
 	ClassNames []string `json:"classNames"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -53,7 +54,8 @@ type CopyToResult struct {
 	// ID of the new cloned node.
 	NodeID NodeID `json:"nodeId"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -90,7 +92,8 @@ type DescribeNodeResult struct {
 	// ID of the new cloned node.
 	NodeID NodeID `json:"nodeId"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -99,7 +102,8 @@ DisableResult represents the result of calls to DOM.disable.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-disable
 */
 type DisableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -118,7 +122,8 @@ DiscardSearchResultsResult represents the result of calls to DOM.discardSearchRe
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-discardSearchResults
 */
 type DiscardSearchResultsResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -127,7 +132,8 @@ EnableResult represents the result of calls to DOM.enable.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-enable
 */
 type EnableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -152,7 +158,8 @@ FocusResult represents the result of calls to DOM.focus.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-focus
 */
 type FocusResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -174,7 +181,8 @@ type GetAttributesResult struct {
 	// An interleaved array of node attribute names and values.
 	Attributes []string `json:"attributes"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -202,7 +210,8 @@ type GetBoxModelResult struct {
 	// Box model for the node.
 	Model *BoxModel `json:"model"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -230,7 +239,8 @@ type GetDocumentResult struct {
 	// Resulting node.
 	Root *Node `json:"root"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -258,7 +268,8 @@ type GetFlattenedDocumentResult struct {
 	// Resulting nodes.
 	Nodes []*Node `json:"nodes"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -287,7 +298,8 @@ type GetNodeForLocationResult struct {
 	// ID of the node at given coordinates.
 	NodeID NodeID `json:"nodeId"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -315,7 +327,8 @@ type GetOuterHTMLResult struct {
 	// Outer HTML markup.
 	OuterHTML string `json:"outerHTML"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -337,7 +350,8 @@ type GetRelayoutBoundaryResult struct {
 	// Relayout boundary node ID for the given node.
 	NodeID NodeID `json:"nodeId"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -365,7 +379,8 @@ type GetSearchResultsResult struct {
 	// IDs of the search result nodes.
 	NodeIDs []NodeID `json:"nodeIds"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -374,7 +389,8 @@ MarkUndoableStateResult represents the result of calls to DOM.markUndoableState.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-markUndoableState
 */
 type MarkUndoableStateResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -403,7 +419,8 @@ type MoveToResult struct {
 	// New ID of the moved node.
 	NodeID NodeID `json:"nodeId"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -431,7 +448,8 @@ type PerformSearchResult struct {
 	// Number of search results.
 	ResultCount int `json:"resultCount"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -453,7 +471,8 @@ type PushNodeByPathToFrontendResult struct {
 	// ID of the node for given path.
 	NodeID NodeID `json:"nodeId"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -477,7 +496,8 @@ type PushNodesByBackendIDsToFrontendResult struct {
 	// specified in backendNodeIDs.
 	NodeIDs []NodeID `json:"nodeIds"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -502,7 +522,8 @@ type QuerySelectorResult struct {
 	// Query selector result.
 	NodeID NodeID `json:"nodeId"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -527,7 +548,8 @@ type QuerySelectorAllResult struct {
 	// Query selector result.
 	NodeIDs []NodeID `json:"nodeIds"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -536,7 +558,8 @@ RedoResult represents the result of calls to DOM.redo.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-redo
 */
 type RedoResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -558,7 +581,8 @@ RemoveAttributeResult represents the result of calls to DOM.removeAttribute.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-removeAttribute
 */
 type RemoveAttributeResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -577,7 +601,8 @@ RemoveNodeResult represents the result of calls to DOM.removeNode.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-removeNode
 */
 type RemoveNodeResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -605,7 +630,8 @@ RequestChildNodesResult represents the result of calls to DOM.requestChildNodes.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-requestChildNodes
 */
 type RequestChildNodesResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -627,7 +653,8 @@ type RequestNodeResult struct {
 	// Node ID for given object.
 	NodeID NodeID `json:"nodeId"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -656,7 +683,8 @@ type ResolveNodeResult struct {
 	// JavaScript object wrapper for given node.
 	Object *runtime.RemoteObject `json:"object"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -681,7 +709,8 @@ SetAttributeValueResult represents the result of calls to DOM.setAttributeValue.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setAttributeValue
 */
 type SetAttributeValueResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -707,7 +736,8 @@ SetAttributesAsTextResult represents the result of calls to DOM.setAttributesAsT
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setAttributesAsText
 */
 type SetAttributesAsTextResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -735,7 +765,8 @@ SetFileInputFilesResult represents the result of calls to DOM.setFileInputFiles.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setFileInputFiles
 */
 type SetFileInputFilesResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -754,7 +785,8 @@ SetInspectedNodeResult represents the result of calls to DOM.setInspectedNode.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setInspectedNode
 */
 type SetInspectedNodeResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -779,7 +811,8 @@ type SetNodeNameResult struct {
 	// New node's ID.
 	NodeID NodeID `json:"nodeId"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -801,7 +834,8 @@ SetNodeValueResult represents the result of calls to DOM.setNodeValue.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setNodeValue
 */
 type SetNodeValueResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -823,7 +857,8 @@ SetOuterHTMLResult represents the result of calls to DOM.setOuterHTML.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setOuterHTML
 */
 type SetOuterHTMLResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -832,5 +867,6 @@ UndoResult represents the result of calls to DOM.undo.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-undo
 */
 type UndoResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

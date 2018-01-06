@@ -28,7 +28,7 @@ func (protocol *DeviceOrientationProtocol) ClearOverride() chan *deviceOrientati
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -51,7 +51,7 @@ func (protocol *DeviceOrientationProtocol) SetOverride(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()

@@ -6,7 +6,8 @@ DisableResult represents the result of calls to Security.disable.
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-disable
 */
 type DisableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -15,7 +16,8 @@ EnableResult represents the result of calls to Security.enable.
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-enable
 */
 type EnableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -37,7 +39,8 @@ HandleCertificateErrorResult represents the result of calls to Security.handleCe
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-handleCertificateError
 */
 type HandleCertificateErrorResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -57,7 +60,8 @@ Security.setIgnoreCertificateErrors.
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setIgnoreCertificateErrors
 */
 type SetIgnoreCertificateErrorsResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -77,5 +81,6 @@ Security.setOverrideCertificateErrors.
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setOverrideCertificateErrors
 */
 type SetOverrideCertificateErrorsResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

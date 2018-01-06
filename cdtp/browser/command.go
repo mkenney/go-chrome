@@ -10,7 +10,8 @@ CloseResult represents the result of calls to Browser.close.
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-close
 */
 type CloseResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -34,7 +35,8 @@ type GetVersionResult struct {
 	// V8 version.
 	JSVersion string `json:"jsVersion"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -57,7 +59,8 @@ type GetWindowBoundsResult struct {
 	// restored window position and size are returned.
 	Bounds *Bounds `json:"bounds"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -83,7 +86,8 @@ type GetWindowForTargetResult struct {
 	// restored window position and size are returned.
 	Bounds *Bounds `json:"bounds"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -115,5 +119,6 @@ type SetWindowBoundsResult struct {
 	// unspecified fields unchanged.
 	Bounds *Bounds `json:"bounds"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

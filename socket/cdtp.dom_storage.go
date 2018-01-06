@@ -32,7 +32,7 @@ func (protocol *DOMStorageProtocol) Clear(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -54,7 +54,7 @@ func (protocol *DOMStorageProtocol) Disable() chan *domStorage.DisableResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -76,7 +76,7 @@ func (protocol *DOMStorageProtocol) Enable() chan *domStorage.EnableResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -99,9 +99,9 @@ func (protocol *DOMStorageProtocol) GetItems(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -124,7 +124,7 @@ func (protocol *DOMStorageProtocol) RemoveItem(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -147,7 +147,7 @@ func (protocol *DOMStorageProtocol) SetItem(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -168,7 +168,7 @@ func (protocol *DOMStorageProtocol) OnItemAdded(
 		"DOMStorage.domStorageItemAdded",
 		func(response *Response) {
 			event := &domStorage.ItemAddedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -191,7 +191,7 @@ func (protocol *DOMStorageProtocol) OnItemRemoved(
 		"DOMStorage.domStorageItemRemoved",
 		func(response *Response) {
 			event := &domStorage.ItemRemovedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -214,7 +214,7 @@ func (protocol *DOMStorageProtocol) OnItemUpdated(
 		"DOMStorage.domStorageItemUpdated",
 		func(response *Response) {
 			event := &domStorage.ItemUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -237,7 +237,7 @@ func (protocol *DOMStorageProtocol) OnItemsCleared(
 		"DOMStorage.domStorageItemsCleared",
 		func(response *Response) {
 			event := &domStorage.ItemsClearedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

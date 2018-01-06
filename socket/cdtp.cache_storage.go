@@ -31,7 +31,7 @@ func (protocol *CacheStorageProtocol) DeleteCache(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -54,7 +54,7 @@ func (protocol *CacheStorageProtocol) DeleteEntry(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -77,9 +77,9 @@ func (protocol *CacheStorageProtocol) RequestCacheNames(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -102,9 +102,9 @@ func (protocol *CacheStorageProtocol) RequestCachedResponse(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -127,9 +127,9 @@ func (protocol *CacheStorageProtocol) RequestEntries(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()

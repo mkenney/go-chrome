@@ -66,7 +66,8 @@ DispatchKeyEventResult represents the result of calls to Input.dispatchKeyEvent.
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchKeyEvent
 */
 type DispatchKeyEventResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -120,7 +121,8 @@ DispatchMouseEventResult represents the result of calls to Input.dispatchMouseEv
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchMouseEvent
 */
 type DispatchMouseEventResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -157,7 +159,8 @@ DispatchTouchEventResult represents the result of calls to Input.dispatchTouchEv
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchTouchEvent
 */
 type DispatchTouchEventResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -208,7 +211,8 @@ Input.emulateTouchFromMouseEvent.
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-emulateTouchFromMouseEvent
 */
 type EmulateTouchFromMouseEventResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -227,7 +231,8 @@ SetIgnoreEventsResult represents the result of calls to Input.setIgnoreEvents.
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-setIgnoreEvents
 */
 type SetIgnoreEventsResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -259,7 +264,8 @@ SynthesizePinchGestureResult represents the result of calls to Input.synthesizeP
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-synthesizePinchGesture
 */
 type SynthesizePinchGestureResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -317,7 +323,8 @@ SynthesizeScrollGestureResult represents the result of calls to Input.Synthesize
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-SynthesizeScrollGesture
 */
 type SynthesizeScrollGestureResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -351,5 +358,6 @@ SynthesizeTapGestureResult represents the result of calls to Input.SynthesizeTap
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-SynthesizeTapGesture
 */
 type SynthesizeTapGestureResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

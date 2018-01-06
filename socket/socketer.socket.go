@@ -247,11 +247,19 @@ func (socket *Socket) Listen() error {
 		}
 
 		if response.ID > 0 {
-			log.Debugf("socket #%d - socket.Listen(): Response ID #%d, sending to command handler", socket.socketID, response.ID)
+			log.Debugf(
+				"socket #%d - socket.Listen(): Response ID #%d, sending to command handler",
+				socket.socketID,
+				response.ID,
+			)
 			socket.HandleCommand(response)
 
 		} else if "" != response.Method {
-			log.Debugf("socket #%d - socket.Listen(): Response method %s, sending to event handler", socket.socketID, response.Method)
+			log.Debugf(
+				"socket #%d - socket.Listen(): Response method %s, sending to event handler",
+				socket.socketID,
+				response.Method,
+			)
 			socket.HandleEvent(response)
 
 		} else {

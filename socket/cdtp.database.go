@@ -30,7 +30,7 @@ func (protocol *DatabaseProtocol) Disable() chan *database.DisableResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -52,7 +52,7 @@ func (protocol *DatabaseProtocol) Enable() chan *database.EnableResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -75,9 +75,9 @@ func (protocol *DatabaseProtocol) ExecuteSQL(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -100,9 +100,9 @@ func (protocol *DatabaseProtocol) GetTableNames(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -123,7 +123,7 @@ func (protocol *DatabaseProtocol) OnAdd(
 		"Database.addDatabase",
 		func(response *Response) {
 			event := &database.AddEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

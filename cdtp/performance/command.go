@@ -6,7 +6,8 @@ DisableResult represents the result of calls to Performance.disable.
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-disable
 */
 type DisableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -15,7 +16,8 @@ EnableResult represents the result of calls to Performance.enable.
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-enable
 */
 type EnableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -27,5 +29,6 @@ type GetMetricsResult struct {
 	// Current values for run-time metrics.
 	Metrics []*Metric `json:"metrics"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

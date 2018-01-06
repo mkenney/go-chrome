@@ -34,7 +34,7 @@ func (protocol *ServiceWorkerProtocol) DeliverPushMessage(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -56,7 +56,7 @@ func (protocol *ServiceWorkerProtocol) Disable() chan *serviceWorker.DisableResu
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -80,7 +80,7 @@ func (protocol *ServiceWorkerProtocol) DispatchSyncEvent(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -102,7 +102,7 @@ func (protocol *ServiceWorkerProtocol) Enable() chan *serviceWorker.EnableResult
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -126,7 +126,7 @@ func (protocol *ServiceWorkerProtocol) InspectWorker(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -150,7 +150,7 @@ func (protocol *ServiceWorkerProtocol) SetForceUpdateOnPageLoad(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -174,7 +174,7 @@ func (protocol *ServiceWorkerProtocol) SkipWaiting(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -198,7 +198,7 @@ func (protocol *ServiceWorkerProtocol) StartWorker(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -220,7 +220,7 @@ func (protocol *ServiceWorkerProtocol) StopAllWorkers() chan *serviceWorker.Stop
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -244,7 +244,7 @@ func (protocol *ServiceWorkerProtocol) StopWorker(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -268,7 +268,7 @@ func (protocol *ServiceWorkerProtocol) Unregister(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -292,7 +292,7 @@ func (protocol *ServiceWorkerProtocol) UpdateRegistration(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -313,7 +313,7 @@ func (protocol *ServiceWorkerProtocol) OnWorkerErrorReported(
 		"ServiceWorker.workerErrorReported",
 		func(response *Response) {
 			event := &serviceWorker.WorkerErrorReportedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -336,7 +336,7 @@ func (protocol *ServiceWorkerProtocol) OnWorkerRegistrationUpdated(
 		"ServiceWorker.workerRegistrationUpdated",
 		func(response *Response) {
 			event := &serviceWorker.WorkerRegistrationUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -359,7 +359,7 @@ func (protocol *ServiceWorkerProtocol) OnWorkerVersionUpdated(
 		"ServiceWorker.workerVersionUpdated",
 		func(response *Response) {
 			event := &serviceWorker.WorkerVersionUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

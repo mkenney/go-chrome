@@ -42,9 +42,9 @@ func (protocol *DOMProtocol) CollectClassNamesFromSubtree(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -68,9 +68,9 @@ func (protocol *DOMProtocol) CopyTo(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -94,9 +94,9 @@ func (protocol *DOMProtocol) DescribeNode(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -117,7 +117,7 @@ func (protocol *DOMProtocol) Disable() chan *dom.DisableResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -142,7 +142,7 @@ func (protocol *DOMProtocol) DiscardSearchResults(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -163,7 +163,7 @@ func (protocol *DOMProtocol) Enable() chan *dom.EnableResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -186,7 +186,7 @@ func (protocol *DOMProtocol) Focus(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -209,9 +209,9 @@ func (protocol *DOMProtocol) GetAttributes(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -234,9 +234,9 @@ func (protocol *DOMProtocol) GetBoxModel(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -260,9 +260,9 @@ func (protocol *DOMProtocol) GetDocument(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -286,9 +286,9 @@ func (protocol *DOMProtocol) GetFlattenedDocument(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -311,9 +311,9 @@ func (protocol *DOMProtocol) GetNodeForLocation(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -336,9 +336,9 @@ func (protocol *DOMProtocol) GetOuterHTML(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -362,9 +362,9 @@ func (protocol *DOMProtocol) GetRelayoutBoundary(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -389,9 +389,9 @@ func (protocol *DOMProtocol) GetSearchResults(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -413,7 +413,7 @@ func (protocol *DOMProtocol) MarkUndoableState() chan *dom.MarkUndoableStateResu
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -436,9 +436,9 @@ func (protocol *DOMProtocol) MoveTo(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -463,9 +463,9 @@ func (protocol *DOMProtocol) PerformSearch(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -490,9 +490,9 @@ func (protocol *DOMProtocol) PushNodeByPathToFrontend(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -517,9 +517,9 @@ func (protocol *DOMProtocol) PushNodesByBackendIDsToFrontend(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -542,9 +542,9 @@ func (protocol *DOMProtocol) QuerySelector(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -567,9 +567,9 @@ func (protocol *DOMProtocol) QuerySelectorAll(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -590,7 +590,7 @@ func (protocol *DOMProtocol) Redo() chan *dom.RedoResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -613,7 +613,7 @@ func (protocol *DOMProtocol) RemoveAttribute(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -636,7 +636,7 @@ func (protocol *DOMProtocol) RemoveNode(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -661,7 +661,7 @@ func (protocol *DOMProtocol) RequestChildNodes(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -686,9 +686,9 @@ func (protocol *DOMProtocol) RequestNode(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -712,9 +712,9 @@ func (protocol *DOMProtocol) ResolveNode(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -737,7 +737,7 @@ func (protocol *DOMProtocol) SetAttributeValue(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -762,7 +762,7 @@ func (protocol *DOMProtocol) SetAttributesAsText(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -785,7 +785,7 @@ func (protocol *DOMProtocol) SetFileInputFiles(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -809,7 +809,7 @@ func (protocol *DOMProtocol) SetInspectedNode(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -832,9 +832,9 @@ func (protocol *DOMProtocol) SetNodeName(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -857,7 +857,7 @@ func (protocol *DOMProtocol) SetNodeValue(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -880,7 +880,7 @@ func (protocol *DOMProtocol) SetOuterHTML(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -902,7 +902,7 @@ func (protocol *DOMProtocol) Undo() chan *dom.UndoResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -923,7 +923,7 @@ func (protocol *DOMProtocol) OnAttributeModified(
 		"DOM.attributeModified",
 		func(response *Response) {
 			event := &dom.AttributeModifiedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -946,7 +946,7 @@ func (protocol *DOMProtocol) OnAttributeRemoved(
 		"DOM.attributeRemoved",
 		func(response *Response) {
 			event := &dom.AttributeRemovedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -969,7 +969,7 @@ func (protocol *DOMProtocol) OnCharacterDataModified(
 		"DOM.characterDataModified",
 		func(response *Response) {
 			event := &dom.CharacterDataModifiedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -992,7 +992,7 @@ func (protocol *DOMProtocol) OnChildNodeCountUpdated(
 		"DOM.childNodeCountUpdated",
 		func(response *Response) {
 			event := &dom.ChildNodeCountUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1015,7 +1015,7 @@ func (protocol *DOMProtocol) OnChildNodeInserted(
 		"DOM.childNodeInserted",
 		func(response *Response) {
 			event := &dom.ChildNodeInsertedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1038,7 +1038,7 @@ func (protocol *DOMProtocol) OnChildNodeRemoved(
 		"DOM.childNodeRemoved",
 		func(response *Response) {
 			event := &dom.ChildNodeRemovedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1062,7 +1062,7 @@ func (protocol *DOMProtocol) OnDistributedNodesUpdated(
 		"DOM.distributedNodesUpdated",
 		func(response *Response) {
 			event := &dom.DistributedNodesUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1086,7 +1086,7 @@ func (protocol *DOMProtocol) OnDocumentUpdated(
 		"DOM.documentUpdated",
 		func(response *Response) {
 			event := &dom.DocumentUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1109,7 +1109,7 @@ func (protocol *DOMProtocol) OnInlineStyleInvalidated(
 		"DOM.inlineStyleInvalidated",
 		func(response *Response) {
 			event := &dom.InlineStyleInvalidatedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1132,7 +1132,7 @@ func (protocol *DOMProtocol) OnPseudoElementAdded(
 		"DOM.pseudoElementAdded",
 		func(response *Response) {
 			event := &dom.PseudoElementAddedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1155,7 +1155,7 @@ func (protocol *DOMProtocol) OnPseudoElementRemoved(
 		"DOM.pseudoElementRemoved",
 		func(response *Response) {
 			event := &dom.PseudoElementRemovedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1179,7 +1179,7 @@ func (protocol *DOMProtocol) OnSetChildNodes(
 		"DOM.setChildNodes",
 		func(response *Response) {
 			event := &dom.SetChildNodesEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1202,7 +1202,7 @@ func (protocol *DOMProtocol) OnShadowRootPopped(
 		"DOM.shadowRootPopped",
 		func(response *Response) {
 			event := &dom.ShadowRootPoppedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1225,7 +1225,7 @@ func (protocol *DOMProtocol) OnShadowRootPushed(
 		"DOM.shadowRootPushed",
 		func(response *Response) {
 			event := &dom.ShadowRootPushedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

@@ -39,6 +39,7 @@ func NewWebsocket(socketURL *url.URL) (WebSocketer, error) {
 /*
 AddMockData implements WebSocketer
 */
-func (sock *ChromeWebSocket) AddMockData(id int, error *Error, method string, data ...interface{}) {
+//func (sock *ChromeWebSocket) AddMockData(id int, error *Error, method string, data ...interface{}) {
+func (socket *ChromeWebSocket) AddMockData(response *Response) {
 	log.Errorf("Attempted to add mock data outside of unit tests")
 }

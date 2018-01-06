@@ -6,7 +6,8 @@ DisableResult represents the result of calls to Profiler.disable.
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-disable
 */
 type DisableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -15,7 +16,8 @@ EnableResult represents the result of calls to Profiler.enable.
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-enable
 */
 type EnableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -27,7 +29,8 @@ type GetBestEffortCoverageResult struct {
 	// Coverage data for the current isolate.
 	Result []*ScriptCoverage `json:"result"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -46,7 +49,8 @@ SetSamplingIntervalResult represents the result of calls to Profiler.setSampling
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-setSamplingInterval
 */
 type SetSamplingIntervalResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -55,7 +59,8 @@ StartResult represents the result of calls to Profiler.start.
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-start
 */
 type StartResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -77,7 +82,8 @@ StartPreciseCoverageResult represents the result of calls to Profiler.startPreci
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-startPreciseCoverage
 */
 type StartPreciseCoverageResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -86,7 +92,8 @@ StartTypeProfileResult represents the result of calls to Profiler.startTypeProfi
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-startTypeProfile
 */
 type StartTypeProfileResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -98,7 +105,8 @@ type StopResult struct {
 	// Recorded profile.
 	Profile *Profile `json:"profile"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -107,7 +115,8 @@ StopPreciseCoverageResult represents the result of calls to Profiler.stopPrecise
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stopPreciseCoverage
 */
 type StopPreciseCoverageResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -116,7 +125,8 @@ StopTypeProfileResult represents the result of calls to Profiler.stopTypeProfile
 https://chromedevtools.github.io/devtools-protocol/tot/Profiler/#method-stopTypeProfile
 */
 type StopTypeProfileResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -128,7 +138,8 @@ type TakePreciseCoverageResult struct {
 	// Coverage data for the current isolate.
 	Result []*ScriptCoverage `json:"result"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -140,5 +151,6 @@ type TakeTypeProfileResult struct {
 	// Type profile for all scripts since startTypeProfile() was turned on.
 	Result []*ScriptTypeProfile `json:"result"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

@@ -13,7 +13,8 @@ type CanClearBrowserCacheResult struct {
 	// True if browser cache can be cleared.
 	Result bool `json:"result"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -25,7 +26,8 @@ type CanClearBrowserCookiesResult struct {
 	// True if browser cookies can be cleared.
 	Result bool `json:"result"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -37,7 +39,8 @@ type CanEmulateConditionsResult struct {
 	// True if emulation of network conditions is supported.
 	Result bool `json:"result"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -46,7 +49,8 @@ ClearBrowserCacheResult represents the result of calls to Network.clearBrowserCa
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-clearBrowserCache
 */
 type ClearBrowserCacheResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -55,7 +59,8 @@ ClearBrowserCookiesResult represents the result of calls to Network.clearBrowser
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-clearBrowserCookies
 */
 type ClearBrowserCookiesResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -105,7 +110,8 @@ Network.continueInterceptedRequest.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-continueInterceptedRequest
 */
 type ContinueInterceptedRequestResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -134,7 +140,8 @@ DeleteCookiesResult represents the result of calls to Network.deleteCookies.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-deleteCookies
 */
 type DeleteCookiesResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -143,7 +150,8 @@ DisableResult represents the result of calls to Network.disable.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-disable
 */
 type DisableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -176,7 +184,8 @@ EmulateConditionsResult represents the result of calls to Network.emulateConditi
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-emulateConditions
 */
 type EmulateConditionsResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -200,7 +209,8 @@ EnableResult represents the result of calls to Network.enable.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-enable
 */
 type EnableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -212,7 +222,8 @@ type GetAllCookiesResult struct {
 	// Array of cookie objects.
 	Cookies []*Cookie `json:"cookies"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -234,7 +245,8 @@ type GetCertificateResult struct {
 	// The list of table names
 	TableNames []string `json:"tableNames"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -256,7 +268,8 @@ type GetCookiesResult struct {
 	// Array of cookie objects.
 	Cookies []*Cookie `json:"cookies"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -281,7 +294,8 @@ type GetResponseBodyResult struct {
 	// True, if content was sent as base64.
 	Base64Encoded bool `json:"base64Encoded"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -307,7 +321,8 @@ type GetResponseBodyForInterceptionResult struct {
 	// True, if content was sent as base64.
 	Base64Encoded bool `json:"base64Encoded"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -326,7 +341,8 @@ ReplayXHRResult represents the result of calls to Network.replayXHR.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-replayXHR
 */
 type ReplayXHRResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -357,7 +373,8 @@ type SearchInResponseBodyResult struct {
 	// List of search matches.
 	Result []*debugger.SearchMatch `json:"result"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -376,7 +393,8 @@ SetBlockedURLsResult represents the result of calls to Network.setBlockedURLs.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setBlockedURLs
 */
 type SetBlockedURLsResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -395,7 +413,8 @@ SetBypassServiceWorkerResult represents the result of calls to Network.setBypass
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setBypassServiceWorker
 */
 type SetBypassServiceWorkerResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -414,7 +433,8 @@ SetCacheDisabledResult represents the result of calls to Network.setCacheDisable
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCacheDisabled
 */
 type SetCacheDisabledResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -462,7 +482,8 @@ type SetCookieResult struct {
 	// True if successfully set cookie.
 	Success bool `json:"success"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -481,7 +502,8 @@ SetCookiesResult represents the result of calls to Network.setCookies.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCookies
 */
 type SetCookiesResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -504,7 +526,8 @@ Network.setDataSizeLimitsForTest.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setDataSizeLimitsForTest
 */
 type SetDataSizeLimitsForTestResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -523,7 +546,8 @@ SetExtraHTTPHeadersResult represents the result of calls to Network.setExtraHTTP
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setExtraHTTPHeaders
 */
 type SetExtraHTTPHeadersResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -543,7 +567,8 @@ SetRequestInterceptionResult represents the result of calls to Network.setReques
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setRequestInterception
 */
 type SetRequestInterceptionResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -562,5 +587,6 @@ SetUserAgentOverrideResult represents the result of calls to Network.setUserAgen
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setUserAgentOverride
 */
 type SetUserAgentOverrideResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

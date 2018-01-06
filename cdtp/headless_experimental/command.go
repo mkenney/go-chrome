@@ -44,7 +44,8 @@ type BeginFrameResult struct {
 	// successfully taken.
 	ScreenshotData string `json:"screenshotData"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -53,7 +54,8 @@ DisableResult represents the result of calls to HeadlessExperimental.disable.
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-disable
 */
 type DisableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -62,5 +64,6 @@ EnableResult represents the result of calls to HeadlessExperimental.enable.
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-enable
 */
 type EnableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

@@ -12,7 +12,8 @@ DisableResult represents the result of calls to Overlay.disable.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-disable
 */
 type DisableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -21,7 +22,8 @@ EnableResult represents the result of calls to Overlay.enable.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-enable
 */
 type EnableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -43,7 +45,8 @@ type GetHighlightObjectForTestResult struct {
 	// Highlight data for the node.
 	Highlight map[string]string `json:"highlight"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -52,7 +55,8 @@ HideHighlightResult represents the result of calls to Overlay.hideHighlight.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-hideHighlight
 */
 type HideHighlightResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -77,7 +81,8 @@ HighlightFrameResult represents the result of calls to Overlay.highlightFrame.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightFrame
 */
 type HighlightFrameResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -105,7 +110,8 @@ HighlightNodeResult represents the result of calls to Overlay.highlightNode.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightNode
 */
 type HighlightNodeResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -130,7 +136,8 @@ HighlightQuadResult represents the result of calls to Overlay.highlightQuad.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightQuad
 */
 type HighlightQuadResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -164,7 +171,8 @@ HighlightRectResult represents the result of calls to Overlay.highlightRect.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlightRect
 */
 type HighlightRectResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -187,7 +195,8 @@ SetInspectModeResult represents the result of calls to Overlay.setInspectMode.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setInspectMode
 */
 type SetInspectModeResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -209,7 +218,8 @@ Overlay.setPausedInDebuggerMessage.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setPausedInDebuggerMessage
 */
 type SetPausedInDebuggerMessageResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -228,7 +238,8 @@ SetShowDebugBordersResult represents the result of calls to Overlay.setShowDebug
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowDebugBorders
 */
 type SetShowDebugBordersResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -247,7 +258,8 @@ SetShowFPSCounterResult represents the result of calls to Overlay.setShowFPSCoun
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowFPSCounter
 */
 type SetShowFPSCounterResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -266,7 +278,8 @@ SetShowPaintRectsResult represents the result of calls to Overlay.setShowPaintRe
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowPaintRects
 */
 type SetShowPaintRectsResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -286,7 +299,8 @@ Overlay.SetShowScrollBottleneckRects.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-SetShowScrollBottleneckRects
 */
 type SetShowScrollBottleneckRectsResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -306,7 +320,8 @@ Overlay.SetShowViewportSizeOnResize.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-SetShowViewportSizeOnResize
 */
 type SetShowViewportSizeOnResizeResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -326,5 +341,6 @@ SetSuspendedResult represents the result of calls to Overlay.setSuspended.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setSuspended
 */
 type SetSuspendedResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

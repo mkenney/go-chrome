@@ -6,7 +6,8 @@ EndResult represents the result of calls to Tracing.end.
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-end
 */
 type EndResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -18,7 +19,8 @@ type GetCategoriesResult struct {
 	// A list of supported tracing categories.
 	Categories []string `json:"categories"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -37,7 +39,8 @@ RecordClockSyncMarkerResult represents the result of calls to Tracing.recordCloc
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-recordClockSyncMarker
 */
 type RecordClockSyncMarkerResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -52,7 +55,8 @@ type RequestMemoryDumpResult struct {
 	// True if the global memory dump succeeded.
 	Success bool `json:"success"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -89,5 +93,6 @@ StartResult represents the result of calls to Tracing.start.
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-start
 */
 type StartResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

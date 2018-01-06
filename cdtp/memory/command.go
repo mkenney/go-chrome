@@ -17,7 +17,8 @@ GetDOMCountersResult represents the result of calls to Memory.getDOMCounters.
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-getDOMCounters
 */
 type GetDOMCountersResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -26,7 +27,8 @@ PrepareForLeakDetectionResult represents the result of calls to Memory.prepareFo
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-prepareForLeakDetection
 */
 type PrepareForLeakDetectionResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -47,7 +49,8 @@ Memory.setPressureNotificationsSuppressed.
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-setPressureNotificationsSuppressed
 */
 type SetPressureNotificationsSuppressedResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -67,5 +70,6 @@ Memory.simulatePressureNotification.
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-simulatePressureNotification
 */
 type SimulatePressureNotificationResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

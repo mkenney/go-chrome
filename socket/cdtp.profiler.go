@@ -29,7 +29,7 @@ func (protocol *ProfilerProtocol) Disable() chan *profiler.DisableResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -50,7 +50,7 @@ func (protocol *ProfilerProtocol) Enable() chan *profiler.EnableResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -72,9 +72,9 @@ func (protocol *ProfilerProtocol) GetBestEffortCoverage() chan *profiler.GetBest
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -98,7 +98,7 @@ func (protocol *ProfilerProtocol) SetSamplingInterval(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -119,7 +119,7 @@ func (protocol *ProfilerProtocol) Start() chan *profiler.StartResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -144,7 +144,7 @@ func (protocol *ProfilerProtocol) StartPreciseCoverage(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -166,7 +166,7 @@ func (protocol *ProfilerProtocol) StartTypeProfile() chan *profiler.StartTypePro
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -187,9 +187,9 @@ func (protocol *ProfilerProtocol) Stop() chan *profiler.StopResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -211,7 +211,7 @@ func (protocol *ProfilerProtocol) StopPreciseCoverage() chan *profiler.StopPreci
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -234,7 +234,7 @@ func (protocol *ProfilerProtocol) StopTypeProfile() chan *profiler.StopTypeProfi
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -256,9 +256,9 @@ func (protocol *ProfilerProtocol) TakePreciseCoverage() chan *profiler.TakePreci
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -280,9 +280,9 @@ func (protocol *ProfilerProtocol) TakeTypeProfile() chan *profiler.TakeTypeProfi
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -303,7 +303,7 @@ func (protocol *ProfilerProtocol) OnConsoleProfileFinished(
 		"Profiler.consoleProfileFinished",
 		func(response *Response) {
 			event := &profiler.ConsoleProfileFinishedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -327,7 +327,7 @@ func (protocol *ProfilerProtocol) OnConsoleProfileStarted(
 		"Profiler.consoleProfileStarted",
 		func(response *Response) {
 			event := &profiler.ConsoleProfileStartedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

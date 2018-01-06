@@ -34,7 +34,8 @@ type GetEventListenersResult struct {
 	// Array of relevant listeners.
 	Listeners []*EventListener `json:"listeners"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -56,7 +57,8 @@ RemoveDOMBreakpointResult represents the result of calls to DOMDebugger.removeDO
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeDOMBreakpoint
 */
 type RemoveDOMBreakpointResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -80,7 +82,8 @@ DOMDebugger.removeEventListenerBreakpoint.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeEventListenerBreakpoint
 */
 type RemoveEventListenerBreakpointResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -101,7 +104,8 @@ DOMDebugger.removeInstrumentationBreakpoint.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeInstrumentationBreakpoint
 */
 type RemoveInstrumentationBreakpointResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -120,7 +124,8 @@ RemoveXHRBreakpointResult represents the result of calls to DOMDebugger.removeXH
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeXHRBreakpoint
 */
 type RemoveXHRBreakpointResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -142,7 +147,8 @@ SetDOMBreakpointResult represents the result of calls to DOMDebugger.setDOMBreak
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setDOMBreakpoint
 */
 type SetDOMBreakpointResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -167,7 +173,8 @@ DOMDebugger.setEventListenerBreakpoint.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setEventListenerBreakpoint
 */
 type SetEventListenerBreakpointResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -188,7 +195,8 @@ DOMDebugger.setInstrumentationBreakpoint.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setInstrumentationBreakpoint
 */
 type SetInstrumentationBreakpointResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -208,5 +216,6 @@ SetXHRBreakpointResult represents the result of calls to DOMDebugger.setXHRBreak
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setXHRBreakpoint
 */
 type SetXHRBreakpointResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

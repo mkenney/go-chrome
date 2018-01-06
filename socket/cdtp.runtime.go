@@ -37,9 +37,9 @@ func (protocol *RuntimeProtocol) AwaitPromise(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -63,9 +63,9 @@ func (protocol *RuntimeProtocol) CallFunctionOn(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -88,9 +88,9 @@ func (protocol *RuntimeProtocol) CompileScript(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -111,7 +111,7 @@ func (protocol *RuntimeProtocol) Disable() chan *runtime.DisableResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -132,7 +132,7 @@ func (protocol *RuntimeProtocol) DiscardConsoleEntries() chan *runtime.DiscardCo
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -155,7 +155,7 @@ func (protocol *RuntimeProtocol) Enable() chan *runtime.EnableResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -178,9 +178,9 @@ func (protocol *RuntimeProtocol) Evaluate(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -204,9 +204,9 @@ func (protocol *RuntimeProtocol) GetProperties(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -230,9 +230,9 @@ func (protocol *RuntimeProtocol) GlobalLexicalScopeNames(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -255,9 +255,9 @@ func (protocol *RuntimeProtocol) QueryObjects(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -280,7 +280,7 @@ func (protocol *RuntimeProtocol) ReleaseObject(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -303,7 +303,7 @@ func (protocol *RuntimeProtocol) ReleaseObjectGroup(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -325,7 +325,7 @@ func (protocol *RuntimeProtocol) RunIfWaitingForDebugger() chan *runtime.RunIfWa
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -348,9 +348,9 @@ func (protocol *RuntimeProtocol) RunScript(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -374,7 +374,7 @@ func (protocol *RuntimeProtocol) SetCustomObjectFormatterEnabled(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -395,7 +395,7 @@ func (protocol *RuntimeProtocol) OnConsoleAPICalled(
 		"Runtime.consoleAPICalled",
 		func(response *Response) {
 			event := &runtime.ConsoleAPICalledEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -418,7 +418,7 @@ func (protocol *RuntimeProtocol) OnExceptionRevoked(
 		"Runtime.exceptionRevoked",
 		func(response *Response) {
 			event := &runtime.ExceptionRevokedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -441,7 +441,7 @@ func (protocol *RuntimeProtocol) OnExceptionThrown(
 		"Runtime.exceptionThrown",
 		func(response *Response) {
 			event := &runtime.ExceptionThrownEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -465,7 +465,7 @@ func (protocol *RuntimeProtocol) OnExecutionContextCreated(
 		"Runtime.executionContextCreated",
 		func(response *Response) {
 			event := &runtime.ExecutionContextCreatedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -489,7 +489,7 @@ func (protocol *RuntimeProtocol) OnExecutionContextDestroyed(
 		"Runtime.executionContextDestroyed",
 		func(response *Response) {
 			event := &runtime.ExecutionContextDestroyedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -513,7 +513,7 @@ func (protocol *RuntimeProtocol) OnExecutionContextsCleared(
 		"Runtime.executionContextsCleared",
 		func(response *Response) {
 			event := &runtime.ExecutionContextsClearedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -537,7 +537,7 @@ func (protocol *RuntimeProtocol) OnInspectRequested(
 		"Runtime.inspectRequested",
 		func(response *Response) {
 			event := &runtime.InspectRequestedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

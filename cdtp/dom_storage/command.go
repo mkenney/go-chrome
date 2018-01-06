@@ -15,7 +15,8 @@ ClearResult represents the result of calls to DOMStorage.clear.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-clear
 */
 type ClearResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -24,7 +25,8 @@ DisableResult represents the result of calls to DOMStorage.disable.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-disable
 */
 type DisableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -33,7 +35,8 @@ EnableResult represents the result of calls to DOMStorage.enable.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-enable
 */
 type EnableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -53,7 +56,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-getDOM
 type GetItemsResult struct {
 	Entries []Item `json:"entries"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -72,7 +76,8 @@ RemoveItemResult represents the result of calls to DOMStorage.removeItem.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-removeItem
 */
 type RemoveItemResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -92,5 +97,6 @@ SetItemResult represents the result of calls to DOMStorage.setItem.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-setItem
 */
 type SetItemResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

@@ -28,5 +28,6 @@ type PartialAXTreeResult struct {
 	// ancestors, siblings and children, if requested.
 	Nodes []*AXNode `json:"nodes"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

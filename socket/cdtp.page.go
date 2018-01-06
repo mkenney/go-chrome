@@ -35,9 +35,9 @@ func (protocol *PageProtocol) AddScriptToEvaluateOnLoad(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -61,9 +61,9 @@ func (protocol *PageProtocol) AddScriptToEvaluateOnNewDocument(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -84,7 +84,7 @@ func (protocol *PageProtocol) BringToFront() chan *page.BringToFrontResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -107,9 +107,9 @@ func (protocol *PageProtocol) CaptureScreenshot(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -132,9 +132,9 @@ func (protocol *PageProtocol) CreateIsolatedWorld(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -155,7 +155,7 @@ func (protocol *PageProtocol) Disable() chan *page.DisableResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -176,7 +176,7 @@ func (protocol *PageProtocol) Enable() chan *page.EnableResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -199,7 +199,7 @@ func (protocol *PageProtocol) GetAppManifest(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -220,9 +220,9 @@ func (protocol *PageProtocol) GetFrameTree() chan *page.GetFrameTreeResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -244,9 +244,9 @@ func (protocol *PageProtocol) GetLayoutMetrics() chan *page.GetLayoutMetricsResu
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -267,9 +267,9 @@ func (protocol *PageProtocol) GetNavigationHistory() chan *page.GetNavigationHis
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -293,9 +293,9 @@ func (protocol *PageProtocol) GetResourceContent(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -317,9 +317,9 @@ func (protocol *PageProtocol) GetResourceTree() chan *page.GetResourceTreeResult
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -343,7 +343,7 @@ func (protocol *PageProtocol) HandleJavaScriptDialog(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -366,9 +366,9 @@ func (protocol *PageProtocol) Navigate(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -391,7 +391,7 @@ func (protocol *PageProtocol) NavigateToHistoryEntry(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -414,9 +414,9 @@ func (protocol *PageProtocol) PrintToPDF(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -439,7 +439,7 @@ func (protocol *PageProtocol) Reload(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -464,7 +464,7 @@ func (protocol *PageProtocol) RemoveScriptToEvaluateOnLoad(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -487,7 +487,7 @@ func (protocol *PageProtocol) RemoveScriptToEvaluateOnNewDocument(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -508,7 +508,7 @@ func (protocol *PageProtocol) RequestAppBanner() chan *page.RequestAppBannerResu
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -532,7 +532,7 @@ func (protocol *PageProtocol) ScreencastFrameAck(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -556,9 +556,9 @@ func (protocol *PageProtocol) SearchInResource(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -582,7 +582,7 @@ func (protocol *PageProtocol) SetAdBlockingEnabled(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -607,7 +607,7 @@ func (protocol *PageProtocol) SetAutoAttachToCreatedPages(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -630,7 +630,7 @@ func (protocol *PageProtocol) SetDocumentContent(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -654,7 +654,7 @@ func (protocol *PageProtocol) SetDownloadBehavior(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -678,7 +678,7 @@ func (protocol *PageProtocol) SetLifecycleEventsEnabled(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -702,7 +702,7 @@ func (protocol *PageProtocol) StartScreencast(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -723,7 +723,7 @@ func (protocol *PageProtocol) StopLoading() chan *page.StopLoadingResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -745,7 +745,7 @@ func (protocol *PageProtocol) StopScreencast() chan *page.StopScreencastResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -766,7 +766,7 @@ func (protocol *PageProtocol) OnDOMContentEventFired(
 		"Page.domContentEventFired",
 		func(response *Response) {
 			event := &page.DOMContentEventFiredEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -789,7 +789,7 @@ func (protocol *PageProtocol) OnFrameAttached(
 		"Page.frameAttached",
 		func(response *Response) {
 			event := &page.FrameAttachedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -814,7 +814,7 @@ func (protocol *PageProtocol) OnFrameClearedScheduledNavigation(
 		"Page.frameClearedScheduledNavigation",
 		func(response *Response) {
 			event := &page.FrameClearedScheduledNavigationEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -837,7 +837,7 @@ func (protocol *PageProtocol) OnFrameDetached(
 		"Page.frameDetached",
 		func(response *Response) {
 			event := &page.FrameDetachedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -861,7 +861,7 @@ func (protocol *PageProtocol) OnFrameNavigated(
 		"Page.frameNavigated",
 		func(response *Response) {
 			event := &page.FrameNavigatedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -885,7 +885,7 @@ func (protocol *PageProtocol) OnFrameResized(
 		"Page.frameResized",
 		func(response *Response) {
 			event := &page.FrameResizedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -910,7 +910,7 @@ func (protocol *PageProtocol) OnFrameScheduledNavigation(
 		"Page.frameScheduledNavigation",
 		func(response *Response) {
 			event := &page.FrameScheduledNavigationEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -934,7 +934,7 @@ func (protocol *PageProtocol) OnFrameStartedLoading(
 		"Page.frameStartedLoading",
 		func(response *Response) {
 			event := &page.FrameStartedLoadingEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -958,7 +958,7 @@ func (protocol *PageProtocol) OnFrameStoppedLoading(
 		"Page.frameStoppedLoading",
 		func(response *Response) {
 			event := &page.FrameStoppedLoadingEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -981,7 +981,7 @@ func (protocol *PageProtocol) OnInterstitialHidden(
 		"Page.interstitialHidden",
 		func(response *Response) {
 			event := &page.InterstitialHiddenEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1004,7 +1004,7 @@ func (protocol *PageProtocol) OnInterstitialShown(
 		"Page.interstitialShown",
 		func(response *Response) {
 			event := &page.InterstitialShownEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1028,7 +1028,7 @@ func (protocol *PageProtocol) OnJavascriptDialogClosed(
 		"Page.javascriptDialogClosed",
 		func(response *Response) {
 			event := &page.JavascriptDialogClosedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1052,7 +1052,7 @@ func (protocol *PageProtocol) OnJavascriptDialogOpening(
 		"Page.javascriptDialogOpening",
 		func(response *Response) {
 			event := &page.JavascriptDialogOpeningEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1075,7 +1075,7 @@ func (protocol *PageProtocol) OnLifecycleEvent(
 		"Page.lifecycleEvent",
 		func(response *Response) {
 			event := &page.LifecycleEventEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1098,7 +1098,7 @@ func (protocol *PageProtocol) OnLoadEventFired(
 		"Page.loadEventFired",
 		func(response *Response) {
 			event := &page.LoadEventFiredEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1122,7 +1122,7 @@ func (protocol *PageProtocol) OnScreencastFrame(
 		"Page.screencastFrame",
 		func(response *Response) {
 			event := &page.ScreencastFrameEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1147,7 +1147,7 @@ func (protocol *PageProtocol) OnScreencastVisibilityChanged(
 		"Page.screencastVisibilityChanged",
 		func(response *Response) {
 			event := &page.ScreencastVisibilityChangedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1171,7 +1171,7 @@ func (protocol *PageProtocol) OnWindowOpen(
 		"Page.windowOpen",
 		func(response *Response) {
 			event := &page.WindowOpenEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

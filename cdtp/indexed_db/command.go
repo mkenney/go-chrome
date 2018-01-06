@@ -22,7 +22,8 @@ ClearObjectStoreResult represents the result of calls to IndexedDB.clearObjectSt
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-clearObjectStore
 */
 type ClearObjectStoreResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -47,7 +48,8 @@ DeleteDatabaseResult represents the result of calls to IndexedDB.deleteDatabase.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-deleteDatabase
 */
 type DeleteDatabaseResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -71,7 +73,8 @@ IndexedDB.deleteObjectStoreEntries.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-deleteObjectStoreEntries
 */
 type DeleteObjectStoreEntriesResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -80,7 +83,8 @@ DisableResult represents the result of calls to IndexedDB.disable.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-disable
 */
 type DisableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -89,7 +93,8 @@ EnableResult represents the result of calls to IndexedDB.enable.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-enable
 */
 type EnableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -132,7 +137,8 @@ type RequestDataResult struct {
 	// If true, there are more entries to fetch in the given range.
 	HasMore bool `json:"hasMore"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -157,7 +163,8 @@ type RequestDatabaseResult struct {
 	// Database with an array of object stores.
 	DatabaseWithObjectStores *DatabaseWithObjectStores `json:"databaseWithObjectStores"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -179,5 +186,6 @@ type RequestDatabaseNamesResult struct {
 	// Database names for origin.
 	DatabaseNames []string `json:"databaseNames"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
