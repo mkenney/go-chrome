@@ -203,10 +203,10 @@ type SourceRange struct {
 	StartColumn int `json:"startColumn"`
 
 	// End line of range.
-	SndLine int `json:"endLine"`
+	EndLine int `json:"endLine"`
 
 	// End column of range (exclusive).
-	SndColumn int `json:"endColumn"`
+	EndColumn int `json:"endColumn"`
 }
 
 /*
