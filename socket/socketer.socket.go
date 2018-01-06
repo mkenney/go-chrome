@@ -242,7 +242,7 @@ func (socket *Socket) Listen() error {
 		response := &Response{}
 		err = socket.ReadJSON(&response)
 		if nil != err {
-			log.Errorf("socket #%d - %s", err.Error())
+			log.Errorf("socket #%d - %s", socket.socketID, err.Error())
 			socket.Stop() // This will end the loop after handling the current response (if any)
 		}
 

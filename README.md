@@ -44,3 +44,11 @@ I added a few small examples to the [wiki](https://github.com/mkenney/go-chrome/
 Add more tests. So many tests... If you would like to contribute but aren't sure how, there are several [open issues](https://github.com/mkenney/go-chrome/issues?q=is%3Aopen+is%3Aissue+project%3Amkenney%2Fgo-chrome%2F1) for tests that need to be written, I'll try to keep that list up to date. There are also [several examples](https://github.com/mkenney/go-chrome/blob/master/socket/cdtp.animation_test.go) of tests that have already be written.
 
 Any contributions to tests or otherwise are very welcome!
+
+# Change Log
+
+## 2017-01-05
+
+I merged some changes that did change the API a bit. Mainly, all the protocol methods now return a channel instead of blocking until they get a result to better handle the nature of socket data streams. This makes unit testing easier and cleaner and the API more useful, but the race detector still finds false positives due to writing test data to a stack that mocks a socket data stream, which is being drained by an independent goroutine...
+
+I'm not sure what to do with that, or if I care at this point. You can see it by running `go test -race ./...`.
