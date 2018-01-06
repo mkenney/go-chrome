@@ -22,12 +22,12 @@ func TestListenCommand(t *testing.T) {
 
 	command := NewCommand(mockSocket, "Some.method", nil)
 	resultChan := mockSocket.SendCommand(command)
-	mockSocket.Conn().AddMockData(
-		mockSocket.CurCommandID(),
-		&Error{},
-		"Some.method",
-		"Mock Command Result",
-	)
+	mockSocket.Conn().AddMockData(&Response{
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
+		Method: "Some.method",
+		Result: []byte(`"Mock Command Result"`),
+	})
 	result := <-resultChan
 
 	if `"Mock Command Result"` != string(result.Result) {
@@ -43,12 +43,12 @@ func TestListenCommandError(t *testing.T) {
 
 	command := NewCommand(mockSocket, "Some.methodError", nil)
 	resultChan := mockSocket.SendCommand(command)
-	mockSocket.Conn().AddMockData(
-		mockSocket.CurCommandID(),
-		&Error{},
-		"Some.methodError",
-		"Mock Command Result",
-	)
+	mockSocket.Conn().AddMockData(&Response{
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
+		Method: "Some.methodError",
+		Result: []byte(`"Mock Command Result"`),
+	})
 	result := <-resultChan
 	if `"Mock Command Result"` != string(result.Result) {
 		t.Errorf("Invalid result: expected 'Mock Command Result', received '%s'", result.Result)

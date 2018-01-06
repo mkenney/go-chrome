@@ -30,9 +30,9 @@ func (protocol *EmulationProtocol) CanEmulate() chan *emulation.CanEmulateResult
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -53,7 +53,7 @@ func (protocol *EmulationProtocol) ClearDeviceMetricsOverride() chan *emulation.
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -74,7 +74,7 @@ func (protocol *EmulationProtocol) ClearGeolocationOverride() chan *emulation.Cl
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -96,7 +96,7 @@ func (protocol *EmulationProtocol) ResetPageScaleFactor() chan *emulation.ResetP
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -120,7 +120,7 @@ func (protocol *EmulationProtocol) SetCPUThrottlingRate(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -145,7 +145,7 @@ func (protocol *EmulationProtocol) SetDefaultBackgroundColorOverride(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -171,7 +171,7 @@ func (protocol *EmulationProtocol) SetDeviceMetricsOverride(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -195,7 +195,7 @@ func (protocol *EmulationProtocol) SetEmitTouchEventsForMouse(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -218,7 +218,7 @@ func (protocol *EmulationProtocol) SetEmulatedMedia(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -242,7 +242,7 @@ func (protocol *EmulationProtocol) SetGeolocationOverride(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -267,7 +267,7 @@ func (protocol *EmulationProtocol) SetNavigatorOverrides(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -291,7 +291,7 @@ func (protocol *EmulationProtocol) SetPageScaleFactor(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -314,7 +314,7 @@ func (protocol *EmulationProtocol) SetScriptExecutionDisabled(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -337,7 +337,7 @@ func (protocol *EmulationProtocol) SetTouchEmulationEnabled(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -363,9 +363,9 @@ func (protocol *EmulationProtocol) SetVirtualTimePolicy(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -391,7 +391,7 @@ func (protocol *EmulationProtocol) SetVisibleSize(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -413,7 +413,7 @@ func (protocol *EmulationProtocol) OnVirtualTimeAdvanced(
 		"Emulation.virtualTimeAdvanced",
 		func(response *Response) {
 			event := &emulation.VirtualTimeAdvancedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -438,7 +438,7 @@ func (protocol *EmulationProtocol) OnVirtualTimeBudgetExpired(
 		"Emulation.virtualTimeBudgetExpired",
 		func(response *Response) {
 			event := &emulation.VirtualTimeBudgetExpiredEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -462,7 +462,7 @@ func (protocol *EmulationProtocol) OnVirtualTimePaused(
 		"Emulation.virtualTimePaused",
 		func(response *Response) {
 			event := &emulation.VirtualTimePausedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

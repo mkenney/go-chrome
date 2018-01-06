@@ -35,9 +35,9 @@ func (protocol *HeadlessExperimentalProtocol) BeginFrame(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -58,7 +58,7 @@ func (protocol *HeadlessExperimentalProtocol) Disable() chan *headlessExperiment
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -79,7 +79,7 @@ func (protocol *HeadlessExperimentalProtocol) Enable() chan *headlessExperimenta
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -102,7 +102,7 @@ func (protocol *HeadlessExperimentalProtocol) OnMainFrameReadyForScreenshots(
 		"HeadlessExperimental.mainFrameReadyForScreenshots",
 		func(response *Response) {
 			event := &headlessExperimental.MainFrameReadyForScreenshotsEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -126,7 +126,7 @@ func (protocol *HeadlessExperimentalProtocol) OnNeedsBeginFramesChanged(
 		"HeadlessExperimental.needsBeginFramesChanged",
 		func(response *Response) {
 			event := &headlessExperimental.NeedsBeginFramesChangedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

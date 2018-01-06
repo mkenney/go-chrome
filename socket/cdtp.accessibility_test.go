@@ -18,15 +18,16 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 	resultChan := mockSocket.Accessibility().GetPartialAXTree(
 		&accessibility.PartialAXTreeParams{},
 	)
-	mockSocket.Conn().AddMockData(
-		mockSocket.CurCommandID(),
-		&Error{},
-		"Accessibility.partialAXTreeParams",
-		&accessibility.PartialAXTreeResult{},
-	)
+	mockDataBytes, _ := json.Marshal(accessibility.PartialAXTreeResult{})
+	mockSocket.Conn().AddMockData(&Response{
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
+		Method: "Accessibility.partialAXTreeParams",
+		Result: mockDataBytes,
+	})
 	result := <-resultChan
-	if nil != result.CDTPError {
-		t.Errorf("Expected success, got error: %s", result.CDTPError)
+	if nil != result.Err {
+		t.Errorf("Expected success, got error: %s", result.Err)
 	}
 	if 0 != len(result.Nodes) {
 		tmp, _ := json.Marshal(result.Nodes)
@@ -72,15 +73,16 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 			BackendDOMNodeID: dom.BackendNodeID(1),
 		}},
 	}
-	mockSocket.Conn().AddMockData(
-		mockSocket.CurCommandID(),
-		&Error{},
-		"Accessibility.partialAXTreeParams",
-		mockData,
-	)
+	mockDataBytes, _ = json.Marshal(mockData)
+	mockSocket.Conn().AddMockData(&Response{
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
+		Method: "Accessibility.partialAXTreeParams",
+		Result: mockDataBytes,
+	})
 	result = <-resultChan
-	if nil != result.CDTPError {
-		t.Errorf("Expected success, got error: %s", result.CDTPError)
+	if nil != result.Err {
+		t.Errorf("Expected success, got error: %s", result.Err)
 	}
 	if 0 == len(result.Nodes) {
 		tmp, _ := json.Marshal(result.Nodes)

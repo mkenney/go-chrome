@@ -30,7 +30,7 @@ func (protocol *ConsoleProtocol) ClearMessages() chan *console.ClearMessagesResu
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -52,7 +52,7 @@ func (protocol *ConsoleProtocol) Disable() chan *console.DisableResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -74,7 +74,7 @@ func (protocol *ConsoleProtocol) Enable() chan *console.EnableResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -95,7 +95,7 @@ func (protocol *ConsoleProtocol) OnMessageAdded(
 		"Console.messageAdded",
 		func(response *Response) {
 			event := &console.MessageAddedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

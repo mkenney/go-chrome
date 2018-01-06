@@ -22,7 +22,8 @@ Debugger.continueToLocation.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-continueToLocation
 */
 type ContinueToLocationResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -31,7 +32,8 @@ DisableResult represents the result of calls to Debugger.disable.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-disable
 */
 type DisableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -43,7 +45,8 @@ type EnableResult struct {
 	// Unique identifier of the debugger. EXPERIMENTAL
 	ID runtime.UniqueDebuggerID `json:"debuggerId"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -95,7 +98,8 @@ type EvaluateOnCallFrameResult struct {
 	// Optional. Exception details.
 	ExceptionDetails *runtime.ExceptionDetails `json:"exceptionDetails,omitempty"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -125,7 +129,8 @@ type GetPossibleBreakpointsResult struct {
 	// List of the possible breakpoint locations.
 	Locations []*BreakLocation `json:"locations"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -147,7 +152,8 @@ type GetScriptSourceResult struct {
 	// Script source.
 	ScriptSource string `json:"scriptSource"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -167,7 +173,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getStack
 type GetStackTraceResult struct {
 	StackTrace *runtime.StackTrace `json:"stackTrace"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -176,7 +183,8 @@ PauseResult represents the result of calls to Debugger.pause.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-pause
 */
 type PauseResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -195,7 +203,8 @@ PauseOnAsyncCallResult represents the result of calls to Debugger.pauseOnAsyncCa
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-pauseOnAsyncCall
 */
 type PauseOnAsyncCallResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -213,7 +222,8 @@ RemoveBreakpointResult represents the result of calls to Debugger.removeBreakpoi
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-removeBreakpoint
 */
 type RemoveBreakpointResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -241,7 +251,8 @@ type RestartFrameResult struct {
 	// Optional. Async stack trace, if any. EXPERIMENTAL
 	AsyncStackTraceID runtime.StackTraceID `json:"asyncStackTraceId,omitempty"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -250,7 +261,8 @@ ResumeResult represents the result of calls to Debugger.resume.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-resume
 */
 type ResumeResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -259,7 +271,8 @@ ScheduleStepIntoAsyncResult represents the result of calls to Debugger.scheduleS
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-scheduleStepIntoAsync
 */
 type ScheduleStepIntoAsyncResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -290,7 +303,8 @@ type SearchInContentResult struct {
 	// List of search matches.
 	Result []*SearchMatch `json:"result"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -310,7 +324,8 @@ SetAsyncCallStackDepthResult represents the result of calls to Debugger.setAsync
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setAsyncCallStackDepth
 */
 type SetAsyncCallStackDepthResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -329,7 +344,8 @@ SetBlackboxPatternsResult represents the result of calls to Debugger.setBlackbox
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBlackboxPatterns
 */
 type SetBlackboxPatternsResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -349,7 +365,8 @@ SetBlackboxedRangesResult represents the result of calls to Debugger.setBlackbox
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBlackboxedRanges
 */
 type SetBlackboxedRangesResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -379,7 +396,8 @@ type SetBreakpointResult struct {
 	// Location this breakpoint resolved into.
 	ActualLocation *Location `json:"actualLocation"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -421,7 +439,8 @@ type SetBreakpointByURLResult struct {
 	// List of the locations this breakpoint resolved into upon addition.
 	Locations []*Location `json:"locations"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -440,7 +459,8 @@ SetBreakpointsActiveResult represents the result of calls to Debugger.setBreakpo
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreakpointsActive
 */
 type SetBreakpointsActiveResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -459,7 +479,8 @@ SetPauseOnExceptionsResult represents the result of calls to Debugger.setPauseOn
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setPauseOnExceptions
 */
 type SetPauseOnExceptionsResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -478,7 +499,8 @@ SetReturnValueResult represents the result of calls to Debugger.setReturnValue.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setReturnValue
 */
 type SetReturnValueResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -521,7 +543,8 @@ type SetScriptSourceResult struct {
 	// Optional. Exception details if any.
 	ExceptionDetails *runtime.ExceptionDetails `json:"exceptionDetails,omitempty"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -541,7 +564,8 @@ Debugger.setSkipAllPauses.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setSkipAllPauses
 */
 type SetSkipAllPausesResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -571,7 +595,8 @@ SetVariableValueResult represents the result of calls to Debugger.setVariableVal
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setVariableValue
 */
 type SetVariableValueResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -591,7 +616,8 @@ StepIntoResult represents the result of calls to Debugger.stepInto.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepInto
 */
 type StepIntoResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -600,7 +626,8 @@ StepOutResult represents the result of calls to Debugger.stepOut.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepOut
 */
 type StepOutResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -609,5 +636,6 @@ StepOverResult represents the result of calls to Debugger.stepOver.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepOver
 */
 type StepOverResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

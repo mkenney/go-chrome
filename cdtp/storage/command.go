@@ -19,7 +19,8 @@ ClearDataForOriginResult represents the result of calls to Storage.clearDataForO
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-clearDataForOrigin
 */
 type ClearDataForOriginResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -47,7 +48,8 @@ type GetUsageAndQuotaResult struct {
 	// Storage usage per type (bytes).
 	UsageBreakdown []*UsageForType `json:"usageBreakdown"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -67,7 +69,8 @@ Storage.trackCacheStorageForOrigin.
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-trackCacheStorageForOrigin
 */
 type TrackCacheStorageForOriginResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -86,7 +89,8 @@ TrackIndexedDBForOriginResult represents the result of calls to Storage.trackInd
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-trackIndexedDBForOrigin
 */
 type TrackIndexedDBForOriginResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -106,7 +110,8 @@ Storage.untrackCacheStorageForOrigin.
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-untrackCacheStorageForOrigin
 */
 type UntrackCacheStorageForOriginResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -126,5 +131,6 @@ Storage.untrackIndexedDBForOrigin.
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-untrackIndexedDBForOrigin
 */
 type UntrackIndexedDBForOriginResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

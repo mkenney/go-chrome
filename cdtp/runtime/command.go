@@ -29,7 +29,8 @@ type AwaitPromiseResult struct {
 	// Exception details if stack strace is available.
 	ExceptionDetails ExceptionDetails `json:"exceptionDetails"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -92,7 +93,8 @@ type CallFunctionOnResult struct {
 	// Exception details.
 	ExceptionDetails *ExceptionDetails `json:"exceptionDetails"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -128,7 +130,8 @@ type CompileScriptResult struct {
 	// Exception details.
 	ExceptionDetails *ExceptionDetails `json:"exceptionDetails"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -137,7 +140,8 @@ DisableResult represents the result of calls to Runtime.disable.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-disable
 */
 type DisableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -146,7 +150,8 @@ DiscardConsoleEntriesResult represents the result of calls to Runtime.discardCon
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-discardConsoleEntries
 */
 type DiscardConsoleEntriesResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -155,7 +160,8 @@ EnableResult represents the result of calls to Runtime.enable.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-enable
 */
 type EnableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -213,7 +219,8 @@ type EvaluateResult struct {
 	// Exception details.
 	ExceptionDetails *ExceptionDetails `json:"exceptionDetails"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -253,7 +260,8 @@ type GetPropertiesResult struct {
 	// Exception details.
 	ExceptionDetails *ExceptionDetails `json:"exceptionDetails"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -274,7 +282,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-globalLex
 type GlobalLexicalScopeNamesResult struct {
 	Names []string `json:"names"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -296,7 +305,8 @@ type QueryObjectsResult struct {
 	// Identifier of the object to release.
 	ObjectID RemoteObjectID `json:"objectId"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -315,7 +325,8 @@ ReleaseObjectResult represents the result of calls to Runtime.releaseObject.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseObject
 */
 type ReleaseObjectResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -334,7 +345,8 @@ ReleaseObjectGroupResult represents the result of calls to Runtime.releaseObject
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseObjectGroup
 */
 type ReleaseObjectGroupResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -343,7 +355,8 @@ RunIfWaitingForDebuggerResult represents the result of calls to Runtime.runIfWai
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-runIfWaitingForDebugger
 */
 type RunIfWaitingForDebuggerResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -393,7 +406,8 @@ type RunScriptResult struct {
 	// Identifier of the object to release.
 	ObjectID RemoteObjectID `json:"objectId"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -416,5 +430,6 @@ Runtime.setCustomObjectFormatterEnabled.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-setCustomObjectFormatterEnabled
 */
 type SetCustomObjectFormatterEnabledResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

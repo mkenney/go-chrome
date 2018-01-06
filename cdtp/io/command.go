@@ -20,7 +20,8 @@ CloseResult represents the result of calls to IO.close.
 https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-close
 */
 type CloseResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -56,7 +57,8 @@ type ReadResult struct {
 	// Set if the end-of-file condition occurred while reading.
 	EOF bool `json:"eof"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -78,5 +80,6 @@ type ResolveBlobResult struct {
 	// UUID of the specified Blob.
 	UUID string `json:"uuid"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

@@ -9,5 +9,6 @@ type GetDomainsResult struct {
 	// List of supported domains.
 	Domains []*Domain `json:"domains"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

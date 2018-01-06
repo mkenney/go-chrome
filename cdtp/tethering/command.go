@@ -16,7 +16,8 @@ BindResult represents the result of calls to Tethering.bind.
 https://chromedevtools.github.io/devtools-protocol/tot/Tethering/#method-bind
 */
 type BindResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -35,5 +36,6 @@ UnbindResult represents the result of calls to Tethering.unbind.
 https://chromedevtools.github.io/devtools-protocol/tot/Tethering/#method-unbind
 */
 type UnbindResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

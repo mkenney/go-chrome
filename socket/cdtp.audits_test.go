@@ -1,6 +1,7 @@
 package socket
 
 import (
+	"encoding/json"
 	"net/url"
 	"testing"
 
@@ -25,15 +26,16 @@ func TestAuditsGetEncodedResponse(t *testing.T) {
 		OriginalSize: 1,
 		EncodedSize:  2,
 	}
-	mockSocket.Conn().AddMockData(
-		mockSocket.CurCommandID(),
-		&Error{},
-		"Audits.getEncodedResponse",
-		mockResult,
-	)
+	mockResultBytes, _ := json.Marshal(mockResult)
+	mockSocket.Conn().AddMockData(&Response{
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
+		Method: "Audits.getEncodedResponse",
+		Result: mockResultBytes,
+	})
 	result := <-resultChan
-	if nil != result.CDTPError {
-		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	if nil != result.Err {
+		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 	if result.Body != mockResult.Body {
 		t.Errorf(

@@ -1,6 +1,7 @@
 package socket
 
 import (
+	"encoding/json"
 	"net/url"
 	"testing"
 
@@ -24,15 +25,14 @@ func TestCacheStorageDeleteCache(t *testing.T) {
 	resultChan := mockSocket.CacheStorage().DeleteCache(&cacheStorage.DeleteCacheParams{
 		CacheID: cacheStorage.CacheID("cache-id"),
 	})
-	mockSocket.Conn().AddMockData(
-		mockSocket.CurCommandID(),
-		&Error{},
-		"CacheStorage.deleteCache",
-		nil,
-	)
+	mockSocket.Conn().AddMockData(&Response{
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
+		Method: "CacheStorage.deleteCache",
+	})
 	result := <-resultChan
-	if nil != result.CDTPError {
-		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	if nil != result.Err {
+		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 }
 
@@ -46,15 +46,14 @@ func TestCacheStorageDeleteEntry(t *testing.T) {
 		CacheID: cacheStorage.CacheID("cache-id"),
 		Request: "request",
 	})
-	mockSocket.Conn().AddMockData(
-		mockSocket.CurCommandID(),
-		&Error{},
-		"CacheStorage.deleteEntry",
-		nil,
-	)
+	mockSocket.Conn().AddMockData(&Response{
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
+		Method: "CacheStorage.deleteEntry",
+	})
 	result := <-resultChan
-	if nil != result.CDTPError {
-		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	if nil != result.Err {
+		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 }
 
@@ -74,15 +73,16 @@ func TestCacheStorageRequestCacheNames(t *testing.T) {
 			CacheName:      "cache-name",
 		}},
 	}
-	mockSocket.Conn().AddMockData(
-		mockSocket.CurCommandID(),
-		&Error{},
-		"CacheStorage.requestCacheNames",
-		mockResult,
-	)
+	mockResultBytes, _ := json.Marshal(mockResult)
+	mockSocket.Conn().AddMockData(&Response{
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
+		Method: "CacheStorage.requestCacheNames",
+		Result: mockResultBytes,
+	})
 	result := <-resultChan
-	if nil != result.CDTPError {
-		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	if nil != result.Err {
+		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 	if result.Caches[0].CacheID != mockResult.Caches[0].CacheID {
 		t.Errorf(
@@ -108,15 +108,16 @@ func TestCacheStorageRequestCachedResponse(t *testing.T) {
 			Body: "body",
 		},
 	}
-	mockSocket.Conn().AddMockData(
-		mockSocket.CurCommandID(),
-		&Error{},
-		"CacheStorage.requestCachedResponse",
-		mockResult,
-	)
+	mockResultBytes, _ := json.Marshal(mockResult)
+	mockSocket.Conn().AddMockData(&Response{
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
+		Method: "CacheStorage.requestCachedResponse",
+		Result: mockResultBytes,
+	})
 	result := <-resultChan
-	if nil != result.CDTPError {
-		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	if nil != result.Err {
+		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 	if result.Response.Body != mockResult.Response.Body {
 		t.Errorf(
@@ -156,15 +157,16 @@ func TestCacheStorageRequestEntries(t *testing.T) {
 		}},
 		HasMore: true,
 	}
-	mockSocket.Conn().AddMockData(
-		mockSocket.CurCommandID(),
-		&Error{},
-		"CacheStorage.RequestEntries",
-		mockResult,
-	)
+	mockResultBytes, _ := json.Marshal(mockResult)
+	mockSocket.Conn().AddMockData(&Response{
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
+		Method: "CacheStorage.RequestEntries",
+		Result: mockResultBytes,
+	})
 	result := <-resultChan
-	if nil != result.CDTPError {
-		t.Errorf("Expected nil, got error: '%s'", result.CDTPError.Error())
+	if nil != result.Err {
+		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 	if result.CacheDataEntries[0].RequestURL != mockResult.CacheDataEntries[0].RequestURL {
 		t.Errorf(

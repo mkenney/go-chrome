@@ -10,7 +10,8 @@ EnableResult represents the result of calls to ApplicationCache.enable.
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-enable
 */
 type EnableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -33,7 +34,8 @@ type GetForFrameResult struct {
 	// Relevant application cache data for the document in given frame.
 	ApplicationCache *ApplicationCache `json:"applicationCache"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -47,7 +49,8 @@ type GetFramesWithManifestsResult struct {
 	// document associated with some application cache.
 	FrameIDs []*FrameWithManifest `json:"frameIds"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -69,5 +72,6 @@ type GetManifestForFrameResult struct {
 	// Manifest URL for document in the given frame.
 	ManifestURL string `json:"manifestURL"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

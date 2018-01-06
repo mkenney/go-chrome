@@ -22,7 +22,8 @@ DeliverPushMessageResult represents the result of calls to ServiceWorker.deliver
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-deliverPushMessage
 */
 type DeliverPushMessageResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -31,7 +32,8 @@ DisableResult represents the result of calls to ServiceWorker.disable.
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-disable
 */
 type DisableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -59,7 +61,8 @@ DispatchSyncEventResult represents the result of calls to ServiceWorker.dispatch
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-dispatchSyncEvent
 */
 type DispatchSyncEventResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -68,7 +71,8 @@ EnableResult represents the result of calls to ServiceWorker.enable.
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-enable
 */
 type EnableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -87,7 +91,8 @@ InspectWorkerResult represents the result of calls to ServiceWorker.inspectWorke
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-inspectWorker
 */
 type InspectWorkerResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -107,7 +112,8 @@ ServiceWorker.setForceUpdateOnPageLoad.
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-setForceUpdateOnPageLoad
 */
 type SetForceUpdateOnPageLoadResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -126,7 +132,8 @@ SkipWaitingResult represents the result of calls to ServiceWorker.skipWaiting.
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-skipWaiting
 */
 type SkipWaitingResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -145,7 +152,8 @@ StartWorkerResult represents the result of calls to ServiceWorker.startWorker.
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-startWorker
 */
 type StartWorkerResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -154,7 +162,8 @@ StopAllWorkersResult represents the result of calls to ServiceWorker.stopAllWork
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-stopAllWorkers
 */
 type StopAllWorkersResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -173,7 +182,8 @@ StopWorkerResult represents the result of calls to ServiceWorker.stopWorker.
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-stopWorker
 */
 type StopWorkerResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -192,7 +202,8 @@ UnregisterResult represents the result of calls to ServiceWorker.unregister.
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-unregister
 */
 type UnregisterResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -211,5 +222,6 @@ UpdateRegistrationResult represents the result of calls to ServiceWorker.updateR
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-updateRegistration
 */
 type UpdateRegistrationResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

@@ -33,9 +33,9 @@ func (protocol *NetworkProtocol) CanClearBrowserCache() chan *network.CanClearBr
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -57,9 +57,9 @@ func (protocol *NetworkProtocol) CanClearBrowserCookies() chan *network.CanClear
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -81,9 +81,9 @@ func (protocol *NetworkProtocol) CanEmulateConditions() chan *network.CanEmulate
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -104,7 +104,7 @@ func (protocol *NetworkProtocol) ClearBrowserCache() chan *network.ClearBrowserC
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -125,7 +125,7 @@ func (protocol *NetworkProtocol) ClearBrowserCookies() chan *network.ClearBrowse
 		command := NewCommand(protocol.Socket, "Network.clearBrowserCookies", nil)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -153,7 +153,7 @@ func (protocol *NetworkProtocol) ContinueInterceptedRequest(
 		command := NewCommand(protocol.Socket, "Network.continueInterceptedRequest", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -177,7 +177,7 @@ func (protocol *NetworkProtocol) DeleteCookies(
 		command := NewCommand(protocol.Socket, "Network.deleteCookies", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -199,7 +199,7 @@ func (protocol *NetworkProtocol) Disable() chan *network.DisableResult {
 		command := NewCommand(protocol.Socket, "Network.disable", nil)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -222,7 +222,7 @@ func (protocol *NetworkProtocol) EmulateConditions(
 		command := NewCommand(protocol.Socket, "Network.emulateNetworkConditions", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -246,7 +246,7 @@ func (protocol *NetworkProtocol) Enable(
 		command := NewCommand(protocol.Socket, "Network.enable", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -268,9 +268,9 @@ func (protocol *NetworkProtocol) GetAllCookies() chan *network.GetAllCookiesResu
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -294,9 +294,9 @@ func (protocol *NetworkProtocol) GetCertificate(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -320,9 +320,9 @@ func (protocol *NetworkProtocol) GetCookies(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -345,9 +345,9 @@ func (protocol *NetworkProtocol) GetResponseBody(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -372,9 +372,9 @@ func (protocol *NetworkProtocol) GetResponseBodyForInterception(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -399,7 +399,7 @@ func (protocol *NetworkProtocol) ReplayXHR(
 		command := NewCommand(protocol.Socket, "Network.replayXHR", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -423,9 +423,9 @@ func (protocol *NetworkProtocol) SearchInResponseBody(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -449,7 +449,7 @@ func (protocol *NetworkProtocol) SetBlockedURLs(
 		command := NewCommand(protocol.Socket, "Network.setBlockedURLs", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -473,7 +473,7 @@ func (protocol *NetworkProtocol) SetBypassServiceWorker(
 		command := NewCommand(protocol.Socket, "Network.setBypassServiceWorker", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -497,7 +497,7 @@ func (protocol *NetworkProtocol) SetCacheDisabled(
 		command := NewCommand(protocol.Socket, "Network.setCacheDisabled", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -521,9 +521,9 @@ func (protocol *NetworkProtocol) SetCookie(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -546,7 +546,7 @@ func (protocol *NetworkProtocol) SetCookies(
 		command := NewCommand(protocol.Socket, "Network.setCookies", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -570,7 +570,7 @@ func (protocol *NetworkProtocol) SetDataSizeLimitsForTest(
 		command := NewCommand(protocol.Socket, "Network.setDataSizeLimitsForTest", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -594,7 +594,7 @@ func (protocol *NetworkProtocol) SetExtraHTTPHeaders(
 		command := NewCommand(protocol.Socket, "Network.setExtraHTTPHeaders", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -619,7 +619,7 @@ func (protocol *NetworkProtocol) SetRequestInterception(
 		command := NewCommand(protocol.Socket, "Network.setRequestInterception", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -642,7 +642,7 @@ func (protocol *NetworkProtocol) SetUserAgentOverride(
 		command := NewCommand(protocol.Socket, "Network.setUserAgentOverride", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -663,7 +663,7 @@ func (protocol *NetworkProtocol) OnDataReceived(
 		"Network.dataReceived",
 		func(response *Response) {
 			event := &network.DataReceivedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -687,7 +687,7 @@ func (protocol *NetworkProtocol) OnEventSourceMessageReceived(
 		"Network.eventSourceMessageReceived",
 		func(response *Response) {
 			event := &network.EventSourceMessageReceivedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -710,7 +710,7 @@ func (protocol *NetworkProtocol) OnLoadingFailed(
 		"Network.loadingFailed",
 		func(response *Response) {
 			event := &network.LoadingFailedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -733,7 +733,7 @@ func (protocol *NetworkProtocol) OnLoadingFinished(
 		"Network.loadingFinished",
 		func(response *Response) {
 			event := &network.LoadingFinishedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -758,7 +758,7 @@ func (protocol *NetworkProtocol) OnRequestIntercepted(
 		"Network.requestIntercepted",
 		func(response *Response) {
 			event := &network.RequestInterceptedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -782,7 +782,7 @@ func (protocol *NetworkProtocol) OnRequestServedFromCache(
 		"Network.requestServedFromCache",
 		func(response *Response) {
 			event := &network.RequestServedFromCacheEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -805,7 +805,7 @@ func (protocol *NetworkProtocol) OnRequestWillBeSent(
 		"Network.requestWillBeSent",
 		func(response *Response) {
 			event := &network.RequestWillBeSentEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -830,7 +830,7 @@ func (protocol *NetworkProtocol) OnResourceChangedPriority(
 		"Network.resourceChangedPriority",
 		func(response *Response) {
 			event := &network.ResourceChangedPriorityEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -853,7 +853,7 @@ func (protocol *NetworkProtocol) OnResponseReceived(
 		"Network.responseReceived",
 		func(response *Response) {
 			event := &network.ResponseReceivedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -876,7 +876,7 @@ func (protocol *NetworkProtocol) OnWebSocketClosed(
 		"Network.webSocketClosed",
 		func(response *Response) {
 			event := &network.WebSocketClosedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -899,7 +899,7 @@ func (protocol *NetworkProtocol) OnWebSocketCreated(
 		"Network.webSocketCreated",
 		func(response *Response) {
 			event := &network.WebSocketCreatedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -922,7 +922,7 @@ func (protocol *NetworkProtocol) OnWebSocketFrameError(
 		"Network.webSocketFrameError",
 		func(response *Response) {
 			event := &network.WebSocketFrameErrorEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -945,7 +945,7 @@ func (protocol *NetworkProtocol) OnWebSocketFrameReceived(
 		"Network.webSocketFrameReceived",
 		func(response *Response) {
 			event := &network.WebSocketFrameReceivedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -968,7 +968,7 @@ func (protocol *NetworkProtocol) OnWebSocketFrameSent(
 		"Network.webSocketFrameSent",
 		func(response *Response) {
 			event := &network.WebSocketFrameSentEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -992,7 +992,7 @@ func (protocol *NetworkProtocol) OnWebSocketHandshakeResponseReceived(
 		"Network.webSocketHandshakeResponseReceived",
 		func(response *Response) {
 			event := &network.WebSocketHandshakeResponseReceivedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -1016,7 +1016,7 @@ func (protocol *NetworkProtocol) OnWebSocketWillSendHandshakeRequest(
 		"Network.webSocketWillSendHandshakeRequest",
 		func(response *Response) {
 			event := &network.WebSocketWillSendHandshakeRequestEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

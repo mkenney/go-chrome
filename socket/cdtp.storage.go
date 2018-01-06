@@ -31,7 +31,7 @@ func (protocol *StorageProtocol) ClearDataForOrigin(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -54,9 +54,9 @@ func (protocol *StorageProtocol) GetUsageAndQuota(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -80,7 +80,7 @@ func (protocol *StorageProtocol) TrackCacheStorageForOrigin(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -104,7 +104,7 @@ func (protocol *StorageProtocol) TrackIndexedDBForOrigin(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -128,7 +128,7 @@ func (protocol *StorageProtocol) UntrackCacheStorageForOrigin(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -152,7 +152,7 @@ func (protocol *StorageProtocol) UntrackIndexedDBForOrigin(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -174,7 +174,7 @@ func (protocol *StorageProtocol) OnCacheStorageContentUpdated(
 		"Storage.cacheStorageContentUpdated",
 		func(response *Response) {
 			event := &storage.CacheStorageContentUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -197,7 +197,7 @@ func (protocol *StorageProtocol) OnCacheStorageListUpdated(
 		"Storage.cacheStorageListUpdated",
 		func(response *Response) {
 			event := &storage.CacheStorageListUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -221,7 +221,7 @@ func (protocol *StorageProtocol) OnIndexedDBContentUpdated(
 		"Storage.indexedDBContentUpdated",
 		func(response *Response) {
 			event := &storage.IndexedDBContentUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -245,7 +245,7 @@ func (protocol *StorageProtocol) OnIndexedDBListUpdated(
 		"Storage.indexedDBListUpdated",
 		func(response *Response) {
 			event := &storage.IndexedDBListUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

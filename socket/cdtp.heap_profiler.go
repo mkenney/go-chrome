@@ -33,7 +33,7 @@ func (protocol *HeapProfilerProtocol) AddInspectedHeapObject(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -55,7 +55,7 @@ func (protocol *HeapProfilerProtocol) CollectGarbage() chan *heapProfiler.Collec
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -76,7 +76,7 @@ func (protocol *HeapProfilerProtocol) Disable() chan *heapProfiler.DisableResult
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -97,7 +97,7 @@ func (protocol *HeapProfilerProtocol) Enable() chan *heapProfiler.EnableResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -121,9 +121,9 @@ func (protocol *HeapProfilerProtocol) GetHeapObjectID(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -147,9 +147,9 @@ func (protocol *HeapProfilerProtocol) GetObjectByHeapObjectID(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -173,7 +173,7 @@ func (protocol *HeapProfilerProtocol) GetSamplingProfile(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -197,7 +197,7 @@ func (protocol *HeapProfilerProtocol) StartSampling(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -221,7 +221,7 @@ func (protocol *HeapProfilerProtocol) StartTrackingHeapObjects(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -245,7 +245,7 @@ func (protocol *HeapProfilerProtocol) StopSampling(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -269,7 +269,7 @@ func (protocol *HeapProfilerProtocol) StopTrackingHeapObjects(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -293,7 +293,7 @@ func (protocol *HeapProfilerProtocol) TakeHeapSnapshot(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -315,7 +315,7 @@ func (protocol *HeapProfilerProtocol) OnAddHeapSnapshotChunk(
 		"HeapProfiler.addHeapSnapshotChunk",
 		func(response *Response) {
 			event := &heapProfiler.AddHeapSnapshotChunkEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -339,7 +339,7 @@ func (protocol *HeapProfilerProtocol) OnHeapStatsUpdate(
 		"HeapProfiler.heapStatsUpdate",
 		func(response *Response) {
 			event := &heapProfiler.HeapStatsUpdateEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -365,7 +365,7 @@ func (protocol *HeapProfilerProtocol) OnLastSeenObjectID(
 		"HeapProfiler.lastSeenObjectID",
 		func(response *Response) {
 			event := &heapProfiler.LastSeenObjectIDEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -390,7 +390,7 @@ func (protocol *HeapProfilerProtocol) OnReportHeapSnapshotProgress(
 		"HeapProfiler.reportHeapSnapshotProgress",
 		func(response *Response) {
 			event := &heapProfiler.ReportHeapSnapshotProgressEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -413,7 +413,7 @@ func (protocol *HeapProfilerProtocol) OnResetProfiles(
 		"HeapProfiler.resetProfiles",
 		func(response *Response) {
 			event := &heapProfiler.ResetProfilesEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

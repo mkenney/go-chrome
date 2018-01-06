@@ -23,7 +23,8 @@ type AddScriptToEvaluateOnLoadResult struct {
 	// Identifier of the added script.
 	Identifier ScriptIdentifier `json:"identifier"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -46,7 +47,8 @@ type AddScriptToEvaluateOnNewDocumentResult struct {
 	// Identifier of the added script.
 	Identifier ScriptIdentifier `json:"identifier"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -55,7 +57,8 @@ BringToFrontResult represents the result of calls to Page.bringToFront.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-bringToFront
 */
 type BringToFrontResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -91,7 +94,8 @@ type CaptureScreenshotResult struct {
 	// Base64-encoded image data.
 	Data string `json:"data"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -120,7 +124,8 @@ type CreateIsolatedWorldResult struct {
 	// Execution context of the isolated world.
 	ExecutionContextID runtime.ExecutionContextID `json:"executionContextId"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -129,7 +134,8 @@ DisableResult represents the result of calls to Page.disable.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-disable
 */
 type DisableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -138,7 +144,8 @@ EnableResult represents the result of calls to Page.enable.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-enable
 */
 type EnableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -163,7 +170,8 @@ GetAppManifestResult represents the result of calls to Page.getAppManifest.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getAppManifest
 */
 type GetAppManifestResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -175,7 +183,8 @@ type GetFrameTreeResult struct {
 	// Present frame tree structure.
 	FrameTree *FrameTree `json:"frameTree"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -193,7 +202,8 @@ type GetLayoutMetricsResult struct {
 	// Size of scrollable area. Rect is a local implementation of DOM.Rect
 	ContentSize *Rect `json:"contentSize"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -208,7 +218,8 @@ type GetNavigationHistoryResult struct {
 	// Array of navigation history entries.
 	Entries []*NavigationEntry `json:"entries"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -236,7 +247,8 @@ type GetResourceContentResult struct {
 	// True, if content was served as base64.
 	Base64Encoded bool `json:"base64Encoded"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -248,7 +260,8 @@ type GetResourceTreeResult struct {
 	// Present frame / resource tree structure.
 	FrameTree *FrameResourceTree `json:"frameTree"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -271,7 +284,8 @@ HandleJavaScriptDialogResult represents the result of calls to Page.handleJavaSc
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-handleJavaScriptDialog
 */
 type HandleJavaScriptDialogResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -305,7 +319,8 @@ type NavigateResult struct {
 	// User friendly error message, present if and only if navigation has failed.
 	ErrorText string `json:"errorText"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -324,7 +339,8 @@ NavigateToHistoryEntryResult represents the result of calls to Page.navigateToHi
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-navigateToHistoryEntry
 */
 type NavigateToHistoryEntryResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -381,7 +397,8 @@ type PrintToPDFResult struct {
 	// Base64-encoded pdf data.
 	Data string `json:"data"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -405,7 +422,8 @@ ReloadResult represents the result of calls to Page.reload.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-reload
 */
 type ReloadResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -424,7 +442,8 @@ Page.removeScriptToEvaluateOnLoad.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-removeScriptToEvaluateOnLoad
 */
 type RemoveScriptToEvaluateOnLoadResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -444,7 +463,8 @@ Page.removeScriptToEvaluateOnNewDocument.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-removeScriptToEvaluateOnNewDocument
 */
 type RemoveScriptToEvaluateOnNewDocumentResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -453,7 +473,8 @@ RequestAppBannerResult represents the result of calls to Page.requestAppBanner.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-requestAppBanner
 */
 type RequestAppBannerResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -472,7 +493,8 @@ ScreencastFrameAckResult represents the result of calls to Page.screencastFrameA
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-screencastFrameAck
 */
 type ScreencastFrameAckResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -506,7 +528,8 @@ type SearchInResourceResult struct {
 	// List of search matches.
 	Result []*debugger.SearchMatch `json:"result"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -525,7 +548,8 @@ SetAdBlockingEnabledResult represents the result of calls to Page.setAdBlockingE
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setAdBlockingEnabled
 */
 type SetAdBlockingEnabledResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -546,7 +570,8 @@ Page.setAutoAttachToCreatedPages.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setAutoAttachToCreatedPages
 */
 type SetAutoAttachToCreatedPagesResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -568,7 +593,8 @@ SetDocumentContentResult represents the result of calls to Page.setDocumentConte
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setDocumentContent
 */
 type SetDocumentContentResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -597,7 +623,8 @@ SetDownloadBehaviorResult represents the result of calls to Page.setDownloadBeha
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setDownloadBehavior
 */
 type SetDownloadBehaviorResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -616,7 +643,8 @@ SetLifecycleEventsEnabledResult represents the result of calls to Page.setLifecy
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setLifecycleEventsEnabled
 */
 type SetLifecycleEventsEnabledResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -647,7 +675,8 @@ StartScreencastResult represents the result of calls to Page.startScreencast.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-startScreencast
 */
 type StartScreencastResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -656,7 +685,8 @@ StopLoadingResult represents the result of calls to Page.stopLoading.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-stopLoading
 */
 type StopLoadingResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -665,5 +695,6 @@ StopScreencastResult represents the result of calls to Page.stopScreencast.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-stopScreencast
 */
 type StopScreencastResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

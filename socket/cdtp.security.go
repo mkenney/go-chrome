@@ -29,7 +29,7 @@ func (protocol *SecurityProtocol) Disable() chan *security.DisableResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -50,7 +50,7 @@ func (protocol *SecurityProtocol) Enable() chan *security.EnableResult {
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -74,7 +74,7 @@ func (protocol *SecurityProtocol) HandleCertificateError(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -99,7 +99,7 @@ func (protocol *SecurityProtocol) SetIgnoreCertificateErrors(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -124,7 +124,7 @@ func (protocol *SecurityProtocol) SetOverrideCertificateErrors(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -148,7 +148,7 @@ func (protocol *SecurityProtocol) OnCertificateError(
 		"Security.certificateError",
 		func(response *Response) {
 			event := &security.CertificateErrorEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -171,7 +171,7 @@ func (protocol *SecurityProtocol) OnSecurityStateChanged(
 		"Security.securityStateChanged",
 		func(response *Response) {
 			event := &security.StateChangedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

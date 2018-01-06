@@ -30,7 +30,8 @@ type AddRuleResult struct {
 	// The newly created rule.
 	Rule *Rule `json:"rule"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -51,7 +52,8 @@ type CollectClassNamesResult struct {
 	// Class name list.
 	ClassNames []string `json:"classNames"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -72,7 +74,8 @@ type CreateStyleSheetResult struct {
 	// Identifier of the created "via-inspector" stylesheet.
 	StyleSheetID StyleSheetID `json:"styleSheetId"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -81,7 +84,8 @@ DisableResult represents the result of calls to CSS.disable.
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-disable
 */
 type DisableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -90,7 +94,8 @@ EnableResult represents the result of calls to CSS.enable.
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-enable
 */
 type EnableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -113,7 +118,8 @@ ForcePseudoStateResult represents the result of calls to CSS.ForcePseudoState.
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-ForcePseudoState
 */
 type ForcePseudoStateResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -153,7 +159,8 @@ type GetBackgroundColorsResult struct {
 	// value string (e.g. '16px').
 	ComputedBodyFontSize string `json:"computedBodyFontSize,omitempty"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -174,7 +181,8 @@ type GetComputedStyleForNodeResult struct {
 	// Computed style for the specified DOM node.
 	ComputedStyle []*ComputedStyleProperty `json:"computedStyle"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -199,7 +207,8 @@ type GetInlineStylesForNodeResult struct {
 	// height=100%").
 	AttributesStyle *Style `json:"attributesStyle,omitempty"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -237,7 +246,8 @@ type GetMatchedStylesForNodeResult struct {
 	// A list of CSS keyframed animations matching this node.
 	KeyframesRules []*KeyframesRule `json:"cssKeyframesRules,omitempty"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -248,7 +258,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getMediaQueri
 type GetMediaQueriesResult struct {
 	Medias []*Media `json:"medias"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -269,7 +280,8 @@ type GetPlatformFontsForNodeResult struct {
 	// Usage statistics for every employed platform font.
 	Fonts []*PlatformFontUsage `json:"fonts"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -290,7 +302,8 @@ type GetStyleSheetTextResult struct {
 	// The stylesheet text.
 	Text string `json:"text"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -312,7 +325,8 @@ CSS.setEffectivePropertyValueForNode.
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setEffectivePropertyValueForNode
 */
 type SetEffectivePropertyValueForNodeResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -335,7 +349,8 @@ type SetKeyframeKeyResult struct {
 	// The resulting key text after modification.
 	KeyText *Value `json:"keyText"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -358,7 +373,8 @@ type SetMediaTextResult struct {
 	// The resulting CSS media rule after modification.
 	Media Media `json:"media"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -381,7 +397,8 @@ type SetRuleSelectorResult struct {
 	// The resulting selector list after modification.
 	SelectorList *SelectorList `json:"selectorList"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -393,7 +410,8 @@ type SetStyleSheetTextParams struct {
 	StyleSheetID StyleSheetID `json:"styleSheetId"`
 	Text         string       `json:"text"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -405,7 +423,8 @@ type SetStyleSheetTextResult struct {
 	// URL of source map associated with script (if any).
 	SourceMapURL string `json:"sourceMapURL"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -426,7 +445,8 @@ type SetStyleTextsResult struct {
 	// The resulting styles after modification.
 	Styles []*Style `json:"styles"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -436,7 +456,8 @@ CSS.startRuleUsageTracking.
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-startRuleUsageTracking
 */
 type StartRuleUsageTrackingResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -447,7 +468,8 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-stopRuleUsage
 type StopRuleUsageTrackingResult struct {
 	RuleUsage []*RuleUsage `json:"ruleUsage"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -458,5 +480,6 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-takeCoverageD
 type TakeCoverageDeltaResult struct {
 	Coverage []*RuleUsage `json:"coverage"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

@@ -15,7 +15,8 @@ type CanEmulateResult struct {
 	// True if emulation is supported.
 	Result bool `json:"result"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -25,7 +26,8 @@ Emulation.clearDeviceMetricsOverride.
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-clearDeviceMetricsOverride
 */
 type ClearDeviceMetricsOverrideResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -34,7 +36,8 @@ ClearGeolocationOverrideResult represents the result of calls to Emulation.clear
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-clearGeolocationOverride
 */
 type ClearGeolocationOverrideResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -43,7 +46,8 @@ ResetPageScaleFactorResult represents the result of calls to Emulation.resetPage
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-resetPageScaleFactor
 */
 type ResetPageScaleFactorResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -62,7 +66,8 @@ SetCPUThrottlingRateResult represents the result of calls to Emulation.setCPUThr
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setCPUThrottlingRate
 */
 type SetCPUThrottlingRateResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -84,7 +89,8 @@ Emulation.setDefaultBackgroundColorOverride.
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDefaultBackgroundColorOverride
 */
 type SetDefaultBackgroundColorOverrideResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -147,7 +153,8 @@ Emulation.setDeviceMetricsOverride.
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDeviceMetricsOverride
 */
 type SetDeviceMetricsOverrideResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -173,7 +180,8 @@ Emulation.setEmitTouchEventsForMouse.
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setEmitTouchEventsForMouse
 */
 type SetEmitTouchEventsForMouseResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -192,7 +200,8 @@ SetEmulatedMediaResult represents the result of calls to Emulation.setEmulatedMe
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setEmulatedMedia
 */
 type SetEmulatedMediaResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -217,7 +226,8 @@ SetGeolocationOverrideResult represents the result of calls to Emulation.setGeol
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setGeolocationOverride
 */
 type SetGeolocationOverrideResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -236,7 +246,8 @@ SetNavigatorOverridesResult represents the result of calls to Emulation.setNavig
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setNavigatorOverrides
 */
 type SetNavigatorOverridesResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -255,7 +266,8 @@ SetPageScaleFactorResult represents the result of calls to Emulation.setPageScal
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setPageScaleFactor
 */
 type SetPageScaleFactorResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -275,7 +287,8 @@ Emulation.setScriptExecutionDisabled.
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setScriptExecutionDisabled
 */
 type SetScriptExecutionDisabledResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -298,7 +311,8 @@ Emulation.setTouchEmulationEnabled.
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setTouchEmulationEnabled
 */
 type SetTouchEmulationEnabledResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -329,7 +343,8 @@ type SetVirtualTimePolicyResult struct {
 	// since epoch).
 	VirtualTimeBase runtime.Timestamp `json:"virtualTimeBase"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -351,5 +366,6 @@ SetVisibleSizeResult represents the result of calls to Emulation.setVisibleSize.
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setVisibleSize
 */
 type SetVisibleSizeResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }

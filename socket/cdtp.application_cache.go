@@ -30,7 +30,7 @@ func (protocol *ApplicationCacheProtocol) Enable() chan *applicationCache.Enable
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		}
 		resultChan <- result
 	}()
@@ -54,9 +54,9 @@ func (protocol *ApplicationCacheProtocol) GetForFrame(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -78,9 +78,9 @@ func (protocol *ApplicationCacheProtocol) GetFramesWithManifests() chan *applica
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -103,9 +103,9 @@ func (protocol *ApplicationCacheProtocol) GetManifestForFrame(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			result.CDTPError = response.Error
+			result.Err = response.Error
 		} else {
-			result.CDTPError = json.Unmarshal(response.Result, &result)
+			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
 	}()
@@ -126,7 +126,7 @@ func (protocol *ApplicationCacheProtocol) OnApplicationCacheStatusUpdated(
 		"ApplicationCache.applicationCacheStatusUpdated",
 		func(response *Response) {
 			event := &applicationCache.StatusUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)
@@ -148,7 +148,7 @@ func (protocol *ApplicationCacheProtocol) OnNetworkStateUpdated(
 		"ApplicationCache.networkStateUpdated",
 		func(response *Response) {
 			event := &applicationCache.NetworkStateUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Params), event); err != nil {
+			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
 				log.Error(err)
 			} else {
 				callback(event)

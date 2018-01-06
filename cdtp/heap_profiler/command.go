@@ -19,7 +19,8 @@ HeapProfiler.AddInspectedHeapObject.
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-addInspectedHeapObject
 */
 type AddInspectedHeapObjectResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -28,7 +29,8 @@ CollectGarbageResult represents the result of calls to HeapProfiler.collectGarba
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-collectGarbage
 */
 type CollectGarbageResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -37,7 +39,8 @@ DisableResult represents the result of calls to HeapProfiler.disable.
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-disable
 */
 type DisableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -46,7 +49,8 @@ EnableResult represents the result of calls to HeapProfiler.enable.
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-enable
 */
 type EnableResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -69,7 +73,8 @@ type GetHeapObjectIDResult struct {
 	// id.
 	HeapSnapshotObjectID HeapSnapshotObjectID `json:"heapSnapshotObjectId"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -96,7 +101,8 @@ type GetObjectByHeapObjectIDResult struct {
 	// Evaluation result.
 	Result *runtime.RemoteObject `json:"result"`
 
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -115,7 +121,8 @@ GetSamplingProfileResult represents the result of calls to HeapProfiler.getSampl
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getSamplingProfile
 */
 type GetSamplingProfileResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -135,7 +142,8 @@ StartSamplingResult represents the result of calls to HeapProfiler.startSampling
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-startSampling
 */
 type StartSamplingResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -155,7 +163,8 @@ HeapProfiler.startTrackingHeapObjects.
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-startTrackingHeapObjects
 */
 type StartTrackingHeapObjectsResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -174,7 +183,8 @@ StopSamplingResult represents the result of calls to HeapProfiler.stopSampling.
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stopSampling
 */
 type StopSamplingResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -195,7 +205,8 @@ HeapProfiler.stopTrackingHeapObjects.
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stopTrackingHeapObjects
 */
 type StopTrackingHeapObjectsResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
 
 /*
@@ -215,5 +226,6 @@ TakeHeapSnapshotResult represents the result of calls to HeapProfiler.takeHeapSn
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-takeHeapSnapshot
 */
 type TakeHeapSnapshotResult struct {
-	CDTPError error `json:"-"`
+	// Error information related to executing this method
+	Err error `json:"-"`
 }
