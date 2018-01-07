@@ -34,6 +34,23 @@ func TestCacheStorageDeleteCache(t *testing.T) {
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
+
+	resultChan = mockSocket.CacheStorage().DeleteCache(&cacheStorage.DeleteCacheParams{
+		CacheID: cacheStorage.CacheID("cache-id"),
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CacheStorage.deleteCache",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestCacheStorageDeleteEntry(t *testing.T) {
@@ -54,6 +71,24 @@ func TestCacheStorageDeleteEntry(t *testing.T) {
 	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
+	}
+
+	resultChan = mockSocket.CacheStorage().DeleteEntry(&cacheStorage.DeleteEntryParams{
+		CacheID: cacheStorage.CacheID("cache-id"),
+		Request: "request",
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CacheStorage.deleteEntry",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -91,6 +126,23 @@ func TestCacheStorageRequestCacheNames(t *testing.T) {
 			result.Caches[0].CacheID,
 		)
 	}
+
+	resultChan = mockSocket.CacheStorage().RequestCacheNames(&cacheStorage.RequestCacheNamesParams{
+		SecurityOrigin: "security-origin",
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CacheStorage.requestCacheNames",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestCacheStorageRequestCachedResponse(t *testing.T) {
@@ -125,6 +177,24 @@ func TestCacheStorageRequestCachedResponse(t *testing.T) {
 			mockResult.Response.Body,
 			result.Response.Body,
 		)
+	}
+
+	resultChan = mockSocket.CacheStorage().RequestCachedResponse(&cacheStorage.RequestCachedResponseParams{
+		CacheID:    cacheStorage.CacheID("security-origin"),
+		RequestURL: mockSocket.URL().String(),
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CacheStorage.requestCachedResponse",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -174,5 +244,24 @@ func TestCacheStorageRequestEntries(t *testing.T) {
 			mockResult.CacheDataEntries[0].RequestURL,
 			result.CacheDataEntries[0].RequestURL,
 		)
+	}
+
+	resultChan = mockSocket.CacheStorage().RequestEntries(&cacheStorage.RequestEntriesParams{
+		CacheID:   cacheStorage.CacheID("security-origin"),
+		SkipCount: 1,
+		PageSize:  1,
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CacheStorage.requestEntries",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }

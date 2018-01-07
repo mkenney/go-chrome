@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	database "github.com/mkenney/go-chrome/cdtp/database"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -123,11 +122,11 @@ func (protocol *DatabaseProtocol) OnAdd(
 		"Database.addDatabase",
 		func(response *Response) {
 			event := &database.AddEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

@@ -19,6 +19,9 @@ type StatusUpdatedEvent struct {
 
 	// Updated application cache status.
 	Status int `json:"status"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -28,4 +31,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#event-n
 */
 type NetworkStateUpdatedEvent struct {
 	IsNowOnline bool `json:"isNowOnline"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }

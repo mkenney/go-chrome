@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	headlessExperimental "github.com/mkenney/go-chrome/cdtp/headless_experimental"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -102,11 +101,11 @@ func (protocol *HeadlessExperimentalProtocol) OnMainFrameReadyForScreenshots(
 		"HeadlessExperimental.mainFrameReadyForScreenshots",
 		func(response *Response) {
 			event := &headlessExperimental.MainFrameReadyForScreenshotsEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -126,11 +125,11 @@ func (protocol *HeadlessExperimentalProtocol) OnNeedsBeginFramesChanged(
 		"HeadlessExperimental.needsBeginFramesChanged",
 		func(response *Response) {
 			event := &headlessExperimental.NeedsBeginFramesChangedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

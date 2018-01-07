@@ -44,4 +44,24 @@ func TestAuditsGetEncodedResponse(t *testing.T) {
 			result.Body,
 		)
 	}
+
+	resultChan = mockSocket.Audits().GetEncodedResponse(&audits.GetEncodedResponseParams{
+		RequestID: network.RequestID("audit-id"),
+		Encoding:  "encoding",
+		Quality:   1,
+		SizeOnly:  true,
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Audits.getEncodedResponse",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }

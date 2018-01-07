@@ -6,15 +6,6 @@ https://chromedevtools.github.io/devtools-protocol/tot/Database/
 package database
 
 /*
-AddEvent represents Database.addDatabase event data.
-
-https://chromedevtools.github.io/devtools-protocol/tot/Database/#event-addDatabase
-*/
-type AddEvent struct {
-	Database *Database `json:"database"`
-}
-
-/*
 ID is a unique identifier of a database object.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#type-DatabaseId

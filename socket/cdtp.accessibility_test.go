@@ -88,4 +88,21 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 		tmp, _ := json.Marshal(result.Nodes)
 		t.Errorf("Expected dataset, got '%s'", tmp)
 	}
+
+	resultChan = mockSocket.Accessibility().GetPartialAXTree(
+		&accessibility.PartialAXTreeParams{},
+	)
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Accessibility.partialAXTreeParams",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }

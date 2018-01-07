@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	page "github.com/mkenney/go-chrome/cdtp/page"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -766,11 +765,11 @@ func (protocol *PageProtocol) OnDOMContentEventFired(
 		"Page.domContentEventFired",
 		func(response *Response) {
 			event := &page.DOMContentEventFiredEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -789,11 +788,11 @@ func (protocol *PageProtocol) OnFrameAttached(
 		"Page.frameAttached",
 		func(response *Response) {
 			event := &page.FrameAttachedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -814,11 +813,11 @@ func (protocol *PageProtocol) OnFrameClearedScheduledNavigation(
 		"Page.frameClearedScheduledNavigation",
 		func(response *Response) {
 			event := &page.FrameClearedScheduledNavigationEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -837,11 +836,11 @@ func (protocol *PageProtocol) OnFrameDetached(
 		"Page.frameDetached",
 		func(response *Response) {
 			event := &page.FrameDetachedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -861,11 +860,11 @@ func (protocol *PageProtocol) OnFrameNavigated(
 		"Page.frameNavigated",
 		func(response *Response) {
 			event := &page.FrameNavigatedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -885,11 +884,11 @@ func (protocol *PageProtocol) OnFrameResized(
 		"Page.frameResized",
 		func(response *Response) {
 			event := &page.FrameResizedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -910,11 +909,11 @@ func (protocol *PageProtocol) OnFrameScheduledNavigation(
 		"Page.frameScheduledNavigation",
 		func(response *Response) {
 			event := &page.FrameScheduledNavigationEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -934,11 +933,11 @@ func (protocol *PageProtocol) OnFrameStartedLoading(
 		"Page.frameStartedLoading",
 		func(response *Response) {
 			event := &page.FrameStartedLoadingEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -958,11 +957,11 @@ func (protocol *PageProtocol) OnFrameStoppedLoading(
 		"Page.frameStoppedLoading",
 		func(response *Response) {
 			event := &page.FrameStoppedLoadingEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -981,11 +980,11 @@ func (protocol *PageProtocol) OnInterstitialHidden(
 		"Page.interstitialHidden",
 		func(response *Response) {
 			event := &page.InterstitialHiddenEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -1004,11 +1003,11 @@ func (protocol *PageProtocol) OnInterstitialShown(
 		"Page.interstitialShown",
 		func(response *Response) {
 			event := &page.InterstitialShownEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -1028,11 +1027,11 @@ func (protocol *PageProtocol) OnJavascriptDialogClosed(
 		"Page.javascriptDialogClosed",
 		func(response *Response) {
 			event := &page.JavascriptDialogClosedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -1052,11 +1051,11 @@ func (protocol *PageProtocol) OnJavascriptDialogOpening(
 		"Page.javascriptDialogOpening",
 		func(response *Response) {
 			event := &page.JavascriptDialogOpeningEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -1075,11 +1074,11 @@ func (protocol *PageProtocol) OnLifecycleEvent(
 		"Page.lifecycleEvent",
 		func(response *Response) {
 			event := &page.LifecycleEventEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -1098,11 +1097,11 @@ func (protocol *PageProtocol) OnLoadEventFired(
 		"Page.loadEventFired",
 		func(response *Response) {
 			event := &page.LoadEventFiredEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -1122,11 +1121,11 @@ func (protocol *PageProtocol) OnScreencastFrame(
 		"Page.screencastFrame",
 		func(response *Response) {
 			event := &page.ScreencastFrameEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -1147,11 +1146,11 @@ func (protocol *PageProtocol) OnScreencastVisibilityChanged(
 		"Page.screencastVisibilityChanged",
 		func(response *Response) {
 			event := &page.ScreencastVisibilityChangedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -1171,11 +1170,11 @@ func (protocol *PageProtocol) OnWindowOpen(
 		"Page.windowOpen",
 		func(response *Response) {
 			event := &page.WindowOpenEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

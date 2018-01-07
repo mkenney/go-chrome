@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	debugger "github.com/mkenney/go-chrome/cdtp/debugger"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -703,11 +702,11 @@ func (protocol *DebuggerProtocol) OnBreakpointResolved(
 		"Debugger.breakpointResolved",
 		func(response *Response) {
 			event := &debugger.BreakpointResolvedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -726,11 +725,11 @@ func (protocol *DebuggerProtocol) OnPaused(
 		"Debugger.paused",
 		func(response *Response) {
 			event := &debugger.PausedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -749,11 +748,11 @@ func (protocol *DebuggerProtocol) OnResumed(
 		"Debugger.resumed",
 		func(response *Response) {
 			event := &debugger.ResumedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -772,11 +771,11 @@ func (protocol *DebuggerProtocol) OnScriptFailedToParse(
 		"Debugger.scriptFailedToParse",
 		func(response *Response) {
 			event := &debugger.ScriptFailedToParseEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -796,11 +795,11 @@ func (protocol *DebuggerProtocol) OnScriptParsed(
 		"Debugger.scriptParsed",
 		func(response *Response) {
 			event := &debugger.ScriptParsedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

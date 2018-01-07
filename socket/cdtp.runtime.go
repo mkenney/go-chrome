@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	runtime "github.com/mkenney/go-chrome/cdtp/runtime"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -395,11 +394,11 @@ func (protocol *RuntimeProtocol) OnConsoleAPICalled(
 		"Runtime.consoleAPICalled",
 		func(response *Response) {
 			event := &runtime.ConsoleAPICalledEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -418,11 +417,11 @@ func (protocol *RuntimeProtocol) OnExceptionRevoked(
 		"Runtime.exceptionRevoked",
 		func(response *Response) {
 			event := &runtime.ExceptionRevokedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -441,11 +440,11 @@ func (protocol *RuntimeProtocol) OnExceptionThrown(
 		"Runtime.exceptionThrown",
 		func(response *Response) {
 			event := &runtime.ExceptionThrownEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -465,11 +464,11 @@ func (protocol *RuntimeProtocol) OnExecutionContextCreated(
 		"Runtime.executionContextCreated",
 		func(response *Response) {
 			event := &runtime.ExecutionContextCreatedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -489,11 +488,11 @@ func (protocol *RuntimeProtocol) OnExecutionContextDestroyed(
 		"Runtime.executionContextDestroyed",
 		func(response *Response) {
 			event := &runtime.ExecutionContextDestroyedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -513,11 +512,11 @@ func (protocol *RuntimeProtocol) OnExecutionContextsCleared(
 		"Runtime.executionContextsCleared",
 		func(response *Response) {
 			event := &runtime.ExecutionContextsClearedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -537,11 +536,11 @@ func (protocol *RuntimeProtocol) OnInspectRequested(
 		"Runtime.inspectRequested",
 		func(response *Response) {
 			event := &runtime.InspectRequestedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	animation "github.com/mkenney/go-chrome/cdtp/animation"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -260,11 +259,11 @@ func (protocol *AnimationProtocol) OnAnimationCanceled(
 		"Animation.animationCanceled",
 		func(response *Response) {
 			event := &animation.CanceledEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -283,11 +282,11 @@ func (protocol *AnimationProtocol) OnAnimationCreated(
 		"Animation.animationCreated",
 		func(response *Response) {
 			event := &animation.CreatedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -306,11 +305,11 @@ func (protocol *AnimationProtocol) OnAnimationStarted(
 		"Animation.animationStarted",
 		func(response *Response) {
 			event := &animation.StartedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

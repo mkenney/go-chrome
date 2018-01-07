@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	tracing "github.com/mkenney/go-chrome/cdtp/tracing"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -140,11 +139,11 @@ func (protocol *TracingProtocol) OnBufferUsage(
 		"Tracing.bufferUsage",
 		func(response *Response) {
 			event := &tracing.BufferUsageEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -165,11 +164,11 @@ func (protocol *TracingProtocol) OnDataCollected(
 		"Tracing.dataCollected",
 		func(response *Response) {
 			event := &tracing.DataCollectedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -189,11 +188,11 @@ func (protocol *TracingProtocol) OnTracingComplete(
 		"Tracing.tracingComplete",
 		func(response *Response) {
 			event := &tracing.CompleteEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

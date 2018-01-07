@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	chromeLog "github.com/mkenney/go-chrome/cdtp/log"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -139,11 +138,11 @@ func (protocol *LogProtocol) OnEntryAdded(
 		"Log.entryAdded",
 		func(response *Response) {
 			event := &chromeLog.EntryAddedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

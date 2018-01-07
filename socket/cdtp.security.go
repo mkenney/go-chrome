@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	security "github.com/mkenney/go-chrome/cdtp/security"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -148,11 +147,11 @@ func (protocol *SecurityProtocol) OnCertificateError(
 		"Security.certificateError",
 		func(response *Response) {
 			event := &security.CertificateErrorEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -171,11 +170,11 @@ func (protocol *SecurityProtocol) OnSecurityStateChanged(
 		"Security.securityStateChanged",
 		func(response *Response) {
 			event := &security.StateChangedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

@@ -11,4 +11,7 @@ type AcceptedEvent struct {
 
 	// Connection ID to be used.
 	ConnectionID string `json:"connectionId"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }

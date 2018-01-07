@@ -25,6 +25,21 @@ func TestBrowserClose(t *testing.T) {
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
+
+	resultChan = mockSocket.Browser().Close()
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Browser.close",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestBrowserGetVersion(t *testing.T) {
@@ -58,6 +73,21 @@ func TestBrowserGetVersion(t *testing.T) {
 			mockResult.ProtocolVersion,
 			result.ProtocolVersion,
 		)
+	}
+
+	resultChan = mockSocket.Browser().GetVersion()
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Browser.getVersion",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -96,6 +126,23 @@ func TestBrowserGetWindowBounds(t *testing.T) {
 			mockResult.Bounds.Height,
 			result.Bounds.Height,
 		)
+	}
+
+	resultChan = mockSocket.Browser().GetWindowBounds(&browser.GetWindowBoundsParams{
+		WindowID: browser.WindowID(1),
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Browser.getWindowBounds",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -142,6 +189,23 @@ func TestBrowserGetWindowForTarget(t *testing.T) {
 			mockResult.Bounds.Height,
 			result.Bounds.Height,
 		)
+	}
+
+	resultChan = mockSocket.Browser().GetWindowForTarget(&browser.GetWindowForTargetParams{
+		TargetID: target.ID("target-id"),
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Browser.getWindowForTarget",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -195,5 +259,29 @@ func TestBrowserSetWindowBounds(t *testing.T) {
 			mockResult.Bounds.Height,
 			result.Bounds.Height,
 		)
+	}
+
+	resultChan = mockSocket.Browser().SetWindowBounds(&browser.SetWindowBoundsParams{
+		WindowID: browser.WindowID(1),
+		Bounds: &browser.Bounds{
+			Height:      100,
+			Left:        0,
+			Top:         0,
+			Width:       100,
+			WindowState: browser.WindowState("window-state"),
+		},
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Browser.setWindowBounds",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }

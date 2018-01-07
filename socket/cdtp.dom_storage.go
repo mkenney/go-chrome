@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	domStorage "github.com/mkenney/go-chrome/cdtp/dom_storage"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -168,11 +167,11 @@ func (protocol *DOMStorageProtocol) OnItemAdded(
 		"DOMStorage.domStorageItemAdded",
 		func(response *Response) {
 			event := &domStorage.ItemAddedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -191,11 +190,11 @@ func (protocol *DOMStorageProtocol) OnItemRemoved(
 		"DOMStorage.domStorageItemRemoved",
 		func(response *Response) {
 			event := &domStorage.ItemRemovedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -214,11 +213,11 @@ func (protocol *DOMStorageProtocol) OnItemUpdated(
 		"DOMStorage.domStorageItemUpdated",
 		func(response *Response) {
 			event := &domStorage.ItemUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -237,11 +236,11 @@ func (protocol *DOMStorageProtocol) OnItemsCleared(
 		"DOMStorage.domStorageItemsCleared",
 		func(response *Response) {
 			event := &domStorage.ItemsClearedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

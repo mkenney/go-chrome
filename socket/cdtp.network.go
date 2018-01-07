@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	network "github.com/mkenney/go-chrome/cdtp/network"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -663,11 +662,11 @@ func (protocol *NetworkProtocol) OnDataReceived(
 		"Network.dataReceived",
 		func(response *Response) {
 			event := &network.DataReceivedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -687,11 +686,11 @@ func (protocol *NetworkProtocol) OnEventSourceMessageReceived(
 		"Network.eventSourceMessageReceived",
 		func(response *Response) {
 			event := &network.EventSourceMessageReceivedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -710,11 +709,11 @@ func (protocol *NetworkProtocol) OnLoadingFailed(
 		"Network.loadingFailed",
 		func(response *Response) {
 			event := &network.LoadingFailedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -733,11 +732,11 @@ func (protocol *NetworkProtocol) OnLoadingFinished(
 		"Network.loadingFinished",
 		func(response *Response) {
 			event := &network.LoadingFinishedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -758,11 +757,11 @@ func (protocol *NetworkProtocol) OnRequestIntercepted(
 		"Network.requestIntercepted",
 		func(response *Response) {
 			event := &network.RequestInterceptedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -782,11 +781,11 @@ func (protocol *NetworkProtocol) OnRequestServedFromCache(
 		"Network.requestServedFromCache",
 		func(response *Response) {
 			event := &network.RequestServedFromCacheEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -805,11 +804,11 @@ func (protocol *NetworkProtocol) OnRequestWillBeSent(
 		"Network.requestWillBeSent",
 		func(response *Response) {
 			event := &network.RequestWillBeSentEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -830,11 +829,11 @@ func (protocol *NetworkProtocol) OnResourceChangedPriority(
 		"Network.resourceChangedPriority",
 		func(response *Response) {
 			event := &network.ResourceChangedPriorityEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -853,11 +852,11 @@ func (protocol *NetworkProtocol) OnResponseReceived(
 		"Network.responseReceived",
 		func(response *Response) {
 			event := &network.ResponseReceivedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -876,11 +875,11 @@ func (protocol *NetworkProtocol) OnWebSocketClosed(
 		"Network.webSocketClosed",
 		func(response *Response) {
 			event := &network.WebSocketClosedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -899,11 +898,11 @@ func (protocol *NetworkProtocol) OnWebSocketCreated(
 		"Network.webSocketCreated",
 		func(response *Response) {
 			event := &network.WebSocketCreatedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -922,11 +921,11 @@ func (protocol *NetworkProtocol) OnWebSocketFrameError(
 		"Network.webSocketFrameError",
 		func(response *Response) {
 			event := &network.WebSocketFrameErrorEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -945,11 +944,11 @@ func (protocol *NetworkProtocol) OnWebSocketFrameReceived(
 		"Network.webSocketFrameReceived",
 		func(response *Response) {
 			event := &network.WebSocketFrameReceivedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -968,11 +967,11 @@ func (protocol *NetworkProtocol) OnWebSocketFrameSent(
 		"Network.webSocketFrameSent",
 		func(response *Response) {
 			event := &network.WebSocketFrameSentEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -992,11 +991,11 @@ func (protocol *NetworkProtocol) OnWebSocketHandshakeResponseReceived(
 		"Network.webSocketHandshakeResponseReceived",
 		func(response *Response) {
 			event := &network.WebSocketHandshakeResponseReceivedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -1016,11 +1015,11 @@ func (protocol *NetworkProtocol) OnWebSocketWillSendHandshakeRequest(
 		"Network.webSocketWillSendHandshakeRequest",
 		func(response *Response) {
 			event := &network.WebSocketWillSendHandshakeRequestEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

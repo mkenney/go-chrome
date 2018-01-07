@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	console "github.com/mkenney/go-chrome/cdtp/console"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -95,11 +94,11 @@ func (protocol *ConsoleProtocol) OnMessageAdded(
 		"Console.messageAdded",
 		func(response *Response) {
 			event := &console.MessageAddedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

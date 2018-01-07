@@ -8,4 +8,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Log/#event-entryAdded
 type EntryAddedEvent struct {
 	// The entry.
 	Entry *Entry `json:"entry"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }

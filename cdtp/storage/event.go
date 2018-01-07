@@ -11,6 +11,9 @@ type CacheStorageContentUpdatedEvent struct {
 
 	// Name of cache in origin.
 	CacheName string `json:"cacheName"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -21,6 +24,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/Storage/#event-cacheStora
 type CacheStorageListUpdatedEvent struct {
 	// Origin to update.
 	Origin string `json:"origin"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -37,6 +43,9 @@ type IndexedDBContentUpdatedEvent struct {
 
 	// ObjectStore to update.
 	ObjectStoreName string `json:"objectStoreName"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -47,4 +56,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Storage/#event-indexedDBL
 type IndexedDBListUpdatedEvent struct {
 	// Origin to update.
 	Origin string `json:"origin"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }

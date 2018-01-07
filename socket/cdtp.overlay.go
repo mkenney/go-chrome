@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	overlay "github.com/mkenney/go-chrome/cdtp/overlay"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -402,11 +401,11 @@ func (protocol *OverlayProtocol) OnInspectNodeRequested(
 		"Overlay.inspectNodeRequested",
 		func(response *Response) {
 			event := &overlay.InspectNodeRequestedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -426,11 +425,11 @@ func (protocol *OverlayProtocol) OnNodeHighlightRequested(
 		"Overlay.nodeHighlightRequested",
 		func(response *Response) {
 			event := &overlay.NodeHighlightRequestedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -450,11 +449,11 @@ func (protocol *OverlayProtocol) OnScreenshotRequested(
 		"Overlay.screenshotRequested",
 		func(response *Response) {
 			event := &overlay.ScreenshotRequestedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

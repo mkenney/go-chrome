@@ -8,6 +8,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-work
 type WorkerErrorReportedEvent struct {
 	// Error message.
 	ErrorMessage *ErrorMessage `json:"errorMessage"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -18,6 +21,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-work
 type WorkerRegistrationUpdatedEvent struct {
 	// Registrations.
 	Registrations []*Registration `json:"registrations"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -28,4 +34,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-work
 type WorkerVersionUpdatedEvent struct {
 	// Versions.
 	Versions []*Version `json:"versions"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }

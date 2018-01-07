@@ -22,6 +22,9 @@ type DataReceivedEvent struct {
 	// Actual bytes received (might be less than dataLength for compressed
 	// encodings).
 	EncodedDataLength int `json:"encodedDataLength"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -44,6 +47,9 @@ type EventSourceMessageReceivedEvent struct {
 
 	// Message content.
 	Data string `json:"data"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -69,6 +75,9 @@ type LoadingFailedEvent struct {
 
 	// Optional. The reason why loading was blocked, if any.
 	BlockedReason BlockedReason `json:"blockedReason,omitempty"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -85,6 +94,9 @@ type LoadingFinishedEvent struct {
 
 	// Total number of bytes received for this request.
 	EncodedDataLength float64 `json:"encodedDataLength"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -130,6 +142,9 @@ type RequestInterceptedEvent struct {
 	// Optional. Response headers if intercepted at the response stage or if
 	// redirect occurred while intercepting request or auth retry occurred.
 	ResponseHeaders Headers `json:"responseHeaders,omitempty"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -140,6 +155,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#event-requestSer
 type RequestServedFromCacheEvent struct {
 	// Request identifier.
 	RequestID RequestID `json:"requestId"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -177,6 +195,9 @@ type RequestWillBeSentEvent struct {
 
 	// Optional. Frame identifier.
 	FrameID page.FrameID `json:"frameId,omitempty"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -193,6 +214,9 @@ type ResourceChangedPriorityEvent struct {
 
 	// Timestamp.
 	Timestamp MonotonicTime `json:"timestamp"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -218,6 +242,9 @@ type ResponseReceivedEvent struct {
 
 	// Optional. Frame identifier.
 	FrameID page.FrameID `json:"frameId,omitempty"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -231,6 +258,9 @@ type WebSocketClosedEvent struct {
 
 	// Timestamp.
 	Timestamp MonotonicTime `json:"timestamp"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -247,6 +277,9 @@ type WebSocketCreatedEvent struct {
 
 	// Optional. WebSocket frame error message.
 	ErrorMessage string `json:"errorMessage,omitempty"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -263,6 +296,9 @@ type WebSocketFrameErrorEvent struct {
 
 	// Optional. WebSocket frame error message.
 	ErrorMessage string `json:"errorMessage,omitempty"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -279,6 +315,9 @@ type WebSocketFrameReceivedEvent struct {
 
 	// WebSocket response data.
 	Response *WebSocketFrame `json:"response"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -295,6 +334,9 @@ type WebSocketFrameSentEvent struct {
 
 	// WebSocket response data.
 	Response *WebSocketFrame `json:"response"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -312,6 +354,9 @@ type WebSocketHandshakeResponseReceivedEvent struct {
 
 	// WebSocket response data.
 	Response *WebSocketFrame `json:"response"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -332,4 +377,7 @@ type WebSocketWillSendHandshakeRequestEvent struct {
 
 	// WebSocket request data.
 	Request *WebSocketRequest `json:"request"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
