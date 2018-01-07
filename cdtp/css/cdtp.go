@@ -64,7 +64,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-RuleMatch
 */
 type RuleMatch struct {
 	// CSS rule in the match.
-	Rule Rule `json:"rule"`
+	Rule *Rule `json:"rule"`
 
 	// Matching selector indices in the rule's selectorList selectors (0-based).
 	MatchingSelectors []int `json:"matchingSelectors"`
@@ -136,13 +136,13 @@ type StyleSheetHeader struct {
 	IsInline bool `json:"isInline"`
 
 	// Line offset of the stylesheet within the resource (zero based).
-	StartLine float64 `json:"startLine"`
+	StartLine int64 `json:"startLine"`
 
 	// Column offset of the stylesheet within the resource (zero based).
-	StartColumn float64 `json:"startColumn"`
+	StartColumn int64 `json:"startColumn"`
 
 	// Size of the content (in characters).
-	Length float64 `json:"length"`
+	Length int64 `json:"length"`
 }
 
 /*
@@ -203,10 +203,10 @@ type SourceRange struct {
 	StartColumn int `json:"startColumn"`
 
 	// End line of range.
-	SndLine int `json:"endLine"`
+	EndLine int `json:"endLine"`
 
 	// End column of range (exclusive).
-	SndColumn int `json:"endColumn"`
+	EndColumn int `json:"endColumn"`
 }
 
 /*

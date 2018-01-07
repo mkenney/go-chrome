@@ -371,7 +371,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setMediaText
 */
 type SetMediaTextResult struct {
 	// The resulting CSS media rule after modification.
-	Media Media `json:"media"`
+	Media *Media `json:"media"`
 
 	// Error information related to executing this method
 	Err error `json:"-"`
@@ -409,9 +409,6 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setStyleSheet
 type SetStyleSheetTextParams struct {
 	StyleSheetID StyleSheetID `json:"styleSheetId"`
 	Text         string       `json:"text"`
-
-	// Error information related to executing this method
-	Err error `json:"-"`
 }
 
 /*

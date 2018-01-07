@@ -1,6 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 echo "" > coverage.txt
+
+# the alpine image doesn't come with git
+apk update && apk add git
 
 go get -v github.com/golang/lint/golint
 [ "0" = "$?" ] || exit 1
@@ -15,7 +18,6 @@ dep ensure
 [ "0" = "$?" ] || exit 4
 
 for dir in $(go list ./... | grep -v vendor); do
-    echo "go test -timeout 20s -coverprofile=profile.out $dir"
     go test -timeout 20s -coverprofile=profile.out $dir
     exit_code=$?
     if [ "0" != "$exit_code" ]; then
