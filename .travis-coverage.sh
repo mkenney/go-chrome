@@ -1,6 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 echo "" > coverage.txt
+
+# the alpine image doesn't come with git
+apk update && apk add git
 
 go get -v github.com/golang/lint/golint
 [ "0" = "$?" ] || exit 1
