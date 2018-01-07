@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	css "github.com/mkenney/go-chrome/cdtp/css"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -578,11 +577,11 @@ func (protocol *CSSProtocol) OnFontsUpdated(
 		"CSS.fontsUpdated",
 		func(response *Response) {
 			event := &css.FontsUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -603,11 +602,11 @@ func (protocol *CSSProtocol) OnMediaQueryResultChanged(
 		"CSS.mediaQueryResultChanged",
 		func(response *Response) {
 			event := &css.MediaQueryResultChangedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -626,11 +625,11 @@ func (protocol *CSSProtocol) OnStyleSheetAdded(
 		"CSS.styleSheetAdded",
 		func(response *Response) {
 			event := &css.StyleSheetAddedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -650,11 +649,11 @@ func (protocol *CSSProtocol) OnStyleSheetChanged(
 		"CSS.styleSheetChanged",
 		func(response *Response) {
 			event := &css.StyleSheetChangedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -673,11 +672,11 @@ func (protocol *CSSProtocol) OnStyleSheetRemoved(
 		"CSS.styleSheetRemoved",
 		func(response *Response) {
 			event := &css.StyleSheetRemovedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

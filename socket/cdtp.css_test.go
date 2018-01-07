@@ -1257,8 +1257,26 @@ func TestCSSOnFontsUpdated(t *testing.T) {
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
-	if mockResult != result {
+	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
+	}
+
+	resultChan = make(chan *css.FontsUpdatedEvent)
+	mockSocket.CSS().OnFontsUpdated(func(eventData *css.FontsUpdatedEvent) {
+		resultChan <- eventData
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: 0,
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.fontsUpdated",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -1281,8 +1299,26 @@ func TestCSSOnMediaQueryResultChanged(t *testing.T) {
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
-	if mockResult != result {
+	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
+	}
+
+	resultChan = make(chan *css.MediaQueryResultChangedEvent)
+	mockSocket.CSS().OnMediaQueryResultChanged(func(eventData *css.MediaQueryResultChangedEvent) {
+		resultChan <- eventData
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: 0,
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.mediaQueryResultChanged",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -1320,11 +1356,29 @@ func TestCSSOnStyleSheetAdded(t *testing.T) {
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
-	if nil == result {
-		t.Errorf("Expected value, got nil")
+	if nil != result.Err {
+		t.Errorf("Expected success, got error: '%s'", result.Err.Error())
 	}
 	if mockResult.Header.StyleSheetID != result.Header.StyleSheetID {
 		t.Errorf("Expected '%s', got '%s'", mockResult.Header.StyleSheetID, result.Header.StyleSheetID)
+	}
+
+	resultChan = make(chan *css.StyleSheetAddedEvent)
+	mockSocket.CSS().OnStyleSheetAdded(func(eventData *css.StyleSheetAddedEvent) {
+		resultChan <- eventData
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: 0,
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.styleSheetAdded",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -1349,11 +1403,29 @@ func TestCSSOnStyleSheetChanged(t *testing.T) {
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
-	if nil == result {
-		t.Errorf("Expected value, got nil")
+	if nil != result.Err {
+		t.Errorf("Expected success, got error: '%s'", result.Err.Error())
 	}
 	if mockResult.StyleSheetID != result.StyleSheetID {
 		t.Errorf("Expected '%s', got '%s'", mockResult.StyleSheetID, result.StyleSheetID)
+	}
+
+	resultChan = make(chan *css.StyleSheetChangedEvent)
+	mockSocket.CSS().OnStyleSheetChanged(func(eventData *css.StyleSheetChangedEvent) {
+		resultChan <- eventData
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: 0,
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.styleSheetChanged",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -1378,10 +1450,28 @@ func TestCSSOnStyleSheetRemoved(t *testing.T) {
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
-	if nil == result {
-		t.Errorf("Expected value, got nil")
+	if nil != result.Err {
+		t.Errorf("Expected success, got error: '%s'", result.Err.Error())
 	}
 	if mockResult.StyleSheetID != result.StyleSheetID {
 		t.Errorf("Expected '%s', got '%s'", mockResult.StyleSheetID, result.StyleSheetID)
+	}
+
+	resultChan = make(chan *css.StyleSheetRemovedEvent)
+	mockSocket.CSS().OnStyleSheetRemoved(func(eventData *css.StyleSheetRemovedEvent) {
+		resultChan <- eventData
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: 0,
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.styleSheetRemoved",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }

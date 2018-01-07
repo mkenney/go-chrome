@@ -95,20 +95,6 @@ func (socket *MockWebSocket) WriteJSON(v interface{}) error {
 /*
 AddMockData implements WebSocketer.
 */
-//func (socket *MockWebSocket) AddMockData(id int, err *Error, method string, data ...interface{}) {
-//	response := &Response{
-//		Error:  err,
-//		ID:     id,
-//		Method: method,
-//	}
-//	if len(data) > 0 {
-//		response.Result, _ = json.Marshal(data[0])
-//	}
-//	if len(data) > 1 {
-//		response.Params, _ = json.Marshal(data[1])
-//	}
-//	socket.mockResponses = append(socket.mockResponses, response)
-//}
 func (socket *MockWebSocket) AddMockData(response *Response) {
 	socket.mockResponses = append(socket.mockResponses, response)
 }
