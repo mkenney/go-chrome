@@ -15,7 +15,6 @@ dep ensure
 [ "0" = "$?" ] || exit 4
 
 for dir in $(go list ./... | grep -v vendor); do
-    echo "go test -timeout 20s -coverprofile=profile.out $dir"
     go test -timeout 20s -coverprofile=profile.out $dir
     exit_code=$?
     if [ "0" != "$exit_code" ]; then
