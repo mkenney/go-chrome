@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	applicationCache "github.com/mkenney/go-chrome/cdtp/application_cache"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -126,11 +125,11 @@ func (protocol *ApplicationCacheProtocol) OnApplicationCacheStatusUpdated(
 		"ApplicationCache.applicationCacheStatusUpdated",
 		func(response *Response) {
 			event := &applicationCache.StatusUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -148,11 +147,11 @@ func (protocol *ApplicationCacheProtocol) OnNetworkStateUpdated(
 		"ApplicationCache.networkStateUpdated",
 		func(response *Response) {
 			event := &applicationCache.NetworkStateUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

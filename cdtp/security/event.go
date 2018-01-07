@@ -14,6 +14,9 @@ type CertificateErrorEvent struct {
 
 	// The url that was requested.
 	RequestURL string `json:"requestURL"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -38,4 +41,7 @@ type StateChangedEvent struct {
 
 	// Optional. Overrides user-visible description of the state.
 	Summary string `json:"summary,omitempty"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }

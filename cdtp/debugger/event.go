@@ -13,6 +13,9 @@ type BreakpointResolvedEvent struct {
 
 	// Actual breakpoint location.
 	Location *Location `json:"location"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -44,6 +47,9 @@ type PausedEvent struct {
 	// stack during async execution. This field is available only after
 	// Debugger.stepInto call with breakOnAsynCall flag. EXPERIMENTAL.
 	AsyncCallStackTraceID runtime.StackTraceID `json:"asyncCallStackTraceId,omitempty"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -51,7 +57,10 @@ ResumedEvent represents Debugger.resumed event data.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#event-resumed
 */
-type ResumedEvent struct{}
+type ResumedEvent struct {
+	// Error information related to this event
+	Err error `json:"-"`
+}
 
 /*
 ScriptFailedToParseEvent represents Debugger.scriptFailedToParse event data.
@@ -102,6 +111,9 @@ type ScriptFailedToParseEvent struct {
 	// Optional. JavaScript top stack frame of where the script parsed event was
 	// triggered if available. EXPERIMENTAL.
 	StackTrace *runtime.StackTrace `json:"stackTrace,omitempty"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -157,4 +169,7 @@ type ScriptParsedEvent struct {
 	// Optional. JavaScript top stack frame of where the script parsed event was
 	// triggered if available. EXPERIMENTAL.
 	StackTrace *runtime.StackTrace `json:"stackTrace,omitempty"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }

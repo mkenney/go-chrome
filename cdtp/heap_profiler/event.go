@@ -7,6 +7,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-addHe
 */
 type AddHeapSnapshotChunkEvent struct {
 	Chunk string `json:"chunk"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -20,6 +23,9 @@ type HeapStatsUpdateEvent struct {
 	// objects for the fragment, the third integer is a total size of the
 	// objects for the fragment.
 	StatsUpdate []int `json:"statsUpdate"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -33,6 +39,9 @@ type LastSeenObjectIDEvent struct {
 
 	//
 	Timestamp int `json:"timestamp"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -49,6 +58,9 @@ type ReportHeapSnapshotProgressEvent struct {
 
 	// Optional.
 	Finished bool `json:"finished,omitempty"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -56,4 +68,7 @@ ResetProfilesEvent represents DOM.resetProfiles event data.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-resetProfiles
 */
-type ResetProfilesEvent struct{}
+type ResetProfilesEvent struct {
+	// Error information related to this event
+	Err error `json:"-"`
+}

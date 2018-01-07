@@ -151,4 +151,22 @@ func TestConsoleOnMessageAdded(t *testing.T) {
 			result.Message.Source,
 		)
 	}
+
+	resultChan = make(chan *console.MessageAddedEvent)
+	mockSocket.Console().OnMessageAdded(func(eventData *console.MessageAddedEvent) {
+		resultChan <- eventData
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: 0,
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Console.messageAdded",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }

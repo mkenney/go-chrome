@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	layerTree "github.com/mkenney/go-chrome/cdtp/layer_tree"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -245,11 +244,11 @@ func (protocol *LayerTreeProtocol) OnLayerPainted(
 		"LayerTree.layerPainted",
 		func(response *Response) {
 			event := &layerTree.LayerPaintedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -268,11 +267,11 @@ func (protocol *LayerTreeProtocol) OnLayerTreeDidChange(
 		"LayerTree.layerTreeDidChange",
 		func(response *Response) {
 			event := &layerTree.DidChangeEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

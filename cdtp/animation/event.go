@@ -8,6 +8,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#event-animatio
 type CanceledEvent struct {
 	// ID of the animation that was cancelled.
 	ID string `json:"id"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -18,6 +21,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#event-animatio
 type CreatedEvent struct {
 	// ID of the animation that was created.
 	ID string `json:"id"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -28,4 +34,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#event-animatio
 type StartedEvent struct {
 	// Animation that was started.
 	Animation *Animation `json:"animation"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }

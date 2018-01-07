@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	profiler "github.com/mkenney/go-chrome/cdtp/profiler"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -303,11 +302,11 @@ func (protocol *ProfilerProtocol) OnConsoleProfileFinished(
 		"Profiler.consoleProfileFinished",
 		func(response *Response) {
 			event := &profiler.ConsoleProfileFinishedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -327,11 +326,11 @@ func (protocol *ProfilerProtocol) OnConsoleProfileStarted(
 		"Profiler.consoleProfileStarted",
 		func(response *Response) {
 			event := &profiler.ConsoleProfileStartedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

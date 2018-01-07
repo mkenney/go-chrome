@@ -11,6 +11,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-domContentEve
 */
 type DOMContentEventFiredEvent struct {
 	Timestamp MonotonicTime `json:"timestamp"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -28,6 +31,9 @@ type FrameAttachedEvent struct {
 	// Optional. JavaScript stack trace of when frame was attached, only set if
 	// frame initiated from script.
 	Stack *runtime.StackTrace `json:"stack,omitempty"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -39,6 +45,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameClearedS
 type FrameClearedScheduledNavigationEvent struct {
 	// ID of the frame that has cleared its scheduled navigation.
 	FrameID FrameID `json:"frameId"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -49,6 +58,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameDetached
 type FrameDetachedEvent struct {
 	// ID of the frame that has been detached.
 	FrameID FrameID `json:"frameId"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -59,6 +71,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameNavigate
 type FrameNavigatedEvent struct {
 	// Frame object.
 	Frame *Frame `json:"frame"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -66,7 +81,10 @@ FrameResizedEvent represents Page.frameResized event data.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameResized
 */
-type FrameResizedEvent struct{}
+type FrameResizedEvent struct {
+	// Error information related to this event
+	Err error `json:"-"`
+}
 
 /*
 FrameScheduledNavigationEvent represents Page.frameScheduledNavigation event data.
@@ -95,6 +113,9 @@ type FrameScheduledNavigationEvent struct {
 
 	// The destination URL for the scheduled navigation.
 	URL string `json:"url"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -105,6 +126,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameStartedL
 type FrameStartedLoadingEvent struct {
 	// ID of the frame that has started loading.
 	FrameID FrameID `json:"frameId"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -115,6 +139,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameStoppedL
 type FrameStoppedLoadingEvent struct {
 	// ID of the frame that has stopped loading.
 	FrameID FrameID `json:"frameId"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -122,14 +149,20 @@ InterstitialHiddenEvent represents Page.interstitialHidden event data.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-interstitialHidden
 */
-type InterstitialHiddenEvent struct{}
+type InterstitialHiddenEvent struct {
+	// Error information related to this event
+	Err error `json:"-"`
+}
 
 /*
 InterstitialShownEvent represents Page.interstitialShown event data.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-interstitialShown
 */
-type InterstitialShownEvent struct{}
+type InterstitialShownEvent struct {
+	// Error information related to this event
+	Err error `json:"-"`
+}
 
 /*
 JavascriptDialogClosedEvent represents Page.javascriptDialogClosed event data.
@@ -142,6 +175,9 @@ type JavascriptDialogClosedEvent struct {
 
 	// User input in case of prompt.
 	UserInput string `json:"userInput"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -161,6 +197,9 @@ type JavascriptDialogOpeningEvent struct {
 
 	// Optional. Default dialog prompt.
 	DefaultPrompt string `json:"defaultPrompt,omitempty"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -180,6 +219,9 @@ type LifecycleEventEvent struct {
 
 	// timestamp.
 	Timestamp MonotonicTime `json:"timestamp"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -190,6 +232,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-loadEventFire
 type LoadEventFiredEvent struct {
 	// timestamp.
 	Timestamp MonotonicTime `json:"timestamp"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -206,6 +251,9 @@ type ScreencastFrameEvent struct {
 
 	// Frame number.
 	SessionID int `json:"sessionId"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -216,6 +264,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-screencastVis
 type ScreencastVisibilityChangedEvent struct {
 	// True if the page is visible.
 	Visible bool `json:"visible"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -235,4 +286,7 @@ type WindowOpenEvent struct {
 
 	// Whether or not it was triggered by user gesture.
 	UserGesture bool `json:"userGesture"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }

@@ -14,6 +14,9 @@ type AttachedToTargetEvent struct {
 
 	// Waiting for debugger.
 	WaitingForDebugger bool `json:"waitingForDebugger"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -27,6 +30,9 @@ type DetachedFromTargetEvent struct {
 
 	// DEPRECATED
 	ID ID `json:"targetId"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -43,6 +49,9 @@ type ReceivedMessageFromTargetEvent struct {
 
 	// Optional. Deprecated. DEPRECATED.
 	ID ID `json:"targetId,omitempty"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -53,6 +62,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-targetCreat
 type CreatedEvent struct {
 	// Target info.
 	Info *Info `json:"targetInfo"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -63,6 +75,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-targetDestr
 type DestroyedEvent struct {
 	// Target ID.
 	ID ID `json:"targetId"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -73,4 +88,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#event-targetInfoC
 type InfoChangedEvent struct {
 	// Target info.
 	Info *Info `json:"targetInfo"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }

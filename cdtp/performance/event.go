@@ -11,4 +11,7 @@ type MetricsEvent struct {
 
 	// Timestamp title.
 	Title string `json:"title"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }

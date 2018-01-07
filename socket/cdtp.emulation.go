@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	emulation "github.com/mkenney/go-chrome/cdtp/emulation"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -413,11 +412,11 @@ func (protocol *EmulationProtocol) OnVirtualTimeAdvanced(
 		"Emulation.virtualTimeAdvanced",
 		func(response *Response) {
 			event := &emulation.VirtualTimeAdvancedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -438,11 +437,11 @@ func (protocol *EmulationProtocol) OnVirtualTimeBudgetExpired(
 		"Emulation.virtualTimeBudgetExpired",
 		func(response *Response) {
 			event := &emulation.VirtualTimeBudgetExpiredEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -462,11 +461,11 @@ func (protocol *EmulationProtocol) OnVirtualTimePaused(
 		"Emulation.virtualTimePaused",
 		func(response *Response) {
 			event := &emulation.VirtualTimePausedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

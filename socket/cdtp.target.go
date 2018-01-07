@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	target "github.com/mkenney/go-chrome/cdtp/target"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -375,11 +374,11 @@ func (protocol *TargetProtocol) OnAttachedToTarget(
 		"Target.attachedToTarget",
 		func(response *Response) {
 			event := &target.AttachedToTargetEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -401,11 +400,11 @@ func (protocol *TargetProtocol) OnDetachedFromTarget(
 		"Target.detachedFromTarget",
 		func(response *Response) {
 			event := &target.DetachedFromTargetEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -425,11 +424,11 @@ func (protocol *TargetProtocol) OnReceivedMessageFromTarget(
 		"Target.receivedMessageFromTarget",
 		func(response *Response) {
 			event := &target.ReceivedMessageFromTargetEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -448,11 +447,11 @@ func (protocol *TargetProtocol) OnTargetCreated(
 		"Target.targetCreated",
 		func(response *Response) {
 			event := &target.CreatedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -471,11 +470,11 @@ func (protocol *TargetProtocol) OnTargetDestroyed(
 		"Target.targetDestroyed",
 		func(response *Response) {
 			event := &target.DestroyedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -495,11 +494,11 @@ func (protocol *TargetProtocol) OnTargetInfoChanged(
 		"Target.targetInfoChanged",
 		func(response *Response) {
 			event := &target.InfoChangedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

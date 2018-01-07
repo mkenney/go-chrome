@@ -9,6 +9,9 @@ type VirtualTimeAdvancedEvent struct {
 	// The amount of virtual time that has elapsed in milliseconds since virtual
 	// time was first enabled.
 	VirtualTimeElapsed int `json:"virtualTimeElapsed"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -16,7 +19,10 @@ VirtualTimeBudgetExpiredEvent represents Emulation.virtualTimeBudgetExpired even
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#event-virtualTimeBudgetExpired
 */
-type VirtualTimeBudgetExpiredEvent struct{}
+type VirtualTimeBudgetExpiredEvent struct {
+	// Error information related to this event
+	Err error `json:"-"`
+}
 
 /*
 VirtualTimePausedEvent represents Emulation.virtualTimePaused event data.
@@ -27,4 +33,7 @@ type VirtualTimePausedEvent struct {
 	// The amount of virtual time that has elapsed in milliseconds since virtual
 	// time was first enabled.
 	VirtualTimeElapsed int `json:"virtualTimeElapsed"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }

@@ -229,6 +229,24 @@ func TestApplicationCacheOnApplicationCacheStatusUpdated(t *testing.T) {
 			result.ManifestURL,
 		)
 	}
+
+	resultChan = make(chan *application_cache.StatusUpdatedEvent)
+	mockSocket.ApplicationCache().OnApplicationCacheStatusUpdated(func(eventData *application_cache.StatusUpdatedEvent) {
+		resultChan <- eventData
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: 0,
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "ApplicationCache.applicationCacheStatusUpdated",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestApplicationCacheOnNetworkStateUpdated(t *testing.T) {
@@ -258,5 +276,23 @@ func TestApplicationCacheOnNetworkStateUpdated(t *testing.T) {
 			mockResult.IsNowOnline,
 			result.IsNowOnline,
 		)
+	}
+
+	resultChan = make(chan *application_cache.NetworkStateUpdatedEvent)
+	mockSocket.ApplicationCache().OnNetworkStateUpdated(func(eventData *application_cache.NetworkStateUpdatedEvent) {
+		resultChan <- eventData
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: 0,
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "ApplicationCache.networkStateUpdated",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }

@@ -21,6 +21,9 @@ type ConsoleProfileFinishedEvent struct {
 
 	// Profile title passed as an argument to console.profile().
 	Title string `json:"title"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -37,4 +40,7 @@ type ConsoleProfileStartedEvent struct {
 
 	// Profile title passed as an argument to console.profile().
 	Title string `json:"title"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }

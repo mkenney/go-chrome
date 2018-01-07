@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	performance "github.com/mkenney/go-chrome/cdtp/performance"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -95,11 +94,11 @@ func (protocol *PerformanceProtocol) OnMetrics(
 		"Performance.metrics",
 		func(response *Response) {
 			event := &performance.MetricsEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

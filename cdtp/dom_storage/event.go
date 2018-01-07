@@ -9,6 +9,9 @@ type ItemAddedEvent struct {
 	StorageID StorageID `json:"storageId"`
 	Key       string    `json:"key"`
 	NewValue  string    `json:"newValue"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -19,6 +22,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#event-domStor
 type ItemRemovedEvent struct {
 	StorageID StorageID `json:"storageId"`
 	Key       string    `json:"key"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -38,6 +44,9 @@ type ItemUpdatedEvent struct {
 
 	// New value.
 	NewValue string `json:"newValue"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -48,4 +57,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#event-domStor
 type ItemsClearedEvent struct {
 	// Storage ID.
 	StorageID StorageID `json:"storageId"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }

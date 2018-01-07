@@ -45,6 +45,9 @@ type ConsoleAPICalledEvent struct {
 	// context (not console.*): 'anonymous#unique-logger-id' for call on unnamed
 	// context, 'name#unique-logger-id' for call on named context. EXPERIMENTAL.
 	Context string `json:"context,omitempty"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -58,6 +61,9 @@ type ExceptionRevokedEvent struct {
 
 	// The ID of revoked exception, as reported in exceptionThrown.
 	ExceptionID int `json:"exceptionId"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -71,6 +77,9 @@ type ExceptionThrownEvent struct {
 
 	// Exception details.
 	ExceptionDetails *ExceptionDetails `json:"exceptionDetails"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -81,6 +90,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionC
 type ExecutionContextCreatedEvent struct {
 	// A newly created execution context.
 	Context *ExecutionContextDescription `json:"context"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -91,6 +103,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionC
 type ExecutionContextDestroyedEvent struct {
 	// ID of the destroyed context.
 	ExecutionContextID ExecutionContextID `json:"executionContextId"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -98,7 +113,10 @@ ExecutionContextsClearedEvent represents Runtime.executionContextsCleared event 
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-executionContextsCleared
 */
-type ExecutionContextsClearedEvent struct{}
+type ExecutionContextsClearedEvent struct {
+	// Error information related to this event
+	Err error `json:"-"`
+}
 
 /*
 InspectRequestedEvent represents Runtime.inspectRequested event data.
@@ -111,4 +129,7 @@ type InspectRequestedEvent struct {
 
 	// Hints.
 	Hints map[string]string `json:"hints"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }

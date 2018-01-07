@@ -14,6 +14,9 @@ type AttributeModifiedEvent struct {
 
 	// Attribute value.
 	Value string `json:"value"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -27,6 +30,9 @@ type AttributeRemovedEvent struct {
 
 	// Attribute name.
 	Name string `json:"name"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -40,6 +46,9 @@ type CharacterDataModifiedEvent struct {
 
 	// New text value.
 	CharacterData string `json:"characterData"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -56,6 +65,9 @@ type ChildNodeCountUpdatedEvent struct {
 
 	// Inserted node data.
 	Node *Node `json:"node"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -72,6 +84,9 @@ type ChildNodeInsertedEvent struct {
 
 	// Inserted node data.
 	Node *Node `json:"node"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -85,6 +100,9 @@ type ChildNodeRemovedEvent struct {
 
 	// ID of the node that has been removed.
 	NodeID NodeID `json:"nodeId"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -98,6 +116,9 @@ type DistributedNodesUpdatedEvent struct {
 
 	// Distributed nodes for given insertion point.
 	DistributedNodes []*BackendNode `json:"distributedNodes"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -105,7 +126,10 @@ DocumentUpdatedEvent represents DOM.documentUpdated event data.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-documentUpdated
 */
-type DocumentUpdatedEvent struct{}
+type DocumentUpdatedEvent struct {
+	// Error information related to this event
+	Err error `json:"-"`
+}
 
 /*
 InlineStyleInvalidatedEvent represents DOM.inlineStyleInvalidated event data.
@@ -115,6 +139,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#event-inlineStyleInv
 type InlineStyleInvalidatedEvent struct {
 	// IDs of the nodes for which the inline styles have been invalidated.
 	NodeIDs []NodeID `json:"nodeIds"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -128,6 +155,9 @@ type PseudoElementAddedEvent struct {
 
 	// The added pseudo element.
 	PseudoElement *Node `json:"pseudoElement"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -141,6 +171,9 @@ type PseudoElementRemovedEvent struct {
 
 	// The removed pseudo element ID.
 	PseudoElementID NodeID `json:"pseudoElementId"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -154,6 +187,9 @@ type SetChildNodesEvent struct {
 
 	// Child nodes array.
 	Nodes []*Node `json:"nodes"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -167,6 +203,9 @@ type ShadowRootPoppedEvent struct {
 
 	// Shadow root ID.
 	RootID NodeID `json:"rootId"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }
 
 /*
@@ -180,4 +219,7 @@ type ShadowRootPushedEvent struct {
 
 	// Shadow root.
 	Root *Node `json:"root"`
+
+	// Error information related to this event
+	Err error `json:"-"`
 }

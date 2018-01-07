@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	serviceWorker "github.com/mkenney/go-chrome/cdtp/service_worker"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -313,11 +312,11 @@ func (protocol *ServiceWorkerProtocol) OnWorkerErrorReported(
 		"ServiceWorker.workerErrorReported",
 		func(response *Response) {
 			event := &serviceWorker.WorkerErrorReportedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -336,11 +335,11 @@ func (protocol *ServiceWorkerProtocol) OnWorkerRegistrationUpdated(
 		"ServiceWorker.workerRegistrationUpdated",
 		func(response *Response) {
 			event := &serviceWorker.WorkerRegistrationUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -359,11 +358,11 @@ func (protocol *ServiceWorkerProtocol) OnWorkerVersionUpdated(
 		"ServiceWorker.workerVersionUpdated",
 		func(response *Response) {
 			event := &serviceWorker.WorkerVersionUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

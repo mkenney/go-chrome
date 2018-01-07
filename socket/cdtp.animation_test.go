@@ -457,6 +457,24 @@ func TestAnimationOnAnimationCanceled(t *testing.T) {
 			result.ID,
 		)
 	}
+
+	resultChan = make(chan *animation.CanceledEvent)
+	mockSocket.Animation().OnAnimationCanceled(func(eventData *animation.CanceledEvent) {
+		resultChan <- eventData
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: 0,
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Animation.animationCanceled",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestAnimationOnAnimationCreated(t *testing.T) {
@@ -465,9 +483,9 @@ func TestAnimationOnAnimationCreated(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultsChan := make(chan *animation.CreatedEvent)
+	resultChan := make(chan *animation.CreatedEvent)
 	mockSocket.Animation().OnAnimationCreated(func(eventData *animation.CreatedEvent) {
-		resultsChan <- eventData
+		resultChan <- eventData
 	})
 
 	mockResult := &animation.CreatedEvent{
@@ -480,13 +498,31 @@ func TestAnimationOnAnimationCreated(t *testing.T) {
 		Method: "Animation.animationCreated",
 		Result: mockResultBytes,
 	})
-	result := <-resultsChan
+	result := <-resultChan
 	if result.ID != mockResult.ID {
 		t.Errorf(
 			"Expected frame ID %v, got %v",
 			mockResult.ID,
 			result.ID,
 		)
+	}
+
+	resultChan = make(chan *animation.CreatedEvent)
+	mockSocket.Animation().OnAnimationCreated(func(eventData *animation.CreatedEvent) {
+		resultChan <- eventData
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: 0,
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Animation.animationCreated",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -496,9 +532,9 @@ func TestAnimationOnAnimationStarted(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultsChan := make(chan *animation.StartedEvent)
+	resultChan := make(chan *animation.StartedEvent)
 	mockSocket.Animation().OnAnimationStarted(func(eventData *animation.StartedEvent) {
-		resultsChan <- eventData
+		resultChan <- eventData
 	})
 	mockResult := &animation.StartedEvent{
 		Animation: &animation.Animation{
@@ -535,7 +571,7 @@ func TestAnimationOnAnimationStarted(t *testing.T) {
 		Method: "Animation.animationStarted",
 		Result: mockResultBytes,
 	})
-	result := <-resultsChan
+	result := <-resultChan
 	tmp, _ := json.Marshal(result)
 	log.Debugf("mock: %s", mockResultBytes)
 	log.Debugf("result: %s", tmp)
@@ -545,5 +581,23 @@ func TestAnimationOnAnimationStarted(t *testing.T) {
 			mockResult.Animation.ID,
 			result.Animation.ID,
 		)
+	}
+
+	resultChan = make(chan *animation.StartedEvent)
+	mockSocket.Animation().OnAnimationStarted(func(eventData *animation.StartedEvent) {
+		resultChan <- eventData
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: 0,
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Animation.animationStarted",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }

@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	heapProfiler "github.com/mkenney/go-chrome/cdtp/heap_profiler"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -315,11 +314,11 @@ func (protocol *HeapProfilerProtocol) OnAddHeapSnapshotChunk(
 		"HeapProfiler.addHeapSnapshotChunk",
 		func(response *Response) {
 			event := &heapProfiler.AddHeapSnapshotChunkEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -339,11 +338,11 @@ func (protocol *HeapProfilerProtocol) OnHeapStatsUpdate(
 		"HeapProfiler.heapStatsUpdate",
 		func(response *Response) {
 			event := &heapProfiler.HeapStatsUpdateEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -365,11 +364,11 @@ func (protocol *HeapProfilerProtocol) OnLastSeenObjectID(
 		"HeapProfiler.lastSeenObjectID",
 		func(response *Response) {
 			event := &heapProfiler.LastSeenObjectIDEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -390,11 +389,11 @@ func (protocol *HeapProfilerProtocol) OnReportHeapSnapshotProgress(
 		"HeapProfiler.reportHeapSnapshotProgress",
 		func(response *Response) {
 			event := &heapProfiler.ReportHeapSnapshotProgressEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -413,11 +412,11 @@ func (protocol *HeapProfilerProtocol) OnResetProfiles(
 		"HeapProfiler.resetProfiles",
 		func(response *Response) {
 			event := &heapProfiler.ResetProfilesEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)

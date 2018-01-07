@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	dom "github.com/mkenney/go-chrome/cdtp/dom"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -923,11 +922,11 @@ func (protocol *DOMProtocol) OnAttributeModified(
 		"DOM.attributeModified",
 		func(response *Response) {
 			event := &dom.AttributeModifiedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -946,11 +945,11 @@ func (protocol *DOMProtocol) OnAttributeRemoved(
 		"DOM.attributeRemoved",
 		func(response *Response) {
 			event := &dom.AttributeRemovedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -969,11 +968,11 @@ func (protocol *DOMProtocol) OnCharacterDataModified(
 		"DOM.characterDataModified",
 		func(response *Response) {
 			event := &dom.CharacterDataModifiedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -992,11 +991,11 @@ func (protocol *DOMProtocol) OnChildNodeCountUpdated(
 		"DOM.childNodeCountUpdated",
 		func(response *Response) {
 			event := &dom.ChildNodeCountUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -1015,11 +1014,11 @@ func (protocol *DOMProtocol) OnChildNodeInserted(
 		"DOM.childNodeInserted",
 		func(response *Response) {
 			event := &dom.ChildNodeInsertedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -1038,11 +1037,11 @@ func (protocol *DOMProtocol) OnChildNodeRemoved(
 		"DOM.childNodeRemoved",
 		func(response *Response) {
 			event := &dom.ChildNodeRemovedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -1062,11 +1061,11 @@ func (protocol *DOMProtocol) OnDistributedNodesUpdated(
 		"DOM.distributedNodesUpdated",
 		func(response *Response) {
 			event := &dom.DistributedNodesUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -1086,11 +1085,11 @@ func (protocol *DOMProtocol) OnDocumentUpdated(
 		"DOM.documentUpdated",
 		func(response *Response) {
 			event := &dom.DocumentUpdatedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -1109,11 +1108,11 @@ func (protocol *DOMProtocol) OnInlineStyleInvalidated(
 		"DOM.inlineStyleInvalidated",
 		func(response *Response) {
 			event := &dom.InlineStyleInvalidatedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -1132,11 +1131,11 @@ func (protocol *DOMProtocol) OnPseudoElementAdded(
 		"DOM.pseudoElementAdded",
 		func(response *Response) {
 			event := &dom.PseudoElementAddedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -1155,11 +1154,11 @@ func (protocol *DOMProtocol) OnPseudoElementRemoved(
 		"DOM.pseudoElementRemoved",
 		func(response *Response) {
 			event := &dom.PseudoElementRemovedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -1179,11 +1178,11 @@ func (protocol *DOMProtocol) OnSetChildNodes(
 		"DOM.setChildNodes",
 		func(response *Response) {
 			event := &dom.SetChildNodesEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -1202,11 +1201,11 @@ func (protocol *DOMProtocol) OnShadowRootPopped(
 		"DOM.shadowRootPopped",
 		func(response *Response) {
 			event := &dom.ShadowRootPoppedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
@@ -1225,11 +1224,11 @@ func (protocol *DOMProtocol) OnShadowRootPushed(
 		"DOM.shadowRootPushed",
 		func(response *Response) {
 			event := &dom.ShadowRootPushedEvent{}
-			if err := json.Unmarshal([]byte(response.Result), event); err != nil {
-				log.Error(err)
-			} else {
-				callback(event)
+			json.Unmarshal([]byte(response.Result), event)
+			if nil != response.Error && 0 != response.Error.Code {
+				event.Err = response.Error
 			}
+			callback(event)
 		},
 	)
 	protocol.Socket.AddEventHandler(handler)
