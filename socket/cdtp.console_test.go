@@ -27,6 +27,21 @@ func TestConsoleClearMessages(t *testing.T) {
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
+
+	resultChan = mockSocket.Console().ClearMessages()
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Console.clearMessages",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestConsoleDisable(t *testing.T) {
@@ -47,6 +62,21 @@ func TestConsoleDisable(t *testing.T) {
 	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
+	}
+
+	resultChan = mockSocket.Console().Disable()
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Console.disable",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -69,6 +99,21 @@ func TestConsoleEnable(t *testing.T) {
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
+
+	resultChan = mockSocket.Console().Enable()
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Console.enable",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestConsoleOnMessageAdded(t *testing.T) {
@@ -77,9 +122,9 @@ func TestConsoleOnMessageAdded(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	results := make(chan *console.MessageAddedEvent)
+	resultChan := make(chan *console.MessageAddedEvent)
 	mockSocket.Console().OnMessageAdded(func(eventData *console.MessageAddedEvent) {
-		results <- eventData
+		resultChan <- eventData
 	})
 	mockResult := &console.MessageAddedEvent{
 		Message: &console.Message{
@@ -98,7 +143,7 @@ func TestConsoleOnMessageAdded(t *testing.T) {
 		Method: "Console.messageAdded",
 		Result: mockResultBytes,
 	})
-	result := <-results
+	result := <-resultChan
 	if result.Message.Source != mockResult.Message.Source {
 		t.Errorf(
 			"Expected frame ID %v, got %v",

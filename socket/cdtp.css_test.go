@@ -55,6 +55,30 @@ func TestCSSAddRule(t *testing.T) {
 	if mockResult.Rule.StyleSheetID != result.Rule.StyleSheetID {
 		t.Errorf("Expected '%s', got '%s'", mockResult.Rule.StyleSheetID, result.Rule.StyleSheetID)
 	}
+
+	resultChan = mockSocket.CSS().AddRule(&css.AddRuleParams{
+		StyleSheetID: css.StyleSheetID("stylesheet-id"),
+		RuleText:     "rule text",
+		Location: &css.SourceRange{
+			StartLine:   10,
+			StartColumn: 10,
+			EndLine:     10,
+			EndColumn:   10,
+		},
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.addRule",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestCSSCollectClassNames(t *testing.T) {
@@ -82,6 +106,23 @@ func TestCSSCollectClassNames(t *testing.T) {
 	}
 	if mockResult.ClassNames[0] != result.ClassNames[0] {
 		t.Errorf("Expected '%s', got '%s'", mockResult.ClassNames[0], result.ClassNames[0])
+	}
+
+	resultChan = mockSocket.CSS().CollectClassNames(&css.CollectClassNamesParams{
+		StyleSheetID: css.StyleSheetID("stylesheet-id"),
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.collectClassNames",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -111,6 +152,23 @@ func TestCSSCreateStyleSheet(t *testing.T) {
 	if mockResult.StyleSheetID != result.StyleSheetID {
 		t.Errorf("Expected '%s', got '%s'", mockResult.StyleSheetID, result.StyleSheetID)
 	}
+
+	resultChan = mockSocket.CSS().CreateStyleSheet(&css.CreateStyleSheetParams{
+		FrameID: page.FrameID("frame-id"),
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.createStyleSheet",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestCSSDisable(t *testing.T) {
@@ -132,6 +190,21 @@ func TestCSSDisable(t *testing.T) {
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
+
+	resultChan = mockSocket.CSS().Disable()
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.disable",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestCSSEnable(t *testing.T) {
@@ -152,6 +225,21 @@ func TestCSSEnable(t *testing.T) {
 	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
+	}
+
+	resultChan = mockSocket.CSS().Enable()
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.enable",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -176,6 +264,24 @@ func TestCSSForcePseudoState(t *testing.T) {
 	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
+	}
+
+	resultChan = mockSocket.CSS().ForcePseudoState(&css.ForcePseudoStateParams{
+		NodeID:              dom.NodeID(1),
+		ForcedPseudoClasses: []string{"pseudo-class"},
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.forcePseudoState",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -208,6 +314,23 @@ func TestCSSGetBackgroundColors(t *testing.T) {
 	if mockResult.BackgroundColors[0] != result.BackgroundColors[0] {
 		t.Errorf("Expected '%s', got '%s'", mockResult.BackgroundColors[0], result.BackgroundColors[0])
 	}
+
+	resultChan = mockSocket.CSS().GetBackgroundColors(&css.GetBackgroundColorsParams{
+		NodeID: dom.NodeID(1),
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.getBackgroundColors",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestCSSGetComputedStyleForNode(t *testing.T) {
@@ -238,6 +361,23 @@ func TestCSSGetComputedStyleForNode(t *testing.T) {
 	}
 	if mockResult.ComputedStyle[0].Name != result.ComputedStyle[0].Name {
 		t.Errorf("Expected '%s', got '%s'", mockResult.ComputedStyle[0].Name, result.ComputedStyle[0].Name)
+	}
+
+	resultChan = mockSocket.CSS().GetComputedStyleForNode(&css.GetComputedStyleForNodeParams{
+		NodeID: dom.NodeID(1),
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.getComputedStyleForNode",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -301,6 +441,23 @@ func TestCSSGetInlineStylesForNode(t *testing.T) {
 	}
 	if mockResult.InlineStyle.StyleSheetID != result.InlineStyle.StyleSheetID {
 		t.Errorf("Expected '%s', got '%s'", mockResult.InlineStyle.StyleSheetID, result.InlineStyle.StyleSheetID)
+	}
+
+	resultChan = mockSocket.CSS().GetInlineStylesForNode(&css.GetInlineStylesForNodeParams{
+		NodeID: dom.NodeID(1),
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.getInlineStylesForNode",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -383,6 +540,23 @@ func TestCSSGetMatchedStylesForNode(t *testing.T) {
 	if mockResult.InlineStyle.StyleSheetID != result.InlineStyle.StyleSheetID {
 		t.Errorf("Expected '%s', got '%s'", mockResult.InlineStyle.StyleSheetID, result.InlineStyle.StyleSheetID)
 	}
+
+	resultChan = mockSocket.CSS().GetMatchedStylesForNode(&css.GetMatchedStylesForNodeParams{
+		NodeID: dom.NodeID(1),
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.getMatchedStylesForNode",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestCSSGetMediaQueries(t *testing.T) {
@@ -434,6 +608,21 @@ func TestCSSGetMediaQueries(t *testing.T) {
 	if mockResult.Medias[0].Text != result.Medias[0].Text {
 		t.Errorf("Expected '%s', got '%s'", mockResult.Medias[0].Text, result.Medias[0].Text)
 	}
+
+	resultChan = mockSocket.CSS().GetMediaQueries()
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.getMediaQueries",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestCSSGetPlatformFontsForNode(t *testing.T) {
@@ -466,6 +655,23 @@ func TestCSSGetPlatformFontsForNode(t *testing.T) {
 	if mockResult.Fonts[0].FamilyName != result.Fonts[0].FamilyName {
 		t.Errorf("Expected '%s', got '%s'", mockResult.Fonts[0].FamilyName, result.Fonts[0].FamilyName)
 	}
+
+	resultChan = mockSocket.CSS().GetPlatformFontsForNode(&css.GetPlatformFontsForNodeParams{
+		NodeID: dom.NodeID(1),
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.getPlatformFontsForNode",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestCSSGetStyleSheetText(t *testing.T) {
@@ -494,6 +700,23 @@ func TestCSSGetStyleSheetText(t *testing.T) {
 	if mockResult.Text != result.Text {
 		t.Errorf("Expected '%s', got '%s'", mockResult.Text, result.Text)
 	}
+
+	resultChan = mockSocket.CSS().GetStyleSheetText(&css.GetStyleSheetTextParams{
+		StyleSheetID: css.StyleSheetID("stylesheet-id"),
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.getStyleSheetText",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestCSSSetEffectivePropertyValueForNode(t *testing.T) {
@@ -518,6 +741,25 @@ func TestCSSSetEffectivePropertyValueForNode(t *testing.T) {
 	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
+	}
+
+	resultChan = mockSocket.CSS().SetEffectivePropertyValueForNode(&css.SetEffectivePropertyValueForNodeParams{
+		NodeID:       dom.NodeID(1),
+		PropertyName: "property-name",
+		Value:        "property-value",
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.setEffectivePropertyValueForNode",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -561,6 +803,30 @@ func TestCSSSetKeyframeKey(t *testing.T) {
 	}
 	if mockResult.KeyText.Text != result.KeyText.Text {
 		t.Errorf("Expected '%s', got '%s'", mockResult.KeyText.Text, result.KeyText.Text)
+	}
+
+	resultChan = mockSocket.CSS().SetKeyframeKey(&css.SetKeyframeKeyParams{
+		StyleSheetID: css.StyleSheetID("stylesheet-id"),
+		Range: &css.SourceRange{
+			StartLine:   10,
+			StartColumn: 10,
+			EndLine:     10,
+			EndColumn:   10,
+		},
+		Selector: "selector",
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.setKeyframeKey",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -622,6 +888,30 @@ func TestCSSSetMediaText(t *testing.T) {
 	if mockResult.Media.Text != result.Media.Text {
 		t.Errorf("Expected '%s', got '%s'", mockResult.Media.Text, result.Media.Text)
 	}
+
+	resultChan = mockSocket.CSS().SetMediaText(&css.SetMediaTextParams{
+		StyleSheetID: css.StyleSheetID("stylesheet-id"),
+		Range: &css.SourceRange{
+			StartLine:   10,
+			StartColumn: 10,
+			EndLine:     10,
+			EndColumn:   10,
+		},
+		Text: "some text",
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.setMediaText",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestCSSSetRuleSelector(t *testing.T) {
@@ -667,6 +957,30 @@ func TestCSSSetRuleSelector(t *testing.T) {
 	if mockResult.SelectorList.Selectors[0].Text != result.SelectorList.Selectors[0].Text {
 		t.Errorf("Expected '%s', got '%s'", mockResult.SelectorList.Selectors[0].Text, result.SelectorList.Selectors[0].Text)
 	}
+
+	resultChan = mockSocket.CSS().SetRuleSelector(&css.SetRuleSelectorParams{
+		StyleSheetID: css.StyleSheetID("stylesheet-id"),
+		Range: &css.SourceRange{
+			StartLine:   10,
+			StartColumn: 10,
+			EndLine:     10,
+			EndColumn:   10,
+		},
+		Selector: "selector",
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.setRuleSelector",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestCSSSetStyleSheetText(t *testing.T) {
@@ -695,6 +1009,24 @@ func TestCSSSetStyleSheetText(t *testing.T) {
 	}
 	if mockResult.SourceMapURL != result.SourceMapURL {
 		t.Errorf("Expected '%s', got '%s'", mockResult.SourceMapURL, result.SourceMapURL)
+	}
+
+	resultChan = mockSocket.CSS().SetStyleSheetText(&css.SetStyleSheetTextParams{
+		StyleSheetID: css.StyleSheetID("stylesheet-id"),
+		Text:         "some text",
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.setStyleSheetText",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -750,6 +1082,32 @@ func TestCSSSetStyleTexts(t *testing.T) {
 	if mockResult.Styles[0].StyleSheetID != result.Styles[0].StyleSheetID {
 		t.Errorf("Expected '%s', got '%s'", mockResult.Styles[0].StyleSheetID, result.Styles[0].StyleSheetID)
 	}
+
+	resultChan = mockSocket.CSS().SetStyleTexts(&css.SetStyleTextsParams{
+		Edits: []*css.StyleDeclarationEdit{{
+			StyleSheetID: css.StyleSheetID("stylesheet-id"),
+			Range: &css.SourceRange{
+				StartLine:   10,
+				StartColumn: 10,
+				EndLine:     10,
+				EndColumn:   10,
+			},
+			Text: "some text",
+		}},
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.setStyleTexts",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestCSSStartRuleUsageTracking(t *testing.T) {
@@ -770,6 +1128,21 @@ func TestCSSStartRuleUsageTracking(t *testing.T) {
 	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
+	}
+
+	resultChan = mockSocket.CSS().StartRuleUsageTracking()
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.startRuleUsageTracking",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 
@@ -802,6 +1175,21 @@ func TestCSSStopRuleUsageTracking(t *testing.T) {
 	if mockResult.RuleUsage[0].StyleSheetID != result.RuleUsage[0].StyleSheetID {
 		t.Errorf("Expected '%s', got '%s'", mockResult.RuleUsage[0].StyleSheetID, result.RuleUsage[0].StyleSheetID)
 	}
+
+	resultChan = mockSocket.CSS().StopRuleUsageTracking()
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.stopRuleUsageTracking",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestCSSTakeCoverageDelta(t *testing.T) {
@@ -832,6 +1220,21 @@ func TestCSSTakeCoverageDelta(t *testing.T) {
 	}
 	if mockResult.Coverage[0].StyleSheetID != result.Coverage[0].StyleSheetID {
 		t.Errorf("Expected '%s', got '%s'", mockResult.Coverage[0].StyleSheetID, result.Coverage[0].StyleSheetID)
+	}
+
+	resultChan = mockSocket.CSS().TakeCoverageDelta()
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "CSS.takeCoverageDelta",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
 	}
 }
 

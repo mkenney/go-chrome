@@ -27,6 +27,21 @@ func TestApplicationCacheEnable(t *testing.T) {
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
+
+	resultChan = mockSocket.ApplicationCache().Enable()
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "ApplicationCache.enable",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 func TestApplicationCacheGetForFrame(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/")
@@ -69,6 +84,21 @@ func TestApplicationCacheGetForFrame(t *testing.T) {
 			result.ApplicationCache.CreationTime,
 		)
 	}
+
+	resultChan = mockSocket.ApplicationCache().GetForFrame(mockParams)
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "ApplicationCache.getForFrame",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestApplicationCacheGetFramesWithManifests(t *testing.T) {
@@ -103,6 +133,21 @@ func TestApplicationCacheGetFramesWithManifests(t *testing.T) {
 			result.FrameIDs[0].FrameID,
 		)
 	}
+
+	resultChan = mockSocket.ApplicationCache().GetFramesWithManifests()
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "ApplicationCache.getFramesWithManifests",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestApplicationCacheGetManifestForFrame(t *testing.T) {
@@ -135,6 +180,23 @@ func TestApplicationCacheGetManifestForFrame(t *testing.T) {
 			result.ManifestURL,
 		)
 	}
+
+	resultChan = mockSocket.ApplicationCache().GetManifestForFrame(&application_cache.GetManifestForFrameParams{
+		FrameID: page.FrameID("mock-frame-id"),
+	})
+	mockSocket.Conn().AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "ApplicationCache.getManifestForFrame",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
 }
 
 func TestApplicationCacheOnApplicationCacheStatusUpdated(t *testing.T) {
@@ -143,9 +205,9 @@ func TestApplicationCacheOnApplicationCacheStatusUpdated(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	results := make(chan *application_cache.StatusUpdatedEvent)
+	resultChan := make(chan *application_cache.StatusUpdatedEvent)
 	mockSocket.ApplicationCache().OnApplicationCacheStatusUpdated(func(eventData *application_cache.StatusUpdatedEvent) {
-		results <- eventData
+		resultChan <- eventData
 	})
 	mockResult := &application_cache.StatusUpdatedEvent{
 		FrameID:     page.FrameID("mock-frame-id"),
@@ -159,7 +221,7 @@ func TestApplicationCacheOnApplicationCacheStatusUpdated(t *testing.T) {
 		Method: "ApplicationCache.applicationCacheStatusUpdated",
 		Result: mockResultBytes,
 	})
-	result := <-results
+	result := <-resultChan
 	if result.ManifestURL != mockResult.ManifestURL {
 		t.Errorf(
 			"Expected frame ID %s, got %s",
@@ -175,9 +237,9 @@ func TestApplicationCacheOnNetworkStateUpdated(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	results := make(chan *application_cache.NetworkStateUpdatedEvent)
+	resultChan := make(chan *application_cache.NetworkStateUpdatedEvent)
 	mockSocket.ApplicationCache().OnNetworkStateUpdated(func(eventData *application_cache.NetworkStateUpdatedEvent) {
-		results <- eventData
+		resultChan <- eventData
 	})
 	mockResult := &application_cache.NetworkStateUpdatedEvent{
 		IsNowOnline: true,
@@ -189,7 +251,7 @@ func TestApplicationCacheOnNetworkStateUpdated(t *testing.T) {
 		Method: "ApplicationCache.networkStateUpdated",
 		Result: mockResultBytes,
 	})
-	result := <-results
+	result := <-resultChan
 	if result.IsNowOnline != mockResult.IsNowOnline {
 		t.Errorf(
 			"Expected frame ID %v, got %v",
