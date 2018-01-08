@@ -8,7 +8,7 @@
         <br><br>
         This is a work in progress. I think most things are workable now but I still need to add tests and happy-path test more of the APIs. I have <a href="https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot">`Page.captureScreenshot`</a> working fairly well and have been using that for validating changes so far. This implementation is based on the <a href="https://chromedevtools.github.io/devtools-protocol/tot/">Tip-of-Tree</a> documentation and may be prone to change. At some point I will implement stable versions as well.
         <br><br>
-        The API should be stable but is not yet production ready.
+        The API is fairly settled but is not yet production ready.
     </td>
 </tr>
 <tr>
