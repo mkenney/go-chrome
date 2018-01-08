@@ -17,7 +17,7 @@ type GetEventListenersParams struct {
 	// Optional. The maximum depth at which Node children should be retrieved,
 	// defaults to 1. Use -1 for the entire subtree or provide an integer larger
 	// than 0.
-	Depth int `json:"depth,omitempty"`
+	Depth int64 `json:"depth,omitempty"`
 
 	// Optional. Whether or not iframes and shadow roots should be traversed
 	// when returning the subtree (default is false). Reports listeners for all

@@ -39,10 +39,10 @@ type EventListener struct {
 	ScriptID runtime.ScriptID `json:"scriptId"`
 
 	// Line number in the script (0-based).
-	LineNumber int `json:"lineNumber"`
+	LineNumber int64 `json:"lineNumber"`
 
 	// Column number in the script (0-based).
-	ColumnNumber int `json:"columnNumber"`
+	ColumnNumber int64 `json:"columnNumber"`
 
 	// Optional. Event handler function value.
 	Handler *runtime.RemoteObject `json:"handler,omitempty"`

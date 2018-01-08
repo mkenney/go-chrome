@@ -228,14 +228,14 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-Rect
 */
 type Rect struct {
 	// X coordinate.
-	X float64 `json:"x"`
+	X int64 `json:"x"`
 
 	// Y coordinate.
-	Y float64 `json:"y"`
+	Y int64 `json:"y"`
 
 	// Rectangle width.
-	Width float64 `json:"width"`
+	Width int64 `json:"width"`
 
 	// Rectangle height.
-	Height float64 `json:"height"`
+	Height int64 `json:"height"`
 }
