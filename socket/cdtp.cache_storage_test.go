@@ -102,7 +102,7 @@ func TestCacheStorageRequestCacheNames(t *testing.T) {
 		SecurityOrigin: "security-origin",
 	})
 	mockResult := &cacheStorage.RequestCacheNamesResult{
-		Caches: []*cacheStorage.Cache{&cacheStorage.Cache{
+		Caches: []*cacheStorage.Cache{{
 			CacheID:        cacheStorage.CacheID("cache-id"),
 			SecurityOrigin: "security-origin",
 			CacheName:      "cache-name",
@@ -210,7 +210,7 @@ func TestCacheStorageRequestEntries(t *testing.T) {
 		PageSize:  1,
 	})
 	mockResult := &cacheStorage.RequestEntriesResult{
-		CacheDataEntries: []*cacheStorage.DataEntry{&cacheStorage.DataEntry{
+		CacheDataEntries: []*cacheStorage.DataEntry{{
 			RequestURL:    mockSocket.URL().String(),
 			RequestMethod: "POST",
 			RequestHeaders: []*cacheStorage.Header{{
