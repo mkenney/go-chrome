@@ -355,7 +355,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBlack
 */
 type SetBlackboxedRangesParams struct {
 	// ID of the script.
-	ScriptID  runtime.ScriptID  `json:"scriptId"`
+	ScriptID runtime.ScriptID `json:"scriptId"`
+
+	// Script positions.
 	Positions []*ScriptPosition `json:"positions"`
 }
 
@@ -407,7 +409,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreak
 */
 type SetBreakpointByURLParams struct {
 	// Line number to set breakpoint at.
-	LineNumber int `json:"lineNumber"`
+	LineNumber int64 `json:"lineNumber"`
 
 	// Optional. URL of the resources to set breakpoint on.
 	URL string `json:"url,omitempty"`
@@ -420,7 +422,7 @@ type SetBreakpointByURLParams struct {
 	ScriptHash string `json:"scriptHash,omitempty"`
 
 	// Optional. Offset in the line to set breakpoint at.
-	ColumnNumber int `json:"columnNumber,omitempty"`
+	ColumnNumber int64 `json:"columnNumber,omitempty"`
 
 	// Optional. Expression to use as a breakpoint condition. When specified,
 	// debugger will only stop on the breakpoint if this expression evaluates to true.
@@ -469,7 +471,10 @@ SetPauseOnExceptionsParams represents Debugger.setPauseOnExceptions parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setPauseOnExceptions
 */
 type SetPauseOnExceptionsParams struct {
-	// Pause on exceptions mode. Allowed values: none, uncaught, all.
+	// Pause on exceptions mode. Allowed values:
+	//	- none
+	//	- uncaught
+	//	- all.
 	State string `json:"state"`
 }
 
@@ -577,7 +582,7 @@ type SetVariableValueParams struct {
 	// 0-based number of scope as was listed in scope chain. Only 'local',
 	// 'closure' and 'catch' scope types are allowed. Other scopes could be
 	// manipulated manually.
-	ScopeNumber int `json:"scopeNumber"`
+	ScopeNumber int64 `json:"scopeNumber"`
 
 	// Variable name.
 	VariableName string `json:"variableName"`

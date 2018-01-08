@@ -37,9 +37,9 @@ Error is a database error.
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#type-Error
 */
 type Error struct {
-	// Error message.
-	Message string `json:"message"`
-
 	// Error code.
 	Code int `json:"code"`
+
+	// Error message.
+	Message string `json:"message"`
 }

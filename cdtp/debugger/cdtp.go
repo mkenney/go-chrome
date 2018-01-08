@@ -33,10 +33,10 @@ type Location struct {
 	ScriptID runtime.ScriptID `json:"scriptId"`
 
 	// Line number in the script (0-based).
-	LineNumber int `json:"lineNumber"`
+	LineNumber int64 `json:"lineNumber"`
 
 	// Optional. Column number in the script (0-based).
-	ColumnNumber int `json:"columnNumber,omitempty"`
+	ColumnNumber int64 `json:"columnNumber,omitempty"`
 }
 
 /*
@@ -46,10 +46,10 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#type-ScriptPosi
 */
 type ScriptPosition struct {
 	// Line number
-	LineNumber int `json:"lineNumber"`
+	LineNumber int64 `json:"lineNumber"`
 
 	// Column number
-	ColumnNumber int `json:"columnNumber"`
+	ColumnNumber int64 `json:"columnNumber"`
 }
 
 /*
@@ -60,7 +60,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#type-CallFrame
 type CallFrame struct {
 	// Call frame identifier. This identifier is only valid while the virtual
 	// machine is paused.
-	CallFrameID *CallFrameID `json:"callFrameId"`
+	CallFrameID CallFrameID `json:"callFrameId"`
 
 	// Name of the JavaScript function called on this call frame.
 	FunctionName string `json:"functionName"`
@@ -90,8 +90,16 @@ Scope represents a scope description
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#type-Scope
 */
 type Scope struct {
-	// Scope type. Allowed values: global, local, with, closure, catch, block,
-	// script, eval, module.
+	// Scope type. Allowed values:
+	//	- global
+	//	- local
+	//	- with
+	//	- closure
+	//	- catch
+	//	- block
+	//	- script
+	//	- eval
+	//	- module.
 	Type string `json:"type"`
 
 	// Object representing the scope. For global and with scopes it represents
@@ -116,7 +124,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#type-SearchMatc
 */
 type SearchMatch struct {
 	// Line number in resource content.
-	LineNumber float64 `json:"lineNumber"`
+	LineNumber int64 `json:"lineNumber"`
 
 	// Line with match content.
 	LineContent string `json:"lineContent"`
@@ -137,6 +145,9 @@ type BreakLocation struct {
 	// Optional. Column number in the script (0-based).
 	ColumnNumber int `json:"columnNumber,omitempty"`
 
-	// Optional. Allowed values: debuggerStatement, call, return.
+	// Optional. Allowed values:
+	//	- debuggerStatement
+	//	- call
+	//	- return.
 	Type string `json:"type,omitempty"`
 }
