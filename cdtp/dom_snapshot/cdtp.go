@@ -17,7 +17,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#type-DOMNode
 */
 type DOMNode struct {
 	// Node's nodeType.
-	NodeType int `json:"nodeType"`
+	NodeType int64 `json:"nodeType"`
 
 	// Node's nodeName.
 	NodeName string `json:"nodeName"`
@@ -45,18 +45,18 @@ type DOMNode struct {
 
 	// Optional. The indexes of the node's child nodes in the domNodes array
 	// returned by getSnapshot, if any.
-	ChildNodeIndexes []int `json:"childNodeIndexes,omitempty"`
+	ChildNodeIndexes []int64 `json:"childNodeIndexes,omitempty"`
 
 	// Optional. Attributes of an Element node.
 	Attributes []*NameValue `json:"attributes,omitempty"`
 
 	// Optional. Indexes of pseudo elements associated with this node in the
 	// domNodes array returned by getSnapshot, if any.
-	PseudoElementIndexes []int `json:"pseudoElementIndexes,omitempty"`
+	PseudoElementIndexes []int64 `json:"pseudoElementIndexes,omitempty"`
 
 	// Optional. The index of the node's related layout tree node in the
 	// layoutTreeNodes array returned by getSnapshot, if any.
-	LayoutNodeIndex int `json:"layoutNodeIndex,omitempty"`
+	LayoutNodeIndex int64 `json:"layoutNodeIndex,omitempty"`
 
 	// Optional. Document URL that Document or FrameOwner node points to.
 	DocumentURL string `json:"documentURL,omitempty"`
@@ -85,15 +85,15 @@ type DOMNode struct {
 
 	// Optional. The index of a frame owner element's content document in the
 	// domNodes array returned by getSnapshot, if any.
-	ContentDocumentIndex int `json:"contentDocumentIndex,omitempty"`
+	ContentDocumentIndex int64 `json:"contentDocumentIndex,omitempty"`
 
 	// Optional. Index of the imported document's node of a link element in the
 	// domNodes array returned by getSnapshot, if any.
-	ImportedDocumentIndex int `json:"importedDocumentIndex,omitempty"`
+	ImportedDocumentIndex int64 `json:"importedDocumentIndex,omitempty"`
 
 	// Optional. Index of the content node of a template element in the domNodes
 	// array returned by getSnapshot.
-	TemplateContentIndex int `json:"templateContentIndex,omitempty"`
+	TemplateContentIndex int64 `json:"templateContentIndex,omitempty"`
 
 	// Optional. Type of a pseudo element node.
 	PseudoType dom.PseudoType `json:"pseudoType,omitempty"`
@@ -115,10 +115,10 @@ type InlineTextBox struct {
 	BoundingBox *dom.Rect `json:"boundingBox"`
 
 	// The starting index in characters, for this post layout textbox substring.
-	StartCharacterIndex int `json:"startCharacterIndex"`
+	StartCharacterIndex int64 `json:"startCharacterIndex"`
 
 	// The number of characters in this post layout textbox substring.
-	NumCharacters int `json:"numCharacters"`
+	NumCharacters int64 `json:"numCharacters"`
 }
 
 /*
@@ -128,7 +128,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#type-LayoutT
 */
 type LayoutTreeNode struct {
 	// The index of the related DOM node in the domNodes array returned by getSnapshot.
-	DomNodeIndex int `json:"domNodeIndex"`
+	DomNodeIndex int64 `json:"domNodeIndex"`
 
 	// The absolute position bounding box.
 	BoundingBox *dom.Rect `json:"boundingBox"`
@@ -140,7 +140,7 @@ type LayoutTreeNode struct {
 	InlineTextNodes []*InlineTextBox `json:"inlineTextNodes,omitempty"`
 
 	// Optional. Index into the computedStyles array returned by getSnapshot.
-	StyleIndex int `json:"styleIndex,omitempty"`
+	StyleIndex int64 `json:"styleIndex,omitempty"`
 }
 
 /*
