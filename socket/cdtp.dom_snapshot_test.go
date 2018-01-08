@@ -76,9 +76,8 @@ func TestDOMSnapshotGet(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan

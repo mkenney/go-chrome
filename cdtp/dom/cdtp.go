@@ -196,10 +196,10 @@ type BoxModel struct {
 	Margin Quad `json:"margin"`
 
 	// Node width.
-	Width int `json:"width"`
+	Width int64 `json:"width"`
 
 	// Node height.
-	Height int `json:"height"`
+	Height int64 `json:"height"`
 
 	// Optional. Shape outside coordinates.
 	ShapeOutside *ShapeOutsideInfo `json:"shapeOutside,omitempty"`

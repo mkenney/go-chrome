@@ -26,9 +26,8 @@ func TestDebuggerContinueToLocation(t *testing.T) {
 	mockResult := &debugger.ContinueToLocationResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -68,9 +67,8 @@ func TestDebuggerDisable(t *testing.T) {
 	mockResult := &debugger.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -103,9 +101,8 @@ func TestDebuggerEnable(t *testing.T) {
 	mockResult := &debugger.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -177,9 +174,8 @@ func TestDebuggerEvaluateOnCallFrame(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -243,9 +239,8 @@ func TestDebuggerGetPossibleBreakpoints(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -297,9 +292,8 @@ func TestDebuggerGetScriptSource(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -352,9 +346,8 @@ func TestDebuggerGetStackTrace(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -395,9 +388,8 @@ func TestDebuggerPause(t *testing.T) {
 	mockResult := &debugger.PauseResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -435,9 +427,8 @@ func TestDebuggerPauseOnAsyncCall(t *testing.T) {
 	mockResult := &debugger.PauseOnAsyncCallResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -477,9 +468,8 @@ func TestDebuggerRemoveBreakpoint(t *testing.T) {
 	mockResult := &debugger.RemoveBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -554,9 +544,8 @@ func TestDebuggerRestartFrame(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -594,9 +583,8 @@ func TestDebuggerResume(t *testing.T) {
 	mockResult := &debugger.ResumeResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -629,9 +617,8 @@ func TestDebuggerScheduleStepIntoAsync(t *testing.T) {
 	mockResult := &debugger.ScheduleStepIntoAsyncResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -674,9 +661,8 @@ func TestDebuggerSearchInContent(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -719,9 +705,8 @@ func TestDebuggerSetAsyncCallStackDepth(t *testing.T) {
 	mockResult := &debugger.SetAsyncCallStackDepthResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -758,9 +743,8 @@ func TestDebuggerSetBlackboxPatterns(t *testing.T) {
 	mockResult := &debugger.SetBlackboxPatternsResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -801,9 +785,8 @@ func TestDebuggerSetBlackboxedRanges(t *testing.T) {
 	mockResult := &debugger.SetBlackboxedRangesResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -856,9 +839,8 @@ func TestDebuggerSetBreakpoint(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -915,9 +897,8 @@ func TestDebuggerSetBreakpointByURL(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -962,9 +943,8 @@ func TestDebuggerSetBreakpointsActive(t *testing.T) {
 	mockResult := &debugger.SetBreakpointsActiveResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -1001,9 +981,8 @@ func TestDebuggerSetPauseOnExceptions(t *testing.T) {
 	mockResult := &debugger.SetPauseOnExceptionsResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -1044,9 +1023,8 @@ func TestDebuggerSetReturnValue(t *testing.T) {
 	mockResult := &debugger.SetReturnValueResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -1147,9 +1125,8 @@ func TestDebuggerSetScriptSource(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -1191,9 +1168,8 @@ func TestDebuggerSetSkipAllPauses(t *testing.T) {
 	mockResult := &debugger.SetSkipAllPausesResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -1237,9 +1213,8 @@ func TestDebuggerSetVariableValue(t *testing.T) {
 	mockResult := &debugger.SetVariableValueResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -1283,9 +1258,8 @@ func TestDebuggerStepInto(t *testing.T) {
 	mockResult := &debugger.StepIntoResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -1320,9 +1294,8 @@ func TestDebuggerStepOut(t *testing.T) {
 	mockResult := &debugger.StepOutResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -1355,9 +1328,8 @@ func TestDebuggerStepOver(t *testing.T) {
 	mockResult := &debugger.StepOverResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan

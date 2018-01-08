@@ -18,9 +18,8 @@ func TestConsoleClearMessages(t *testing.T) {
 	mockResult := &console.ClearMessagesResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -53,9 +52,8 @@ func TestConsoleDisable(t *testing.T) {
 	mockResult := &console.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -88,9 +86,8 @@ func TestConsoleEnable(t *testing.T) {
 	mockResult := &console.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan

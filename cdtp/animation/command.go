@@ -113,7 +113,7 @@ type SeekAnimationsParams struct {
 	Animations []string `json:"animations"`
 
 	// Set the current time of each animation.
-	CurrentTime float64 `json:"currentTime"`
+	CurrentTime int64 `json:"currentTime"`
 }
 
 /*
@@ -156,7 +156,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-setPlay
 */
 type SetPlaybackRateParams struct {
 	// Playback rate for animations on page.
-	PlaybackRate float64 `json:"playbackRate"`
+	PlaybackRate int64 `json:"playbackRate"`
 }
 
 /*
@@ -179,10 +179,10 @@ type SetTimingParams struct {
 	AnimationID string `json:"animationId"`
 
 	// Duration of the animation.
-	Duration float64 `json:"duration"`
+	Duration int64 `json:"duration"`
 
 	// Delay of the animation.
-	Delay float64 `json:"delay"`
+	Delay int64 `json:"delay"`
 }
 
 /*

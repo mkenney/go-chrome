@@ -18,9 +18,8 @@ func TestApplicationCacheEnable(t *testing.T) {
 
 	resultChan := mockSocket.ApplicationCache().Enable()
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: nil,
 	})
 	result := <-resultChan
@@ -115,9 +114,8 @@ func TestApplicationCacheGetFramesWithManifests(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -161,9 +159,8 @@ func TestApplicationCacheGetManifestForFrame(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan

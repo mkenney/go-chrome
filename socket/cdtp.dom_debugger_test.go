@@ -37,9 +37,8 @@ func TestDOMDebuggerGetEventListeners(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -47,7 +46,7 @@ func TestDOMDebuggerGetEventListeners(t *testing.T) {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 	if mockResult.Listeners[0].BackendNodeID != result.Listeners[0].BackendNodeID {
-		t.Errorf("Expected '%s', got '%s'", mockResult.Listeners[0].BackendNodeID, result.Listeners[0].BackendNodeID)
+		t.Errorf("Expected '%d', got '%d'", mockResult.Listeners[0].BackendNodeID, result.Listeners[0].BackendNodeID)
 	}
 
 	resultChan = mockSocket.DOMDebugger().GetEventListeners(&domDebugger.GetEventListenersParams{
@@ -82,9 +81,8 @@ func TestDOMDebuggerRemoveDOMBreakpoint(t *testing.T) {
 	mockResult := &domDebugger.RemoveDOMBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -123,9 +121,8 @@ func TestDOMDebuggerRemoveEventListenerBreakpoint(t *testing.T) {
 	mockResult := &domDebugger.RemoveEventListenerBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -163,9 +160,8 @@ func TestDOMDebuggerRemoveInstrumentationBreakpoint(t *testing.T) {
 	mockResult := &domDebugger.RemoveInstrumentationBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -202,9 +198,8 @@ func TestDOMDebuggerRemoveXHRBreakpoint(t *testing.T) {
 	mockResult := &domDebugger.RemoveXHRBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -242,9 +237,8 @@ func TestDOMDebuggerSetDOMBreakpoint(t *testing.T) {
 	mockResult := &domDebugger.SetDOMBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -283,9 +277,8 @@ func TestDOMDebuggerSetEventListenerBreakpoint(t *testing.T) {
 	mockResult := &domDebugger.SetEventListenerBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -323,9 +316,8 @@ func TestDOMDebuggerSetInstrumentationBreakpoint(t *testing.T) {
 	mockResult := &domDebugger.SetInstrumentationBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -362,9 +354,8 @@ func TestDOMDebuggerSetXHRBreakpoint(t *testing.T) {
 	mockResult := &domDebugger.SetXHRBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
