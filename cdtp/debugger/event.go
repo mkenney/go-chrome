@@ -41,12 +41,12 @@ type PausedEvent struct {
 	AsyncStackTrace *runtime.StackTrace `json:"asyncStackTrace,omitempty"`
 
 	// Optional. Async stack trace, if any. EXPERIMENTAL
-	AsyncStackTraceID runtime.StackTraceID `json:"asyncStackTraceId,omitempty"`
+	AsyncStackTraceID *runtime.StackTraceID `json:"asyncStackTraceId,omitempty"`
 
 	// Optional. Just scheduled async call will have this stack trace as parent
 	// stack during async execution. This field is available only after
 	// Debugger.stepInto call with breakOnAsynCall flag. EXPERIMENTAL.
-	AsyncCallStackTraceID runtime.StackTraceID `json:"asyncCallStackTraceId,omitempty"`
+	AsyncCallStackTraceID *runtime.StackTraceID `json:"asyncCallStackTraceId,omitempty"`
 
 	// Error information related to this event
 	Err error `json:"-"`
@@ -76,16 +76,16 @@ type ScriptFailedToParseEvent struct {
 
 	// Line offset of the script within the resource with given URL (for script
 	// tags).
-	StartLine int `json:"startLine"`
+	StartLine int64 `json:"startLine"`
 
 	// Column offset of the script within the resource with given URL.
-	StartColumn int `json:"startColumn"`
+	StartColumn int64 `json:"startColumn"`
 
 	// Last line of the script.
-	EndLine int `json:"endLine"`
+	EndLine int64 `json:"endLine"`
 
 	// Length of the last line of the script.
-	EndColumn int `json:"endColumn"`
+	EndColumn int64 `json:"endColumn"`
 
 	// Specifies script creation context.
 	ExecutionContextID runtime.ExecutionContextID `json:"executionContextId"`
@@ -106,7 +106,7 @@ type ScriptFailedToParseEvent struct {
 	IsModule bool `json:"isModule,omitempty"`
 
 	// Optional. This script length.
-	Length int `json:"length,omitempty"`
+	Length int64 `json:"length,omitempty"`
 
 	// Optional. JavaScript top stack frame of where the script parsed event was
 	// triggered if available. EXPERIMENTAL.
