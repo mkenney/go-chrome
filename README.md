@@ -1,7 +1,7 @@
 # go-chrome
 <table><tbody><tr>
     <td>
-        <a href="https://github.com/mkenney/stability-badges#unstable"><img src="https://img.shields.io/badge/stability-unstable-yellow.svg" alt="Unstable"></a>
+        <a href="https://github.com/mkenney/stability-badges#unstable"><img src="https://img.shields.io/badge/api-unstable-yellow.svg" alt="Unstable"></a>
     </td>
     <td rowspan="6">
         This package aims to be a complete <a href="https://chromedevtools.github.io/devtools-protocol/">Chrome DevTools Protocol</a> implementation. My primary use-case is interacting with <a href="https://developers.google.com/web/updates/2017/04/headless-chrome">headless Google Chrome</a> in a container environment, but this should be appropriate for developing server side and desktop applications as well.
