@@ -6,9 +6,9 @@
     <td rowspan="6">
         This package aims to be a complete <a href="https://chromedevtools.github.io/devtools-protocol/">Chrome DevTools Protocol</a> implementation. My primary use-case is interacting with <a href="https://developers.google.com/web/updates/2017/04/headless-chrome">headless Google Chrome</a> in a container environment, but this should be appropriate for developing server side and desktop applications as well.
         <br><br>
-        This is a work in progress. I think most things are workable now but I still need to add tests and happy-path test more of the APIs. I have <a href="https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot">`Page.captureScreenshot`</a> working fairly well and have been using that for validating changes so far. This implementation is based on the <a href="https://chromedevtools.github.io/devtools-protocol/tot/">Tip-of-Tree</a> documentation and may be prone to change. At some point I will implement stable versions as well.
-        <br><br>
-        The API is fairly settled but is not yet production ready.
+        The API is fairly settled and most functions are workable now but more automated tests and real-world happy-path testing is needed. <a href="https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot">`Page.captureScreenshot`</a> working fairly well and is regularly used for validating the workability of API changes.
+        <br /><br />
+        This implementation is based on the <a href="https://chromedevtools.github.io/devtools-protocol/tot/">Tip-of-Tree</a> documentation and may be prone to change. At some point stable versions will be implemented as well.
     </td>
 </tr>
 <tr>
@@ -35,7 +35,7 @@
 
 # Examples
 
-I added a few small examples to the [wiki](https://github.com/mkenney/go-chrome/wiki).
+There are a few small examples of how to use the framework API on the [wiki](https://github.com/mkenney/go-chrome/wiki).
 
 # TODO
 
