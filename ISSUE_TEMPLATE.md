@@ -6,7 +6,7 @@ context as you can.
 
 ### What version of `go-chrome` are you using (tagged commit, commit hash or `master`)?
 <!--
-A commit has or tag is preferable. The master branch changes often.
+A commit hash or tag is preferable. The master branch changes often.
 -->
 
 
@@ -18,7 +18,7 @@ Please provide as much context as necessary to describe your goal.
 
 ### What behavior are you experiencing instead?
 <!--
-Please include the log output of the commands behavior you are describing here as well.
+Please include the log output of the command's behavior you are describing here as well.
 -->
 
 
