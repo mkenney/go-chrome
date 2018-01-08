@@ -17,9 +17,8 @@ func TestBrowserClose(t *testing.T) {
 
 	resultChan := mockSocket.Browser().Close()
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "Browser.close",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
 	})
 	result := <-resultChan
 	if nil != result.Err {
@@ -34,7 +33,6 @@ func TestBrowserClose(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "Browser.close",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -58,9 +56,9 @@ func TestBrowserGetVersion(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "Browser.getVersion",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -83,7 +81,6 @@ func TestBrowserGetVersion(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "Browser.getVersion",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -111,9 +108,9 @@ func TestBrowserGetWindowBounds(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "Browser.getWindowBounds",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -138,7 +135,6 @@ func TestBrowserGetWindowBounds(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "Browser.getWindowBounds",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -167,9 +163,9 @@ func TestBrowserGetWindowForTarget(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "Browser.getWindowForTarget",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -201,7 +197,6 @@ func TestBrowserGetWindowForTarget(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "Browser.getWindowForTarget",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -237,9 +232,9 @@ func TestBrowserSetWindowBounds(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "Browser.setWindowBounds",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -278,7 +273,6 @@ func TestBrowserSetWindowBounds(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "Browser.setWindowBounds",
 	})
 	result = <-resultChan
 	if nil == result.Err {

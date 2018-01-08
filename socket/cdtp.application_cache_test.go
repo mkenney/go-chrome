@@ -18,9 +18,9 @@ func TestApplicationCacheEnable(t *testing.T) {
 
 	resultChan := mockSocket.ApplicationCache().Enable()
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "ApplicationCache.enable",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: nil,
 	})
 	result := <-resultChan
@@ -36,7 +36,6 @@ func TestApplicationCacheEnable(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "ApplicationCache.enable",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -67,9 +66,9 @@ func TestApplicationCacheGetForFrame(t *testing.T) {
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockParamsBytes, _ := json.Marshal(mockParams)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "ApplicationCache.getForFrame",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Params: mockParamsBytes,
 		Result: mockResultBytes,
 	})
@@ -93,7 +92,6 @@ func TestApplicationCacheGetForFrame(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "ApplicationCache.getForFrame",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -117,9 +115,9 @@ func TestApplicationCacheGetFramesWithManifests(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "ApplicationCache.getFramesWithManifests",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -142,7 +140,6 @@ func TestApplicationCacheGetFramesWithManifests(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "ApplicationCache.getFramesWithManifests",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -164,9 +161,9 @@ func TestApplicationCacheGetManifestForFrame(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "ApplicationCache.getManifestForFrame",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -191,7 +188,6 @@ func TestApplicationCacheGetManifestForFrame(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "ApplicationCache.getManifestForFrame",
 	})
 	result = <-resultChan
 	if nil == result.Err {

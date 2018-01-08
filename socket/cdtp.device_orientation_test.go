@@ -18,9 +18,9 @@ func TestDeviceOrientationClearOverride(t *testing.T) {
 	mockResult := &deviceOrientation.ClearOverrideResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "DeviceOrientation.clearOverride",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -36,7 +36,6 @@ func TestDeviceOrientationClearOverride(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "DeviceOrientation.clearOverride",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -58,9 +57,9 @@ func TestDeviceOrientationSetOverride(t *testing.T) {
 	mockResult := &deviceOrientation.SetOverrideResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "DeviceOrientation.setOverride",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -80,7 +79,6 @@ func TestDeviceOrientationSetOverride(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "DeviceOrientation.setOverride",
 	})
 	result = <-resultChan
 	if nil == result.Err {
