@@ -76,7 +76,7 @@ type DescribeNodeParams struct {
 	// Optional. The maximum depth at which children should be retrieved,
 	// defaults to 1. Use -1 for the entire subtree or provide an integer larger
 	// than 0.
-	Depth int `json:"depth,omitempty"`
+	Depth int64 `json:"depth,omitempty"`
 
 	// Optional. Whether or not iframes and shadow roots should be traversed
 	// when returning the subtree (default is false).
@@ -279,10 +279,10 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getNodeForLoc
 */
 type GetNodeForLocationParams struct {
 	// X coordinate.
-	X int `json:"x"`
+	X int64 `json:"x"`
 
 	// Y coordinate.
-	Y int `json:"y"`
+	Y int64 `json:"y"`
 
 	// Optional. False to skip to the nearest non-UA shadow root ancestor
 	// (default: false).
@@ -364,10 +364,10 @@ type GetSearchResultsParams struct {
 	SearchID string `json:"searchId"`
 
 	// Start index of the search result to be returned.
-	FromIndex int `json:"fromIndex"`
+	FromIndex int64 `json:"fromIndex"`
 
 	// End index of the search result to be returned.
-	ToIndex int `json:"toIndex"`
+	ToIndex int64 `json:"toIndex"`
 }
 
 /*
@@ -617,7 +617,7 @@ type RequestChildNodesParams struct {
 	// Optional. The maximum depth at which children should be retrieved,
 	// defaults to 1. Use -1 for the entire subtree or provide an integer larger
 	// than 0.
-	Depth int `json:"depth,omitempty"`
+	Depth int64 `json:"depth,omitempty"`
 
 	// Optional. Whether or not iframes and shadow roots should be traversed
 	// when returning the sub-tree (default is false).

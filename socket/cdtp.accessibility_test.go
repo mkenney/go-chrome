@@ -15,9 +15,11 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := mockSocket.Accessibility().GetPartialAXTree(
-		&accessibility.PartialAXTreeParams{},
-	)
+	params := &accessibility.PartialAXTreeParams{
+		NodeID:         dom.NodeID(1),
+		FetchRelatives: true,
+	}
+	resultChan := mockSocket.Accessibility().GetPartialAXTree(params)
 	mockDataBytes, _ := json.Marshal(accessibility.PartialAXTreeResult{})
 	mockSocket.Conn().AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
@@ -33,9 +35,7 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 		t.Errorf("Expected empty set, got '%s'", tmp)
 	}
 
-	resultChan = mockSocket.Accessibility().GetPartialAXTree(
-		&accessibility.PartialAXTreeParams{},
-	)
+	resultChan = mockSocket.Accessibility().GetPartialAXTree(params)
 	mockData := accessibility.PartialAXTreeResult{
 		Nodes: []*accessibility.AXNode{{
 			NodeID:  accessibility.AXNodeID("NodeID"),
@@ -87,9 +87,7 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 		t.Errorf("Expected dataset, got '%s'", tmp)
 	}
 
-	resultChan = mockSocket.Accessibility().GetPartialAXTree(
-		&accessibility.PartialAXTreeParams{},
-	)
+	resultChan = mockSocket.Accessibility().GetPartialAXTree(params)
 	mockSocket.Conn().AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
