@@ -22,7 +22,6 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 	mockSocket.Conn().AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
-		Method: "Accessibility.partialAXTreeParams",
 		Result: mockDataBytes,
 	})
 	result := <-resultChan
@@ -77,7 +76,6 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 	mockSocket.Conn().AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
-		Method: "Accessibility.partialAXTreeParams",
 		Result: mockDataBytes,
 	})
 	result = <-resultChan
@@ -99,7 +97,6 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "Accessibility.partialAXTreeParams",
 	})
 	result = <-resultChan
 	if nil == result.Err {

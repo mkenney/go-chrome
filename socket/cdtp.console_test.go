@@ -18,9 +18,9 @@ func TestConsoleClearMessages(t *testing.T) {
 	mockResult := &console.ClearMessagesResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "Console.clearMessages",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -36,7 +36,6 @@ func TestConsoleClearMessages(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "Console.clearMessages",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -54,9 +53,9 @@ func TestConsoleDisable(t *testing.T) {
 	mockResult := &console.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "Console.disable",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -72,7 +71,6 @@ func TestConsoleDisable(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "Console.disable",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -90,9 +88,9 @@ func TestConsoleEnable(t *testing.T) {
 	mockResult := &console.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "Console.enable",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -108,7 +106,6 @@ func TestConsoleEnable(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "Console.enable",
 	})
 	result = <-resultChan
 	if nil == result.Err {

@@ -37,9 +37,9 @@ func TestDOMDebuggerGetEventListeners(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "DOMDebugger.getEventListeners",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -62,7 +62,6 @@ func TestDOMDebuggerGetEventListeners(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "DOMDebugger.getEventListeners",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -83,9 +82,9 @@ func TestDOMDebuggerRemoveDOMBreakpoint(t *testing.T) {
 	mockResult := &domDebugger.RemoveDOMBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "DOMDebugger.removeDOMBreakpoint",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -104,7 +103,6 @@ func TestDOMDebuggerRemoveDOMBreakpoint(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "DOMDebugger.removeDOMBreakpoint",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -125,9 +123,9 @@ func TestDOMDebuggerRemoveEventListenerBreakpoint(t *testing.T) {
 	mockResult := &domDebugger.RemoveEventListenerBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "DOMDebugger.removeEventListenerBreakpoint",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -146,7 +144,6 @@ func TestDOMDebuggerRemoveEventListenerBreakpoint(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "DOMDebugger.removeEventListenerBreakpoint",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -166,9 +163,9 @@ func TestDOMDebuggerRemoveInstrumentationBreakpoint(t *testing.T) {
 	mockResult := &domDebugger.RemoveInstrumentationBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "DOMDebugger.removeInstrumentationBreakpoint",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -186,7 +183,6 @@ func TestDOMDebuggerRemoveInstrumentationBreakpoint(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "DOMDebugger.removeInstrumentationBreakpoint",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -206,9 +202,9 @@ func TestDOMDebuggerRemoveXHRBreakpoint(t *testing.T) {
 	mockResult := &domDebugger.RemoveXHRBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "DOMDebugger.removeXHRBreakpoint",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -226,7 +222,6 @@ func TestDOMDebuggerRemoveXHRBreakpoint(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "DOMDebugger.removeXHRBreakpoint",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -247,9 +242,9 @@ func TestDOMDebuggerSetDOMBreakpoint(t *testing.T) {
 	mockResult := &domDebugger.SetDOMBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "DOMDebugger.setDOMBreakpoint",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -268,7 +263,6 @@ func TestDOMDebuggerSetDOMBreakpoint(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "DOMDebugger.setDOMBreakpoint",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -289,9 +283,9 @@ func TestDOMDebuggerSetEventListenerBreakpoint(t *testing.T) {
 	mockResult := &domDebugger.SetEventListenerBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "DOMDebugger.setEventListenerBreakpoint",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -310,7 +304,6 @@ func TestDOMDebuggerSetEventListenerBreakpoint(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "DOMDebugger.setEventListenerBreakpoint",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -330,9 +323,9 @@ func TestDOMDebuggerSetInstrumentationBreakpoint(t *testing.T) {
 	mockResult := &domDebugger.SetInstrumentationBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "DOMDebugger.setInstrumentationBreakpoint",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -350,7 +343,6 @@ func TestDOMDebuggerSetInstrumentationBreakpoint(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "DOMDebugger.setInstrumentationBreakpoint",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -370,9 +362,9 @@ func TestDOMDebuggerSetXHRBreakpoint(t *testing.T) {
 	mockResult := &domDebugger.SetXHRBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "DOMDebugger.setXHRBreakpoint",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -390,7 +382,6 @@ func TestDOMDebuggerSetXHRBreakpoint(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "DOMDebugger.setXHRBreakpoint",
 	})
 	result = <-resultChan
 	if nil == result.Err {

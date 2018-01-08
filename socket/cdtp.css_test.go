@@ -43,9 +43,9 @@ func TestCSSAddRule(t *testing.T) {
 	}}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.addRule",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -73,7 +73,6 @@ func TestCSSAddRule(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.addRule",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -95,9 +94,9 @@ func TestCSSCollectClassNames(t *testing.T) {
 	}}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.collectClassNames",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -118,7 +117,6 @@ func TestCSSCollectClassNames(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.collectClassNames",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -140,9 +138,9 @@ func TestCSSCreateStyleSheet(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.createStyleSheet",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -163,7 +161,6 @@ func TestCSSCreateStyleSheet(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.createStyleSheet",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -181,9 +178,9 @@ func TestCSSDisable(t *testing.T) {
 	mockResult := &css.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.disable",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -199,7 +196,6 @@ func TestCSSDisable(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.disable",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -217,9 +213,9 @@ func TestCSSEnable(t *testing.T) {
 	mockResult := &css.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.enable",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -235,7 +231,6 @@ func TestCSSEnable(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.enable",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -256,9 +251,9 @@ func TestCSSForcePseudoState(t *testing.T) {
 	mockResult := &css.ForcePseudoStateResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.forcePseudoState",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -277,7 +272,6 @@ func TestCSSForcePseudoState(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.forcePseudoState",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -302,9 +296,9 @@ func TestCSSGetBackgroundColors(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.getBackgroundColors",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -325,7 +319,6 @@ func TestCSSGetBackgroundColors(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.getBackgroundColors",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -350,9 +343,9 @@ func TestCSSGetComputedStyleForNode(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.getComputedStyleForNode",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -373,7 +366,6 @@ func TestCSSGetComputedStyleForNode(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.getComputedStyleForNode",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -430,9 +422,9 @@ func TestCSSGetInlineStylesForNode(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.getInlineStylesForNode",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -453,7 +445,6 @@ func TestCSSGetInlineStylesForNode(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.getInlineStylesForNode",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -528,9 +519,9 @@ func TestCSSGetMatchedStylesForNode(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.getMatchedStylesForNode",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -551,7 +542,6 @@ func TestCSSGetMatchedStylesForNode(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.getMatchedStylesForNode",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -596,9 +586,9 @@ func TestCSSGetMediaQueries(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.getMediaQueries",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -617,7 +607,6 @@ func TestCSSGetMediaQueries(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.getMediaQueries",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -643,9 +632,9 @@ func TestCSSGetPlatformFontsForNode(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.getPlatformFontsForNode",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -666,7 +655,6 @@ func TestCSSGetPlatformFontsForNode(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.getPlatformFontsForNode",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -688,9 +676,9 @@ func TestCSSGetStyleSheetText(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.getStyleSheetText",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -711,7 +699,6 @@ func TestCSSGetStyleSheetText(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.getStyleSheetText",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -733,9 +720,9 @@ func TestCSSSetEffectivePropertyValueForNode(t *testing.T) {
 	mockResult := &css.SetEffectivePropertyValueForNodeResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.setEffectivePropertyValueForNode",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -755,7 +742,6 @@ func TestCSSSetEffectivePropertyValueForNode(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.setEffectivePropertyValueForNode",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -792,9 +778,9 @@ func TestCSSSetKeyframeKey(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.setKeyframeKey",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -822,7 +808,6 @@ func TestCSSSetKeyframeKey(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.setKeyframeKey",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -876,9 +861,9 @@ func TestCSSSetMediaText(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.setMediaText",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -906,7 +891,6 @@ func TestCSSSetMediaText(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.setMediaText",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -945,9 +929,9 @@ func TestCSSSetRuleSelector(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.setRuleSelector",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -975,7 +959,6 @@ func TestCSSSetRuleSelector(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.setRuleSelector",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -998,9 +981,9 @@ func TestCSSSetStyleSheetText(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.setStyleSheetText",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -1022,7 +1005,6 @@ func TestCSSSetStyleSheetText(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.setStyleSheetText",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -1070,9 +1052,9 @@ func TestCSSSetStyleTexts(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.setStyleTexts",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -1102,7 +1084,6 @@ func TestCSSSetStyleTexts(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.setStyleTexts",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -1120,9 +1101,9 @@ func TestCSSStartRuleUsageTracking(t *testing.T) {
 	mockResult := &css.StartRuleUsageTrackingResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.startRuleUsageTracking",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -1138,7 +1119,6 @@ func TestCSSStartRuleUsageTracking(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.startRuleUsageTracking",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -1163,9 +1143,9 @@ func TestCSSStopRuleUsageTracking(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.stopRuleUsageTracking",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -1184,7 +1164,6 @@ func TestCSSStopRuleUsageTracking(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.stopRuleUsageTracking",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -1209,9 +1188,9 @@ func TestCSSTakeCoverageDelta(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CSS.takeCoverageDelta",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -1230,7 +1209,6 @@ func TestCSSTakeCoverageDelta(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CSS.takeCoverageDelta",
 	})
 	result = <-resultChan
 	if nil == result.Err {

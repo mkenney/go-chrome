@@ -18,9 +18,9 @@ func TestDatabaseDisable(t *testing.T) {
 	mockResult := &database.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "Database.disable",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -36,7 +36,6 @@ func TestDatabaseDisable(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "Database.disable",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -54,9 +53,9 @@ func TestDatabaseEnable(t *testing.T) {
 	mockResult := &database.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "Database.enable",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -72,7 +71,6 @@ func TestDatabaseEnable(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "Database.enable",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -100,9 +98,9 @@ func TestDatabaseExecuteSQL(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "Database.executeSQL",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -124,7 +122,6 @@ func TestDatabaseExecuteSQL(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "Database.executeSQL",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -146,9 +143,9 @@ func TestDatabaseGetTableNames(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "Database.getTableNames",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -169,7 +166,6 @@ func TestDatabaseGetTableNames(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "Database.getTableNames",
 	})
 	result = <-resultChan
 	if nil == result.Err {

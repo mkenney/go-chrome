@@ -26,9 +26,8 @@ func TestCacheStorageDeleteCache(t *testing.T) {
 		CacheID: cacheStorage.CacheID("cache-id"),
 	})
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CacheStorage.deleteCache",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
 	})
 	result := <-resultChan
 	if nil != result.Err {
@@ -45,7 +44,6 @@ func TestCacheStorageDeleteCache(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CacheStorage.deleteCache",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -64,9 +62,8 @@ func TestCacheStorageDeleteEntry(t *testing.T) {
 		Request: "request",
 	})
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CacheStorage.deleteEntry",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
 	})
 	result := <-resultChan
 	if nil != result.Err {
@@ -84,7 +81,6 @@ func TestCacheStorageDeleteEntry(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CacheStorage.deleteEntry",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -110,9 +106,9 @@ func TestCacheStorageRequestCacheNames(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CacheStorage.requestCacheNames",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -137,7 +133,6 @@ func TestCacheStorageRequestCacheNames(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CacheStorage.requestCacheNames",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -162,9 +157,9 @@ func TestCacheStorageRequestCachedResponse(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CacheStorage.requestCachedResponse",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -190,7 +185,6 @@ func TestCacheStorageRequestCachedResponse(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CacheStorage.requestCachedResponse",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -229,9 +223,9 @@ func TestCacheStorageRequestEntries(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Method: "CacheStorage.RequestEntries",
+		ID:    mockSocket.CurCommandID(),
+		Error: &Error{},
+
 		Result: mockResultBytes,
 	})
 	result := <-resultChan
@@ -258,7 +252,6 @@ func TestCacheStorageRequestEntries(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
-		Method: "CacheStorage.requestEntries",
 	})
 	result = <-resultChan
 	if nil == result.Err {
