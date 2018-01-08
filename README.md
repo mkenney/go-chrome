@@ -1,7 +1,7 @@
 # go-chrome
 <table><tbody><tr>
-    <td>
-        <a href="https://github.com/mkenney/stability-badges#unstable"><img src="https://img.shields.io/badge/api-unstable-yellow.svg" alt="Unstable"></a>
+    <td width="150">
+        <a href="https://travis-ci.org/mkenney/go-chrome"><img src="https://travis-ci.org/mkenney/go-chrome.svg?branch=master" alt="Build status"></a>
     </td>
     <td rowspan="6">
         This package aims to be a complete <a href="https://chromedevtools.github.io/devtools-protocol/">Chrome DevTools Protocol</a> implementation. My primary use-case is interacting with <a href="https://developers.google.com/web/updates/2017/04/headless-chrome">headless Google Chrome</a> in a container environment, but this should be appropriate for developing server side and desktop applications as well.
@@ -12,8 +12,12 @@
     </td>
 </tr>
 <tr>
-    <td width="150">
-        <a href="https://travis-ci.org/mkenney/go-chrome"><img src="https://travis-ci.org/mkenney/go-chrome.svg?branch=master" alt="Build status"></a>
+    <td>
+        <a href="https://github.com/mkenney/go-chrome/issues"><img src="https://img.shields.io/github/issues-raw/mkenney/go-chrome.svg" alt="Github issues"></a>
+    </td>
+</tr><tr>
+    <td>
+        <a href="https://github.com/mkenney/stability-badges#unstable"><img src="https://img.shields.io/badge/api-unstable-yellow.svg" alt="Unstable"></a>
     </td>
 </tr><tr>
     <td width="150">
@@ -21,15 +25,9 @@
     </td>
 </tr><tr>
     <td>
-        <a href="https://github.com/mkenney/go-chrome/issues"><img src="https://img.shields.io/github/issues-raw/mkenney/go-chrome.svg" alt="Github issues"></a>
-    </td>
-</tr>
-<tr>
-    <td>
         <a href="https://goreportcard.com/report/github.com/mkenney/go-chrome"><img src="https://goreportcard.com/badge/github.com/mkenney/go-chrome" alt="Go Report Card"></a>
     </td>
-</tr>
-<tr>
+</tr><tr>
     <td>
         <a href="https://godoc.org/github.com/mkenney/go-chrome"><img src="https://godoc.org/github.com/mkenney/go-chrome?status.svg" alt="GoDoc"></a>
     </td>
