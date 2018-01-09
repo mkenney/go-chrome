@@ -21,7 +21,7 @@
     </td>
 </tr><tr>
     <td width="150">
-        <a href="https://codecov.io/gh/mkenney/go-chrome"><img src="https://codecov.io/gh/mkenney/go-chrome/branch/master/graph/badge.svg" alt="Coverage status"></a>
+        <a href="https://codecov.io/gh/mkenney/go-chrome"><img src="https://img.shields.io/codecov/c/github/mkenney/go-chrome/master.svg" alt="Coverage status"></a>
     </td>
 </tr><tr>
     <td>
