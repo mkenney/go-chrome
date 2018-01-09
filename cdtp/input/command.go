@@ -255,7 +255,7 @@ type SynthesizePinchGestureParams struct {
 
 	// Optional. Which type of input events to be generated (default: 'default',
 	// which queries the platform for the preferred input type).
-	GestureSourceType *GestureSourceType `json:"gestureSourceType,omitempty"`
+	GestureSourceType GestureSourceType `json:"gestureSourceType,omitempty"`
 }
 
 /*
@@ -303,7 +303,7 @@ type SynthesizeScrollGestureParams struct {
 
 	// Optional. Which type of input events to be generated (default: 'default',
 	// which queries the platform for the preferred input type).
-	GestureSourceType *GestureSourceType `json:"gestureSourceType,omitempty"`
+	GestureSourceType GestureSourceType `json:"gestureSourceType,omitempty"`
 
 	// Optional. The number of times to repeat the gesture (default: 0).
 	RepeatCount int `json:"repeatCount,omitempty"`
@@ -349,7 +349,7 @@ type SynthesizeTapGestureParams struct {
 
 	// Optional. Which type of input events to be generated (default: 'default',
 	// which queries the platform for the preferred input type).
-	GestureSourceType *GestureSourceType `json:"gestureSourceType,omitempty"`
+	GestureSourceType GestureSourceType `json:"gestureSourceType,omitempty"`
 }
 
 /*

@@ -69,7 +69,11 @@ Key is a key.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#type-Key
 */
 type Key struct {
-	// Key type. Allowed values: number, string, date, array.
+	// Key type. Allowed values:
+	//	- number
+	//	- string
+	//	- date
+	//	- array
 	Type string `json:"type"`
 
 	// Optional. Number value.
