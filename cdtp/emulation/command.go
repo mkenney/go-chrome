@@ -57,7 +57,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setCPUT
 */
 type SetCPUThrottlingRateParams struct {
 	// Throttling rate as a slowdown factor (1 is no throttle, 2 is 2x slowdown, etc).
-	Rate int `json:"rate"`
+	Rate int64 `json:"rate"`
 }
 
 /*
