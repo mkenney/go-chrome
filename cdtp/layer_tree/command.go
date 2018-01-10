@@ -56,7 +56,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-loadSna
 */
 type LoadSnapshotParams struct {
 	// An array of tiles composing the snapshot.
-	Tiles []PictureTile `json:"tiles"`
+	Tiles []*PictureTile `json:"tiles"`
 }
 
 /*
@@ -122,7 +122,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-profile
 */
 type ProfileSnapshotResult struct {
 	// The array of paint profiles, one per run.
-	Timings []PaintProfile `json:"timings"`
+	Timings []*PaintProfile `json:"timings"`
 
 	// Error information related to executing this method
 	Err error `json:"-"`

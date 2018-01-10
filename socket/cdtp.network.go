@@ -118,10 +118,10 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-clearBrow
 */
 func (protocol *NetworkProtocol) ClearBrowserCookies() chan *network.ClearBrowserCookiesResult {
 	resultChan := make(chan *network.ClearBrowserCookiesResult)
+	result := &network.ClearBrowserCookiesResult{}
+	command := NewCommand(protocol.Socket, "Network.clearBrowserCookies", nil)
 
 	go func() {
-		result := &network.ClearBrowserCookiesResult{}
-		command := NewCommand(protocol.Socket, "Network.clearBrowserCookies", nil)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
 			result.Err = response.Error
@@ -146,10 +146,10 @@ func (protocol *NetworkProtocol) ContinueInterceptedRequest(
 	params *network.ContinueInterceptedRequestParams,
 ) chan *network.ContinueInterceptedRequestResult {
 	resultChan := make(chan *network.ContinueInterceptedRequestResult)
+	result := &network.ContinueInterceptedRequestResult{}
+	command := NewCommand(protocol.Socket, "Network.continueInterceptedRequest", params)
 
 	go func() {
-		result := &network.ContinueInterceptedRequestResult{}
-		command := NewCommand(protocol.Socket, "Network.continueInterceptedRequest", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
 			result.Err = response.Error
@@ -170,10 +170,10 @@ func (protocol *NetworkProtocol) DeleteCookies(
 	params *network.DeleteCookiesParams,
 ) chan *network.DeleteCookiesResult {
 	resultChan := make(chan *network.DeleteCookiesResult)
+	result := &network.DeleteCookiesResult{}
+	command := NewCommand(protocol.Socket, "Network.deleteCookies", params)
 
 	go func() {
-		result := &network.DeleteCookiesResult{}
-		command := NewCommand(protocol.Socket, "Network.deleteCookies", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
 			result.Err = response.Error
@@ -192,10 +192,10 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-disable
 */
 func (protocol *NetworkProtocol) Disable() chan *network.DisableResult {
 	resultChan := make(chan *network.DisableResult)
+	result := &network.DisableResult{}
+	command := NewCommand(protocol.Socket, "Network.disable", nil)
 
 	go func() {
-		result := &network.DisableResult{}
-		command := NewCommand(protocol.Socket, "Network.disable", nil)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
 			result.Err = response.Error
@@ -215,10 +215,10 @@ func (protocol *NetworkProtocol) EmulateConditions(
 	params *network.EmulateConditionsParams,
 ) chan *network.EmulateConditionsResult {
 	resultChan := make(chan *network.EmulateConditionsResult)
+	result := &network.EmulateConditionsResult{}
+	command := NewCommand(protocol.Socket, "Network.emulateNetworkConditions", params)
 
 	go func() {
-		result := &network.EmulateConditionsResult{}
-		command := NewCommand(protocol.Socket, "Network.emulateNetworkConditions", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
 			result.Err = response.Error
@@ -239,10 +239,10 @@ func (protocol *NetworkProtocol) Enable(
 	params *network.EnableParams,
 ) chan *network.EnableResult {
 	resultChan := make(chan *network.EnableResult)
+	result := &network.EnableResult{}
+	command := NewCommand(protocol.Socket, "Network.enable", params)
 
 	go func() {
-		result := &network.EnableResult{}
-		command := NewCommand(protocol.Socket, "Network.enable", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
 			result.Err = response.Error
@@ -392,10 +392,10 @@ func (protocol *NetworkProtocol) ReplayXHR(
 	params *network.ReplayXHRParams,
 ) chan *network.ReplayXHRResult {
 	resultChan := make(chan *network.ReplayXHRResult)
+	result := &network.ReplayXHRResult{}
+	command := NewCommand(protocol.Socket, "Network.replayXHR", params)
 
 	go func() {
-		result := &network.ReplayXHRResult{}
-		command := NewCommand(protocol.Socket, "Network.replayXHR", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
 			result.Err = response.Error
@@ -442,10 +442,10 @@ func (protocol *NetworkProtocol) SetBlockedURLs(
 	params *network.SetBlockedURLsParams,
 ) chan *network.SetBlockedURLsResult {
 	resultChan := make(chan *network.SetBlockedURLsResult)
+	result := &network.SetBlockedURLsResult{}
+	command := NewCommand(protocol.Socket, "Network.setBlockedURLs", params)
 
 	go func() {
-		result := &network.SetBlockedURLsResult{}
-		command := NewCommand(protocol.Socket, "Network.setBlockedURLs", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
 			result.Err = response.Error
@@ -466,10 +466,10 @@ func (protocol *NetworkProtocol) SetBypassServiceWorker(
 	params *network.SetBypassServiceWorkerParams,
 ) chan *network.SetBypassServiceWorkerResult {
 	resultChan := make(chan *network.SetBypassServiceWorkerResult)
+	result := &network.SetBypassServiceWorkerResult{}
+	command := NewCommand(protocol.Socket, "Network.setBypassServiceWorker", params)
 
 	go func() {
-		result := &network.SetBypassServiceWorkerResult{}
-		command := NewCommand(protocol.Socket, "Network.setBypassServiceWorker", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
 			result.Err = response.Error
@@ -490,10 +490,10 @@ func (protocol *NetworkProtocol) SetCacheDisabled(
 	params *network.SetCacheDisabledParams,
 ) chan *network.SetCacheDisabledResult {
 	resultChan := make(chan *network.SetCacheDisabledResult)
+	result := &network.SetCacheDisabledResult{}
+	command := NewCommand(protocol.Socket, "Network.setCacheDisabled", params)
 
 	go func() {
-		result := &network.SetCacheDisabledResult{}
-		command := NewCommand(protocol.Socket, "Network.setCacheDisabled", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
 			result.Err = response.Error
@@ -539,10 +539,10 @@ func (protocol *NetworkProtocol) SetCookies(
 	params *network.SetCookiesParams,
 ) chan *network.SetCookiesResult {
 	resultChan := make(chan *network.SetCookiesResult)
+	result := &network.SetCookiesResult{}
+	command := NewCommand(protocol.Socket, "Network.setCookies", params)
 
 	go func() {
-		result := &network.SetCookiesResult{}
-		command := NewCommand(protocol.Socket, "Network.setCookies", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
 			result.Err = response.Error
@@ -563,10 +563,10 @@ func (protocol *NetworkProtocol) SetDataSizeLimitsForTest(
 	params *network.SetDataSizeLimitsForTestParams,
 ) chan *network.SetDataSizeLimitsForTestResult {
 	resultChan := make(chan *network.SetDataSizeLimitsForTestResult)
+	result := &network.SetDataSizeLimitsForTestResult{}
+	command := NewCommand(protocol.Socket, "Network.setDataSizeLimitsForTest", params)
 
 	go func() {
-		result := &network.SetDataSizeLimitsForTestResult{}
-		command := NewCommand(protocol.Socket, "Network.setDataSizeLimitsForTest", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
 			result.Err = response.Error
@@ -587,10 +587,10 @@ func (protocol *NetworkProtocol) SetExtraHTTPHeaders(
 	params *network.SetExtraHTTPHeadersParams,
 ) chan *network.SetExtraHTTPHeadersResult {
 	resultChan := make(chan *network.SetExtraHTTPHeadersResult)
+	result := &network.SetExtraHTTPHeadersResult{}
+	command := NewCommand(protocol.Socket, "Network.setExtraHTTPHeaders", params)
 
 	go func() {
-		result := &network.SetExtraHTTPHeadersResult{}
-		command := NewCommand(protocol.Socket, "Network.setExtraHTTPHeaders", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
 			result.Err = response.Error
@@ -612,10 +612,10 @@ func (protocol *NetworkProtocol) SetRequestInterception(
 	params *network.SetRequestInterceptionParams,
 ) chan *network.SetRequestInterceptionResult {
 	resultChan := make(chan *network.SetRequestInterceptionResult)
+	result := &network.SetRequestInterceptionResult{}
+	command := NewCommand(protocol.Socket, "Network.setRequestInterception", params)
 
 	go func() {
-		result := &network.SetRequestInterceptionResult{}
-		command := NewCommand(protocol.Socket, "Network.setRequestInterception", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
 			result.Err = response.Error
@@ -635,10 +635,10 @@ func (protocol *NetworkProtocol) SetUserAgentOverride(
 	params *network.SetUserAgentOverrideParams,
 ) chan *network.SetUserAgentOverrideResult {
 	resultChan := make(chan *network.SetUserAgentOverrideResult)
+	result := &network.SetUserAgentOverrideResult{}
+	command := NewCommand(protocol.Socket, "Network.setUserAgentOverride", params)
 
 	go func() {
-		result := &network.SetUserAgentOverrideResult{}
-		command := NewCommand(protocol.Socket, "Network.setUserAgentOverride", params)
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
 			result.Err = response.Error
