@@ -1,4 +1,8 @@
 # go-chrome
+<p align="center">
+    <img src="https://github.com/mkenney/go-chrome/wiki/assets/images/gopher-logo.png" width="300px">
+</p>
+
 <table><tbody><tr>
     <td width="150">
         <a href="https://travis-ci.org/mkenney/go-chrome"><img src="https://travis-ci.org/mkenney/go-chrome.svg?branch=master" alt="Build status"></a>
