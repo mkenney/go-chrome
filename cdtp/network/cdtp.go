@@ -58,7 +58,7 @@ TimeSinceEpoch represents UTC time in seconds, counted from January 1, 1970.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-TimeSinceEpoch
 */
-type TimeSinceEpoch int
+type TimeSinceEpoch int64
 
 /*
 MonotonicTime is the monotonically increasing time in seconds since an arbitrary point in the past.
@@ -484,7 +484,7 @@ type Cookie struct {
 	Path string `json:"path"`
 
 	// Cookie expiration date as the number of seconds since the UNIX epoch.
-	Expires int `json:"expires"`
+	Expires int64 `json:"expires"`
 
 	// Cookie size.
 	Size int `json:"size"`
@@ -500,42 +500,6 @@ type Cookie struct {
 
 	// Optional. Cookie SameSite type.
 	SameSite CookieSameSite `json:"sameSite,omitempty"`
-}
-
-/*
-CookieParam is a cookie parameter
-
-https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-CookieParam
-*/
-type CookieParam struct {
-	// Cookie name.
-	Name string `json:"name"`
-
-	// Cookie value.
-	Value string `json:"value"`
-
-	// Optional. The request-URI to associate with the setting of the cookie.
-	// This value can affect the default domain and path values of the created
-	// cookie.
-	URL string `json:"url,omitempty"`
-
-	// Optional. Cookie domain.
-	Domain string `json:"domain,omitempty"`
-
-	// Optional. Cookie path.
-	Path string `json:"path,omitempty"`
-
-	// Optional. True if cookie is secure.
-	Secure bool `json:"secure,omitempty"`
-
-	// Optional. True if cookie is http-only.
-	HTTPOnly bool `json:"httpOnly,omitempty"`
-
-	// Optional. Cookie SameSite type.
-	SameSite CookieSameSite `json:"sameSite,omitempty"`
-
-	// Optional. Cookie expiration date, session cookie if not set.
-	Expires TimeSinceEpoch `json:"expires,omitempty"`
 }
 
 /*

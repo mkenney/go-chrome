@@ -82,7 +82,7 @@ type ContinueInterceptedRequestParams struct {
 	// not be set in response to an AuthChallenge.
 	RawResponse string `json:"rawResponse,omitempty"`
 
-	// IOptional. f set the request url will be modified in a way that's not
+	// Optional. f set the request url will be modified in a way that's not
 	// observable by page. Must not be set in response to an AuthChallenge.
 	URL string `json:"url,omitempty"`
 
@@ -493,7 +493,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCookie
 */
 type SetCookiesParams struct {
 	// Cookies to be set.
-	Cookies []*CookieParam `json:"cookies"`
+	Cookies []*SetCookieParams `json:"cookies"`
 }
 
 /*

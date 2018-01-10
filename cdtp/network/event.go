@@ -65,7 +65,7 @@ type LoadingFailedEvent struct {
 	Timestamp MonotonicTime `json:"timestamp"`
 
 	// Resource type.
-	Type *page.ResourceType `json:"type"`
+	Type page.ResourceType `json:"type"`
 
 	// User friendly error message.
 	ErrorText string `json:"errorText"`
@@ -238,7 +238,7 @@ type ResponseReceivedEvent struct {
 	Type page.ResourceType `json:"type"`
 
 	// Response data.
-	Response Response `json:"response"`
+	Response *Response `json:"response"`
 
 	// Optional. Frame identifier.
 	FrameID page.FrameID `json:"frameId,omitempty"`

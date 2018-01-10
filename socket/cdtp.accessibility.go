@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	accessibility "github.com/mkenney/go-chrome/cdtp/accessibility"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -38,7 +37,6 @@ func (protocol *AccessibilityProtocol) GetPartialAXTree(
 		} else {
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
-		log.Debugf("GOT HERE")
 		resultChan <- result
 	}()
 
