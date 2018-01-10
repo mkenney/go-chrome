@@ -1,7 +1,8 @@
-# go-chrome
 <p align="center">
     <img src="https://github.com/mkenney/go-chrome/wiki/assets/images/gopher-logo.png" width="300px">
 </p>
+
+# go-chrome
 
 <table><tbody><tr>
     <td width="150">
