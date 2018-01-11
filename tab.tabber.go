@@ -64,7 +64,7 @@ type Tab struct {
 /*
 Chromium implements Tabber.
 */
-func (tab *Tab) Chromium() Chromium {
+func (tab *Tab) Chromium() *Chrome {
 	return tab.chrome
 }
 

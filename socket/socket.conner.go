@@ -9,7 +9,7 @@ import (
 /*
 Conn returns the current WebSocketer interface
 */
-func (socket *Socket) Conn() WebSocketer {
+func (socket *Socket) Conn() *ChromeWebSocket {
 	socket.Connect()
 	return socket.conn
 }
