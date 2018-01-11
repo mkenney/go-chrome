@@ -18,7 +18,7 @@ func NewEventHandlerMap() *EventHandlerMap {
 }
 
 /*
-eventHandlerMap defines the event handler stacks for all handled events.
+EventHandlerMap defines the event handler stacks for all handled events.
 */
 type EventHandlerMap struct {
 	stack map[string][]EventHandler
