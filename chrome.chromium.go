@@ -22,7 +22,7 @@ func New(
 	workdir string,
 	stdout string,
 	stderr string,
-) Chromium {
+) *Chrome {
 	return &Chrome{
 		flags:   flags,
 		binary:  binary,

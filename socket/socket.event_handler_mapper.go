@@ -10,8 +10,8 @@ import (
 /*
 NewEventHandlerMap creates and returns a pointer to an EventHandlerMapper.
 */
-func NewEventHandlerMap() EventHandlerMapper {
-	return &eventHandlerMap{
+func NewEventHandlerMap() *EventHandlerMap {
+	return &EventHandlerMap{
 		stack: make(map[string][]EventHandler),
 		mux:   &sync.Mutex{},
 	}
@@ -20,7 +20,7 @@ func NewEventHandlerMap() EventHandlerMapper {
 /*
 eventHandlerMap defines the event handler stacks for all handled events.
 */
-type eventHandlerMap struct {
+type EventHandlerMap struct {
 	stack map[string][]EventHandler
 	mux   *sync.Mutex
 }
@@ -28,7 +28,7 @@ type eventHandlerMap struct {
 /*
 Add implements EventHandlerMapper.
 */
-func (stack *eventHandlerMap) Add(
+func (stack *EventHandlerMap) Add(
 	handler EventHandler,
 ) {
 	stack.Lock()
@@ -53,7 +53,7 @@ func (stack *eventHandlerMap) Add(
 /*
 Delete implements EventHandlerMapper.
 */
-func (stack *eventHandlerMap) Delete(
+func (stack *EventHandlerMap) Delete(
 	name string,
 ) {
 	delete(stack.stack, name)
@@ -62,7 +62,7 @@ func (stack *eventHandlerMap) Delete(
 /*
 Get implements EventHandlerMapper.
 */
-func (stack *eventHandlerMap) Get(
+func (stack *EventHandlerMap) Get(
 	name string,
 ) ([]EventHandler, error) {
 	if handlers, ok := stack.stack[name]; ok {
@@ -74,14 +74,14 @@ func (stack *eventHandlerMap) Get(
 /*
 Lock implements EventHandlerMapper.
 */
-func (stack *eventHandlerMap) Lock() {
+func (stack *EventHandlerMap) Lock() {
 	stack.mux.Lock()
 }
 
 /*
 Remove implements EventHandlerMapper.
 */
-func (stack *eventHandlerMap) Remove(
+func (stack *EventHandlerMap) Remove(
 	handler EventHandler,
 ) {
 	stack.Lock()
@@ -99,7 +99,7 @@ func (stack *eventHandlerMap) Remove(
 /*
 Set implements EventHandlerMapper.
 */
-func (stack *eventHandlerMap) Set(
+func (stack *EventHandlerMap) Set(
 	eventName string,
 	handlers []EventHandler,
 ) {
@@ -109,6 +109,6 @@ func (stack *eventHandlerMap) Set(
 /*
 Unlock implements EventHandlerMapper.
 */
-func (stack *eventHandlerMap) Unlock() {
+func (stack *EventHandlerMap) Unlock() {
 	stack.mux.Unlock()
 }

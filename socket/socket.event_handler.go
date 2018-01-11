@@ -6,17 +6,17 @@ NewEventHandler returns a pointer to an event handler.
 func NewEventHandler(
 	name string,
 	callback func(response *Response),
-) EventHandler {
-	return &handler{
+) *Handler {
+	return &Handler{
 		callback: callback,
 		name:     name,
 	}
 }
 
 /*
-handler implements EventHandler.
+Handler implements EventHandler.
 */
-type handler struct {
+type Handler struct {
 	callback func(response *Response)
 	name     string
 }
@@ -24,14 +24,14 @@ type handler struct {
 /*
 Name implements EventHandler.
 */
-func (handler *handler) Name() string {
+func (handler *Handler) Name() string {
 	return handler.name
 }
 
 /*
 Handle implements EventHandler.
 */
-func (handler *handler) Handle(
+func (handler *Handler) Handle(
 	response *Response,
 ) {
 	handler.callback(response)

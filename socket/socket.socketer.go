@@ -89,10 +89,10 @@ type Socket struct {
 	commands      CommandMapper
 	commandID     int
 	commandIDMux  *sync.Mutex
-	conn          WebSocketer
+	conn          *ChromeWebSocket
 	connected     bool
 	handlers      EventHandlerMapper
-	newSocket     func(socketURL *url.URL) (WebSocketer, error)
+	newSocket     func(socketURL *url.URL) (*ChromeWebSocket, error)
 	url           *url.URL
 	socketID      int
 	stopListening bool

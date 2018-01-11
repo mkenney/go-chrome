@@ -2,34 +2,50 @@ package socket
 
 import (
 	"encoding/json"
+	"fmt"
+	"net/http"
 	"net/url"
 	"time"
 
+	"github.com/gorilla/websocket"
 	log "github.com/sirupsen/logrus"
 )
 
 /*
-MockWebSocket implements WebSocketer for test dependencies.
+ChromeWebSocket represents a WebSocketer interface
 */
-type MockWebSocket struct {
+type ChromeWebSocket struct {
+	conn          *websocket.Conn
 	mockResponses []*Response
 }
 
 /*
-NewMockWebsocket returns a WebSocketer mock for tests that have socket
-connection dependencies.
+NewWebsocket returns a connected socket connection
 */
-func NewMockWebsocket(socketURL *url.URL) (WebSocketer, error) {
-	log.Infof("Mock websocket connection to %s established", socketURL.String())
-	return &MockWebSocket{
-		mockResponses: make([]*Response, 0),
-	}, nil
+func NewWebsocket(socketURL *url.URL) (*ChromeWebSocket, error) {
+	dialer := &websocket.Dialer{EnableCompression: false}
+	header := http.Header{"Origin": []string{socketURL.String()}}
+
+	websocket, response, err := dialer.Dial(socketURL.String(), header)
+	if err != nil {
+		return nil, fmt.Errorf(
+			"Could not create websocket connection. %s responded with '%s'",
+			socketURL.String(),
+			err.Error(),
+		)
+	}
+	log.Infof("Websocket connection to %s established: %s", socketURL.String(), response.Status)
+
+	return &ChromeWebSocket{conn: websocket}, nil
 }
 
 /*
 Close implements WebSocketer.
 */
-func (socket *MockWebSocket) Close() error {
+func (socket *ChromeWebSocket) Close() error {
+	if nil != socket.conn {
+		return socket.conn.Close()
+	}
 	return nil
 }
 
@@ -63,7 +79,11 @@ I'll refactor it that way when the tests start taking too long.
 This is only a problem with mocking the socket stream data for unit tests. It
 does impact interacting Chrome in any way.
 */
-func (socket *MockWebSocket) ReadJSON(v interface{}) error {
+func (socket *ChromeWebSocket) ReadJSON(v interface{}) error {
+	if nil != socket.conn {
+		return socket.conn.ReadJSON(&v)
+	}
+
 	var data interface{}
 
 	time.Sleep(time.Millisecond * 10)
@@ -88,13 +108,18 @@ func (socket *MockWebSocket) ReadJSON(v interface{}) error {
 /*
 WriteJSON implements WebSocketer.
 */
-func (socket *MockWebSocket) WriteJSON(v interface{}) error {
+func (socket *ChromeWebSocket) WriteJSON(v interface{}) error {
+	if nil != socket.conn {
+		return socket.conn.WriteJSON(v)
+	}
 	return nil
 }
 
 /*
 AddMockData implements WebSocketer.
 */
-func (socket *MockWebSocket) AddMockData(response *Response) {
-	socket.mockResponses = append(socket.mockResponses, response)
+func (socket *ChromeWebSocket) AddMockData(response *Response) {
+	if nil == socket.conn {
+		socket.mockResponses = append(socket.mockResponses, response)
+	}
 }
