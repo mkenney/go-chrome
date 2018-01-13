@@ -156,7 +156,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-FrameResourceT
 */
 type FrameResourceTree struct {
 	// Frame information for this tree item.
-	Frame Frame `json:"frame"`
+	Frame *Frame `json:"frame"`
 
 	// Optional. Child frames.
 	ChildFrames []*FrameResourceTree `json:"childFrames,omitempty"`
@@ -172,7 +172,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-FrameTree
 */
 type FrameTree struct {
 	// Frame information for this tree item.
-	Frame Frame `json:"frame"`
+	Frame *Frame `json:"frame"`
 
 	// Optional. Child frames.
 	ChildFrames []*FrameTree `json:"childFrames,omitempty"`
@@ -184,7 +184,6 @@ LayoutViewport defines layout viewport position and dimensions.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-LayoutViewport
 */
 type LayoutViewport struct {
-
 	// Horizontal offset relative to the document (CSS pixels).
 	PageX int `json:"pageX"`
 
@@ -248,7 +247,6 @@ ScreencastFrameMetadata provides screencast frame metadata. EXPERIMENTAL
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-ScreencastFrameMetadata
 */
 type ScreencastFrameMetadata struct {
-
 	// Top offset in DIP.
 	OffsetTop int `json:"offsetTop"`
 

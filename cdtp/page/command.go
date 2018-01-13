@@ -301,7 +301,7 @@ type NavigateParams struct {
 	Referrer string `json:"referrer,omitempty"`
 
 	// Optional. Intended transition type.
-	TransitionType *TransitionType `json:"transitionType,omitempty"`
+	TransitionType TransitionType `json:"transitionType,omitempty"`
 }
 
 /*
@@ -653,7 +653,9 @@ StartScreencastParams represents Page.startScreencast parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-startScreencast
 */
 type StartScreencastParams struct {
-	// Optional. Image compression format. Allowed values: jpeg, png.
+	// Optional. Image compression format. Allowed values:
+	//	- jpeg
+	//	- png
 	Format string `json:"format,omitempty"`
 
 	// Optional. Compression quality from range [0..100].
