@@ -7,6 +7,8 @@ Versions
 Versioned packages are available. Curently the only version is `tot` or
 Tip-of-Tree. Stable versions will be made available in the future.
 
+    import "github.com/mkenney/go-chrome/tot"
+
 Work in progress
 
 You should probably ignore this for now.
