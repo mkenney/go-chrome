@@ -6,7 +6,8 @@ import (
 )
 
 /*
-NewCommandMap creates and returns a pointer to a CommandMapper.
+NewCommandMap creates and returns a pointer to a struct that implements the
+CommandMapper interface.
 */
 func NewCommandMap() *CommandMap {
 	return &CommandMap{
