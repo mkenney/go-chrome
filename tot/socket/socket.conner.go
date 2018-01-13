@@ -7,7 +7,7 @@ import (
 )
 
 /*
-Conn returns the current WebSocketer interface
+Conn returns a struct that implements the WebSocketer interface.
 */
 func (socket *Socket) Conn() *ChromeWebSocket {
 	socket.Connect()

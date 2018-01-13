@@ -9,7 +9,8 @@ import (
 )
 
 /*
-New returns a new Socketer websocket connection listening to the specified URL.
+New returns a pointer to a websocket struct that implements Socketer interface
+listening to the specified URL.
 */
 func New(url *url.URL) *Socket {
 	socket := &Socket{
@@ -69,7 +70,8 @@ func New(url *url.URL) *Socket {
 }
 
 /*
-NextSocketID increments and returns the socket ID.
+NextSocketID increments and returns the socket ID for mapping Commander structs
+to socket responses.
 */
 func NextSocketID() int {
 	socketIDMux.Lock()
