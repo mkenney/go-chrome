@@ -50,6 +50,10 @@ Any contributions to tests or otherwise are very welcome!
 
 # Change Log
 
+## 2017-12-05
+
+In preparation for having stable versions of the library, I updated the directory structure of the repo adding a `tot` package for the current code (Tip-of-Tree). This should be the last major refactoring of this package and no further breaking changes are expected.
+
 ## 2017-01-05
 
 I merged some changes that did change the API a bit. Mainly, all the protocol methods now return a channel instead of blocking until they get a result to better handle the nature of socket data streams. This makes unit testing easier and cleaner and the API more useful, but the race detector still finds false positives due to writing test data to a stack that mocks a socket data stream, which is being drained by an independent goroutine...
