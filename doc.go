@@ -169,4 +169,4 @@ View the enum of possible reasons. (For reference: the original patch). After
 disconnection, some apps have chosen to pause their state and offer a reconnect
 button.
 */
-packge gochrome
+package gochrome
