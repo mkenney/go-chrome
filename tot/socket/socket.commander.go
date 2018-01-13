@@ -1,7 +1,8 @@
 package socket
 
 /*
-NewCommand creates and returns a pointer to a Commander instance.
+NewCommand creates and returns a pointer to a struct that implements the
+Commander interface.
 */
 func NewCommand(socket Socketer, method string, params interface{}) *Command {
 	return &Command{
