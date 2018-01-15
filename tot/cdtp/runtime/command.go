@@ -27,7 +27,7 @@ type AwaitPromiseResult struct {
 	Result *RemoteObject `json:"result"`
 
 	// Exception details if stack strace is available.
-	ExceptionDetails ExceptionDetails `json:"exceptionDetails"`
+	ExceptionDetails *ExceptionDetails `json:"exceptionDetails"`
 
 	// Error information related to executing this method
 	Err error `json:"-"`

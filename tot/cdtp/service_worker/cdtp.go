@@ -75,15 +75,15 @@ type Version struct {
 	Status VersionStatus `json:"status"`
 
 	// Optional. The Last-Modified header value of the main script.
-	ScriptLastModified int `json:"scriptLastModified,omitempty"`
+	ScriptLastModified int64 `json:"scriptLastModified,omitempty"`
 
 	// Optional. The time at which the response headers of the main script were
 	// received from the server. For cached script it is the last time the cache
 	// entry was validated.
-	ScriptResponseTime int `json:"scriptResponseTime,omitempty"`
+	ScriptResponseTime int64 `json:"scriptResponseTime,omitempty"`
 
 	// Optional. controlledClients.
-	ControlledClients []*target.ID `json:"controlledClients,omitempty"`
+	ControlledClients []target.ID `json:"controlledClients,omitempty"`
 
 	// Optional. targetId.
 	TargetID target.ID `json:"targetId,omitempty"`

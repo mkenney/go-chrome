@@ -338,7 +338,7 @@ func TestDebuggerGetStackTrace(t *testing.T) {
 			Description: "description",
 			CallFrames:  []*runtime.CallFrame{{}},
 			Parent:      &runtime.StackTrace{},
-			ParentID: runtime.StackTraceID{
+			ParentID: &runtime.StackTraceID{
 				ID:         "parent-stack-trace-id",
 				DebuggerID: runtime.UniqueDebuggerID("parent-unique-debugger-id"),
 			},
@@ -1102,7 +1102,7 @@ func TestDebuggerSetScriptSource(t *testing.T) {
 			Description: "description",
 			CallFrames:  []*runtime.CallFrame{{}},
 			Parent:      &runtime.StackTrace{},
-			ParentID: runtime.StackTraceID{
+			ParentID: &runtime.StackTraceID{
 				ID:         "parent-stack-trace-id",
 				DebuggerID: runtime.UniqueDebuggerID("parent-unique-debugger-id"),
 			},
