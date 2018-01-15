@@ -991,7 +991,7 @@ func TestRuntimeOnExceptionThrown(t *testing.T) {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 	if mockResult.Timestamp != result.Timestamp {
-		t.Errorf("Expected %s, got %s", mockResult.Timestamp, result.Timestamp)
+		t.Errorf("Expected %d, got %d", mockResult.Timestamp, result.Timestamp)
 	}
 
 	resultChan = make(chan *runtime.ExceptionThrownEvent)
@@ -1212,7 +1212,7 @@ func TestRuntimeOnInspectRequested(t *testing.T) {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 	if mockResult.Object.Type != result.Object.Type {
-		t.Errorf("Expected %d, got %d", mockResult.Object.Type, result.Object.Type)
+		t.Errorf("Expected %s, got %s", mockResult.Object.Type, result.Object.Type)
 	}
 
 	resultChan = make(chan *runtime.InspectRequestedEvent)
