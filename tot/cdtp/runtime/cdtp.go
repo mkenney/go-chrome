@@ -405,7 +405,7 @@ type StackTrace struct {
 
 	// Optional. Asynchronous JavaScript stack trace that preceded this stack,
 	// if available. EXPERIMENTAL.
-	ParentID StackTraceID `json:"parentId,omitempty"`
+	ParentID *StackTraceID `json:"parentId,omitempty"`
 }
 
 /*

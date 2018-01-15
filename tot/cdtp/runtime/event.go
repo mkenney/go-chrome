@@ -33,7 +33,7 @@ type ConsoleAPICalledEvent struct {
 	Args []*RemoteObject `json:"args"`
 
 	// Identifier of the context where the call was made.
-	ExecutionContextID *ExecutionContextID `json:"executionContextId"`
+	ExecutionContextID ExecutionContextID `json:"executionContextId"`
 
 	// Call timestamp.
 	Timestamp Timestamp `json:"timestamp"`
