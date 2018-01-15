@@ -5,8 +5,8 @@
 # go-chrome
 
 <table><tbody><tr>
-    <td width="150">
-        <a href="https://travis-ci.org/mkenney/go-chrome"><img src="https://travis-ci.org/mkenney/go-chrome.svg?branch=master" alt="Build status"></a>
+    <td>
+        <a href="https://github.com/mkenney/stability-badges#stable"><img src="https://img.shields.io/badge/stability-stable-33BBFF.svg" alt="Stable"></a>
     </td>
     <td rowspan="6">
         This package aims to be a complete <a href="https://chromedevtools.github.io/devtools-protocol/">Chrome DevTools Protocol</a> implementation. The primary use-case behind this project is interacting with <a href="https://developers.google.com/web/updates/2017/04/headless-chrome">headless Google Chrome</a> in a container environment, but it should be appropriate for developing server side and desktop applications as well.
@@ -16,8 +16,8 @@
         This implementation is based on the <a href="https://chromedevtools.github.io/devtools-protocol/tot/">Tip-of-Tree</a> documentation and may be prone to change. At some point stable versions will be implemented as well.
     </td>
 </tr><tr>
-    <td>
-        <a href="https://github.com/mkenney/stability-badges#stable"><img src="https://img.shields.io/badge/stability-stable-33BBFF.svg" alt="Stable"></a>
+    <td width="150">
+        <a href="https://travis-ci.org/mkenney/go-chrome"><img src="https://travis-ci.org/mkenney/go-chrome.svg?branch=master" alt="Build status"></a>
     </td>
 </tr><tr>
     <td width="150">
