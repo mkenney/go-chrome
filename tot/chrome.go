@@ -19,11 +19,12 @@ Useful during development.
 */
 func init() {
 	levelFlag := os.Getenv("LOG_LEVEL")
-	if "" != levelFlag {
-		level, err := log.ParseLevel(levelFlag)
-		if nil == err {
-			log.SetLevel(level)
-		}
+	if "" == levelFlag {
+		levelFlag = "info"
+	}
+	level, err := log.ParseLevel(levelFlag)
+	if nil == err {
+		log.SetLevel(level)
 	}
 }
 

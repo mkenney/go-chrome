@@ -30,7 +30,7 @@ Add implements EventHandlerMapper.
 */
 func (stack *EventHandlerMap) Add(
 	handler EventHandler,
-) {
+) error {
 	stack.Lock()
 	defer stack.Unlock()
 
@@ -40,14 +40,14 @@ func (stack *EventHandlerMap) Add(
 	}
 	for _, hndl := range handlers {
 		if hndl == handler {
-			log.Warnf("Attempted to add a duplicate handler for event '%s', skipping...", handler.Name())
-			return
+			return fmt.Errorf("Attempted to add a duplicate handler for event '%s'", handler.Name())
 		}
 	}
 
 	log.Debugf("Adding handler for event '%s'", handler.Name())
 	handlers = append(handlers, handler)
 	stack.Set(handler.Name(), handlers)
+	return nil
 }
 
 /*
@@ -83,17 +83,17 @@ Remove implements EventHandlerMapper.
 */
 func (stack *EventHandlerMap) Remove(
 	handler EventHandler,
-) {
+) error {
 	stack.Lock()
 	defer stack.Unlock()
 
 	for k, hndl := range stack.stack[handler.Name()] {
 		if hndl == handler {
 			stack.stack[handler.Name()] = append(stack.stack[handler.Name()][:k], stack.stack[handler.Name()][k+1:]...)
-			return
+			return nil
 		}
 	}
-	log.Warnf("Could not remove handler for '%s': not found", handler.Name())
+	return fmt.Errorf("Could not remove handler for '%s': not found", handler.Name())
 }
 
 /*

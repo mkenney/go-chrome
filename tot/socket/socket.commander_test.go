@@ -1,6 +1,7 @@
 package socket
 
 import (
+	"fmt"
 	"net/url"
 	"testing"
 
@@ -64,5 +65,22 @@ func TestCommanderNextID(t *testing.T) {
 		if recCount >= 1000 {
 			break
 		}
+	}
+}
+
+func TestCommanderError(t *testing.T) {
+	params := mockParams{
+		Value: 1,
+	}
+	socketURL, _ := url.Parse("https://www.example.com/mock")
+	cmd := NewCommand(NewMock(socketURL), "Some.method", params)
+	err := fmt.Errorf("test error")
+
+	cmd.err = err
+	if nil == cmd.Error() {
+		t.Errorf("Expected nil, got error: '%s'", cmd.Error().Error())
+	}
+	if err.Error() != cmd.Error().Error() {
+		t.Errorf("Expected '%s', got '%s'", err.Error(), cmd.Error().Error())
 	}
 }
