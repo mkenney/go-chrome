@@ -278,9 +278,8 @@ func (chrome *Chrome) Query(
 	if len(params) > 0 {
 		path += fmt.Sprintf("?%s", params.Encode())
 	}
-	uri := fmt.Sprintf("http://%s:%d%s", chrome.Address(), chrome.Port(), path)
-	log.Errorf("%s", uri)
 
+	uri := fmt.Sprintf("http://%s:%d%s", chrome.Address(), chrome.Port(), path)
 	resp, err := http.Get(uri)
 	if err != nil {
 		return nil, err
