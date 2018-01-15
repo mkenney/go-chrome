@@ -75,7 +75,7 @@ func TestStorageGetUsageAndQuota(t *testing.T) {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 	if mockResult.Usage != result.Usage {
-		t.Errorf("Expected %s, got %s", mockResult.Usage, result.Usage)
+		t.Errorf("Expected %d, got %d", mockResult.Usage, result.Usage)
 	}
 
 	resultChan = mockSocket.Storage().GetUsageAndQuota(params)

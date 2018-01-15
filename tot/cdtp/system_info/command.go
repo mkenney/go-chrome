@@ -7,7 +7,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/SystemInfo/#method-getInf
 */
 type GetInfoResult struct {
 	// Information about the GPUs on the system.
-	Gpu *GPUInfo `json:"gpu"`
+	GPU *GPUInfo `json:"gpu"`
 
 	// A platform-dependent description of the model of the machine. On Mac OS,
 	// this is, for example, 'MacBookPro'. Will be the empty string if not
