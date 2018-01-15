@@ -10,7 +10,7 @@ type AttachedToTargetEvent struct {
 	SessionID SessionID `json:"sessionId"`
 
 	// Target info.
-	Info Info `json:"targetInfo"`
+	Info *Info `json:"targetInfo"`
 
 	// Waiting for debugger.
 	WaitingForDebugger bool `json:"waitingForDebugger"`

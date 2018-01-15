@@ -42,7 +42,7 @@ func TestSystemInfoGetInfo(t *testing.T) {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 	if mockResult.GPU.Devices[0].VendorID != result.GPU.Devices[0].VendorID {
-		t.Errorf("Expected %s, got %s", mockResult.GPU.Devices[0].VendorID, result.GPU.Devices[0].VendorID)
+		t.Errorf("Expected %d, got %d", mockResult.GPU.Devices[0].VendorID, result.GPU.Devices[0].VendorID)
 	}
 
 	resultChan = mockSocket.SystemInfo().GetInfo()
