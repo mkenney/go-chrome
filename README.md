@@ -15,11 +15,6 @@
         <br /><br />
         This implementation is based on the <a href="https://chromedevtools.github.io/devtools-protocol/tot/">Tip-of-Tree</a> documentation and may be prone to change. At some point stable versions will be implemented as well.
     </td>
-</tr>
-<tr>
-    <td>
-        <a href="https://github.com/mkenney/go-chrome/issues"><img src="https://img.shields.io/github/issues-raw/mkenney/go-chrome.svg" alt="Github issues"></a>
-    </td>
 </tr><tr>
     <td>
         <a href="https://github.com/mkenney/stability-badges#stable"><img src="https://img.shields.io/badge/stability-stable-33BBFF.svg" alt="Stable"></a>
@@ -35,6 +30,10 @@
 </tr><tr>
     <td>
         <a href="https://godoc.org/github.com/mkenney/go-chrome"><img src="https://godoc.org/github.com/mkenney/go-chrome?status.svg" alt="GoDoc"></a>
+    </td>
+</tr><tr>
+    <td>
+        <a href="https://github.com/mkenney/go-chrome/issues"><img src="https://img.shields.io/github/issues-raw/mkenney/go-chrome.svg" alt="Github issues"></a>
     </td>
 </tr></tbody></table>
 
