@@ -86,10 +86,10 @@ RequestMemoryDump requests a global memory dump.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-requestMemoryDump
 */
-func (protocol *TracingProtocol) RequestMemoryDump() chan *tracing.GetCategoriesResult {
-	resultChan := make(chan *tracing.GetCategoriesResult)
+func (protocol *TracingProtocol) RequestMemoryDump() chan *tracing.RequestMemoryDumpResult {
+	resultChan := make(chan *tracing.RequestMemoryDumpResult)
 	command := NewCommand(protocol.Socket, "Tracing.requestMemoryDump", nil)
-	result := &tracing.GetCategoriesResult{}
+	result := &tracing.RequestMemoryDumpResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
