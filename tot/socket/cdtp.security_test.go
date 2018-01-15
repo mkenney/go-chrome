@@ -215,7 +215,7 @@ func TestSecurityOnCertificateError(t *testing.T) {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 	if mockResult.EventID != result.EventID {
-		t.Errorf("Expected %s, got %s", mockResult.EventID, result.EventID)
+		t.Errorf("Expected %d, got %d", mockResult.EventID, result.EventID)
 	}
 
 	resultChan = make(chan *security.CertificateErrorEvent)
