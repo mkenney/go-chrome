@@ -6,7 +6,7 @@ handlers.
 */
 type EventHandlerMapper interface {
 	// Add adds a handler to the stack of handlers for an event.
-	Add(handler EventHandler)
+	Add(handler EventHandler) error
 
 	// Delete removes the entire stack of handlers for an event.
 	Delete(eventName string)
@@ -18,7 +18,7 @@ type EventHandlerMapper interface {
 	Lock()
 
 	// Remove removes a handler from the stack of handlers for an event.
-	Remove(handler EventHandler)
+	Remove(handler EventHandler) error
 
 	// Set sets the entire stack of handlers for an event.
 	Set(eventName string, handlers []EventHandler)

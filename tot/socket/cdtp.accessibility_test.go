@@ -101,4 +101,8 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
+
+	if "" == result.Err.Error() {
+		t.Errorf("Expected error message, got empty string")
+	}
 }
