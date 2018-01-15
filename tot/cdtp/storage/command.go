@@ -40,10 +40,10 @@ https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-getUsageA
 */
 type GetUsageAndQuotaResult struct {
 	// Storage usage (bytes).
-	Usage float64 `json:"usage"`
+	Usage int64 `json:"usage"`
 
 	// Storage quota (bytes).
-	Quota float64 `json:"quota"`
+	Quota int64 `json:"quota"`
 
 	// Storage usage per type (bytes).
 	UsageBreakdown []*UsageForType `json:"usageBreakdown"`
