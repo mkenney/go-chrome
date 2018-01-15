@@ -108,7 +108,7 @@ func TestTetheringOnAccepted(t *testing.T) {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 	if mockResult.Port != result.Port {
-		t.Errorf("Expected %s, got %s", mockResult.Port, result.Port)
+		t.Errorf("Expected %d, got %d", mockResult.Port, result.Port)
 	}
 
 	resultChan = make(chan *tethering.AcceptedEvent)

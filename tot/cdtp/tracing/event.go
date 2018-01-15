@@ -15,7 +15,7 @@ type BufferUsageEvent struct {
 	PercentFull float64 `json:"percentFull,omitempty"`
 
 	// Optional. An approximate number of events in the trace log.
-	EventCount float64 `json:"eventCount,omitempty"`
+	EventCount int64 `json:"eventCount,omitempty"`
 
 	// Optional. A number in range [0..1] that indicates the used size of event
 	// buffer as a fraction of its total size.
