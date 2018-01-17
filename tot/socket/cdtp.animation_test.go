@@ -546,7 +546,7 @@ func TestAnimationOnAnimationStarted(t *testing.T) {
 			PlaybackRate: 1.1,
 			StartTime:    time.Now().Unix(),
 			CurrentTime:  time.Now().Unix(),
-			Type:         "animation-type",
+			Type:         animation.AnimationType.CSSTransition,
 			Source: &animation.Effect{
 				Delay:          1,
 				EndDelay:       1,

@@ -11,8 +11,10 @@ type ContinueToLocationParams struct {
 	// Location to continue to.
 	Location *Location `json:"location"`
 
-	// Optional. Allowed values: any, current.
-	TargetCallFrames string `json:"targetCallFrames,omitempty"`
+	// Optional. Allowed values:
+	//	- TargetCallFrames.Any
+	//	- TargetCallFrames.Current
+	TargetCallFrames TargetCallFramesEnum `json:"targetCallFrames,omitempty"`
 }
 
 /*
@@ -472,10 +474,10 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setPause
 */
 type SetPauseOnExceptionsParams struct {
 	// Pause on exceptions mode. Allowed values:
-	//	- none
-	//	- uncaught
-	//	- all.
-	State string `json:"state"`
+	//	- State.None
+	//	- State.Uncaught
+	//	- State.All
+	State StateEnum `json:"state"`
 }
 
 /*

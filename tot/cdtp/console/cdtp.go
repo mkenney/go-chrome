@@ -11,12 +11,27 @@ Message represents a console message.
 https://chromedevtools.github.io/devtools-protocol/tot/Console/#type-ConsoleMessage
 */
 type Message struct {
-	// Message source. Allowed values: xml, javascript, network, console-api,
-	// storage, appcache, rendering, security, other, deprecation, worker.
-	Source string `json:"source"`
+	// Message source. Allowed values:
+	//	- MessageSource.XML         - "xml"
+	//	- MessageSource.Javascript  - "javascript"
+	//	- MessageSource.Network     - "network"
+	//	- MessageSource.ConsoleAPI  - "console-api"
+	//	- MessageSource.Storage     - "storage"
+	//	- MessageSource.Appcache    - "appcache"
+	//	- MessageSource.Rendering   - "rendering"
+	//	- MessageSource.Security    - "security"
+	//	- MessageSource.Other       - "other"
+	//	- MessageSource.Deprecation - "deprecation"
+	//	- MessageSource.Worker      - "worker"
+	Source MessageSourceEnum `json:"source"`
 
-	// Message severity. Allowed values: log, warning, error, debug, info.
-	Level string `json:"level"`
+	// Message severity. Allowed values:
+	//	- MessageLevel.Log     - "log"
+	//	- MessageLevel.Warning - "warning"
+	//	- MessageLevel.Error   - "error"
+	//	- MessageLevel.Debug   - "debug"
+	//	- MessageLevel.Info    - "info"
+	Level MessageLevelEnum `json:"level"`
 
 	// Message text.
 	Text string `json:"text"`

@@ -17,7 +17,7 @@ type ScreenshotParams struct {
 	// Allowed values:
 	//	- jpeg
 	//	- png
-	Format string `json:"format,omitempty"`
+	Format FormatEnum `json:"format,omitempty"`
 
 	// Optional. Compression quality from range [0..100] (jpeg only).
 	Quality int `json:"quality,omitempty"`

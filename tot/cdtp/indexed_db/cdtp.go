@@ -74,7 +74,7 @@ type Key struct {
 	//	- string
 	//	- date
 	//	- array
-	Type string `json:"type"`
+	Type KeyTypeEnum `json:"type"`
 
 	// Optional. Number value.
 	Number float64 `json:"number,omitempty"`
@@ -130,8 +130,11 @@ KeyPath is a key path.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#type-KeyPath
 */
 type KeyPath struct {
-	// Key path type. Allowed values: null, string, array.
-	Type string `json:"type"`
+	// Key path type. Allowed values:
+	//	- null
+	//	- string
+	//	- array
+	Type KeyPathTypeEnum `json:"type"`
 
 	// Optional. String value.
 	String string `json:"string,omitempty"`

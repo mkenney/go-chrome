@@ -250,7 +250,7 @@ func TestEmulationSetDeviceMetricsOverride(t *testing.T) {
 		PositionY:          1,
 		DontSetVisibleSize: true,
 		ScreenOrientation: &emulation.ScreenOrientation{
-			Type:  "portraitPrimary",
+			Type:  emulation.OrientationType.PortraitPrimary,
 			Angle: 1,
 		},
 		Viewport: &page.Viewport{
@@ -297,7 +297,7 @@ func TestEmulationSetEmitTouchEventsForMouse(t *testing.T) {
 
 	params := &emulation.SetEmitTouchEventsForMouseParams{
 		Enabled:       true,
-		Configuration: "mobile",
+		Configuration: emulation.Configuration.Mobile,
 	}
 	resultChan := mockSocket.Emulation().SetEmitTouchEventsForMouse(params)
 	mockResult := &emulation.SetEmitTouchEventsForMouseResult{}

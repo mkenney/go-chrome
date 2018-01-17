@@ -37,9 +37,11 @@ type Animation struct {
 	// Animation's current time.
 	CurrentTime int64 `json:"currentTime"`
 
-	// Animation type of Animation. Allowed values: CSSTransition, CSSAnimation,
-	// WebAnimation.
-	Type string `json:"type"`
+	// Animation type of Animation. Allowed values:
+	//	- AnimationType.CSSTransition
+	//	- AnimationType.CSSAnimation
+	//	- AnimationType.WebAnimation
+	Type AnimationTypeEnum `json:"type"`
 
 	// Optional. Animation's source animation node.
 	Source *Effect `json:"source,omitempty"`

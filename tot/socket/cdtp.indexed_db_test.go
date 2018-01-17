@@ -207,14 +207,14 @@ func TestIndexedDBRequestData(t *testing.T) {
 		PageSize:        1,
 		KeyRange: &indexedDB.KeyRange{
 			Lower: &indexedDB.Key{
-				Type:   "number",
+				Type:   indexedDB.KeyType.Number,
 				Number: 1,
 				String: "string",
 				Date:   1,
 				Array:  []*indexedDB.Key{},
 			},
 			Upper: &indexedDB.Key{
-				Type:   "number",
+				Type:   indexedDB.KeyType.Number,
 				Number: 1,
 				String: "string",
 				Date:   1,
@@ -280,7 +280,7 @@ func TestIndexedDBRequestDatabase(t *testing.T) {
 			ObjectStores: []*indexedDB.ObjectStore{{
 				Name: "name",
 				KeyPath: &indexedDB.KeyPath{
-					Type:   "type",
+					Type:   indexedDB.KeyPathType.Null,
 					String: "string",
 					Array:  []string{"string1", "string2"},
 				},
@@ -288,7 +288,7 @@ func TestIndexedDBRequestDatabase(t *testing.T) {
 				Indexes: []*indexedDB.ObjectStoreIndex{{
 					Name: "name",
 					KeyPath: &indexedDB.KeyPath{
-						Type:   "type",
+						Type:   indexedDB.KeyPathType.Null,
 						String: "string",
 						Array:  []string{"string1", "string2"},
 					},

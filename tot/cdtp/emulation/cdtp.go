@@ -11,14 +11,12 @@ ScreenOrientation represents a screen orientation.
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#type-ScreenOrientation
 */
 type ScreenOrientation struct {
-	// Orientation type.
-	//
-	// Allowed values:
-	//	- portraitPrimary
-	//	- portraitSecondary
-	//	- landscapePrimary
-	//	- landscapeSecondary
-	Type string `json:"type"`
+	// Orientation type. Allowed values:
+	//	- OrientationType.PortraitPrimary
+	//	- OrientationType.PortraitSecondary
+	//	- OrientationType.LandscapePrimary
+	//	- OrientationType.LandscapeSecondary
+	Type OrientationTypeEnum `json:"type"`
 
 	// Orientation angle.
 	Angle int `json:"angle"`
