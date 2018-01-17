@@ -21,7 +21,7 @@ func TestDebuggerContinueToLocation(t *testing.T) {
 			LineNumber:   1,
 			ColumnNumber: 1,
 		},
-		TargetCallFrames: "frames",
+		TargetCallFrames: debugger.TargetCallFrames.Any,
 	})
 	mockResult := &debugger.ContinueToLocationResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
@@ -41,7 +41,7 @@ func TestDebuggerContinueToLocation(t *testing.T) {
 			LineNumber:   1,
 			ColumnNumber: 1,
 		},
-		TargetCallFrames: "frames",
+		TargetCallFrames: debugger.TargetCallFrames.Any,
 	})
 	mockSocket.Conn().AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
@@ -234,7 +234,7 @@ func TestDebuggerGetPossibleBreakpoints(t *testing.T) {
 			ScriptID:     runtime.ScriptID("script-id"),
 			LineNumber:   1,
 			ColumnNumber: 1,
-			Type:         "debuggerStatement",
+			Type:         debugger.BreakLocationType.DebuggerStatement,
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
@@ -519,7 +519,7 @@ func TestDebuggerRestartFrame(t *testing.T) {
 			},
 			URL: "http://frame.url",
 			ScopeChain: []*debugger.Scope{{
-				Type:   "global",
+				Type:   debugger.ScopeType.Global,
 				Object: &runtime.RemoteObject{},
 				Name:   "scope-name",
 				StartLocation: &debugger.Location{
@@ -976,7 +976,7 @@ func TestDebuggerSetPauseOnExceptions(t *testing.T) {
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().SetPauseOnExceptions(&debugger.SetPauseOnExceptionsParams{
-		State: "none",
+		State: debugger.State.None,
 	})
 	mockResult := &debugger.SetPauseOnExceptionsResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
@@ -991,7 +991,7 @@ func TestDebuggerSetPauseOnExceptions(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Debugger().SetPauseOnExceptions(&debugger.SetPauseOnExceptionsParams{
-		State: "none",
+		State: debugger.State.None,
 	})
 	mockSocket.Conn().AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
@@ -1080,7 +1080,7 @@ func TestDebuggerSetScriptSource(t *testing.T) {
 			},
 			URL: "http://frame.url",
 			ScopeChain: []*debugger.Scope{{
-				Type:   "global",
+				Type:   debugger.ScopeType.Global,
 				Object: &runtime.RemoteObject{},
 				Name:   "scope-name",
 				StartLocation: &debugger.Location{

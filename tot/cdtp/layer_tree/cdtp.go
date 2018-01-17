@@ -32,13 +32,12 @@ type ScrollRect struct {
 	// Rectangle itself.
 	Rect *dom.Rect `json:"rect"`
 
-	// Reason for rectangle to force scrolling on the main thread
-	//
-	// Allowed values:
-	//	- RepaintsOnScroll
-	//	- TouchEventHandler
-	//	- WheelEventHandler
-	Type string `json:"type"`
+	// Reason for rectangle to force scrolling on the main thread. Allowed
+	// values:
+	//	- RectType.RepaintsOnScroll
+	//	- RectType.TouchEventHandler
+	//	- RectType.WheelEventHandler
+	Type RectTypeEnum `json:"type"`
 }
 
 /*

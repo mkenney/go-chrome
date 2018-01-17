@@ -6,8 +6,12 @@ DispatchKeyEventParams represents Input.dispatchKeyEvent parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchKeyEvent
 */
 type DispatchKeyEventParams struct {
-	// Type of the key event. Allowed values: keyDown, keyUp, rawKeyDown, char.
-	Type string `json:"type"`
+	// Type of the key event. Allowed values:
+	//	- KeyEvent.KeyDown
+	//	- KeyEvent.KeyUp
+	//	- KeyEvent.RawKeyDown
+	//	- KeyEvent.Char
+	Type KeyEventEnum `json:"type"`
 
 	// Optional. Bit field representing pressed modifier keys. Alt=1, Ctrl=2,
 	// Meta/Command=4, Shift=8 (default: 0).
@@ -76,14 +80,12 @@ DispatchMouseEventParams represents Input.dispatchMouseEvent parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchMouseEvent
 */
 type DispatchMouseEventParams struct {
-	// Type of the mouse event.
-	//
-	// Allowed values:
-	//	- mousePressed
-	//	- mouseReleased
-	//	- mouseMoved
-	//	- mouseWheel
-	Type string `json:"type"`
+	// Type of the mouse event. Allowed values:
+	//	- MouseEvent.MousePressed
+	//	- MouseEvent.MouseReleased
+	//	- MouseEvent.MouseMoved
+	//	- MouseEvent.MouseWheel
+	Type MouseEventEnum `json:"type"`
 
 	// X coordinate of the event relative to the main frame's viewport in CSS
 	// pixels.
@@ -101,9 +103,12 @@ type DispatchMouseEventParams struct {
 	// Optional. Time at which the event occurred.
 	Timestamp TimeSinceEpoch `json:"timestamp,omitempty"`
 
-	// Optional. Mouse button (default: "none"). Allowed values: none, left,
-	// middle, right.
-	Button string `json:"button,omitempty"`
+	// Optional. Mouse button (default: "none"). Allowed values:
+	//	- ButtonEvent.None
+	//	- ButtonEvent.Left
+	//	- ButtonEvent.Middle
+	//	- ButtonEvent.Right
+	Button ButtonEventEnum `json:"button,omitempty"`
 
 	// Optional. Number of times the mouse button was clicked (default: 0).
 	ClickCount int `json:"clickCount,omitempty"`
@@ -134,11 +139,11 @@ type DispatchTouchEventParams struct {
 	// Type of the touch event. TouchEnd and TouchCancel must not contain any
 	// touch points, while TouchStart and TouchMove must contains at least one.
 	// Allowed values:
-	//	- touchStart
-	//	- touchEnd
-	//	- touchMove
-	//	- touchCancel
-	Type string `json:"type"`
+	//	- TouchEvent.TouchStart
+	//	- TouchEvent.TouchEnd
+	//	- TouchEvent.TouchMove
+	//	- TouchEvent.TouchCancel
+	Type TouchEventEnum `json:"type"`
 
 	// Active touch points on the touch device. One event per any changed point
 	// (compared to previous touch event in a sequence) is generated, emulating
@@ -169,14 +174,12 @@ EmulateTouchFromMouseEventParams represents Input.emulateTouchFromMouseEvent par
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-emulateTouchFromMouseEvent
 */
 type EmulateTouchFromMouseEventParams struct {
-	// Type of the mouse event.
-	//
-	// Allowed values:
-	//	- mousePressed
-	//	- mouseReleased
-	//	- mouseMoved
-	//	- mouseWheel
-	Type string `json:"type"`
+	// Type of the mouse event. Allowed values:
+	//	- MouseEvent.MousePressed
+	//	- MouseEvent.MouseReleased
+	//	- MouseEvent.MouseMoved
+	//	- MouseEvent.MouseWheel
+	Type MouseEventEnum `json:"type"`
 
 	// X coordinate of the mouse pointer in DIP.
 	X int `json:"x"`
@@ -187,8 +190,12 @@ type EmulateTouchFromMouseEventParams struct {
 	// Time at which the event occurred.
 	Timestamp TimeSinceEpoch `json:"timestamp"`
 
-	// Mouse button. Allowed values: none, left, middle, right.
-	Button string `json:"button"`
+	// Optional. Mouse button (default: "none"). Allowed values:
+	//	- ButtonEvent.None
+	//	- ButtonEvent.Left
+	//	- ButtonEvent.Middle
+	//	- ButtonEvent.Right
+	Button ButtonEventEnum `json:"button"`
 
 	// Optional. X delta in DIP for mouse wheel event (default: 0).
 	DeltaX int `json:"deltaX,omitempty"`

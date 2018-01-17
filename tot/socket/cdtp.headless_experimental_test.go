@@ -21,7 +21,7 @@ func TestHeadlessExperimentalBeginFrame(t *testing.T) {
 		Deadline:  runtime.Timestamp(time.Now().Unix()),
 		Interval:  1.1,
 		Screenshot: &headlessExperimental.ScreenshotParams{
-			Format:  "jpeg",
+			Format:  headlessExperimental.Format.Jpeg,
 			Quality: 100,
 		},
 	}

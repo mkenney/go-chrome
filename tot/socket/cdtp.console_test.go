@@ -122,8 +122,8 @@ func TestConsoleOnMessageAdded(t *testing.T) {
 	})
 	mockResult := &console.MessageAddedEvent{
 		Message: &console.Message{
-			Source: "message source",
-			Level:  "log level",
+			Source: console.MessageSource.XML,
+			Level:  console.MessageLevelLog,
 			Text:   "message text",
 			URL:    "message URL",
 			Line:   10,

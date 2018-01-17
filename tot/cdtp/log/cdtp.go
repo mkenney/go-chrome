@@ -16,31 +16,28 @@ Entry is a log entry.
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#type-LogEntry
 */
 type Entry struct {
-	// Log entry source.
-	//
-	// Allowed values: xml
-	//	- javascript
-	//	- network
-	//	- storage
-	//	- appcache
-	//	- rendering
-	//	- security
-	//	- deprecation
-	//	- worker
-	//	- violation
-	//	- intervention
-	//	- recommendation
-	//	- other
-	Source string `json:"source"`
+	// Log entry source. Allowed values:
+	//	- Source.XML
+	//	- Source.Javascript
+	//	- Source.Network
+	//	- Source.Storage
+	//	- Source.Appcache
+	//	- Source.Rendering
+	//	- Source.Security
+	//	- Source.Deprecation
+	//	- Source.Worker
+	//	- Source.Violation
+	//	- Source.Intervention
+	//	- Source.Recommendation
+	//	- Source.Other
+	Source SourceEnum `json:"source"`
 
-	// Log entry severity.
-	//
-	// Allowed values:
-	//	- verbose
-	//	- info
-	//	- warning
-	//	- error
-	Level string `json:"level"`
+	// Log entry severity. Allowed values:
+	//	- Level.Verbose
+	//	- Level.Info
+	//	- Level.Warning
+	//	- Level.Error
+	Level LevelEnum `json:"level"`
 
 	// Logged text.
 	Text string `json:"text"`
@@ -73,17 +70,15 @@ ViolationSetting is a violation configuration setting.
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#type-ViolationSetting
 */
 type ViolationSetting struct {
-	// Violation type.
-	//
-	// Allowed values:
-	//	- longTask
-	//	- longLayout
-	//	- blockedEvent
-	//	- blockedParser
-	//	- discouragedAPIUse
-	//	- handler
-	//	- recurringHandler
-	Name string `json:"name"`
+	// Violation type. Allowed values:
+	//	- Name.LongTask
+	//	- Name.LongLayout
+	//	- Name.BlockedEvent
+	//	- Name.BlockedParser
+	//	- Name.DiscouragedAPIUse
+	//	- Name.Handler
+	//	- Name.RecurringHandler
+	Name NameEnum `json:"name"`
 
 	// Time threshold to trigger upon.
 	Threshold int `json:"threshold"`

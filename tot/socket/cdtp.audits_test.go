@@ -17,7 +17,7 @@ func TestAuditsGetEncodedResponse(t *testing.T) {
 
 	resultChan := mockSocket.Audits().GetEncodedResponse(&audits.GetEncodedResponseParams{
 		RequestID: network.RequestID("audit-id"),
-		Encoding:  "encoding",
+		Encoding:  audits.Encoding.Webp,
 		Quality:   1,
 		SizeOnly:  true,
 	})
@@ -46,7 +46,7 @@ func TestAuditsGetEncodedResponse(t *testing.T) {
 
 	resultChan = mockSocket.Audits().GetEncodedResponse(&audits.GetEncodedResponseParams{
 		RequestID: network.RequestID("audit-id"),
-		Encoding:  "encoding",
+		Encoding:  audits.Encoding.Webp,
 		Quality:   1,
 		SizeOnly:  true,
 	})

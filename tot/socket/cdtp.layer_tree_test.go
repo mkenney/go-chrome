@@ -459,7 +459,7 @@ func TestLayerTreeOnLayerTreeDidChange(t *testing.T) {
 			Invisible:     true,
 			ScrollRects: []*layerTree.ScrollRect{{
 				Rect: &dom.Rect{},
-				Type: "RepaintsOnScroll",
+				Type: layerTree.RectType.RepaintsOnScroll,
 			}},
 			StickyPositionConstraint: &layerTree.StickyPositionConstraint{
 				StickyBoxRect:                       &dom.Rect{},

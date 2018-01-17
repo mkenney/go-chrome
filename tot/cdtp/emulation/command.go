@@ -170,7 +170,7 @@ type SetEmitTouchEventsForMouseParams struct {
 	// Allowed values:
 	//	- mobile
 	//	- desktop
-	Configuration string `json:"configuration,omitempty"`
+	Configuration ConfigurationEnum `json:"configuration,omitempty"`
 }
 
 /*

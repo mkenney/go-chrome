@@ -12,12 +12,10 @@ ScreenshotParams represents encoding options for a screenshot.
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#type-ScreenshotParams
 */
 type ScreenshotParams struct {
-	// Optional. Image compression format (defaults to png).
-	//
-	// Allowed values:
+	// Optional. Image compression format (defaults to png). Allowed values:
 	//	- jpeg
 	//	- png
-	Format string `json:"format,omitempty"`
+	Format FormatEnum `json:"format,omitempty"`
 
 	// Optional. Compression quality from range [0..100] (jpeg only).
 	Quality int `json:"quality,omitempty"`
