@@ -75,7 +75,20 @@ type ContinueInterceptedRequestParams struct {
 	// Optional. If set this causes the request to fail with the given reason.
 	// Passing `Aborted` for requests marked with `isNavigationRequest` also
 	// cancels the navigation. Must not be set in response to an AuthChallenge.
-	ErrorReason ErrorReason `json:"errorReason,omitempty"`
+	// Allowed values:
+	//	- ErrorReason.Failed
+	//	- ErrorReason.Aborted
+	//	- ErrorReason.TimedOut
+	//	- ErrorReason.AccessDenied
+	//	- ErrorReason.ConnectionClosed
+	//	- ErrorReason.ConnectionReset
+	//	- ErrorReason.ConnectionRefused
+	//	- ErrorReason.ConnectionAborted
+	//	- ErrorReason.ConnectionFailed
+	//	- ErrorReason.NameNotResolved
+	//	- ErrorReason.InternetDisconnected
+	//	- ErrorReason.AddressUnreachable
+	ErrorReason ErrorReasonEnum `json:"errorReason,omitempty"`
 
 	// Optional. If set the requests completes using with the provided base64
 	// encoded raw response, including HTTP status line and headers etc... Must
@@ -174,8 +187,17 @@ type EmulateConditionsParams struct {
 	// throttling.
 	UploadThroughput float64 `json:"uploadThroughput"`
 
-	// Optional. Connection type if known.
-	ConnectionType ConnectionType `json:"connectionType,omitempty"`
+	// Optional. Connection type if known. Allowed values:
+	//	- ConnectionType.None
+	//	- ConnectionType.Cellular2g
+	//	- ConnectionType.Cellular3g
+	//	- ConnectionType.Cellular4g
+	//	- ConnectionType.Bluetooth
+	//	- ConnectionType.Ethernet
+	//	- ConnectionType.Wifi
+	//	- ConnectionType.Wimax
+	//	- ConnectionType.Other
+	ConnectionType ConnectionTypeEnum `json:"connectionType,omitempty"`
 }
 
 /*
@@ -466,8 +488,10 @@ type SetCookieParams struct {
 	// Optional. True if cookie is http-only.
 	HTTPOnly bool `json:"httpOnly,omitempty"`
 
-	// Optional. Cookie SameSite type.
-	SameSite CookieSameSite `json:"sameSite,omitempty"`
+	// Optional. Cookie SameSite type. Allowed values:
+	//	- CookieSameSite.Strict
+	//	- CookieSameSite.Lax
+	SameSite CookieSameSiteEnum `json:"sameSite,omitempty"`
 
 	// Optional. Cookie expiration date, session cookie if not set.
 	Expires TimeSinceEpoch `json:"expires,omitempty"`

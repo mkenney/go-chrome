@@ -33,27 +33,6 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-Interceptio
 type InterceptionID string
 
 /*
-ErrorReason is the network level fetch failure reason.
-
-ALLOWED VALUES
-	- Failed
-	- Aborted
-	- TimedOut
-	- AccessDenied
-	- ConnectionClosed
-	- ConnectionReset
-	- ConnectionRefused
-	- ConnectionAborted
-	- ConnectionFailed
-	- NameNotResolved
-	- InternetDisconnected
-	- AddressUnreachable
-
-https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-ErrorReason
-*/
-type ErrorReason string
-
-/*
 TimeSinceEpoch represents UTC time in seconds, counted from January 1, 1970.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-TimeSinceEpoch
@@ -73,37 +52,6 @@ Headers contains request / response headers as keys / values of JSON object.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-Headers
 */
 type Headers map[string]string
-
-/*
-ConnectionType is the underlying connection technology that the browser is supposedly using.
-
-ALLOWED VALUES
-	- none
-	- cellular2g
-	- cellular3g
-	- cellular4g
-	- bluetooth
-	- ethernet
-	- wifi
-	- wimax
-	- other
-
-https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-ConnectionType
-*/
-type ConnectionType string
-
-/*
-CookieSameSite represents the cookie's 'SameSite' status
-
-ALLOWED VALUES
-	- Strict
-	- Lax
-
-https://tools.ietf.org/html/draft-west-first-party-cookies
-
-https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-CookieSameSite
-*/
-type CookieSameSite string
 
 /*
 ResourceTiming defines the timing information for the request
@@ -162,20 +110,6 @@ type ResourceTiming struct {
 }
 
 /*
-ResourcePriority represents the loading priority of a resource request.
-
-ALLOWED VALUES
-	- VeryLow
-	- Low
-	- Medium
-	- High
-	- VeryHigh
-
-https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-ResourcePriority
-*/
-type ResourcePriority string
-
-/*
 Request represents the HTTP request data.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-Request
@@ -196,22 +130,26 @@ type Request struct {
 	// Optional. The mixed content type of the request.
 	MixedContentType security.MixedContentType `json:"mixedContentType,omitempty"`
 
-	// Priority of the resource request at the time request is sent.
-	InitialPriority ResourcePriority `json:"initialPriority"`
+	// Priority of the resource request at the time request is sent. Allowed
+	// values:
+	//	- ResourcePriority.VeryLow
+	//	- ResourcePriority.Low
+	//	- ResourcePriority.Medium
+	//	- ResourcePriority.High
+	//	- ResourcePriority.VeryHigh
+	InitialPriority ResourcePriorityEnum `json:"initialPriority"`
 
 	// The referrer policy of the request, as defined in
-	// https://www.w3.org/TR/referrer-policy/
-	//
-	// Allowed values:
-	//	- unsafe-url
-	//	- no-referrer-when-downgrade
-	//	- no-referrer
-	//	- origin
-	//	- origin-when-cross-origin
-	//	- same-origin
-	//	- strict-origin
-	//	- strict-origin-when-cross-origin
-	ReferrerPolicy string `json:"referrerPolicy"`
+	// https://www.w3.org/TR/referrer-policy/ Allowed values:
+	//	- ReferrerPolicy.UnsafeUrl
+	//	- ReferrerPolicy.NoReferrerWhenDowngrade
+	//	- ReferrerPolicy.NoReferrer
+	//	- ReferrerPolicy.Origin
+	//	- ReferrerPolicy.OriginWhenCrossOrigin
+	//	- ReferrerPolicy.SameOrigin
+	//	- ReferrerPolicy.StrictOrigin
+	//	- ReferrerPolicy.StrictOriginWhenCrossOrigin
+	ReferrerPolicy ReferrerPolicyEnum `json:"referrerPolicy"`
 
 	// Optional. Whether is loaded via link preload.
 	IsLinkPreload bool `json:"isLinkPreload,omitempty"`
@@ -292,21 +230,6 @@ type SecurityDetails struct {
 	// List of signed certificate timestamps (SCTs).
 	SignedCertificateTimestampList []*SignedCertificateTimestamp `json:"signedCertificateTimestampList"`
 }
-
-/*
-BlockedReason defines the reason why request was blocked.
-
-ALLOWED VALUES
-	- csp
-	- mixed-content
-	- origin
-	- inspector
-	- subresource-filter
-	- other
-
-https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-BlockedReason
-*/
-type BlockedReason string
 
 /*
 Response contains HTTP response data.
@@ -450,8 +373,12 @@ Initiator contains information about the request initiator.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-Initiator
 */
 type Initiator struct {
-	// Type of this initiator. Allowed values: parser, script, preload, other.
-	Type string `json:"type"`
+	// Type of this initiator. Allowed values:
+	//	- InitiatorType.Parser
+	//	- InitiatorType.Script
+	//	- InitiatorType.Preload
+	//	- InitiatorType.Other
+	Type InitiatorTypeEnum `json:"type"`
 
 	// Optional. Initiator JavaScript stack trace, set for Script only.
 	Stack *runtime.StackTrace `json:"stack,omitempty"`
@@ -498,8 +425,10 @@ type Cookie struct {
 	// True in case of session cookie.
 	Session bool `json:"session"`
 
-	// Optional. Cookie SameSite type.
-	SameSite CookieSameSite `json:"sameSite,omitempty"`
+	// Optional. Cookie SameSite type. Allowed values:
+	//	- CookieSameSite.Strict
+	//	- CookieSameSite.Lax
+	SameSite CookieSameSiteEnum `json:"sameSite,omitempty"`
 }
 
 /*
@@ -508,12 +437,10 @@ AuthChallenge is an authorization challenge for HTTP status code 401 or 407. EXP
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-AuthChallenge
 */
 type AuthChallenge struct {
-	// Optional. Source of the authentication challenge.
-	//
-	// Allowed values:
-	//	- Server
-	//	- Proxy
-	Source string `json:"source,omitempty"`
+	// Optional. Source of the authentication challenge. Allowed values:
+	//	- Source.Server
+	//	- Source.Proxy
+	Source SourceEnum `json:"source,omitempty"`
 
 	// Origin of the challenger.
 	Origin string `json:"origin"`
@@ -534,13 +461,11 @@ type AuthChallengeResponse struct {
 	// The decision on what to do in response to the authorization challenge.
 	// Default means deferring to the default behavior of the net stack, which
 	// will likely either the Cancel authentication or display a popup dialog
-	// box.
-	//
-	// Allowed values:
-	//	- Default
-	//	- CancelAuth
-	//	- ProvideCredentials
-	Response string `json:"response"`
+	// box. Allowed values:
+	//	- ChallengeResponse.Default
+	//	- ChallengeResponse.CancelAuth
+	//	- ChallengeResponse.ProvideCredentials
+	Response ChallengeResponseEnum `json:"response"`
 
 	// Optional. The username to provide, possibly empty. Should only be set if
 	// response is ProvideCredentials.
@@ -550,19 +475,6 @@ type AuthChallengeResponse struct {
 	// response is ProvideCredentials.
 	Password string `json:"password,omitempty"`
 }
-
-/*
-InterceptionStage represents stages of the interception to begin intercepting. Request will
-intercept before the request is sent. Response will intercept after the response is received.
-EXPERIMENTAL
-
-ALLOWED VALUES
-	- Request
-	- HeadersReceived
-
-https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-InterceptionStage
-*/
-type InterceptionStage string
 
 /*
 RequestPattern is the request pattern for interception. EXPERIMENTAL
@@ -579,6 +491,8 @@ type RequestPattern struct {
 	ResourceType page.ResourceType `json:"resourceType,omitempty"`
 
 	// Optional. Stage at which to begin intercepting requests. Default is
-	// Request.
-	InterceptionStage InterceptionStage `json:"interceptionStage,omitempty"`
+	// Request. Allowed values:
+	//	- InterceptionStage.Request
+	//	- InterceptionStage.HeadersReceived
+	InterceptionStage InterceptionStageEnum `json:"interceptionStage,omitempty"`
 }

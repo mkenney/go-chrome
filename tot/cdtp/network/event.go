@@ -73,8 +73,14 @@ type LoadingFailedEvent struct {
 	// Optional. True if loading was canceled.
 	Canceled bool `json:"canceled,omitempty"`
 
-	// Optional. The reason why loading was blocked, if any.
-	BlockedReason BlockedReason `json:"blockedReason,omitempty"`
+	// Optional. The reason why loading was blocked, if any. Allowed values:
+	//	- BlockedReason.Csp
+	//	- BlockedReason.MixedContent
+	//	- BlockedReason.Origin
+	//	- BlockedReason.Inspector
+	//	- BlockedReason.SubresourceFilter
+	//	- BlockedReason.Other
+	BlockedReason BlockedReasonEnum `json:"blockedReason,omitempty"`
 
 	// Error information related to this event
 	Err error `json:"-"`
@@ -132,8 +138,20 @@ type RequestInterceptedEvent struct {
 	AuthChallenge *AuthChallenge `json:"authChallenge,omitempty"`
 
 	// Optional. Response error if intercepted at response stage or if redirect
-	// occurred while intercepting request.
-	ResponseErrorReason ErrorReason `json:"responseErrorReason,omitempty"`
+	// occurred while intercepting request. Allowed values:
+	//	- ErrorReason.Failed
+	//	- ErrorReason.Aborted
+	//	- ErrorReason.TimedOut
+	//	- ErrorReason.AccessDenied
+	//	- ErrorReason.ConnectionClosed
+	//	- ErrorReason.ConnectionReset
+	//	- ErrorReason.ConnectionRefused
+	//	- ErrorReason.ConnectionAborted
+	//	- ErrorReason.ConnectionFailed
+	//	- ErrorReason.NameNotResolved
+	//	- ErrorReason.InternetDisconnected
+	//	- ErrorReason.AddressUnreachable
+	ResponseErrorReason ErrorReasonEnum `json:"responseErrorReason,omitempty"`
 
 	// Optional. Response code if intercepted at response stage or if redirect
 	// occurred while intercepting request or auth retry occurred.
@@ -209,8 +227,13 @@ type ResourceChangedPriorityEvent struct {
 	// Request identifier.
 	RequestID RequestID `json:"requestId"`
 
-	// New priority.
-	NewPriority ResourcePriority `json:"newPriority"`
+	// New priority. Allowed values:
+	//	- ResourcePriority.VeryLow
+	//	- ResourcePriority.Low
+	//	- ResourcePriority.Medium
+	//	- ResourcePriority.High
+	//	- ResourcePriority.VeryHigh
+	NewPriority ResourcePriorityEnum `json:"newPriority"`
 
 	// Timestamp.
 	Timestamp MonotonicTime `json:"timestamp"`

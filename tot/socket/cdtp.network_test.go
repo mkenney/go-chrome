@@ -206,14 +206,14 @@ func TestNetworkContinueInterceptedRequest(t *testing.T) {
 
 	params := &network.ContinueInterceptedRequestParams{
 		InterceptionID: network.InterceptionID("interception-id"),
-		ErrorReason:    network.ErrorReason("error-reason"),
+		ErrorReason:    network.ErrorReason.Failed,
 		RawResponse:    "raw response",
 		URL:            "http://some.url",
 		Method:         "someMethod",
 		PostData:       "post data",
 		Headers:        network.Headers{"header": "value"},
 		AuthChallengeResponse: &network.AuthChallengeResponse{
-			Response: "Default",
+			Response: network.ChallengeResponse.Default,
 			Username: "username",
 			Password: "password",
 		},
@@ -331,7 +331,7 @@ func TestNetworkEmulateConditions(t *testing.T) {
 		Latency:            1,
 		DownloadThroughput: 1,
 		UploadThroughput:   1,
-		ConnectionType:     network.ConnectionType("connection-type"),
+		ConnectionType:     network.ConnectionType.None,
 	}
 	resultChan := mockSocket.Network().EmulateConditions(params)
 	mockResult := &network.EmulateConditionsResult{}
@@ -416,7 +416,7 @@ func TestNetworkGetAllCookies(t *testing.T) {
 			HTTPOnly: true,
 			Secure:   true,
 			Session:  true,
-			SameSite: network.CookieSameSite("cookie-same-site"),
+			SameSite: network.CookieSameSite.Strict,
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
@@ -511,7 +511,7 @@ func TestNetworkGetCookies(t *testing.T) {
 			HTTPOnly: true,
 			Secure:   true,
 			Session:  true,
-			SameSite: network.CookieSameSite("cookie-same-site"),
+			SameSite: network.CookieSameSite.Strict,
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
@@ -839,7 +839,7 @@ func TestNetworkSetCookie(t *testing.T) {
 		Path:     "/",
 		Secure:   true,
 		HTTPOnly: true,
-		SameSite: network.CookieSameSite("same site"),
+		SameSite: network.CookieSameSite.Strict,
 		Expires:  network.TimeSinceEpoch(time.Now().Unix()),
 	}
 	resultChan := mockSocket.Network().SetCookie(params)
@@ -890,7 +890,7 @@ func TestNetworkSetCookies(t *testing.T) {
 			Path:     "/",
 			Secure:   true,
 			HTTPOnly: true,
-			SameSite: network.CookieSameSite("same site"),
+			SameSite: network.CookieSameSite.Strict,
 			Expires:  network.TimeSinceEpoch(time.Now().Unix()),
 		}},
 	}
@@ -1007,7 +1007,7 @@ func TestNetworkSetRequestInterception(t *testing.T) {
 		Patterns: []*network.RequestPattern{{
 			URLPattern:        "url pattern",
 			ResourceType:      page.ResourceType("resource-type"),
-			InterceptionStage: network.InterceptionStage("interception-stage"),
+			InterceptionStage: network.InterceptionStage.Request,
 		}},
 	}
 	resultChan := mockSocket.Network().SetRequestInterception(params)
@@ -1192,7 +1192,7 @@ func TestNetworkOnLoadingFailed(t *testing.T) {
 		Type:          page.ResourceType("resource-type"),
 		ErrorText:     "error text",
 		Canceled:      true,
-		BlockedReason: network.BlockedReason("blocked-reason"),
+		BlockedReason: network.BlockedReason.Csp,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
@@ -1295,8 +1295,8 @@ func TestNetworkOnRequestIntercepted(t *testing.T) {
 			Headers:          network.Headers{"header1": "value1"},
 			PostData:         "post data",
 			MixedContentType: security.MixedContentType("mixed-content-type"),
-			InitialPriority:  network.ResourcePriority("initial-priority"),
-			ReferrerPolicy:   "unsafe-url",
+			InitialPriority:  network.ResourcePriority.VeryLow,
+			ReferrerPolicy:   network.ReferrerPolicy.UnsafeUrl,
 			IsLinkPreload:    true,
 		},
 		FrameID:             page.FrameID("frame-id"),
@@ -1304,12 +1304,12 @@ func TestNetworkOnRequestIntercepted(t *testing.T) {
 		IsNavigationRequest: true,
 		RedirectURL:         "http://some.other.url",
 		AuthChallenge: &network.AuthChallenge{
-			Source: "server",
+			Source: network.Source.Server,
 			Origin: "origin",
 			Scheme: "scheme",
 			Realm:  "realm",
 		},
-		ResponseErrorReason: network.ErrorReason("reason"),
+		ResponseErrorReason: network.ErrorReason.Failed,
 		ResponseStatusCode:  400,
 		ResponseHeaders:     network.Headers{"header1": "value1"},
 	}
@@ -1414,14 +1414,14 @@ func TestNetworkOnRequestWillBeSent(t *testing.T) {
 			Headers:          network.Headers{"header1": "value1"},
 			PostData:         "post data",
 			MixedContentType: security.MixedContentType("mixed-content-type"),
-			InitialPriority:  network.ResourcePriority("initial-priority"),
-			ReferrerPolicy:   "unsafe-url",
+			InitialPriority:  network.ResourcePriority.VeryLow,
+			ReferrerPolicy:   network.ReferrerPolicy.UnsafeUrl,
 			IsLinkPreload:    true,
 		},
 		Timestamp: network.MonotonicTime(1),
 		WallTime:  network.TimeSinceEpoch(time.Now().Unix()),
 		Initiator: &network.Initiator{
-			Type:       "type",
+			Type:       network.InitiatorType.Parser,
 			Stack:      &runtime.StackTrace{},
 			URL:        "http://some.url",
 			LineNumber: 1,
@@ -1535,7 +1535,7 @@ func TestNetworkOnResourceChangedPriority(t *testing.T) {
 	})
 	mockResult := &network.ResourceChangedPriorityEvent{
 		RequestID:   network.RequestID("request-id"),
-		NewPriority: network.ResourcePriority("resource-priority"),
+		NewPriority: network.ResourcePriority.VeryLow,
 		Timestamp:   network.MonotonicTime(1),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
