@@ -1239,16 +1239,16 @@ func TestDOMResolveNode(t *testing.T) {
 	resultChan := mockSocket.DOM().ResolveNode(params)
 	mockResult := &dom.ResolveNodeResult{
 		Object: &runtime.RemoteObject{
-			Type:                "object",
-			Subtype:             "array",
+			Type:                runtime.ObjectType.Object,
+			Subtype:             runtime.ObjectSubtype.Array,
 			ClassName:           "class-name",
 			Value:               "some-value",
-			UnserializableValue: runtime.UnserializableValue(1),
+			UnserializableValue: runtime.UnserializableValue.Infinity,
 			Description:         "description",
 			ObjectID:            runtime.RemoteObjectID("remote-object-id"),
 			Preview: &runtime.ObjectPreview{
-				Type:        "object",
-				Subtype:     "array",
+				Type:        runtime.ObjectType.Object,
+				Subtype:     runtime.ObjectSubtype.Array,
 				Description: "description",
 				Overflow:    true,
 				Properties:  []*runtime.PropertyPreview{},

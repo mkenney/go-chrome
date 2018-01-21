@@ -20,27 +20,12 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-RemoteObjec
 type RemoteObjectID string
 
 /*
-UnserializableValue is a primitive value which cannot be JSON-stringified.
-
-ALLOWED VALUES
-	- Infinity
-	- NaN
-	- -Infinity
-	- -0
-
-https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-UnserializableValue
-*/
-type UnserializableValue int
-
-/*
 RemoteObject is a mirror object referencing the original JavaScript object.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-RemoteObject
 */
 type RemoteObject struct {
-	// Object type.
-	//
-	// Allowed values:
+	// Object type. Allowed values:
 	//	- object
 	//	- function
 	//	- undefined
@@ -48,10 +33,9 @@ type RemoteObject struct {
 	//	- number
 	//	- boolean
 	//	- symbol
-	Type string `json:"type"`
+	Type ObjectTypeEnum `json:"type"`
 
 	// Optional. Object subtype hint. Specified for object type values only.
-	//
 	// Allowed values:
 	//	- array
 	//	- null
@@ -68,7 +52,7 @@ type RemoteObject struct {
 	//	- proxy
 	//	- promise
 	//	- typedarray
-	Subtype string `json:"subtype,omitempty"`
+	Subtype ObjectSubtypeEnum `json:"subtype,omitempty"`
 
 	// Optional. Object class (constructor) name. Specified for object type
 	// values only.
@@ -80,7 +64,7 @@ type RemoteObject struct {
 
 	// Optional. Primitive value which can not be JSON-stringified does not have
 	// value, but gets this property.
-	UnserializableValue UnserializableValue `json:"unserializableValue,omitempty"`
+	UnserializableValue UnserializableValueEnum `json:"unserializableValue,omitempty"`
 
 	// Optional. String representation of the object.
 	Description string `json:"description,omitempty"`
@@ -116,9 +100,7 @@ ObjectPreview is an object containing abbreviated remote object value. EXPERIMEN
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-ObjectPreview
 */
 type ObjectPreview struct {
-	// Object type.
-	//
-	// Allowed values:
+	// Object type. Allowed values:
 	//	- object
 	//	- function
 	//	- undefined
@@ -126,11 +108,10 @@ type ObjectPreview struct {
 	//	- number
 	//	- boolean
 	//	- symbol
-	Type string `json:"type"`
+	Type ObjectTypeEnum `json:"type"`
 
-	// Object subtype hint. Specified for object type values only.
-	//
-	// Allowed values:
+	// Object subtype hint. Specified for object type values only. Allowed
+	// values:
 	//	- array
 	//	- null
 	//	- node
@@ -143,7 +124,7 @@ type ObjectPreview struct {
 	//	- iterator
 	//	- generator
 	//	- error
-	Subtype string `json:"subtype"`
+	Subtype ObjectSubtypeEnum `json:"subtype"`
 
 	// Optional. String representation of the object.
 	Description string `json:"description,omitempty"`
@@ -170,9 +151,7 @@ type PropertyPreview struct {
 	Name string `json:"name"`
 
 	// Object type. Accessor means that the property itself is an accessor
-	// property.
-	//
-	// Allowed values:
+	// property. Allowed values:
 	//	- object
 	//	- function
 	//	- undefined
@@ -181,7 +160,7 @@ type PropertyPreview struct {
 	//	- boolean
 	//	- symbol
 	//	- accessor
-	Type string `json:"type"`
+	Type ObjectTypeEnum `json:"type"`
 
 	// Optional. User-friendly property value string.
 	Value string `json:"value,omitempty"`
@@ -190,7 +169,6 @@ type PropertyPreview struct {
 	ValuePreview *ObjectPreview `json:"valuePreview,omitempty"`
 
 	// Optional. Object subtype hint. Specified for object type values only.
-	//
 	// Allowed values:
 	//	- array
 	//	- null
@@ -204,7 +182,7 @@ type PropertyPreview struct {
 	//	- iterator
 	//	- generator
 	//	- error
-	Subtype string `json:"subtype,omitempty"`
+	Subtype ObjectSubtypeEnum `json:"subtype,omitempty"`
 }
 
 /*
@@ -287,7 +265,7 @@ type CallArgument struct {
 	Value interface{} `json:"value,omitempty"`
 
 	// Optional. Primitive value which can not be JSON-stringified.
-	UnserializableValue UnserializableValue `json:"unserializableValue,omitempty"`
+	UnserializableValue UnserializableValueEnum `json:"unserializableValue,omitempty"`
 
 	// Optional. Remote object handle.
 	ObjectID RemoteObjectID `json:"objectId,omitempty"`

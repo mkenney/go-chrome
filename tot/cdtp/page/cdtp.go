@@ -69,19 +69,6 @@ type AppManifestError struct {
 }
 
 /*
-DialogType defines the Javascript dialog type.
-
-ALLOWED VALUES
-	- alert
-	- confirm
-	- prompt
-	- beforeunload
-
-https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-DialogType
-*/
-type DialogType string
-
-/*
 Frame details information about the Frame on the page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-Frame
@@ -129,8 +116,21 @@ type FrameResource struct {
 	// Resource URL.
 	URL string `json:"url"`
 
-	// Type of this resource.
-	Type ResourceType `json:"type"`
+	// Type of this resource. Allowed Values:
+	//	- ResourceType.Document
+	//	- ResourceType.Stylesheet
+	//	- ResourceType.Image
+	//	- ResourceType.Media
+	//	- ResourceType.Font
+	//	- ResourceType.Script
+	//	- ResourceType.TextTrack
+	//	- ResourceType.XHR
+	//	- ResourceType.Fetch
+	//	- ResourceType.EventSource
+	//	- ResourceType.WebSocket
+	//	- ResourceType.Manifest
+	//	- ResourceType.Other
+	Type ResourceTypeEnum `json:"type"`
 
 	// Resource mimeType as determined by the browser.
 	MimeType string `json:"mimeType"`
@@ -218,28 +218,6 @@ type NavigationEntry struct {
 	// Transition type.
 	TransitionType TransitionType `json:"transitionType"`
 }
-
-/*
-ResourceType is the resource type as it was perceived by the rendering engine.
-
-ALLOWED VALUES
-	- Document
-	- Stylesheet
-	- Image
-	- Media
-	- Font
-	- Script
-	- TextTrack
-	- XHR
-	- Fetch
-	- EventSource
-	- WebSocket
-	- Manifest
-	- Other
-
-https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-ResourceType
-*/
-type ResourceType string
 
 /*
 ScreencastFrameMetadata provides screencast frame metadata. EXPERIMENTAL

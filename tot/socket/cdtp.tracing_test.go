@@ -236,7 +236,7 @@ func TestTracingOnBufferUsage(t *testing.T) {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 	if mockResult.PercentFull != result.PercentFull {
-		t.Errorf("Expected %d, got %d", mockResult.PercentFull, result.PercentFull)
+		t.Errorf("Expected %f, got %f", mockResult.PercentFull, result.PercentFull)
 	}
 
 	resultChan = make(chan *tracing.BufferUsageEvent)
@@ -283,7 +283,7 @@ func TestTracingOnDataCollected(t *testing.T) {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 	if mockResult.Value[0]["key"] != result.Value[0]["key"] {
-		t.Errorf("Expected %d, got %d", mockResult.Value[0]["key"], result.Value[0]["key"])
+		t.Errorf("Expected %s, got %s", mockResult.Value[0]["key"], result.Value[0]["key"])
 	}
 
 	resultChan = make(chan *tracing.DataCollectedEvent)
@@ -330,7 +330,7 @@ func TestTracingOnTracingComplete(t *testing.T) {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 	if mockResult.Stream != result.Stream {
-		t.Errorf("Expected %d, got %d", mockResult.Stream, result.Stream)
+		t.Errorf("Expected %s, got %s", mockResult.Stream, result.Stream)
 	}
 
 	resultChan = make(chan *tracing.CompleteEvent)

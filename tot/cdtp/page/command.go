@@ -67,12 +67,10 @@ CaptureScreenshotParams represents Page.captureScreenshot parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot
 */
 type CaptureScreenshotParams struct {
-	// Optional. Image compression format (defaults to png).
-	//
-	// Allowed values:
-	//	- jpeg
-	//	- png
-	Format string `json:"format,omitempty"`
+	// Optional. Image compression format (defaults to png). Allowed values:
+	//	- Format.Jpeg
+	//	- Format.Png
+	Format FormatEnum `json:"format,omitempty"`
 
 	// Optional. Compression quality from range [0..100] (jpeg only).
 	Quality int `json:"quality,omitempty"`
@@ -604,13 +602,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setDownloadB
 */
 type SetDownloadBehaviorParams struct {
 	// Whether to allow all or deny all download requests, or use default Chrome
-	// behavior if available (otherwise deny).
-	//
-	// Allowed values:
-	//	- deny
-	//	- allow
-	//	- default
-	Behavior string `json:"behavior"`
+	// behavior if available (otherwise deny). Allowed values:
+	//	- Behavior.Deny
+	//	- Behavior.Allow
+	//	- Behavior.Default
+	Behavior BehaviorEnum `json:"behavior"`
 
 	// Optional. The default path to save downloaded files to. This is required
 	// if behavior is set to 'allow'.
@@ -654,9 +650,9 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-startScreenc
 */
 type StartScreencastParams struct {
 	// Optional. Image compression format. Allowed values:
-	//	- jpeg
-	//	- png
-	Format string `json:"format,omitempty"`
+	//	- Format.Jpeg
+	//	- Format.Png
+	Format FormatEnum `json:"format,omitempty"`
 
 	// Optional. Compression quality from range [0..100].
 	Quality int `json:"quality,omitempty"`

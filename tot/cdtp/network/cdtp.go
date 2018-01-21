@@ -358,7 +358,7 @@ type CachedResource struct {
 	URL string `json:"url"`
 
 	// Type of this resource.
-	Type page.ResourceType `json:"type"`
+	Type page.ResourceTypeEnum `json:"type"`
 
 	// Optional. Cached response data.
 	Response *Response `json:"response,omitempty"`
@@ -488,7 +488,7 @@ type RequestPattern struct {
 
 	// Optional. If set, only requests for matching resource types will be
 	// intercepted.
-	ResourceType page.ResourceType `json:"resourceType,omitempty"`
+	ResourceType page.ResourceTypeEnum `json:"resourceType,omitempty"`
 
 	// Optional. Stage at which to begin intercepting requests. Default is
 	// Request. Allowed values:

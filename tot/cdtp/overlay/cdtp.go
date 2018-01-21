@@ -56,15 +56,3 @@ type HighlightConfig struct {
 	// Optional. The grid layout color (default: transparent).
 	CSSGridColor *dom.RGBA `json:"cssGridColor,omitempty"`
 }
-
-/*
-InspectMode is the inspect mode
-
-ALLOWED VALUES
-	- searchForNode
-	- searchForUAShadowDOM
-	- none
-
-https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#type-InspectMode
-*/
-type InspectMode string

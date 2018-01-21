@@ -23,16 +23,20 @@ func TestDOMDebuggerGetEventListeners(t *testing.T) {
 	})
 	mockResult := &domDebugger.GetEventListenersResult{
 		Listeners: []*domDebugger.EventListener{{
-			Type:            "listener-type",
-			UseCapture:      true,
-			Passive:         true,
-			Once:            true,
-			ScriptID:        runtime.ScriptID("script-id"),
-			LineNumber:      1,
-			ColumnNumber:    1,
-			Handler:         &runtime.RemoteObject{},
-			OriginalHandler: &runtime.RemoteObject{},
-			BackendNodeID:   dom.BackendNodeID(1),
+			Type:         "listener-type",
+			UseCapture:   true,
+			Passive:      true,
+			Once:         true,
+			ScriptID:     runtime.ScriptID("script-id"),
+			LineNumber:   1,
+			ColumnNumber: 1,
+			Handler: &runtime.RemoteObject{
+				Type: runtime.ObjectType.Accessor,
+			},
+			OriginalHandler: &runtime.RemoteObject{
+				Type: runtime.ObjectType.Accessor,
+			},
+			BackendNodeID: dom.BackendNodeID(1),
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)

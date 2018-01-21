@@ -65,7 +65,7 @@ type LoadingFailedEvent struct {
 	Timestamp MonotonicTime `json:"timestamp"`
 
 	// Resource type.
-	Type page.ResourceType `json:"type"`
+	Type page.ResourceTypeEnum `json:"type"`
 
 	// User friendly error message.
 	ErrorText string `json:"errorText"`
@@ -124,7 +124,7 @@ type RequestInterceptedEvent struct {
 	FrameID page.FrameID `json:"frameId"`
 
 	// How the requested resource will be used.
-	ResourceType page.ResourceType `json:"resourceType"`
+	ResourceType page.ResourceTypeEnum `json:"resourceType"`
 
 	// Whether this is a navigation request, which can abort the navigation
 	// completely.
@@ -209,7 +209,7 @@ type RequestWillBeSentEvent struct {
 	RedirectResponse *Response `json:"redirectResponse"`
 
 	// Optional. Type of this resource.
-	Type page.ResourceType `json:"type,omitempty"`
+	Type page.ResourceTypeEnum `json:"type,omitempty"`
 
 	// Optional. Frame identifier.
 	FrameID page.FrameID `json:"frameId,omitempty"`
@@ -258,7 +258,7 @@ type ResponseReceivedEvent struct {
 	Timestamp MonotonicTime `json:"timestamp"`
 
 	// Resource type.
-	Type page.ResourceType `json:"type"`
+	Type page.ResourceTypeEnum `json:"type"`
 
 	// Response data.
 	Response *Response `json:"response"`

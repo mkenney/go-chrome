@@ -476,7 +476,7 @@ func TestProfilerTakeTypeProfile(t *testing.T) {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 	if mockResult.Result[0].ScriptID != result.Result[0].ScriptID {
-		t.Errorf("Expected %d, got %d", mockResult.Result[0].ScriptID, result.Result[0].ScriptID)
+		t.Errorf("Expected %s, got %s", mockResult.Result[0].ScriptID, result.Result[0].ScriptID)
 	}
 
 	resultChan = mockSocket.Profiler().TakeTypeProfile()

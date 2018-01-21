@@ -696,7 +696,7 @@ func TestNetworkSearchInResponseBody(t *testing.T) {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 	if mockResult.Result[0].LineNumber != result.Result[0].LineNumber {
-		t.Errorf("Expected %s, got %s", mockResult.Result[0].LineNumber, result.Result[0].LineNumber)
+		t.Errorf("Expected %d, got %d", mockResult.Result[0].LineNumber, result.Result[0].LineNumber)
 	}
 
 	resultChan = mockSocket.Network().SearchInResponseBody(params)
@@ -1006,7 +1006,7 @@ func TestNetworkSetRequestInterception(t *testing.T) {
 	params := &network.SetRequestInterceptionParams{
 		Patterns: []*network.RequestPattern{{
 			URLPattern:        "url pattern",
-			ResourceType:      page.ResourceType("resource-type"),
+			ResourceType:      page.ResourceType.Document,
 			InterceptionStage: network.InterceptionStage.Request,
 		}},
 	}
@@ -1189,7 +1189,7 @@ func TestNetworkOnLoadingFailed(t *testing.T) {
 	mockResult := &network.LoadingFailedEvent{
 		RequestID:     network.RequestID("request-id"),
 		Timestamp:     network.MonotonicTime(1),
-		Type:          page.ResourceType("resource-type"),
+		Type:          page.ResourceType.Document,
 		ErrorText:     "error text",
 		Canceled:      true,
 		BlockedReason: network.BlockedReason.Csp,
@@ -1300,7 +1300,7 @@ func TestNetworkOnRequestIntercepted(t *testing.T) {
 			IsLinkPreload:    true,
 		},
 		FrameID:             page.FrameID("frame-id"),
-		ResourceType:        page.ResourceType("resource-type"),
+		ResourceType:        page.ResourceType.Document,
 		IsNavigationRequest: true,
 		RedirectURL:         "http://some.other.url",
 		AuthChallenge: &network.AuthChallenge{
@@ -1486,7 +1486,7 @@ func TestNetworkOnRequestWillBeSent(t *testing.T) {
 				}},
 			},
 		},
-		Type:    page.ResourceType("resource-type"),
+		Type:    page.ResourceType.Document,
 		FrameID: page.FrameID("frame-id"),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
@@ -1586,7 +1586,7 @@ func TestNetworkOnResponseReceived(t *testing.T) {
 		RequestID: network.RequestID("request-id"),
 		LoaderID:  network.LoaderID("loader-id"),
 		Timestamp: network.MonotonicTime(1),
-		Type:      page.ResourceType("resource-type"),
+		Type:      page.ResourceType.Document,
 		Response:  &network.Response{},
 		FrameID:   page.FrameID("frame-id"),
 	}

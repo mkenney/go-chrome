@@ -181,8 +181,11 @@ SetInspectModeParams represents Overlay.setInspectMode parameters.
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setInspectMode
 */
 type SetInspectModeParams struct {
-	// Set an inspection mode.
-	Mode InspectMode `json:"mode"`
+	// Set an inspection mode. Allowed values:
+	//	- InspectMode.SearchForNode
+	//	- InspectMode.SearchForUAShadowDOM
+	//	- InspectMode.None
+	Mode InspectModeEnum `json:"mode"`
 
 	// Optional. A descriptor for the highlight appearance of hovered-over nodes.
 	// May be omitted if `enabled == false`.

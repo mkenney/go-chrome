@@ -99,9 +99,7 @@ type FrameScheduledNavigationEvent struct {
 	// navigation is not guaranteed to start.
 	Delay float64 `json:"delay"`
 
-	// The reason for the navigation.
-	//
-	// Allowed values:
+	// The reason for the navigation. Allowed values:
 	//	- formSubmissionGet
 	//	- formSubmissionPost
 	//	- httpHeaderRefresh
@@ -109,7 +107,7 @@ type FrameScheduledNavigationEvent struct {
 	//	- metaTagRefresh
 	//	- pageBlockInterstitial
 	//	- reload
-	Reason string `json:"reason"`
+	Reason ReasonEnum `json:"reason"`
 
 	// The destination URL for the scheduled navigation.
 	URL string `json:"url"`
@@ -192,8 +190,12 @@ type JavascriptDialogOpeningEvent struct {
 	// Message that will be displayed by the dialog.
 	Message string `json:"message"`
 
-	// Dialog type.
-	Type DialogType `json:"type"`
+	// Dialog type. Allowed values:
+	//	- DialogType.Alert
+	//	- DialogType.Confirm
+	//	- DialogType.Prompt
+	//	- DialogType.Beforeunload
+	Type DialogTypeEnum `json:"type"`
 
 	// Optional. Default dialog prompt.
 	DefaultPrompt string `json:"defaultPrompt,omitempty"`

@@ -136,7 +136,7 @@ func TestPageCaptureScreenshot(t *testing.T) {
 	defer mockSocket.Stop()
 
 	params := &page.CaptureScreenshotParams{
-		Format:  "jpeg",
+		Format:  page.Format.Jpeg,
 		Quality: 50,
 		Clip: &page.Viewport{
 			X:      1,
@@ -1112,7 +1112,7 @@ func TestPageSetDownloadBehavior(t *testing.T) {
 	defer mockSocket.Stop()
 
 	params := &page.SetDownloadBehaviorParams{
-		Behavior:     "allow",
+		Behavior:     page.Behavior.Allow,
 		DownloadPath: "/some/path",
 	}
 	resultChan := mockSocket.Page().SetDownloadBehavior(params)
@@ -1187,7 +1187,7 @@ func TestPageStartScreencast(t *testing.T) {
 	defer mockSocket.Stop()
 
 	params := &page.StartScreencastParams{
-		Format:        "jpeg",
+		Format:        page.Format.Jpeg,
 		Quality:       1,
 		MaxWidth:      1,
 		MaxHeight:     1,
@@ -1590,7 +1590,7 @@ func TestPageOnFrameScheduledNavigation(t *testing.T) {
 	mockResult := &page.FrameScheduledNavigationEvent{
 		FrameID: page.FrameID("frame-id"),
 		Delay:   1,
-		Reason:  "formSubmissionGet",
+		Reason:  page.Reason.FormSubmissionGet,
 		URL:     "http://some.url",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
@@ -1866,7 +1866,7 @@ func TestPageOnJavascriptDialogOpening(t *testing.T) {
 	mockResult := &page.JavascriptDialogOpeningEvent{
 		URL:           "http://some.url",
 		Message:       "some message",
-		Type:          page.DialogType("dialog type"),
+		Type:          page.DialogType.Alert,
 		DefaultPrompt: "some prompt",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
@@ -2035,7 +2035,7 @@ func TestPageOnScreencastFrame(t *testing.T) {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 	if mockResult.Data != result.Data {
-		t.Errorf("Expected %d, got %d", mockResult.Data, result.Data)
+		t.Errorf("Expected %s, got %s", mockResult.Data, result.Data)
 	}
 
 	resultChan = make(chan *page.ScreencastFrameEvent)

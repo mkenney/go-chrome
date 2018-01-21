@@ -6,9 +6,7 @@ ConsoleAPICalledEvent represents Runtime.consoleAPICalled event data.
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-consoleAPICalled
 */
 type ConsoleAPICalledEvent struct {
-	// Type of the call.
-	//
-	// Allowed values:
+	// Type of the call. Allowed values:
 	//	- log
 	//	- debug
 	//	- info
@@ -27,7 +25,7 @@ type ConsoleAPICalledEvent struct {
 	//	- profileEnd
 	//	- count
 	//	- timeEnd
-	Type string `json:"type"`
+	Type CallTypeEnum `json:"type"`
 
 	// Call arguments.
 	Args []*RemoteObject `json:"args"`

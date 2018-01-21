@@ -7,6 +7,7 @@ import (
 	"time"
 
 	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
+	log "github.com/sirupsen/logrus"
 )
 
 func TestRuntimeAwaitPromise(t *testing.T) {
@@ -23,28 +24,34 @@ func TestRuntimeAwaitPromise(t *testing.T) {
 	resultChan := mockSocket.Runtime().AwaitPromise(params)
 	mockResult := &runtime.AwaitPromiseResult{
 		Result: &runtime.RemoteObject{
-			Type:                "object",
-			Subtype:             "array",
+			Type:                runtime.ObjectType.Object,
+			Subtype:             runtime.ObjectSubtype.Array,
 			ClassName:           "class-name",
 			Value:               "value",
-			UnserializableValue: runtime.UnserializableValue(1),
+			UnserializableValue: runtime.UnserializableValue.Infinity,
 			Description:         "description",
 			ObjectID:            runtime.RemoteObjectID("remote-object-id"),
 			Preview: &runtime.ObjectPreview{
-				Type:        "object",
-				Subtype:     "array",
+				Type:        runtime.ObjectType.Object,
+				Subtype:     runtime.ObjectSubtype.Array,
 				Description: "description",
 				Overflow:    true,
 				Properties: []*runtime.PropertyPreview{{
-					Name:         "name",
-					Type:         "object",
-					Value:        "value",
-					ValuePreview: &runtime.ObjectPreview{},
-					Subtype:      "array",
+					Name:  "name",
+					Type:  runtime.ObjectType.Object,
+					Value: "value",
+					ValuePreview: &runtime.ObjectPreview{
+						Type: runtime.ObjectType.Accessor,
+					},
+					Subtype: runtime.ObjectSubtype.Array,
 				}},
 				Entries: []*runtime.EntryPreview{{
-					Key:   &runtime.ObjectPreview{},
-					Value: &runtime.ObjectPreview{},
+					Key: &runtime.ObjectPreview{
+						Type: runtime.ObjectType.Accessor,
+					},
+					Value: &runtime.ObjectPreview{
+						Type: runtime.ObjectType.Accessor,
+					},
 				}},
 			},
 			CustomPreview: &runtime.CustomPreview{
@@ -77,11 +84,14 @@ func TestRuntimeAwaitPromise(t *testing.T) {
 					DebuggerID: runtime.UniqueDebuggerID("unique-debugger-id"),
 				},
 			},
-			Exception:          &runtime.RemoteObject{},
+			Exception: &runtime.RemoteObject{
+				Type: runtime.ObjectType.Accessor,
+			},
 			ExecutionContextID: runtime.ExecutionContextID(1),
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
+	log.Debugf("mock result: %s", mockResultBytes)
 	mockSocket.Conn().AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
@@ -121,7 +131,7 @@ func TestRuntimeCallFunctionOn(t *testing.T) {
 		ObjectID:            runtime.RemoteObjectID("remote-object-id"),
 		Arguments: []*runtime.CallArgument{{
 			Value:               "value",
-			UnserializableValue: runtime.UnserializableValue(1),
+			UnserializableValue: runtime.UnserializableValue.Infinity,
 			ObjectID:            runtime.RemoteObjectID("remote-object-id"),
 		}},
 		Silent:             true,
@@ -135,28 +145,34 @@ func TestRuntimeCallFunctionOn(t *testing.T) {
 	resultChan := mockSocket.Runtime().CallFunctionOn(params)
 	mockResult := &runtime.CallFunctionOnResult{
 		Result: &runtime.RemoteObject{
-			Type:                "object",
-			Subtype:             "array",
+			Type:                runtime.ObjectType.Object,
+			Subtype:             runtime.ObjectSubtype.Array,
 			ClassName:           "class-name",
 			Value:               "value",
-			UnserializableValue: runtime.UnserializableValue(1),
+			UnserializableValue: runtime.UnserializableValue.Infinity,
 			Description:         "description",
 			ObjectID:            runtime.RemoteObjectID("remote-object-id"),
 			Preview: &runtime.ObjectPreview{
-				Type:        "object",
-				Subtype:     "array",
+				Type:        runtime.ObjectType.Object,
+				Subtype:     runtime.ObjectSubtype.Array,
 				Description: "description",
 				Overflow:    true,
 				Properties: []*runtime.PropertyPreview{{
-					Name:         "name",
-					Type:         "object",
-					Value:        "value",
-					ValuePreview: &runtime.ObjectPreview{},
-					Subtype:      "array",
+					Name:  "name",
+					Type:  runtime.ObjectType.Object,
+					Value: "value",
+					ValuePreview: &runtime.ObjectPreview{
+						Type: runtime.ObjectType.Accessor,
+					},
+					Subtype: runtime.ObjectSubtype.Array,
 				}},
 				Entries: []*runtime.EntryPreview{{
-					Key:   &runtime.ObjectPreview{},
-					Value: &runtime.ObjectPreview{},
+					Key: &runtime.ObjectPreview{
+						Type: runtime.ObjectType.Accessor,
+					},
+					Value: &runtime.ObjectPreview{
+						Type: runtime.ObjectType.Accessor,
+					},
 				}},
 			},
 			CustomPreview: &runtime.CustomPreview{
@@ -189,7 +205,9 @@ func TestRuntimeCallFunctionOn(t *testing.T) {
 					DebuggerID: runtime.UniqueDebuggerID("unique-debugger-id"),
 				},
 			},
-			Exception:          &runtime.RemoteObject{},
+			Exception: &runtime.RemoteObject{
+				Type: runtime.ObjectType.Accessor,
+			},
 			ExecutionContextID: runtime.ExecutionContextID(1),
 		},
 	}
@@ -259,7 +277,9 @@ func TestRuntimeCompileScript(t *testing.T) {
 					DebuggerID: runtime.UniqueDebuggerID("unique-debugger-id"),
 				},
 			},
-			Exception:          &runtime.RemoteObject{},
+			Exception: &runtime.RemoteObject{
+				Type: runtime.ObjectType.Accessor,
+			},
 			ExecutionContextID: runtime.ExecutionContextID(1),
 		},
 	}
@@ -414,28 +434,34 @@ func TestRuntimeEvaluate(t *testing.T) {
 	resultChan := mockSocket.Runtime().Evaluate(params)
 	mockResult := &runtime.EvaluateResult{
 		Result: &runtime.RemoteObject{
-			Type:                "object",
-			Subtype:             "array",
+			Type:                runtime.ObjectType.Object,
+			Subtype:             runtime.ObjectSubtype.Array,
 			ClassName:           "class-name",
 			Value:               "value",
-			UnserializableValue: runtime.UnserializableValue(1),
+			UnserializableValue: runtime.UnserializableValue.Infinity,
 			Description:         "description",
 			ObjectID:            runtime.RemoteObjectID("remote-object-id"),
 			Preview: &runtime.ObjectPreview{
-				Type:        "object",
-				Subtype:     "array",
+				Type:        runtime.ObjectType.Object,
+				Subtype:     runtime.ObjectSubtype.Array,
 				Description: "description",
 				Overflow:    true,
 				Properties: []*runtime.PropertyPreview{{
-					Name:         "name",
-					Type:         "object",
-					Value:        "value",
-					ValuePreview: &runtime.ObjectPreview{},
-					Subtype:      "array",
+					Name:  "name",
+					Type:  runtime.ObjectType.Object,
+					Value: "value",
+					ValuePreview: &runtime.ObjectPreview{
+						Type: runtime.ObjectType.Accessor,
+					},
+					Subtype: runtime.ObjectSubtype.Array,
 				}},
 				Entries: []*runtime.EntryPreview{{
-					Key:   &runtime.ObjectPreview{},
-					Value: &runtime.ObjectPreview{},
+					Key: &runtime.ObjectPreview{
+						Type: runtime.ObjectType.Accessor,
+					},
+					Value: &runtime.ObjectPreview{
+						Type: runtime.ObjectType.Accessor,
+					},
 				}},
 			},
 			CustomPreview: &runtime.CustomPreview{
@@ -468,7 +494,9 @@ func TestRuntimeEvaluate(t *testing.T) {
 					DebuggerID: runtime.UniqueDebuggerID("unique-debugger-id"),
 				},
 			},
-			Exception:          &runtime.RemoteObject{},
+			Exception: &runtime.RemoteObject{
+				Type: runtime.ObjectType.Accessor,
+			},
 			ExecutionContextID: runtime.ExecutionContextID(1),
 		},
 	}
@@ -516,20 +544,30 @@ func TestRuntimeGetProperties(t *testing.T) {
 	resultChan := mockSocket.Runtime().GetProperties(params)
 	mockResult := &runtime.GetPropertiesResult{
 		Result: []*runtime.PropertyDescriptor{{
-			Name:         "name",
-			Value:        &runtime.RemoteObject{},
-			Writable:     true,
-			Get:          &runtime.RemoteObject{},
-			Set:          &runtime.RemoteObject{},
+			Name: "name",
+			Value: &runtime.RemoteObject{
+				Type: runtime.ObjectType.Accessor,
+			},
+			Writable: true,
+			Get: &runtime.RemoteObject{
+				Type: runtime.ObjectType.Accessor,
+			},
+			Set: &runtime.RemoteObject{
+				Type: runtime.ObjectType.Accessor,
+			},
 			Configurable: true,
 			Enumerable:   true,
 			WasThrown:    true,
 			IsOwn:        true,
-			Symbol:       &runtime.RemoteObject{},
+			Symbol: &runtime.RemoteObject{
+				Type: runtime.ObjectType.Accessor,
+			},
 		}},
 		InternalProperties: []*runtime.InternalPropertyDescriptor{{
-			Name:  "name",
-			Value: &runtime.RemoteObject{},
+			Name: "name",
+			Value: &runtime.RemoteObject{
+				Type: runtime.ObjectType.Accessor,
+			},
 		}},
 		ExceptionDetails: &runtime.ExceptionDetails{
 			ExceptionID:  1,
@@ -553,7 +591,9 @@ func TestRuntimeGetProperties(t *testing.T) {
 					DebuggerID: runtime.UniqueDebuggerID("unique-debugger-id"),
 				},
 			},
-			Exception:          &runtime.RemoteObject{},
+			Exception: &runtime.RemoteObject{
+				Type: runtime.ObjectType.Accessor,
+			},
 			ExecutionContextID: runtime.ExecutionContextID(1),
 		},
 	}
@@ -834,7 +874,9 @@ func TestRuntimeSetCustomObjectFormatterEnabled(t *testing.T) {
 	defer mockSocket.Stop()
 
 	params := &runtime.SetCustomObjectFormatterEnabledParams{
-		Result:           &runtime.RemoteObject{},
+		Result: &runtime.RemoteObject{
+			Type: runtime.ObjectType.Accessor,
+		},
 		ExceptionDetails: &runtime.ExceptionDetails{},
 	}
 	resultChan := mockSocket.Runtime().SetCustomObjectFormatterEnabled(params)
@@ -876,7 +918,7 @@ func TestRuntimeOnConsoleAPICalled(t *testing.T) {
 		resultChan <- eventData
 	})
 	mockResult := &runtime.ConsoleAPICalledEvent{
-		Type:               "log",
+		Type:               runtime.CallType.Assert,
 		Args:               []*runtime.RemoteObject{{}},
 		ExecutionContextID: runtime.ExecutionContextID(1),
 		Timestamp:          runtime.Timestamp(time.Now().Unix()),
@@ -1166,28 +1208,34 @@ func TestRuntimeOnInspectRequested(t *testing.T) {
 	})
 	mockResult := &runtime.InspectRequestedEvent{
 		Object: &runtime.RemoteObject{
-			Type:                "object",
-			Subtype:             "array",
+			Type:                runtime.ObjectType.Object,
+			Subtype:             runtime.ObjectSubtype.Array,
 			ClassName:           "class-name",
 			Value:               "value",
-			UnserializableValue: runtime.UnserializableValue(1),
+			UnserializableValue: runtime.UnserializableValue.Infinity,
 			Description:         "description",
 			ObjectID:            runtime.RemoteObjectID("remote-object-id"),
 			Preview: &runtime.ObjectPreview{
-				Type:        "object",
-				Subtype:     "array",
+				Type:        runtime.ObjectType.Object,
+				Subtype:     runtime.ObjectSubtype.Array,
 				Description: "description",
 				Overflow:    true,
 				Properties: []*runtime.PropertyPreview{{
-					Name:         "name",
-					Type:         "object",
-					Value:        "value",
-					ValuePreview: &runtime.ObjectPreview{},
-					Subtype:      "array",
+					Name:  "name",
+					Type:  runtime.ObjectType.Object,
+					Value: "value",
+					ValuePreview: &runtime.ObjectPreview{
+						Type: runtime.ObjectType.Accessor,
+					},
+					Subtype: runtime.ObjectSubtype.Array,
 				}},
 				Entries: []*runtime.EntryPreview{{
-					Key:   &runtime.ObjectPreview{},
-					Value: &runtime.ObjectPreview{},
+					Key: &runtime.ObjectPreview{
+						Type: runtime.ObjectType.Accessor,
+					},
+					Value: &runtime.ObjectPreview{
+						Type: runtime.ObjectType.Accessor,
+					},
 				}},
 			},
 			CustomPreview: &runtime.CustomPreview{
