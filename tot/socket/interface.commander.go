@@ -7,7 +7,7 @@ type Commander interface {
 	// Error returns the most recent error, if any.
 	Error() error
 
-	// ID returns the command ID
+	// ID returns the command ID.
 	ID() int
 
 	// Method returns the name of the Chrom DevTools Protocol method to be
@@ -17,9 +17,9 @@ type Commander interface {
 	// Params returns the command parameters.
 	Params() interface{}
 
-	// Respond sends a response to the command response channel
+	// Respond sends a response to the command response channel.
 	Respond(response *Response)
 
-	// Response returns the command response channel
+	// Response returns the command response channel.
 	Response() chan *Response
 }

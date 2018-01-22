@@ -85,7 +85,7 @@ var socketIDMux = &sync.Mutex{}
 var _socketCounter = 0
 
 /*
-Socket implements Socketer.
+Socket is a Socketer implementation.
 */
 type Socket struct {
 	commands      CommandMapper
@@ -142,7 +142,9 @@ type Socket struct {
 }
 
 /*
-AddEventHandler implements Socketer.
+AddEventHandler adds an event handler to the stack of listeners for an event.
+
+AddEventHandler is a Socketer implementation.
 */
 func (socket *Socket) AddEventHandler(
 	handler EventHandler,
@@ -151,7 +153,9 @@ func (socket *Socket) AddEventHandler(
 }
 
 /*
-CurCommandID implements Socketer.
+CurCommandID returns the latest command ID.
+
+CurCommandID is a Socketer implementation.
 */
 func (socket *Socket) CurCommandID() int {
 	socket.commandIDMux.Lock()
@@ -161,7 +165,10 @@ func (socket *Socket) CurCommandID() int {
 }
 
 /*
-HandleCommand implements Socketer.
+HandleCommand receives the responses to requests sent to the websocket
+connection.
+
+HandleCommand is a Socketer implementation.
 */
 func (socket *Socket) HandleCommand(response *Response) {
 	socket.commands.Lock()
@@ -200,7 +207,10 @@ func (socket *Socket) HandleCommand(response *Response) {
 }
 
 /*
-HandleEvent implements Socketer.
+HandleEvent receives all events and associated data read from the websocket
+connection.
+
+HandleEvent is a Socketer implementation.
 */
 func (socket *Socket) HandleEvent(
 	response *Response,
@@ -228,7 +238,55 @@ func (socket *Socket) HandleEvent(
 }
 
 /*
-Listen implements Socketer.
+HandleUnknown receives all other socket responses.
+
+HandleUnknown is a Socketer implementation.
+*/
+func (socket *Socket) HandleUnknown(
+	response *Response,
+) {
+	log.Debugf(
+		"socket #%d - socket.HandleUnknown(): handling unexpected data %s",
+		socket.socketID,
+		socket.URL(),
+	)
+
+	if command, err := socket.commands.Get(0); nil != err {
+		errorMessage := ""
+		if nil != response.Error && 0 != response.Error.Code {
+			errorMessage = response.Error.Error()
+		}
+		log.Debugf(
+			"socket #%d - socket.HandleCommand(): %s - result=%s err='%s'",
+			socket.socketID,
+			err.Error(),
+			response.Result,
+			errorMessage,
+		)
+
+	} else {
+		log.Debugf(
+			"socket #%d - socket.HandleCommand(): executing handler for command #%d - %s",
+			socket.socketID,
+			command.ID(),
+			command.Method(),
+		)
+		command.Respond(response)
+		log.Debugf(
+			"socket #%d - Command #%d complete: %s{%s}",
+			socket.socketID,
+			command.ID(),
+			socket.URL().String(),
+			command.Method(),
+		)
+	}
+}
+
+/*
+Listen starts the socket read loop and delivers messages to HandleCommand() and
+HandleEvent() as appropriate.
+
+Listen is a Socketer implementation.
 */
 func (socket *Socket) Listen() error {
 	var err error
@@ -271,6 +329,12 @@ func (socket *Socket) Listen() error {
 				response.ID,
 				response.Method,
 			))
+			if nil == response.Error {
+				response.Error = &Error{
+					Message: "Unknown response from web socket",
+				}
+			}
+			socket.HandleUnknown(response)
 		}
 
 		if socket.stopListening {
@@ -283,7 +347,9 @@ func (socket *Socket) Listen() error {
 }
 
 /*
-NextCommandID implements Socketer.
+NextCommandID generates and returns the next command ID.
+
+NextCommandID is a Socketer implementation.
 */
 func (socket *Socket) NextCommandID() int {
 	socket.commandIDMux.Lock()
@@ -294,7 +360,9 @@ func (socket *Socket) NextCommandID() int {
 }
 
 /*
-RemoveEventHandler implements Socketer.
+RemoveEventHandler removes a handler from the stack of listeners for an event.
+
+RemoveEventHandler is a Socketer implementation.
 */
 func (socket *Socket) RemoveEventHandler(
 	handler EventHandler,
@@ -316,7 +384,9 @@ func (socket *Socket) RemoveEventHandler(
 }
 
 /*
-SendCommand implements Socketer.
+SendCommand delivers a command payload to the websocket connection.
+
+SendCommand is a Socketer implementation.
 
 Workflow:
 	1. The socket's command mutex is locked.
@@ -358,14 +428,19 @@ func (socket *Socket) SendCommand(command Commander) chan *Response {
 }
 
 /*
-Stop implements Socketer.
+Stop signals the socket read loop to stop listening for data and close the
+websocket connection.
+
+Stop is a Socketer implementation.
 */
 func (socket *Socket) Stop() {
 	socket.stopListening = true
 }
 
 /*
-URL implements Socketer.
+URL returns the URL of the websocket connection.
+
+URL is a Socketer implementation.
 */
 func (socket *Socket) URL() *url.URL {
 	return socket.url

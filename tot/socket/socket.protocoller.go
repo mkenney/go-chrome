@@ -1,266 +1,342 @@
 package socket
 
 /*
-Accessibility implements Protocoller
+Accessibility returns the AccessibilityProtocol instance.
+
+Accessibility is a Protocoller implementation.
 */
 func (socket *Socket) Accessibility() *AccessibilityProtocol {
 	return socket.accessibility
 }
 
 /*
-Animation implements Protocoller
+Animation returns the AnimationProtocol instance.
+
+Animation is a Protocoller implementation.
 */
 func (socket *Socket) Animation() *AnimationProtocol {
 	return socket.animation
 }
 
 /*
-ApplicationCache implements Protocoller
+ApplicationCache returns the ApplicationCacheProtocol instance.
+
+ApplicationCache is a Protocoller implementation.
 */
 func (socket *Socket) ApplicationCache() *ApplicationCacheProtocol {
 	return socket.applicationCache
 }
 
 /*
-Audits implements Protocoller
+Audits returns the AuditsProtocol instance.
+
+Audits is a Protocoller implementation.
 */
 func (socket *Socket) Audits() *AuditsProtocol {
 	return socket.audits
 }
 
 /*
-Browser implements Protocoller
+Browser returns the BrowserProtocol instance.
+
+Browser is a Protocoller implementation.
 */
 func (socket *Socket) Browser() *BrowserProtocol {
 	return socket.browser
 }
 
 /*
-CacheStorage implements Protocoller
+CacheStorage returns the CacheStorageProtocol instance.
+
+CacheStorage is a Protocoller implementation.
 */
 func (socket *Socket) CacheStorage() *CacheStorageProtocol {
 	return socket.cacheStorage
 }
 
 /*
-Console implements Protocoller
+Console returns the ConsoleProtocol instance.
+
+Console is a Protocoller implementation.
 */
 func (socket *Socket) Console() *ConsoleProtocol {
 	return socket.console
 }
 
 /*
-CSS implements Protocoller
+CSS returns the CSSProtocol instance.
+
+CSS is a Protocoller implementation.
 */
 func (socket *Socket) CSS() *CSSProtocol {
 	return socket.css
 }
 
 /*
-Database implements Protocoller
+Database returns the DatabaseProtocol instance.
+
+Database is a Protocoller implementation.
 */
 func (socket *Socket) Database() *DatabaseProtocol {
 	return socket.database
 }
 
 /*
-Debugger implements Protocoller
+Debugger returns the DebuggerProtocol instance.
+
+Debugger is a Protocoller implementation.
 */
 func (socket *Socket) Debugger() *DebuggerProtocol {
 	return socket.debugger
 }
 
 /*
-DeviceOrientation implements Protocoller
+DeviceOrientation returns the DeviceOrientationProtocol instance.
+
+DeviceOrientation is a Protocoller implementation.
 */
 func (socket *Socket) DeviceOrientation() *DeviceOrientationProtocol {
 	return socket.deviceOrientation
 }
 
 /*
-DOMDebugger implements Protocoller
+DOMDebugger returns the DOMDebuggerProtocol instance.
+
+DOMDebugger is a Protocoller implementation.
 */
 func (socket *Socket) DOMDebugger() *DOMDebuggerProtocol {
 	return socket.domDebugger
 }
 
 /*
-DOMSnapshot implements Protocoller
+DOMSnapshot returns the DOMSnapshotProtocol instance.
+
+DOMSnapshot is a Protocoller implementation.
 */
 func (socket *Socket) DOMSnapshot() *DOMSnapshotProtocol {
 	return socket.domSnapshot
 }
 
 /*
-DOMStorage implements Protocoller
+DOMStorage returns the DOMStorageProtocol instance.
+
+DOMStorage is a Protocoller implementation.
 */
 func (socket *Socket) DOMStorage() *DOMStorageProtocol {
 	return socket.domStorage
 }
 
 /*
-DOM implements Protocoller
+DOM returns the DOMProtocol instance.
+
+DOM is a Protocoller implementation.
 */
 func (socket *Socket) DOM() *DOMProtocol {
 	return socket.dom
 }
 
 /*
-Emulation implements Protocoller
+Emulation returns the EmulationProtocol instance.
+
+Emulation is a Protocoller implementation.
 */
 func (socket *Socket) Emulation() *EmulationProtocol {
 	return socket.emulation
 }
 
 /*
-HeadlessExperimental implements Protocoller
+HeadlessExperimental returns the HeadlessExperimentalProtocol instance.
+
+HeadlessExperimental is a Protocoller implementation.
 */
 func (socket *Socket) HeadlessExperimental() *HeadlessExperimentalProtocol {
 	return socket.headlessExperimental
 }
 
 /*
-HeapProfiler implements Protocoller
+HeapProfiler returns the HeapProfilerProtocol instance.
+
+HeapProfiler is a Protocoller implementation.
 */
 func (socket *Socket) HeapProfiler() *HeapProfilerProtocol {
 	return socket.heapProfiler
 }
 
 /*
-IndexedDB implements Protocoller
+IndexedDB returns the IndexedDBProtocol instance.
+
+IndexedDB is a Protocoller implementation.
 */
 func (socket *Socket) IndexedDB() *IndexedDBProtocol {
 	return socket.indexedDB
 }
 
 /*
-Input implements Protocoller
+Input returns the InputProtocol instance.
+
+Input is a Protocoller implementation.
 */
 func (socket *Socket) Input() *InputProtocol {
 	return socket.input
 }
 
 /*
-IO implements Protocoller
+IO returns the IOProtocol instance.
+
+IO is a Protocoller implementation.
 */
 func (socket *Socket) IO() *IOProtocol {
 	return socket.io
 }
 
 /*
-LayerTree implements Protocoller
+LayerTree returns the LayerTreeProtocol instance.
+
+LayerTree is a Protocoller implementation.
 */
 func (socket *Socket) LayerTree() *LayerTreeProtocol {
 	return socket.layerTree
 }
 
 /*
-Log implements Protocoller
+Log returns the LogProtocol instance.
+
+Log is a Protocoller implementation.
 */
 func (socket *Socket) Log() *LogProtocol {
 	return socket.log
 }
 
 /*
-Memory implements Protocoller
+Memory returns the MemoryProtocol instance.
+
+Memory is a Protocoller implementation.
 */
 func (socket *Socket) Memory() *MemoryProtocol {
 	return socket.memory
 }
 
 /*
-Network implements Protocoller
+Network returns the NetworkProtocol instance.
+
+Network is a Protocoller implementation.
 */
 func (socket *Socket) Network() *NetworkProtocol {
 	return socket.network
 }
 
 /*
-Overlay implements Protocoller
+Overlay returns the OverlayProtocol instance.
+
+Overlay is a Protocoller implementation.
 */
 func (socket *Socket) Overlay() *OverlayProtocol {
 	return socket.overlay
 }
 
 /*
-Page implements Protocoller
+Page returns the PageProtocol instance.
+
+Page is a Protocoller implementation.
 */
 func (socket *Socket) Page() *PageProtocol {
 	return socket.page
 }
 
 /*
-Performance implements Protocoller
+Performance returns the PerformanceProtocol instance.
+
+Performance is a Protocoller implementation.
 */
 func (socket *Socket) Performance() *PerformanceProtocol {
 	return socket.performance
 }
 
 /*
-Profiler implements Protocoller
+Profiler returns the ProfilerProtocol instance.
+
+Profiler is a Protocoller implementation.
 */
 func (socket *Socket) Profiler() *ProfilerProtocol {
 	return socket.profiler
 }
 
 /*
-Runtime implements Protocoller
+Runtime returns the RuntimeProtocol instance.
+
+Runtime is a Protocoller implementation.
 */
 func (socket *Socket) Runtime() *RuntimeProtocol {
 	return socket.runtime
 }
 
 /*
-Schema implements Protocoller
+Schema returns the SchemaProtocol instance.
+
+Schema is a Protocoller implementation.
 */
 func (socket *Socket) Schema() *SchemaProtocol {
 	return socket.schema
 }
 
 /*
-Security implements Protocoller
+Security returns the SecurityProtocol instance.
+
+Security is a Protocoller implementation.
 */
 func (socket *Socket) Security() *SecurityProtocol {
 	return socket.security
 }
 
 /*
-ServiceWorker implements Protocoller
+ServiceWorker returns the ServiceWorkerProtocol instance.
+
+ServiceWorker is a Protocoller implementation.
 */
 func (socket *Socket) ServiceWorker() *ServiceWorkerProtocol {
 	return socket.serviceWorker
 }
 
 /*
-Storage implements Protocoller
+Storage returns the StorageProtocol instance.
+
+Storage is a Protocoller implementation.
 */
 func (socket *Socket) Storage() *StorageProtocol {
 	return socket.storage
 }
 
 /*
-SystemInfo implements Protocoller
+SystemInfo returns the SystemInfoProtocol instance.
+
+SystemInfo is a Protocoller implementation.
 */
 func (socket *Socket) SystemInfo() *SystemInfoProtocol {
 	return socket.systemInfo
 }
 
 /*
-Target implements Protocoller
+Target returns the TargetProtocol instance.
+
+Target is a Protocoller implementation.
 */
 func (socket *Socket) Target() *TargetProtocol {
 	return socket.target
 }
 
 /*
-Tethering implements Protocoller
+Tethering returns the TetheringProtocol instance.
+
+Tethering is a Protocoller implementation.
 */
 func (socket *Socket) Tethering() *TetheringProtocol {
 	return socket.tethering
 }
 
 /*
-Tracing implements Protocoller
+Tracing returns the TracingProtocol instance.
+
+Tracing is a Protocoller implementation.
 */
 func (socket *Socket) Tracing() *TracingProtocol {
 	return socket.tracing

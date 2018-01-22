@@ -7,7 +7,9 @@ import (
 )
 
 /*
-Conn returns a struct that implements the WebSocketer interface.
+Conn returns the current web socket pointer.
+
+Conn is a Conner implementation.
 */
 func (socket *Socket) Conn() *ChromeWebSocket {
 	socket.Connect()
@@ -15,7 +17,9 @@ func (socket *Socket) Conn() *ChromeWebSocket {
 }
 
 /*
-Connect implements Conner.
+Connect establishes a websocket connection.
+
+Connect is a Conner implementation.
 */
 func (socket *Socket) Connect() error {
 	socket.mux.Lock()
@@ -41,14 +45,18 @@ func (socket *Socket) Connect() error {
 }
 
 /*
-Connected implements Conner.
+Connected returns whether a connection exists.
+
+Connected is a Conner implementation.
 */
 func (socket *Socket) Connected() bool {
 	return socket.connected
 }
 
 /*
-Disconnect implements Conner.
+Disconnect closes a websocket connection.
+
+Disconnect is a Conner implementation.
 */
 func (socket *Socket) Disconnect() error {
 	if !socket.connected {
@@ -61,7 +69,9 @@ func (socket *Socket) Disconnect() error {
 }
 
 /*
-ReadJSON implements Conner.
+ReadJSON reads data from a websocket connection.
+
+ReadJSON is a Conner implementation.
 */
 func (socket *Socket) ReadJSON(v interface{}) error {
 	err := socket.Connect()
@@ -72,7 +82,9 @@ func (socket *Socket) ReadJSON(v interface{}) error {
 }
 
 /*
-WriteJSON implements Conner.
+WriteJSON writes data to a websocket connection.
+
+WriteJSON is a Conner implementation.
 */
 func (socket *Socket) WriteJSON(v interface{}) error {
 	err := socket.Connect()

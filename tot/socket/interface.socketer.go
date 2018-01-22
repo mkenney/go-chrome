@@ -12,31 +12,25 @@ type Socketer interface {
 	// event.
 	AddEventHandler(handler EventHandler)
 
-	// Connect creates a new websocket connection.
-	Connect() error
-
-	// Connected returns the current socket connection status.
-	Connected() bool
-
-	// Return the latest command ID
+	// CurCommandID returns the latest command ID.
 	CurCommandID() int
-
-	// Disconnect closes the current socket connection.
-	Disconnect() error
 
 	// HandleCommand receives the responses to requests sent to the websocket
 	// connection.
 	HandleCommand(response *Response)
 
-	// HandlEvent receives all events and associated data read from the
+	// HandleEvent receives all events and associated data read from the
 	// websocket connection.
 	HandleEvent(response *Response)
 
+	// HandleUnknown receives all other socket responses.
+	HandleUnknown(response *Response)
+
 	// Listen starts the socket read loop and delivers messages to
-	// HandleCommand() and HandleEvent() as appropriate
+	// HandleCommand() and HandleEvent() as appropriate.
 	Listen() error
 
-	// Generate and return the next command ID
+	// NextCommandID generates and returns the next command ID.
 	NextCommandID() int
 
 	// RemoveEventHandler removes a handler from the stack of listeners for an
@@ -50,6 +44,6 @@ type Socketer interface {
 	// the websocket connection.
 	Stop()
 
-	// URL returns the URL of the websocket connection
+	// URL returns the URL of the websocket connection.
 	URL() *url.URL
 }
