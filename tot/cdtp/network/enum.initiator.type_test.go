@@ -61,6 +61,12 @@ func TestEnumInitiatorType(t *testing.T) {
 	if InitiatorType.Preload != enum {
 		t.Errorf("Expcected %d, got %d", InitiatorType.Preload, enum)
 	}
+}
+
+func TestEnumInitiatorType2(t *testing.T) {
+	var enum InitiatorTypeEnum
+	var err error
+	var result []byte
 
 	enum = InitiatorType.Other
 	result, err = json.Marshal(enum)

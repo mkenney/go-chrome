@@ -61,6 +61,12 @@ func TestEnumObjectType(t *testing.T) {
 	if ObjectType.Undefined != enum {
 		t.Errorf("Expcected %d, got %d", ObjectType.Undefined, enum)
 	}
+}
+
+func TestEnumObjectType2(t *testing.T) {
+	var enum ObjectTypeEnum
+	var err error
+	var result []byte
 
 	enum = ObjectType.String
 	result, err = json.Marshal(enum)
@@ -113,6 +119,12 @@ func TestEnumObjectType(t *testing.T) {
 	if ObjectType.Symbol != enum {
 		t.Errorf("Expcected %d, got %d", ObjectType.Symbol, enum)
 	}
+}
+
+func TestEnumObjectType3(t *testing.T) {
+	var enum ObjectTypeEnum
+	var err error
+	var result []byte
 
 	enum = ObjectType.Accessor
 	result, err = json.Marshal(enum)

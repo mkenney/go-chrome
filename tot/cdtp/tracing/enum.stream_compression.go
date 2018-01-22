@@ -10,14 +10,17 @@ type streamCompressionEnum struct {
 	Gzip StreamCompressionEnum
 }
 
+/*
+StreamCompression provides named acces to the StreamCompressionEnum values.
+*/
 var StreamCompression = streamCompressionEnum{
 	None: streamCompressionNone,
 	Gzip: streamCompressionGzip,
 }
 
 /*
-StreamCompression is the compression type to use for traces returned via
-streams. Allowed values:
+StreamCompressionEnum represents the compression type to use for traces returned
+via streams. Allowed values:
 	- StreamCompression.None "none"
 	- StreamCompression.Gzip "gzip"
 

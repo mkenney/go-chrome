@@ -61,6 +61,12 @@ func TestEnumTouchEvent(t *testing.T) {
 	if TouchEvent.TouchMove != enum {
 		t.Errorf("Expcected %d, got %d", TouchEvent.TouchMove, enum)
 	}
+}
+
+func TestEnumTouchEvent2(t *testing.T) {
+	var enum TouchEventEnum
+	var err error
+	var result []byte
 
 	enum = TouchEvent.TouchCancel
 	result, err = json.Marshal(enum)

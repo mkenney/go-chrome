@@ -11,6 +11,9 @@ type inspectModeEnum struct {
 	None                 InspectModeEnum
 }
 
+/*
+InspectMode provides named acces to the InspectModeEnum values.
+*/
 var InspectMode = inspectModeEnum{
 	SearchForNode:        inspectModeSearchForNode,
 	SearchForUAShadowDOM: inspectModeSearchForUAShadowDOM,
@@ -18,10 +21,10 @@ var InspectMode = inspectModeEnum{
 }
 
 /*
-InspectMode is the inspect mode. Allowed values:
-	- InspectMode.SearchForNode
-	- InspectMode.SearchForUAShadowDOM
-	- InspectMode.None
+InspectModeEnum represents the inspect mode. Allowed values:
+	- InspectMode.SearchForNode        "searchForNode"
+	- InspectMode.SearchForUAShadowDOM "searchForUAShadowDOM"
+	- InspectMode.None                 "none"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#type-InspectMode
 */

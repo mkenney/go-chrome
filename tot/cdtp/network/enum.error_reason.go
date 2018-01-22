@@ -20,6 +20,9 @@ type errorReasonEnum struct {
 	AddressUnreachable   ErrorReasonEnum
 }
 
+/*
+ErrorReason provides named acces to the ErrorReasonEnum values.
+*/
 var ErrorReason = errorReasonEnum{
 	Failed:               errorReasonFailed,
 	Aborted:              errorReasonAborted,
@@ -37,18 +40,18 @@ var ErrorReason = errorReasonEnum{
 
 /*
 ErrorReasonEnum is the network level fetch failure reason. Allowed values:
-	- ErrorReason.Failed
-	- ErrorReason.Aborted
-	- ErrorReason.TimedOut
-	- ErrorReason.AccessDenied
-	- ErrorReason.ConnectionClosed
-	- ErrorReason.ConnectionReset
-	- ErrorReason.ConnectionRefused
-	- ErrorReason.ConnectionAborted
-	- ErrorReason.ConnectionFailed
-	- ErrorReason.NameNotResolved
-	- ErrorReason.InternetDisconnected
-	- ErrorReason.AddressUnreachable
+	- ErrorReason.Failed               "Failed"
+	- ErrorReason.Aborted              "Aborted"
+	- ErrorReason.TimedOut             "TimedOut"
+	- ErrorReason.AccessDenied         "AccessDenied"
+	- ErrorReason.ConnectionClosed     "ConnectionClosed"
+	- ErrorReason.ConnectionReset      "ConnectionReset"
+	- ErrorReason.ConnectionRefused    "ConnectionRefused"
+	- ErrorReason.ConnectionAborted    "ConnectionAborted"
+	- ErrorReason.ConnectionFailed     "ConnectionFailed"
+	- ErrorReason.NameNotResolved      "NameNotResolved"
+	- ErrorReason.InternetDisconnected "InternetDisconnected"
+	- ErrorReason.AddressUnreachable   "AddressUnreachable"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-ErrorReason
 */

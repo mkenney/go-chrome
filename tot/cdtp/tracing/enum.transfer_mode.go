@@ -10,14 +10,18 @@ type transferModeEnum struct {
 	ReturnAsStream TransferModeEnum
 }
 
+/*
+TransferMode provides named acces to the TransferModeEnum values.
+*/
 var TransferMode = transferModeEnum{
 	ReportEvents:   transferModeReportEvents,
 	ReturnAsStream: transferModeReturnAsStream,
 }
 
 /*
-Optional. Whether to report trace events as series of dataCollected events or to
-save trace to a stream (defaults to `ReportEvents`). Allowed values:
+TransferModeEnum is optional. Whether to report trace events as series of
+dataCollected events or to save trace to a stream (defaults to `ReportEvents`).
+Allowed values:
 	- TransferMode.ReportEvents   "ReportEvents"
 	- TransferMode.ReturnAsStream "ReturnAsStream"
 

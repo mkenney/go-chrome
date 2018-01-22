@@ -61,6 +61,12 @@ func TestEnumVersionRunningStatus(t *testing.T) {
 	if VersionRunningStatus.Running != enum {
 		t.Errorf("Expcected %d, got %d", VersionRunningStatus.Running, enum)
 	}
+}
+
+func TestEnumVersionRunningStatus2(t *testing.T) {
+	var enum VersionRunningStatusEnum
+	var err error
+	var result []byte
 
 	enum = VersionRunningStatus.Stopping
 	result, err = json.Marshal(enum)

@@ -66,6 +66,12 @@ func TestEnumConnectionType(t *testing.T) {
 	if ConnectionType.Cellular3g != enum {
 		t.Errorf("Expcected %d, got %d", ConnectionType.Cellular3g, enum)
 	}
+}
+
+func TestEnumConnectionType2(t *testing.T) {
+	var enum ConnectionTypeEnum
+	var err error
+	var result []byte
 
 	enum = ConnectionType.Cellular4g
 	result, err = json.Marshal(enum)
@@ -118,6 +124,12 @@ func TestEnumConnectionType(t *testing.T) {
 	if ConnectionType.Wifi != enum {
 		t.Errorf("Expcected %d, got %d", ConnectionType.Wifi, enum)
 	}
+}
+
+func TestEnumConnectionType3(t *testing.T) {
+	var enum ConnectionTypeEnum
+	var err error
+	var result []byte
 
 	enum = ConnectionType.Wimax
 	result, err = json.Marshal(enum)

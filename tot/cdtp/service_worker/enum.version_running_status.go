@@ -12,6 +12,10 @@ type versionRunningStatusEnum struct {
 	Stopping VersionRunningStatusEnum
 }
 
+/*
+VersionRunningStatus provides named acces to the VersionRunningStatusEnum
+values.
+*/
 var VersionRunningStatus = versionRunningStatusEnum{
 	Stopped:  versionRunningStatusStopped,
 	Starting: versionRunningStatusStarting,
@@ -20,7 +24,7 @@ var VersionRunningStatus = versionRunningStatusEnum{
 }
 
 /*
-VersionRunningStatus is the version running status. Allowed values:
+VersionRunningStatusEnum is the version running status. Allowed values:
 	- VersionRunningStatus.Stopped  "stopped"
 	- VersionRunningStatus.Starting "starting"
 	- VersionRunningStatus.Running  "running"

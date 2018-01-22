@@ -61,6 +61,12 @@ func TestEnumResourcePriority(t *testing.T) {
 	if ResourcePriority.Medium != enum {
 		t.Errorf("Expcected %d, got %d", ResourcePriority.Medium, enum)
 	}
+}
+
+func TestEnumResourcePriority2(t *testing.T) {
+	var enum ResourcePriorityEnum
+	var err error
+	var result []byte
 
 	enum = ResourcePriority.High
 	result, err = json.Marshal(enum)

@@ -12,6 +12,9 @@ type keyEventEnum struct {
 	Char       KeyEventEnum
 }
 
+/*
+KeyEvent provides named acces to the KeyEventEnum values.
+*/
 var KeyEvent = keyEventEnum{
 	KeyDown:    keyEventKeyDown,
 	KeyUp:      keyEventKeyUp,
@@ -20,11 +23,11 @@ var KeyEvent = keyEventEnum{
 }
 
 /*
-Type of the key event. Allowed values:
-	- keyDown
-	- keyUp
-	- rawKeyDown
-	- char
+KeyEventEnum represents the type of the key event. Allowed values:
+	- KeyEvent.KeyDown    "keyDown"
+	- KeyEvent.KeyUp      "keyUp"
+	- KeyEvent.RawKeyDown "rawKeyDown"
+	- KeyEvent.Char       "char"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchKeyEvent
 */

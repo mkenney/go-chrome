@@ -61,6 +61,12 @@ func TestEnumName(t *testing.T) {
 	if Name.BlockedEvent != enum {
 		t.Errorf("Expcected %d, got %d", Name.BlockedEvent, enum)
 	}
+}
+
+func TestEnumName2(t *testing.T) {
+	var enum NameEnum
+	var err error
+	var result []byte
 
 	enum = Name.BlockedParser
 	result, err = json.Marshal(enum)

@@ -23,6 +23,9 @@ type objectSubtypeEnum struct {
 	Typedarray ObjectSubtypeEnum
 }
 
+/*
+ObjectSubtype provides named acces to the ObjectSubtypeEnum values.
+*/
 var ObjectSubtype = objectSubtypeEnum{
 	Array:      objectSubtypeArray,
 	Null:       objectSubtypeNull,
@@ -42,7 +45,8 @@ var ObjectSubtype = objectSubtypeEnum{
 }
 
 /*
-Object subtype hint. Specified for object type values only. Allowed values:
+ObjectSubtypeEnum represents an object subtype hint. Specified for object type
+values only. Allowed values:
 	- ObjectSubtype.Array      "array"
 	- ObjectSubtype.Null       "null"
 	- ObjectSubtype.Node       "node"

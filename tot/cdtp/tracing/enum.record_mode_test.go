@@ -66,6 +66,12 @@ func TestEnumRecordMode(t *testing.T) {
 	if RecordMode.RecordAsMuchAsPossible != enum {
 		t.Errorf("Expcected %d, got %d", RecordMode.RecordAsMuchAsPossible, enum)
 	}
+}
+
+func TestEnumRecordMode2(t *testing.T) {
+	var enum RecordModeEnum
+	var err error
+	var result []byte
 
 	enum = RecordMode.EchoToConsole
 	result, err = json.Marshal(enum)

@@ -61,6 +61,12 @@ func TestEnumKeyEvent(t *testing.T) {
 	if KeyEvent.RawKeyDown != enum {
 		t.Errorf("Expcected %d, got %d", KeyEvent.RawKeyDown, enum)
 	}
+}
+
+func TestEnumKeyEvent2(t *testing.T) {
+	var enum KeyEventEnum
+	var err error
+	var result []byte
 
 	enum = KeyEvent.Char
 	result, err = json.Marshal(enum)

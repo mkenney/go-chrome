@@ -66,6 +66,12 @@ func TestEnumObjectSubtype(t *testing.T) {
 	if ObjectSubtype.Node != enum {
 		t.Errorf("Expcected %d, got %d", ObjectSubtype.Node, enum)
 	}
+}
+
+func TestEnumObjectSubtype2(t *testing.T) {
+	var enum ObjectSubtypeEnum
+	var err error
+	var result []byte
 
 	enum = ObjectSubtype.Regexp
 	result, err = json.Marshal(enum)
@@ -118,6 +124,12 @@ func TestEnumObjectSubtype(t *testing.T) {
 	if ObjectSubtype.Set != enum {
 		t.Errorf("Expcected %d, got %d", ObjectSubtype.Set, enum)
 	}
+}
+
+func TestEnumObjectSubtype3(t *testing.T) {
+	var enum ObjectSubtypeEnum
+	var err error
+	var result []byte
 
 	enum = ObjectSubtype.Weakmap
 	result, err = json.Marshal(enum)
@@ -170,6 +182,12 @@ func TestEnumObjectSubtype(t *testing.T) {
 	if ObjectSubtype.Generator != enum {
 		t.Errorf("Expcected %d, got %d", ObjectSubtype.Generator, enum)
 	}
+}
+
+func TestEnumObjectSubtype4(t *testing.T) {
+	var enum ObjectSubtypeEnum
+	var err error
+	var result []byte
 
 	enum = ObjectSubtype.Error
 	result, err = json.Marshal(enum)

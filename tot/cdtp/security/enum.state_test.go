@@ -61,6 +61,12 @@ func TestEnumState(t *testing.T) {
 	if State.Insecure != enum {
 		t.Errorf("Expcected %d, got %d", State.Insecure, enum)
 	}
+}
+
+func TestEnumState2(t *testing.T) {
+	var enum StateEnum
+	var err error
+	var result []byte
 
 	enum = State.Secure
 	result, err = json.Marshal(enum)

@@ -21,6 +21,9 @@ type sourceEnum struct {
 	Other          SourceEnum
 }
 
+/*
+Source provides named acces to the SourceEnum values.
+*/
 var Source = sourceEnum{
 	XML:            sourceXML,
 	Javascript:     sourceJavascript,
@@ -38,20 +41,20 @@ var Source = sourceEnum{
 }
 
 /*
-Log entry source. Allowed values:
-	- xml
-	- javascript
-	- network
-	- storage
-	- appcache
-	- rendering
-	- security
-	- deprecation
-	- worker
-	- violation
-	- intervention
-	- recommendation
-	- other
+SourceEnum represents the log entry source. Allowed values:
+	- Source.XML            "xml"
+	- Source.Javascript     "javascript"
+	- Source.Network        "network"
+	- Source.Storage        "storage"
+	- Source.Appcache       "appcache"
+	- Source.Rendering      "rendering"
+	- Source.Security       "security"
+	- Source.Deprecation    "deprecation"
+	- Source.Worker         "worker"
+	- Source.Violation      "violation"
+	- Source.Intervention   "intervention"
+	- Source.Recommendation "recommendation"
+	- Source.Other          "other"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#type-LogEntry
 */

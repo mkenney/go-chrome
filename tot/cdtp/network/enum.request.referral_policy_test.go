@@ -23,7 +23,7 @@ func TestEnumReferrerPolicy(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = ReferrerPolicy.UnsafeUrl
+	enum = ReferrerPolicy.UnsafeURL
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -32,8 +32,8 @@ func TestEnumReferrerPolicy(t *testing.T) {
 		t.Errorf("Expected '\"unsafe-url\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"unsafe-url"`), &enum)
-	if ReferrerPolicy.UnsafeUrl != enum {
-		t.Errorf("Expcected %d, got %d", ReferrerPolicy.UnsafeUrl, enum)
+	if ReferrerPolicy.UnsafeURL != enum {
+		t.Errorf("Expcected %d, got %d", ReferrerPolicy.UnsafeURL, enum)
 	}
 
 	enum = ReferrerPolicy.NoReferrerWhenDowngrade
@@ -61,6 +61,12 @@ func TestEnumReferrerPolicy(t *testing.T) {
 	if ReferrerPolicy.NoReferrer != enum {
 		t.Errorf("Expcected %d, got %d", ReferrerPolicy.NoReferrer, enum)
 	}
+}
+
+func TestEnumReferrerPolicy2(t *testing.T) {
+	var enum ReferrerPolicyEnum
+	var err error
+	var result []byte
 
 	enum = ReferrerPolicy.Origin
 	result, err = json.Marshal(enum)
@@ -113,6 +119,12 @@ func TestEnumReferrerPolicy(t *testing.T) {
 	if ReferrerPolicy.StrictOrigin != enum {
 		t.Errorf("Expcected %d, got %d", ReferrerPolicy.StrictOrigin, enum)
 	}
+}
+
+func TestEnumReferrerPolicy3(t *testing.T) {
+	var enum ReferrerPolicyEnum
+	var err error
+	var result []byte
 
 	enum = ReferrerPolicy.StrictOriginWhenCrossOrigin
 	result, err = json.Marshal(enum)

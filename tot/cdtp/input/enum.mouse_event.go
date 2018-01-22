@@ -12,6 +12,9 @@ type mouseEventEnum struct {
 	MouseWheel    MouseEventEnum
 }
 
+/*
+MouseEvent provides named acces to the MouseEventEnum values.
+*/
 var MouseEvent = mouseEventEnum{
 	MousePressed:  mouseEventMousePressed,
 	MouseReleased: mouseEventMouseReleased,
@@ -20,11 +23,11 @@ var MouseEvent = mouseEventEnum{
 }
 
 /*
-Type of the mouse event. Allowed values:
-	- mousePressed
-	- mouseReleased
-	- mouseMoved
-	- mouseWheel
+MouseEventEnum represents the type of the mouse event. Allowed values:
+	- MouseEvent.MousePressed  "mousePressed"
+	- MouseEvent.MouseReleased "mouseReleased"
+	- MouseEvent.MouseMoved    "mouseMoved"
+	- MouseEvent.MouseWheel    "mouseWheel"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchMouseEvent
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-emulateTouchFromMouseEvent

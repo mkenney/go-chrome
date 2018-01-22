@@ -61,6 +61,12 @@ func TestEnumLevel(t *testing.T) {
 	if Level.Warning != enum {
 		t.Errorf("Expcected %d, got %d", Level.Warning, enum)
 	}
+}
+
+func TestEnumLevel2(t *testing.T) {
+	var enum LevelEnum
+	var err error
+	var result []byte
 
 	enum = Level.Error
 	result, err = json.Marshal(enum)

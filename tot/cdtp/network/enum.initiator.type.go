@@ -12,6 +12,9 @@ type initiatorTypeEnum struct {
 	Other   InitiatorTypeEnum
 }
 
+/*
+InitiatorType provides named acces to the InitiatorTypeEnum values.
+*/
 var InitiatorType = initiatorTypeEnum{
 	Parser:  initiatorTypeParser,
 	Script:  initiatorTypeScript,

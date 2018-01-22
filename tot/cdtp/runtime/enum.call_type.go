@@ -26,6 +26,9 @@ type callTypeEnum struct {
 	TimeEnd             CallTypeEnum
 }
 
+/*
+CallType provides named acces to the CallTypeEnum values.
+*/
 var CallType = callTypeEnum{
 	Log:                 callTypeLog,
 	Debug:               callTypeDebug,
@@ -48,7 +51,7 @@ var CallType = callTypeEnum{
 }
 
 /*
-Type of the call. Allowed values:
+CallTypeEnum represents the type of the call. Allowed values:
 	- CallType.Log                 "log"
 	- CallType.Debug               "debug"
 	- CallType.Info                "info"

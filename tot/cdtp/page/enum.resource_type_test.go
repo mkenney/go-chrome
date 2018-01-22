@@ -61,6 +61,12 @@ func TestEnumResourceType(t *testing.T) {
 	if ResourceType.Image != enum {
 		t.Errorf("Expcected %d, got %d", ResourceType.Image, enum)
 	}
+}
+
+func TestEnumResourceType2(t *testing.T) {
+	var enum ResourceTypeEnum
+	var err error
+	var result []byte
 
 	enum = ResourceType.Media
 	result, err = json.Marshal(enum)
@@ -113,6 +119,12 @@ func TestEnumResourceType(t *testing.T) {
 	if ResourceType.TextTrack != enum {
 		t.Errorf("Expcected %d, got %d", ResourceType.TextTrack, enum)
 	}
+}
+
+func TestEnumResourceType3(t *testing.T) {
+	var enum ResourceTypeEnum
+	var err error
+	var result []byte
 
 	enum = ResourceType.XHR
 	result, err = json.Marshal(enum)
@@ -165,6 +177,12 @@ func TestEnumResourceType(t *testing.T) {
 	if ResourceType.WebSocket != enum {
 		t.Errorf("Expcected %d, got %d", ResourceType.WebSocket, enum)
 	}
+}
+
+func TestEnumResourceType4(t *testing.T) {
+	var enum ResourceTypeEnum
+	var err error
+	var result []byte
 
 	enum = ResourceType.Manifest
 	result, err = json.Marshal(enum)

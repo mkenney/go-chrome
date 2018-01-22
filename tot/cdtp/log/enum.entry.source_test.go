@@ -61,6 +61,12 @@ func TestEnumSource(t *testing.T) {
 	if Source.Network != enum {
 		t.Errorf("Expcected %d, got %d", Source.Network, enum)
 	}
+}
+
+func TestEnumSource2(t *testing.T) {
+	var enum SourceEnum
+	var err error
+	var result []byte
 
 	enum = Source.Storage
 	result, err = json.Marshal(enum)
@@ -113,6 +119,12 @@ func TestEnumSource(t *testing.T) {
 	if Source.Security != enum {
 		t.Errorf("Expcected %d, got %d", Source.Security, enum)
 	}
+}
+
+func TestEnumSource3(t *testing.T) {
+	var enum SourceEnum
+	var err error
+	var result []byte
 
 	enum = Source.Deprecation
 	result, err = json.Marshal(enum)
@@ -165,6 +177,12 @@ func TestEnumSource(t *testing.T) {
 	if Source.Intervention != enum {
 		t.Errorf("Expcected %d, got %d", Source.Intervention, enum)
 	}
+}
+
+func TestEnumSource4(t *testing.T) {
+	var enum SourceEnum
+	var err error
+	var result []byte
 
 	enum = Source.Recommendation
 	result, err = json.Marshal(enum)

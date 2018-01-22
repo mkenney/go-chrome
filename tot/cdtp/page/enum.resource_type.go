@@ -21,6 +21,9 @@ type resourceTypeEnum struct {
 	Other       ResourceTypeEnum
 }
 
+/*
+ResourceType provides named acces to the ResourceTypeEnum values.
+*/
 var ResourceType = resourceTypeEnum{
 	Document:    resourceTypeDocument,
 	Stylesheet:  resourceTypeStylesheet,
@@ -38,8 +41,8 @@ var ResourceType = resourceTypeEnum{
 }
 
 /*
-ResourceType is the resource type as it was perceived by the rendering engine.
-Allowed Values:
+ResourceTypeEnum represents the resource type as it was perceived by the
+rendering engine. Allowed Values:
 	- ResourceType.Document    "Document"
 	- ResourceType.Stylesheet  "Stylesheet"
 	- ResourceType.Image       "Image"

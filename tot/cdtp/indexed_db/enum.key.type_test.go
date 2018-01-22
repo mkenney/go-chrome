@@ -61,6 +61,12 @@ func TestEnumKeyType(t *testing.T) {
 	if KeyType.Date != enum {
 		t.Errorf("Expcected %d, got %d", KeyType.Date, enum)
 	}
+}
+
+func TestEnumKeyType2(t *testing.T) {
+	var enum KeyTypeEnum
+	var err error
+	var result []byte
 
 	enum = KeyType.Array
 	result, err = json.Marshal(enum)

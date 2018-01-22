@@ -61,6 +61,12 @@ func TestEnumVersionStatus(t *testing.T) {
 	if VersionStatus.Installed != enum {
 		t.Errorf("Expcected %d, got %d", VersionStatus.Installed, enum)
 	}
+}
+
+func TestEnumVersionStatus2(t *testing.T) {
+	var enum VersionStatusEnum
+	var err error
+	var result []byte
 
 	enum = VersionStatus.Activating
 	result, err = json.Marshal(enum)

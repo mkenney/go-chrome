@@ -11,6 +11,9 @@ type keyPathTypeEnum struct {
 	Array  KeyPathTypeEnum
 }
 
+/*
+KeyPathType provides named acces to the KeyPathTypeEnum values.
+*/
 var KeyPathType = keyPathTypeEnum{
 	Null:   keyPathTypeNull,
 	String: keyPathTypeString,
@@ -18,10 +21,10 @@ var KeyPathType = keyPathTypeEnum{
 }
 
 /*
-Key path type. Allowed values:
-	- null
-	- string
-	- array
+KeyPathTypeEnum represents the key path type. Allowed values:
+	- KeyPathType.Null   "null"
+	- KeyPathType.String "string"
+	- KeyPathType.Array  "array"
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#type-ScreenshotParams
 */

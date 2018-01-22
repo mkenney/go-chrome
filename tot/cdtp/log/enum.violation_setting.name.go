@@ -15,6 +15,9 @@ type nameEnum struct {
 	RecurringHandler  NameEnum
 }
 
+/*
+Name provides named acces to the NameEnum values.
+*/
 var Name = nameEnum{
 	LongTask:          nameLongTask,
 	LongLayout:        nameLongLayout,
@@ -26,14 +29,14 @@ var Name = nameEnum{
 }
 
 /*
-Violation type. Allowed values:
-	- longTask
-	- longLayout
-	- blockedEvent
-	- blockedParser
-	- discouragedAPIUse
-	- handler
-	- recurringHandler
+NameEnum represents the violation type. Allowed values:
+	- Name.LongTask          "longTask"
+	- Name.LongLayout        "longLayout"
+	- Name.BlockedEvent      "blockedEvent"
+	- Name.BlockedParser     "blockedParser"
+	- Name.DiscouragedAPIUse "discouragedAPIUse"
+	- Name.Handler           "handler"
+	- Name.RecurringHandler  "recurringHandler"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#type-ViolationSetting
 */

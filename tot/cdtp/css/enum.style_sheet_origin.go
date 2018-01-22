@@ -12,6 +12,9 @@ type styleSheetOriginEnum struct {
 	Log       StyleSheetOriginEnum
 }
 
+/*
+StyleSheetOrigin provides named acces to the StyleSheetOriginEnum values.
+*/
 var StyleSheetOrigin = styleSheetOriginEnum{
 	Injected:  StyleSheetOriginInjected,
 	UserAgent: StyleSheetOriginUserAgent,
@@ -20,12 +23,13 @@ var StyleSheetOrigin = styleSheetOriginEnum{
 }
 
 /*
-StyleSheetOrigin specifies the stylesheet origin. Allowed values:
-	- "injected" for stylesheets injected via extension
-	- "user-agent" for user-agent stylesheets
-	- "inspector" for stylesheets created by the inspector (i.e. those holding the "via inspector"
-	  rules)
-	- "regular" for regular stylesheets.
+StyleSheetOriginEnum specifies the stylesheet origin. Allowed values:
+	- StyleSheetOrigin.Injected  "injected" for stylesheets injected via
+	  extension
+	- StyleSheetOrigin.UserAgent "user-agent" for user-agent stylesheets
+	- StyleSheetOrigin.Inspector "inspector" for stylesheets created by the
+	  inspector (i.e. those holding the "via inspector" rules)
+	- StyleSheetOrigin.Log       "regular" for regular stylesheets.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-StyleSheetOrigin
 */

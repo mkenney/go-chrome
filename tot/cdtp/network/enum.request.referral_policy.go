@@ -6,7 +6,7 @@ import (
 )
 
 type referrerPolicyEnum struct {
-	UnsafeUrl                   ReferrerPolicyEnum
+	UnsafeURL                   ReferrerPolicyEnum
 	NoReferrerWhenDowngrade     ReferrerPolicyEnum
 	NoReferrer                  ReferrerPolicyEnum
 	Origin                      ReferrerPolicyEnum
@@ -16,8 +16,11 @@ type referrerPolicyEnum struct {
 	StrictOriginWhenCrossOrigin ReferrerPolicyEnum
 }
 
+/*
+ReferrerPolicy provides named acces to the ReferrerPolicyEnum values.
+*/
 var ReferrerPolicy = referrerPolicyEnum{
-	UnsafeUrl:                   referrerPolicyUnsafeUrl,
+	UnsafeURL:                   referrerPolicyUnsafeURL,
 	NoReferrerWhenDowngrade:     referrerPolicyNoReferrerWhenDowngrade,
 	NoReferrer:                  referrerPolicyNoReferrer,
 	Origin:                      referrerPolicyOrigin,
@@ -28,9 +31,9 @@ var ReferrerPolicy = referrerPolicyEnum{
 }
 
 /*
-The referrer policy of the request, as defined in https://www.w3.org/TR/referrer-policy/
-Allowed values:
-	- ReferrerPolicy.UnsafeUrl                   "unsafe-url"
+ReferrerPolicyEnum represents the referrer policy of the request, as defined in
+https://www.w3.org/TR/referrer-policy/. Allowed values:
+	- ReferrerPolicy.UnsafeURL                   "unsafe-url"
 	- ReferrerPolicy.NoReferrerWhenDowngrade     "no-referrer-when-downgrade"
 	- ReferrerPolicy.NoReferrer                  "no-referrer"
 	- ReferrerPolicy.Origin                      "origin"
@@ -80,8 +83,8 @@ func (enum *ReferrerPolicyEnum) UnmarshalJSON(bytes []byte) error {
 }
 
 const (
-	// referrerPolicyUnsafeUrl represents the "unsafe-url" value.
-	referrerPolicyUnsafeUrl ReferrerPolicyEnum = iota + 1
+	// referrerPolicyUnsafeURL represents the "unsafe-url" value.
+	referrerPolicyUnsafeURL ReferrerPolicyEnum = iota + 1
 	// referrerPolicyNoReferrerWhenDowngrade represents the "no-referrer-when-downgrade" value.
 	referrerPolicyNoReferrerWhenDowngrade
 	// referrerPolicyNoReferrer represents the "no-referrer" value.
@@ -99,7 +102,7 @@ const (
 )
 
 var _referrerPolicyEnums = map[ReferrerPolicyEnum]string{
-	referrerPolicyUnsafeUrl:                   "unsafe-url",
+	referrerPolicyUnsafeURL:                   "unsafe-url",
 	referrerPolicyNoReferrerWhenDowngrade:     "no-referrer-when-downgrade",
 	referrerPolicyNoReferrer:                  "no-referrer",
 	referrerPolicyOrigin:                      "origin",

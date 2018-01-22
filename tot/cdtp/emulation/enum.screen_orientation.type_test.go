@@ -61,6 +61,12 @@ func TestEnumOrientationType(t *testing.T) {
 	if OrientationType.LandscapePrimary != enum {
 		t.Errorf("Expcected %d, got %d", OrientationType.LandscapePrimary, enum)
 	}
+}
+
+func TestEnumOrientationType2(t *testing.T) {
+	var enum OrientationTypeEnum
+	var err error
+	var result []byte
 
 	enum = OrientationType.LandscapeSecondary
 	result, err = json.Marshal(enum)

@@ -41,7 +41,7 @@ type Animation struct {
 	//	- AnimationType.CSSTransition
 	//	- AnimationType.CSSAnimation
 	//	- AnimationType.WebAnimation
-	Type AnimationTypeEnum `json:"type"`
+	Type TypeEnum `json:"type"`
 
 	// Optional. Animation's source animation node.
 	Source *Effect `json:"source,omitempty"`

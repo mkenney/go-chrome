@@ -12,6 +12,9 @@ type recordModeEnum struct {
 	EchoToConsole          RecordModeEnum
 }
 
+/*
+RecordMode provides named acces to the RecordModeEnum values.
+*/
 var RecordMode = recordModeEnum{
 	RecordUntilFull:        recordModeRecordUntilFull,
 	RecordContinuously:     recordModeRecordContinuously,
@@ -20,7 +23,8 @@ var RecordMode = recordModeEnum{
 }
 
 /*
-Optional. Controls how the trace buffer stores data. Allowed values:
+RecordModeEnum is optional. Controls how the trace buffer stores data. Allowed
+values:
 	- RecordMode.RecordUntilFull        "recordUntilFull"
 	- RecordMode.RecordContinuously     "recordContinuously"
 	- RecordMode.RecordAsMuchAsPossible "recordAsMuchAsPossible"

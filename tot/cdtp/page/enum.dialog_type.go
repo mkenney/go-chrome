@@ -12,6 +12,9 @@ type dialogTypeEnum struct {
 	Beforeunload DialogTypeEnum
 }
 
+/*
+DialogType provides named acces to the DialogTypeEnum values.
+*/
 var DialogType = dialogTypeEnum{
 	Alert:        dialogTypeAlert,
 	Confirm:      dialogTypeConfirm,
@@ -20,7 +23,7 @@ var DialogType = dialogTypeEnum{
 }
 
 /*
-DialogType defines the Javascript dialog type. Allowed values:
+DialogTypeEnum defines the Javascript dialog type. Allowed values:
 	- DialogType.Alert        "alert"
 	- DialogType.Confirm      "confirm"
 	- DialogType.Prompt       "prompt"

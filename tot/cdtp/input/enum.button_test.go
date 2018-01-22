@@ -66,6 +66,12 @@ func TestEnumButtonEvent(t *testing.T) {
 	if ButtonEvent.Middle != enum {
 		t.Errorf("Expcected %d, got %d", ButtonEvent.Middle, enum)
 	}
+}
+
+func TestEnumButtonEvent2(t *testing.T) {
+	var enum ButtonEventEnum
+	var err error
+	var result []byte
 
 	enum = ButtonEvent.Right
 	result, err = json.Marshal(enum)

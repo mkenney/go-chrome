@@ -66,6 +66,12 @@ func TestEnumBlockedReason(t *testing.T) {
 	if BlockedReason.Origin != enum {
 		t.Errorf("Expcected %d, got %d", BlockedReason.Origin, enum)
 	}
+}
+
+func TestEnumBlockedReason2(t *testing.T) {
+	var enum BlockedReasonEnum
+	var err error
+	var result []byte
 
 	enum = BlockedReason.Inspector
 	result, err = json.Marshal(enum)

@@ -61,6 +61,12 @@ func TestEnumUnserializableValue(t *testing.T) {
 	if UnserializableValue.NegInfinity != enum {
 		t.Errorf("Expcected %d, got %d", UnserializableValue.NegInfinity, enum)
 	}
+}
+
+func TestEnumUnserializableValue2(t *testing.T) {
+	var enum UnserializableValueEnum
+	var err error
+	var result []byte
 
 	enum = UnserializableValue.NegZero
 	result, err = json.Marshal(enum)

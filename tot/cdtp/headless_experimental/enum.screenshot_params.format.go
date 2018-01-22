@@ -10,15 +10,19 @@ type formatEnum struct {
 	Png  FormatEnum
 }
 
+/*
+Format provides named acces to the FormatEnum values.
+*/
 var Format = formatEnum{
 	Jpeg: formatJpeg,
 	Png:  formatPng,
 }
 
 /*
-Optional. Image compression format (defaults to png). Allowed values:
-	- jpeg
-	- png
+FormatEnum is optional. Image compression format (defaults to png). Allowed
+values:
+	- Format.Jpeg "jpeg"
+	- Format.Png  "png"
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#type-ScreenshotParams
 */

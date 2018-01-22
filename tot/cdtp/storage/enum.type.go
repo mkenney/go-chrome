@@ -19,6 +19,9 @@ type typeEnum struct {
 	Other          TypeEnum
 }
 
+/*
+Type provides named acces to the TypeEnum values.
+*/
 var Type = typeEnum{
 	Appcache:       typeAppcache,
 	Cookies:        typeCookies,
@@ -34,18 +37,18 @@ var Type = typeEnum{
 }
 
 /*
-Type is an enum of possible storage types. Allowed values:
-	- Type.Appcache
-	- Type.Cookies
-	- Type.FileSystems
-	- Type.Indexeddb
-	- Type.LocalStorage
-	- Type.ShaderCache
-	- Type.Websql
-	- Type.ServiceWorkers
-	- Type.CacheStorage
-	- Type.All
-	- Type.Other
+TypeEnum represents possible storage types. Allowed values:
+	- Type.Appcache       "appcache"
+	- Type.Cookies        "cookies"
+	- Type.FileSystems    "file_systems"
+	- Type.Indexeddb      "indexeddb"
+	- Type.LocalStorage   "local_storage"
+	- Type.ShaderCache    "shader_cache"
+	- Type.Websql         "websql"
+	- Type.ServiceWorkers "service_workers"
+	- Type.CacheStorage   "cache_storage"
+	- Type.All            "all"
+	- Type.Other          "other"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Storage/#type-StorageType
 */

@@ -17,6 +17,9 @@ type connectionTypeEnum struct {
 	Other      ConnectionTypeEnum
 }
 
+/*
+ConnectionType provides named acces to the ConnectionTypeEnum values.
+*/
 var ConnectionType = connectionTypeEnum{
 	None:       connectionTypeNone,
 	Cellular2g: connectionTypeCellular2g,

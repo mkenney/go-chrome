@@ -17,6 +17,9 @@ type scopeTypeEnum struct {
 	Module  ScopeTypeEnum
 }
 
+/*
+ScopeType provides named acces to the ScopeTypeEnum values.
+*/
 var ScopeType = scopeTypeEnum{
 	Global:  ScopeTypeGlobal,
 	Local:   ScopeTypeLocal,
@@ -30,16 +33,16 @@ var ScopeType = scopeTypeEnum{
 }
 
 /*
-Scope type. Allowed values:
-	- global
-	- local
-	- with
-	- closure
-	- catch
-	- block
-	- script
-	- eval
-	- module
+ScopeTypeEnum represents the scope type. Allowed values:
+	- ScopeType.Global  "global"
+	- ScopeType.Local   "local"
+	- ScopeType.With    "with"
+	- ScopeType.Closure "closure"
+	- ScopeType.Catch   "catch"
+	- ScopeType.Block   "block"
+	- ScopeType.Script  "script"
+	- ScopeType.Eval    "eval"
+	- ScopeType.Module  "module"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#type-Scope
 */

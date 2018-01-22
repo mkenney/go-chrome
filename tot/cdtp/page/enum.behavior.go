@@ -11,6 +11,9 @@ type behaviorEnum struct {
 	Default BehaviorEnum
 }
 
+/*
+Behavior provides named acces to the BehaviorEnum values.
+*/
 var Behavior = behaviorEnum{
 	Deny:    behaviorDeny,
 	Allow:   behaviorAllow,
@@ -18,8 +21,8 @@ var Behavior = behaviorEnum{
 }
 
 /*
-Whether to allow all or deny all download requests, or use default Chrome
-behavior if available (otherwise deny). Allowed values:
+BehaviorEnum represents whether to allow all or deny all download requests, or
+use default Chrome behavior if available (otherwise deny). Allowed values:
 	- Behavior.Deny    "deny"
 	- Behavior.Allow   "allow"
 	- Behavior.Default "default"
