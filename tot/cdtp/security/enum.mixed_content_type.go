@@ -21,9 +21,9 @@ var MixedContentType = mixedContentTypeEnum{
 MixedContentType is a description of mixed content (HTTP resources on HTTPS
 pages), as defined by https://www.w3.org/TR/mixed-content/#categories
 Allowed values:
-	- MixedContentType.Blockable
-	- MixedContentType.OptionallyBlockable
-	- MixedContentType.None
+	- MixedContentType.Blockable           "blockable"
+	- MixedContentType.OptionallyBlockable "optionally-blockable"
+	- MixedContentType.None                "none"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#type-MixedContentType
 */

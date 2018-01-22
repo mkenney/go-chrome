@@ -49,24 +49,24 @@ var CallType = callTypeEnum{
 
 /*
 Type of the call. Allowed values:
-	- CallType.Log
-	- CallType.Debug
-	- CallType.Info
-	- CallType.Error
-	- CallType.Warning
-	- CallType.Dir
-	- CallType.Dirxml
-	- CallType.Table
-	- CallType.Trace
-	- CallType.Clear
-	- CallType.StartGroup
-	- CallType.StartGroupCollapsed
-	- CallType.EndGroup
-	- CallType.Assert
-	- CallType.Profile
-	- CallType.ProfileEnd
-	- CallType.Count
-	- CallType.TimeEnd
+	- CallType.Log                 "log"
+	- CallType.Debug               "debug"
+	- CallType.Info                "info"
+	- CallType.Error               "error"
+	- CallType.Warning             "warning"
+	- CallType.Dir                 "dir"
+	- CallType.Dirxml              "dirxml"
+	- CallType.Table               "table"
+	- CallType.Trace               "trace"
+	- CallType.Clear               "clear"
+	- CallType.StartGroup          "startGroup"
+	- CallType.StartGroupCollapsed "startGroupCollapsed"
+	- CallType.EndGroup            "endGroup"
+	- CallType.Assert              "assert"
+	- CallType.Profile             "profile"
+	- CallType.ProfileEnd          "profileEnd"
+	- CallType.Count               "count"
+	- CallType.TimeEnd             "timeEnd"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#event-consoleAPICalled
 */

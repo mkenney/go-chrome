@@ -30,14 +30,14 @@ var ReferrerPolicy = referrerPolicyEnum{
 /*
 The referrer policy of the request, as defined in https://www.w3.org/TR/referrer-policy/
 Allowed values:
-	- ReferrerPolicy.UnsafeUrl
-	- ReferrerPolicy.NoReferrerWhenDowngrade
-	- ReferrerPolicy.NoReferrer
-	- ReferrerPolicy.Origin
-	- ReferrerPolicy.OriginWhenCrossOrigin
-	- ReferrerPolicy.SameOrigin
-	- ReferrerPolicy.StrictOrigin
-	- ReferrerPolicy.StrictOriginWhenCrossOrigin
+	- ReferrerPolicy.UnsafeUrl                   "unsafe-url"
+	- ReferrerPolicy.NoReferrerWhenDowngrade     "no-referrer-when-downgrade"
+	- ReferrerPolicy.NoReferrer                  "no-referrer"
+	- ReferrerPolicy.Origin                      "origin"
+	- ReferrerPolicy.OriginWhenCrossOrigin       "origin-when-cross-origin"
+	- ReferrerPolicy.SameOrigin                  "same-origin"
+	- ReferrerPolicy.StrictOrigin                "strict-origin"
+	- ReferrerPolicy.StrictOriginWhenCrossOrigin "strict-origin-when-cross-origin"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-ResourcePriority
 */

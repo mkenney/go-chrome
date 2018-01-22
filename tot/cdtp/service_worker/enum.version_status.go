@@ -25,12 +25,12 @@ var VersionStatus = versionStatusEnum{
 
 /*
 VersionStatus is the version status. Allowed values:
-	- VersionStatus.New
-	- VersionStatus.Installing
-	- VersionStatus.Installed
-	- VersionStatus.Activating
-	- VersionStatus.Activated
-	- VersionStatus.Redundant
+	- VersionStatus.New        "new"
+	- VersionStatus.Installing "installing"
+	- VersionStatus.Installed  "installed"
+	- VersionStatus.Activating "activating"
+	- VersionStatus.Activated  "activated"
+	- VersionStatus.Redundant  "redundant"
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#type-ServiceWorkerVersionStatus
 */

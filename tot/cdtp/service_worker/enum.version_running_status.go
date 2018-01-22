@@ -21,10 +21,10 @@ var VersionRunningStatus = versionRunningStatusEnum{
 
 /*
 VersionRunningStatus is the version running status. Allowed values:
-	- VersionRunningStatus.Stopped
-	- VersionRunningStatus.Starting
-	- VersionRunningStatus.Running
-	- VersionRunningStatus.Stopping
+	- VersionRunningStatus.Stopped  "stopped"
+	- VersionRunningStatus.Starting "starting"
+	- VersionRunningStatus.Running  "running"
+	- VersionRunningStatus.Stopping "stopping"
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#type-ServiceWorkerVersionRunningStatus
 */

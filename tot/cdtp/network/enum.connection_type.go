@@ -32,15 +32,15 @@ var ConnectionType = connectionTypeEnum{
 /*
 ConnectionTypeEnum is the underlying connection technology that the browser is
 supposedly using. Allowed values:
-	- ConnectionType.None
-	- ConnectionType.Cellular2g
-	- ConnectionType.Cellular3g
-	- ConnectionType.Cellular4g
-	- ConnectionType.Bluetooth
-	- ConnectionType.Ethernet
-	- ConnectionType.Wifi
-	- ConnectionType.Wimax
-	- ConnectionType.Other
+	- ConnectionType.None       "none"
+	- ConnectionType.Cellular2g "cellular2g"
+	- ConnectionType.Cellular3g "cellular3g"
+	- ConnectionType.Cellular4g "cellular4g"
+	- ConnectionType.Bluetooth  "bluetooth"
+	- ConnectionType.Ethernet   "ethernet"
+	- ConnectionType.Wifi       "wifi"
+	- ConnectionType.Wimax      "wimax"
+	- ConnectionType.Other      "other"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-ConnectionType
 */

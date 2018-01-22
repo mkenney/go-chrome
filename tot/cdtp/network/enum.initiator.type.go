@@ -21,10 +21,10 @@ var InitiatorType = initiatorTypeEnum{
 
 /*
 InitiatorTypeEnum is the type of this initiator. Allowed values:
-	- InitiatorType.Parser
-	- InitiatorType.Script
-	- InitiatorType.Preload
-	- InitiatorType.Other
+	- InitiatorType.Parser  "parser"
+	- InitiatorType.Script  "script"
+	- InitiatorType.Preload "preload"
+	- InitiatorType.Other   "other"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-InitiatorType
 */

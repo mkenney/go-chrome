@@ -40,19 +40,19 @@ var ResourceType = resourceTypeEnum{
 /*
 ResourceType is the resource type as it was perceived by the rendering engine.
 Allowed Values:
-	- ResourceType.Document
-	- ResourceType.Stylesheet
-	- ResourceType.Image
-	- ResourceType.Media
-	- ResourceType.Font
-	- ResourceType.Script
-	- ResourceType.TextTrack
-	- ResourceType.XHR
-	- ResourceType.Fetch
-	- ResourceType.EventSource
-	- ResourceType.WebSocket
-	- ResourceType.Manifest
-	- ResourceType.Other
+	- ResourceType.Document    "Document"
+	- ResourceType.Stylesheet  "Stylesheet"
+	- ResourceType.Image       "Image"
+	- ResourceType.Media       "Media"
+	- ResourceType.Font        "Font"
+	- ResourceType.Script      "Script"
+	- ResourceType.TextTrack   "TextTrack"
+	- ResourceType.XHR         "XHR"
+	- ResourceType.Fetch       "Fetch"
+	- ResourceType.EventSource "EventSource"
+	- ResourceType.WebSocket   "WebSocket"
+	- ResourceType.Manifest    "Manifest"
+	- ResourceType.Other       "Other"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-ResourceType
 */

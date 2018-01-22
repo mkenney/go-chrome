@@ -21,10 +21,10 @@ var RecordMode = recordModeEnum{
 
 /*
 Optional. Controls how the trace buffer stores data. Allowed values:
-	- RecordMode.RecordUntilFull
-	- RecordMode.RecordContinuously
-	- RecordMode.RecordAsMuchAsPossible
-	- RecordMode.EchoToConsole
+	- RecordMode.RecordUntilFull        "recordUntilFull"
+	- RecordMode.RecordContinuously     "recordContinuously"
+	- RecordMode.RecordAsMuchAsPossible "recordAsMuchAsPossible"
+	- RecordMode.EchoToConsole          "echoToConsole"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#type-TraceConfig
 */

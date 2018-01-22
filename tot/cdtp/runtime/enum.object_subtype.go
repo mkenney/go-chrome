@@ -43,21 +43,21 @@ var ObjectSubtype = objectSubtypeEnum{
 
 /*
 Object subtype hint. Specified for object type values only. Allowed values:
-	- ObjectSubtype.Array
-	- ObjectSubtype.Null
-	- ObjectSubtype.Node
-	- ObjectSubtype.Regexp
-	- ObjectSubtype.Date
-	- ObjectSubtype.Map
-	- ObjectSubtype.Set
-	- ObjectSubtype.Weakmap
-	- ObjectSubtype.Weakset
-	- ObjectSubtype.Iterator
-	- ObjectSubtype.Generator
-	- ObjectSubtype.Error
-	- ObjectSubtype.Proxy
-	- ObjectSubtype.Promise
-	- ObjectSubtype.Typedarray
+	- ObjectSubtype.Array      "array"
+	- ObjectSubtype.Null       "null"
+	- ObjectSubtype.Node       "node"
+	- ObjectSubtype.Regexp     "regexp"
+	- ObjectSubtype.Date       "date"
+	- ObjectSubtype.Map        "map"
+	- ObjectSubtype.Set        "set"
+	- ObjectSubtype.Weakmap    "weakmap"
+	- ObjectSubtype.Weakset    "weakset"
+	- ObjectSubtype.Iterator   "iterator"
+	- ObjectSubtype.Generator  "generator"
+	- ObjectSubtype.Error      "error"
+	- ObjectSubtype.Proxy      "proxy"
+	- ObjectSubtype.Promise    "promise"
+	- ObjectSubtype.Typedarray "typedarray"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-RemoteObject
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-ObjectPreview

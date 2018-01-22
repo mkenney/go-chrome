@@ -21,10 +21,10 @@ var DialogType = dialogTypeEnum{
 
 /*
 DialogType defines the Javascript dialog type. Allowed values:
-	- DialogType.Alert
-	- DialogType.Confirm
-	- DialogType.Prompt
-	- DialogType.Beforeunload
+	- DialogType.Alert        "alert"
+	- DialogType.Confirm      "confirm"
+	- DialogType.Prompt       "prompt"
+	- DialogType.Beforeunload "beforeunload"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#type-DialogType
 */

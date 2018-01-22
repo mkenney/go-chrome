@@ -30,14 +30,14 @@ var ObjectType = objectTypeEnum{
 /*
 Object type. For properties, "accessor" means that the property itself is an
 accessor property. Allowed values:
-	- object
-	- function
-	- undefined
-	- string
-	- number
-	- boolean
-	- symbol
-	- accessor
+	- ObjectType.Object    "object"
+	- ObjectType.Function  "function"
+	- ObjectType.Undefined "undefined"
+	- ObjectType.String    "string"
+	- ObjectType.Number    "number"
+	- ObjectType.Boolean   "boolean"
+	- ObjectType.Symbol    "symbol"
+	- ObjectType.Accessor  "accessor"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-RemoteObject
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-ObjectPreview

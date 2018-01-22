@@ -18,8 +18,8 @@ var TransferMode = transferModeEnum{
 /*
 Optional. Whether to report trace events as series of dataCollected events or to
 save trace to a stream (defaults to `ReportEvents`). Allowed values:
-	- TransferMode.ReportEvents
-	- TransferMode.ReturnAsStream
+	- TransferMode.ReportEvents   "ReportEvents"
+	- TransferMode.ReturnAsStream "ReturnAsStream"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#type-TraceConfig
 */

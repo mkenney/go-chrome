@@ -17,8 +17,8 @@ var Format = formatEnum{
 
 /*
 Format defines the Javascript dialog type. Allowed values:
-	- Format.Png
-	- Format.Jpeg
+	- Format.Png  "png"
+	- Format.Jpeg "jpeg"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-startScreencast

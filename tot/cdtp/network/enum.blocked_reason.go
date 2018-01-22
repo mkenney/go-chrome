@@ -25,12 +25,12 @@ var BlockedReason = blockedReasonEnum{
 
 /*
 BlockedReasonEnum defines the reason why request was blocked. Allowed values:
-	- BlockedReason.Csp
-	- BlockedReason.MixedContent
-	- BlockedReason.Origin
-	- BlockedReason.Inspector
-	- BlockedReason.SubresourceFilter
-	- BlockedReason.Other
+	- BlockedReason.Csp               "csp"
+	- BlockedReason.MixedContent      "mixed-content"
+	- BlockedReason.Origin            "origin"
+	- BlockedReason.Inspector         "inspector"
+	- BlockedReason.SubresourceFilter "subresource-filter"
+	- BlockedReason.Other             "other"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-BlockedReason
 */

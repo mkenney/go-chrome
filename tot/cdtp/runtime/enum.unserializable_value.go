@@ -22,10 +22,10 @@ var UnserializableValue = unserializableValueEnum{
 /*
 UnserializableValue is a primitive value which cannot be JSON-stringified.
 Allowed values:
-	- UnserializableValue.Infinity
-	- UnserializableValue.NaN
-	- UnserializableValue.NegInfinity
-	- UnserializableValue.NegZero
+	- UnserializableValue.Infinity    "Infinity"
+	- UnserializableValue.NaN         "NaN"
+	- UnserializableValue.NegInfinity "-Infinity"
+	- UnserializableValue.NegZero     "-0"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-UnserializableValue
 */

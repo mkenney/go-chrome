@@ -19,8 +19,8 @@ var CertificateErrorAction = certificateErrorActionEnum{
 CertificateErrorAction describes the action to take when a certificate error
 occurs. 'continue' will continue processing the request and 'cancel' will cancel
 the request. Allowed values:
-	- CertificateErrorAction.Continue
-	- CertificateErrorAction.Cancel
+	- CertificateErrorAction.Continue "continue"
+	- CertificateErrorAction.Cancel   "cancel"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#type-CertificateErrorAction
 */

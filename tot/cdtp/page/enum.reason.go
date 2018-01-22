@@ -27,13 +27,13 @@ var Reason = reasonEnum{
 
 /*
 The reason for the navigation. Allowed values:
-	- Reason.FormSubmissionGet
-	- Reason.FormSubmissionPost
-	- Reason.HttpHeaderRefresh
-	- Reason.ScriptInitiated
-	- Reason.MetaTagRefresh
-	- Reason.PageBlockInterstitial
-	- Reason.Reload
+	- Reason.FormSubmissionGet     "formSubmissionGet"
+	- Reason.FormSubmissionPost    "formSubmissionPost"
+	- Reason.HttpHeaderRefresh     "httpHeaderRefresh"
+	- Reason.ScriptInitiated       "scriptInitiated"
+	- Reason.MetaTagRefresh        "metaTagRefresh"
+	- Reason.PageBlockInterstitial "pageBlockInterstitial"
+	- Reason.Reload                "reload"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#event-frameScheduledNavigation
 */

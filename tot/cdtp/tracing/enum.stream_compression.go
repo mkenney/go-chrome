@@ -18,8 +18,8 @@ var StreamCompression = streamCompressionEnum{
 /*
 StreamCompression is the compression type to use for traces returned via
 streams. Allowed values:
-	- StreamCompression.None
-	- StreamCompression.Gzip
+	- StreamCompression.None "none"
+	- StreamCompression.Gzip "gzip"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#type-StreamCompression
 */

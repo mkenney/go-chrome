@@ -23,11 +23,11 @@ var State = stateEnum{
 
 /*
 State is the security level of a page or resource. Allowed values:
-	- State.Unknown
-	- State.Neutral
-	- State.Insecure
-	- State.Secure
-	- State.Info
+	- State.Unknown  "unknown"
+	- State.Neutral  "neutral"
+	- State.Insecure "insecure"
+	- State.Secure   "secure"
+	- State.Info     "info"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#type-SecurityState
 */

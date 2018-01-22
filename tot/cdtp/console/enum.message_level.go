@@ -23,17 +23,13 @@ var MessageLevel = messageLevelEnum{
 
 /*
 Source defines the console.Message.Source enum structure. Valid values are:
-	- SourceXML         ("xml")
-	- SourceJavascript  ("javascript")
-	- SourceNetwork     ("network")
-	- SourceConsoleAPI  ("console-api")
-	- SourceStorage     ("storage")
-	- SourceAppcache    ("appcache")
-	- SourceRendering   ("rendering")
-	- SourceSecurity    ("security")
-	- SourceOther       ("other")
-	- SourceDeprecation ("deprecation")
-	- SourceWorker      ("worker")
+	- MessageLevel.Log     - "log"
+	- MessageLevel.Warning - "warning"
+	- MessageLevel.Error   - "error"
+	- MessageLevel.Debug   - "debug"
+	- MessageLevel.Info    - "info"
+
+https://chromedevtools.github.io/devtools-protocol/tot/Console/#type-ConsoleMessage
 */
 type MessageLevelEnum int
 

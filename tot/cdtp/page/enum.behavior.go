@@ -20,9 +20,9 @@ var Behavior = behaviorEnum{
 /*
 Whether to allow all or deny all download requests, or use default Chrome
 behavior if available (otherwise deny). Allowed values:
-	- Behavior.Deny
-	- Behavior.Allow
-	- Behavior.Default
+	- Behavior.Deny    "deny"
+	- Behavior.Allow   "allow"
+	- Behavior.Default "default"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setDownloadBehavior
 */
