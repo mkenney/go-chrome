@@ -29,5 +29,7 @@ for dir in $(go list ./... | grep -v vendor); do
     fi
 done
 
+[ "" = "$(golint ./... | grep -v vendor)" ] || exit 5
+
 exit 0
 
