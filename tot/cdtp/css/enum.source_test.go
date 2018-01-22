@@ -61,6 +61,12 @@ func TestEnumSource(t *testing.T) {
 	if Source.LinkedSheet != enum {
 		t.Errorf("Expcected %d, got %d", Source.LinkedSheet, enum)
 	}
+}
+
+func TestEnumSource2(t *testing.T) {
+	var enum SourceEnum
+	var err error
+	var result []byte
 
 	enum = Source.InlineSheet
 	result, err = json.Marshal(enum)

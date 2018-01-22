@@ -14,6 +14,9 @@ type versionStatusEnum struct {
 	Redundant  VersionStatusEnum
 }
 
+/*
+VersionStatus provides named acces to the VersionStatusEnum values.
+*/
 var VersionStatus = versionStatusEnum{
 	New:        versionStatusNew,
 	Installing: versionStatusInstalling,
@@ -24,7 +27,7 @@ var VersionStatus = versionStatusEnum{
 }
 
 /*
-VersionStatus is the version status. Allowed values:
+VersionStatusEnum is the version status. Allowed values:
 	- VersionStatus.New        "new"
 	- VersionStatus.Installing "installing"
 	- VersionStatus.Installed  "installed"

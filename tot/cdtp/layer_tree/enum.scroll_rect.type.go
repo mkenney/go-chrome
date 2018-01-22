@@ -11,6 +11,9 @@ type rectTypeEnum struct {
 	WheelEventHandler RectTypeEnum
 }
 
+/*
+RectType provides named acces to the RectTypeEnum values.
+*/
 var RectType = rectTypeEnum{
 	RepaintsOnScroll:  rectTypeRepaintsOnScroll,
 	TouchEventHandler: rectTypeTouchEventHandler,
@@ -18,10 +21,11 @@ var RectType = rectTypeEnum{
 }
 
 /*
-Reason for rectangle to force scrolling on the main thread. Allowed values:
-	- RepaintsOnScroll
-	- TouchEventHandler
-	- WheelEventHandler
+RectTypeEnum represents the reason for a rectangle to force scrolling on the
+main thread. Allowed values:
+	- RectType.RepaintsOnScroll  "RepaintsOnScroll"
+	- RectType.TouchEventHandler "TouchEventHandler"
+	- RectType.WheelEventHandler "WheelEventHandler"
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#type-ScrollRect
 */

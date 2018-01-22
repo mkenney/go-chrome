@@ -10,15 +10,18 @@ type sourceEnum struct {
 	Proxy  SourceEnum
 }
 
+/*
+Source provides named acces to the SourceEnum values.
+*/
 var Source = sourceEnum{
 	Server: sourceServer,
 	Proxy:  sourceProxy,
 }
 
 /*
-Optional. Source of the authentication challenge. Allowed values:
-	- Source.Server
-	- Source.Proxy
+SourceEnum is optional. Source of the authentication challenge. Allowed values:
+	- Source.Server "Server"
+	- Source.Proxy  "Proxy"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-AuthChallenge
 */

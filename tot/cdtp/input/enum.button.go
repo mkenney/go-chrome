@@ -12,6 +12,9 @@ type buttonEventEnum struct {
 	Right  ButtonEventEnum
 }
 
+/*
+ButtonEvent provides named acces to the ButtonEventEnum values.
+*/
 var ButtonEvent = buttonEventEnum{
 	None:   buttonEventNone,
 	Left:   buttonEventLeft,
@@ -20,11 +23,11 @@ var ButtonEvent = buttonEventEnum{
 }
 
 /*
-Mouse button (default: "none"). Allowed values:
-	- none
-	- left
-	- middle
-	- right
+ButtonEventEnum represents the mouse button (default: "none"). Allowed values:
+	- ButtonEvent.None   "none"
+	- ButtonEvent.Left   "left"
+	- ButtonEvent.Middle "middle"
+	- ButtonEvent.Right  "right"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchMouseEvent
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-emulateTouchFromMouseEvent

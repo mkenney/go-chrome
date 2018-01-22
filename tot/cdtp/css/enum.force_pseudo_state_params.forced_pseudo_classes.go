@@ -12,6 +12,9 @@ type forcedPseudoClassesEnum struct {
 	Visited ForcedPseudoClassesEnum
 }
 
+/*
+ForcedPseudoClasses provides named acces to the ForcedPseudoClassesEnum values.
+*/
 var ForcedPseudoClasses = forcedPseudoClassesEnum{
 	Active:  forcedPseudoClassesActive,
 	Focus:   forcedPseudoClassesFocus,
@@ -20,12 +23,12 @@ var ForcedPseudoClasses = forcedPseudoClassesEnum{
 }
 
 /*
-Element pseudo classes to force when computing the element's style. Allowed
-values:
-	- active
-	- focus
-	- hover
-	- visited
+ForcedPseudoClassesEnum represents element pseudo classes to force when
+computing the element's style. Allowed values:
+	- ForcedPseudoClasses.Active  "active"
+	- ForcedPseudoClasses.Focus   "focus"
+	- ForcedPseudoClasses.Hover   "hover"
+	- ForcedPseudoClasses.Visited "visited"
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-forcePseudoState
 */

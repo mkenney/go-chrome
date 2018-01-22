@@ -10,13 +10,16 @@ type certificateErrorActionEnum struct {
 	Cancel   CertificateErrorActionEnum
 }
 
+/*
+CertificateErrorAction provides named acces to the CertificateErrorActionEnum values.
+*/
 var CertificateErrorAction = certificateErrorActionEnum{
 	Continue: certificateErrorActionContinue,
 	Cancel:   certificateErrorActionCancel,
 }
 
 /*
-CertificateErrorAction describes the action to take when a certificate error
+CertificateErrorActionEnum describes the action to take when a certificate error
 occurs. 'continue' will continue processing the request and 'cancel' will cancel
 the request. Allowed values:
 	- CertificateErrorAction.Continue "continue"

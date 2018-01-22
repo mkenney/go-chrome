@@ -61,6 +61,12 @@ func TestEnumMessageSource(t *testing.T) {
 	if MessageSource.Network != enum {
 		t.Errorf("Expcected %d, got %d", MessageSource.Network, enum)
 	}
+}
+
+func TestEnumMessageSource2(t *testing.T) {
+	var enum MessageSourceEnum
+	var err error
+	var result []byte
 
 	enum = MessageSource.ConsoleAPI
 	result, err = json.Marshal(enum)
@@ -113,6 +119,12 @@ func TestEnumMessageSource(t *testing.T) {
 	if MessageSource.Rendering != enum {
 		t.Errorf("Expcected %d, got %d", MessageSource.Rendering, enum)
 	}
+}
+
+func TestEnumMessageSource3(t *testing.T) {
+	var enum MessageSourceEnum
+	var err error
+	var result []byte
 
 	enum = MessageSource.Security
 	result, err = json.Marshal(enum)

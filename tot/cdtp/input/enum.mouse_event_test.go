@@ -61,6 +61,12 @@ func TestEnumMouseEvent(t *testing.T) {
 	if MouseEvent.MouseMoved != enum {
 		t.Errorf("Expcected %d, got %d", MouseEvent.MouseMoved, enum)
 	}
+}
+
+func TestEnumMouseEvent2(t *testing.T) {
+	var enum MouseEventEnum
+	var err error
+	var result []byte
 
 	enum = MouseEvent.MouseWheel
 	result, err = json.Marshal(enum)

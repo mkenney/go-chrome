@@ -10,17 +10,20 @@ type interceptionStageEnum struct {
 	HeadersReceived InterceptionStageEnum
 }
 
+/*
+InterceptionStage provides named acces to the InterceptionStageEnum values.
+*/
 var InterceptionStage = interceptionStageEnum{
 	Request:         interceptionStageRequest,
 	HeadersReceived: interceptionStageHeadersReceived,
 }
 
 /*
-InterceptionStage represents stages of the interception to begin intercepting.
-Request will intercept before the request is sent. Response will intercept after
-the response is received. EXPERIMENTAL. Allowed values:
-	- InterceptionStage.Request
-	- InterceptionStage.HeadersReceived
+InterceptionStageEnum represents stages of the interception to begin
+intercepting. Request will intercept before the request is sent. Response will
+intercept after the response is received. EXPERIMENTAL. Allowed values:
+	- InterceptionStage.Request         "Request"
+	- InterceptionStage.HeadersReceived "HeadersReceived"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-InterceptionStage
 */

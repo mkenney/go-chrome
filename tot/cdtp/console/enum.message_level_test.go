@@ -61,6 +61,12 @@ func TestEnumMessageLevel(t *testing.T) {
 	if MessageLevel.Error != enum {
 		t.Errorf("Expcected %d, got %d", MessageLevel.Error, enum)
 	}
+}
+
+func TestEnumMessageLevel2(t *testing.T) {
+	var enum MessageLevelEnum
+	var err error
+	var result []byte
 
 	enum = MessageLevel.Debug
 	result, err = json.Marshal(enum)

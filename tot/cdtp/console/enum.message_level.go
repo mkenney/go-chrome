@@ -13,6 +13,9 @@ type messageLevelEnum struct {
 	Info    MessageLevelEnum
 }
 
+/*
+MessageLevel provides named acces to the MessageLevelEnum values.
+*/
 var MessageLevel = messageLevelEnum{
 	Log:     MessageLevelLog,
 	Warning: MessageLevelWarning,
@@ -22,12 +25,12 @@ var MessageLevel = messageLevelEnum{
 }
 
 /*
-Source defines the console.Message.Source enum structure. Valid values are:
-	- MessageLevel.Log     - "log"
-	- MessageLevel.Warning - "warning"
-	- MessageLevel.Error   - "error"
-	- MessageLevel.Debug   - "debug"
-	- MessageLevel.Info    - "info"
+MessageLevelEnum represents the message severity. Allowed values:
+	- MessageLevel.Log     "log"
+	- MessageLevel.Warning "warning"
+	- MessageLevel.Error   "error"
+	- MessageLevel.Debug   "debug"
+	- MessageLevel.Info    "info"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Console/#type-ConsoleMessage
 */

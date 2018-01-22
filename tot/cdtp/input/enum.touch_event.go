@@ -12,6 +12,9 @@ type touchEventEnum struct {
 	TouchCancel TouchEventEnum
 }
 
+/*
+TouchEvent provides named acces to the TouchEventEnum values.
+*/
 var TouchEvent = touchEventEnum{
 	TouchStart:  touchEventTouchStart,
 	TouchEnd:    touchEventTouchEnd,
@@ -20,13 +23,13 @@ var TouchEvent = touchEventEnum{
 }
 
 /*
-Type of the touch event. TouchEnd and TouchCancel must not contain any touch
-points, while TouchStart and TouchMove must contains at least one. Allowed
-values:
-	- touchStart
-	- touchEnd
-	- touchMove
-	- touchCancel
+TouchEventEnum represents the type of the touch event. TouchEnd and TouchCancel
+must not contain any touch points, while TouchStart and TouchMove must contains
+at least one. Allowed values:
+	- TouchEvent.TouchStart  "touchStart"
+	- TouchEvent.TouchEnd    "touchEnd"
+	- TouchEvent.TouchMove   "touchMove"
+	- TouchEvent.TouchCancel "touchCancel"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchMouseEvent
 */

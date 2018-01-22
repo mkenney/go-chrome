@@ -11,6 +11,9 @@ type challengeResponseEnum struct {
 	ProvideCredentials ChallengeResponseEnum
 }
 
+/*
+ChallengeResponse provides named acces to the ChallengeResponseEnum values.
+*/
 var ChallengeResponse = challengeResponseEnum{
 	Default:            challengeResponseDefault,
 	CancelAuth:         challengeResponseCancelAuth,
@@ -18,12 +21,13 @@ var ChallengeResponse = challengeResponseEnum{
 }
 
 /*
-The decision on what to do in response to the authorization challenge. Default
-means deferring to the default behavior of the net stack, which will likely
-either the Cancel authentication or display a popup dialog box. Allowed values:
-	- ChallengeResponse.Default
-	- ChallengeResponse.CancelAuth
-	- ChallengeResponse.ProvideCredentials
+ChallengeResponseEnum represents the decision on what to do in response to the
+authorization challenge. Default means deferring to the default behavior of the
+net stack, which will likely either the Cancel authentication or display a popup
+dialog box. Allowed values:
+	- ChallengeResponse.Default            "Default"
+	- ChallengeResponse.CancelAuth         "CancelAuth"
+	- ChallengeResponse.ProvideCredentials "ProvideCredentials"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-AuthChallenge
 */

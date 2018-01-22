@@ -10,16 +10,19 @@ type configurationEnum struct {
 	Desktop ConfigurationEnum
 }
 
+/*
+Configuration provides named acces to the ConfigurationEnum values.
+*/
 var Configuration = configurationEnum{
 	Mobile:  configurationMobile,
 	Desktop: configurationDesktop,
 }
 
 /*
-Optional. Touch/gesture events configuration. Default: current platform. Allowed \
-values:
-	- mobile
-	- desktop
+ConfigurationEnum is optional. Touch/gesture events configuration. Default:
+current platform. Allowed values:
+	- Configuration.Mobile  "mobile"
+	- Configuration.Desktop "desktop"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#type-ScreenOrientation
 */

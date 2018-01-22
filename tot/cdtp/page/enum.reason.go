@@ -8,17 +8,20 @@ import (
 type reasonEnum struct {
 	FormSubmissionGet     ReasonEnum
 	FormSubmissionPost    ReasonEnum
-	HttpHeaderRefresh     ReasonEnum
+	HTTPHeaderRefresh     ReasonEnum
 	ScriptInitiated       ReasonEnum
 	MetaTagRefresh        ReasonEnum
 	PageBlockInterstitial ReasonEnum
 	Reload                ReasonEnum
 }
 
+/*
+Reason provides named acces to the ReasonEnum values.
+*/
 var Reason = reasonEnum{
 	FormSubmissionGet:     reasonFormSubmissionGet,
 	FormSubmissionPost:    reasonFormSubmissionPost,
-	HttpHeaderRefresh:     reasonHttpHeaderRefresh,
+	HTTPHeaderRefresh:     reasonHTTPHeaderRefresh,
 	ScriptInitiated:       reasonScriptInitiated,
 	MetaTagRefresh:        reasonMetaTagRefresh,
 	PageBlockInterstitial: reasonPageBlockInterstitial,
@@ -26,10 +29,10 @@ var Reason = reasonEnum{
 }
 
 /*
-The reason for the navigation. Allowed values:
+ReasonEnum represents the reason for the navigation. Allowed values:
 	- Reason.FormSubmissionGet     "formSubmissionGet"
 	- Reason.FormSubmissionPost    "formSubmissionPost"
-	- Reason.HttpHeaderRefresh     "httpHeaderRefresh"
+	- Reason.HTTPHeaderRefresh     "httpHeaderRefresh"
 	- Reason.ScriptInitiated       "scriptInitiated"
 	- Reason.MetaTagRefresh        "metaTagRefresh"
 	- Reason.PageBlockInterstitial "pageBlockInterstitial"
@@ -80,8 +83,8 @@ const (
 	reasonFormSubmissionGet ReasonEnum = iota + 1
 	// reasonFormSubmissionPost represents the "formSubmissionPost" value.
 	reasonFormSubmissionPost
-	// reasonHttpHeaderRefresh represents the "httpHeaderRefresh" value.
-	reasonHttpHeaderRefresh
+	// reasonHTTPHeaderRefresh represents the "httpHeaderRefresh" value.
+	reasonHTTPHeaderRefresh
 	// reasonScriptInitiated represents the "scriptInitiated" value.
 	reasonScriptInitiated
 	// reasonMetaTagRefresh represents the "metaTagRefresh" value.
@@ -95,7 +98,7 @@ const (
 var _reasonEnums = map[ReasonEnum]string{
 	reasonFormSubmissionGet:     "formSubmissionGet",
 	reasonFormSubmissionPost:    "formSubmissionPost",
-	reasonHttpHeaderRefresh:     "httpHeaderRefresh",
+	reasonHTTPHeaderRefresh:     "httpHeaderRefresh",
 	reasonScriptInitiated:       "scriptInitiated",
 	reasonMetaTagRefresh:        "metaTagRefresh",
 	reasonPageBlockInterstitial: "pageBlockInterstitial",

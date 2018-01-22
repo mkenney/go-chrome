@@ -12,6 +12,9 @@ type sourceEnum struct {
 	InlineSheet SourceEnum
 }
 
+/*
+Source provides named acces to the SourceEnum values.
+*/
 var Source = sourceEnum{
 	MediaRule:   SourceMediaRule,
 	ImportRule:  SourceImportRule,
@@ -20,13 +23,13 @@ var Source = sourceEnum{
 }
 
 /*
-Source of the media query. Allowed values:
-	- "mediaRule" if specified by a @media rule
-	- "importRule" if specified by an @import rule
-	- "linkedSheet" if specified by a "media" attribute in a linked
-	stylesheet's LINK tag
-	- "inlineSheet" if specified by a "media" attribute in an inline
-	stylesheet's STYLE tag.
+SourceEnum represents the source of the media query. Allowed values:
+	- Source.MediaRule   "mediaRule" if specified by a @media rule
+	- Source.ImportRule  "importRule" if specified by an @import rule
+	- Source.LinkedSheet "linkedSheet" if specified by a "media" attribute in a
+	  linked stylesheet's LINK tag
+	- Source.InlineSheet "inlineSheet" if specified by a "media" attribute in an
+	  inline stylesheet's STYLE tag.
 
 Allowed values: mediaRule, importRule, linkedSheet, inlineSheet.
 

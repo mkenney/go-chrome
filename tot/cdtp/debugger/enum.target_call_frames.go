@@ -10,15 +10,18 @@ type targetCallFramesEnum struct {
 	Current TargetCallFramesEnum
 }
 
+/*
+TargetCallFrames provides named acces to the TargetCallFramesEnum values.
+*/
 var TargetCallFrames = targetCallFramesEnum{
 	Any:     targetCallFramesAny,
 	Current: targetCallFramesCurrent,
 }
 
 /*
-Optional. Allowed values:
-	- any
-	- current
+TargetCallFramesEnum is optional. Allowed values:
+	- TargetCallFrames.Any     "any"
+	- TargetCallFrames.Current "current"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-continueToLocation
 */

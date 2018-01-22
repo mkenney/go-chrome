@@ -11,6 +11,9 @@ type mixedContentTypeEnum struct {
 	None                MixedContentTypeEnum
 }
 
+/*
+MixedContentType provides named acces to the MixedContentTypeEnum values.
+*/
 var MixedContentType = mixedContentTypeEnum{
 	Blockable:           mixedContentTypeBlockable,
 	OptionallyBlockable: mixedContentTypeOptionallyBlockable,
@@ -18,7 +21,7 @@ var MixedContentType = mixedContentTypeEnum{
 }
 
 /*
-MixedContentType is a description of mixed content (HTTP resources on HTTPS
+MixedContentTypeEnum is a description of mixed content (HTTP resources on HTTPS
 pages), as defined by https://www.w3.org/TR/mixed-content/#categories
 Allowed values:
 	- MixedContentType.Blockable           "blockable"

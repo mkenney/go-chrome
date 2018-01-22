@@ -61,6 +61,11 @@ func TestEnumScopeType(t *testing.T) {
 	if ScopeType.With != enum {
 		t.Errorf("Expcected %d, got %d", ScopeType.With, enum)
 	}
+}
+func TestEnumScopeType2(t *testing.T) {
+	var enum ScopeTypeEnum
+	var err error
+	var result []byte
 
 	enum = ScopeType.Closure
 	result, err = json.Marshal(enum)
@@ -113,6 +118,12 @@ func TestEnumScopeType(t *testing.T) {
 	if ScopeType.Script != enum {
 		t.Errorf("Expcected %d, got %d", ScopeType.Script, enum)
 	}
+}
+
+func TestEnumScopeType3(t *testing.T) {
+	var enum ScopeTypeEnum
+	var err error
+	var result []byte
 
 	enum = ScopeType.Eval
 	result, err = json.Marshal(enum)

@@ -19,6 +19,9 @@ type messageSourceEnum struct {
 	Worker      MessageSourceEnum
 }
 
+/*
+MessageSource provides named acces to the MessageSourceEnum values.
+*/
 var MessageSource = messageSourceEnum{
 	XML:         MessageSourceXML,
 	Javascript:  MessageSourceJavascript,
@@ -34,18 +37,18 @@ var MessageSource = messageSourceEnum{
 }
 
 /*
-Source defines the console.Message.Source enum structure. Valid values are:
-	- SourceXML         ("xml")
-	- SourceJavascript  ("javascript")
-	- SourceNetwork     ("network")
-	- SourceConsoleAPI  ("console-api")
-	- SourceStorage     ("storage")
-	- SourceAppcache    ("appcache")
-	- SourceRendering   ("rendering")
-	- SourceSecurity    ("security")
-	- SourceOther       ("other")
-	- SourceDeprecation ("deprecation")
-	- SourceWorker      ("worker")
+MessageSourceEnum represents the message source. Allowed values:
+	- MessageSource.SourceXML         "xml"
+	- MessageSource.SourceJavascript  "javascript"
+	- MessageSource.SourceNetwork     "network"
+	- MessageSource.SourceConsoleAPI  "console-api"
+	- MessageSource.SourceStorage     "storage"
+	- MessageSource.SourceAppcache    "appcache"
+	- MessageSource.SourceRendering   "rendering"
+	- MessageSource.SourceSecurity    "security"
+	- MessageSource.SourceOther       "other"
+	- MessageSource.SourceDeprecation "deprecation"
+	- MessageSource.SourceWorker      "worker"
 */
 type MessageSourceEnum int
 

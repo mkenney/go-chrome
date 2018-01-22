@@ -61,6 +61,12 @@ func TestEnumStyleSheetOrigin(t *testing.T) {
 	if StyleSheetOrigin.Inspector != enum {
 		t.Errorf("Expcected %d, got %d", StyleSheetOrigin.Inspector, enum)
 	}
+}
+
+func TestEnumStyleSheetOrigin2(t *testing.T) {
+	var enum StyleSheetOriginEnum
+	var err error
+	var result []byte
 
 	enum = StyleSheetOrigin.Log
 	result, err = json.Marshal(enum)

@@ -14,6 +14,9 @@ type blockedReasonEnum struct {
 	Other             BlockedReasonEnum
 }
 
+/*
+BlockedReason provides named acces to the BlockedReasonEnum values.
+*/
 var BlockedReason = blockedReasonEnum{
 	Csp:               blockedReasonCsp,
 	MixedContent:      blockedReasonMixedContent,

@@ -12,6 +12,9 @@ type orientationTypeEnum struct {
 	LandscapeSecondary OrientationTypeEnum
 }
 
+/*
+OrientationType provides named acces to the OrientationTypeEnum values.
+*/
 var OrientationType = orientationTypeEnum{
 	PortraitPrimary:    orientationTypePortraitPrimary,
 	PortraitSecondary:  orientationTypePortraitSecondary,
@@ -20,11 +23,11 @@ var OrientationType = orientationTypeEnum{
 }
 
 /*
-Orientation type. Allowed values:
-	- portraitPrimary
-	- portraitSecondary
-	- landscapePrimary
-	- landscapeSecondary
+OrientationTypeEnum represents the orientation type. Allowed values:
+	- OrientationType.PortraitPrimary    "portraitPrimary"
+	- OrientationType.PortraitSecondary  "portraitSecondary"
+	- OrientationType.LandscapePrimary   "landscapePrimary"
+	- OrientationType.LandscapeSecondary "landscapeSecondary"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#type-ScreenOrientation
 */

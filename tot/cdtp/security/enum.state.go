@@ -13,6 +13,9 @@ type stateEnum struct {
 	Info     StateEnum
 }
 
+/*
+State provides named acces to the StateEnum values.
+*/
 var State = stateEnum{
 	Unknown:  stateUnknown,
 	Neutral:  stateNeutral,
@@ -22,7 +25,7 @@ var State = stateEnum{
 }
 
 /*
-State is the security level of a page or resource. Allowed values:
+StateEnum is the security level of a page or resource. Allowed values:
 	- State.Unknown  "unknown"
 	- State.Neutral  "neutral"
 	- State.Insecure "insecure"

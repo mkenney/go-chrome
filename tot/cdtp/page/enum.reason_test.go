@@ -49,7 +49,7 @@ func TestEnumReason(t *testing.T) {
 		t.Errorf("Expcected %d, got %d", Reason.FormSubmissionPost, enum)
 	}
 
-	enum = Reason.HttpHeaderRefresh
+	enum = Reason.HTTPHeaderRefresh
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -58,9 +58,14 @@ func TestEnumReason(t *testing.T) {
 		t.Errorf("Expected '\"httpHeaderRefresh\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"httpHeaderRefresh"`), &enum)
-	if Reason.HttpHeaderRefresh != enum {
-		t.Errorf("Expcected %d, got %d", Reason.HttpHeaderRefresh, enum)
+	if Reason.HTTPHeaderRefresh != enum {
+		t.Errorf("Expcected %d, got %d", Reason.HTTPHeaderRefresh, enum)
 	}
+}
+func TestEnumReason2(t *testing.T) {
+	var enum ReasonEnum
+	var err error
+	var result []byte
 
 	enum = Reason.ScriptInitiated
 	result, err = json.Marshal(enum)

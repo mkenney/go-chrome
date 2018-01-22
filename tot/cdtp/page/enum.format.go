@@ -10,13 +10,16 @@ type formatEnum struct {
 	Jpeg FormatEnum
 }
 
+/*
+Format provides named acces to the FormatEnum values.
+*/
 var Format = formatEnum{
 	Png:  formatPng,
 	Jpeg: formatJpeg,
 }
 
 /*
-Format defines the Javascript dialog type. Allowed values:
+FormatEnum defines the Javascript dialog type. Allowed values:
 	- Format.Png  "png"
 	- Format.Jpeg "jpeg"
 

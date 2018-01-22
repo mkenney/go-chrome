@@ -12,6 +12,9 @@ type levelEnum struct {
 	Error   LevelEnum
 }
 
+/*
+Level provides named acces to the LevelEnum values.
+*/
 var Level = levelEnum{
 	Verbose: levelVerbose,
 	Info:    levelInfo,
@@ -20,11 +23,11 @@ var Level = levelEnum{
 }
 
 /*
-Log entry severity. Allowed values:
-	- verbose
-	- info
-	- warning
-	- error
+LevelEnum represents the log entry severity. Allowed values:
+	- Level.Verbose "verbose"
+	- Level.Info    "info"
+	- Level.Warning "warning"
+	- Level.Error   "error"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#type-LogEntry
 */

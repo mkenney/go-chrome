@@ -61,6 +61,12 @@ func TestEnumCallType(t *testing.T) {
 	if CallType.Info != enum {
 		t.Errorf("Expcected %d, got %d", CallType.Info, enum)
 	}
+}
+
+func TestEnumCallType2(t *testing.T) {
+	var enum CallTypeEnum
+	var err error
+	var result []byte
 
 	enum = CallType.Error
 	result, err = json.Marshal(enum)
@@ -113,6 +119,12 @@ func TestEnumCallType(t *testing.T) {
 	if CallType.Dirxml != enum {
 		t.Errorf("Expcected %d, got %d", CallType.Dirxml, enum)
 	}
+}
+
+func TestEnumCallType3(t *testing.T) {
+	var enum CallTypeEnum
+	var err error
+	var result []byte
 
 	enum = CallType.Table
 	result, err = json.Marshal(enum)
@@ -165,6 +177,12 @@ func TestEnumCallType(t *testing.T) {
 	if CallType.StartGroup != enum {
 		t.Errorf("Expcected %d, got %d", CallType.StartGroup, enum)
 	}
+}
+
+func TestEnumCallType4(t *testing.T) {
+	var enum CallTypeEnum
+	var err error
+	var result []byte
 
 	enum = CallType.StartGroupCollapsed
 	result, err = json.Marshal(enum)
@@ -217,6 +235,12 @@ func TestEnumCallType(t *testing.T) {
 	if CallType.Profile != enum {
 		t.Errorf("Expcected %d, got %d", CallType.Profile, enum)
 	}
+}
+
+func TestEnumCallType5(t *testing.T) {
+	var enum CallTypeEnum
+	var err error
+	var result []byte
 
 	enum = CallType.ProfileEnd
 	result, err = json.Marshal(enum)

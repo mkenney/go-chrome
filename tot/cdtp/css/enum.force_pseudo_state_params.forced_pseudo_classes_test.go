@@ -61,6 +61,12 @@ func TestEnumForcedPseudoClasses(t *testing.T) {
 	if ForcedPseudoClasses.Hover != enum {
 		t.Errorf("Expcected %d, got %d", ForcedPseudoClasses.Hover, enum)
 	}
+}
+
+func TestEnumForcedPseudoClasses2(t *testing.T) {
+	var enum ForcedPseudoClassesEnum
+	var err error
+	var result []byte
 
 	enum = ForcedPseudoClasses.Visited
 	result, err = json.Marshal(enum)

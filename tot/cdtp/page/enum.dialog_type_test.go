@@ -61,6 +61,12 @@ func TestEnumDialogType(t *testing.T) {
 	if DialogType.Prompt != enum {
 		t.Errorf("Expcected %d, got %d", DialogType.Prompt, enum)
 	}
+}
+
+func TestEnumDialogType2(t *testing.T) {
+	var enum DialogTypeEnum
+	var err error
+	var result []byte
 
 	enum = DialogType.Beforeunload
 	result, err = json.Marshal(enum)

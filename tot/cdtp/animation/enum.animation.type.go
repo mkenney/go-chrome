@@ -5,46 +5,49 @@ import (
 	"fmt"
 )
 
-type animationTypeEnum struct {
-	CSSTransition AnimationTypeEnum
-	CSSAnimation  AnimationTypeEnum
-	WebAnimation  AnimationTypeEnum
-}
-
-var AnimationType = animationTypeEnum{
-	CSSTransition: animationTypeCSSTransition,
-	CSSAnimation:  animationTypeCSSAnimation,
-	WebAnimation:  animationTypeWebAnimation,
+type typeEnum struct {
+	CSSTransition TypeEnum
+	CSSAnimation  TypeEnum
+	WebAnimation  TypeEnum
 }
 
 /*
-Animation type of Animation. Allowed values:
-	- CSSTransition
-	- CSSAnimation
-	- WebAnimation
+Type provides named acces to the TypeEnum values.
+*/
+var Type = typeEnum{
+	CSSTransition: typeCSSTransition,
+	CSSAnimation:  typeCSSAnimation,
+	WebAnimation:  typeWebAnimation,
+}
+
+/*
+TypeEnum represents the type of Animation. Allowed values:
+	- Type.CSSTransition "CSSTransition"
+	- Type.CSSAnimation  "CSSAnimation"
+	- Type.WebAnimation  "WebAnimation"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#type-Animation
 */
-type AnimationTypeEnum int
+type TypeEnum int
 
 /*
 String implements Stringer
 */
-func (enum AnimationTypeEnum) String() string {
-	return _animationTypeEnums[enum]
+func (enum TypeEnum) String() string {
+	return _typeEnums[enum]
 }
 
 /*
 MarshalJSON implements json.Marshaler
 */
-func (enum AnimationTypeEnum) MarshalJSON() ([]byte, error) {
+func (enum TypeEnum) MarshalJSON() ([]byte, error) {
 	return json.Marshal(enum.String())
 }
 
 /*
 UnmarshalJSON implements json.Unmarshaler
 */
-func (enum *AnimationTypeEnum) UnmarshalJSON(bytes []byte) error {
+func (enum *TypeEnum) UnmarshalJSON(bytes []byte) error {
 	var err error
 	var val string
 
@@ -53,27 +56,27 @@ func (enum *AnimationTypeEnum) UnmarshalJSON(bytes []byte) error {
 		return err
 	}
 
-	for k, v := range _animationTypeEnums {
+	for k, v := range _typeEnums {
 		if v == val {
 			*enum = k
 			return nil
 		}
 	}
 
-	return fmt.Errorf("%s is not a valid animationType value", bytes)
+	return fmt.Errorf("%s is not a valid Type value", bytes)
 }
 
 const (
-	// animationTypeCSSTransition represents the "CSSTransition" value.
-	animationTypeCSSTransition AnimationTypeEnum = iota + 1
-	// animationTypeCSSAnimation represents the "CSSAnimation" value.
-	animationTypeCSSAnimation
-	// animationTypeWebAnimation represents the "WebAnimation" value.
-	animationTypeWebAnimation
+	// typeCSSTransition represents the "CSSTransition" value.
+	typeCSSTransition TypeEnum = iota + 1
+	// typeCSSAnimation represents the "CSSAnimation" value.
+	typeCSSAnimation
+	// typeWebAnimation represents the "WebAnimation" value.
+	typeWebAnimation
 )
 
-var _animationTypeEnums = map[AnimationTypeEnum]string{
-	animationTypeCSSTransition: "CSSTransition",
-	animationTypeCSSAnimation:  "CSSAnimation",
-	animationTypeWebAnimation:  "WebAnimation",
+var _typeEnums = map[TypeEnum]string{
+	typeCSSTransition: "CSSTransition",
+	typeCSSAnimation:  "CSSAnimation",
+	typeWebAnimation:  "WebAnimation",
 }

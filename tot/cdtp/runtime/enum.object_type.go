@@ -16,6 +16,9 @@ type objectTypeEnum struct {
 	Accessor  ObjectTypeEnum
 }
 
+/*
+ObjectType provides named acces to the ObjectTypeEnum values.
+*/
 var ObjectType = objectTypeEnum{
 	Object:    objectTypeObject,
 	Function:  objectTypeFunction,
@@ -28,8 +31,8 @@ var ObjectType = objectTypeEnum{
 }
 
 /*
-Object type. For properties, "accessor" means that the property itself is an
-accessor property. Allowed values:
+ObjectTypeEnum represents the object type. For properties, "accessor" means that
+the property itself is an accessor property. Allowed values:
 	- ObjectType.Object    "object"
 	- ObjectType.Function  "function"
 	- ObjectType.Undefined "undefined"

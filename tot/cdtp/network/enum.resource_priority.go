@@ -13,6 +13,9 @@ type resourcePriorityEnum struct {
 	VeryHigh ResourcePriorityEnum
 }
 
+/*
+ResourcePriority provides named acces to the ResourcePriorityEnum values.
+*/
 var ResourcePriority = resourcePriorityEnum{
 	VeryLow:  resourcePriorityVeryLow,
 	Low:      resourcePriorityLow,
@@ -22,13 +25,13 @@ var ResourcePriority = resourcePriorityEnum{
 }
 
 /*
-ResourcePriority represents the loading priority of a resource request. Allowed
-values:
-	- ResourcePriority.VeryLow
-	- ResourcePriority.Low
-	- ResourcePriority.Medium
-	- ResourcePriority.High
-	- ResourcePriority.VeryHigh
+ResourcePriorityEnum represents the loading priority of a resource request.
+Allowed values:
+	- ResourcePriority.VeryLow  "VeryLow"
+	- ResourcePriority.Low      "Low"
+	- ResourcePriority.Medium   "Medium"
+	- ResourcePriority.High     "High"
+	- ResourcePriority.VeryHigh "VeryHigh"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#type-ResourcePriority
 */

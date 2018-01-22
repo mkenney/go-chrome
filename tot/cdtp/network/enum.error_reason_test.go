@@ -61,6 +61,12 @@ func TestEnumErrorReason(t *testing.T) {
 	if ErrorReason.TimedOut != enum {
 		t.Errorf("Expcected %d, got %d", ErrorReason.TimedOut, enum)
 	}
+}
+
+func TestEnumErrorReason2(t *testing.T) {
+	var enum ErrorReasonEnum
+	var err error
+	var result []byte
 
 	enum = ErrorReason.AccessDenied
 	result, err = json.Marshal(enum)
@@ -113,6 +119,12 @@ func TestEnumErrorReason(t *testing.T) {
 	if ErrorReason.ConnectionRefused != enum {
 		t.Errorf("Expcected %d, got %d", ErrorReason.ConnectionRefused, enum)
 	}
+}
+
+func TestEnumErrorReason3(t *testing.T) {
+	var enum ErrorReasonEnum
+	var err error
+	var result []byte
 
 	enum = ErrorReason.ConnectionAborted
 	result, err = json.Marshal(enum)
@@ -165,6 +177,12 @@ func TestEnumErrorReason(t *testing.T) {
 	if ErrorReason.InternetDisconnected != enum {
 		t.Errorf("Expcected %d, got %d", ErrorReason.InternetDisconnected, enum)
 	}
+}
+
+func TestEnumErrorReason4(t *testing.T) {
+	var enum ErrorReasonEnum
+	var err error
+	var result []byte
 
 	enum = ErrorReason.AddressUnreachable
 	result, err = json.Marshal(enum)

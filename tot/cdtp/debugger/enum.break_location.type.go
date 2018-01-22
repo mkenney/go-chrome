@@ -11,6 +11,9 @@ type breakLocationTypeEnum struct {
 	Return            BreakLocationTypeEnum
 }
 
+/*
+BreakLocationType provides named acces to the BreakLocationTypeEnum values.
+*/
 var BreakLocationType = breakLocationTypeEnum{
 	DebuggerStatement: BreakLocationTypeDebuggerStatement,
 	Call:              BreakLocationTypeCall,
@@ -18,10 +21,10 @@ var BreakLocationType = breakLocationTypeEnum{
 }
 
 /*
- Optional. Allowed values:
-	- debuggerStatement
-	- call
-	- return
+BreakLocationTypeEnum is Optional. Allowed values:
+	- BreakLocationType.DebuggerStatement "debuggerStatement"
+	- BreakLocationType.Call              "call"
+	- BreakLocationType.Return            "return"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#type-BreakLocation
 */

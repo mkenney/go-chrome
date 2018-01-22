@@ -12,6 +12,9 @@ type keyTypeEnum struct {
 	Array  KeyTypeEnum
 }
 
+/*
+KeyType provides named acces to the KeyTypeEnum values.
+*/
 var KeyType = keyTypeEnum{
 	Number: keyTypeNumber,
 	String: keyTypeString,
@@ -20,11 +23,11 @@ var KeyType = keyTypeEnum{
 }
 
 /*
-Key type. Allowed values:
-	- number
-	- string
-	- date
-	- array
+KeyTypeEnum represents the key type. Allowed values:
+	- KeyType.Number "number"
+	- KeyType.String "string"
+	- KeyType.Date   "date"
+	- KeyType.Array  "array"
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#type-ScreenshotParams
 */

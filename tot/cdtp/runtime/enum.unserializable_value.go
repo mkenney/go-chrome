@@ -12,6 +12,9 @@ type unserializableValueEnum struct {
 	NegZero     UnserializableValueEnum
 }
 
+/*
+UnserializableValue provides named acces to the UnserializableValueEnum values.
+*/
 var UnserializableValue = unserializableValueEnum{
 	Infinity:    unserializableValueInfinity,
 	NaN:         unserializableValueNaN,
@@ -20,7 +23,7 @@ var UnserializableValue = unserializableValueEnum{
 }
 
 /*
-UnserializableValue is a primitive value which cannot be JSON-stringified.
+UnserializableValueEnum is a primitive value which cannot be JSON-stringified.
 Allowed values:
 	- UnserializableValue.Infinity    "Infinity"
 	- UnserializableValue.NaN         "NaN"

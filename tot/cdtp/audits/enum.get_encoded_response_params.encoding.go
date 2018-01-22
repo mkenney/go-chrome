@@ -11,6 +11,9 @@ type encodingEnum struct {
 	Png  EncodingEnum
 }
 
+/*
+Encoding provides named acces to the EncodingEnum values.
+*/
 var Encoding = encodingEnum{
 	Webp: encodingWebp,
 	Jpeg: encodingJpeg,
@@ -18,10 +21,10 @@ var Encoding = encodingEnum{
 }
 
 /*
-The encoding to use. Allowed values:
-	- webp
-	- jpeg
-	- png
+EncodingEnum represents the encoding to use. Allowed values:
+	- Encoding.Webp "webp"
+	- Encoding.Jpeg "jpeg"
+	- Encoding.Png  "png"
 
 https://chromedevtools.github.io/devtools-protocol/tot/Audits/#method-getEncodedResponse
 */

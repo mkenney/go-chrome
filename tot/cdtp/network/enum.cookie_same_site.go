@@ -10,15 +10,18 @@ type cookieSameSiteEnum struct {
 	Lax    CookieSameSiteEnum
 }
 
+/*
+CookieSameSite provides named acces to the CookieSameSiteEnum values.
+*/
 var CookieSameSite = cookieSameSiteEnum{
 	Strict: cookieSameSiteStrict,
 	Lax:    cookieSameSiteLax,
 }
 
 /*
-CookieSameSite represents the cookie's 'SameSite' status. Allowed values:
-	- CookieSameSite.Strict
-	- CookieSameSite.Lax
+CookieSameSiteEnum represents the cookie's 'SameSite' status. Allowed values:
+	- CookieSameSite.Strict "Strict"
+	- CookieSameSite.Lax    "Lax"
 
 https://tools.ietf.org/html/draft-west-first-party-cookies
 
