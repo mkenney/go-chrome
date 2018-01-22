@@ -1,7 +1,8 @@
 package socket
 
 /*
-Conner defines the Socket connection interface required by the API.
+Conner defines the Socket connection interface for managing websocket
+connections, including reading and writing.
 */
 type Conner interface {
 	// Conn returns the current web socket pointer.
@@ -13,7 +14,7 @@ type Conner interface {
 	// Connected returns whether a connection exists.
 	Connected() bool
 
-	// Connect closes a websocket connection.
+	// Disconnect closes a websocket connection.
 	Disconnect() error
 
 	// ReadJSON reads data from a websocket connection.

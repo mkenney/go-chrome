@@ -12,14 +12,6 @@ import (
 )
 
 /*
-ChromeWebSocket represents a WebSocketer interface
-*/
-type ChromeWebSocket struct {
-	conn          *websocket.Conn
-	mockResponses []*Response
-}
-
-/*
 NewWebsocket returns a connected socket connection that implements the
 WebSocketer interface.
 */
@@ -41,7 +33,20 @@ func NewWebsocket(socketURL *url.URL) (*ChromeWebSocket, error) {
 }
 
 /*
-Close implements WebSocketer.
+ChromeWebSocket provides an WebSocketer interface for managing a websocket
+connection.
+
+ChromeWebSocket represents a WebSocketer interface
+*/
+type ChromeWebSocket struct {
+	conn          *websocket.Conn
+	mockResponses []*Response
+}
+
+/*
+Close closes the current websocket connection.
+
+Close is a WebSocketer implementation.
 */
 func (socket *ChromeWebSocket) Close() error {
 	if nil != socket.conn {
@@ -51,7 +56,10 @@ func (socket *ChromeWebSocket) Close() error {
 }
 
 /*
-ReadJSON implements WebSocketer.
+ReadJSON listens for the next websocket message and unmarshalls it into the
+provided variable.
+
+ReadJSON is a WebSocketer implementation.
 
 To support tests, when a live web socket connection does not exist this method
 reads from a stack of manually populated responses in an attempt to emulate the
@@ -85,7 +93,9 @@ func (socket *ChromeWebSocket) ReadJSON(v interface{}) error {
 }
 
 /*
-WriteJSON implements WebSocketer.
+WriteJSON marshalls the provided data as JSON and writes it to the websocket.
+
+WriteJSON is a WebSocketer implementation.
 */
 func (socket *ChromeWebSocket) WriteJSON(v interface{}) error {
 	if nil != socket.conn {
@@ -95,7 +105,7 @@ func (socket *ChromeWebSocket) WriteJSON(v interface{}) error {
 }
 
 /*
-AddMockData implements WebSocketer.
+AddMockData is a WebSocketer implementation.
 
 This method is only indended for mocking data for unit tests and will panic if
 used on a live websocket connection.

@@ -14,7 +14,7 @@ func NewEventHandler(
 }
 
 /*
-Handler implements EventHandler.
+Handler provides an EventHandler interface for managing an event handler.
 */
 type Handler struct {
 	callback func(response *Response)
@@ -22,17 +22,21 @@ type Handler struct {
 }
 
 /*
-Name implements EventHandler.
-*/
-func (handler *Handler) Name() string {
-	return handler.name
-}
+Handle executes the event handler callback.
 
-/*
-Handle implements EventHandler.
+Handle is an EventHandler implementation.
 */
 func (handler *Handler) Handle(
 	response *Response,
 ) {
 	handler.callback(response)
+}
+
+/*
+Name returns the name of the event the handler is assigned to.
+
+Name is an EventHandler implementation.
+*/
+func (handler *Handler) Name() string {
+	return handler.name
 }

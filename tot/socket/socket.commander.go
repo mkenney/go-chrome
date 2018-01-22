@@ -15,7 +15,7 @@ func NewCommand(socket Socketer, method string, params interface{}) *Command {
 }
 
 /*
-Command implements Commander.
+Command provides a Commander interface for sending commands to a websocket.
 */
 type Command struct {
 	// err contains any error resulting from executing the command.
@@ -40,42 +40,54 @@ type Command struct {
 }
 
 /*
-Error implements Commander.
+Error returns the most recent error, if any.
+
+Error is a Commander implementation.
 */
 func (cmd *Command) Error() error {
 	return cmd.err
 }
 
 /*
-ID implements Commander.
+ID returns the command ID.
+
+ID is a Commander implementation.
 */
 func (cmd *Command) ID() int {
 	return cmd.id
 }
 
 /*
-Method implements Commander.
+Method returns the name of the Chrom DevTools Protocol method to be called.
+
+Method is a Commander implementation.
 */
 func (cmd *Command) Method() string {
 	return cmd.method
 }
 
 /*
-Params implements Commander.
+Params returns the command parameters.
+
+Params is a Commander implementation.
 */
 func (cmd *Command) Params() interface{} {
 	return cmd.params
 }
 
 /*
-Respond implements Commander.
+Respond sends a response to the command response channel.
+
+Respond is a Commander implementation.
 */
 func (cmd *Command) Respond(response *Response) {
 	cmd.response <- response
 }
 
 /*
-Response implements Commander.
+Response returns the command response channel.
+
+Response is a Commander implementation.
 */
 func (cmd *Command) Response() chan *Response {
 	return cmd.response

@@ -18,7 +18,8 @@ func NewEventHandlerMap() *EventHandlerMap {
 }
 
 /*
-EventHandlerMap defines the event handler stacks for all handled events.
+EventHandlerMap provides an EventHandlerMapper interface for handling the event
+handler stack.
 */
 type EventHandlerMap struct {
 	stack map[string][]EventHandler
@@ -26,7 +27,9 @@ type EventHandlerMap struct {
 }
 
 /*
-Add implements EventHandlerMapper.
+Add adds a handler to the stack of handlers for an event.
+
+Add is an EventHandlerMapper implementation.
 */
 func (stack *EventHandlerMap) Add(
 	handler EventHandler,
@@ -51,7 +54,9 @@ func (stack *EventHandlerMap) Add(
 }
 
 /*
-Delete implements EventHandlerMapper.
+Delete removes the entire stack of handlers for an event.
+
+Delete is an EventHandlerMapper implementation.
 */
 func (stack *EventHandlerMap) Delete(
 	name string,
@@ -60,7 +65,9 @@ func (stack *EventHandlerMap) Delete(
 }
 
 /*
-Get implements EventHandlerMapper.
+Get retrieves the entire stack of handlers for an event.
+
+Get is an EventHandlerMapper implementation.
 */
 func (stack *EventHandlerMap) Get(
 	name string,
@@ -72,14 +79,18 @@ func (stack *EventHandlerMap) Get(
 }
 
 /*
-Lock implements EventHandlerMapper.
+Lock locks the sync mutex.
+
+Lock is an EventHandlerMapper implementation.
 */
 func (stack *EventHandlerMap) Lock() {
 	stack.mux.Lock()
 }
 
 /*
-Remove implements EventHandlerMapper.
+Remove removes a handler from the stack of handlers for an event.
+
+Remove is an EventHandlerMapper implementation.
 */
 func (stack *EventHandlerMap) Remove(
 	handler EventHandler,
@@ -97,7 +108,9 @@ func (stack *EventHandlerMap) Remove(
 }
 
 /*
-Set implements EventHandlerMapper.
+Set sets the entire stack of handlers for an event.
+
+Set is an EventHandlerMapper implementation.
 */
 func (stack *EventHandlerMap) Set(
 	eventName string,
@@ -107,7 +120,9 @@ func (stack *EventHandlerMap) Set(
 }
 
 /*
-Unlock implements EventHandlerMapper.
+Unlock unlocks the sync mutex.
+
+Unlock is an EventHandlerMapper implementation.
 */
 func (stack *EventHandlerMap) Unlock() {
 	stack.mux.Unlock()
