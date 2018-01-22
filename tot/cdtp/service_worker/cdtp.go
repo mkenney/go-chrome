@@ -26,34 +26,6 @@ type Registration struct {
 }
 
 /*
-VersionRunningStatus is the version running status
-
-ALLOWED VALUES
-	- stopped
-	- starting
-	- running
-	- stopping
-
-https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#type-ServiceWorkerVersionRunningStatus
-*/
-type VersionRunningStatus string
-
-/*
-VersionStatus is the version status
-
-ALLOWED VALUES
-	- new
-	- installing
-	- installed
-	- activating
-	- activated
-	- redundant
-
-https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#type-ServiceWorkerVersionStatus
-*/
-type VersionStatus string
-
-/*
 Version is the ServiceWorker version.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#type-ServiceWorkerVersion
@@ -69,10 +41,10 @@ type Version struct {
 	ScriptURL string `json:"scriptURL"`
 
 	// runningStatus.
-	RunningStatus VersionRunningStatus `json:"runningStatus"`
+	RunningStatus VersionRunningStatusEnum `json:"runningStatus"`
 
 	// status.
-	Status VersionStatus `json:"status"`
+	Status VersionStatusEnum `json:"status"`
 
 	// Optional. The Last-Modified header value of the main script.
 	ScriptLastModified int64 `json:"scriptLastModified,omitempty"`

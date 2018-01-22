@@ -169,9 +169,9 @@ func TestTracingStart(t *testing.T) {
 		Categories: "Categories",
 		Options:    "Options",
 		BufferUsageReportingInterval: 1,
-		TransferMode:                 "ReportEvents",
+		TransferMode:                 tracing.TransferMode.ReportEvents,
 		TraceConfig: &tracing.TraceConfig{
-			RecordMode:           "recordUntilFull",
+			RecordMode:           tracing.RecordMode.RecordUntilFull,
 			EnableSampling:       true,
 			EnableSystrace:       true,
 			EnableArgumentFilter: true,

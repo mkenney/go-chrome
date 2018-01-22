@@ -128,7 +128,7 @@ type Request struct {
 	PostData string `json:"postData,omitempty"`
 
 	// Optional. The mixed content type of the request.
-	MixedContentType security.MixedContentType `json:"mixedContentType,omitempty"`
+	MixedContentType security.MixedContentTypeEnum `json:"mixedContentType,omitempty"`
 
 	// Priority of the resource request at the time request is sent. Allowed
 	// values:
@@ -292,7 +292,7 @@ type Response struct {
 	Protocol string `json:"protocol,omitempty"`
 
 	// Security state of the request resource.
-	SecurityState security.State `json:"securityState"`
+	SecurityState security.StateEnum `json:"securityState"`
 
 	// Optional. Security details for the request.
 	SecurityDetails *SecurityDetails `json:"securityDetails,omitempty"`
