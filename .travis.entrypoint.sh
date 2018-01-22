@@ -29,5 +29,14 @@ for dir in $(go list ./... | grep -v vendor); do
     fi
 done
 
-exit 0
+exit_code=0
+for dir in $(go list ./... | grep -v vendor); do
+    echo "golint $dir"
+    result=$(golint $dir)
+    if [ "" != "$result" ]; then
+        echo $result
+        exit_code=5
+    fi
+done
 
+exit $exit_code
