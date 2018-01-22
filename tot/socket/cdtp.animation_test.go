@@ -229,15 +229,15 @@ func TestAnimationResolveAnimation(t *testing.T) {
 	resultChan := mockSocket.Animation().ResolveAnimation(params)
 	mockResult := &animation.ResolveAnimationResult{
 		RemoteObject: &runtime.RemoteObject{
-			Type:                "array",
+			Type:                runtime.ObjectType.Object,
 			ClassName:           "some-class",
 			Value:               nil,
-			UnserializableValue: runtime.UnserializableValue(1),
+			UnserializableValue: runtime.UnserializableValue.Infinity,
 			Description:         "Animation description",
 			ObjectID:            "object-id",
 			Preview: &runtime.ObjectPreview{
-				Type:        "object",
-				Subtype:     "weakmap",
+				Type:        runtime.ObjectType.Object,
+				Subtype:     runtime.ObjectSubtype.Array,
 				Description: "Preview description",
 				Overflow:    true,
 				Properties:  []*runtime.PropertyPreview{},
@@ -546,7 +546,7 @@ func TestAnimationOnAnimationStarted(t *testing.T) {
 			PlaybackRate: 1.1,
 			StartTime:    time.Now().Unix(),
 			CurrentTime:  time.Now().Unix(),
-			Type:         "animation-type",
+			Type:         animation.AnimationType.CSSTransition,
 			Source: &animation.Effect{
 				Delay:          1,
 				EndDelay:       1,

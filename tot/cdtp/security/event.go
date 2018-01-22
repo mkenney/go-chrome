@@ -25,8 +25,13 @@ StateChangedEvent represents Security.securityStateChanged event data.
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#event-securityStateChanged
 */
 type StateChangedEvent struct {
-	// Security state.
-	State State `json:"securityState"`
+	// Security state. Allowed values:
+	//	- State.Unknown
+	//	- State.Neutral
+	//	- State.Insecure
+	//	- State.Secure
+	//	- State.Info
+	State StateEnum `json:"securityState"`
 
 	// True if the page was loaded over cryptographic transport such as HTTPS.
 	SchemeIsCryptographic bool `json:"schemeIsCryptographic"`

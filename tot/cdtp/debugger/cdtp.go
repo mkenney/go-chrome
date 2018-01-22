@@ -91,16 +91,16 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#type-Scope
 */
 type Scope struct {
 	// Scope type. Allowed values:
-	//	- global
-	//	- local
-	//	- with
-	//	- closure
-	//	- catch
-	//	- block
-	//	- script
-	//	- eval
-	//	- module.
-	Type string `json:"type"`
+	//	- ScopeType.Global
+	//	- ScopeType.Local
+	//	- ScopeType.With
+	//	- ScopeType.Closure
+	//	- ScopeType.Catch
+	//	- ScopeType.Block
+	//	- ScopeType.Script
+	//	- ScopeType.Eval
+	//	- ScopeType.Module.
+	Type ScopeTypeEnum `json:"type"`
 
 	// Object representing the scope. For global and with scopes it represents
 	// the actual object; for the rest of the scopes, it is artificial transient
@@ -146,8 +146,8 @@ type BreakLocation struct {
 	ColumnNumber int `json:"columnNumber,omitempty"`
 
 	// Optional. Allowed values:
-	//	- debuggerStatement
-	//	- call
-	//	- return.
-	Type string `json:"type,omitempty"`
+	//	- BreakLocationType.DebuggerStatement
+	//	- BreakLocationType.Call
+	//	- BreakLocationType.Return.
+	Type BreakLocationTypeEnum `json:"type,omitempty"`
 }

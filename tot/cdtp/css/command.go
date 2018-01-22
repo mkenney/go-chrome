@@ -108,8 +108,12 @@ type ForcePseudoStateParams struct {
 	NodeID dom.NodeID `json:"nodeId"`
 
 	// Element pseudo classes to force when computing the element's style.
-	// Allowed values: active, focus, hover, visited.
-	ForcedPseudoClasses []string `json:"forcedPseudoClasses"`
+	// Allowed values:
+	//	- ForcedPseudoClasses.Active
+	//	- ForcedPseudoClasses.Focus
+	//	- ForcedPseudoClasses.Hover
+	//	- ForcedPseudoClasses.Visited
+	ForcedPseudoClasses []ForcedPseudoClassesEnum `json:"forcedPseudoClasses"`
 }
 
 /*

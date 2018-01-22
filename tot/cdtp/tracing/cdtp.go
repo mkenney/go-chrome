@@ -19,14 +19,12 @@ TraceConfig is the trace configuration
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#type-TraceConfig
 */
 type TraceConfig struct {
-	// Optional. Controls how the trace buffer stores data.
-	//
-	// Allowed values:
-	//	- recordUntilFull
-	//	- recordContinuously
-	//	- recordAsMuchAsPossible
-	//	- echoToConsole
-	RecordMode string `json:"recordMode,omitempty"`
+	// Optional. Controls how the trace buffer stores data. Allowed values:
+	//	- RecordMode.RecordUntilFull
+	//	- RecordMode.RecordContinuously
+	//	- RecordMode.RecordAsMuchAsPossible
+	//	- RecordMode.EchoToConsole
+	RecordMode RecordModeEnum `json:"recordMode,omitempty"`
 
 	// Optional. Turns on JavaScript stack sampling.
 	EnableSampling bool `json:"enableSampling,omitempty"`
@@ -50,14 +48,3 @@ type TraceConfig struct {
 	// "memory-infra" category is enabled.
 	MemoryDumpConfig MemoryDumpConfig `json:"memoryDumpConfig,omitempty"`
 }
-
-/*
-StreamCompression is the ompression type to use for traces returned via streams.
-
-ALLOWED VALUES
-	- none
-	- gzip
-
-https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#type-StreamCompression
-*/
-type StreamCompression string

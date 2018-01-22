@@ -13,40 +13,19 @@ https://chromedevtools.github.io/devtools-protocol/tot/Security/#type-Certificat
 type CertificateID int
 
 /*
-MixedContentType is a description of mixed content (HTTP resources on HTTPS pages), as defined by
-https://www.w3.org/TR/mixed-content/#categories
-
-ALLOWED VALUES
-	- blockable
-	- optionally-blockable
-	- none
-
-https://chromedevtools.github.io/devtools-protocol/tot/Security/#type-MixedContentType
-*/
-type MixedContentType string
-
-/*
-State is the security level of a page or resource.
-
-ALLOWED VALUES
-	- unknown
-	- neutral
-	- insecure
-	- secure
-	- info
-
-https://chromedevtools.github.io/devtools-protocol/tot/Security/#type-SecurityState
-*/
-type State string
-
-/*
 StateExplanation is an explanation of a factor contributing to the security state.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#type-SecurityStateExplanation
 */
 type StateExplanation struct {
 	// Security state representing the severity of the factor being explained.
-	State State `json:"securityState"`
+	// Allowed values:
+	//	- State.Unknown
+	//	- State.Neutral
+	//	- State.Insecure
+	//	- State.Secure
+	//	- State.Info
+	State StateEnum `json:"securityState"`
 
 	// Short phrase describing the type of factor.
 	Summary string `json:"summary"`
@@ -55,7 +34,7 @@ type StateExplanation struct {
 	Description string `json:"description"`
 
 	// The type of mixed content described by the explanation.
-	MixedContentType MixedContentType `json:"mixedContentType"`
+	MixedContentType MixedContentTypeEnum `json:"mixedContentType"`
 
 	// Page certificate.
 	Certificate []string `json:"certificate"`
@@ -87,21 +66,21 @@ type InsecureContentStatus struct {
 	// displayed content such as images that were loaded with certificate errors.
 	DisplayedContentWithCertErrors bool `json:"displayedContentWithCertErrors"`
 
-	// Security state representing a page that ran insecure content.
-	RanInsecureContentStyle State `json:"ranInsecureContentStyle"`
+	// Security state representing a page that ran insecure content. Allowed
+	// values:
+	//	- State.Unknown
+	//	- State.Neutral
+	//	- State.Insecure
+	//	- State.Secure
+	//	- State.Info
+	RanInsecureContentStyle StateEnum `json:"ranInsecureContentStyle"`
 
 	// Security state representing a page that displayed insecure content.
-	DisplayedInsecureContentStyle State `json:"displayedInsecureContentStyle"`
+	// Allowed values:
+	//	- State.Unknown
+	//	- State.Neutral
+	//	- State.Insecure
+	//	- State.Secure
+	//	- State.Info
+	DisplayedInsecureContentStyle StateEnum `json:"displayedInsecureContentStyle"`
 }
-
-/*
-CertificateErrorAction describes the action to take when a certificate error occurs. 'continue' will
-continue processing the request and 'cancel' will cancel the request.
-
-ALLOWED VALUES
-	- continue
-	- cancel
-
-https://chromedevtools.github.io/devtools-protocol/tot/Security/#type-CertificateErrorAction
-*/
-type CertificateErrorAction string

@@ -16,7 +16,7 @@ func TestInputDispatchKeyEvent(t *testing.T) {
 	defer mockSocket.Stop()
 
 	params := &input.DispatchKeyEventParams{
-		Type:           "type",
+		Type:           input.KeyEvent.KeyDown,
 		Modifiers:      1,
 		Timestamp:      input.TimeSinceEpoch(time.Now().Unix()),
 		Text:           "text",
@@ -66,12 +66,12 @@ func TestInputDispatchMouseEvent(t *testing.T) {
 	defer mockSocket.Stop()
 
 	params := &input.DispatchMouseEventParams{
-		Type:       "mousePressed",
+		Type:       input.MouseEvent.MousePressed,
 		X:          1,
 		Y:          1,
 		Modifiers:  1,
 		Timestamp:  input.TimeSinceEpoch(time.Now().Unix()),
-		Button:     "button",
+		Button:     input.ButtonEvent.None,
 		ClickCount: 1,
 		DeltaX:     1,
 		DeltaY:     1,
@@ -111,7 +111,7 @@ func TestInputDispatchTouchEvent(t *testing.T) {
 	defer mockSocket.Stop()
 
 	params := &input.DispatchTouchEventParams{
-		Type: "touchStart",
+		Type: input.TouchEvent.TouchStart,
 		TouchPoints: []*input.TouchPoint{{
 			X:             1,
 			Y:             1,
@@ -159,11 +159,11 @@ func TestInputEmulateTouchFromMouseEvent(t *testing.T) {
 	defer mockSocket.Stop()
 
 	params := &input.EmulateTouchFromMouseEventParams{
-		Type:       "mousePressed",
+		Type:       input.MouseEvent.MousePressed,
 		X:          1,
 		Y:          1,
 		Timestamp:  input.TimeSinceEpoch(time.Now().Unix()),
-		Button:     "button",
+		Button:     input.ButtonEvent.None,
 		DeltaX:     1,
 		DeltaY:     1,
 		Modifiers:  1,

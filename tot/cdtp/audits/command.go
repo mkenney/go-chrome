@@ -13,8 +13,11 @@ type GetEncodedResponseParams struct {
 	// Identifier of the network request to get content for.
 	RequestID network.RequestID `json:"requestId"`
 
-	// The encoding to use. Allowed values: webp, jpeg, png.
-	Encoding string `json:"encoding"`
+	// The encoding to use. Allowed values:
+	//	- Encoding.Webp
+	//	- Encoding.Jpeg
+	//	- Encoding.Png
+	Encoding EncodingEnum `json:"encoding"`
 
 	// Optional. The quality of the encoding (0-1). (defaults to 1).
 	Quality float64 `json:"quality,omitempty"`

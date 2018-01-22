@@ -40,6 +40,63 @@ func TestCSSAddRule(t *testing.T) {
 			}},
 			Text: "rule text",
 		},
+		Origin: css.StyleSheetOrigin.Injected,
+		Style: &css.Style{
+			StyleSheetID: css.StyleSheetID("stylesheet-id"),
+			Properties: []*css.Property{{
+				Name:      "Name",
+				Value:     "Value",
+				Important: true,
+				Implicit:  true,
+				Text:      "Text",
+				ParsedOk:  true,
+				Disabled:  true,
+				Range: &css.SourceRange{
+					StartLine:   10,
+					StartColumn: 10,
+					EndLine:     10,
+					EndColumn:   10,
+				},
+			}},
+			ShorthandEntries: []*css.ShorthandEntry{{
+				Name:      "Name",
+				Value:     "Value",
+				Important: true,
+			}},
+			Text: "Text",
+			Range: &css.SourceRange{
+				StartLine:   1,
+				StartColumn: 1,
+				EndLine:     1,
+				EndColumn:   1,
+			},
+		},
+		Media: []*css.Media{{
+			Text:      "media text",
+			Source:    css.Source.MediaRule,
+			SourceURL: "http://source-url",
+			Range: &css.SourceRange{
+				StartLine:   10,
+				StartColumn: 10,
+				EndLine:     10,
+				EndColumn:   10,
+			},
+			StyleSheetID: css.StyleSheetID("stylesheet-id"),
+			MediaList: []*css.MediaQuery{{
+				Expressions: []*css.MediaQueryExpression{{
+					Value:   1,
+					Unit:    "px",
+					Feature: "feature",
+					ValueRange: &css.SourceRange{
+						StartLine:   10,
+						StartColumn: 10,
+						EndLine:     10,
+						EndColumn:   10,
+					},
+					ComputedLength: 1,
+				}},
+			}},
+		}},
 	}}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().AddMockData(&Response{
@@ -241,7 +298,7 @@ func TestCSSForcePseudoState(t *testing.T) {
 
 	resultChan := mockSocket.CSS().ForcePseudoState(&css.ForcePseudoStateParams{
 		NodeID:              dom.NodeID(1),
-		ForcedPseudoClasses: []string{"pseudo-class"},
+		ForcedPseudoClasses: []css.ForcedPseudoClassesEnum{css.ForcedPseudoClasses.Active},
 	})
 	mockResult := &css.ForcePseudoStateResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
@@ -257,7 +314,7 @@ func TestCSSForcePseudoState(t *testing.T) {
 
 	resultChan = mockSocket.CSS().ForcePseudoState(&css.ForcePseudoStateParams{
 		NodeID:              dom.NodeID(1),
-		ForcedPseudoClasses: []string{"pseudo-class"},
+		ForcedPseudoClasses: []css.ForcedPseudoClassesEnum{css.ForcedPseudoClasses.Active},
 	})
 	mockSocket.Conn().AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
@@ -503,7 +560,7 @@ func TestCSSGetMatchedStylesForNode(t *testing.T) {
 						},
 					}},
 				},
-				Origin: css.StyleSheetOrigin("origin"),
+				Origin: css.StyleSheetOrigin.Injected,
 				Style:  &css.Style{},
 			},
 		}},
@@ -549,7 +606,7 @@ func TestCSSGetMediaQueries(t *testing.T) {
 	mockResult := &css.GetMediaQueriesResult{
 		Medias: []*css.Media{{
 			Text:      "media text",
-			Source:    "media source",
+			Source:    css.Source.MediaRule,
 			SourceURL: "http://source-url",
 			Range: &css.SourceRange{
 				StartLine:   10,
@@ -819,7 +876,7 @@ func TestCSSSetMediaText(t *testing.T) {
 	mockResult := &css.SetMediaTextResult{
 		Media: &css.Media{
 			Text:      "some text",
-			Source:    "source",
+			Source:    css.Source.MediaRule,
 			SourceURL: "http://source-url",
 			Range: &css.SourceRange{
 				StartLine:   10,
@@ -1293,7 +1350,7 @@ func TestCSSOnStyleSheetAdded(t *testing.T) {
 			StyleSheetID: css.StyleSheetID("stylesheet-id"),
 			FrameID:      page.FrameID("frame-id"),
 			SourceURL:    "http://source-url",
-			Origin:       css.StyleSheetOrigin("stylesheet-origin"),
+			Origin:       css.StyleSheetOrigin.Injected,
 			Title:        "title",
 			OwnerNode:    dom.BackendNodeID(1),
 			Disabled:     true,

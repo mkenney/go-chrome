@@ -18,18 +18,6 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-StyleSheetId
 type StyleSheetID string
 
 /*
-StyleSheetOrigin is an enum defining:
-	- "injected" for stylesheets injected via extension
-	- "user-agent" for user-agent stylesheets
-	- "inspector" for stylesheets created by the inspector (i.e. those holding the "via inspector"
-	  rules)
-	- "regular" for regular stylesheets.
-
-https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-StyleSheetOrigin
-*/
-type StyleSheetOrigin string
-
-/*
 PseudoElementMatches is a CSS rule collection for a single pseudo style.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#type-PseudoElementMatches
@@ -114,8 +102,12 @@ type StyleSheetHeader struct {
 	// Optional. URL of source map associated with the stylesheet (if any).
 	SourceMapURL string `json:"sourceMapURL,omitempty"`
 
-	// Stylesheet origin.
-	Origin StyleSheetOrigin `json:"origin"`
+	// Stylesheet origin. Allowed values:
+	//	- StyleSheetOrigin.Injected "injected"
+	//	- StyleSheetOrigin.UserAgent "user-agent"
+	//	- StyleSheetOrigin.Inspector "inspector"
+	//	- StyleSheetOrigin.Log "regular"
+	Origin StyleSheetOriginEnum `json:"origin"`
 
 	// Stylesheet title.
 	Title string `json:"title"`
@@ -158,8 +150,12 @@ type Rule struct {
 	// Rule selector data.
 	SelectorList *SelectorList `json:"selectorList"`
 
-	// Parent stylesheet's origin.
-	Origin StyleSheetOrigin `json:"origin"`
+	// Parent stylesheet's origin. Allowed values:
+	//	- StyleSheetOrigin.Injected "injected"
+	//	- StyleSheetOrigin.UserAgent "user-agent"
+	//	- StyleSheetOrigin.Inspector "inspector"
+	//	- StyleSheetOrigin.Log "regular"
+	Origin StyleSheetOriginEnum `json:"origin"`
 
 	// Associated style declaration.
 	Style *Style `json:"style"`
@@ -308,15 +304,13 @@ type Media struct {
 	Text string `json:"text"`
 
 	// Source of the media query:
-	//	- "mediaRule" if specified by a @media rule
-	//	- "importRule" if specified by an @import rule
-	//	- "linkedSheet" if specified by a "media" attribute in a linked
-	//    stylesheet's LINK tag
-	//	- "inlineSheet" if specified by a "media" attribute in an inline
-	//    stylesheet's STYLE tag.
-	//
-	// Allowed values: mediaRule, importRule, linkedSheet, inlineSheet.
-	Source string `json:"source"`
+	//	- Source.MediaRule "injected" if specified by a @media rule
+	//	- Source.ImportRule "user-agent" if specified by an @import rule
+	//	- Source.LinkedSheet "inspector" if specified by a "media" attribute in
+	//	a linked stylesheet's LINK tag
+	//	- Source.InlineSheet "regular" if specified by a "media" attribute in an
+	//	inline stylesheet's STYLE tag.
+	Source SourceEnum `json:"source"`
 
 	// Optional. URL of the document containing the media query description.
 	SourceURL string `json:"sourceURL,omitempty"`
@@ -408,8 +402,12 @@ type KeyframeRule struct {
 	// stylesheet and user-specified stylesheet rules) this rule came from.
 	StyleSheetID StyleSheetID `json:"styleSheetId,omitempty"`
 
-	// Parent stylesheet's origin.
-	Origin StyleSheetOrigin `json:"origin"`
+	// Parent stylesheet's origin. Allowed values:
+	//	- StyleSheetOrigin.Injected "injected"
+	//	- StyleSheetOrigin.UserAgent "user-agent"
+	//	- StyleSheetOrigin.Inspector "inspector"
+	//	- StyleSheetOrigin.Log "regular"
+	Origin StyleSheetOriginEnum `json:"origin"`
 
 	// Associated key text.
 	KeyText *Value `json:"keyText"`

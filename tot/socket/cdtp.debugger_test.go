@@ -7,6 +7,7 @@ import (
 
 	debugger "github.com/mkenney/go-chrome/tot/cdtp/debugger"
 	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
+	log "github.com/sirupsen/logrus"
 )
 
 func TestDebuggerContinueToLocation(t *testing.T) {
@@ -21,7 +22,7 @@ func TestDebuggerContinueToLocation(t *testing.T) {
 			LineNumber:   1,
 			ColumnNumber: 1,
 		},
-		TargetCallFrames: "frames",
+		TargetCallFrames: debugger.TargetCallFrames.Any,
 	})
 	mockResult := &debugger.ContinueToLocationResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
@@ -41,7 +42,7 @@ func TestDebuggerContinueToLocation(t *testing.T) {
 			LineNumber:   1,
 			ColumnNumber: 1,
 		},
-		TargetCallFrames: "frames",
+		TargetCallFrames: debugger.TargetCallFrames.Any,
 	})
 	mockSocket.Conn().AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
@@ -143,36 +144,39 @@ func TestDebuggerEvaluateOnCallFrame(t *testing.T) {
 	})
 	mockResult := &debugger.EvaluateOnCallFrameResult{
 		Result: &runtime.RemoteObject{
-			Type:                "object",
-			Subtype:             "array",
+			Type:                runtime.ObjectType.Object,
+			Subtype:             runtime.ObjectSubtype.Array,
 			ClassName:           "class-name",
 			Value:               1,
-			UnserializableValue: runtime.UnserializableValue(1),
+			UnserializableValue: runtime.UnserializableValue.Infinity,
 			Description:         "description",
 			ObjectID:            runtime.RemoteObjectID("remote-object-id"),
 			Preview: &runtime.ObjectPreview{
-				Type:        "object",
-				Subtype:     "array",
+				Type:        runtime.ObjectType.Object,
+				Subtype:     runtime.ObjectSubtype.Array,
 				Description: "description",
 				Overflow:    true,
-				Properties:  []*runtime.PropertyPreview{{}},
-				Entries:     []*runtime.EntryPreview{{}},
+				Properties:  []*runtime.PropertyPreview{},
+				Entries:     []*runtime.EntryPreview{},
 			},
 			CustomPreview: &runtime.CustomPreview{},
 		},
 		ExceptionDetails: &runtime.ExceptionDetails{
-			ExceptionID:        1,
-			Text:               "exception text",
-			LineNumber:         1,
-			ColumnNumber:       1,
-			ScriptID:           runtime.ScriptID("script-id"),
-			URL:                "http://exception.url",
-			StackTrace:         &runtime.StackTrace{},
-			Exception:          &runtime.RemoteObject{},
+			ExceptionID:  1,
+			Text:         "exception text",
+			LineNumber:   1,
+			ColumnNumber: 1,
+			ScriptID:     runtime.ScriptID("script-id"),
+			URL:          "http://exception.url",
+			StackTrace:   &runtime.StackTrace{},
+			Exception: &runtime.RemoteObject{
+				Type: runtime.ObjectType.Accessor,
+			},
 			ExecutionContextID: runtime.ExecutionContextID(1),
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
+	log.Debugf("mock data: %s", mockResultBytes)
 	mockSocket.Conn().AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
@@ -234,7 +238,7 @@ func TestDebuggerGetPossibleBreakpoints(t *testing.T) {
 			ScriptID:     runtime.ScriptID("script-id"),
 			LineNumber:   1,
 			ColumnNumber: 1,
-			Type:         "debuggerStatement",
+			Type:         debugger.BreakLocationType.DebuggerStatement,
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
@@ -519,9 +523,11 @@ func TestDebuggerRestartFrame(t *testing.T) {
 			},
 			URL: "http://frame.url",
 			ScopeChain: []*debugger.Scope{{
-				Type:   "global",
-				Object: &runtime.RemoteObject{},
-				Name:   "scope-name",
+				Type: debugger.ScopeType.Global,
+				Object: &runtime.RemoteObject{
+					Type: runtime.ObjectType.Accessor,
+				},
+				Name: "scope-name",
 				StartLocation: &debugger.Location{
 					ScriptID:     runtime.ScriptID("script-id"),
 					LineNumber:   2,
@@ -533,8 +539,12 @@ func TestDebuggerRestartFrame(t *testing.T) {
 					ColumnNumber: 4,
 				},
 			}},
-			This:        &runtime.RemoteObject{},
-			ReturnValue: &runtime.RemoteObject{},
+			This: &runtime.RemoteObject{
+				Type: runtime.ObjectType.Accessor,
+			},
+			ReturnValue: &runtime.RemoteObject{
+				Type: runtime.ObjectType.Accessor,
+			},
 		}},
 		AsyncStackTrace: &runtime.StackTrace{},
 		AsyncStackTraceID: runtime.StackTraceID{
@@ -976,7 +986,7 @@ func TestDebuggerSetPauseOnExceptions(t *testing.T) {
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().SetPauseOnExceptions(&debugger.SetPauseOnExceptionsParams{
-		State: "none",
+		State: debugger.State.None,
 	})
 	mockResult := &debugger.SetPauseOnExceptionsResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
@@ -991,7 +1001,7 @@ func TestDebuggerSetPauseOnExceptions(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Debugger().SetPauseOnExceptions(&debugger.SetPauseOnExceptionsParams{
-		State: "none",
+		State: debugger.State.None,
 	})
 	mockSocket.Conn().AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
@@ -1016,7 +1026,7 @@ func TestDebuggerSetReturnValue(t *testing.T) {
 	resultChan := mockSocket.Debugger().SetReturnValue(&debugger.SetReturnValueParams{
 		NewValue: &runtime.CallArgument{
 			Value:               "some-value",
-			UnserializableValue: runtime.UnserializableValue(1),
+			UnserializableValue: runtime.UnserializableValue.Infinity,
 			ObjectID:            runtime.RemoteObjectID("remote-object-id"),
 		},
 	})
@@ -1035,7 +1045,7 @@ func TestDebuggerSetReturnValue(t *testing.T) {
 	resultChan = mockSocket.Debugger().SetReturnValue(&debugger.SetReturnValueParams{
 		NewValue: &runtime.CallArgument{
 			Value:               "some-value",
-			UnserializableValue: runtime.UnserializableValue(1),
+			UnserializableValue: runtime.UnserializableValue.Infinity,
 			ObjectID:            runtime.RemoteObjectID("remote-object-id"),
 		},
 	})
@@ -1080,9 +1090,11 @@ func TestDebuggerSetScriptSource(t *testing.T) {
 			},
 			URL: "http://frame.url",
 			ScopeChain: []*debugger.Scope{{
-				Type:   "global",
-				Object: &runtime.RemoteObject{},
-				Name:   "scope-name",
+				Type: debugger.ScopeType.Global,
+				Object: &runtime.RemoteObject{
+					Type: runtime.ObjectType.Accessor,
+				},
+				Name: "scope-name",
 				StartLocation: &debugger.Location{
 					ScriptID:     runtime.ScriptID("script-id"),
 					LineNumber:   2,
@@ -1094,8 +1106,12 @@ func TestDebuggerSetScriptSource(t *testing.T) {
 					ColumnNumber: 4,
 				},
 			}},
-			This:        &runtime.RemoteObject{},
-			ReturnValue: &runtime.RemoteObject{},
+			This: &runtime.RemoteObject{
+				Type: runtime.ObjectType.Accessor,
+			},
+			ReturnValue: &runtime.RemoteObject{
+				Type: runtime.ObjectType.Accessor,
+			},
 		}},
 		StackChanged: true,
 		AsyncStackTrace: &runtime.StackTrace{
@@ -1112,14 +1128,16 @@ func TestDebuggerSetScriptSource(t *testing.T) {
 			DebuggerID: runtime.UniqueDebuggerID("unique-debugger-id"),
 		},
 		ExceptionDetails: &runtime.ExceptionDetails{
-			ExceptionID:        1,
-			Text:               "exception text",
-			LineNumber:         1,
-			ColumnNumber:       1,
-			ScriptID:           runtime.ScriptID("script-id"),
-			URL:                "http://exception.url",
-			StackTrace:         &runtime.StackTrace{},
-			Exception:          &runtime.RemoteObject{},
+			ExceptionID:  1,
+			Text:         "exception text",
+			LineNumber:   1,
+			ColumnNumber: 1,
+			ScriptID:     runtime.ScriptID("script-id"),
+			URL:          "http://exception.url",
+			StackTrace:   &runtime.StackTrace{},
+			Exception: &runtime.RemoteObject{
+				Type: runtime.ObjectType.Accessor,
+			},
 			ExecutionContextID: runtime.ExecutionContextID(1),
 		},
 	}
@@ -1205,7 +1223,7 @@ func TestDebuggerSetVariableValue(t *testing.T) {
 		VariableName: "varname",
 		NewValue: &runtime.CallArgument{
 			Value:               "some-value",
-			UnserializableValue: runtime.UnserializableValue(1),
+			UnserializableValue: runtime.UnserializableValue.Infinity,
 			ObjectID:            runtime.RemoteObjectID("remote-object-id"),
 		},
 		CallFrameID: debugger.CallFrameID("call-frame-id"),
@@ -1227,7 +1245,7 @@ func TestDebuggerSetVariableValue(t *testing.T) {
 		VariableName: "varname",
 		NewValue: &runtime.CallArgument{
 			Value:               "some-value",
-			UnserializableValue: runtime.UnserializableValue(1),
+			UnserializableValue: runtime.UnserializableValue.Infinity,
 			ObjectID:            runtime.RemoteObjectID("remote-object-id"),
 		},
 		CallFrameID: debugger.CallFrameID("call-frame-id"),

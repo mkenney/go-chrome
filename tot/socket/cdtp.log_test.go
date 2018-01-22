@@ -121,7 +121,7 @@ func TestLogStartViolationsReport(t *testing.T) {
 
 	params := &log.StartViolationsReportParams{
 		Config: []*log.ViolationSetting{{
-			Name:      "longTask",
+			Name:      log.Name.LongTask,
 			Threshold: 1,
 		}},
 	}
@@ -199,8 +199,8 @@ func TestLogOnEntryAdded(t *testing.T) {
 	})
 	mockResult := &log.EntryAddedEvent{
 		Entry: &log.Entry{
-			Source:           "javascript",
-			Level:            "verbose",
+			Source:           log.Source.XML,
+			Level:            log.Level.Verbose,
 			Text:             "entry text",
 			Timestamp:        runtime.Timestamp(time.Now().Unix()),
 			URL:              "http://some.url",

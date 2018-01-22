@@ -76,12 +76,11 @@ type StartParams struct {
 	BufferUsageReportingInterval int64 `json:"bufferUsageReportingInterval,omitempty"`
 
 	// Optional. Whether to report trace events as series of dataCollected
-	// events or to save trace to a stream (defaults to `ReportEvents`).
-	//
-	// Allowed values:
+	// events or to save trace to a stream (defaults to `ReportEvents`). Allowed
+	// values:
 	//	- ReportEvents
 	//	- ReturnAsStream
-	TransferMode string `json:"transferMode,omitempty"`
+	TransferMode TransferModeEnum `json:"transferMode,omitempty"`
 
 	// Optional. Trace config.
 	TraceConfig *TraceConfig `json:"traceConfig,omitempty"`

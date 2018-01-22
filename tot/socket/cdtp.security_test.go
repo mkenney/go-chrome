@@ -84,7 +84,7 @@ func TestSecurityHandleCertificateError(t *testing.T) {
 
 	params := &security.HandleCertificateErrorParams{
 		EventID: 1,
-		Action:  security.CertificateErrorAction("action"),
+		Action:  security.CertificateErrorAction.Continue,
 	}
 	resultChan := mockSocket.Security().HandleCertificateError(params)
 	mockResult := &security.HandleCertificateErrorResult{}
@@ -248,13 +248,13 @@ func TestSecurityOnSecurityStateChanged(t *testing.T) {
 		resultChan <- eventData
 	})
 	mockResult := &security.StateChangedEvent{
-		State: security.State("unknown"),
+		State: security.State.Unknown,
 		SchemeIsCryptographic: true,
 		Explanations: []*security.StateExplanation{{
-			State:            security.State("unknown"),
+			State:            security.State.Unknown,
 			Summary:          "summary",
 			Description:      "description",
-			MixedContentType: security.MixedContentType("type"),
+			MixedContentType: security.MixedContentType.Blockable,
 			Certificate:      []string{"string1", "string2"},
 		}},
 		InsecureContentStatus: &security.InsecureContentStatus{
@@ -263,8 +263,8 @@ func TestSecurityOnSecurityStateChanged(t *testing.T) {
 			ContainedMixedForm:             true,
 			RanContentWithCertErrors:       true,
 			DisplayedContentWithCertErrors: true,
-			RanInsecureContentStyle:        security.State("unknown"),
-			DisplayedInsecureContentStyle:  security.State("unknown"),
+			RanInsecureContentStyle:        security.State.Unknown,
+			DisplayedInsecureContentStyle:  security.State.Unknown,
 		},
 		Summary: "summary",
 	}

@@ -29,8 +29,10 @@ type HandleCertificateErrorParams struct {
 	// The ID of the event.
 	EventID int `json:"eventId"`
 
-	// The action to take on the certificate error.
-	Action CertificateErrorAction `json:"action"`
+	// The action to take on the certificate error. Allowed values:
+	//	- CertificateErrorAction.Continue
+	//	- CertificateErrorAction.Cancel
+	Action CertificateErrorActionEnum `json:"action"`
 }
 
 /*

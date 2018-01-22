@@ -60,7 +60,7 @@ func TestStorageGetUsageAndQuota(t *testing.T) {
 		Usage: 1,
 		Quota: 1,
 		UsageBreakdown: []*storage.UsageForType{{
-			Type:  storage.Type("appcache"),
+			Type:  storage.Type.Appcache,
 			Usage: 1,
 		}},
 	}

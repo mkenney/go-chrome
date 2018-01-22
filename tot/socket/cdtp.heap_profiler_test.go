@@ -202,15 +202,17 @@ func TestHeapProfilerGetObjectByHeapObjectID(t *testing.T) {
 	resultChan := mockSocket.HeapProfiler().GetObjectByHeapObjectID(params)
 	mockResult := &heapProfiler.GetObjectByHeapObjectIDResult{
 		Result: &runtime.RemoteObject{
-			Type:                "object",
-			Subtype:             "array",
+			Type:                runtime.ObjectType.Object,
+			Subtype:             runtime.ObjectSubtype.Array,
 			ClassName:           "class-name",
 			Value:               &struct{ a string }{a: "somestring"},
-			UnserializableValue: runtime.UnserializableValue(1),
+			UnserializableValue: runtime.UnserializableValue.Infinity,
 			Description:         "description",
 			ObjectID:            runtime.RemoteObjectID("remote-object-id"),
-			Preview:             &runtime.ObjectPreview{},
-			CustomPreview:       &runtime.CustomPreview{},
+			Preview: &runtime.ObjectPreview{
+				Type: runtime.ObjectType.Accessor,
+			},
+			CustomPreview: &runtime.CustomPreview{},
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)

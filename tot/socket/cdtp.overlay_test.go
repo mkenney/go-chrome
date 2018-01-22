@@ -322,7 +322,7 @@ func TestOverlaySetInspectMode(t *testing.T) {
 	defer mockSocket.Stop()
 
 	params := &overlay.SetInspectModeParams{
-		Mode: overlay.InspectMode("searchForNode"),
+		Mode: overlay.InspectMode.SearchForNode,
 	}
 	resultChan := mockSocket.Overlay().SetInspectMode(params)
 	mockResult := &overlay.SetInspectModeResult{}

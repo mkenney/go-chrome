@@ -65,7 +65,7 @@ type LoadingFailedEvent struct {
 	Timestamp MonotonicTime `json:"timestamp"`
 
 	// Resource type.
-	Type page.ResourceType `json:"type"`
+	Type page.ResourceTypeEnum `json:"type"`
 
 	// User friendly error message.
 	ErrorText string `json:"errorText"`
@@ -73,8 +73,14 @@ type LoadingFailedEvent struct {
 	// Optional. True if loading was canceled.
 	Canceled bool `json:"canceled,omitempty"`
 
-	// Optional. The reason why loading was blocked, if any.
-	BlockedReason BlockedReason `json:"blockedReason,omitempty"`
+	// Optional. The reason why loading was blocked, if any. Allowed values:
+	//	- BlockedReason.Csp
+	//	- BlockedReason.MixedContent
+	//	- BlockedReason.Origin
+	//	- BlockedReason.Inspector
+	//	- BlockedReason.SubresourceFilter
+	//	- BlockedReason.Other
+	BlockedReason BlockedReasonEnum `json:"blockedReason,omitempty"`
 
 	// Error information related to this event
 	Err error `json:"-"`
@@ -118,7 +124,7 @@ type RequestInterceptedEvent struct {
 	FrameID page.FrameID `json:"frameId"`
 
 	// How the requested resource will be used.
-	ResourceType page.ResourceType `json:"resourceType"`
+	ResourceType page.ResourceTypeEnum `json:"resourceType"`
 
 	// Whether this is a navigation request, which can abort the navigation
 	// completely.
@@ -132,8 +138,20 @@ type RequestInterceptedEvent struct {
 	AuthChallenge *AuthChallenge `json:"authChallenge,omitempty"`
 
 	// Optional. Response error if intercepted at response stage or if redirect
-	// occurred while intercepting request.
-	ResponseErrorReason ErrorReason `json:"responseErrorReason,omitempty"`
+	// occurred while intercepting request. Allowed values:
+	//	- ErrorReason.Failed
+	//	- ErrorReason.Aborted
+	//	- ErrorReason.TimedOut
+	//	- ErrorReason.AccessDenied
+	//	- ErrorReason.ConnectionClosed
+	//	- ErrorReason.ConnectionReset
+	//	- ErrorReason.ConnectionRefused
+	//	- ErrorReason.ConnectionAborted
+	//	- ErrorReason.ConnectionFailed
+	//	- ErrorReason.NameNotResolved
+	//	- ErrorReason.InternetDisconnected
+	//	- ErrorReason.AddressUnreachable
+	ResponseErrorReason ErrorReasonEnum `json:"responseErrorReason,omitempty"`
 
 	// Optional. Response code if intercepted at response stage or if redirect
 	// occurred while intercepting request or auth retry occurred.
@@ -191,7 +209,7 @@ type RequestWillBeSentEvent struct {
 	RedirectResponse *Response `json:"redirectResponse"`
 
 	// Optional. Type of this resource.
-	Type page.ResourceType `json:"type,omitempty"`
+	Type page.ResourceTypeEnum `json:"type,omitempty"`
 
 	// Optional. Frame identifier.
 	FrameID page.FrameID `json:"frameId,omitempty"`
@@ -209,8 +227,13 @@ type ResourceChangedPriorityEvent struct {
 	// Request identifier.
 	RequestID RequestID `json:"requestId"`
 
-	// New priority.
-	NewPriority ResourcePriority `json:"newPriority"`
+	// New priority. Allowed values:
+	//	- ResourcePriority.VeryLow
+	//	- ResourcePriority.Low
+	//	- ResourcePriority.Medium
+	//	- ResourcePriority.High
+	//	- ResourcePriority.VeryHigh
+	NewPriority ResourcePriorityEnum `json:"newPriority"`
 
 	// Timestamp.
 	Timestamp MonotonicTime `json:"timestamp"`
@@ -235,7 +258,7 @@ type ResponseReceivedEvent struct {
 	Timestamp MonotonicTime `json:"timestamp"`
 
 	// Resource type.
-	Type page.ResourceType `json:"type"`
+	Type page.ResourceTypeEnum `json:"type"`
 
 	// Response data.
 	Response *Response `json:"response"`
