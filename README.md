@@ -17,7 +17,7 @@
     </td>
 </tr><tr>
     <td>
-        <a href="https://github.com/mkenney/stability-badges#stable"><img src="https://img.shields.io/badge/stability-stable-33BBFF.svg" alt="Stable"></a>
+        <a href="https://github.com/mkenney/stability-badges#beta"><img src="https://img.shields.io/badge/stability-beta-33bbff.svg" alt="Beta"></a>
     </td>
 </tr><tr>
     <td width="150">

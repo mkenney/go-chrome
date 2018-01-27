@@ -70,13 +70,13 @@ func (enum *OrientationTypeEnum) UnmarshalJSON(bytes []byte) error {
 }
 
 const (
-	// orientationTypePortraitPrimary represents the "none" value.
+	// orientationTypePortraitPrimary represents the "portraitPrimary" value.
 	orientationTypePortraitPrimary OrientationTypeEnum = iota + 1
-	// orientationTypePortraitSecondary represents the "uncaught" value.
+	// orientationTypePortraitSecondary represents the "portraitSecondary" value.
 	orientationTypePortraitSecondary
-	// orientationTypeLandscapePrimary represents the "all" value.
+	// orientationTypeLandscapePrimary represents the "landscapePrimary" value.
 	orientationTypeLandscapePrimary
-	// orientationTypeLandscapeSecondary represents the "all" value.
+	// orientationTypeLandscapeSecondary represents the "landscapeSecondary" value.
 	orientationTypeLandscapeSecondary
 )
 
