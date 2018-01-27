@@ -11,7 +11,7 @@
     <td rowspan="7">
         This package aims to be a complete <a href="https://chromedevtools.github.io/devtools-protocol/">Chrome DevTools Protocol</a> implementation. The primary use-case behind this project is interacting with <a href="https://developers.google.com/web/updates/2017/04/headless-chrome">headless Google Chrome</a> in a container environment, but it should be appropriate for developing server side and desktop applications as well.
         <br><br>
-        The API is fairly settled and most functions are workable now but more automated tests and real-world happy-path testing is needed. <a href="https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot">`Page.captureScreenshot`</a> is working fairly well and is regularly used for validating the workability of API changes.
+        The API is fairly settled and basic code-coverage has been implemented but real-world happy-path testing is needed. <a href="https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot">`Page.captureScreenshot`</a> is working fairly well and is regularly used for validating the workability of API changes.
         <br /><br />
         This implementation is based on the <a href="https://chromedevtools.github.io/devtools-protocol/tot/">Tip-of-Tree</a> documentation and may be prone to change. At some point stable versions will be implemented as well.
     </td>
