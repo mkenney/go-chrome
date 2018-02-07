@@ -11,9 +11,9 @@
     <td rowspan="7">
         This package aims to be a complete <a href="https://chromedevtools.github.io/devtools-protocol/">Chrome DevTools Protocol</a> implementation. The primary use-case behind this project is interacting with <a href="https://developers.google.com/web/updates/2017/04/headless-chrome">headless Google Chrome</a> in a container environment, but it should be appropriate for developing server side and desktop applications as well.
         <br><br>
-        The API is fairly settled and basic code-coverage has been implemented but real-world happy-path testing is needed. <a href="https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot">`Page.captureScreenshot`</a> is working fairly well and is regularly used for validating the workability of API changes.
+        The API is fairly settled and basic code-coverage tests have been implemented but real-world testing is needed. <a href="https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot">`Page.captureScreenshot`</a> and related calls are working well and are regularly used for validating the workability of code refactoring.
         <br /><br />
-        This implementation is based on the <a href="https://chromedevtools.github.io/devtools-protocol/tot/">Tip-of-Tree</a> documentation and may be prone to change. At some point stable versions will be implemented as well.
+        This implementation is based on the <a href="https://chromedevtools.github.io/devtools-protocol/tot/">Tip-of-Tree</a> documentation and may be prone to change. At some point stable versions will be implemented as well, hopefully beginning with v1.3.
     </td>
 </tr><tr>
     <td>
@@ -47,11 +47,28 @@ There are a few small examples of how to use the framework API on the [wiki](htt
 
 # TODO
 
-Add more tests. So many tests... If you would like to contribute but aren't sure how, there are several [open issues](https://github.com/mkenney/go-chrome/issues?q=is%3Aopen+is%3Aissue+project%3Amkenney%2Fgo-chrome%2F1) for tests that need to be written, I'll try to keep that list up to date. There are also [several examples](https://github.com/mkenney/go-chrome/blob/master/socket/cdtp.animation_test.go) of tests that have already be written.
+Add more tests, especially for error cases. If you would like to contribute but aren't sure how, take a look at [codecov](https://codecov.io/gh/mkenney/go-chrome) for any tests that could be written. There are [many examples](https://github.com/mkenney/go-chrome/blob/master/socket/cdtp.animation_test.go) of tests in the repo.
 
-Any contributions to tests or otherwise are very welcome!
+Any contributions of any kind are very welcome!
 
 # Change Log
+
+## 2017-02-06
+
+To provide for more idiomatic package naming the following packages have been renamed:
+
+* tot/cdtp/application_cache -> tot/cdtp/application/cache
+* tot/cdtp/cache_storage -> tot/cdtp/cache/storage
+* tot/cdtp/device_orientation -> tot/cdtp/device/orientation
+* tot/cdtp/dom_debugger -> tot/cdtp/dom/debugger
+* tot/cdtp/dom_snapshot -> tot/cdtp/dom/snapshot
+* tot/cdtp/dom_storage -> tot/cdtp/dom/storage
+* tot/cdtp/headless_experimental -> tot/cdtp/headless/experimental
+* tot/cdtp/heap_profiler -> tot/cdtp/heap/profiler
+* tot/cdtp/indexed_db -> tot/cdtp/indexed/db
+* tot/cdtp/layer_tree -> tot/cdtp/layer/tree
+* tot/cdtp/service_worker -> tot/cdtp/service/worker
+* tot/cdtp/system_info -> tot/cdtp/system/info
 
 ## 2017-12-21
 
