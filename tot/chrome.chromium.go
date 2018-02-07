@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -116,11 +117,11 @@ Close implements Chromium.
 func (chrome *Chrome) Close() error {
 	if chrome.process != nil {
 		if err := chrome.process.Signal(os.Interrupt); err != nil {
-			return err
+			return errors.Wrap(err, "chrome process interrupt failed")
 		}
 		ps, err := chrome.process.Wait()
 		if err != nil {
-			return err
+			return errors.Wrap(err, "error waiting for process exit, result unknown")
 		}
 		log.Infof("Chromium exited: %s", ps.String())
 	}
@@ -194,7 +195,7 @@ func (chrome *Chrome) Launch() error {
 	}
 
 	if err := os.MkdirAll(chrome.Workdir(), 0700); err != nil {
-		return fmt.Errorf("Cannot create working directory '%s'", chrome.Workdir())
+		return errors.Wrap(err, fmt.Sprintf("cannot create working directory '%s'", chrome.Workdir()))
 	}
 
 	if "" == chrome.STDERR() {
@@ -206,7 +207,7 @@ func (chrome *Chrome) Launch() error {
 			0600,
 		)
 		if err != nil {
-			return fmt.Errorf("Cannot open error output file '%s'", chrome.STDERR())
+			return errors.Wrap(err, fmt.Sprintf("cannot open error output file '%s'", chrome.STDERR()))
 		}
 	}
 
@@ -219,7 +220,7 @@ func (chrome *Chrome) Launch() error {
 			0600,
 		)
 		if err != nil {
-			return fmt.Errorf("Cannot open standard output file '%s'", chrome.STDOUT())
+			return errors.Wrap(err, fmt.Sprintf("cannot open standard output file '%s'", chrome.STDOUT()))
 		}
 	}
 
@@ -234,7 +235,7 @@ func (chrome *Chrome) Launch() error {
 	)
 	if nil != err {
 		chrome.stdOUTFile.Close()
-		return err
+		return errors.Wrap(err, "error starting chrome")
 	}
 
 	// Wait up to 10 seconds for Chromium to start
@@ -248,7 +249,7 @@ func (chrome *Chrome) Launch() error {
 		log.Errorf("Chromium took too long to start")
 		log.Debugf(err.Error())
 		chrome.Close()
-		return err
+		return errors.Wrap(err, "chrome took too long to start")
 	}
 
 	return nil
@@ -282,19 +283,20 @@ func (chrome *Chrome) Query(
 	uri := fmt.Sprintf("http://%s:%d%s", chrome.Address(), chrome.Port(), path)
 	resp, err := http.Get(uri)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "get uri failed")
 	}
 	defer resp.Body.Close()
 
 	log.Debugf("chrome:/%s %s", path, resp.Status)
 	if 200 != resp.StatusCode {
-		return nil, fmt.Errorf("%s", resp.Status)
+		return nil, errors.New(resp.Status)
 	}
 
 	content, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "read failed")
 	} else if err := json.Unmarshal(content, &msg); err != nil {
+		// it's not JSON so just return it
 		return content, nil
 	}
 
@@ -332,7 +334,7 @@ func (chrome *Chrome) Version() (*Version, error) {
 			url.Values{},
 			&chrome.version,
 		); err != nil {
-			return nil, err
+			return nil, errors.Wrap(err, "version query failed")
 		}
 	}
 	return chrome.version, nil
