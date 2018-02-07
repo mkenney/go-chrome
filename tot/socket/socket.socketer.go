@@ -5,6 +5,7 @@ import (
 	"net/url"
 	"sync"
 
+	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -174,6 +175,7 @@ func (socket *Socket) HandleCommand(response *Response) {
 	socket.commands.Lock()
 	defer socket.commands.Unlock()
 
+	// Log a message on error
 	if command, err := socket.commands.Get(response.ID); nil != err {
 		errorMessage := ""
 		if nil != response.Error && 0 != response.Error.Code {
@@ -251,6 +253,7 @@ func (socket *Socket) HandleUnknown(
 		socket.URL(),
 	)
 
+	// Log a message on error
 	if command, err := socket.commands.Get(0); nil != err {
 		errorMessage := ""
 		if nil != response.Error && 0 != response.Error.Code {
@@ -293,7 +296,7 @@ func (socket *Socket) Listen() error {
 
 	err = socket.Connect()
 	if nil != err {
-		return err
+		return errors.Wrap(err, "socket connection failed")
 	}
 	defer socket.Disconnect()
 
@@ -341,6 +344,10 @@ func (socket *Socket) Listen() error {
 			log.Infof("socket #%d - %s: Socket shutting down", socket.socketID, socket.URL().String())
 			break
 		}
+	}
+
+	if nil != err {
+		err = errors.Wrap(err, "socket read failed")
 	}
 
 	return err

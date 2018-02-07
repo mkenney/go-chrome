@@ -3,6 +3,7 @@ package socket
 import (
 	"fmt"
 
+	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -34,7 +35,7 @@ func (socket *Socket) Connect() error {
 	if nil != err {
 		log.Debugf("socket #%d - socket.Connect(): received error %s", socket.socketID, err.Error())
 		socket.connected = false
-		return err
+		return errors.Wrap(err, "creating socket failed")
 	}
 	socket.conn = websocket
 
@@ -65,7 +66,7 @@ func (socket *Socket) Disconnect() error {
 	err := socket.conn.Close()
 	socket.conn = nil
 	socket.connected = false
-	return err
+	return errors.Wrap(err, "disconnect failed")
 }
 
 /*
@@ -76,7 +77,7 @@ ReadJSON is a Conner implementation.
 func (socket *Socket) ReadJSON(v interface{}) error {
 	err := socket.Connect()
 	if nil != err {
-		return err
+		return errors.Wrap(err, "socket connect failed")
 	}
 	return socket.conn.ReadJSON(&v)
 }
@@ -89,7 +90,7 @@ WriteJSON is a Conner implementation.
 func (socket *Socket) WriteJSON(v interface{}) error {
 	err := socket.Connect()
 	if nil != err {
-		return err
+		return errors.Wrap(err, "socket connect failed")
 	}
 	return socket.conn.WriteJSON(v)
 }
