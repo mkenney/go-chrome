@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
+	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -21,11 +22,10 @@ func NewWebsocket(socketURL *url.URL) (*ChromeWebSocket, error) {
 
 	websocket, response, err := dialer.Dial(socketURL.String(), header)
 	if err != nil {
-		return nil, fmt.Errorf(
-			"Could not create websocket connection. %s responded with '%s'",
+		return nil, errors.Wrap(err, fmt.Sprintf(
+			"%s websocket connection failed",
 			socketURL.String(),
-			err.Error(),
-		)
+		))
 	}
 	log.Infof("Websocket connection to %s established: %s", socketURL.String(), response.Status)
 
@@ -89,7 +89,7 @@ func (socket *ChromeWebSocket) ReadJSON(v interface{}) error {
 	jsonBytes, err := json.Marshal(data)
 	log.Debugf("ReadJSON(): returning mock data %s", jsonBytes)
 	err = json.Unmarshal(jsonBytes, &v)
-	return err
+	return errors.Wrap(err, fmt.Sprintf("could not unmarshal %s", jsonBytes))
 }
 
 /*
