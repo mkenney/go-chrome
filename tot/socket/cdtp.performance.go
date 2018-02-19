@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	performance "github.com/mkenney/go-chrome/tot/cdtp/performance"
+	"github.com/mkenney/go-chrome/tot/cdtp/performance"
 )
 
 /*

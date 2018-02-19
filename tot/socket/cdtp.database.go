@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	database "github.com/mkenney/go-chrome/tot/cdtp/database"
+	"github.com/mkenney/go-chrome/tot/cdtp/database"
 )
 
 /*

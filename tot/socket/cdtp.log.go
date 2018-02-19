@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	chromeLog "github.com/mkenney/go-chrome/tot/cdtp/log"
+	"github.com/mkenney/go-chrome/tot/cdtp/log"
 )
 
 /*
@@ -21,10 +21,10 @@ Clear clears the log.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-clear
 */
-func (protocol *LogProtocol) Clear() <-chan *chromeLog.ClearResult {
-	resultChan := make(chan *chromeLog.ClearResult)
+func (protocol *LogProtocol) Clear() <-chan *log.ClearResult {
+	resultChan := make(chan *log.ClearResult)
 	command := NewCommand(protocol.Socket, "Log.clear", nil)
-	result := &chromeLog.ClearResult{}
+	result := &log.ClearResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -44,10 +44,10 @@ the client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-disable
 */
-func (protocol *LogProtocol) Disable() <-chan *chromeLog.DisableResult {
-	resultChan := make(chan *chromeLog.DisableResult)
+func (protocol *LogProtocol) Disable() <-chan *log.DisableResult {
+	resultChan := make(chan *log.DisableResult)
 	command := NewCommand(protocol.Socket, "Log.disable", nil)
-	result := &chromeLog.DisableResult{}
+	result := &log.DisableResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -67,10 +67,10 @@ means of the `entryAdded` notification.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-enable
 */
-func (protocol *LogProtocol) Enable() <-chan *chromeLog.EnableResult {
-	resultChan := make(chan *chromeLog.EnableResult)
+func (protocol *LogProtocol) Enable() <-chan *log.EnableResult {
+	resultChan := make(chan *log.EnableResult)
 	command := NewCommand(protocol.Socket, "Log.enable", nil)
-	result := &chromeLog.EnableResult{}
+	result := &log.EnableResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -90,11 +90,11 @@ StartViolationsReport starts violation reporting.
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-startViolationsReport
 */
 func (protocol *LogProtocol) StartViolationsReport(
-	params *chromeLog.StartViolationsReportParams,
-) <-chan *chromeLog.StartViolationsReportResult {
-	resultChan := make(chan *chromeLog.StartViolationsReportResult)
+	params *log.StartViolationsReportParams,
+) <-chan *log.StartViolationsReportResult {
+	resultChan := make(chan *log.StartViolationsReportResult)
 	command := NewCommand(protocol.Socket, "Log.startViolationsReport", params)
-	result := &chromeLog.StartViolationsReportResult{}
+	result := &log.StartViolationsReportResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -113,10 +113,10 @@ StopViolationsReport stops violation reporting.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#method-stopViolationsReport
 */
-func (protocol *LogProtocol) StopViolationsReport() <-chan *chromeLog.StopViolationsReportResult {
-	resultChan := make(chan *chromeLog.StopViolationsReportResult)
+func (protocol *LogProtocol) StopViolationsReport() <-chan *log.StopViolationsReportResult {
+	resultChan := make(chan *log.StopViolationsReportResult)
 	command := NewCommand(protocol.Socket, "Log.stopViolationsReport", nil)
-	result := &chromeLog.StopViolationsReportResult{}
+	result := &log.StopViolationsReportResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -137,12 +137,12 @@ when a new message is logged.
 https://chromedevtools.github.io/devtools-protocol/tot/Log/#event-entryAdded
 */
 func (protocol *LogProtocol) OnEntryAdded(
-	callback func(event *chromeLog.EntryAddedEvent),
+	callback func(event *log.EntryAddedEvent),
 ) {
 	handler := NewEventHandler(
 		"Log.entryAdded",
 		func(response *Response) {
-			event := &chromeLog.EntryAddedEvent{}
+			event := &log.EntryAddedEvent{}
 			json.Unmarshal([]byte(response.Result), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error

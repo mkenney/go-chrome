@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	serviceWorker "github.com/mkenney/go-chrome/tot/cdtp/service/worker"
+	"github.com/mkenney/go-chrome/tot/cdtp/service/worker"
 )
 
 /*
@@ -24,11 +24,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-del
 EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) DeliverPushMessage(
-	params *serviceWorker.DeliverPushMessageParams,
-) <-chan *serviceWorker.DeliverPushMessageResult {
-	resultChan := make(chan *serviceWorker.DeliverPushMessageResult)
+	params *worker.DeliverPushMessageParams,
+) <-chan *worker.DeliverPushMessageResult {
+	resultChan := make(chan *worker.DeliverPushMessageResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.deliverPushMessage", params)
-	result := &serviceWorker.DeliverPushMessageResult{}
+	result := &worker.DeliverPushMessageResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -48,10 +48,10 @@ Disable is experimental.
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-disable
 EXPERIMENTAL.
 */
-func (protocol *ServiceWorkerProtocol) Disable() <-chan *serviceWorker.DisableResult {
-	resultChan := make(chan *serviceWorker.DisableResult)
+func (protocol *ServiceWorkerProtocol) Disable() <-chan *worker.DisableResult {
+	resultChan := make(chan *worker.DisableResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.disable", nil)
-	result := &serviceWorker.DisableResult{}
+	result := &worker.DisableResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -72,11 +72,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-dis
 EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) DispatchSyncEvent(
-	params *serviceWorker.DispatchSyncEventParams,
-) <-chan *serviceWorker.DispatchSyncEventResult {
-	resultChan := make(chan *serviceWorker.DispatchSyncEventResult)
+	params *worker.DispatchSyncEventParams,
+) <-chan *worker.DispatchSyncEventResult {
+	resultChan := make(chan *worker.DispatchSyncEventResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.dispatchSyncEvent", params)
-	result := &serviceWorker.DispatchSyncEventResult{}
+	result := &worker.DispatchSyncEventResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -96,10 +96,10 @@ Enable is experimental.
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-enable
 EXPERIMENTAL.
 */
-func (protocol *ServiceWorkerProtocol) Enable() <-chan *serviceWorker.EnableResult {
-	resultChan := make(chan *serviceWorker.EnableResult)
+func (protocol *ServiceWorkerProtocol) Enable() <-chan *worker.EnableResult {
+	resultChan := make(chan *worker.EnableResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.enable", nil)
-	result := &serviceWorker.EnableResult{}
+	result := &worker.EnableResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -120,11 +120,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-ins
 EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) InspectWorker(
-	params *serviceWorker.InspectWorkerParams,
-) <-chan *serviceWorker.InspectWorkerResult {
-	resultChan := make(chan *serviceWorker.InspectWorkerResult)
+	params *worker.InspectWorkerParams,
+) <-chan *worker.InspectWorkerResult {
+	resultChan := make(chan *worker.InspectWorkerResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.inspectWorker", params)
-	result := &serviceWorker.InspectWorkerResult{}
+	result := &worker.InspectWorkerResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -145,11 +145,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-set
 EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) SetForceUpdateOnPageLoad(
-	params *serviceWorker.SetForceUpdateOnPageLoadParams,
-) <-chan *serviceWorker.SetForceUpdateOnPageLoadResult {
-	resultChan := make(chan *serviceWorker.SetForceUpdateOnPageLoadResult)
+	params *worker.SetForceUpdateOnPageLoadParams,
+) <-chan *worker.SetForceUpdateOnPageLoadResult {
+	resultChan := make(chan *worker.SetForceUpdateOnPageLoadResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.setForceUpdateOnPageLoad", params)
-	result := &serviceWorker.SetForceUpdateOnPageLoadResult{}
+	result := &worker.SetForceUpdateOnPageLoadResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -170,11 +170,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-ski
 EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) SkipWaiting(
-	params *serviceWorker.SkipWaitingParams,
-) <-chan *serviceWorker.SkipWaitingResult {
-	resultChan := make(chan *serviceWorker.SkipWaitingResult)
+	params *worker.SkipWaitingParams,
+) <-chan *worker.SkipWaitingResult {
+	resultChan := make(chan *worker.SkipWaitingResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.skipWaiting", params)
-	result := &serviceWorker.SkipWaitingResult{}
+	result := &worker.SkipWaitingResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -195,11 +195,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-sta
 EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) StartWorker(
-	params *serviceWorker.StartWorkerParams,
-) <-chan *serviceWorker.StartWorkerResult {
-	resultChan := make(chan *serviceWorker.StartWorkerResult)
+	params *worker.StartWorkerParams,
+) <-chan *worker.StartWorkerResult {
+	resultChan := make(chan *worker.StartWorkerResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.startWorker", params)
-	result := &serviceWorker.StartWorkerResult{}
+	result := &worker.StartWorkerResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -219,10 +219,10 @@ StopAllWorkers is experimental.
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-stopAllWorkers
 EXPERIMENTAL.
 */
-func (protocol *ServiceWorkerProtocol) StopAllWorkers() <-chan *serviceWorker.StopAllWorkersResult {
-	resultChan := make(chan *serviceWorker.StopAllWorkersResult)
+func (protocol *ServiceWorkerProtocol) StopAllWorkers() <-chan *worker.StopAllWorkersResult {
+	resultChan := make(chan *worker.StopAllWorkersResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.stopAllWorkers", nil)
-	result := &serviceWorker.StopAllWorkersResult{}
+	result := &worker.StopAllWorkersResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -243,11 +243,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-sto
 EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) StopWorker(
-	params *serviceWorker.StopWorkerParams,
-) <-chan *serviceWorker.StopWorkerResult {
-	resultChan := make(chan *serviceWorker.StopWorkerResult)
+	params *worker.StopWorkerParams,
+) <-chan *worker.StopWorkerResult {
+	resultChan := make(chan *worker.StopWorkerResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.stopWorker", params)
-	result := &serviceWorker.StopWorkerResult{}
+	result := &worker.StopWorkerResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -268,11 +268,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-unr
 EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) Unregister(
-	params *serviceWorker.UnregisterParams,
-) <-chan *serviceWorker.UnregisterResult {
-	resultChan := make(chan *serviceWorker.UnregisterResult)
+	params *worker.UnregisterParams,
+) <-chan *worker.UnregisterResult {
+	resultChan := make(chan *worker.UnregisterResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.unregister", params)
-	result := &serviceWorker.UnregisterResult{}
+	result := &worker.UnregisterResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -293,11 +293,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-upd
 EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) UpdateRegistration(
-	params *serviceWorker.UpdateRegistrationParams,
-) <-chan *serviceWorker.UpdateRegistrationResult {
-	resultChan := make(chan *serviceWorker.UpdateRegistrationResult)
+	params *worker.UpdateRegistrationParams,
+) <-chan *worker.UpdateRegistrationResult {
+	resultChan := make(chan *worker.UpdateRegistrationResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.updateRegistration", params)
-	result := &serviceWorker.UpdateRegistrationResult{}
+	result := &worker.UpdateRegistrationResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -318,12 +318,12 @@ https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-work
 EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) OnWorkerErrorReported(
-	callback func(event *serviceWorker.ErrorReportedEvent),
+	callback func(event *worker.ErrorReportedEvent),
 ) {
 	handler := NewEventHandler(
 		"ServiceWorker.workerErrorReported",
 		func(response *Response) {
-			event := &serviceWorker.ErrorReportedEvent{}
+			event := &worker.ErrorReportedEvent{}
 			json.Unmarshal([]byte(response.Result), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
@@ -341,12 +341,12 @@ https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-work
 EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) OnWorkerRegistrationUpdated(
-	callback func(event *serviceWorker.RegistrationUpdatedEvent),
+	callback func(event *worker.RegistrationUpdatedEvent),
 ) {
 	handler := NewEventHandler(
 		"ServiceWorker.workerRegistrationUpdated",
 		func(response *Response) {
-			event := &serviceWorker.RegistrationUpdatedEvent{}
+			event := &worker.RegistrationUpdatedEvent{}
 			json.Unmarshal([]byte(response.Result), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
@@ -364,12 +364,12 @@ https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#event-work
 EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) OnWorkerVersionUpdated(
-	callback func(event *serviceWorker.VersionUpdatedEvent),
+	callback func(event *worker.VersionUpdatedEvent),
 ) {
 	handler := NewEventHandler(
 		"ServiceWorker.workerVersionUpdated",
 		func(response *Response) {
-			event := &serviceWorker.VersionUpdatedEvent{}
+			event := &worker.VersionUpdatedEvent{}
 			json.Unmarshal([]byte(response.Result), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error

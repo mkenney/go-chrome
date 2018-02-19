@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	cacheStorage "github.com/mkenney/go-chrome/tot/cdtp/cache/storage"
+	"github.com/mkenney/go-chrome/tot/cdtp/cache/storage"
 )
 
 /*
@@ -22,11 +22,11 @@ DeleteCache deletes a cache.
 https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-deleteCache
 */
 func (protocol *CacheStorageProtocol) DeleteCache(
-	params *cacheStorage.DeleteCacheParams,
-) <-chan *cacheStorage.DeleteCacheResult {
-	resultChan := make(chan *cacheStorage.DeleteCacheResult)
+	params *storage.DeleteCacheParams,
+) <-chan *storage.DeleteCacheResult {
+	resultChan := make(chan *storage.DeleteCacheResult)
 	command := NewCommand(protocol.Socket, "CacheStorage.deleteCache", params)
-	result := &cacheStorage.DeleteCacheResult{}
+	result := &storage.DeleteCacheResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -46,11 +46,11 @@ DeleteEntry deletes a cache entry.
 https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-deleteEntry
 */
 func (protocol *CacheStorageProtocol) DeleteEntry(
-	params *cacheStorage.DeleteEntryParams,
-) <-chan *cacheStorage.DeleteEntryResult {
-	resultChan := make(chan *cacheStorage.DeleteEntryResult)
+	params *storage.DeleteEntryParams,
+) <-chan *storage.DeleteEntryResult {
+	resultChan := make(chan *storage.DeleteEntryResult)
 	command := NewCommand(protocol.Socket, "CacheStorage.deleteEntry", params)
-	result := &cacheStorage.DeleteEntryResult{}
+	result := &storage.DeleteEntryResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -70,11 +70,11 @@ RequestCacheNames requests cache names.
 https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requestCacheNames
 */
 func (protocol *CacheStorageProtocol) RequestCacheNames(
-	params *cacheStorage.RequestCacheNamesParams,
-) <-chan *cacheStorage.RequestCacheNamesResult {
-	resultChan := make(chan *cacheStorage.RequestCacheNamesResult)
+	params *storage.RequestCacheNamesParams,
+) <-chan *storage.RequestCacheNamesResult {
+	resultChan := make(chan *storage.RequestCacheNamesResult)
 	command := NewCommand(protocol.Socket, "CacheStorage.requestCacheNames", params)
-	result := &cacheStorage.RequestCacheNamesResult{}
+	result := &storage.RequestCacheNamesResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -96,11 +96,11 @@ RequestCachedResponse fetches cache entry.
 https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requestCachedResponse
 */
 func (protocol *CacheStorageProtocol) RequestCachedResponse(
-	params *cacheStorage.RequestCachedResponseParams,
-) <-chan *cacheStorage.RequestCachedResponseResult {
-	resultChan := make(chan *cacheStorage.RequestCachedResponseResult)
+	params *storage.RequestCachedResponseParams,
+) <-chan *storage.RequestCachedResponseResult {
+	resultChan := make(chan *storage.RequestCachedResponseResult)
 	command := NewCommand(protocol.Socket, "CacheStorage.requestCachedResponse", params)
-	result := &cacheStorage.RequestCachedResponseResult{}
+	result := &storage.RequestCachedResponseResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -122,11 +122,11 @@ RequestEntries requests data from cache.
 https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requestEntries
 */
 func (protocol *CacheStorageProtocol) RequestEntries(
-	params *cacheStorage.RequestEntriesParams,
-) <-chan *cacheStorage.RequestEntriesResult {
-	resultChan := make(chan *cacheStorage.RequestEntriesResult)
+	params *storage.RequestEntriesParams,
+) <-chan *storage.RequestEntriesResult {
+	resultChan := make(chan *storage.RequestEntriesResult)
 	command := NewCommand(protocol.Socket, "CacheStorage.requestEntries", params)
-	result := &cacheStorage.RequestEntriesResult{}
+	result := &storage.RequestEntriesResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)

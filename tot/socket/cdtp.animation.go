@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	animation "github.com/mkenney/go-chrome/tot/cdtp/animation"
+	"github.com/mkenney/go-chrome/tot/cdtp/animation"
 )
 
 /*

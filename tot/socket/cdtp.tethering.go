@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	tethering "github.com/mkenney/go-chrome/tot/cdtp/tethering"
+	"github.com/mkenney/go-chrome/tot/cdtp/tethering"
 )
 
 /*

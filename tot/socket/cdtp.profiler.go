@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	profiler "github.com/mkenney/go-chrome/tot/cdtp/profiler"
+	"github.com/mkenney/go-chrome/tot/cdtp/profiler"
 )
 
 /*

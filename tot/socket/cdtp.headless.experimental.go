@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	headlessExperimental "github.com/mkenney/go-chrome/tot/cdtp/headless/experimental"
+	"github.com/mkenney/go-chrome/tot/cdtp/headless/experimental"
 )
 
 /*
@@ -25,11 +25,11 @@ that the target was created with enabled BeginFrameControl.
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-beginFrame
 */
 func (protocol *HeadlessExperimentalProtocol) BeginFrame(
-	params *headlessExperimental.BeginFrameParams,
-) <-chan *headlessExperimental.BeginFrameResult {
-	resultChan := make(chan *headlessExperimental.BeginFrameResult)
+	params *experimental.BeginFrameParams,
+) <-chan *experimental.BeginFrameResult {
+	resultChan := make(chan *experimental.BeginFrameResult)
 	command := NewCommand(protocol.Socket, "HeadlessExperimental.beginFrame", params)
-	result := &headlessExperimental.BeginFrameResult{}
+	result := &experimental.BeginFrameResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -50,10 +50,10 @@ Disable disables headless events for the target.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-disable
 */
-func (protocol *HeadlessExperimentalProtocol) Disable() <-chan *headlessExperimental.DisableResult {
-	resultChan := make(chan *headlessExperimental.DisableResult)
+func (protocol *HeadlessExperimentalProtocol) Disable() <-chan *experimental.DisableResult {
+	resultChan := make(chan *experimental.DisableResult)
 	command := NewCommand(protocol.Socket, "HeadlessExperimental.disable", nil)
-	result := &headlessExperimental.DisableResult{}
+	result := &experimental.DisableResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -72,10 +72,10 @@ Enable enables headless events for the target.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-enable
 */
-func (protocol *HeadlessExperimentalProtocol) Enable() <-chan *headlessExperimental.EnableResult {
-	resultChan := make(chan *headlessExperimental.EnableResult)
+func (protocol *HeadlessExperimentalProtocol) Enable() <-chan *experimental.EnableResult {
+	resultChan := make(chan *experimental.EnableResult)
 	command := NewCommand(protocol.Socket, "HeadlessExperimental.enable", nil)
-	result := &headlessExperimental.EnableResult{}
+	result := &experimental.EnableResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -98,12 +98,12 @@ BeginFrame is in flight. Before this event, screenshotting requests may fail.
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#event-mainFrameReadyForScreenshots
 */
 func (protocol *HeadlessExperimentalProtocol) OnMainFrameReadyForScreenshots(
-	callback func(event *headlessExperimental.MainFrameReadyForScreenshotsEvent),
+	callback func(event *experimental.MainFrameReadyForScreenshotsEvent),
 ) {
 	handler := NewEventHandler(
 		"HeadlessExperimental.mainFrameReadyForScreenshots",
 		func(response *Response) {
-			event := &headlessExperimental.MainFrameReadyForScreenshotsEvent{}
+			event := &experimental.MainFrameReadyForScreenshotsEvent{}
 			json.Unmarshal([]byte(response.Result), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
@@ -122,12 +122,12 @@ or stops needing BeginFrames.
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#event-needsBeginFramesChanged
 */
 func (protocol *HeadlessExperimentalProtocol) OnNeedsBeginFramesChanged(
-	callback func(event *headlessExperimental.NeedsBeginFramesChangedEvent),
+	callback func(event *experimental.NeedsBeginFramesChangedEvent),
 ) {
 	handler := NewEventHandler(
 		"HeadlessExperimental.needsBeginFramesChanged",
 		func(response *Response) {
-			event := &headlessExperimental.NeedsBeginFramesChangedEvent{}
+			event := &experimental.NeedsBeginFramesChangedEvent{}
 			json.Unmarshal([]byte(response.Result), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error

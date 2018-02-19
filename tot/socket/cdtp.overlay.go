@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	overlay "github.com/mkenney/go-chrome/tot/cdtp/overlay"
+	"github.com/mkenney/go-chrome/tot/cdtp/overlay"
 )
 
 /*

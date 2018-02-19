@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	domDebugger "github.com/mkenney/go-chrome/tot/cdtp/dom/debugger"
+	"github.com/mkenney/go-chrome/tot/cdtp/dom/debugger"
 )
 
 /*
@@ -24,11 +24,11 @@ GetEventListeners returns event listeners of the given object.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-getEventListeners
 */
 func (protocol *DOMDebuggerProtocol) GetEventListeners(
-	params *domDebugger.GetEventListenersParams,
-) <-chan *domDebugger.GetEventListenersResult {
-	resultChan := make(chan *domDebugger.GetEventListenersResult)
+	params *debugger.GetEventListenersParams,
+) <-chan *debugger.GetEventListenersResult {
+	resultChan := make(chan *debugger.GetEventListenersResult)
 	command := NewCommand(protocol.Socket, "DOMDebugger.getEventListeners", params)
-	result := &domDebugger.GetEventListenersResult{}
+	result := &debugger.GetEventListenersResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -51,11 +51,11 @@ setDOMBreakpoint.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeDOMBreakpoint
 */
 func (protocol *DOMDebuggerProtocol) RemoveDOMBreakpoint(
-	params *domDebugger.RemoveDOMBreakpointParams,
-) <-chan *domDebugger.RemoveDOMBreakpointResult {
-	resultChan := make(chan *domDebugger.RemoveDOMBreakpointResult)
+	params *debugger.RemoveDOMBreakpointParams,
+) <-chan *debugger.RemoveDOMBreakpointResult {
+	resultChan := make(chan *debugger.RemoveDOMBreakpointResult)
 	command := NewCommand(protocol.Socket, "DOMDebugger.removeDOMBreakpoint", params)
-	result := &domDebugger.RemoveDOMBreakpointResult{}
+	result := &debugger.RemoveDOMBreakpointResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -75,11 +75,11 @@ RemoveEventListenerBreakpoint removes breakpoint on particular DOM event.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeEventListenerBreakpoint
 */
 func (protocol *DOMDebuggerProtocol) RemoveEventListenerBreakpoint(
-	params *domDebugger.RemoveEventListenerBreakpointParams,
-) <-chan *domDebugger.RemoveEventListenerBreakpointResult {
-	resultChan := make(chan *domDebugger.RemoveEventListenerBreakpointResult)
+	params *debugger.RemoveEventListenerBreakpointParams,
+) <-chan *debugger.RemoveEventListenerBreakpointResult {
+	resultChan := make(chan *debugger.RemoveEventListenerBreakpointResult)
 	command := NewCommand(protocol.Socket, "DOMDebugger.removeEventListenerBreakpoint", params)
-	result := &domDebugger.RemoveEventListenerBreakpointResult{}
+	result := &debugger.RemoveEventListenerBreakpointResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -100,11 +100,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-remov
 EXPERIMENTAL.
 */
 func (protocol *DOMDebuggerProtocol) RemoveInstrumentationBreakpoint(
-	params *domDebugger.RemoveInstrumentationBreakpointParams,
-) <-chan *domDebugger.RemoveInstrumentationBreakpointResult {
-	resultChan := make(chan *domDebugger.RemoveInstrumentationBreakpointResult)
+	params *debugger.RemoveInstrumentationBreakpointParams,
+) <-chan *debugger.RemoveInstrumentationBreakpointResult {
+	resultChan := make(chan *debugger.RemoveInstrumentationBreakpointResult)
 	command := NewCommand(protocol.Socket, "DOMDebugger.removeInstrumentationBreakpoint", params)
-	result := &domDebugger.RemoveInstrumentationBreakpointResult{}
+	result := &debugger.RemoveInstrumentationBreakpointResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -124,11 +124,11 @@ RemoveXHRBreakpoint removes breakpoint from XMLHttpRequest.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-removeXHRBreakpoint
 */
 func (protocol *DOMDebuggerProtocol) RemoveXHRBreakpoint(
-	params *domDebugger.RemoveXHRBreakpointParams,
-) <-chan *domDebugger.RemoveXHRBreakpointResult {
-	resultChan := make(chan *domDebugger.RemoveXHRBreakpointResult)
+	params *debugger.RemoveXHRBreakpointParams,
+) <-chan *debugger.RemoveXHRBreakpointResult {
+	resultChan := make(chan *debugger.RemoveXHRBreakpointResult)
 	command := NewCommand(protocol.Socket, "DOMDebugger.removeXHRBreakpoint", params)
-	result := &domDebugger.RemoveXHRBreakpointResult{}
+	result := &debugger.RemoveXHRBreakpointResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -148,11 +148,11 @@ SetDOMBreakpoint sets a breakpoint on a particular operation with DOM.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setDOMBreakpoint
 */
 func (protocol *DOMDebuggerProtocol) SetDOMBreakpoint(
-	params *domDebugger.SetDOMBreakpointParams,
-) <-chan *domDebugger.SetDOMBreakpointResult {
-	resultChan := make(chan *domDebugger.SetDOMBreakpointResult)
+	params *debugger.SetDOMBreakpointParams,
+) <-chan *debugger.SetDOMBreakpointResult {
+	resultChan := make(chan *debugger.SetDOMBreakpointResult)
 	command := NewCommand(protocol.Socket, "DOMDebugger.setDOMBreakpoint", params)
-	result := &domDebugger.SetDOMBreakpointResult{}
+	result := &debugger.SetDOMBreakpointResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -172,11 +172,11 @@ SetEventListenerBreakpoint sets the breakpoint on a particular DOM event.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setEventListenerBreakpoint
 */
 func (protocol *DOMDebuggerProtocol) SetEventListenerBreakpoint(
-	params *domDebugger.SetEventListenerBreakpointParams,
-) <-chan *domDebugger.SetEventListenerBreakpointResult {
-	resultChan := make(chan *domDebugger.SetEventListenerBreakpointResult)
+	params *debugger.SetEventListenerBreakpointParams,
+) <-chan *debugger.SetEventListenerBreakpointResult {
+	resultChan := make(chan *debugger.SetEventListenerBreakpointResult)
 	command := NewCommand(protocol.Socket, "DOMDebugger.setEventListenerBreakpoint", params)
-	result := &domDebugger.SetEventListenerBreakpointResult{}
+	result := &debugger.SetEventListenerBreakpointResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -197,11 +197,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setIn
 EXPERIMENTAL.
 */
 func (protocol *DOMDebuggerProtocol) SetInstrumentationBreakpoint(
-	params *domDebugger.SetInstrumentationBreakpointParams,
-) <-chan *domDebugger.SetInstrumentationBreakpointResult {
-	resultChan := make(chan *domDebugger.SetInstrumentationBreakpointResult)
+	params *debugger.SetInstrumentationBreakpointParams,
+) <-chan *debugger.SetInstrumentationBreakpointResult {
+	resultChan := make(chan *debugger.SetInstrumentationBreakpointResult)
 	command := NewCommand(protocol.Socket, "DOMDebugger.setInstrumentationBreakpoint", params)
-	result := &domDebugger.SetInstrumentationBreakpointResult{}
+	result := &debugger.SetInstrumentationBreakpointResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -221,11 +221,11 @@ SetXHRBreakpoint sets breakpoint on XMLHttpRequest.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setXHRBreakpoint
 */
 func (protocol *DOMDebuggerProtocol) SetXHRBreakpoint(
-	params *domDebugger.SetXHRBreakpointParams,
-) <-chan *domDebugger.SetXHRBreakpointResult {
-	resultChan := make(chan *domDebugger.SetXHRBreakpointResult)
+	params *debugger.SetXHRBreakpointParams,
+) <-chan *debugger.SetXHRBreakpointResult {
+	resultChan := make(chan *debugger.SetXHRBreakpointResult)
 	command := NewCommand(protocol.Socket, "DOMDebugger.setXHRBreakpoint", params)
-	result := &domDebugger.SetXHRBreakpointResult{}
+	result := &debugger.SetXHRBreakpointResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
