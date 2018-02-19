@@ -31,6 +31,7 @@ func (protocol *ProfilerProtocol) Disable() chan *profiler.DisableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -52,6 +53,7 @@ func (protocol *ProfilerProtocol) Enable() chan *profiler.EnableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -76,6 +78,7 @@ func (protocol *ProfilerProtocol) GetBestEffortCoverage() chan *profiler.GetBest
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -100,6 +103,7 @@ func (protocol *ProfilerProtocol) SetSamplingInterval(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -121,6 +125,7 @@ func (protocol *ProfilerProtocol) Start() chan *profiler.StartResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -146,6 +151,7 @@ func (protocol *ProfilerProtocol) StartPreciseCoverage(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -168,6 +174,7 @@ func (protocol *ProfilerProtocol) StartTypeProfile() chan *profiler.StartTypePro
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -191,6 +198,7 @@ func (protocol *ProfilerProtocol) Stop() chan *profiler.StopResult {
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -213,6 +221,7 @@ func (protocol *ProfilerProtocol) StopPreciseCoverage() chan *profiler.StopPreci
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -236,6 +245,7 @@ func (protocol *ProfilerProtocol) StopTypeProfile() chan *profiler.StopTypeProfi
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -260,6 +270,7 @@ func (protocol *ProfilerProtocol) TakePreciseCoverage() chan *profiler.TakePreci
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -284,6 +295,7 @@ func (protocol *ProfilerProtocol) TakeTypeProfile() chan *profiler.TakeTypeProfi
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

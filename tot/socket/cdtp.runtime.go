@@ -41,6 +41,7 @@ func (protocol *RuntimeProtocol) AwaitPromise(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -67,6 +68,7 @@ func (protocol *RuntimeProtocol) CallFunctionOn(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -92,6 +94,7 @@ func (protocol *RuntimeProtocol) CompileScript(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -113,6 +116,7 @@ func (protocol *RuntimeProtocol) Disable() chan *runtime.DisableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -134,6 +138,7 @@ func (protocol *RuntimeProtocol) DiscardConsoleEntries() chan *runtime.DiscardCo
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -157,6 +162,7 @@ func (protocol *RuntimeProtocol) Enable() chan *runtime.EnableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -182,6 +188,7 @@ func (protocol *RuntimeProtocol) Evaluate(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -208,6 +215,7 @@ func (protocol *RuntimeProtocol) GetProperties(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -234,6 +242,7 @@ func (protocol *RuntimeProtocol) GlobalLexicalScopeNames(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -259,6 +268,7 @@ func (protocol *RuntimeProtocol) QueryObjects(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -282,6 +292,7 @@ func (protocol *RuntimeProtocol) ReleaseObject(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -305,6 +316,7 @@ func (protocol *RuntimeProtocol) ReleaseObjectGroup(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -327,6 +339,7 @@ func (protocol *RuntimeProtocol) RunIfWaitingForDebugger() chan *runtime.RunIfWa
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -352,6 +365,7 @@ func (protocol *RuntimeProtocol) RunScript(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -376,6 +390,7 @@ func (protocol *RuntimeProtocol) SetCustomObjectFormatterEnabled(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

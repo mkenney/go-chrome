@@ -33,6 +33,7 @@ func (protocol *StorageProtocol) ClearDataForOrigin(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -58,6 +59,7 @@ func (protocol *StorageProtocol) GetUsageAndQuota(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -82,6 +84,7 @@ func (protocol *StorageProtocol) TrackCacheStorageForOrigin(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -106,6 +109,7 @@ func (protocol *StorageProtocol) TrackIndexedDBForOrigin(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -130,6 +134,7 @@ func (protocol *StorageProtocol) UntrackCacheStorageForOrigin(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -154,6 +159,7 @@ func (protocol *StorageProtocol) UntrackIndexedDBForOrigin(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

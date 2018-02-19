@@ -32,6 +32,7 @@ func (protocol *DatabaseProtocol) Disable() chan *database.DisableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -54,6 +55,7 @@ func (protocol *DatabaseProtocol) Enable() chan *database.EnableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -79,6 +81,7 @@ func (protocol *DatabaseProtocol) ExecuteSQL(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -104,6 +107,7 @@ func (protocol *DatabaseProtocol) GetTableNames(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

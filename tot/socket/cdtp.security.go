@@ -31,6 +31,7 @@ func (protocol *SecurityProtocol) Disable() chan *security.DisableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -52,6 +53,7 @@ func (protocol *SecurityProtocol) Enable() chan *security.EnableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -76,6 +78,7 @@ func (protocol *SecurityProtocol) HandleCertificateError(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -101,6 +104,7 @@ func (protocol *SecurityProtocol) SetIgnoreCertificateErrors(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -126,6 +130,7 @@ func (protocol *SecurityProtocol) SetOverrideCertificateErrors(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

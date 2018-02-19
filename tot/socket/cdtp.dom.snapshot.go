@@ -40,6 +40,7 @@ func (protocol *DOMSnapshotProtocol) Get(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

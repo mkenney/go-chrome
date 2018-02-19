@@ -32,6 +32,7 @@ func (protocol *ConsoleProtocol) ClearMessages() chan *console.ClearMessagesResu
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -54,6 +55,7 @@ func (protocol *ConsoleProtocol) Disable() chan *console.DisableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -76,6 +78,7 @@ func (protocol *ConsoleProtocol) Enable() chan *console.EnableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

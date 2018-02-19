@@ -35,6 +35,7 @@ func (protocol *SystemInfoProtocol) GetInfo() chan *systemInfo.GetInfoResult {
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

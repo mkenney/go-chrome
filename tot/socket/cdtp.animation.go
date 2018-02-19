@@ -31,6 +31,7 @@ func (protocol *AnimationProtocol) Disable() chan *animation.DisableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -52,6 +53,7 @@ func (protocol *AnimationProtocol) Enable() chan *animation.EnableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -77,6 +79,7 @@ func (protocol *AnimationProtocol) GetCurrentTime(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -100,6 +103,7 @@ func (protocol *AnimationProtocol) GetPlaybackRate() chan *animation.GetPlayback
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -123,6 +127,7 @@ func (protocol *AnimationProtocol) ReleaseAnimations(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -148,6 +153,7 @@ func (protocol *AnimationProtocol) ResolveAnimation(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -172,6 +178,7 @@ func (protocol *AnimationProtocol) SeekAnimations(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -195,6 +202,7 @@ func (protocol *AnimationProtocol) SetPaused(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -218,6 +226,7 @@ func (protocol *AnimationProtocol) SetPlaybackRate(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -241,6 +250,7 @@ func (protocol *AnimationProtocol) SetTiming(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

@@ -32,6 +32,7 @@ func (protocol *BrowserProtocol) Close() chan *browser.CloseResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -55,6 +56,7 @@ func (protocol *BrowserProtocol) GetVersion() chan *browser.GetVersionResult {
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -80,6 +82,7 @@ func (protocol *BrowserProtocol) GetWindowBounds(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -106,6 +109,7 @@ func (protocol *BrowserProtocol) GetWindowForTarget(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -131,6 +135,7 @@ func (protocol *BrowserProtocol) SetWindowBounds(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

@@ -31,6 +31,7 @@ func (protocol *InputProtocol) DispatchKeyEvent(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -54,6 +55,7 @@ func (protocol *InputProtocol) DispatchMouseEvent(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -77,6 +79,7 @@ func (protocol *InputProtocol) DispatchTouchEvent(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -101,6 +104,7 @@ func (protocol *InputProtocol) EmulateTouchFromMouseEvent(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -124,6 +128,7 @@ func (protocol *InputProtocol) SetIgnoreEvents(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -149,6 +154,7 @@ func (protocol *InputProtocol) SynthesizePinchGesture(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -174,6 +180,7 @@ func (protocol *InputProtocol) SynthesizeScrollGesture(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -199,6 +206,7 @@ func (protocol *InputProtocol) SynthesizeTapGesture(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

@@ -38,6 +38,7 @@ func (protocol *DOMDebuggerProtocol) GetEventListeners(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -62,6 +63,7 @@ func (protocol *DOMDebuggerProtocol) RemoveDOMBreakpoint(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -85,6 +87,7 @@ func (protocol *DOMDebuggerProtocol) RemoveEventListenerBreakpoint(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -109,6 +112,7 @@ func (protocol *DOMDebuggerProtocol) RemoveInstrumentationBreakpoint(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -132,6 +136,7 @@ func (protocol *DOMDebuggerProtocol) RemoveXHRBreakpoint(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -155,6 +160,7 @@ func (protocol *DOMDebuggerProtocol) SetDOMBreakpoint(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -178,6 +184,7 @@ func (protocol *DOMDebuggerProtocol) SetEventListenerBreakpoint(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -202,6 +209,7 @@ func (protocol *DOMDebuggerProtocol) SetInstrumentationBreakpoint(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -225,6 +233,7 @@ func (protocol *DOMDebuggerProtocol) SetXHRBreakpoint(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

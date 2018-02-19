@@ -34,6 +34,7 @@ func (protocol *DOMStorageProtocol) Clear(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -56,6 +57,7 @@ func (protocol *DOMStorageProtocol) Disable() chan *domStorage.DisableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -78,6 +80,7 @@ func (protocol *DOMStorageProtocol) Enable() chan *domStorage.EnableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -103,6 +106,7 @@ func (protocol *DOMStorageProtocol) GetItems(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -126,6 +130,7 @@ func (protocol *DOMStorageProtocol) RemoveItem(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -149,6 +154,7 @@ func (protocol *DOMStorageProtocol) SetItem(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

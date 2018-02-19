@@ -32,6 +32,7 @@ func (protocol *MemoryProtocol) GetDOMCounters(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -54,6 +55,7 @@ func (protocol *MemoryProtocol) PrepareForLeakDetection() chan *memory.PrepareFo
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -78,6 +80,7 @@ func (protocol *MemoryProtocol) SetPressureNotificationsSuppressed(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -102,6 +105,7 @@ func (protocol *MemoryProtocol) SimulatePressureNotification(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

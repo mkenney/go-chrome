@@ -32,6 +32,7 @@ func (protocol *PerformanceProtocol) Disable() chan *performance.DisableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -53,6 +54,7 @@ func (protocol *PerformanceProtocol) Enable() chan *performance.EnableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -76,6 +78,7 @@ func (protocol *PerformanceProtocol) GetMetrics() chan *performance.GetMetricsRe
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

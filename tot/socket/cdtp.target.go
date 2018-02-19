@@ -34,6 +34,7 @@ func (protocol *TargetProtocol) ActivateTarget(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -59,6 +60,7 @@ func (protocol *TargetProtocol) AttachToTarget(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -84,6 +86,7 @@ func (protocol *TargetProtocol) CloseTarget(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -109,6 +112,7 @@ func (protocol *TargetProtocol) CreateBrowserContext() chan *target.CreateBrowse
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -134,6 +138,7 @@ func (protocol *TargetProtocol) CreateTarget(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -157,6 +162,7 @@ func (protocol *TargetProtocol) DetachFromTarget(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -184,6 +190,7 @@ func (protocol *TargetProtocol) DisposeBrowserContext(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -210,6 +217,7 @@ func (protocol *TargetProtocol) GetTargetInfo(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -233,6 +241,7 @@ func (protocol *TargetProtocol) GetTargets(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -256,6 +265,7 @@ func (protocol *TargetProtocol) SendMessageToTarget(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -280,6 +290,7 @@ func (protocol *TargetProtocol) SetAttachToFrames(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -306,6 +317,7 @@ func (protocol *TargetProtocol) SetAutoAttach(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -330,6 +342,7 @@ func (protocol *TargetProtocol) SetDiscoverTargets(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -355,6 +368,7 @@ func (protocol *TargetProtocol) SetRemoteLocations(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

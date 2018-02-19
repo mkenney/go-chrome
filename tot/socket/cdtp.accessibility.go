@@ -38,6 +38,7 @@ func (protocol *AccessibilityProtocol) GetPartialAXTree(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
