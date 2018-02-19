@@ -25,7 +25,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-continue
 */
 func (protocol *DebuggerProtocol) ContinueToLocation(
 	params *debugger.ContinueToLocationParams,
-) chan *debugger.ContinueToLocationResult {
+) <-chan *debugger.ContinueToLocationResult {
 	resultChan := make(chan *debugger.ContinueToLocationResult)
 	command := NewCommand(protocol.Socket, "Debugger.continueToLocation", params)
 	result := &debugger.ContinueToLocationResult{}
@@ -47,7 +47,7 @@ Disable disables debugger for given page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-disable
 */
-func (protocol *DebuggerProtocol) Disable() chan *debugger.DisableResult {
+func (protocol *DebuggerProtocol) Disable() <-chan *debugger.DisableResult {
 	resultChan := make(chan *debugger.DisableResult)
 	command := NewCommand(protocol.Socket, "Debugger.disable", nil)
 	result := &debugger.DisableResult{}
@@ -70,7 +70,7 @@ debugging has been enabled until the result for this command is received.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-enable
 */
-func (protocol *DebuggerProtocol) Enable() chan *debugger.EnableResult {
+func (protocol *DebuggerProtocol) Enable() <-chan *debugger.EnableResult {
 	resultChan := make(chan *debugger.EnableResult)
 	command := NewCommand(protocol.Socket, "Debugger.enable", nil)
 	result := &debugger.EnableResult{}
@@ -96,7 +96,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-evaluate
 */
 func (protocol *DebuggerProtocol) EvaluateOnCallFrame(
 	params *debugger.EvaluateOnCallFrameParams,
-) chan *debugger.EvaluateOnCallFrameResult {
+) <-chan *debugger.EvaluateOnCallFrameResult {
 	resultChan := make(chan *debugger.EvaluateOnCallFrameResult)
 	command := NewCommand(protocol.Socket, "Debugger.evaluateOnCallFrame", params)
 	result := &debugger.EvaluateOnCallFrameResult{}
@@ -123,7 +123,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getPossi
 */
 func (protocol *DebuggerProtocol) GetPossibleBreakpoints(
 	params *debugger.GetPossibleBreakpointsParams,
-) chan *debugger.GetPossibleBreakpointsResult {
+) <-chan *debugger.GetPossibleBreakpointsResult {
 	resultChan := make(chan *debugger.GetPossibleBreakpointsResult)
 	command := NewCommand(protocol.Socket, "Debugger.getPossibleBreakpoints", params)
 	result := &debugger.GetPossibleBreakpointsResult{}
@@ -149,7 +149,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getScrip
 */
 func (protocol *DebuggerProtocol) GetScriptSource(
 	params *debugger.GetScriptSourceParams,
-) chan *debugger.GetScriptSourceResult {
+) <-chan *debugger.GetScriptSourceResult {
 	resultChan := make(chan *debugger.GetScriptSourceResult)
 	command := NewCommand(protocol.Socket, "Debugger.getScriptSource", params)
 	result := &debugger.GetScriptSourceResult{}
@@ -175,7 +175,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-getStack
 */
 func (protocol *DebuggerProtocol) GetStackTrace(
 	params *debugger.GetStackTraceParams,
-) chan *debugger.GetStackTraceResult {
+) <-chan *debugger.GetStackTraceResult {
 	resultChan := make(chan *debugger.GetStackTraceResult)
 	command := NewCommand(protocol.Socket, "Debugger.getStackTrace", params)
 	result := &debugger.GetStackTraceResult{}
@@ -199,7 +199,7 @@ Pause stops on the next JavaScript statement.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-pause
 */
-func (protocol *DebuggerProtocol) Pause() chan *debugger.PauseResult {
+func (protocol *DebuggerProtocol) Pause() <-chan *debugger.PauseResult {
 	resultChan := make(chan *debugger.PauseResult)
 	command := NewCommand(protocol.Socket, "Debugger.pause", nil)
 	result := &debugger.PauseResult{}
@@ -223,7 +223,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-pauseOnA
 */
 func (protocol *DebuggerProtocol) PauseOnAsyncCall(
 	params *debugger.PauseOnAsyncCallParams,
-) chan *debugger.PauseOnAsyncCallResult {
+) <-chan *debugger.PauseOnAsyncCallResult {
 	resultChan := make(chan *debugger.PauseOnAsyncCallResult)
 	command := NewCommand(protocol.Socket, "Debugger.pauseOnAsyncCall", params)
 	result := &debugger.PauseOnAsyncCallResult{}
@@ -247,7 +247,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-removeBr
 */
 func (protocol *DebuggerProtocol) RemoveBreakpoint(
 	params *debugger.RemoveBreakpointParams,
-) chan *debugger.RemoveBreakpointResult {
+) <-chan *debugger.RemoveBreakpointResult {
 	resultChan := make(chan *debugger.RemoveBreakpointResult)
 	command := NewCommand(protocol.Socket, "Debugger.removeBreakpoint", params)
 	result := &debugger.RemoveBreakpointResult{}
@@ -271,7 +271,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-restartF
 */
 func (protocol *DebuggerProtocol) RestartFrame(
 	params *debugger.RestartFrameParams,
-) chan *debugger.RestartFrameResult {
+) <-chan *debugger.RestartFrameResult {
 	resultChan := make(chan *debugger.RestartFrameResult)
 	command := NewCommand(protocol.Socket, "Debugger.restartFrame", params)
 	result := &debugger.RestartFrameResult{}
@@ -295,7 +295,7 @@ Resume resumes JavaScript execution.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-resume
 */
-func (protocol *DebuggerProtocol) Resume() chan *debugger.ResumeResult {
+func (protocol *DebuggerProtocol) Resume() <-chan *debugger.ResumeResult {
 	resultChan := make(chan *debugger.ResumeResult)
 	command := NewCommand(protocol.Socket, "Debugger.resume", nil)
 	result := &debugger.ResumeResult{}
@@ -322,7 +322,7 @@ another scheduleStepIntoAsync was called.
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-scheduleStepIntoAsync
 EXPERIMENTAL. DEPRECATED.
 */
-func (protocol *DebuggerProtocol) ScheduleStepIntoAsync() chan *debugger.ScheduleStepIntoAsyncResult {
+func (protocol *DebuggerProtocol) ScheduleStepIntoAsync() <-chan *debugger.ScheduleStepIntoAsyncResult {
 	resultChan := make(chan *debugger.ScheduleStepIntoAsyncResult)
 	command := NewCommand(protocol.Socket, "Debugger.scheduleStepIntoAsync", nil)
 	result := &debugger.ScheduleStepIntoAsyncResult{}
@@ -346,7 +346,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-searchIn
 */
 func (protocol *DebuggerProtocol) SearchInContent(
 	params *debugger.SearchInContentParams,
-) chan *debugger.SearchInContentResult {
+) <-chan *debugger.SearchInContentResult {
 	resultChan := make(chan *debugger.SearchInContentResult)
 	command := NewCommand(protocol.Socket, "Debugger.searchInContent", params)
 	result := &debugger.SearchInContentResult{}
@@ -372,7 +372,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setAsync
 */
 func (protocol *DebuggerProtocol) SetAsyncCallStackDepth(
 	params *debugger.SetAsyncCallStackDepthParams,
-) chan *debugger.SetAsyncCallStackDepthResult {
+) <-chan *debugger.SetAsyncCallStackDepthResult {
 	resultChan := make(chan *debugger.SetAsyncCallStackDepthResult)
 	command := NewCommand(protocol.Socket, "Debugger.setAsyncCallStackDepth", params)
 	result := &debugger.SetAsyncCallStackDepthResult{}
@@ -401,7 +401,7 @@ EXPERIMENTAL.
 */
 func (protocol *DebuggerProtocol) SetBlackboxPatterns(
 	params *debugger.SetBlackboxPatternsParams,
-) chan *debugger.SetBlackboxPatternsResult {
+) <-chan *debugger.SetBlackboxPatternsResult {
 	resultChan := make(chan *debugger.SetBlackboxPatternsResult)
 	command := NewCommand(protocol.Socket, "Debugger.setBlackboxPatterns", params)
 	result := &debugger.SetBlackboxPatternsResult{}
@@ -428,7 +428,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBlack
 */
 func (protocol *DebuggerProtocol) SetBlackboxedRanges(
 	params *debugger.SetBlackboxedRangesParams,
-) chan *debugger.SetBlackboxedRangesResult {
+) <-chan *debugger.SetBlackboxedRangesResult {
 	resultChan := make(chan *debugger.SetBlackboxedRangesResult)
 	command := NewCommand(protocol.Socket, "Debugger.setBlackboxedRanges", params)
 	result := &debugger.SetBlackboxedRangesResult{}
@@ -452,7 +452,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreak
 */
 func (protocol *DebuggerProtocol) SetBreakpoint(
 	params *debugger.SetBreakpointParams,
-) chan *debugger.SetBreakpointResult {
+) <-chan *debugger.SetBreakpointResult {
 	resultChan := make(chan *debugger.SetBreakpointResult)
 	command := NewCommand(protocol.Socket, "Debugger.setBreakpoint", params)
 	result := &debugger.SetBreakpointResult{}
@@ -481,7 +481,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreak
 */
 func (protocol *DebuggerProtocol) SetBreakpointByURL(
 	params *debugger.SetBreakpointByURLParams,
-) chan *debugger.SetBreakpointByURLResult {
+) <-chan *debugger.SetBreakpointByURLResult {
 	resultChan := make(chan *debugger.SetBreakpointByURLResult)
 	command := NewCommand(protocol.Socket, "Debugger.setBreakpointByUrl", params)
 	result := &debugger.SetBreakpointByURLResult{}
@@ -507,7 +507,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setBreak
 */
 func (protocol *DebuggerProtocol) SetBreakpointsActive(
 	params *debugger.SetBreakpointsActiveParams,
-) chan *debugger.SetBreakpointsActiveResult {
+) <-chan *debugger.SetBreakpointsActiveResult {
 	resultChan := make(chan *debugger.SetBreakpointsActiveResult)
 	command := NewCommand(protocol.Socket, "Debugger.setBreakpointsActive", params)
 	result := &debugger.SetBreakpointsActiveResult{}
@@ -532,7 +532,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setPause
 */
 func (protocol *DebuggerProtocol) SetPauseOnExceptions(
 	params *debugger.SetPauseOnExceptionsParams,
-) chan *debugger.SetPauseOnExceptionsResult {
+) <-chan *debugger.SetPauseOnExceptionsResult {
 	resultChan := make(chan *debugger.SetPauseOnExceptionsResult)
 	command := NewCommand(protocol.Socket, "Debugger.setPauseOnExceptions", params)
 	result := &debugger.SetPauseOnExceptionsResult{}
@@ -557,7 +557,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setRetur
 */
 func (protocol *DebuggerProtocol) SetReturnValue(
 	params *debugger.SetReturnValueParams,
-) chan *debugger.SetReturnValueResult {
+) <-chan *debugger.SetReturnValueResult {
 	resultChan := make(chan *debugger.SetReturnValueResult)
 	command := NewCommand(protocol.Socket, "Debugger.setReturnValue", params)
 	result := &debugger.SetReturnValueResult{}
@@ -581,7 +581,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setScrip
 */
 func (protocol *DebuggerProtocol) SetScriptSource(
 	params *debugger.SetScriptSourceParams,
-) chan *debugger.SetScriptSourceResult {
+) <-chan *debugger.SetScriptSourceResult {
 	resultChan := make(chan *debugger.SetScriptSourceResult)
 	command := NewCommand(protocol.Socket, "Debugger.setScriptSource", params)
 	result := &debugger.SetScriptSourceResult{}
@@ -607,7 +607,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setSkipA
 */
 func (protocol *DebuggerProtocol) SetSkipAllPauses(
 	params *debugger.SetSkipAllPausesParams,
-) chan *debugger.SetSkipAllPausesResult {
+) <-chan *debugger.SetSkipAllPausesResult {
 	resultChan := make(chan *debugger.SetSkipAllPausesResult)
 	command := NewCommand(protocol.Socket, "Debugger.setSkipAllPauses", params)
 	result := &debugger.SetSkipAllPausesResult{}
@@ -632,7 +632,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-setVaria
 */
 func (protocol *DebuggerProtocol) SetVariableValue(
 	params *debugger.SetVariableValueParams,
-) chan *debugger.SetVariableValueResult {
+) <-chan *debugger.SetVariableValueResult {
 	resultChan := make(chan *debugger.SetVariableValueResult)
 	command := NewCommand(protocol.Socket, "Debugger.setVariableValue", params)
 	result := &debugger.SetVariableValueResult{}
@@ -656,7 +656,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepInto
 */
 func (protocol *DebuggerProtocol) StepInto(
 	params *debugger.StepIntoParams,
-) chan *debugger.StepIntoResult {
+) <-chan *debugger.StepIntoResult {
 	resultChan := make(chan *debugger.StepIntoResult)
 	command := NewCommand(protocol.Socket, "Debugger.stepInto", params)
 	result := &debugger.StepIntoResult{}
@@ -678,7 +678,7 @@ StepOut steps out of the function call.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepOut
 */
-func (protocol *DebuggerProtocol) StepOut() chan *debugger.StepOutResult {
+func (protocol *DebuggerProtocol) StepOut() <-chan *debugger.StepOutResult {
 	resultChan := make(chan *debugger.StepOutResult)
 	command := NewCommand(protocol.Socket, "Debugger.stepOut", nil)
 	result := &debugger.StepOutResult{}
@@ -700,7 +700,7 @@ StepOver steps over the statement.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Debugger/#method-stepOver
 */
-func (protocol *DebuggerProtocol) StepOver() chan *debugger.StepOverResult {
+func (protocol *DebuggerProtocol) StepOver() <-chan *debugger.StepOverResult {
 	resultChan := make(chan *debugger.StepOverResult)
 	command := NewCommand(protocol.Socket, "Debugger.stepOver", nil)
 	result := &debugger.StepOverResult{}

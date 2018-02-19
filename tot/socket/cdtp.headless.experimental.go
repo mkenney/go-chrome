@@ -26,7 +26,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#met
 */
 func (protocol *HeadlessExperimentalProtocol) BeginFrame(
 	params *headlessExperimental.BeginFrameParams,
-) chan *headlessExperimental.BeginFrameResult {
+) <-chan *headlessExperimental.BeginFrameResult {
 	resultChan := make(chan *headlessExperimental.BeginFrameResult)
 	command := NewCommand(protocol.Socket, "HeadlessExperimental.beginFrame", params)
 	result := &headlessExperimental.BeginFrameResult{}
@@ -50,7 +50,7 @@ Disable disables headless events for the target.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-disable
 */
-func (protocol *HeadlessExperimentalProtocol) Disable() chan *headlessExperimental.DisableResult {
+func (protocol *HeadlessExperimentalProtocol) Disable() <-chan *headlessExperimental.DisableResult {
 	resultChan := make(chan *headlessExperimental.DisableResult)
 	command := NewCommand(protocol.Socket, "HeadlessExperimental.disable", nil)
 	result := &headlessExperimental.DisableResult{}
@@ -72,7 +72,7 @@ Enable enables headless events for the target.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeadlessExperimental/#method-enable
 */
-func (protocol *HeadlessExperimentalProtocol) Enable() chan *headlessExperimental.EnableResult {
+func (protocol *HeadlessExperimentalProtocol) Enable() <-chan *headlessExperimental.EnableResult {
 	resultChan := make(chan *headlessExperimental.EnableResult)
 	command := NewCommand(protocol.Socket, "HeadlessExperimental.enable", nil)
 	result := &headlessExperimental.EnableResult{}

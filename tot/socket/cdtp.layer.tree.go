@@ -23,7 +23,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-composi
 */
 func (protocol *LayerTreeProtocol) CompositingReasons(
 	params *layerTree.CompositingReasonsParams,
-) chan *layerTree.CompositingReasonsResult {
+) <-chan *layerTree.CompositingReasonsResult {
 	resultChan := make(chan *layerTree.CompositingReasonsResult)
 	command := NewCommand(protocol.Socket, "LayerTree.compositingReasons", params)
 	result := &layerTree.CompositingReasonsResult{}
@@ -47,7 +47,7 @@ Disable disables compositing tree inspection.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-disable
 */
-func (protocol *LayerTreeProtocol) Disable() chan *layerTree.DisableResult {
+func (protocol *LayerTreeProtocol) Disable() <-chan *layerTree.DisableResult {
 	resultChan := make(chan *layerTree.DisableResult)
 	command := NewCommand(protocol.Socket, "LayerTree.disable", nil)
 	result := &layerTree.DisableResult{}
@@ -69,7 +69,7 @@ Enable enables compositing tree inspection.
 
 https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-enable
 */
-func (protocol *LayerTreeProtocol) Enable() chan *layerTree.EnableResult {
+func (protocol *LayerTreeProtocol) Enable() <-chan *layerTree.EnableResult {
 	resultChan := make(chan *layerTree.EnableResult)
 	command := NewCommand(protocol.Socket, "LayerTree.enable", nil)
 	result := &layerTree.EnableResult{}
@@ -93,7 +93,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-loadSna
 */
 func (protocol *LayerTreeProtocol) LoadSnapshot(
 	params *layerTree.LoadSnapshotParams,
-) chan *layerTree.LoadSnapshotResult {
+) <-chan *layerTree.LoadSnapshotResult {
 	resultChan := make(chan *layerTree.LoadSnapshotResult)
 	command := NewCommand(protocol.Socket, "LayerTree.loadSnapshot", params)
 	result := &layerTree.LoadSnapshotResult{}
@@ -119,7 +119,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-makeSna
 */
 func (protocol *LayerTreeProtocol) MakeSnapshot(
 	params *layerTree.MakeSnapshotParams,
-) chan *layerTree.MakeSnapshotResult {
+) <-chan *layerTree.MakeSnapshotResult {
 	resultChan := make(chan *layerTree.MakeSnapshotResult)
 	command := NewCommand(protocol.Socket, "LayerTree.makeSnapshot", params)
 	result := &layerTree.MakeSnapshotResult{}
@@ -145,7 +145,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-profile
 */
 func (protocol *LayerTreeProtocol) ProfileSnapshot(
 	params *layerTree.ProfileSnapshotParams,
-) chan *layerTree.ProfileSnapshotResult {
+) <-chan *layerTree.ProfileSnapshotResult {
 	resultChan := make(chan *layerTree.ProfileSnapshotResult)
 	command := NewCommand(protocol.Socket, "LayerTree.profileSnapshot", params)
 	result := &layerTree.ProfileSnapshotResult{}
@@ -171,7 +171,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-release
 */
 func (protocol *LayerTreeProtocol) ReleaseSnapshot(
 	params *layerTree.ReleaseSnapshotParams,
-) chan *layerTree.ReleaseSnapshotResult {
+) <-chan *layerTree.ReleaseSnapshotResult {
 	resultChan := make(chan *layerTree.ReleaseSnapshotResult)
 	command := NewCommand(protocol.Socket, "LayerTree.releaseSnapshot", params)
 	result := &layerTree.ReleaseSnapshotResult{}
@@ -195,7 +195,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-replayS
 */
 func (protocol *LayerTreeProtocol) ReplaySnapshot(
 	params *layerTree.ReplaySnapshotParams,
-) chan *layerTree.ReplaySnapshotResult {
+) <-chan *layerTree.ReplaySnapshotResult {
 	resultChan := make(chan *layerTree.ReplaySnapshotResult)
 	command := NewCommand(protocol.Socket, "LayerTree.replaySnapshot", params)
 	result := &layerTree.ReplaySnapshotResult{}
@@ -221,7 +221,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/LayerTree/#method-snapsho
 */
 func (protocol *LayerTreeProtocol) SnapshotCommandLog(
 	params *layerTree.SnapshotCommandLogParams,
-) chan *layerTree.SnapshotCommandLogResult {
+) <-chan *layerTree.SnapshotCommandLogResult {
 	resultChan := make(chan *layerTree.SnapshotCommandLogResult)
 	command := NewCommand(protocol.Socket, "LayerTree.snapshotCommandLog", params)
 	result := &layerTree.SnapshotCommandLogResult{}

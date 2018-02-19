@@ -24,7 +24,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-addI
 */
 func (protocol *HeapProfilerProtocol) AddInspectedHeapObject(
 	params *heapProfiler.AddInspectedHeapObjectParams,
-) chan *heapProfiler.AddInspectedHeapObjectResult {
+) <-chan *heapProfiler.AddInspectedHeapObjectResult {
 	resultChan := make(chan *heapProfiler.AddInspectedHeapObjectResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.addInspectedHeapObject", params)
 	result := &heapProfiler.AddInspectedHeapObjectResult{}
@@ -47,7 +47,7 @@ CollectGarbage is experimental.
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-collectGarbage
 EXPERIMENTAL.
 */
-func (protocol *HeapProfilerProtocol) CollectGarbage() chan *heapProfiler.CollectGarbageResult {
+func (protocol *HeapProfilerProtocol) CollectGarbage() <-chan *heapProfiler.CollectGarbageResult {
 	resultChan := make(chan *heapProfiler.CollectGarbageResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.collectGarbage", nil)
 	result := &heapProfiler.CollectGarbageResult{}
@@ -69,7 +69,7 @@ Disable disables the HeapProfiler.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-disable
 */
-func (protocol *HeapProfilerProtocol) Disable() chan *heapProfiler.DisableResult {
+func (protocol *HeapProfilerProtocol) Disable() <-chan *heapProfiler.DisableResult {
 	resultChan := make(chan *heapProfiler.DisableResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.disable", nil)
 	result := &heapProfiler.DisableResult{}
@@ -91,7 +91,7 @@ Enable enables the HeapProfiler.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-enable
 */
-func (protocol *HeapProfilerProtocol) Enable() chan *heapProfiler.EnableResult {
+func (protocol *HeapProfilerProtocol) Enable() <-chan *heapProfiler.EnableResult {
 	resultChan := make(chan *heapProfiler.EnableResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.enable", nil)
 	result := &heapProfiler.EnableResult{}
@@ -116,7 +116,7 @@ EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) GetHeapObjectID(
 	params *heapProfiler.GetHeapObjectIDParams,
-) chan *heapProfiler.GetHeapObjectIDResult {
+) <-chan *heapProfiler.GetHeapObjectIDResult {
 	resultChan := make(chan *heapProfiler.GetHeapObjectIDResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.getHeapObjectID", params)
 	result := &heapProfiler.GetHeapObjectIDResult{}
@@ -143,7 +143,7 @@ EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) GetObjectByHeapObjectID(
 	params *heapProfiler.GetObjectByHeapObjectIDParams,
-) chan *heapProfiler.GetObjectByHeapObjectIDResult {
+) <-chan *heapProfiler.GetObjectByHeapObjectIDResult {
 	resultChan := make(chan *heapProfiler.GetObjectByHeapObjectIDResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.getObjectByHeapObjectId", params)
 	result := &heapProfiler.GetObjectByHeapObjectIDResult{}
@@ -170,7 +170,7 @@ EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) GetSamplingProfile(
 	params *heapProfiler.GetSamplingProfileParams,
-) chan *heapProfiler.GetSamplingProfileResult {
+) <-chan *heapProfiler.GetSamplingProfileResult {
 	resultChan := make(chan *heapProfiler.GetSamplingProfileResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.getSamplingProfile", params)
 	result := &heapProfiler.GetSamplingProfileResult{}
@@ -195,7 +195,7 @@ EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) StartSampling(
 	params *heapProfiler.StartSamplingParams,
-) chan *heapProfiler.StartSamplingResult {
+) <-chan *heapProfiler.StartSamplingResult {
 	resultChan := make(chan *heapProfiler.StartSamplingResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.startSampling", params)
 	result := &heapProfiler.StartSamplingResult{}
@@ -220,7 +220,7 @@ EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) StartTrackingHeapObjects(
 	params *heapProfiler.StartTrackingHeapObjectsParams,
-) chan *heapProfiler.StartTrackingHeapObjectsResult {
+) <-chan *heapProfiler.StartTrackingHeapObjectsResult {
 	resultChan := make(chan *heapProfiler.StartTrackingHeapObjectsResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.startTrackingHeapObjects", params)
 	result := &heapProfiler.StartTrackingHeapObjectsResult{}
@@ -245,7 +245,7 @@ EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) StopSampling(
 	params *heapProfiler.StopSamplingParams,
-) chan *heapProfiler.StopSamplingResult {
+) <-chan *heapProfiler.StopSamplingResult {
 	resultChan := make(chan *heapProfiler.StopSamplingResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.stopSampling", params)
 	result := &heapProfiler.StopSamplingResult{}
@@ -270,7 +270,7 @@ EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) StopTrackingHeapObjects(
 	params *heapProfiler.StopTrackingHeapObjectsParams,
-) chan *heapProfiler.StopTrackingHeapObjectsResult {
+) <-chan *heapProfiler.StopTrackingHeapObjectsResult {
 	resultChan := make(chan *heapProfiler.StopTrackingHeapObjectsResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.stopTrackingHeapObjects", params)
 	result := &heapProfiler.StopTrackingHeapObjectsResult{}
@@ -295,7 +295,7 @@ EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) TakeHeapSnapshot(
 	params *heapProfiler.TakeHeapSnapshotParams,
-) chan *heapProfiler.TakeHeapSnapshotResult {
+) <-chan *heapProfiler.TakeHeapSnapshotResult {
 	resultChan := make(chan *heapProfiler.TakeHeapSnapshotResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.takeHeapSnapshot", params)
 	result := &heapProfiler.TakeHeapSnapshotResult{}

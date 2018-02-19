@@ -20,7 +20,7 @@ ClearOverride clears the overridden Device Orientation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/#method-clearDeviceOrientationOverride
 */
-func (protocol *DeviceOrientationProtocol) ClearOverride() chan *deviceOrientation.ClearOverrideResult {
+func (protocol *DeviceOrientationProtocol) ClearOverride() <-chan *deviceOrientation.ClearOverrideResult {
 	resultChan := make(chan *deviceOrientation.ClearOverrideResult)
 	command := NewCommand(protocol.Socket, "DeviceOrientation.clearDeviceOrientationOverride", nil)
 	result := &deviceOrientation.ClearOverrideResult{}
@@ -44,7 +44,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/#method
 */
 func (protocol *DeviceOrientationProtocol) SetOverride(
 	params *deviceOrientation.SetOverrideParams,
-) chan *deviceOrientation.SetOverrideResult {
+) <-chan *deviceOrientation.SetOverrideResult {
 	resultChan := make(chan *deviceOrientation.SetOverrideResult)
 	command := NewCommand(protocol.Socket, "DeviceOrientation.setDeviceOrientationOverride", params)
 	result := &deviceOrientation.SetOverrideResult{}

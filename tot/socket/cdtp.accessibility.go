@@ -25,7 +25,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Accessibility/#method-get
 */
 func (protocol *AccessibilityProtocol) GetPartialAXTree(
 	params *accessibility.PartialAXTreeParams,
-) chan *accessibility.PartialAXTreeResult {
+) <-chan *accessibility.PartialAXTreeResult {
 	resultChan := make(chan *accessibility.PartialAXTreeResult)
 	command := NewCommand(protocol.Socket, "Accessibility.getPartialAXTree", params)
 	result := &accessibility.PartialAXTreeResult{}

@@ -25,7 +25,7 @@ EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) DeliverPushMessage(
 	params *serviceWorker.DeliverPushMessageParams,
-) chan *serviceWorker.DeliverPushMessageResult {
+) <-chan *serviceWorker.DeliverPushMessageResult {
 	resultChan := make(chan *serviceWorker.DeliverPushMessageResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.deliverPushMessage", params)
 	result := &serviceWorker.DeliverPushMessageResult{}
@@ -48,7 +48,7 @@ Disable is experimental.
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-disable
 EXPERIMENTAL.
 */
-func (protocol *ServiceWorkerProtocol) Disable() chan *serviceWorker.DisableResult {
+func (protocol *ServiceWorkerProtocol) Disable() <-chan *serviceWorker.DisableResult {
 	resultChan := make(chan *serviceWorker.DisableResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.disable", nil)
 	result := &serviceWorker.DisableResult{}
@@ -73,7 +73,7 @@ EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) DispatchSyncEvent(
 	params *serviceWorker.DispatchSyncEventParams,
-) chan *serviceWorker.DispatchSyncEventResult {
+) <-chan *serviceWorker.DispatchSyncEventResult {
 	resultChan := make(chan *serviceWorker.DispatchSyncEventResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.dispatchSyncEvent", params)
 	result := &serviceWorker.DispatchSyncEventResult{}
@@ -96,7 +96,7 @@ Enable is experimental.
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-enable
 EXPERIMENTAL.
 */
-func (protocol *ServiceWorkerProtocol) Enable() chan *serviceWorker.EnableResult {
+func (protocol *ServiceWorkerProtocol) Enable() <-chan *serviceWorker.EnableResult {
 	resultChan := make(chan *serviceWorker.EnableResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.enable", nil)
 	result := &serviceWorker.EnableResult{}
@@ -121,7 +121,7 @@ EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) InspectWorker(
 	params *serviceWorker.InspectWorkerParams,
-) chan *serviceWorker.InspectWorkerResult {
+) <-chan *serviceWorker.InspectWorkerResult {
 	resultChan := make(chan *serviceWorker.InspectWorkerResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.inspectWorker", params)
 	result := &serviceWorker.InspectWorkerResult{}
@@ -146,7 +146,7 @@ EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) SetForceUpdateOnPageLoad(
 	params *serviceWorker.SetForceUpdateOnPageLoadParams,
-) chan *serviceWorker.SetForceUpdateOnPageLoadResult {
+) <-chan *serviceWorker.SetForceUpdateOnPageLoadResult {
 	resultChan := make(chan *serviceWorker.SetForceUpdateOnPageLoadResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.setForceUpdateOnPageLoad", params)
 	result := &serviceWorker.SetForceUpdateOnPageLoadResult{}
@@ -171,7 +171,7 @@ EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) SkipWaiting(
 	params *serviceWorker.SkipWaitingParams,
-) chan *serviceWorker.SkipWaitingResult {
+) <-chan *serviceWorker.SkipWaitingResult {
 	resultChan := make(chan *serviceWorker.SkipWaitingResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.skipWaiting", params)
 	result := &serviceWorker.SkipWaitingResult{}
@@ -196,7 +196,7 @@ EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) StartWorker(
 	params *serviceWorker.StartWorkerParams,
-) chan *serviceWorker.StartWorkerResult {
+) <-chan *serviceWorker.StartWorkerResult {
 	resultChan := make(chan *serviceWorker.StartWorkerResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.startWorker", params)
 	result := &serviceWorker.StartWorkerResult{}
@@ -219,7 +219,7 @@ StopAllWorkers is experimental.
 https://chromedevtools.github.io/devtools-protocol/tot/ServiceWorker/#method-stopAllWorkers
 EXPERIMENTAL.
 */
-func (protocol *ServiceWorkerProtocol) StopAllWorkers() chan *serviceWorker.StopAllWorkersResult {
+func (protocol *ServiceWorkerProtocol) StopAllWorkers() <-chan *serviceWorker.StopAllWorkersResult {
 	resultChan := make(chan *serviceWorker.StopAllWorkersResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.stopAllWorkers", nil)
 	result := &serviceWorker.StopAllWorkersResult{}
@@ -244,7 +244,7 @@ EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) StopWorker(
 	params *serviceWorker.StopWorkerParams,
-) chan *serviceWorker.StopWorkerResult {
+) <-chan *serviceWorker.StopWorkerResult {
 	resultChan := make(chan *serviceWorker.StopWorkerResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.stopWorker", params)
 	result := &serviceWorker.StopWorkerResult{}
@@ -269,7 +269,7 @@ EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) Unregister(
 	params *serviceWorker.UnregisterParams,
-) chan *serviceWorker.UnregisterResult {
+) <-chan *serviceWorker.UnregisterResult {
 	resultChan := make(chan *serviceWorker.UnregisterResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.unregister", params)
 	result := &serviceWorker.UnregisterResult{}
@@ -294,7 +294,7 @@ EXPERIMENTAL.
 */
 func (protocol *ServiceWorkerProtocol) UpdateRegistration(
 	params *serviceWorker.UpdateRegistrationParams,
-) chan *serviceWorker.UpdateRegistrationResult {
+) <-chan *serviceWorker.UpdateRegistrationResult {
 	resultChan := make(chan *serviceWorker.UpdateRegistrationResult)
 	command := NewCommand(protocol.Socket, "ServiceWorker.updateRegistration", params)
 	result := &serviceWorker.UpdateRegistrationResult{}

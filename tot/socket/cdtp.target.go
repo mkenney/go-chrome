@@ -23,7 +23,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-activateTa
 */
 func (protocol *TargetProtocol) ActivateTarget(
 	params *target.ActivateTargetParams,
-) chan *target.ActivateTargetResult {
+) <-chan *target.ActivateTargetResult {
 	resultChan := make(chan *target.ActivateTargetResult)
 	command := NewCommand(protocol.Socket, "Target.activateTarget", params)
 	result := &target.ActivateTargetResult{}
@@ -47,7 +47,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-attachToTa
 */
 func (protocol *TargetProtocol) AttachToTarget(
 	params *target.AttachToTargetParams,
-) chan *target.AttachToTargetResult {
+) <-chan *target.AttachToTargetResult {
 	resultChan := make(chan *target.AttachToTargetResult)
 	command := NewCommand(protocol.Socket, "Target.attachToTarget", params)
 	result := &target.AttachToTargetResult{}
@@ -73,7 +73,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-closeTarge
 */
 func (protocol *TargetProtocol) CloseTarget(
 	params *target.CloseTargetParams,
-) chan *target.CloseTargetResult {
+) <-chan *target.CloseTargetResult {
 	resultChan := make(chan *target.CloseTargetResult)
 	command := NewCommand(protocol.Socket, "Target.closeTarget", params)
 	result := &target.CloseTargetResult{}
@@ -99,7 +99,7 @@ profile but you can have more than one.
 https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-createBrowserContext
 EXPERIMENTAL.
 */
-func (protocol *TargetProtocol) CreateBrowserContext() chan *target.CreateBrowserContextResult {
+func (protocol *TargetProtocol) CreateBrowserContext() <-chan *target.CreateBrowserContextResult {
 	resultChan := make(chan *target.CreateBrowserContextResult)
 	command := NewCommand(protocol.Socket, "Target.createBrowserContext", nil)
 	result := &target.CreateBrowserContextResult{}
@@ -125,7 +125,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-createTarg
 */
 func (protocol *TargetProtocol) CreateTarget(
 	params *target.CreateTargetParams,
-) chan *target.CreateTargetResult {
+) <-chan *target.CreateTargetResult {
 	resultChan := make(chan *target.CreateTargetResult)
 	command := NewCommand(protocol.Socket, "Target.createTarget", params)
 	result := &target.CreateTargetResult{}
@@ -151,7 +151,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-detachFrom
 */
 func (protocol *TargetProtocol) DetachFromTarget(
 	params *target.DetachFromTargetParams,
-) chan *target.DetachFromTargetResult {
+) <-chan *target.DetachFromTargetResult {
 	resultChan := make(chan *target.DetachFromTargetResult)
 	command := NewCommand(protocol.Socket, "Target.detachFromTarget", params)
 	result := &target.DetachFromTargetResult{}
@@ -177,7 +177,7 @@ EXPERIMENTAL.
 */
 func (protocol *TargetProtocol) DisposeBrowserContext(
 	params *target.DisposeBrowserContextParams,
-) chan *target.DisposeBrowserContextResult {
+) <-chan *target.DisposeBrowserContextResult {
 	resultChan := make(chan *target.DisposeBrowserContextResult)
 	command := NewCommand(protocol.Socket, "Target.disposeBrowserContext", params)
 	result := &target.DisposeBrowserContextResult{}
@@ -204,7 +204,7 @@ EXPERIMENTAL.
 */
 func (protocol *TargetProtocol) GetTargetInfo(
 	params *target.GetTargetInfoParams,
-) chan *target.GetTargetInfoResult {
+) <-chan *target.GetTargetInfoResult {
 	resultChan := make(chan *target.GetTargetInfoResult)
 	command := NewCommand(protocol.Socket, "Target.getTargetInfo", params)
 	result := &target.GetTargetInfoResult{}
@@ -230,7 +230,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-getTargets
 */
 func (protocol *TargetProtocol) GetTargets(
 	params *target.GetTargetsParams,
-) chan *target.GetTargetsResult {
+) <-chan *target.GetTargetsResult {
 	resultChan := make(chan *target.GetTargetsResult)
 	command := NewCommand(protocol.Socket, "Target.getTargets", params)
 	result := &target.GetTargetsResult{}
@@ -254,7 +254,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-sendMessag
 */
 func (protocol *TargetProtocol) SendMessageToTarget(
 	params *target.SendMessageToTargetParams,
-) chan *target.SendMessageToTargetResult {
+) <-chan *target.SendMessageToTargetResult {
 	resultChan := make(chan *target.SendMessageToTargetResult)
 	command := NewCommand(protocol.Socket, "Target.sendMessageToTarget", params)
 	result := &target.SendMessageToTargetResult{}
@@ -279,7 +279,7 @@ EXPERIMENTAL.
 */
 func (protocol *TargetProtocol) SetAttachToFrames(
 	params *target.SetAttachToFramesParams,
-) chan *target.SetAttachToFramesResult {
+) <-chan *target.SetAttachToFramesResult {
 	resultChan := make(chan *target.SetAttachToFramesResult)
 	command := NewCommand(protocol.Socket, "Target.setAttachToFrames", params)
 	result := &target.SetAttachToFramesResult{}
@@ -306,7 +306,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setAutoAtt
 */
 func (protocol *TargetProtocol) SetAutoAttach(
 	params *target.SetAutoAttachParams,
-) chan *target.SetAutoAttachResult {
+) <-chan *target.SetAutoAttachResult {
 	resultChan := make(chan *target.SetAutoAttachResult)
 	command := NewCommand(protocol.Socket, "Target.setAutoAttach", params)
 	result := &target.SetAutoAttachResult{}
@@ -331,7 +331,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Target/#method-setDiscove
 */
 func (protocol *TargetProtocol) SetDiscoverTargets(
 	params *target.SetDiscoverTargetsParams,
-) chan *target.SetDiscoverTargetsResult {
+) <-chan *target.SetDiscoverTargetsResult {
 	resultChan := make(chan *target.SetDiscoverTargetsResult)
 	command := NewCommand(protocol.Socket, "Target.setDiscoverTargets", params)
 	result := &target.SetDiscoverTargetsResult{}
@@ -357,7 +357,7 @@ EXPERIMENTAL.
 */
 func (protocol *TargetProtocol) SetRemoteLocations(
 	params *target.SetRemoteLocationsParams,
-) chan *target.SetRemoteLocationsResult {
+) <-chan *target.SetRemoteLocationsResult {
 	resultChan := make(chan *target.SetRemoteLocationsResult)
 	command := NewCommand(protocol.Socket, "Target.setRemoteLocations", params)
 	result := &target.SetRemoteLocationsResult{}

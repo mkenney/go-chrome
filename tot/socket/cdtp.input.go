@@ -20,7 +20,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchKey
 */
 func (protocol *InputProtocol) DispatchKeyEvent(
 	params *input.DispatchKeyEventParams,
-) chan *input.DispatchKeyEventResult {
+) <-chan *input.DispatchKeyEventResult {
 	resultChan := make(chan *input.DispatchKeyEventResult)
 	command := NewCommand(protocol.Socket, "Input.dispatchKeyEvent", params)
 	result := &input.DispatchKeyEventResult{}
@@ -44,7 +44,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchMou
 */
 func (protocol *InputProtocol) DispatchMouseEvent(
 	params *input.DispatchMouseEventParams,
-) chan *input.DispatchMouseEventResult {
+) <-chan *input.DispatchMouseEventResult {
 	resultChan := make(chan *input.DispatchMouseEventResult)
 	command := NewCommand(protocol.Socket, "Input.dispatchMouseEvent", params)
 	result := &input.DispatchMouseEventResult{}
@@ -68,7 +68,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchTou
 */
 func (protocol *InputProtocol) DispatchTouchEvent(
 	params *input.DispatchTouchEventParams,
-) chan *input.DispatchTouchEventResult {
+) <-chan *input.DispatchTouchEventResult {
 	resultChan := make(chan *input.DispatchTouchEventResult)
 	command := NewCommand(protocol.Socket, "Input.dispatchTouchEvent", params)
 	result := &input.DispatchTouchEventResult{}
@@ -93,7 +93,7 @@ EXPERIMENTAL.
 */
 func (protocol *InputProtocol) EmulateTouchFromMouseEvent(
 	params *input.EmulateTouchFromMouseEventParams,
-) chan *input.EmulateTouchFromMouseEventResult {
+) <-chan *input.EmulateTouchFromMouseEventResult {
 	resultChan := make(chan *input.EmulateTouchFromMouseEventResult)
 	command := NewCommand(protocol.Socket, "Input.emulateTouchFromMouseEvent", params)
 	result := &input.EmulateTouchFromMouseEventResult{}
@@ -117,7 +117,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-setIgnoreIn
 */
 func (protocol *InputProtocol) SetIgnoreEvents(
 	params *input.SetIgnoreEventsParams,
-) chan *input.SetIgnoreEventsResult {
+) <-chan *input.SetIgnoreEventsResult {
 	resultChan := make(chan *input.SetIgnoreEventsResult)
 	command := NewCommand(protocol.Socket, "Input.setIgnoreInputEvents", params)
 	result := &input.SetIgnoreEventsResult{}
@@ -143,7 +143,7 @@ EXPERIMENTAL.
 */
 func (protocol *InputProtocol) SynthesizePinchGesture(
 	params *input.SynthesizePinchGestureParams,
-) chan *input.SynthesizePinchGestureResult {
+) <-chan *input.SynthesizePinchGestureResult {
 	resultChan := make(chan *input.SynthesizePinchGestureResult)
 	command := NewCommand(protocol.Socket, "Input.synthesizePinchGesture", params)
 	result := &input.SynthesizePinchGestureResult{}
@@ -169,7 +169,7 @@ EXPERIMENTAL.
 */
 func (protocol *InputProtocol) SynthesizeScrollGesture(
 	params *input.SynthesizeScrollGestureParams,
-) chan *input.SynthesizeScrollGestureResult {
+) <-chan *input.SynthesizeScrollGestureResult {
 	resultChan := make(chan *input.SynthesizeScrollGestureResult)
 	command := NewCommand(protocol.Socket, "Input.synthesizeScrollGesture", params)
 	result := &input.SynthesizeScrollGestureResult{}
@@ -195,7 +195,7 @@ EXPERIMENTAL.
 */
 func (protocol *InputProtocol) SynthesizeTapGesture(
 	params *input.SynthesizeTapGestureParams,
-) chan *input.SynthesizeTapGestureResult {
+) <-chan *input.SynthesizeTapGestureResult {
 	resultChan := make(chan *input.SynthesizeTapGestureResult)
 	command := NewCommand(protocol.Socket, "Input.synthesizeTapGesture", params)
 	result := &input.SynthesizeTapGestureResult{}

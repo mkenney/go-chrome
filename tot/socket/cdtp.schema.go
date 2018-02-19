@@ -21,7 +21,7 @@ GetDomains returns supported domains.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Schema/#method-getDomains
 */
-func (protocol *SchemaProtocol) GetDomains() chan *schema.GetDomainsResult {
+func (protocol *SchemaProtocol) GetDomains() <-chan *schema.GetDomainsResult {
 	resultChan := make(chan *schema.GetDomainsResult)
 	command := NewCommand(protocol.Socket, "Schema.getDomains", nil)
 	result := &schema.GetDomainsResult{}

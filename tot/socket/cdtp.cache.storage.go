@@ -23,7 +23,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-dele
 */
 func (protocol *CacheStorageProtocol) DeleteCache(
 	params *cacheStorage.DeleteCacheParams,
-) chan *cacheStorage.DeleteCacheResult {
+) <-chan *cacheStorage.DeleteCacheResult {
 	resultChan := make(chan *cacheStorage.DeleteCacheResult)
 	command := NewCommand(protocol.Socket, "CacheStorage.deleteCache", params)
 	result := &cacheStorage.DeleteCacheResult{}
@@ -47,7 +47,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-dele
 */
 func (protocol *CacheStorageProtocol) DeleteEntry(
 	params *cacheStorage.DeleteEntryParams,
-) chan *cacheStorage.DeleteEntryResult {
+) <-chan *cacheStorage.DeleteEntryResult {
 	resultChan := make(chan *cacheStorage.DeleteEntryResult)
 	command := NewCommand(protocol.Socket, "CacheStorage.deleteEntry", params)
 	result := &cacheStorage.DeleteEntryResult{}
@@ -71,7 +71,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requ
 */
 func (protocol *CacheStorageProtocol) RequestCacheNames(
 	params *cacheStorage.RequestCacheNamesParams,
-) chan *cacheStorage.RequestCacheNamesResult {
+) <-chan *cacheStorage.RequestCacheNamesResult {
 	resultChan := make(chan *cacheStorage.RequestCacheNamesResult)
 	command := NewCommand(protocol.Socket, "CacheStorage.requestCacheNames", params)
 	result := &cacheStorage.RequestCacheNamesResult{}
@@ -97,7 +97,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requ
 */
 func (protocol *CacheStorageProtocol) RequestCachedResponse(
 	params *cacheStorage.RequestCachedResponseParams,
-) chan *cacheStorage.RequestCachedResponseResult {
+) <-chan *cacheStorage.RequestCachedResponseResult {
 	resultChan := make(chan *cacheStorage.RequestCachedResponseResult)
 	command := NewCommand(protocol.Socket, "CacheStorage.requestCachedResponse", params)
 	result := &cacheStorage.RequestCachedResponseResult{}
@@ -123,7 +123,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CacheStorage/#method-requ
 */
 func (protocol *CacheStorageProtocol) RequestEntries(
 	params *cacheStorage.RequestEntriesParams,
-) chan *cacheStorage.RequestEntriesResult {
+) <-chan *cacheStorage.RequestEntriesResult {
 	resultChan := make(chan *cacheStorage.RequestEntriesResult)
 	command := NewCommand(protocol.Socket, "CacheStorage.requestEntries", params)
 	result := &cacheStorage.RequestEntriesResult{}

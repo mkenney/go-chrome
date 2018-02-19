@@ -21,7 +21,7 @@ Enable enables application cache domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-enable
 */
-func (protocol *ApplicationCacheProtocol) Enable() chan *applicationCache.EnableResult {
+func (protocol *ApplicationCacheProtocol) Enable() <-chan *applicationCache.EnableResult {
 	resultChan := make(chan *applicationCache.EnableResult)
 	command := NewCommand(protocol.Socket, "ApplicationCache.enable", nil)
 	result := &applicationCache.EnableResult{}
@@ -46,7 +46,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-
 */
 func (protocol *ApplicationCacheProtocol) GetForFrame(
 	params *applicationCache.GetForFrameParams,
-) chan *applicationCache.GetForFrameResult {
+) <-chan *applicationCache.GetForFrameResult {
 	resultChan := make(chan *applicationCache.GetForFrameResult)
 	command := NewCommand(protocol.Socket, "ApplicationCache.getApplicationCacheForFrame", params)
 	result := &applicationCache.GetForFrameResult{}
@@ -71,7 +71,7 @@ each frame containing a document associated with some application cache.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getFramesWithManifests
 */
-func (protocol *ApplicationCacheProtocol) GetFramesWithManifests() chan *applicationCache.GetFramesWithManifestsResult {
+func (protocol *ApplicationCacheProtocol) GetFramesWithManifests() <-chan *applicationCache.GetFramesWithManifestsResult {
 	resultChan := make(chan *applicationCache.GetFramesWithManifestsResult)
 	command := NewCommand(protocol.Socket, "ApplicationCache.getFramesWithManifests", nil)
 	result := &applicationCache.GetFramesWithManifestsResult{}
@@ -97,7 +97,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-
 */
 func (protocol *ApplicationCacheProtocol) GetManifestForFrame(
 	params *applicationCache.GetManifestForFrameParams,
-) chan *applicationCache.GetManifestForFrameResult {
+) <-chan *applicationCache.GetManifestForFrameResult {
 	resultChan := make(chan *applicationCache.GetManifestForFrameResult)
 	command := NewCommand(protocol.Socket, "ApplicationCache.getManifestForFrame", params)
 	result := &applicationCache.GetManifestForFrameResult{}

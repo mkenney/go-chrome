@@ -25,7 +25,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-getEv
 */
 func (protocol *DOMDebuggerProtocol) GetEventListeners(
 	params *domDebugger.GetEventListenersParams,
-) chan *domDebugger.GetEventListenersResult {
+) <-chan *domDebugger.GetEventListenersResult {
 	resultChan := make(chan *domDebugger.GetEventListenersResult)
 	command := NewCommand(protocol.Socket, "DOMDebugger.getEventListeners", params)
 	result := &domDebugger.GetEventListenersResult{}
@@ -52,7 +52,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-remov
 */
 func (protocol *DOMDebuggerProtocol) RemoveDOMBreakpoint(
 	params *domDebugger.RemoveDOMBreakpointParams,
-) chan *domDebugger.RemoveDOMBreakpointResult {
+) <-chan *domDebugger.RemoveDOMBreakpointResult {
 	resultChan := make(chan *domDebugger.RemoveDOMBreakpointResult)
 	command := NewCommand(protocol.Socket, "DOMDebugger.removeDOMBreakpoint", params)
 	result := &domDebugger.RemoveDOMBreakpointResult{}
@@ -76,7 +76,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-remov
 */
 func (protocol *DOMDebuggerProtocol) RemoveEventListenerBreakpoint(
 	params *domDebugger.RemoveEventListenerBreakpointParams,
-) chan *domDebugger.RemoveEventListenerBreakpointResult {
+) <-chan *domDebugger.RemoveEventListenerBreakpointResult {
 	resultChan := make(chan *domDebugger.RemoveEventListenerBreakpointResult)
 	command := NewCommand(protocol.Socket, "DOMDebugger.removeEventListenerBreakpoint", params)
 	result := &domDebugger.RemoveEventListenerBreakpointResult{}
@@ -101,7 +101,7 @@ EXPERIMENTAL.
 */
 func (protocol *DOMDebuggerProtocol) RemoveInstrumentationBreakpoint(
 	params *domDebugger.RemoveInstrumentationBreakpointParams,
-) chan *domDebugger.RemoveInstrumentationBreakpointResult {
+) <-chan *domDebugger.RemoveInstrumentationBreakpointResult {
 	resultChan := make(chan *domDebugger.RemoveInstrumentationBreakpointResult)
 	command := NewCommand(protocol.Socket, "DOMDebugger.removeInstrumentationBreakpoint", params)
 	result := &domDebugger.RemoveInstrumentationBreakpointResult{}
@@ -125,7 +125,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-remov
 */
 func (protocol *DOMDebuggerProtocol) RemoveXHRBreakpoint(
 	params *domDebugger.RemoveXHRBreakpointParams,
-) chan *domDebugger.RemoveXHRBreakpointResult {
+) <-chan *domDebugger.RemoveXHRBreakpointResult {
 	resultChan := make(chan *domDebugger.RemoveXHRBreakpointResult)
 	command := NewCommand(protocol.Socket, "DOMDebugger.removeXHRBreakpoint", params)
 	result := &domDebugger.RemoveXHRBreakpointResult{}
@@ -149,7 +149,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setDO
 */
 func (protocol *DOMDebuggerProtocol) SetDOMBreakpoint(
 	params *domDebugger.SetDOMBreakpointParams,
-) chan *domDebugger.SetDOMBreakpointResult {
+) <-chan *domDebugger.SetDOMBreakpointResult {
 	resultChan := make(chan *domDebugger.SetDOMBreakpointResult)
 	command := NewCommand(protocol.Socket, "DOMDebugger.setDOMBreakpoint", params)
 	result := &domDebugger.SetDOMBreakpointResult{}
@@ -173,7 +173,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setEv
 */
 func (protocol *DOMDebuggerProtocol) SetEventListenerBreakpoint(
 	params *domDebugger.SetEventListenerBreakpointParams,
-) chan *domDebugger.SetEventListenerBreakpointResult {
+) <-chan *domDebugger.SetEventListenerBreakpointResult {
 	resultChan := make(chan *domDebugger.SetEventListenerBreakpointResult)
 	command := NewCommand(protocol.Socket, "DOMDebugger.setEventListenerBreakpoint", params)
 	result := &domDebugger.SetEventListenerBreakpointResult{}
@@ -198,7 +198,7 @@ EXPERIMENTAL.
 */
 func (protocol *DOMDebuggerProtocol) SetInstrumentationBreakpoint(
 	params *domDebugger.SetInstrumentationBreakpointParams,
-) chan *domDebugger.SetInstrumentationBreakpointResult {
+) <-chan *domDebugger.SetInstrumentationBreakpointResult {
 	resultChan := make(chan *domDebugger.SetInstrumentationBreakpointResult)
 	command := NewCommand(protocol.Socket, "DOMDebugger.setInstrumentationBreakpoint", params)
 	result := &domDebugger.SetInstrumentationBreakpointResult{}
@@ -222,7 +222,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMDebugger/#method-setXH
 */
 func (protocol *DOMDebuggerProtocol) SetXHRBreakpoint(
 	params *domDebugger.SetXHRBreakpointParams,
-) chan *domDebugger.SetXHRBreakpointResult {
+) <-chan *domDebugger.SetXHRBreakpointResult {
 	resultChan := make(chan *domDebugger.SetXHRBreakpointResult)
 	command := NewCommand(protocol.Socket, "DOMDebugger.setXHRBreakpoint", params)
 	result := &domDebugger.SetXHRBreakpointResult{}

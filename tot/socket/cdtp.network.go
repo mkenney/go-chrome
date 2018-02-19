@@ -24,7 +24,7 @@ CanClearBrowserCache tells whether clearing browser cache is supported.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canClearBrowserCache
 DEPRECATED.
 */
-func (protocol *NetworkProtocol) CanClearBrowserCache() chan *network.CanClearBrowserCacheResult {
+func (protocol *NetworkProtocol) CanClearBrowserCache() <-chan *network.CanClearBrowserCacheResult {
 	resultChan := make(chan *network.CanClearBrowserCacheResult)
 	command := NewCommand(protocol.Socket, "Network.canClearBrowserCache", nil)
 	result := &network.CanClearBrowserCacheResult{}
@@ -49,7 +49,7 @@ CanClearBrowserCookies tells whether clearing browser cookies is supported.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canClearBrowserCookies
 DEPRECATED.
 */
-func (protocol *NetworkProtocol) CanClearBrowserCookies() chan *network.CanClearBrowserCookiesResult {
+func (protocol *NetworkProtocol) CanClearBrowserCookies() <-chan *network.CanClearBrowserCookiesResult {
 	resultChan := make(chan *network.CanClearBrowserCookiesResult)
 	command := NewCommand(protocol.Socket, "Network.canClearBrowserCookies", nil)
 	result := &network.CanClearBrowserCookiesResult{}
@@ -74,7 +74,7 @@ CanEmulateConditions tells whether emulation of network conditions is supported.
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-canEmulateNetworkConditions
 DEPRECATED.
 */
-func (protocol *NetworkProtocol) CanEmulateConditions() chan *network.CanEmulateConditionsResult {
+func (protocol *NetworkProtocol) CanEmulateConditions() <-chan *network.CanEmulateConditionsResult {
 	resultChan := make(chan *network.CanEmulateConditionsResult)
 	command := NewCommand(protocol.Socket, "Network.canEmulateNetworkConditions", nil)
 	result := &network.CanEmulateConditionsResult{}
@@ -98,7 +98,7 @@ ClearBrowserCache clears browser cache.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-clearBrowserCache
 */
-func (protocol *NetworkProtocol) ClearBrowserCache() chan *network.ClearBrowserCacheResult {
+func (protocol *NetworkProtocol) ClearBrowserCache() <-chan *network.ClearBrowserCacheResult {
 	resultChan := make(chan *network.ClearBrowserCacheResult)
 	command := NewCommand(protocol.Socket, "Network.clearBrowserCache", nil)
 	result := &network.ClearBrowserCacheResult{}
@@ -120,7 +120,7 @@ ClearBrowserCookies clears browser cookies.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-clearBrowserCookies
 */
-func (protocol *NetworkProtocol) ClearBrowserCookies() chan *network.ClearBrowserCookiesResult {
+func (protocol *NetworkProtocol) ClearBrowserCookies() <-chan *network.ClearBrowserCookiesResult {
 	resultChan := make(chan *network.ClearBrowserCookiesResult)
 	result := &network.ClearBrowserCookiesResult{}
 	command := NewCommand(protocol.Socket, "Network.clearBrowserCookies", nil)
@@ -149,7 +149,7 @@ EXPERIMENTAL.
 */
 func (protocol *NetworkProtocol) ContinueInterceptedRequest(
 	params *network.ContinueInterceptedRequestParams,
-) chan *network.ContinueInterceptedRequestResult {
+) <-chan *network.ContinueInterceptedRequestResult {
 	resultChan := make(chan *network.ContinueInterceptedRequestResult)
 	result := &network.ContinueInterceptedRequestResult{}
 	command := NewCommand(protocol.Socket, "Network.continueInterceptedRequest", params)
@@ -174,7 +174,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-deleteCoo
 */
 func (protocol *NetworkProtocol) DeleteCookies(
 	params *network.DeleteCookiesParams,
-) chan *network.DeleteCookiesResult {
+) <-chan *network.DeleteCookiesResult {
 	resultChan := make(chan *network.DeleteCookiesResult)
 	result := &network.DeleteCookiesResult{}
 	command := NewCommand(protocol.Socket, "Network.deleteCookies", params)
@@ -197,7 +197,7 @@ the client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-disable
 */
-func (protocol *NetworkProtocol) Disable() chan *network.DisableResult {
+func (protocol *NetworkProtocol) Disable() <-chan *network.DisableResult {
 	resultChan := make(chan *network.DisableResult)
 	result := &network.DisableResult{}
 	command := NewCommand(protocol.Socket, "Network.disable", nil)
@@ -221,7 +221,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-emulateNe
 */
 func (protocol *NetworkProtocol) EmulateConditions(
 	params *network.EmulateConditionsParams,
-) chan *network.EmulateConditionsResult {
+) <-chan *network.EmulateConditionsResult {
 	resultChan := make(chan *network.EmulateConditionsResult)
 	result := &network.EmulateConditionsResult{}
 	command := NewCommand(protocol.Socket, "Network.emulateNetworkConditions", params)
@@ -246,7 +246,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-enable
 */
 func (protocol *NetworkProtocol) Enable(
 	params *network.EnableParams,
-) chan *network.EnableResult {
+) <-chan *network.EnableResult {
 	resultChan := make(chan *network.EnableResult)
 	result := &network.EnableResult{}
 	command := NewCommand(protocol.Socket, "Network.enable", params)
@@ -269,7 +269,7 @@ will return detailed cookie information in the `cookies` field.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getAllCookies
 */
-func (protocol *NetworkProtocol) GetAllCookies() chan *network.GetAllCookiesResult {
+func (protocol *NetworkProtocol) GetAllCookies() <-chan *network.GetAllCookiesResult {
 	resultChan := make(chan *network.GetAllCookiesResult)
 	command := NewCommand(protocol.Socket, "Network.getAllCookies", nil)
 	result := &network.GetAllCookiesResult{}
@@ -296,7 +296,7 @@ EXPERIMENTAL.
 */
 func (protocol *NetworkProtocol) GetCertificate(
 	params *network.GetCertificateParams,
-) chan *network.GetCertificateResult {
+) <-chan *network.GetCertificateResult {
 	resultChan := make(chan *network.GetCertificateResult)
 	command := NewCommand(protocol.Socket, "Network.getCertificate", params)
 	result := &network.GetCertificateResult{}
@@ -323,7 +323,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getCookie
 */
 func (protocol *NetworkProtocol) GetCookies(
 	params *network.GetCookiesParams,
-) chan *network.GetCookiesResult {
+) <-chan *network.GetCookiesResult {
 	resultChan := make(chan *network.GetCookiesResult)
 	command := NewCommand(protocol.Socket, "Network.getCookies", params)
 	result := &network.GetCookiesResult{}
@@ -349,7 +349,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-getRespon
 */
 func (protocol *NetworkProtocol) GetResponseBody(
 	params *network.GetResponseBodyParams,
-) chan *network.GetResponseBodyResult {
+) <-chan *network.GetResponseBodyResult {
 	resultChan := make(chan *network.GetResponseBodyResult)
 	command := NewCommand(protocol.Socket, "Network.getResponseBody", params)
 	result := &network.GetResponseBodyResult{}
@@ -377,7 +377,7 @@ EXPERIMENTAL.
 */
 func (protocol *NetworkProtocol) GetResponseBodyForInterception(
 	params *network.GetResponseBodyForInterceptionParams,
-) chan *network.GetResponseBodyForInterceptionResult {
+) <-chan *network.GetResponseBodyForInterceptionResult {
 	resultChan := make(chan *network.GetResponseBodyForInterceptionResult)
 	command := NewCommand(protocol.Socket, "Network.getResponseBodyForInterception", params)
 	result := &network.GetResponseBodyForInterceptionResult{}
@@ -405,7 +405,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-replayXHR
 */
 func (protocol *NetworkProtocol) ReplayXHR(
 	params *network.ReplayXHRParams,
-) chan *network.ReplayXHRResult {
+) <-chan *network.ReplayXHRResult {
 	resultChan := make(chan *network.ReplayXHRResult)
 	result := &network.ReplayXHRResult{}
 	command := NewCommand(protocol.Socket, "Network.replayXHR", params)
@@ -430,7 +430,7 @@ EXPERIMENTAL.
 */
 func (protocol *NetworkProtocol) SearchInResponseBody(
 	params *network.SearchInResponseBodyParams,
-) chan *network.SearchInResponseBodyResult {
+) <-chan *network.SearchInResponseBodyResult {
 	resultChan := make(chan *network.SearchInResponseBodyResult)
 	command := NewCommand(protocol.Socket, "Network.searchInResponseBody", params)
 	result := &network.SearchInResponseBodyResult{}
@@ -457,7 +457,7 @@ EXPERIMENTAL.
 */
 func (protocol *NetworkProtocol) SetBlockedURLs(
 	params *network.SetBlockedURLsParams,
-) chan *network.SetBlockedURLsResult {
+) <-chan *network.SetBlockedURLsResult {
 	resultChan := make(chan *network.SetBlockedURLsResult)
 	result := &network.SetBlockedURLsResult{}
 	command := NewCommand(protocol.Socket, "Network.setBlockedURLs", params)
@@ -482,7 +482,7 @@ EXPERIMENTAL.
 */
 func (protocol *NetworkProtocol) SetBypassServiceWorker(
 	params *network.SetBypassServiceWorkerParams,
-) chan *network.SetBypassServiceWorkerResult {
+) <-chan *network.SetBypassServiceWorkerResult {
 	resultChan := make(chan *network.SetBypassServiceWorkerResult)
 	result := &network.SetBypassServiceWorkerResult{}
 	command := NewCommand(protocol.Socket, "Network.setBypassServiceWorker", params)
@@ -507,7 +507,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCacheD
 */
 func (protocol *NetworkProtocol) SetCacheDisabled(
 	params *network.SetCacheDisabledParams,
-) chan *network.SetCacheDisabledResult {
+) <-chan *network.SetCacheDisabledResult {
 	resultChan := make(chan *network.SetCacheDisabledResult)
 	result := &network.SetCacheDisabledResult{}
 	command := NewCommand(protocol.Socket, "Network.setCacheDisabled", params)
@@ -532,7 +532,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCookie
 */
 func (protocol *NetworkProtocol) SetCookie(
 	params *network.SetCookieParams,
-) chan *network.SetCookieResult {
+) <-chan *network.SetCookieResult {
 	resultChan := make(chan *network.SetCookieResult)
 	command := NewCommand(protocol.Socket, "Network.setCookie", params)
 	result := &network.SetCookieResult{}
@@ -558,7 +558,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setCookie
 */
 func (protocol *NetworkProtocol) SetCookies(
 	params *network.SetCookiesParams,
-) chan *network.SetCookiesResult {
+) <-chan *network.SetCookiesResult {
 	resultChan := make(chan *network.SetCookiesResult)
 	result := &network.SetCookiesResult{}
 	command := NewCommand(protocol.Socket, "Network.setCookies", params)
@@ -583,7 +583,7 @@ EXPERIMENTAL.
 */
 func (protocol *NetworkProtocol) SetDataSizeLimitsForTest(
 	params *network.SetDataSizeLimitsForTestParams,
-) chan *network.SetDataSizeLimitsForTestResult {
+) <-chan *network.SetDataSizeLimitsForTestResult {
 	resultChan := make(chan *network.SetDataSizeLimitsForTestResult)
 	result := &network.SetDataSizeLimitsForTestResult{}
 	command := NewCommand(protocol.Socket, "Network.setDataSizeLimitsForTest", params)
@@ -608,7 +608,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setExtraH
 */
 func (protocol *NetworkProtocol) SetExtraHTTPHeaders(
 	params *network.SetExtraHTTPHeadersParams,
-) chan *network.SetExtraHTTPHeadersResult {
+) <-chan *network.SetExtraHTTPHeadersResult {
 	resultChan := make(chan *network.SetExtraHTTPHeadersResult)
 	result := &network.SetExtraHTTPHeadersResult{}
 	command := NewCommand(protocol.Socket, "Network.setExtraHTTPHeaders", params)
@@ -634,7 +634,7 @@ EXPERIMENTAL.
 */
 func (protocol *NetworkProtocol) SetRequestInterception(
 	params *network.SetRequestInterceptionParams,
-) chan *network.SetRequestInterceptionResult {
+) <-chan *network.SetRequestInterceptionResult {
 	resultChan := make(chan *network.SetRequestInterceptionResult)
 	result := &network.SetRequestInterceptionResult{}
 	command := NewCommand(protocol.Socket, "Network.setRequestInterception", params)
@@ -658,7 +658,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Network/#method-setUserAg
 */
 func (protocol *NetworkProtocol) SetUserAgentOverride(
 	params *network.SetUserAgentOverrideParams,
-) chan *network.SetUserAgentOverrideResult {
+) <-chan *network.SetUserAgentOverrideResult {
 	resultChan := make(chan *network.SetUserAgentOverrideResult)
 	result := &network.SetUserAgentOverrideResult{}
 	command := NewCommand(protocol.Socket, "Network.setUserAgentOverride", params)

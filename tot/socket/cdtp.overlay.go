@@ -22,7 +22,7 @@ Disable disables domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-disable
 */
-func (protocol *OverlayProtocol) Disable() chan *overlay.DisableResult {
+func (protocol *OverlayProtocol) Disable() <-chan *overlay.DisableResult {
 	resultChan := make(chan *overlay.DisableResult)
 	command := NewCommand(protocol.Socket, "Overlay.disable", nil)
 	result := &overlay.DisableResult{}
@@ -44,7 +44,7 @@ Enable enables domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-enable
 */
-func (protocol *OverlayProtocol) Enable() chan *overlay.EnableResult {
+func (protocol *OverlayProtocol) Enable() <-chan *overlay.EnableResult {
 	resultChan := make(chan *overlay.EnableResult)
 	command := NewCommand(protocol.Socket, "Overlay.enable", nil)
 	result := &overlay.EnableResult{}
@@ -68,7 +68,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-getHighli
 */
 func (protocol *OverlayProtocol) GetHighlightObjectForTest(
 	params *overlay.GetHighlightObjectForTestParams,
-) chan *overlay.GetHighlightObjectForTestResult {
+) <-chan *overlay.GetHighlightObjectForTestResult {
 	resultChan := make(chan *overlay.GetHighlightObjectForTestResult)
 	command := NewCommand(protocol.Socket, "Overlay.getHighlightObjectForTest", params)
 	result := &overlay.GetHighlightObjectForTestResult{}
@@ -92,7 +92,7 @@ HideHighlight hides any highlight.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-hideHighlight
 */
-func (protocol *OverlayProtocol) HideHighlight() chan *overlay.HideHighlightResult {
+func (protocol *OverlayProtocol) HideHighlight() <-chan *overlay.HideHighlightResult {
 	resultChan := make(chan *overlay.HideHighlightResult)
 	command := NewCommand(protocol.Socket, "Overlay.hideHighlight", nil)
 	result := &overlay.HideHighlightResult{}
@@ -116,7 +116,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlight
 */
 func (protocol *OverlayProtocol) HighlightFrame(
 	params *overlay.HighlightFrameParams,
-) chan *overlay.HighlightFrameResult {
+) <-chan *overlay.HighlightFrameResult {
 	resultChan := make(chan *overlay.HighlightFrameResult)
 	command := NewCommand(protocol.Socket, "Overlay.highlightFrame", params)
 	result := &overlay.HighlightFrameResult{}
@@ -141,7 +141,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlight
 */
 func (protocol *OverlayProtocol) HighlightNode(
 	params *overlay.HighlightNodeParams,
-) chan *overlay.HighlightNodeResult {
+) <-chan *overlay.HighlightNodeResult {
 	resultChan := make(chan *overlay.HighlightNodeResult)
 	command := NewCommand(protocol.Socket, "Overlay.highlightNode", params)
 	result := &overlay.HighlightNodeResult{}
@@ -166,7 +166,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlight
 */
 func (protocol *OverlayProtocol) HighlightQuad(
 	params *overlay.HighlightQuadParams,
-) chan *overlay.HighlightQuadResult {
+) <-chan *overlay.HighlightQuadResult {
 	resultChan := make(chan *overlay.HighlightQuadResult)
 	command := NewCommand(protocol.Socket, "Overlay.highlightQuad", params)
 	result := &overlay.HighlightQuadResult{}
@@ -191,7 +191,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-highlight
 */
 func (protocol *OverlayProtocol) HighlightRect(
 	params *overlay.HighlightRectParams,
-) chan *overlay.HighlightRectResult {
+) <-chan *overlay.HighlightRectResult {
 	resultChan := make(chan *overlay.HighlightRectResult)
 	command := NewCommand(protocol.Socket, "Overlay.highlightRect", params)
 	result := &overlay.HighlightRectResult{}
@@ -217,7 +217,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setInspec
 */
 func (protocol *OverlayProtocol) SetInspectMode(
 	params *overlay.SetInspectModeParams,
-) chan *overlay.SetInspectModeResult {
+) <-chan *overlay.SetInspectModeResult {
 	resultChan := make(chan *overlay.SetInspectModeResult)
 	command := NewCommand(protocol.Socket, "Overlay.setInspectMode", params)
 	result := &overlay.SetInspectModeResult{}
@@ -241,7 +241,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setPaused
 */
 func (protocol *OverlayProtocol) SetPausedInDebuggerMessage(
 	params *overlay.SetPausedInDebuggerMessageParams,
-) chan *overlay.SetPausedInDebuggerMessageResult {
+) <-chan *overlay.SetPausedInDebuggerMessageResult {
 	resultChan := make(chan *overlay.SetPausedInDebuggerMessageResult)
 	command := NewCommand(protocol.Socket, "Overlay.setPausedInDebuggerMessage", params)
 	result := &overlay.SetPausedInDebuggerMessageResult{}
@@ -265,7 +265,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowDe
 */
 func (protocol *OverlayProtocol) SetShowDebugBorders(
 	params *overlay.SetShowDebugBordersParams,
-) chan *overlay.SetShowDebugBordersResult {
+) <-chan *overlay.SetShowDebugBordersResult {
 	resultChan := make(chan *overlay.SetShowDebugBordersResult)
 	command := NewCommand(protocol.Socket, "Overlay.setShowDebugBorders", params)
 	result := &overlay.SetShowDebugBordersResult{}
@@ -289,7 +289,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowFP
 */
 func (protocol *OverlayProtocol) SetShowFPSCounter(
 	params *overlay.SetShowFPSCounterParams,
-) chan *overlay.SetShowFPSCounterResult {
+) <-chan *overlay.SetShowFPSCounterResult {
 	resultChan := make(chan *overlay.SetShowFPSCounterResult)
 	command := NewCommand(protocol.Socket, "Overlay.setShowFPSCounter", params)
 	result := &overlay.SetShowFPSCounterResult{}
@@ -313,7 +313,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowPa
 */
 func (protocol *OverlayProtocol) SetShowPaintRects(
 	params *overlay.SetShowPaintRectsParams,
-) chan *overlay.SetShowPaintRectsResult {
+) <-chan *overlay.SetShowPaintRectsResult {
 	resultChan := make(chan *overlay.SetShowPaintRectsResult)
 	command := NewCommand(protocol.Socket, "Overlay.setShowPaintRects", params)
 	result := &overlay.SetShowPaintRectsResult{}
@@ -337,7 +337,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowSc
 */
 func (protocol *OverlayProtocol) SetShowScrollBottleneckRects(
 	params *overlay.SetShowScrollBottleneckRectsParams,
-) chan *overlay.SetShowScrollBottleneckRectsResult {
+) <-chan *overlay.SetShowScrollBottleneckRectsResult {
 	resultChan := make(chan *overlay.SetShowScrollBottleneckRectsResult)
 	command := NewCommand(protocol.Socket, "Overlay.setShowScrollBottleneckRects", params)
 	result := &overlay.SetShowScrollBottleneckRectsResult{}
@@ -361,7 +361,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setShowVi
 */
 func (protocol *OverlayProtocol) SetShowViewportSizeOnResize(
 	params *overlay.SetShowViewportSizeOnResizeParams,
-) chan *overlay.SetShowViewportSizeOnResizeResult {
+) <-chan *overlay.SetShowViewportSizeOnResizeResult {
 	resultChan := make(chan *overlay.SetShowViewportSizeOnResizeResult)
 	command := NewCommand(protocol.Socket, "Overlay.setShowViewportSizeOnResize", params)
 	result := &overlay.SetShowViewportSizeOnResizeResult{}
@@ -385,7 +385,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Overlay/#method-setSuspen
 */
 func (protocol *OverlayProtocol) SetSuspended(
 	params *overlay.SetSuspendedParams,
-) chan *overlay.SetSuspendedResult {
+) <-chan *overlay.SetSuspendedResult {
 	resultChan := make(chan *overlay.SetSuspendedResult)
 	command := NewCommand(protocol.Socket, "Overlay.setSuspended", params)
 	result := &overlay.SetSuspendedResult{}

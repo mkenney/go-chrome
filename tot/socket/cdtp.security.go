@@ -20,7 +20,7 @@ Disable disables tracking security state changes.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-disable
 */
-func (protocol *SecurityProtocol) Disable() chan *security.DisableResult {
+func (protocol *SecurityProtocol) Disable() <-chan *security.DisableResult {
 	resultChan := make(chan *security.DisableResult)
 	command := NewCommand(protocol.Socket, "Security.disable", nil)
 	result := &security.DisableResult{}
@@ -42,7 +42,7 @@ Enable tracking security state changes.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-enable
 */
-func (protocol *SecurityProtocol) Enable() chan *security.EnableResult {
+func (protocol *SecurityProtocol) Enable() <-chan *security.EnableResult {
 	resultChan := make(chan *security.EnableResult)
 	command := NewCommand(protocol.Socket, "Security.enable", nil)
 	result := &security.EnableResult{}
@@ -67,7 +67,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-handleCe
 */
 func (protocol *SecurityProtocol) HandleCertificateError(
 	params *security.HandleCertificateErrorParams,
-) chan *security.HandleCertificateErrorResult {
+) <-chan *security.HandleCertificateErrorResult {
 	resultChan := make(chan *security.HandleCertificateErrorResult)
 	command := NewCommand(protocol.Socket, "Security.handleCertificateError", params)
 	result := &security.HandleCertificateErrorResult{}
@@ -93,7 +93,7 @@ EXPERIMENTAL.
 */
 func (protocol *SecurityProtocol) SetIgnoreCertificateErrors(
 	params *security.SetIgnoreCertificateErrorsParams,
-) chan *security.SetIgnoreCertificateErrorsResult {
+) <-chan *security.SetIgnoreCertificateErrorsResult {
 	resultChan := make(chan *security.SetIgnoreCertificateErrorsResult)
 	command := NewCommand(protocol.Socket, "Security.setIgnoreCertificateErrors", params)
 	result := &security.SetIgnoreCertificateErrorsResult{}
@@ -119,7 +119,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Security/#method-setOverr
 */
 func (protocol *SecurityProtocol) SetOverrideCertificateErrors(
 	params *security.SetOverrideCertificateErrorsParams,
-) chan *security.SetOverrideCertificateErrorsResult {
+) <-chan *security.SetOverrideCertificateErrorsResult {
 	resultChan := make(chan *security.SetOverrideCertificateErrorsResult)
 	command := NewCommand(protocol.Socket, "Security.setOverrideCertificateErrors", params)
 	result := &security.SetOverrideCertificateErrorsResult{}

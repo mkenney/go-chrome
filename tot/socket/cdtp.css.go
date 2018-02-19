@@ -31,7 +31,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-addRule
 */
 func (protocol *CSSProtocol) AddRule(
 	params *css.AddRuleParams,
-) chan *css.AddRuleResult {
+) <-chan *css.AddRuleResult {
 	resultChan := make(chan *css.AddRuleResult)
 	command := NewCommand(protocol.Socket, "CSS.addRule", params)
 	result := &css.AddRuleResult{}
@@ -57,7 +57,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-collectClassN
 */
 func (protocol *CSSProtocol) CollectClassNames(
 	params *css.CollectClassNamesParams,
-) chan *css.CollectClassNamesResult {
+) <-chan *css.CollectClassNamesResult {
 	resultChan := make(chan *css.CollectClassNamesResult)
 	command := NewCommand(protocol.Socket, "CSS.collectClassNames", params)
 	result := &css.CollectClassNamesResult{}
@@ -84,7 +84,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-createStyleSh
 */
 func (protocol *CSSProtocol) CreateStyleSheet(
 	params *css.CreateStyleSheetParams,
-) chan *css.CreateStyleSheetResult {
+) <-chan *css.CreateStyleSheetResult {
 	resultChan := make(chan *css.CreateStyleSheetResult)
 	command := NewCommand(protocol.Socket, "CSS.createStyleSheet", params)
 	result := &css.CreateStyleSheetResult{}
@@ -108,7 +108,7 @@ Disable disables the CSS agent for the given page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-disable
 */
-func (protocol *CSSProtocol) Disable() chan *css.DisableResult {
+func (protocol *CSSProtocol) Disable() <-chan *css.DisableResult {
 	resultChan := make(chan *css.DisableResult)
 	command := NewCommand(protocol.Socket, "CSS.disable", nil)
 	result := &css.DisableResult{}
@@ -131,7 +131,7 @@ the CSS agent has been enabled until the result of this command is received.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-enable
 */
-func (protocol *CSSProtocol) Enable() chan *css.EnableResult {
+func (protocol *CSSProtocol) Enable() <-chan *css.EnableResult {
 	resultChan := make(chan *css.EnableResult)
 	command := NewCommand(protocol.Socket, "CSS.enable", nil)
 	result := &css.EnableResult{}
@@ -156,7 +156,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-forcePseudoSt
 */
 func (protocol *CSSProtocol) ForcePseudoState(
 	params *css.ForcePseudoStateParams,
-) chan *css.ForcePseudoStateResult {
+) <-chan *css.ForcePseudoStateResult {
 	resultChan := make(chan *css.ForcePseudoStateResult)
 	command := NewCommand(protocol.Socket, "CSS.forcePseudoState", params)
 	result := &css.ForcePseudoStateResult{}
@@ -180,7 +180,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getBackground
 */
 func (protocol *CSSProtocol) GetBackgroundColors(
 	params *css.GetBackgroundColorsParams,
-) chan *css.GetBackgroundColorsResult {
+) <-chan *css.GetBackgroundColorsResult {
 	resultChan := make(chan *css.GetBackgroundColorsResult)
 	command := NewCommand(protocol.Socket, "CSS.getBackgroundColors", params)
 	result := &css.GetBackgroundColorsResult{}
@@ -207,7 +207,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getComputedSt
 */
 func (protocol *CSSProtocol) GetComputedStyleForNode(
 	params *css.GetComputedStyleForNodeParams,
-) chan *css.GetComputedStyleForNodeResult {
+) <-chan *css.GetComputedStyleForNodeResult {
 	resultChan := make(chan *css.GetComputedStyleForNodeResult)
 	command := NewCommand(protocol.Socket, "CSS.getComputedStyleForNode", params)
 	result := &css.GetComputedStyleForNodeResult{}
@@ -235,7 +235,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getInlineStyl
 */
 func (protocol *CSSProtocol) GetInlineStylesForNode(
 	params *css.GetInlineStylesForNodeParams,
-) chan *css.GetInlineStylesForNodeResult {
+) <-chan *css.GetInlineStylesForNodeResult {
 	resultChan := make(chan *css.GetInlineStylesForNodeResult)
 	command := NewCommand(protocol.Socket, "CSS.getInlineStylesForNode", params)
 	result := &css.GetInlineStylesForNodeResult{}
@@ -262,7 +262,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getMatchedSty
 */
 func (protocol *CSSProtocol) GetMatchedStylesForNode(
 	params *css.GetMatchedStylesForNodeParams,
-) chan *css.GetMatchedStylesForNodeResult {
+) <-chan *css.GetMatchedStylesForNodeResult {
 	resultChan := make(chan *css.GetMatchedStylesForNodeResult)
 	command := NewCommand(protocol.Socket, "CSS.getMatchedStylesForNode", params)
 	result := &css.GetMatchedStylesForNodeResult{}
@@ -286,7 +286,7 @@ GetMediaQueries returns all media queries parsed by the rendering engine.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getMediaQueries
 */
-func (protocol *CSSProtocol) GetMediaQueries() chan *css.GetMediaQueriesResult {
+func (protocol *CSSProtocol) GetMediaQueries() <-chan *css.GetMediaQueriesResult {
 	resultChan := make(chan *css.GetMediaQueriesResult)
 	command := NewCommand(protocol.Socket, "CSS.getMediaQueries", nil)
 	result := &css.GetMediaQueriesResult{}
@@ -313,7 +313,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getPlatformFo
 */
 func (protocol *CSSProtocol) GetPlatformFontsForNode(
 	params *css.GetPlatformFontsForNodeParams,
-) chan *css.GetPlatformFontsForNodeResult {
+) <-chan *css.GetPlatformFontsForNodeResult {
 	resultChan := make(chan *css.GetPlatformFontsForNodeResult)
 	command := NewCommand(protocol.Socket, "CSS.getPlatformFontsForNode", params)
 	result := &css.GetPlatformFontsForNodeResult{}
@@ -340,7 +340,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-getStyleSheet
 */
 func (protocol *CSSProtocol) GetStyleSheetText(
 	params *css.GetStyleSheetTextParams,
-) chan *css.GetStyleSheetTextResult {
+) <-chan *css.GetStyleSheetTextResult {
 	resultChan := make(chan *css.GetStyleSheetTextResult)
 	command := NewCommand(protocol.Socket, "CSS.getStyleSheetText", params)
 	result := &css.GetStyleSheetTextResult{}
@@ -367,7 +367,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setEffectiveP
 */
 func (protocol *CSSProtocol) SetEffectivePropertyValueForNode(
 	params *css.SetEffectivePropertyValueForNodeParams,
-) chan *css.SetEffectivePropertyValueForNodeResult {
+) <-chan *css.SetEffectivePropertyValueForNodeResult {
 	resultChan := make(chan *css.SetEffectivePropertyValueForNodeResult)
 	command := NewCommand(protocol.Socket, "CSS.setEffectivePropertyValueForNode", params)
 	result := &css.SetEffectivePropertyValueForNodeResult{}
@@ -391,7 +391,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setKeyframeKe
 */
 func (protocol *CSSProtocol) SetKeyframeKey(
 	params *css.SetKeyframeKeyParams,
-) chan *css.SetKeyframeKeyResult {
+) <-chan *css.SetKeyframeKeyResult {
 	resultChan := make(chan *css.SetKeyframeKeyResult)
 	command := NewCommand(protocol.Socket, "CSS.setKeyframeKey", params)
 	result := &css.SetKeyframeKeyResult{}
@@ -417,7 +417,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setMediaText
 */
 func (protocol *CSSProtocol) SetMediaText(
 	params *css.SetMediaTextParams,
-) chan *css.SetMediaTextResult {
+) <-chan *css.SetMediaTextResult {
 	resultChan := make(chan *css.SetMediaTextResult)
 	command := NewCommand(protocol.Socket, "CSS.setMediaText", params)
 	result := &css.SetMediaTextResult{}
@@ -443,7 +443,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setRuleSelect
 */
 func (protocol *CSSProtocol) SetRuleSelector(
 	params *css.SetRuleSelectorParams,
-) chan *css.SetRuleSelectorResult {
+) <-chan *css.SetRuleSelectorResult {
 	resultChan := make(chan *css.SetRuleSelectorResult)
 	command := NewCommand(protocol.Socket, "CSS.setRuleSelector", params)
 	result := &css.SetRuleSelectorResult{}
@@ -469,7 +469,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setStyleSheet
 */
 func (protocol *CSSProtocol) SetStyleSheetText(
 	params *css.SetStyleSheetTextParams,
-) chan *css.SetStyleSheetTextResult {
+) <-chan *css.SetStyleSheetTextResult {
 	resultChan := make(chan *css.SetStyleSheetTextResult)
 	command := NewCommand(protocol.Socket, "CSS.setStyleSheetText", params)
 	result := &css.SetStyleSheetTextResult{}
@@ -495,7 +495,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-setStyleTexts
 */
 func (protocol *CSSProtocol) SetStyleTexts(
 	params *css.SetStyleTextsParams,
-) chan *css.SetStyleTextsResult {
+) <-chan *css.SetStyleTextsResult {
 	resultChan := make(chan *css.SetStyleTextsResult)
 	command := NewCommand(protocol.Socket, "CSS.setStyleTexts", params)
 	result := &css.SetStyleTextsResult{}
@@ -519,7 +519,7 @@ StartRuleUsageTracking enables the selector recording.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-startRuleUsageTracking
 */
-func (protocol *CSSProtocol) StartRuleUsageTracking() chan *css.StartRuleUsageTrackingResult {
+func (protocol *CSSProtocol) StartRuleUsageTracking() <-chan *css.StartRuleUsageTrackingResult {
 	resultChan := make(chan *css.StartRuleUsageTrackingResult)
 	command := NewCommand(protocol.Socket, "CSS.startRuleUsageTracking", nil)
 	result := &css.StartRuleUsageTrackingResult{}
@@ -542,7 +542,7 @@ they were used.
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-stopRuleUsageTracking
 */
-func (protocol *CSSProtocol) StopRuleUsageTracking() chan *css.StopRuleUsageTrackingResult {
+func (protocol *CSSProtocol) StopRuleUsageTracking() <-chan *css.StopRuleUsageTrackingResult {
 	resultChan := make(chan *css.StopRuleUsageTrackingResult)
 	command := NewCommand(protocol.Socket, "CSS.stopRuleUsageTracking", nil)
 	result := &css.StopRuleUsageTrackingResult{}
@@ -567,7 +567,7 @@ this method (or since start of coverage instrumentation).
 
 https://chromedevtools.github.io/devtools-protocol/tot/CSS/#method-takeCoverageDelta
 */
-func (protocol *CSSProtocol) TakeCoverageDelta() chan *css.TakeCoverageDeltaResult {
+func (protocol *CSSProtocol) TakeCoverageDelta() <-chan *css.TakeCoverageDeltaResult {
 	resultChan := make(chan *css.TakeCoverageDeltaResult)
 	command := NewCommand(protocol.Socket, "CSS.takeCoverageDelta", nil)
 	result := &css.TakeCoverageDeltaResult{}

@@ -27,7 +27,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#method-getSn
 */
 func (protocol *DOMSnapshotProtocol) Get(
 	params *domSnapshot.GetParams,
-) chan *domSnapshot.GetResult {
+) <-chan *domSnapshot.GetResult {
 	resultChan := make(chan *domSnapshot.GetResult)
 	command := NewCommand(protocol.Socket, "DOMSnapshot.getSnapshot", params)
 	result := &domSnapshot.GetResult{}

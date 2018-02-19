@@ -26,7 +26,7 @@ EXPERIMENTAL. DEPRECATED.
 */
 func (protocol *PageProtocol) AddScriptToEvaluateOnLoad(
 	params *page.AddScriptToEvaluateOnLoadParams,
-) chan *page.AddScriptToEvaluateOnLoadResult {
+) <-chan *page.AddScriptToEvaluateOnLoadResult {
 	resultChan := make(chan *page.AddScriptToEvaluateOnLoadResult)
 	command := NewCommand(protocol.Socket, "Page.addScriptToEvaluateOnLoad", params)
 	result := &page.AddScriptToEvaluateOnLoadResult{}
@@ -53,7 +53,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-addScriptToE
 */
 func (protocol *PageProtocol) AddScriptToEvaluateOnNewDocument(
 	params *page.AddScriptToEvaluateOnNewDocumentParams,
-) chan *page.AddScriptToEvaluateOnNewDocumentResult {
+) <-chan *page.AddScriptToEvaluateOnNewDocumentResult {
 	resultChan := make(chan *page.AddScriptToEvaluateOnNewDocumentResult)
 	command := NewCommand(protocol.Socket, "Page.addScriptToEvaluateOnNewDocument", params)
 	result := &page.AddScriptToEvaluateOnNewDocumentResult{}
@@ -77,7 +77,7 @@ BringToFront brings page to front (activates tab).
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-bringToFront
 */
-func (protocol *PageProtocol) BringToFront() chan *page.BringToFrontResult {
+func (protocol *PageProtocol) BringToFront() <-chan *page.BringToFrontResult {
 	resultChan := make(chan *page.BringToFrontResult)
 	command := NewCommand(protocol.Socket, "Page.bringToFront", nil)
 	result := &page.BringToFrontResult{}
@@ -101,7 +101,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScree
 */
 func (protocol *PageProtocol) CaptureScreenshot(
 	params *page.CaptureScreenshotParams,
-) chan *page.CaptureScreenshotResult {
+) <-chan *page.CaptureScreenshotResult {
 	resultChan := make(chan *page.CaptureScreenshotResult)
 	command := NewCommand(protocol.Socket, "Page.captureScreenshot", params)
 	result := &page.CaptureScreenshotResult{}
@@ -127,7 +127,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-createIsolat
 */
 func (protocol *PageProtocol) CreateIsolatedWorld(
 	params *page.CreateIsolatedWorldParams,
-) chan *page.CreateIsolatedWorldResult {
+) <-chan *page.CreateIsolatedWorldResult {
 	resultChan := make(chan *page.CreateIsolatedWorldResult)
 	command := NewCommand(protocol.Socket, "Page.createIsolatedWorld", params)
 	result := &page.CreateIsolatedWorldResult{}
@@ -151,7 +151,7 @@ Disable disables page domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-disable
 */
-func (protocol *PageProtocol) Disable() chan *page.DisableResult {
+func (protocol *PageProtocol) Disable() <-chan *page.DisableResult {
 	resultChan := make(chan *page.DisableResult)
 	command := NewCommand(protocol.Socket, "Page.disable", nil)
 	result := &page.DisableResult{}
@@ -173,7 +173,7 @@ Enable Ennables page domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-enable
 */
-func (protocol *PageProtocol) Enable() chan *page.EnableResult {
+func (protocol *PageProtocol) Enable() <-chan *page.EnableResult {
 	resultChan := make(chan *page.EnableResult)
 	command := NewCommand(protocol.Socket, "Page.enable", nil)
 	result := &page.EnableResult{}
@@ -197,7 +197,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getAppManife
 */
 func (protocol *PageProtocol) GetAppManifest(
 	params *page.GetAppManifestParams,
-) chan *page.GetAppManifestResult {
+) <-chan *page.GetAppManifestResult {
 	resultChan := make(chan *page.GetAppManifestResult)
 	command := NewCommand(protocol.Socket, "Page.getAppManifest", params)
 	result := &page.GetAppManifestResult{}
@@ -219,7 +219,7 @@ GetFrameTree returns present frame tree structure.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getFrameTree
 */
-func (protocol *PageProtocol) GetFrameTree() chan *page.GetFrameTreeResult {
+func (protocol *PageProtocol) GetFrameTree() <-chan *page.GetFrameTreeResult {
 	resultChan := make(chan *page.GetFrameTreeResult)
 	command := NewCommand(protocol.Socket, "Page.getFrameTree", nil)
 	result := &page.GetFrameTreeResult{}
@@ -244,7 +244,7 @@ viewport bounds/scale.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getLayoutMetrics
 */
-func (protocol *PageProtocol) GetLayoutMetrics() chan *page.GetLayoutMetricsResult {
+func (protocol *PageProtocol) GetLayoutMetrics() <-chan *page.GetLayoutMetricsResult {
 	resultChan := make(chan *page.GetLayoutMetricsResult)
 	command := NewCommand(protocol.Socket, "Page.getLayoutMetrics", nil)
 	result := &page.GetLayoutMetricsResult{}
@@ -268,7 +268,7 @@ GetNavigationHistory returns navigation history for the current page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getNavigationHistory
 */
-func (protocol *PageProtocol) GetNavigationHistory() chan *page.GetNavigationHistoryResult {
+func (protocol *PageProtocol) GetNavigationHistory() <-chan *page.GetNavigationHistoryResult {
 	resultChan := make(chan *page.GetNavigationHistoryResult)
 	command := NewCommand(protocol.Socket, "Page.getNavigationHistory", nil)
 	result := &page.GetNavigationHistoryResult{}
@@ -295,7 +295,7 @@ EXPERIMENTAL.
 */
 func (protocol *PageProtocol) GetResourceContent(
 	params *page.GetResourceContentParams,
-) chan *page.GetResourceContentResult {
+) <-chan *page.GetResourceContentResult {
 	resultChan := make(chan *page.GetResourceContentResult)
 	command := NewCommand(protocol.Socket, "Page.getResourceContent", params)
 	result := &page.GetResourceContentResult{}
@@ -320,7 +320,7 @@ GetResourceTree returns present frame / resource tree structure.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-getResourceTree
 EXPERIMENTAL.
 */
-func (protocol *PageProtocol) GetResourceTree() chan *page.GetResourceTreeResult {
+func (protocol *PageProtocol) GetResourceTree() <-chan *page.GetResourceTreeResult {
 	resultChan := make(chan *page.GetResourceTreeResult)
 	command := NewCommand(protocol.Socket, "Page.getResourceTree", nil)
 	result := &page.GetResourceTreeResult{}
@@ -347,7 +347,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-handleJavaSc
 */
 func (protocol *PageProtocol) HandleJavaScriptDialog(
 	params *page.HandleJavaScriptDialogParams,
-) chan *page.HandleJavaScriptDialogResult {
+) <-chan *page.HandleJavaScriptDialogResult {
 	resultChan := make(chan *page.HandleJavaScriptDialogResult)
 	command := NewCommand(protocol.Socket, "Page.handleJavaScriptDialog", params)
 	result := &page.HandleJavaScriptDialogResult{}
@@ -371,7 +371,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-navigate
 */
 func (protocol *PageProtocol) Navigate(
 	params *page.NavigateParams,
-) chan *page.NavigateResult {
+) <-chan *page.NavigateResult {
 	resultChan := make(chan *page.NavigateResult)
 	command := NewCommand(protocol.Socket, "Page.navigate", params)
 	result := &page.NavigateResult{}
@@ -397,7 +397,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-navigateToHi
 */
 func (protocol *PageProtocol) NavigateToHistoryEntry(
 	params *page.NavigateToHistoryEntryParams,
-) chan *page.NavigateToHistoryEntryResult {
+) <-chan *page.NavigateToHistoryEntryResult {
 	resultChan := make(chan *page.NavigateToHistoryEntryResult)
 	command := NewCommand(protocol.Socket, "Page.navigateToHistoryEntry", params)
 	result := &page.NavigateToHistoryEntryResult{}
@@ -421,7 +421,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-printToPDF
 */
 func (protocol *PageProtocol) PrintToPDF(
 	params *page.PrintToPDFParams,
-) chan *page.PrintToPDFResult {
+) <-chan *page.PrintToPDFResult {
 	resultChan := make(chan *page.PrintToPDFResult)
 	command := NewCommand(protocol.Socket, "Page.printToPDF", params)
 	result := &page.PrintToPDFResult{}
@@ -447,7 +447,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-reload
 */
 func (protocol *PageProtocol) Reload(
 	params *page.ReloadParams,
-) chan *page.ReloadResult {
+) <-chan *page.ReloadResult {
 	resultChan := make(chan *page.ReloadResult)
 	command := NewCommand(protocol.Socket, "Page.reload", params)
 	result := &page.ReloadResult{}
@@ -473,7 +473,7 @@ EXPERIMENTAL. DEPRECATED.
 */
 func (protocol *PageProtocol) RemoveScriptToEvaluateOnLoad(
 	params *page.RemoveScriptToEvaluateOnLoadParams,
-) chan *page.RemoveScriptToEvaluateOnLoadResult {
+) <-chan *page.RemoveScriptToEvaluateOnLoadResult {
 	resultChan := make(chan *page.RemoveScriptToEvaluateOnLoadResult)
 	command := NewCommand(protocol.Socket, "Page.removeScriptToEvaluateOnLoad", params)
 	result := &page.RemoveScriptToEvaluateOnLoadResult{}
@@ -497,7 +497,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-removeScript
 */
 func (protocol *PageProtocol) RemoveScriptToEvaluateOnNewDocument(
 	params *page.RemoveScriptToEvaluateOnNewDocumentParams,
-) chan *page.RemoveScriptToEvaluateOnNewDocumentResult {
+) <-chan *page.RemoveScriptToEvaluateOnNewDocumentResult {
 	resultChan := make(chan *page.RemoveScriptToEvaluateOnNewDocumentResult)
 	command := NewCommand(protocol.Socket, "Page.removeScriptToEvaluateOnNewDocument", params)
 	result := &page.RemoveScriptToEvaluateOnNewDocumentResult{}
@@ -519,7 +519,7 @@ RequestAppBanner is experimental.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-requestAppBanner EXPERIMENTAL.
 */
-func (protocol *PageProtocol) RequestAppBanner() chan *page.RequestAppBannerResult {
+func (protocol *PageProtocol) RequestAppBanner() <-chan *page.RequestAppBannerResult {
 	resultChan := make(chan *page.RequestAppBannerResult)
 	command := NewCommand(protocol.Socket, "Page.requestAppBanner", nil)
 	result := &page.RequestAppBannerResult{}
@@ -544,7 +544,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-screencastFr
 */
 func (protocol *PageProtocol) ScreencastFrameAck(
 	params *page.ScreencastFrameAckParams,
-) chan *page.ScreencastFrameAckResult {
+) <-chan *page.ScreencastFrameAckResult {
 	resultChan := make(chan *page.ScreencastFrameAckResult)
 	command := NewCommand(protocol.Socket, "Page.screencastFrameAck", params)
 	result := &page.ScreencastFrameAckResult{}
@@ -569,7 +569,7 @@ EXPERIMENTAL.
 */
 func (protocol *PageProtocol) SearchInResource(
 	params *page.SearchInResourceParams,
-) chan *page.SearchInResourceResult {
+) <-chan *page.SearchInResourceResult {
 	resultChan := make(chan *page.SearchInResourceResult)
 	command := NewCommand(protocol.Socket, "Page.searchInResource", params)
 	result := &page.SearchInResourceResult{}
@@ -596,7 +596,7 @@ EXPERIMENTAL.
 */
 func (protocol *PageProtocol) SetAdBlockingEnabled(
 	params *page.SetAdBlockingEnabledParams,
-) chan *page.SetAdBlockingEnabledResult {
+) <-chan *page.SetAdBlockingEnabledResult {
 	resultChan := make(chan *page.SetAdBlockingEnabledResult)
 	command := NewCommand(protocol.Socket, "Page.setAdBlockingEnabled", params)
 	result := &page.SetAdBlockingEnabledResult{}
@@ -622,7 +622,7 @@ EXPERIMENTAL.
 */
 func (protocol *PageProtocol) SetAutoAttachToCreatedPages(
 	params *page.SetAutoAttachToCreatedPagesParams,
-) chan *page.SetAutoAttachToCreatedPagesResult {
+) <-chan *page.SetAutoAttachToCreatedPagesResult {
 	resultChan := make(chan *page.SetAutoAttachToCreatedPagesResult)
 	command := NewCommand(protocol.Socket, "Page.setAutoAttachToCreatedPages", params)
 	result := &page.SetAutoAttachToCreatedPagesResult{}
@@ -646,7 +646,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-setDocumentC
 */
 func (protocol *PageProtocol) SetDocumentContent(
 	params *page.SetDocumentContentParams,
-) chan *page.SetDocumentContentResult {
+) <-chan *page.SetDocumentContentResult {
 	resultChan := make(chan *page.SetDocumentContentResult)
 	command := NewCommand(protocol.Socket, "Page.setDocumentContent", params)
 	result := &page.SetDocumentContentResult{}
@@ -671,7 +671,7 @@ EXPERIMENTAL.
 */
 func (protocol *PageProtocol) SetDownloadBehavior(
 	params *page.SetDownloadBehaviorParams,
-) chan *page.SetDownloadBehaviorResult {
+) <-chan *page.SetDownloadBehaviorResult {
 	resultChan := make(chan *page.SetDownloadBehaviorResult)
 	command := NewCommand(protocol.Socket, "Page.setDownloadBehavior", params)
 	result := &page.SetDownloadBehaviorResult{}
@@ -696,7 +696,7 @@ EXPERIMENTAL.
 */
 func (protocol *PageProtocol) SetLifecycleEventsEnabled(
 	params *page.SetLifecycleEventsEnabledParams,
-) chan *page.SetLifecycleEventsEnabledResult {
+) <-chan *page.SetLifecycleEventsEnabledResult {
 	resultChan := make(chan *page.SetLifecycleEventsEnabledResult)
 	command := NewCommand(protocol.Socket, "Page.setLifecycleEventsEnabled", params)
 	result := &page.SetLifecycleEventsEnabledResult{}
@@ -721,7 +721,7 @@ EXPERIMENTAL.
 */
 func (protocol *PageProtocol) StartScreencast(
 	params *page.StartScreencastParams,
-) chan *page.StartScreencastResult {
+) <-chan *page.StartScreencastResult {
 	resultChan := make(chan *page.StartScreencastResult)
 	command := NewCommand(protocol.Socket, "Page.startScreencast", params)
 	result := &page.StartScreencastResult{}
@@ -743,7 +743,7 @@ StopLoading force the page stop all navigations and pending resource fetches.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-stopLoading
 */
-func (protocol *PageProtocol) StopLoading() chan *page.StopLoadingResult {
+func (protocol *PageProtocol) StopLoading() <-chan *page.StopLoadingResult {
 	resultChan := make(chan *page.StopLoadingResult)
 	command := NewCommand(protocol.Socket, "Page.stopLoading", nil)
 	result := &page.StopLoadingResult{}
@@ -766,7 +766,7 @@ StopScreencast stops sending each frame in the `screencastFrame`.
 https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-stopScreencast
 EXPERIMENTAL.
 */
-func (protocol *PageProtocol) StopScreencast() chan *page.StopScreencastResult {
+func (protocol *PageProtocol) StopScreencast() <-chan *page.StopScreencastResult {
 	resultChan := make(chan *page.StopScreencastResult)
 	command := NewCommand(protocol.Socket, "Page.stopScreencast", nil)
 	result := &page.StopScreencastResult{}

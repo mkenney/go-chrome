@@ -23,7 +23,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-close
 */
 func (protocol *IOProtocol) Close(
 	params *io.CloseParams,
-) chan *io.CloseResult {
+) <-chan *io.CloseResult {
 	resultChan := make(chan *io.CloseResult)
 	command := NewCommand(protocol.Socket, "IO.close", params)
 	result := &io.CloseResult{}
@@ -47,7 +47,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-read
 */
 func (protocol *IOProtocol) Read(
 	params *io.ReadParams,
-) chan *io.ReadResult {
+) <-chan *io.ReadResult {
 	resultChan := make(chan *io.ReadResult)
 	command := NewCommand(protocol.Socket, "IO.read", params)
 	result := &io.ReadResult{}
@@ -73,7 +73,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/IO/#method-resolveBlob
 */
 func (protocol *IOProtocol) ResolveBlob(
 	params *io.ResolveBlobParams,
-) chan *io.ResolveBlobResult {
+) <-chan *io.ResolveBlobResult {
 	resultChan := make(chan *io.ResolveBlobResult)
 	command := NewCommand(protocol.Socket, "IO.resolveBlob", params)
 	result := &io.ResolveBlobResult{}

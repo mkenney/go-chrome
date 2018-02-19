@@ -21,7 +21,7 @@ EXPERIMENTAL.
 */
 func (protocol *MemoryProtocol) GetDOMCounters(
 	params *memory.GetDOMCountersParams,
-) chan *memory.GetDOMCountersResult {
+) <-chan *memory.GetDOMCountersResult {
 	resultChan := make(chan *memory.GetDOMCountersResult)
 	command := NewCommand(protocol.Socket, "Memory.getDOMCounters", params)
 	result := &memory.GetDOMCountersResult{}
@@ -44,7 +44,7 @@ PrepareForLeakDetection experimental
 https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-prepareForLeakDetection
 EXPERIMENTAL.
 */
-func (protocol *MemoryProtocol) PrepareForLeakDetection() chan *memory.PrepareForLeakDetectionResult {
+func (protocol *MemoryProtocol) PrepareForLeakDetection() <-chan *memory.PrepareForLeakDetectionResult {
 	resultChan := make(chan *memory.PrepareForLeakDetectionResult)
 	command := NewCommand(protocol.Socket, "Memory.prepareForLeakDetection", nil)
 	result := &memory.PrepareForLeakDetectionResult{}
@@ -69,7 +69,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-setPressur
 */
 func (protocol *MemoryProtocol) SetPressureNotificationsSuppressed(
 	params *memory.SetPressureNotificationsSuppressedParams,
-) chan *memory.SetPressureNotificationsSuppressedResult {
+) <-chan *memory.SetPressureNotificationsSuppressedResult {
 	resultChan := make(chan *memory.SetPressureNotificationsSuppressedResult)
 	command := NewCommand(protocol.Socket, "Memory.setPressureNotificationsSuppressed", params)
 	result := &memory.SetPressureNotificationsSuppressedResult{}
@@ -94,7 +94,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Memory/#method-simulatePr
 */
 func (protocol *MemoryProtocol) SimulatePressureNotification(
 	params *memory.SimulatePressureNotificationParams,
-) chan *memory.SimulatePressureNotificationResult {
+) <-chan *memory.SimulatePressureNotificationResult {
 	resultChan := make(chan *memory.SimulatePressureNotificationResult)
 	command := NewCommand(protocol.Socket, "Memory.simulatePressureNotification", params)
 	result := &memory.SimulatePressureNotificationResult{}

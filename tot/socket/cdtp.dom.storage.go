@@ -23,7 +23,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-clear
 */
 func (protocol *DOMStorageProtocol) Clear(
 	params *domStorage.ClearParams,
-) chan *domStorage.ClearResult {
+) <-chan *domStorage.ClearResult {
 	resultChan := make(chan *domStorage.ClearResult)
 	command := NewCommand(protocol.Socket, "DOMStorage.clear", params)
 	result := &domStorage.ClearResult{}
@@ -46,7 +46,7 @@ the client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-disable
 */
-func (protocol *DOMStorageProtocol) Disable() chan *domStorage.DisableResult {
+func (protocol *DOMStorageProtocol) Disable() <-chan *domStorage.DisableResult {
 	resultChan := make(chan *domStorage.DisableResult)
 	command := NewCommand(protocol.Socket, "DOMStorage.disable", nil)
 	result := &domStorage.DisableResult{}
@@ -69,7 +69,7 @@ client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-enable
 */
-func (protocol *DOMStorageProtocol) Enable() chan *domStorage.EnableResult {
+func (protocol *DOMStorageProtocol) Enable() <-chan *domStorage.EnableResult {
 	resultChan := make(chan *domStorage.EnableResult)
 	command := NewCommand(protocol.Socket, "DOMStorage.enable", nil)
 	result := &domStorage.EnableResult{}
@@ -93,7 +93,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-getDOM
 */
 func (protocol *DOMStorageProtocol) GetItems(
 	params *domStorage.GetItemsParams,
-) chan *domStorage.GetItemsResult {
+) <-chan *domStorage.GetItemsResult {
 	resultChan := make(chan *domStorage.GetItemsResult)
 	command := NewCommand(protocol.Socket, "DOMStorage.getDOMStorageItems", params)
 	result := &domStorage.GetItemsResult{}
@@ -119,7 +119,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-remove
 */
 func (protocol *DOMStorageProtocol) RemoveItem(
 	params *domStorage.RemoveItemParams,
-) chan *domStorage.RemoveItemResult {
+) <-chan *domStorage.RemoveItemResult {
 	resultChan := make(chan *domStorage.RemoveItemResult)
 	command := NewCommand(protocol.Socket, "DOMStorage.removeDOMStorageItem", params)
 	result := &domStorage.RemoveItemResult{}
@@ -143,7 +143,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-setDOM
 */
 func (protocol *DOMStorageProtocol) SetItem(
 	params *domStorage.SetItemParams,
-) chan *domStorage.SetItemResult {
+) <-chan *domStorage.SetItemResult {
 	resultChan := make(chan *domStorage.SetItemResult)
 	command := NewCommand(protocol.Socket, "DOMStorage.setDOMStorageItem", params)
 	result := &domStorage.SetItemResult{}

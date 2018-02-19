@@ -33,7 +33,7 @@ EXPERIMENTAL.
 */
 func (protocol *DOMProtocol) CollectClassNamesFromSubtree(
 	params *dom.CollectClassNamesFromSubtreeParams,
-) chan *dom.CollectClassNamesFromSubtreeResult {
+) <-chan *dom.CollectClassNamesFromSubtreeResult {
 	resultChan := make(chan *dom.CollectClassNamesFromSubtreeResult)
 	command := NewCommand(protocol.Socket, "DOM.collectClassNamesFromSubtree", params)
 	result := &dom.CollectClassNamesFromSubtreeResult{}
@@ -60,7 +60,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-copyTo EXPERI
 */
 func (protocol *DOMProtocol) CopyTo(
 	params *dom.CopyToParams,
-) chan *dom.CopyToResult {
+) <-chan *dom.CopyToResult {
 	resultChan := make(chan *dom.CopyToResult)
 	command := NewCommand(protocol.Socket, "DOM.copyTo", params)
 	result := &dom.CopyToResult{}
@@ -87,7 +87,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-describeNode
 */
 func (protocol *DOMProtocol) DescribeNode(
 	params *dom.DescribeNodeParams,
-) chan *dom.DescribeNodeResult {
+) <-chan *dom.DescribeNodeResult {
 	resultChan := make(chan *dom.DescribeNodeResult)
 	command := NewCommand(protocol.Socket, "DOM.describeNode", params)
 	result := &dom.DescribeNodeResult{}
@@ -111,7 +111,7 @@ Disable disables the DOM agent for the given page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-disable
 */
-func (protocol *DOMProtocol) Disable() chan *dom.DisableResult {
+func (protocol *DOMProtocol) Disable() <-chan *dom.DisableResult {
 	resultChan := make(chan *dom.DisableResult)
 	command := NewCommand(protocol.Socket, "DOM.disable", nil)
 	result := &dom.DisableResult{}
@@ -137,7 +137,7 @@ EXPERIMENTAL.
 */
 func (protocol *DOMProtocol) DiscardSearchResults(
 	params *dom.DiscardSearchResultsParams,
-) chan *dom.DiscardSearchResultsResult {
+) <-chan *dom.DiscardSearchResultsResult {
 	resultChan := make(chan *dom.DiscardSearchResultsResult)
 	command := NewCommand(protocol.Socket, "DOM.discardSearchResults", params)
 	result := &dom.DiscardSearchResultsResult{}
@@ -159,7 +159,7 @@ Enable enables the DOM agent for the given page.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-enable
 */
-func (protocol *DOMProtocol) Enable() chan *dom.EnableResult {
+func (protocol *DOMProtocol) Enable() <-chan *dom.EnableResult {
 	resultChan := make(chan *dom.EnableResult)
 	command := NewCommand(protocol.Socket, "DOM.enable", nil)
 	result := &dom.EnableResult{}
@@ -183,7 +183,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-focus
 */
 func (protocol *DOMProtocol) Focus(
 	params *dom.FocusParams,
-) chan *dom.FocusResult {
+) <-chan *dom.FocusResult {
 	resultChan := make(chan *dom.FocusResult)
 	command := NewCommand(protocol.Socket, "DOM.focus", params)
 	result := &dom.FocusResult{}
@@ -207,7 +207,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getAttributes
 */
 func (protocol *DOMProtocol) GetAttributes(
 	params *dom.GetAttributesParams,
-) chan *dom.GetAttributesResult {
+) <-chan *dom.GetAttributesResult {
 	resultChan := make(chan *dom.GetAttributesResult)
 	command := NewCommand(protocol.Socket, "DOM.getAttributes", params)
 	result := &dom.GetAttributesResult{}
@@ -233,7 +233,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getBoxModel
 */
 func (protocol *DOMProtocol) GetBoxModel(
 	params *dom.GetBoxModelParams,
-) chan *dom.GetBoxModelResult {
+) <-chan *dom.GetBoxModelResult {
 	resultChan := make(chan *dom.GetBoxModelResult)
 	command := NewCommand(protocol.Socket, "DOM.getBoxModel", params)
 	result := &dom.GetBoxModelResult{}
@@ -260,7 +260,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getDocument
 */
 func (protocol *DOMProtocol) GetDocument(
 	params *dom.GetDocumentParams,
-) chan *dom.GetDocumentResult {
+) <-chan *dom.GetDocumentResult {
 	resultChan := make(chan *dom.GetDocumentResult)
 	command := NewCommand(protocol.Socket, "DOM.getDocument", params)
 	result := &dom.GetDocumentResult{}
@@ -287,7 +287,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getFlattenedD
 */
 func (protocol *DOMProtocol) GetFlattenedDocument(
 	params *dom.GetFlattenedDocumentParams,
-) chan *dom.GetFlattenedDocumentResult {
+) <-chan *dom.GetFlattenedDocumentResult {
 	resultChan := make(chan *dom.GetFlattenedDocumentResult)
 	command := NewCommand(protocol.Socket, "DOM.getFlattenedDocument", params)
 	result := &dom.GetFlattenedDocumentResult{}
@@ -313,7 +313,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getNodeForLoc
 */
 func (protocol *DOMProtocol) GetNodeForLocation(
 	params *dom.GetNodeForLocationParams,
-) chan *dom.GetNodeForLocationResult {
+) <-chan *dom.GetNodeForLocationResult {
 	resultChan := make(chan *dom.GetNodeForLocationResult)
 	command := NewCommand(protocol.Socket, "DOM.getNodeForLocation", params)
 	result := &dom.GetNodeForLocationResult{}
@@ -339,7 +339,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getOuterHTML
 */
 func (protocol *DOMProtocol) GetOuterHTML(
 	params *dom.GetOuterHTMLParams,
-) chan *dom.GetOuterHTMLResult {
+) <-chan *dom.GetOuterHTMLResult {
 	resultChan := make(chan *dom.GetOuterHTMLResult)
 	command := NewCommand(protocol.Socket, "DOM.getOuterHTML", params)
 	result := &dom.GetOuterHTMLResult{}
@@ -366,7 +366,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-getRelayoutBo
 */
 func (protocol *DOMProtocol) GetRelayoutBoundary(
 	params *dom.GetRelayoutBoundaryParams,
-) chan *dom.GetRelayoutBoundaryResult {
+) <-chan *dom.GetRelayoutBoundaryResult {
 	resultChan := make(chan *dom.GetRelayoutBoundaryResult)
 	command := NewCommand(protocol.Socket, "DOM.getRelayoutBoundary", params)
 	result := &dom.GetRelayoutBoundaryResult{}
@@ -394,7 +394,7 @@ EXPERIMENTAL.
 */
 func (protocol *DOMProtocol) GetSearchResults(
 	params *dom.GetSearchResultsParams,
-) chan *dom.GetSearchResultsResult {
+) <-chan *dom.GetSearchResultsResult {
 	resultChan := make(chan *dom.GetSearchResultsResult)
 	command := NewCommand(protocol.Socket, "DOM.getSearchResults", params)
 	result := &dom.GetSearchResultsResult{}
@@ -419,7 +419,7 @@ MarkUndoableState marks last undoable state.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-markUndoableState
 EXPERIMENTAL.
 */
-func (protocol *DOMProtocol) MarkUndoableState() chan *dom.MarkUndoableStateResult {
+func (protocol *DOMProtocol) MarkUndoableState() <-chan *dom.MarkUndoableStateResult {
 	resultChan := make(chan *dom.MarkUndoableStateResult)
 	command := NewCommand(protocol.Socket, "DOM.markUndoableState", nil)
 	result := &dom.MarkUndoableStateResult{}
@@ -443,7 +443,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-moveTo
 */
 func (protocol *DOMProtocol) MoveTo(
 	params *dom.MoveToParams,
-) chan *dom.MoveToResult {
+) <-chan *dom.MoveToResult {
 	resultChan := make(chan *dom.MoveToResult)
 	command := NewCommand(protocol.Socket, "DOM.moveTo", params)
 	result := &dom.MoveToResult{}
@@ -471,7 +471,7 @@ EXPERIMENTAL.
 */
 func (protocol *DOMProtocol) PerformSearch(
 	params *dom.PerformSearchParams,
-) chan *dom.PerformSearchResult {
+) <-chan *dom.PerformSearchResult {
 	resultChan := make(chan *dom.PerformSearchResult)
 	command := NewCommand(protocol.Socket, "DOM.performSearch", params)
 	result := &dom.PerformSearchResult{}
@@ -499,7 +499,7 @@ EXPERIMENTAL. @TODO, use XPath.
 */
 func (protocol *DOMProtocol) PushNodeByPathToFrontend(
 	params *dom.PushNodeByPathToFrontendParams,
-) chan *dom.PushNodeByPathToFrontendResult {
+) <-chan *dom.PushNodeByPathToFrontendResult {
 	resultChan := make(chan *dom.PushNodeByPathToFrontendResult)
 	command := NewCommand(protocol.Socket, "DOM.pushNodeByPathToFrontend", params)
 	result := &dom.PushNodeByPathToFrontendResult{}
@@ -527,7 +527,7 @@ EXPERIMENTAL.
 */
 func (protocol *DOMProtocol) PushNodesByBackendIDsToFrontend(
 	params *dom.PushNodesByBackendIDsToFrontendParams,
-) chan *dom.PushNodesByBackendIDsToFrontendResult {
+) <-chan *dom.PushNodesByBackendIDsToFrontendResult {
 	resultChan := make(chan *dom.PushNodesByBackendIDsToFrontendResult)
 	command := NewCommand(protocol.Socket, "DOM.pushNodesByBackendIdsToFrontend", params)
 	result := &dom.PushNodesByBackendIDsToFrontendResult{}
@@ -553,7 +553,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-querySelector
 */
 func (protocol *DOMProtocol) QuerySelector(
 	params *dom.QuerySelectorParams,
-) chan *dom.QuerySelectorResult {
+) <-chan *dom.QuerySelectorResult {
 	resultChan := make(chan *dom.QuerySelectorResult)
 	command := NewCommand(protocol.Socket, "DOM.querySelector", params)
 	result := &dom.QuerySelectorResult{}
@@ -579,7 +579,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-querySelector
 */
 func (protocol *DOMProtocol) QuerySelectorAll(
 	params *dom.QuerySelectorAllParams,
-) chan *dom.QuerySelectorAllResult {
+) <-chan *dom.QuerySelectorAllResult {
 	resultChan := make(chan *dom.QuerySelectorAllResult)
 	command := NewCommand(protocol.Socket, "DOM.querySelectorAll", params)
 	result := &dom.QuerySelectorAllResult{}
@@ -603,7 +603,7 @@ Redo re-does the last undone action.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-redo EXPERIMENTAL.
 */
-func (protocol *DOMProtocol) Redo() chan *dom.RedoResult {
+func (protocol *DOMProtocol) Redo() <-chan *dom.RedoResult {
 	resultChan := make(chan *dom.RedoResult)
 	command := NewCommand(protocol.Socket, "DOM.redo", nil)
 	result := &dom.RedoResult{}
@@ -627,7 +627,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-removeAttribu
 */
 func (protocol *DOMProtocol) RemoveAttribute(
 	params *dom.RemoveAttributeParams,
-) chan *dom.RemoveAttributeResult {
+) <-chan *dom.RemoveAttributeResult {
 	resultChan := make(chan *dom.RemoveAttributeResult)
 	command := NewCommand(protocol.Socket, "DOM.removeAttribute", params)
 	result := &dom.RemoveAttributeResult{}
@@ -651,7 +651,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-removeNode
 */
 func (protocol *DOMProtocol) RemoveNode(
 	params *dom.RemoveNodeParams,
-) chan *dom.RemoveNodeResult {
+) <-chan *dom.RemoveNodeResult {
 	resultChan := make(chan *dom.RemoveNodeResult)
 	command := NewCommand(protocol.Socket, "DOM.removeNode", params)
 	result := &dom.RemoveNodeResult{}
@@ -677,7 +677,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-requestChildN
 */
 func (protocol *DOMProtocol) RequestChildNodes(
 	params *dom.RequestChildNodesParams,
-) chan *dom.RequestChildNodesResult {
+) <-chan *dom.RequestChildNodesResult {
 	resultChan := make(chan *dom.RequestChildNodesResult)
 	command := NewCommand(protocol.Socket, "DOM.requestChildNodes", params)
 	result := &dom.RequestChildNodesResult{}
@@ -703,7 +703,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-requestNode
 */
 func (protocol *DOMProtocol) RequestNode(
 	params *dom.RequestNodeParams,
-) chan *dom.RequestNodeResult {
+) <-chan *dom.RequestNodeResult {
 	resultChan := make(chan *dom.RequestNodeResult)
 	command := NewCommand(protocol.Socket, "DOM.requestNode", params)
 	result := &dom.RequestNodeResult{}
@@ -730,7 +730,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-resolveNode
 */
 func (protocol *DOMProtocol) ResolveNode(
 	params *dom.ResolveNodeParams,
-) chan *dom.ResolveNodeResult {
+) <-chan *dom.ResolveNodeResult {
 	resultChan := make(chan *dom.ResolveNodeResult)
 	command := NewCommand(protocol.Socket, "DOM.resolveNode", params)
 	result := &dom.ResolveNodeResult{}
@@ -756,7 +756,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setAttributeV
 */
 func (protocol *DOMProtocol) SetAttributeValue(
 	params *dom.SetAttributeValueParams,
-) chan *dom.SetAttributeValueResult {
+) <-chan *dom.SetAttributeValueResult {
 	resultChan := make(chan *dom.SetAttributeValueResult)
 	command := NewCommand(protocol.Socket, "DOM.setAttributeValue", params)
 	result := &dom.SetAttributeValueResult{}
@@ -782,7 +782,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setAttributes
 */
 func (protocol *DOMProtocol) SetAttributesAsText(
 	params *dom.SetAttributesAsTextParams,
-) chan *dom.SetAttributesAsTextResult {
+) <-chan *dom.SetAttributesAsTextResult {
 	resultChan := make(chan *dom.SetAttributesAsTextResult)
 	command := NewCommand(protocol.Socket, "DOM.setAttributesAsText", params)
 	result := &dom.SetAttributesAsTextResult{}
@@ -806,7 +806,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setFileInputF
 */
 func (protocol *DOMProtocol) SetFileInputFiles(
 	params *dom.SetFileInputFilesParams,
-) chan *dom.SetFileInputFilesResult {
+) <-chan *dom.SetFileInputFilesResult {
 	resultChan := make(chan *dom.SetFileInputFilesResult)
 	command := NewCommand(protocol.Socket, "DOM.setFileInputFiles", params)
 	result := &dom.SetFileInputFilesResult{}
@@ -831,7 +831,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setInspectedN
 */
 func (protocol *DOMProtocol) SetInspectedNode(
 	params *dom.SetInspectedNodeParams,
-) chan *dom.SetInspectedNodeResult {
+) <-chan *dom.SetInspectedNodeResult {
 	resultChan := make(chan *dom.SetInspectedNodeResult)
 	command := NewCommand(protocol.Socket, "DOM.setInspectedNode", params)
 	result := &dom.SetInspectedNodeResult{}
@@ -855,7 +855,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setNodeName
 */
 func (protocol *DOMProtocol) SetNodeName(
 	params *dom.SetNodeNameParams,
-) chan *dom.SetNodeNameResult {
+) <-chan *dom.SetNodeNameResult {
 	resultChan := make(chan *dom.SetNodeNameResult)
 	command := NewCommand(protocol.Socket, "DOM.setNodeName", params)
 	result := &dom.SetNodeNameResult{}
@@ -881,7 +881,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setNodeValue
 */
 func (protocol *DOMProtocol) SetNodeValue(
 	params *dom.SetNodeValueParams,
-) chan *dom.SetNodeValueResult {
+) <-chan *dom.SetNodeValueResult {
 	resultChan := make(chan *dom.SetNodeValueResult)
 	command := NewCommand(protocol.Socket, "DOM.setNodeValue", params)
 	result := &dom.SetNodeValueResult{}
@@ -905,7 +905,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-setOuterHTML
 */
 func (protocol *DOMProtocol) SetOuterHTML(
 	params *dom.SetOuterHTMLParams,
-) chan *dom.SetOuterHTMLResult {
+) <-chan *dom.SetOuterHTMLResult {
 	resultChan := make(chan *dom.SetOuterHTMLResult)
 	command := NewCommand(protocol.Socket, "DOM.setOuterHTML", params)
 	result := &dom.SetOuterHTMLResult{}
@@ -928,7 +928,7 @@ Undo undoes the last performed action.
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-undo
 EXPERIMENTAL.
 */
-func (protocol *DOMProtocol) Undo() chan *dom.UndoResult {
+func (protocol *DOMProtocol) Undo() <-chan *dom.UndoResult {
 	resultChan := make(chan *dom.UndoResult)
 	command := NewCommand(protocol.Socket, "DOM.undo", nil)
 	result := &dom.UndoResult{}
