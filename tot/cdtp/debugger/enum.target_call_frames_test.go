@@ -3,12 +3,10 @@ package debugger
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/debugger"
 )
 
 func TestEnumTargetCallFrames(t *testing.T) {
-	var enum debugger.TargetCallFramesEnum
+	var enum TargetCallFramesEnum
 	var err error
 	var result []byte
 
@@ -30,7 +28,7 @@ func TestEnumTargetCallFrames(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = debugger.TargetCallFrames.Any
+	enum = TargetCallFrames.Any
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -39,11 +37,11 @@ func TestEnumTargetCallFrames(t *testing.T) {
 		t.Errorf("Expected '\"any\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"any"`), &enum)
-	if debugger.TargetCallFrames.Any != enum {
-		t.Errorf("Expcected %d, got %d", debugger.TargetCallFrames.Any, enum)
+	if TargetCallFrames.Any != enum {
+		t.Errorf("Expcected %d, got %d", TargetCallFrames.Any, enum)
 	}
 
-	enum = debugger.TargetCallFrames.Current
+	enum = TargetCallFrames.Current
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -52,7 +50,7 @@ func TestEnumTargetCallFrames(t *testing.T) {
 		t.Errorf("Expected '\"current\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"current"`), &enum)
-	if debugger.TargetCallFrames.Current != enum {
-		t.Errorf("Expcected %d, got %d", debugger.TargetCallFrames.Current, enum)
+	if TargetCallFrames.Current != enum {
+		t.Errorf("Expcected %d, got %d", TargetCallFrames.Current, enum)
 	}
 }

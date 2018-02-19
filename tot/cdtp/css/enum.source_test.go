@@ -3,12 +3,10 @@ package css
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/css"
 )
 
 func TestEnumSource(t *testing.T) {
-	var enum css.SourceEnum
+	var enum SourceEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumSource(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = css.Source.MediaRule
+	enum = Source.MediaRule
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumSource(t *testing.T) {
 		t.Errorf("Expected '\"mediaRule\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"mediaRule"`), &enum)
-	if css.Source.MediaRule != enum {
-		t.Errorf("Expcected %d, got %d", css.Source.MediaRule, enum)
+	if Source.MediaRule != enum {
+		t.Errorf("Expcected %d, got %d", Source.MediaRule, enum)
 	}
 
-	enum = css.Source.ImportRule
+	enum = Source.ImportRule
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumSource(t *testing.T) {
 		t.Errorf("Expected '\"importRule\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"importRule"`), &enum)
-	if css.Source.ImportRule != enum {
-		t.Errorf("Expcected %d, got %d", css.Source.ImportRule, enum)
+	if Source.ImportRule != enum {
+		t.Errorf("Expcected %d, got %d", Source.ImportRule, enum)
 	}
 
-	enum = css.Source.LinkedSheet
+	enum = Source.LinkedSheet
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,17 +58,17 @@ func TestEnumSource(t *testing.T) {
 		t.Errorf("Expected '\"linkedSheet\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"linkedSheet"`), &enum)
-	if css.Source.LinkedSheet != enum {
-		t.Errorf("Expcected %d, got %d", css.Source.LinkedSheet, enum)
+	if Source.LinkedSheet != enum {
+		t.Errorf("Expcected %d, got %d", Source.LinkedSheet, enum)
 	}
 }
 
 func TestEnumSource2(t *testing.T) {
-	var enum css.SourceEnum
+	var enum SourceEnum
 	var err error
 	var result []byte
 
-	enum = css.Source.InlineSheet
+	enum = Source.InlineSheet
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -79,7 +77,7 @@ func TestEnumSource2(t *testing.T) {
 		t.Errorf("Expected '\"inlineSheet\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"inlineSheet"`), &enum)
-	if css.Source.InlineSheet != enum {
-		t.Errorf("Expcected %d, got %d", css.Source.InlineSheet, enum)
+	if Source.InlineSheet != enum {
+		t.Errorf("Expcected %d, got %d", Source.InlineSheet, enum)
 	}
 }

@@ -3,12 +3,10 @@ package animation
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/animation"
 )
 
 func TestEnumType(t *testing.T) {
-	var enum animation.TypeEnum
+	var enum TypeEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumType(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = animation.Type.CSSAnimation
+	enum = Type.CSSAnimation
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumType(t *testing.T) {
 		t.Errorf("Expected '\"CSSAnimation\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"CSSAnimation"`), &enum)
-	if animation.Type.CSSAnimation != enum {
-		t.Errorf("Expcected %d, got %d", animation.Type.CSSAnimation, enum)
+	if Type.CSSAnimation != enum {
+		t.Errorf("Expcected %d, got %d", Type.CSSAnimation, enum)
 	}
 
-	enum = animation.Type.CSSTransition
+	enum = Type.CSSTransition
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumType(t *testing.T) {
 		t.Errorf("Expected '\"CSSTransition\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"CSSTransition"`), &enum)
-	if animation.Type.CSSTransition != enum {
-		t.Errorf("Expcected %d, got %d", animation.Type.CSSTransition, enum)
+	if Type.CSSTransition != enum {
+		t.Errorf("Expcected %d, got %d", Type.CSSTransition, enum)
 	}
 
-	enum = animation.Type.WebAnimation
+	enum = Type.WebAnimation
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,7 +58,7 @@ func TestEnumType(t *testing.T) {
 		t.Errorf("Expected '\"WebAnimation\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"WebAnimation"`), &enum)
-	if animation.Type.WebAnimation != enum {
-		t.Errorf("Expcected %d, got %d", animation.Type.WebAnimation, enum)
+	if Type.WebAnimation != enum {
+		t.Errorf("Expcected %d, got %d", Type.WebAnimation, enum)
 	}
 }

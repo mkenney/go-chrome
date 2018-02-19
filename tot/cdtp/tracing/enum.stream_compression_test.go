@@ -3,12 +3,10 @@ package tracing
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/tracing"
 )
 
 func TestEnumStreamCompression(t *testing.T) {
-	var enum tracing.StreamCompressionEnum
+	var enum StreamCompressionEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumStreamCompression(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = tracing.StreamCompression.None
+	enum = StreamCompression.None
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumStreamCompression(t *testing.T) {
 		t.Errorf("Expected '\"none\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"none"`), &enum)
-	if tracing.StreamCompression.None != enum {
-		t.Errorf("Expcected %d, got %d", tracing.StreamCompression.None, enum)
+	if StreamCompression.None != enum {
+		t.Errorf("Expcected %d, got %d", StreamCompression.None, enum)
 	}
 
-	enum = tracing.StreamCompression.Gzip
+	enum = StreamCompression.Gzip
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,7 +45,7 @@ func TestEnumStreamCompression(t *testing.T) {
 		t.Errorf("Expected '\"gzip\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"gzip"`), &enum)
-	if tracing.StreamCompression.Gzip != enum {
-		t.Errorf("Expcected %d, got %d", tracing.StreamCompression.Gzip, enum)
+	if StreamCompression.Gzip != enum {
+		t.Errorf("Expcected %d, got %d", StreamCompression.Gzip, enum)
 	}
 }

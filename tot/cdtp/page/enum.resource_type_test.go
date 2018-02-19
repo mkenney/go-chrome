@@ -3,12 +3,10 @@ package page
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/page"
 )
 
 func TestEnumResourceType(t *testing.T) {
-	var enum page.ResourceTypeEnum
+	var enum ResourceTypeEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumResourceType(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = page.ResourceType.Document
+	enum = ResourceType.Document
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumResourceType(t *testing.T) {
 		t.Errorf("Expected '\"Document\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"Document"`), &enum)
-	if page.ResourceType.Document != enum {
-		t.Errorf("Expcected %d, got %d", page.ResourceType.Document, enum)
+	if ResourceType.Document != enum {
+		t.Errorf("Expcected %d, got %d", ResourceType.Document, enum)
 	}
 
-	enum = page.ResourceType.Stylesheet
+	enum = ResourceType.Stylesheet
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumResourceType(t *testing.T) {
 		t.Errorf("Expected '\"Stylesheet\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"Stylesheet"`), &enum)
-	if page.ResourceType.Stylesheet != enum {
-		t.Errorf("Expcected %d, got %d", page.ResourceType.Stylesheet, enum)
+	if ResourceType.Stylesheet != enum {
+		t.Errorf("Expcected %d, got %d", ResourceType.Stylesheet, enum)
 	}
 
-	enum = page.ResourceType.Image
+	enum = ResourceType.Image
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,17 +58,17 @@ func TestEnumResourceType(t *testing.T) {
 		t.Errorf("Expected '\"Image\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"Image"`), &enum)
-	if page.ResourceType.Image != enum {
-		t.Errorf("Expcected %d, got %d", page.ResourceType.Image, enum)
+	if ResourceType.Image != enum {
+		t.Errorf("Expcected %d, got %d", ResourceType.Image, enum)
 	}
 }
 
 func TestEnumResourceType2(t *testing.T) {
-	var enum page.ResourceTypeEnum
+	var enum ResourceTypeEnum
 	var err error
 	var result []byte
 
-	enum = page.ResourceType.Media
+	enum = ResourceType.Media
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -79,11 +77,11 @@ func TestEnumResourceType2(t *testing.T) {
 		t.Errorf("Expected '\"Media\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"Media"`), &enum)
-	if page.ResourceType.Media != enum {
-		t.Errorf("Expcected %d, got %d", page.ResourceType.Media, enum)
+	if ResourceType.Media != enum {
+		t.Errorf("Expcected %d, got %d", ResourceType.Media, enum)
 	}
 
-	enum = page.ResourceType.Font
+	enum = ResourceType.Font
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -92,11 +90,11 @@ func TestEnumResourceType2(t *testing.T) {
 		t.Errorf("Expected '\"Font\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"Font"`), &enum)
-	if page.ResourceType.Font != enum {
-		t.Errorf("Expcected %d, got %d", page.ResourceType.Font, enum)
+	if ResourceType.Font != enum {
+		t.Errorf("Expcected %d, got %d", ResourceType.Font, enum)
 	}
 
-	enum = page.ResourceType.Script
+	enum = ResourceType.Script
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -105,11 +103,11 @@ func TestEnumResourceType2(t *testing.T) {
 		t.Errorf("Expected '\"Script\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"Script"`), &enum)
-	if page.ResourceType.Script != enum {
-		t.Errorf("Expcected %d, got %d", page.ResourceType.Script, enum)
+	if ResourceType.Script != enum {
+		t.Errorf("Expcected %d, got %d", ResourceType.Script, enum)
 	}
 
-	enum = page.ResourceType.TextTrack
+	enum = ResourceType.TextTrack
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -118,17 +116,17 @@ func TestEnumResourceType2(t *testing.T) {
 		t.Errorf("Expected '\"TextTrack\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"TextTrack"`), &enum)
-	if page.ResourceType.TextTrack != enum {
-		t.Errorf("Expcected %d, got %d", page.ResourceType.TextTrack, enum)
+	if ResourceType.TextTrack != enum {
+		t.Errorf("Expcected %d, got %d", ResourceType.TextTrack, enum)
 	}
 }
 
 func TestEnumResourceType3(t *testing.T) {
-	var enum page.ResourceTypeEnum
+	var enum ResourceTypeEnum
 	var err error
 	var result []byte
 
-	enum = page.ResourceType.XHR
+	enum = ResourceType.XHR
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -137,11 +135,11 @@ func TestEnumResourceType3(t *testing.T) {
 		t.Errorf("Expected '\"XHR\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"XHR"`), &enum)
-	if page.ResourceType.XHR != enum {
-		t.Errorf("Expcected %d, got %d", page.ResourceType.XHR, enum)
+	if ResourceType.XHR != enum {
+		t.Errorf("Expcected %d, got %d", ResourceType.XHR, enum)
 	}
 
-	enum = page.ResourceType.Fetch
+	enum = ResourceType.Fetch
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -150,11 +148,11 @@ func TestEnumResourceType3(t *testing.T) {
 		t.Errorf("Expected '\"Fetch\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"Fetch"`), &enum)
-	if page.ResourceType.Fetch != enum {
-		t.Errorf("Expcected %d, got %d", page.ResourceType.Fetch, enum)
+	if ResourceType.Fetch != enum {
+		t.Errorf("Expcected %d, got %d", ResourceType.Fetch, enum)
 	}
 
-	enum = page.ResourceType.EventSource
+	enum = ResourceType.EventSource
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -163,11 +161,11 @@ func TestEnumResourceType3(t *testing.T) {
 		t.Errorf("Expected '\"EventSource\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"EventSource"`), &enum)
-	if page.ResourceType.EventSource != enum {
-		t.Errorf("Expcected %d, got %d", page.ResourceType.EventSource, enum)
+	if ResourceType.EventSource != enum {
+		t.Errorf("Expcected %d, got %d", ResourceType.EventSource, enum)
 	}
 
-	enum = page.ResourceType.WebSocket
+	enum = ResourceType.WebSocket
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -176,17 +174,17 @@ func TestEnumResourceType3(t *testing.T) {
 		t.Errorf("Expected '\"WebSocket\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"WebSocket"`), &enum)
-	if page.ResourceType.WebSocket != enum {
-		t.Errorf("Expcected %d, got %d", page.ResourceType.WebSocket, enum)
+	if ResourceType.WebSocket != enum {
+		t.Errorf("Expcected %d, got %d", ResourceType.WebSocket, enum)
 	}
 }
 
 func TestEnumResourceType4(t *testing.T) {
-	var enum page.ResourceTypeEnum
+	var enum ResourceTypeEnum
 	var err error
 	var result []byte
 
-	enum = page.ResourceType.Manifest
+	enum = ResourceType.Manifest
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -195,11 +193,11 @@ func TestEnumResourceType4(t *testing.T) {
 		t.Errorf("Expected '\"Manifest\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"Manifest"`), &enum)
-	if page.ResourceType.Manifest != enum {
-		t.Errorf("Expcected %d, got %d", page.ResourceType.Manifest, enum)
+	if ResourceType.Manifest != enum {
+		t.Errorf("Expcected %d, got %d", ResourceType.Manifest, enum)
 	}
 
-	enum = page.ResourceType.Other
+	enum = ResourceType.Other
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -208,7 +206,7 @@ func TestEnumResourceType4(t *testing.T) {
 		t.Errorf("Expected '\"Other\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"Other"`), &enum)
-	if page.ResourceType.Other != enum {
-		t.Errorf("Expcected %d, got %d", page.ResourceType.Other, enum)
+	if ResourceType.Other != enum {
+		t.Errorf("Expcected %d, got %d", ResourceType.Other, enum)
 	}
 }

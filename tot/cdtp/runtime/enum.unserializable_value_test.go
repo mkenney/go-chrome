@@ -3,12 +3,10 @@ package runtime
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/runtime"
 )
 
 func TestEnumUnserializableValue(t *testing.T) {
-	var enum runtime.UnserializableValueEnum
+	var enum UnserializableValueEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumUnserializableValue(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = runtime.UnserializableValue.Infinity
+	enum = UnserializableValue.Infinity
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumUnserializableValue(t *testing.T) {
 		t.Errorf("Expected '\"Infinity\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"Infinity"`), &enum)
-	if runtime.UnserializableValue.Infinity != enum {
-		t.Errorf("Expcected %d, got %d", runtime.UnserializableValue.Infinity, enum)
+	if UnserializableValue.Infinity != enum {
+		t.Errorf("Expcected %d, got %d", UnserializableValue.Infinity, enum)
 	}
 
-	enum = runtime.UnserializableValue.NaN
+	enum = UnserializableValue.NaN
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumUnserializableValue(t *testing.T) {
 		t.Errorf("Expected '\"NaN\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"NaN"`), &enum)
-	if runtime.UnserializableValue.NaN != enum {
-		t.Errorf("Expcected %d, got %d", runtime.UnserializableValue.NaN, enum)
+	if UnserializableValue.NaN != enum {
+		t.Errorf("Expcected %d, got %d", UnserializableValue.NaN, enum)
 	}
 
-	enum = runtime.UnserializableValue.NegInfinity
+	enum = UnserializableValue.NegInfinity
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,17 +58,17 @@ func TestEnumUnserializableValue(t *testing.T) {
 		t.Errorf("Expected '\"-Infinity\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"-Infinity"`), &enum)
-	if runtime.UnserializableValue.NegInfinity != enum {
-		t.Errorf("Expcected %d, got %d", runtime.UnserializableValue.NegInfinity, enum)
+	if UnserializableValue.NegInfinity != enum {
+		t.Errorf("Expcected %d, got %d", UnserializableValue.NegInfinity, enum)
 	}
 }
 
 func TestEnumUnserializableValue2(t *testing.T) {
-	var enum runtime.UnserializableValueEnum
+	var enum UnserializableValueEnum
 	var err error
 	var result []byte
 
-	enum = runtime.UnserializableValue.NegZero
+	enum = UnserializableValue.NegZero
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -79,7 +77,7 @@ func TestEnumUnserializableValue2(t *testing.T) {
 		t.Errorf("Expected '\"-0\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"-0"`), &enum)
-	if runtime.UnserializableValue.NegZero != enum {
-		t.Errorf("Expcected %d, got %d", runtime.UnserializableValue.NegZero, enum)
+	if UnserializableValue.NegZero != enum {
+		t.Errorf("Expcected %d, got %d", UnserializableValue.NegZero, enum)
 	}
 }

@@ -3,12 +3,10 @@ package network
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/network"
 )
 
 func TestEnumChallengeResponse(t *testing.T) {
-	var enum network.ChallengeResponseEnum
+	var enum ChallengeResponseEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumChallengeResponse(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = network.ChallengeResponse.Default
+	enum = ChallengeResponse.Default
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumChallengeResponse(t *testing.T) {
 		t.Errorf("Expected '\"Default\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"Default"`), &enum)
-	if network.ChallengeResponse.Default != enum {
-		t.Errorf("Expcected %d, got %d", network.ChallengeResponse.Default, enum)
+	if ChallengeResponse.Default != enum {
+		t.Errorf("Expcected %d, got %d", ChallengeResponse.Default, enum)
 	}
 
-	enum = network.ChallengeResponse.CancelAuth
+	enum = ChallengeResponse.CancelAuth
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumChallengeResponse(t *testing.T) {
 		t.Errorf("Expected '\"CancelAuth\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"CancelAuth"`), &enum)
-	if network.ChallengeResponse.CancelAuth != enum {
-		t.Errorf("Expcected %d, got %d", network.ChallengeResponse.CancelAuth, enum)
+	if ChallengeResponse.CancelAuth != enum {
+		t.Errorf("Expcected %d, got %d", ChallengeResponse.CancelAuth, enum)
 	}
 
-	enum = network.ChallengeResponse.ProvideCredentials
+	enum = ChallengeResponse.ProvideCredentials
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,7 +58,7 @@ func TestEnumChallengeResponse(t *testing.T) {
 		t.Errorf("Expected '\"ProvideCredentials\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"ProvideCredentials"`), &enum)
-	if network.ChallengeResponse.ProvideCredentials != enum {
-		t.Errorf("Expcected %d, got %d", network.ChallengeResponse.ProvideCredentials, enum)
+	if ChallengeResponse.ProvideCredentials != enum {
+		t.Errorf("Expcected %d, got %d", ChallengeResponse.ProvideCredentials, enum)
 	}
 }

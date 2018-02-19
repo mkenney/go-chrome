@@ -3,12 +3,10 @@ package emulation
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/emulation"
 )
 
 func TestEnumOrientationType(t *testing.T) {
-	var enum emulation.OrientationTypeEnum
+	var enum OrientationTypeEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumOrientationType(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = emulation.OrientationType.PortraitPrimary
+	enum = OrientationType.PortraitPrimary
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumOrientationType(t *testing.T) {
 		t.Errorf("Expected '\"portraitPrimary\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"portraitPrimary"`), &enum)
-	if emulation.OrientationType.PortraitPrimary != enum {
-		t.Errorf("Expcected %d, got %d", emulation.OrientationType.PortraitPrimary, enum)
+	if OrientationType.PortraitPrimary != enum {
+		t.Errorf("Expcected %d, got %d", OrientationType.PortraitPrimary, enum)
 	}
 
-	enum = emulation.OrientationType.PortraitSecondary
+	enum = OrientationType.PortraitSecondary
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumOrientationType(t *testing.T) {
 		t.Errorf("Expected '\"portraitSecondary\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"portraitSecondary"`), &enum)
-	if emulation.OrientationType.PortraitSecondary != enum {
-		t.Errorf("Expcected %d, got %d", emulation.OrientationType.PortraitSecondary, enum)
+	if OrientationType.PortraitSecondary != enum {
+		t.Errorf("Expcected %d, got %d", OrientationType.PortraitSecondary, enum)
 	}
 
-	enum = emulation.OrientationType.LandscapePrimary
+	enum = OrientationType.LandscapePrimary
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,17 +58,17 @@ func TestEnumOrientationType(t *testing.T) {
 		t.Errorf("Expected '\"landscapePrimary\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"landscapePrimary"`), &enum)
-	if emulation.OrientationType.LandscapePrimary != enum {
-		t.Errorf("Expcected %d, got %d", emulation.OrientationType.LandscapePrimary, enum)
+	if OrientationType.LandscapePrimary != enum {
+		t.Errorf("Expcected %d, got %d", OrientationType.LandscapePrimary, enum)
 	}
 }
 
 func TestEnumOrientationType2(t *testing.T) {
-	var enum emulation.OrientationTypeEnum
+	var enum OrientationTypeEnum
 	var err error
 	var result []byte
 
-	enum = emulation.OrientationType.LandscapeSecondary
+	enum = OrientationType.LandscapeSecondary
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -79,7 +77,7 @@ func TestEnumOrientationType2(t *testing.T) {
 		t.Errorf("Expected '\"landscapeSecondary\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"landscapeSecondary"`), &enum)
-	if emulation.OrientationType.LandscapeSecondary != enum {
-		t.Errorf("Expcected %d, got %d", emulation.OrientationType.LandscapeSecondary, enum)
+	if OrientationType.LandscapeSecondary != enum {
+		t.Errorf("Expcected %d, got %d", OrientationType.LandscapeSecondary, enum)
 	}
 }

@@ -3,12 +3,10 @@ package worker
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/service/worker"
 )
 
 func TestEnumVersionStatus(t *testing.T) {
-	var enum worker.VersionStatusEnum
+	var enum VersionStatusEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumVersionStatus(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = worker.VersionStatus.New
+	enum = VersionStatus.New
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumVersionStatus(t *testing.T) {
 		t.Errorf("Expected '\"new\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"new"`), &enum)
-	if worker.VersionStatus.New != enum {
-		t.Errorf("Expcected %d, got %d", worker.VersionStatus.New, enum)
+	if VersionStatus.New != enum {
+		t.Errorf("Expcected %d, got %d", VersionStatus.New, enum)
 	}
 
-	enum = worker.VersionStatus.Installing
+	enum = VersionStatus.Installing
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumVersionStatus(t *testing.T) {
 		t.Errorf("Expected '\"installing\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"installing"`), &enum)
-	if worker.VersionStatus.Installing != enum {
-		t.Errorf("Expcected %d, got %d", worker.VersionStatus.Installing, enum)
+	if VersionStatus.Installing != enum {
+		t.Errorf("Expcected %d, got %d", VersionStatus.Installing, enum)
 	}
 
-	enum = worker.VersionStatus.Installed
+	enum = VersionStatus.Installed
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,17 +58,17 @@ func TestEnumVersionStatus(t *testing.T) {
 		t.Errorf("Expected '\"installed\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"installed"`), &enum)
-	if worker.VersionStatus.Installed != enum {
-		t.Errorf("Expcected %d, got %d", worker.VersionStatus.Installed, enum)
+	if VersionStatus.Installed != enum {
+		t.Errorf("Expcected %d, got %d", VersionStatus.Installed, enum)
 	}
 }
 
 func TestEnumVersionStatus2(t *testing.T) {
-	var enum worker.VersionStatusEnum
+	var enum VersionStatusEnum
 	var err error
 	var result []byte
 
-	enum = worker.VersionStatus.Activating
+	enum = VersionStatus.Activating
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -79,11 +77,11 @@ func TestEnumVersionStatus2(t *testing.T) {
 		t.Errorf("Expected '\"activating\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"activating"`), &enum)
-	if worker.VersionStatus.Activating != enum {
-		t.Errorf("Expcected %d, got %d", worker.VersionStatus.Activating, enum)
+	if VersionStatus.Activating != enum {
+		t.Errorf("Expcected %d, got %d", VersionStatus.Activating, enum)
 	}
 
-	enum = worker.VersionStatus.Activated
+	enum = VersionStatus.Activated
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -92,11 +90,11 @@ func TestEnumVersionStatus2(t *testing.T) {
 		t.Errorf("Expected '\"activated\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"activated"`), &enum)
-	if worker.VersionStatus.Activated != enum {
-		t.Errorf("Expcected %d, got %d", worker.VersionStatus.Activated, enum)
+	if VersionStatus.Activated != enum {
+		t.Errorf("Expcected %d, got %d", VersionStatus.Activated, enum)
 	}
 
-	enum = worker.VersionStatus.Redundant
+	enum = VersionStatus.Redundant
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -105,7 +103,7 @@ func TestEnumVersionStatus2(t *testing.T) {
 		t.Errorf("Expected '\"redundant\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"redundant"`), &enum)
-	if worker.VersionStatus.Redundant != enum {
-		t.Errorf("Expcected %d, got %d", worker.VersionStatus.Redundant, enum)
+	if VersionStatus.Redundant != enum {
+		t.Errorf("Expcected %d, got %d", VersionStatus.Redundant, enum)
 	}
 }

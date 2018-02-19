@@ -3,12 +3,10 @@ package debugger
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/debugger"
 )
 
 func TestEnumState(t *testing.T) {
-	var enum debugger.StateEnum
+	var enum StateEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumState(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = debugger.State.None
+	enum = State.None
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumState(t *testing.T) {
 		t.Errorf("Expected '\"none\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"none"`), &enum)
-	if debugger.State.None != enum {
-		t.Errorf("Expcected %d, got %d", debugger.State.None, enum)
+	if State.None != enum {
+		t.Errorf("Expcected %d, got %d", State.None, enum)
 	}
 
-	enum = debugger.State.Uncaught
+	enum = State.Uncaught
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumState(t *testing.T) {
 		t.Errorf("Expected '\"uncaught\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"uncaught"`), &enum)
-	if debugger.State.Uncaught != enum {
-		t.Errorf("Expcected %d, got %d", debugger.State.Uncaught, enum)
+	if State.Uncaught != enum {
+		t.Errorf("Expcected %d, got %d", State.Uncaught, enum)
 	}
 
-	enum = debugger.State.All
+	enum = State.All
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,7 +58,7 @@ func TestEnumState(t *testing.T) {
 		t.Errorf("Expected '\"all\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"all"`), &enum)
-	if debugger.State.All != enum {
-		t.Errorf("Expcected %d, got %d", debugger.State.All, enum)
+	if State.All != enum {
+		t.Errorf("Expcected %d, got %d", State.All, enum)
 	}
 }

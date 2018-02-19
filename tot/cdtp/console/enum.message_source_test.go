@@ -3,12 +3,10 @@ package console
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/console"
 )
 
 func TestEnumMessageSource(t *testing.T) {
-	var enum console.MessageSourceEnum
+	var enum MessageSourceEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumMessageSource(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = console.MessageSource.XML
+	enum = MessageSource.XML
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumMessageSource(t *testing.T) {
 		t.Errorf("Expected '\"xml\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"xml"`), &enum)
-	if console.MessageSource.XML != enum {
-		t.Errorf("Expcected %d, got %d", console.MessageSource.XML, enum)
+	if MessageSource.XML != enum {
+		t.Errorf("Expcected %d, got %d", MessageSource.XML, enum)
 	}
 
-	enum = console.MessageSource.Javascript
+	enum = MessageSource.Javascript
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumMessageSource(t *testing.T) {
 		t.Errorf("Expected '\"javascript\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"javascript"`), &enum)
-	if console.MessageSource.Javascript != enum {
-		t.Errorf("Expcected %d, got %d", console.MessageSource.Javascript, enum)
+	if MessageSource.Javascript != enum {
+		t.Errorf("Expcected %d, got %d", MessageSource.Javascript, enum)
 	}
 
-	enum = console.MessageSource.Network
+	enum = MessageSource.Network
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,17 +58,17 @@ func TestEnumMessageSource(t *testing.T) {
 		t.Errorf("Expected '\"network\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"network"`), &enum)
-	if console.MessageSource.Network != enum {
-		t.Errorf("Expcected %d, got %d", console.MessageSource.Network, enum)
+	if MessageSource.Network != enum {
+		t.Errorf("Expcected %d, got %d", MessageSource.Network, enum)
 	}
 }
 
 func TestEnumMessageSource2(t *testing.T) {
-	var enum console.MessageSourceEnum
+	var enum MessageSourceEnum
 	var err error
 	var result []byte
 
-	enum = console.MessageSource.ConsoleAPI
+	enum = MessageSource.ConsoleAPI
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -79,11 +77,11 @@ func TestEnumMessageSource2(t *testing.T) {
 		t.Errorf("Expected '\"console-api\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"console-api"`), &enum)
-	if console.MessageSource.ConsoleAPI != enum {
-		t.Errorf("Expcected %d, got %d", console.MessageSource.ConsoleAPI, enum)
+	if MessageSource.ConsoleAPI != enum {
+		t.Errorf("Expcected %d, got %d", MessageSource.ConsoleAPI, enum)
 	}
 
-	enum = console.MessageSource.Storage
+	enum = MessageSource.Storage
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -92,11 +90,11 @@ func TestEnumMessageSource2(t *testing.T) {
 		t.Errorf("Expected '\"storage\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"storage"`), &enum)
-	if console.MessageSource.Storage != enum {
-		t.Errorf("Expcected %d, got %d", console.MessageSource.Storage, enum)
+	if MessageSource.Storage != enum {
+		t.Errorf("Expcected %d, got %d", MessageSource.Storage, enum)
 	}
 
-	enum = console.MessageSource.Appcache
+	enum = MessageSource.Appcache
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -105,11 +103,11 @@ func TestEnumMessageSource2(t *testing.T) {
 		t.Errorf("Expected '\"appcache\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"appcache"`), &enum)
-	if console.MessageSource.Appcache != enum {
-		t.Errorf("Expcected %d, got %d", console.MessageSource.Appcache, enum)
+	if MessageSource.Appcache != enum {
+		t.Errorf("Expcected %d, got %d", MessageSource.Appcache, enum)
 	}
 
-	enum = console.MessageSource.Rendering
+	enum = MessageSource.Rendering
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -118,17 +116,17 @@ func TestEnumMessageSource2(t *testing.T) {
 		t.Errorf("Expected '\"rendering\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"rendering"`), &enum)
-	if console.MessageSource.Rendering != enum {
-		t.Errorf("Expcected %d, got %d", console.MessageSource.Rendering, enum)
+	if MessageSource.Rendering != enum {
+		t.Errorf("Expcected %d, got %d", MessageSource.Rendering, enum)
 	}
 }
 
 func TestEnumMessageSource3(t *testing.T) {
-	var enum console.MessageSourceEnum
+	var enum MessageSourceEnum
 	var err error
 	var result []byte
 
-	enum = console.MessageSource.Security
+	enum = MessageSource.Security
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -137,11 +135,11 @@ func TestEnumMessageSource3(t *testing.T) {
 		t.Errorf("Expected '\"security\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"security"`), &enum)
-	if console.MessageSource.Security != enum {
-		t.Errorf("Expcected %d, got %d", console.MessageSource.Security, enum)
+	if MessageSource.Security != enum {
+		t.Errorf("Expcected %d, got %d", MessageSource.Security, enum)
 	}
 
-	enum = console.MessageSource.Other
+	enum = MessageSource.Other
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -150,11 +148,11 @@ func TestEnumMessageSource3(t *testing.T) {
 		t.Errorf("Expected '\"other\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"other"`), &enum)
-	if console.MessageSource.Other != enum {
-		t.Errorf("Expcected %d, got %d", console.MessageSource.Other, enum)
+	if MessageSource.Other != enum {
+		t.Errorf("Expcected %d, got %d", MessageSource.Other, enum)
 	}
 
-	enum = console.MessageSource.Deprecation
+	enum = MessageSource.Deprecation
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -163,11 +161,11 @@ func TestEnumMessageSource3(t *testing.T) {
 		t.Errorf("Expected '\"deprecation\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"deprecation"`), &enum)
-	if console.MessageSource.Deprecation != enum {
-		t.Errorf("Expcected %d, got %d", console.MessageSource.Deprecation, enum)
+	if MessageSource.Deprecation != enum {
+		t.Errorf("Expcected %d, got %d", MessageSource.Deprecation, enum)
 	}
 
-	enum = console.MessageSource.Worker
+	enum = MessageSource.Worker
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -176,7 +174,7 @@ func TestEnumMessageSource3(t *testing.T) {
 		t.Errorf("Expected '\"worker\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"worker"`), &enum)
-	if console.MessageSource.Worker != enum {
-		t.Errorf("Expcected %d, got %d", console.MessageSource.Worker, enum)
+	if MessageSource.Worker != enum {
+		t.Errorf("Expcected %d, got %d", MessageSource.Worker, enum)
 	}
 }

@@ -3,12 +3,10 @@ package log
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/log"
 )
 
 func TestEnumLevel(t *testing.T) {
-	var enum log.LevelEnum
+	var enum LevelEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumLevel(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = log.Level.Verbose
+	enum = Level.Verbose
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumLevel(t *testing.T) {
 		t.Errorf("Expected '\"verbose\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"verbose"`), &enum)
-	if log.Level.Verbose != enum {
-		t.Errorf("Expcected %d, got %d", log.Level.Verbose, enum)
+	if Level.Verbose != enum {
+		t.Errorf("Expcected %d, got %d", Level.Verbose, enum)
 	}
 
-	enum = log.Level.Info
+	enum = Level.Info
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumLevel(t *testing.T) {
 		t.Errorf("Expected '\"info\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"info"`), &enum)
-	if log.Level.Info != enum {
-		t.Errorf("Expcected %d, got %d", log.Level.Info, enum)
+	if Level.Info != enum {
+		t.Errorf("Expcected %d, got %d", Level.Info, enum)
 	}
 
-	enum = log.Level.Warning
+	enum = Level.Warning
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,17 +58,17 @@ func TestEnumLevel(t *testing.T) {
 		t.Errorf("Expected '\"warning\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"warning"`), &enum)
-	if log.Level.Warning != enum {
-		t.Errorf("Expcected %d, got %d", log.Level.Warning, enum)
+	if Level.Warning != enum {
+		t.Errorf("Expcected %d, got %d", Level.Warning, enum)
 	}
 }
 
 func TestEnumLevel2(t *testing.T) {
-	var enum log.LevelEnum
+	var enum LevelEnum
 	var err error
 	var result []byte
 
-	enum = log.Level.Error
+	enum = Level.Error
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -79,7 +77,7 @@ func TestEnumLevel2(t *testing.T) {
 		t.Errorf("Expected '\"error\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"error"`), &enum)
-	if log.Level.Error != enum {
-		t.Errorf("Expcected %d, got %d", log.Level.Error, enum)
+	if Level.Error != enum {
+		t.Errorf("Expcected %d, got %d", Level.Error, enum)
 	}
 }

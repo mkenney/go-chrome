@@ -3,12 +3,10 @@ package page
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/page"
 )
 
 func TestEnumDialogType(t *testing.T) {
-	var enum page.DialogTypeEnum
+	var enum DialogTypeEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumDialogType(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = page.DialogType.Alert
+	enum = DialogType.Alert
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumDialogType(t *testing.T) {
 		t.Errorf("Expected '\"alert\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"alert"`), &enum)
-	if page.DialogType.Alert != enum {
-		t.Errorf("Expcected %d, got %d", page.DialogType.Alert, enum)
+	if DialogType.Alert != enum {
+		t.Errorf("Expcected %d, got %d", DialogType.Alert, enum)
 	}
 
-	enum = page.DialogType.Confirm
+	enum = DialogType.Confirm
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumDialogType(t *testing.T) {
 		t.Errorf("Expected '\"confirm\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"confirm"`), &enum)
-	if page.DialogType.Confirm != enum {
-		t.Errorf("Expcected %d, got %d", page.DialogType.Confirm, enum)
+	if DialogType.Confirm != enum {
+		t.Errorf("Expcected %d, got %d", DialogType.Confirm, enum)
 	}
 
-	enum = page.DialogType.Prompt
+	enum = DialogType.Prompt
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,17 +58,17 @@ func TestEnumDialogType(t *testing.T) {
 		t.Errorf("Expected '\"prompt\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"prompt"`), &enum)
-	if page.DialogType.Prompt != enum {
-		t.Errorf("Expcected %d, got %d", page.DialogType.Prompt, enum)
+	if DialogType.Prompt != enum {
+		t.Errorf("Expcected %d, got %d", DialogType.Prompt, enum)
 	}
 }
 
 func TestEnumDialogType2(t *testing.T) {
-	var enum page.DialogTypeEnum
+	var enum DialogTypeEnum
 	var err error
 	var result []byte
 
-	enum = page.DialogType.Beforeunload
+	enum = DialogType.Beforeunload
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -79,7 +77,7 @@ func TestEnumDialogType2(t *testing.T) {
 		t.Errorf("Expected '\"beforeunload\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"beforeunload"`), &enum)
-	if page.DialogType.Beforeunload != enum {
-		t.Errorf("Expcected %d, got %d", page.DialogType.Beforeunload, enum)
+	if DialogType.Beforeunload != enum {
+		t.Errorf("Expcected %d, got %d", DialogType.Beforeunload, enum)
 	}
 }

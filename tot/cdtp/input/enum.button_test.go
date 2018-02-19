@@ -3,12 +3,10 @@ package input
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/input"
 )
 
 func TestEnumButtonEvent(t *testing.T) {
-	var enum input.ButtonEventEnum
+	var enum ButtonEventEnum
 	var err error
 	var result []byte
 
@@ -30,7 +28,7 @@ func TestEnumButtonEvent(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = input.ButtonEvent.None
+	enum = ButtonEvent.None
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -39,11 +37,11 @@ func TestEnumButtonEvent(t *testing.T) {
 		t.Errorf("Expected '\"none\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"none"`), &enum)
-	if input.ButtonEvent.None != enum {
-		t.Errorf("Expcected %d, got %d", input.ButtonEvent.None, enum)
+	if ButtonEvent.None != enum {
+		t.Errorf("Expcected %d, got %d", ButtonEvent.None, enum)
 	}
 
-	enum = input.ButtonEvent.Left
+	enum = ButtonEvent.Left
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -52,11 +50,11 @@ func TestEnumButtonEvent(t *testing.T) {
 		t.Errorf("Expected '\"left\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"left"`), &enum)
-	if input.ButtonEvent.Left != enum {
-		t.Errorf("Expcected %d, got %d", input.ButtonEvent.Left, enum)
+	if ButtonEvent.Left != enum {
+		t.Errorf("Expcected %d, got %d", ButtonEvent.Left, enum)
 	}
 
-	enum = input.ButtonEvent.Middle
+	enum = ButtonEvent.Middle
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -65,17 +63,17 @@ func TestEnumButtonEvent(t *testing.T) {
 		t.Errorf("Expected '\"middle\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"middle"`), &enum)
-	if input.ButtonEvent.Middle != enum {
-		t.Errorf("Expcected %d, got %d", input.ButtonEvent.Middle, enum)
+	if ButtonEvent.Middle != enum {
+		t.Errorf("Expcected %d, got %d", ButtonEvent.Middle, enum)
 	}
 }
 
 func TestEnumButtonEvent2(t *testing.T) {
-	var enum input.ButtonEventEnum
+	var enum ButtonEventEnum
 	var err error
 	var result []byte
 
-	enum = input.ButtonEvent.Right
+	enum = ButtonEvent.Right
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -84,7 +82,7 @@ func TestEnumButtonEvent2(t *testing.T) {
 		t.Errorf("Expected '\"right\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"right"`), &enum)
-	if input.ButtonEvent.Right != enum {
-		t.Errorf("Expcected %d, got %d", input.ButtonEvent.Right, enum)
+	if ButtonEvent.Right != enum {
+		t.Errorf("Expcected %d, got %d", ButtonEvent.Right, enum)
 	}
 }

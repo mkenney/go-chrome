@@ -3,12 +3,10 @@ package css
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/css"
 )
 
 func TestEnumStyleSheetOrigin(t *testing.T) {
-	var enum css.StyleSheetOriginEnum
+	var enum StyleSheetOriginEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumStyleSheetOrigin(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = css.StyleSheetOrigin.Injected
+	enum = StyleSheetOrigin.Injected
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumStyleSheetOrigin(t *testing.T) {
 		t.Errorf("Expected '\"injected\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"injected"`), &enum)
-	if css.StyleSheetOrigin.Injected != enum {
-		t.Errorf("Expcected %d, got %d", css.StyleSheetOrigin.Injected, enum)
+	if StyleSheetOrigin.Injected != enum {
+		t.Errorf("Expcected %d, got %d", StyleSheetOrigin.Injected, enum)
 	}
 
-	enum = css.StyleSheetOrigin.UserAgent
+	enum = StyleSheetOrigin.UserAgent
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumStyleSheetOrigin(t *testing.T) {
 		t.Errorf("Expected '\"user-agent\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"user-agent"`), &enum)
-	if css.StyleSheetOrigin.UserAgent != enum {
-		t.Errorf("Expcected %d, got %d", css.StyleSheetOrigin.UserAgent, enum)
+	if StyleSheetOrigin.UserAgent != enum {
+		t.Errorf("Expcected %d, got %d", StyleSheetOrigin.UserAgent, enum)
 	}
 
-	enum = css.StyleSheetOrigin.Inspector
+	enum = StyleSheetOrigin.Inspector
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,17 +58,17 @@ func TestEnumStyleSheetOrigin(t *testing.T) {
 		t.Errorf("Expected '\"inspector\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"inspector"`), &enum)
-	if css.StyleSheetOrigin.Inspector != enum {
-		t.Errorf("Expcected %d, got %d", css.StyleSheetOrigin.Inspector, enum)
+	if StyleSheetOrigin.Inspector != enum {
+		t.Errorf("Expcected %d, got %d", StyleSheetOrigin.Inspector, enum)
 	}
 }
 
 func TestEnumStyleSheetOrigin2(t *testing.T) {
-	var enum css.StyleSheetOriginEnum
+	var enum StyleSheetOriginEnum
 	var err error
 	var result []byte
 
-	enum = css.StyleSheetOrigin.Log
+	enum = StyleSheetOrigin.Log
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -79,7 +77,7 @@ func TestEnumStyleSheetOrigin2(t *testing.T) {
 		t.Errorf("Expected '\"log\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"log"`), &enum)
-	if css.StyleSheetOrigin.Log != enum {
-		t.Errorf("Expcected %d, got %d", css.StyleSheetOrigin.Log, enum)
+	if StyleSheetOrigin.Log != enum {
+		t.Errorf("Expcected %d, got %d", StyleSheetOrigin.Log, enum)
 	}
 }

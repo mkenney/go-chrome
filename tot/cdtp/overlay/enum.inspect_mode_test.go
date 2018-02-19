@@ -3,12 +3,10 @@ package overlay
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/overlay"
 )
 
 func TestEnumInspectMode(t *testing.T) {
-	var enum overlay.InspectModeEnum
+	var enum InspectModeEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumInspectMode(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = overlay.InspectMode.SearchForNode
+	enum = InspectMode.SearchForNode
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumInspectMode(t *testing.T) {
 		t.Errorf("Expected '\"searchForNode\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"searchForNode"`), &enum)
-	if overlay.InspectMode.SearchForNode != enum {
-		t.Errorf("Expcected %d, got %d", overlay.InspectMode.SearchForNode, enum)
+	if InspectMode.SearchForNode != enum {
+		t.Errorf("Expcected %d, got %d", InspectMode.SearchForNode, enum)
 	}
 
-	enum = overlay.InspectMode.SearchForUAShadowDOM
+	enum = InspectMode.SearchForUAShadowDOM
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumInspectMode(t *testing.T) {
 		t.Errorf("Expected '\"searchForUAShadowDOM\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"searchForUAShadowDOM"`), &enum)
-	if overlay.InspectMode.SearchForUAShadowDOM != enum {
-		t.Errorf("Expcected %d, got %d", overlay.InspectMode.SearchForUAShadowDOM, enum)
+	if InspectMode.SearchForUAShadowDOM != enum {
+		t.Errorf("Expcected %d, got %d", InspectMode.SearchForUAShadowDOM, enum)
 	}
 
-	enum = overlay.InspectMode.None
+	enum = InspectMode.None
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,7 +58,7 @@ func TestEnumInspectMode(t *testing.T) {
 		t.Errorf("Expected '\"none\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"none"`), &enum)
-	if overlay.InspectMode.None != enum {
-		t.Errorf("Expcected %d, got %d", overlay.InspectMode.None, enum)
+	if InspectMode.None != enum {
+		t.Errorf("Expcected %d, got %d", InspectMode.None, enum)
 	}
 }

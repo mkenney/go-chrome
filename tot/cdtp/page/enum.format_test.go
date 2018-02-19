@@ -3,12 +3,10 @@ package page
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/page"
 )
 
 func TestEnumFormat(t *testing.T) {
-	var enum page.FormatEnum
+	var enum FormatEnum
 	var err error
 	var result []byte
 
@@ -30,7 +28,7 @@ func TestEnumFormat(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = page.Format.Png
+	enum = Format.Png
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -39,11 +37,11 @@ func TestEnumFormat(t *testing.T) {
 		t.Errorf("Expected '\"png\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"png"`), &enum)
-	if page.Format.Png != enum {
-		t.Errorf("Expcected %d, got %d", page.Format.Png, enum)
+	if Format.Png != enum {
+		t.Errorf("Expcected %d, got %d", Format.Png, enum)
 	}
 
-	enum = page.Format.Jpeg
+	enum = Format.Jpeg
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -52,7 +50,7 @@ func TestEnumFormat(t *testing.T) {
 		t.Errorf("Expected '\"jpeg\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"jpeg"`), &enum)
-	if page.Format.Jpeg != enum {
-		t.Errorf("Expcected %d, got %d", page.Format.Jpeg, enum)
+	if Format.Jpeg != enum {
+		t.Errorf("Expcected %d, got %d", Format.Jpeg, enum)
 	}
 }

@@ -3,12 +3,10 @@ package network
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/network"
 )
 
 func TestEnumErrorReason(t *testing.T) {
-	var enum network.ErrorReasonEnum
+	var enum ErrorReasonEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumErrorReason(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = network.ErrorReason.Failed
+	enum = ErrorReason.Failed
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumErrorReason(t *testing.T) {
 		t.Errorf("Expected '\"Failed\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"Failed"`), &enum)
-	if network.ErrorReason.Failed != enum {
-		t.Errorf("Expcected %d, got %d", network.ErrorReason.Failed, enum)
+	if ErrorReason.Failed != enum {
+		t.Errorf("Expcected %d, got %d", ErrorReason.Failed, enum)
 	}
 
-	enum = network.ErrorReason.Aborted
+	enum = ErrorReason.Aborted
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumErrorReason(t *testing.T) {
 		t.Errorf("Expected '\"Aborted\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"Aborted"`), &enum)
-	if network.ErrorReason.Aborted != enum {
-		t.Errorf("Expcected %d, got %d", network.ErrorReason.Aborted, enum)
+	if ErrorReason.Aborted != enum {
+		t.Errorf("Expcected %d, got %d", ErrorReason.Aborted, enum)
 	}
 
-	enum = network.ErrorReason.TimedOut
+	enum = ErrorReason.TimedOut
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,17 +58,17 @@ func TestEnumErrorReason(t *testing.T) {
 		t.Errorf("Expected '\"TimedOut\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"TimedOut"`), &enum)
-	if network.ErrorReason.TimedOut != enum {
-		t.Errorf("Expcected %d, got %d", network.ErrorReason.TimedOut, enum)
+	if ErrorReason.TimedOut != enum {
+		t.Errorf("Expcected %d, got %d", ErrorReason.TimedOut, enum)
 	}
 }
 
 func TestEnumErrorReason2(t *testing.T) {
-	var enum network.ErrorReasonEnum
+	var enum ErrorReasonEnum
 	var err error
 	var result []byte
 
-	enum = network.ErrorReason.AccessDenied
+	enum = ErrorReason.AccessDenied
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -79,11 +77,11 @@ func TestEnumErrorReason2(t *testing.T) {
 		t.Errorf("Expected '\"AccessDenied\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"AccessDenied"`), &enum)
-	if network.ErrorReason.AccessDenied != enum {
-		t.Errorf("Expcected %d, got %d", network.ErrorReason.AccessDenied, enum)
+	if ErrorReason.AccessDenied != enum {
+		t.Errorf("Expcected %d, got %d", ErrorReason.AccessDenied, enum)
 	}
 
-	enum = network.ErrorReason.ConnectionClosed
+	enum = ErrorReason.ConnectionClosed
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -92,11 +90,11 @@ func TestEnumErrorReason2(t *testing.T) {
 		t.Errorf("Expected '\"ConnectionClosed\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"ConnectionClosed"`), &enum)
-	if network.ErrorReason.ConnectionClosed != enum {
-		t.Errorf("Expcected %d, got %d", network.ErrorReason.ConnectionClosed, enum)
+	if ErrorReason.ConnectionClosed != enum {
+		t.Errorf("Expcected %d, got %d", ErrorReason.ConnectionClosed, enum)
 	}
 
-	enum = network.ErrorReason.ConnectionReset
+	enum = ErrorReason.ConnectionReset
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -105,11 +103,11 @@ func TestEnumErrorReason2(t *testing.T) {
 		t.Errorf("Expected '\"ConnectionReset\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"ConnectionReset"`), &enum)
-	if network.ErrorReason.ConnectionReset != enum {
-		t.Errorf("Expcected %d, got %d", network.ErrorReason.ConnectionReset, enum)
+	if ErrorReason.ConnectionReset != enum {
+		t.Errorf("Expcected %d, got %d", ErrorReason.ConnectionReset, enum)
 	}
 
-	enum = network.ErrorReason.ConnectionRefused
+	enum = ErrorReason.ConnectionRefused
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -118,17 +116,17 @@ func TestEnumErrorReason2(t *testing.T) {
 		t.Errorf("Expected '\"ConnectionRefused\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"ConnectionRefused"`), &enum)
-	if network.ErrorReason.ConnectionRefused != enum {
-		t.Errorf("Expcected %d, got %d", network.ErrorReason.ConnectionRefused, enum)
+	if ErrorReason.ConnectionRefused != enum {
+		t.Errorf("Expcected %d, got %d", ErrorReason.ConnectionRefused, enum)
 	}
 }
 
 func TestEnumErrorReason3(t *testing.T) {
-	var enum network.ErrorReasonEnum
+	var enum ErrorReasonEnum
 	var err error
 	var result []byte
 
-	enum = network.ErrorReason.ConnectionAborted
+	enum = ErrorReason.ConnectionAborted
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -137,11 +135,11 @@ func TestEnumErrorReason3(t *testing.T) {
 		t.Errorf("Expected '\"ConnectionAborted\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"ConnectionAborted"`), &enum)
-	if network.ErrorReason.ConnectionAborted != enum {
-		t.Errorf("Expcected %d, got %d", network.ErrorReason.ConnectionAborted, enum)
+	if ErrorReason.ConnectionAborted != enum {
+		t.Errorf("Expcected %d, got %d", ErrorReason.ConnectionAborted, enum)
 	}
 
-	enum = network.ErrorReason.ConnectionFailed
+	enum = ErrorReason.ConnectionFailed
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -150,11 +148,11 @@ func TestEnumErrorReason3(t *testing.T) {
 		t.Errorf("Expected '\"ConnectionFailed\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"ConnectionFailed"`), &enum)
-	if network.ErrorReason.ConnectionFailed != enum {
-		t.Errorf("Expcected %d, got %d", network.ErrorReason.ConnectionFailed, enum)
+	if ErrorReason.ConnectionFailed != enum {
+		t.Errorf("Expcected %d, got %d", ErrorReason.ConnectionFailed, enum)
 	}
 
-	enum = network.ErrorReason.NameNotResolved
+	enum = ErrorReason.NameNotResolved
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -163,11 +161,11 @@ func TestEnumErrorReason3(t *testing.T) {
 		t.Errorf("Expected '\"NameNotResolved\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"NameNotResolved"`), &enum)
-	if network.ErrorReason.NameNotResolved != enum {
-		t.Errorf("Expcected %d, got %d", network.ErrorReason.NameNotResolved, enum)
+	if ErrorReason.NameNotResolved != enum {
+		t.Errorf("Expcected %d, got %d", ErrorReason.NameNotResolved, enum)
 	}
 
-	enum = network.ErrorReason.InternetDisconnected
+	enum = ErrorReason.InternetDisconnected
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -176,17 +174,17 @@ func TestEnumErrorReason3(t *testing.T) {
 		t.Errorf("Expected '\"InternetDisconnected\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"InternetDisconnected"`), &enum)
-	if network.ErrorReason.InternetDisconnected != enum {
-		t.Errorf("Expcected %d, got %d", network.ErrorReason.InternetDisconnected, enum)
+	if ErrorReason.InternetDisconnected != enum {
+		t.Errorf("Expcected %d, got %d", ErrorReason.InternetDisconnected, enum)
 	}
 }
 
 func TestEnumErrorReason4(t *testing.T) {
-	var enum network.ErrorReasonEnum
+	var enum ErrorReasonEnum
 	var err error
 	var result []byte
 
-	enum = network.ErrorReason.AddressUnreachable
+	enum = ErrorReason.AddressUnreachable
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -195,7 +193,7 @@ func TestEnumErrorReason4(t *testing.T) {
 		t.Errorf("Expected '\"AddressUnreachable\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"AddressUnreachable"`), &enum)
-	if network.ErrorReason.AddressUnreachable != enum {
-		t.Errorf("Expcected %d, got %d", network.ErrorReason.AddressUnreachable, enum)
+	if ErrorReason.AddressUnreachable != enum {
+		t.Errorf("Expcected %d, got %d", ErrorReason.AddressUnreachable, enum)
 	}
 }

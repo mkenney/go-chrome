@@ -3,12 +3,10 @@ package emulation
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/emulation"
 )
 
 func TestEnumConfiguration(t *testing.T) {
-	var enum emulation.ConfigurationEnum
+	var enum ConfigurationEnum
 	var err error
 	var result []byte
 
@@ -30,7 +28,7 @@ func TestEnumConfiguration(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = emulation.Configuration.Mobile
+	enum = Configuration.Mobile
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -39,11 +37,11 @@ func TestEnumConfiguration(t *testing.T) {
 		t.Errorf("Expected '\"mobile\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"mobile"`), &enum)
-	if emulation.Configuration.Mobile != enum {
-		t.Errorf("Expcected %d, got %d", emulation.Configuration.Mobile, enum)
+	if Configuration.Mobile != enum {
+		t.Errorf("Expcected %d, got %d", Configuration.Mobile, enum)
 	}
 
-	enum = emulation.Configuration.Desktop
+	enum = Configuration.Desktop
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -52,7 +50,7 @@ func TestEnumConfiguration(t *testing.T) {
 		t.Errorf("Expected '\"desktop\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"desktop"`), &enum)
-	if emulation.Configuration.Desktop != enum {
-		t.Errorf("Expcected %d, got %d", emulation.Configuration.Desktop, enum)
+	if Configuration.Desktop != enum {
+		t.Errorf("Expcected %d, got %d", Configuration.Desktop, enum)
 	}
 }

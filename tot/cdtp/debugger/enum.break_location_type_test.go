@@ -3,12 +3,10 @@ package debugger
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/debugger"
 )
 
 func TestEnumBreakLocationType(t *testing.T) {
-	var enum debugger.BreakLocationTypeEnum
+	var enum BreakLocationTypeEnum
 	var err error
 	var result []byte
 
@@ -30,7 +28,7 @@ func TestEnumBreakLocationType(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = debugger.BreakLocationType.DebuggerStatement
+	enum = BreakLocationType.DebuggerStatement
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -39,11 +37,11 @@ func TestEnumBreakLocationType(t *testing.T) {
 		t.Errorf("Expected '\"debuggerStatement\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"debuggerStatement"`), &enum)
-	if debugger.BreakLocationType.DebuggerStatement != enum {
-		t.Errorf("Expcected %d, got %d", debugger.BreakLocationType.DebuggerStatement, enum)
+	if BreakLocationType.DebuggerStatement != enum {
+		t.Errorf("Expcected %d, got %d", BreakLocationType.DebuggerStatement, enum)
 	}
 
-	enum = debugger.BreakLocationType.Call
+	enum = BreakLocationType.Call
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -52,11 +50,11 @@ func TestEnumBreakLocationType(t *testing.T) {
 		t.Errorf("Expected '\"call\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"call"`), &enum)
-	if debugger.BreakLocationType.Call != enum {
-		t.Errorf("Expcected %d, got %d", debugger.BreakLocationType.Call, enum)
+	if BreakLocationType.Call != enum {
+		t.Errorf("Expcected %d, got %d", BreakLocationType.Call, enum)
 	}
 
-	enum = debugger.BreakLocationType.Return
+	enum = BreakLocationType.Return
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -65,7 +63,7 @@ func TestEnumBreakLocationType(t *testing.T) {
 		t.Errorf("Expected '\"return\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"return"`), &enum)
-	if debugger.BreakLocationType.Return != enum {
-		t.Errorf("Expcected %d, got %d", debugger.BreakLocationType.Return, enum)
+	if BreakLocationType.Return != enum {
+		t.Errorf("Expcected %d, got %d", BreakLocationType.Return, enum)
 	}
 }

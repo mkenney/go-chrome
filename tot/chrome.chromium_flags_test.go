@@ -2,12 +2,10 @@ package chrome
 
 import (
 	"testing"
-
-	chrome "github.com/mkenney/go-chrome/tot"
 )
 
 func TestChromiumFlagsGet(t *testing.T) {
-	flags := &chrome.Flags{}
+	flags := &Flags{}
 
 	value, err := flags.Get("test-arg")
 	if nil == err {
@@ -19,7 +17,7 @@ func TestChromiumFlagsGet(t *testing.T) {
 }
 
 func TestChromiumFlagsHas(t *testing.T) {
-	flags := &chrome.Flags{}
+	flags := &Flags{}
 
 	has := flags.Has("test-arg")
 	if has {
@@ -28,13 +26,13 @@ func TestChromiumFlagsHas(t *testing.T) {
 }
 
 func TestChromiumFlagsList(t *testing.T) {
-	flags := &chrome.Flags{}
+	flags := &Flags{}
 	list := flags.List()
 	if nil != list {
 		t.Errorf("Expected nil, received %v", list)
 	}
 
-	flags = &chrome.Flags{
+	flags = &Flags{
 		"test-1": []interface{}{},
 		"test-2": []interface{}{"string"},
 		"test-3": []interface{}{1},
@@ -60,7 +58,7 @@ func TestChromiumFlagsList(t *testing.T) {
 
 func TestChromiumFlagsSet(t *testing.T) {
 	var err error
-	flags := &chrome.Flags{}
+	flags := &Flags{}
 
 	err = flags.Set("test-1", nil)
 	if nil != err {
@@ -92,7 +90,7 @@ func TestChromiumFlagsSet(t *testing.T) {
 }
 
 func TestChromiumFlagsString(t *testing.T) {
-	flags := &chrome.Flags{
+	flags := &Flags{
 		"test-1": []interface{}{},
 		"test-2": []interface{}{"string"},
 		"test-3": []interface{}{1},

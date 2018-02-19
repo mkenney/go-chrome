@@ -3,12 +3,10 @@ package network
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/network"
 )
 
 func TestEnumSource(t *testing.T) {
-	var enum network.SourceEnum
+	var enum SourceEnum
 	var err error
 	var result []byte
 
@@ -30,7 +28,7 @@ func TestEnumSource(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = network.Source.Server
+	enum = Source.Server
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -39,11 +37,11 @@ func TestEnumSource(t *testing.T) {
 		t.Errorf("Expected '\"Server\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"Server"`), &enum)
-	if network.Source.Server != enum {
-		t.Errorf("Expcected %d, got %d", network.Source.Server, enum)
+	if Source.Server != enum {
+		t.Errorf("Expcected %d, got %d", Source.Server, enum)
 	}
 
-	enum = network.Source.Proxy
+	enum = Source.Proxy
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -52,7 +50,7 @@ func TestEnumSource(t *testing.T) {
 		t.Errorf("Expected '\"Proxy\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"Proxy"`), &enum)
-	if network.Source.Proxy != enum {
-		t.Errorf("Expcected %d, got %d", network.Source.Proxy, enum)
+	if Source.Proxy != enum {
+		t.Errorf("Expcected %d, got %d", Source.Proxy, enum)
 	}
 }

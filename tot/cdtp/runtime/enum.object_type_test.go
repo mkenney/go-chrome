@@ -3,12 +3,10 @@ package runtime
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/runtime"
 )
 
 func TestEnumObjectType(t *testing.T) {
-	var enum runtime.ObjectTypeEnum
+	var enum ObjectTypeEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumObjectType(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = runtime.ObjectType.Object
+	enum = ObjectType.Object
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumObjectType(t *testing.T) {
 		t.Errorf("Expected '\"object\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"object"`), &enum)
-	if runtime.ObjectType.Object != enum {
-		t.Errorf("Expcected %d, got %d", runtime.ObjectType.Object, enum)
+	if ObjectType.Object != enum {
+		t.Errorf("Expcected %d, got %d", ObjectType.Object, enum)
 	}
 
-	enum = runtime.ObjectType.Function
+	enum = ObjectType.Function
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumObjectType(t *testing.T) {
 		t.Errorf("Expected '\"function\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"function"`), &enum)
-	if runtime.ObjectType.Function != enum {
-		t.Errorf("Expcected %d, got %d", runtime.ObjectType.Function, enum)
+	if ObjectType.Function != enum {
+		t.Errorf("Expcected %d, got %d", ObjectType.Function, enum)
 	}
 
-	enum = runtime.ObjectType.Undefined
+	enum = ObjectType.Undefined
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,17 +58,17 @@ func TestEnumObjectType(t *testing.T) {
 		t.Errorf("Expected '\"undefined\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"undefined"`), &enum)
-	if runtime.ObjectType.Undefined != enum {
-		t.Errorf("Expcected %d, got %d", runtime.ObjectType.Undefined, enum)
+	if ObjectType.Undefined != enum {
+		t.Errorf("Expcected %d, got %d", ObjectType.Undefined, enum)
 	}
 }
 
 func TestEnumObjectType2(t *testing.T) {
-	var enum runtime.ObjectTypeEnum
+	var enum ObjectTypeEnum
 	var err error
 	var result []byte
 
-	enum = runtime.ObjectType.String
+	enum = ObjectType.String
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -79,11 +77,11 @@ func TestEnumObjectType2(t *testing.T) {
 		t.Errorf("Expected '\"string\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"string"`), &enum)
-	if runtime.ObjectType.String != enum {
-		t.Errorf("Expcected %d, got %d", runtime.ObjectType.String, enum)
+	if ObjectType.String != enum {
+		t.Errorf("Expcected %d, got %d", ObjectType.String, enum)
 	}
 
-	enum = runtime.ObjectType.Number
+	enum = ObjectType.Number
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -92,11 +90,11 @@ func TestEnumObjectType2(t *testing.T) {
 		t.Errorf("Expected '\"number\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"number"`), &enum)
-	if runtime.ObjectType.Number != enum {
-		t.Errorf("Expcected %d, got %d", runtime.ObjectType.Number, enum)
+	if ObjectType.Number != enum {
+		t.Errorf("Expcected %d, got %d", ObjectType.Number, enum)
 	}
 
-	enum = runtime.ObjectType.Boolean
+	enum = ObjectType.Boolean
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -105,11 +103,11 @@ func TestEnumObjectType2(t *testing.T) {
 		t.Errorf("Expected '\"boolean\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"boolean"`), &enum)
-	if runtime.ObjectType.Boolean != enum {
-		t.Errorf("Expcected %d, got %d", runtime.ObjectType.Boolean, enum)
+	if ObjectType.Boolean != enum {
+		t.Errorf("Expcected %d, got %d", ObjectType.Boolean, enum)
 	}
 
-	enum = runtime.ObjectType.Symbol
+	enum = ObjectType.Symbol
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -118,17 +116,17 @@ func TestEnumObjectType2(t *testing.T) {
 		t.Errorf("Expected '\"symbol\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"symbol"`), &enum)
-	if runtime.ObjectType.Symbol != enum {
-		t.Errorf("Expcected %d, got %d", runtime.ObjectType.Symbol, enum)
+	if ObjectType.Symbol != enum {
+		t.Errorf("Expcected %d, got %d", ObjectType.Symbol, enum)
 	}
 }
 
 func TestEnumObjectType3(t *testing.T) {
-	var enum runtime.ObjectTypeEnum
+	var enum ObjectTypeEnum
 	var err error
 	var result []byte
 
-	enum = runtime.ObjectType.Accessor
+	enum = ObjectType.Accessor
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -137,7 +135,7 @@ func TestEnumObjectType3(t *testing.T) {
 		t.Errorf("Expected '\"accessor\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"accessor"`), &enum)
-	if runtime.ObjectType.Accessor != enum {
-		t.Errorf("Expcected %d, got %d", runtime.ObjectType.Accessor, enum)
+	if ObjectType.Accessor != enum {
+		t.Errorf("Expcected %d, got %d", ObjectType.Accessor, enum)
 	}
 }

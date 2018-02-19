@@ -3,12 +3,10 @@ package security
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/security"
 )
 
 func TestEnumCertificateErrorAction(t *testing.T) {
-	var enum security.CertificateErrorActionEnum
+	var enum CertificateErrorActionEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumCertificateErrorAction(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = security.CertificateErrorAction.Continue
+	enum = CertificateErrorAction.Continue
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumCertificateErrorAction(t *testing.T) {
 		t.Errorf("Expected '\"continue\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"continue"`), &enum)
-	if security.CertificateErrorAction.Continue != enum {
-		t.Errorf("Expcected %d, got %d", security.CertificateErrorAction.Continue, enum)
+	if CertificateErrorAction.Continue != enum {
+		t.Errorf("Expcected %d, got %d", CertificateErrorAction.Continue, enum)
 	}
 
-	enum = security.CertificateErrorAction.Cancel
+	enum = CertificateErrorAction.Cancel
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,7 +45,7 @@ func TestEnumCertificateErrorAction(t *testing.T) {
 		t.Errorf("Expected '\"cancel\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"cancel"`), &enum)
-	if security.CertificateErrorAction.Cancel != enum {
-		t.Errorf("Expcected %d, got %d", security.CertificateErrorAction.Cancel, enum)
+	if CertificateErrorAction.Cancel != enum {
+		t.Errorf("Expcected %d, got %d", CertificateErrorAction.Cancel, enum)
 	}
 }

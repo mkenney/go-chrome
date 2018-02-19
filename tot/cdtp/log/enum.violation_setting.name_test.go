@@ -3,12 +3,10 @@ package log
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/log"
 )
 
 func TestEnumName(t *testing.T) {
-	var enum log.NameEnum
+	var enum NameEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumName(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = log.Name.LongTask
+	enum = Name.LongTask
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumName(t *testing.T) {
 		t.Errorf("Expected '\"longTask\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"longTask"`), &enum)
-	if log.Name.LongTask != enum {
-		t.Errorf("Expcected %d, got %d", log.Name.LongTask, enum)
+	if Name.LongTask != enum {
+		t.Errorf("Expcected %d, got %d", Name.LongTask, enum)
 	}
 
-	enum = log.Name.LongLayout
+	enum = Name.LongLayout
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumName(t *testing.T) {
 		t.Errorf("Expected '\"longLayout\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"longLayout"`), &enum)
-	if log.Name.LongLayout != enum {
-		t.Errorf("Expcected %d, got %d", log.Name.LongLayout, enum)
+	if Name.LongLayout != enum {
+		t.Errorf("Expcected %d, got %d", Name.LongLayout, enum)
 	}
 
-	enum = log.Name.BlockedEvent
+	enum = Name.BlockedEvent
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,17 +58,17 @@ func TestEnumName(t *testing.T) {
 		t.Errorf("Expected '\"blockedEvent\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"blockedEvent"`), &enum)
-	if log.Name.BlockedEvent != enum {
-		t.Errorf("Expcected %d, got %d", log.Name.BlockedEvent, enum)
+	if Name.BlockedEvent != enum {
+		t.Errorf("Expcected %d, got %d", Name.BlockedEvent, enum)
 	}
 }
 
 func TestEnumName2(t *testing.T) {
-	var enum log.NameEnum
+	var enum NameEnum
 	var err error
 	var result []byte
 
-	enum = log.Name.BlockedParser
+	enum = Name.BlockedParser
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -79,11 +77,11 @@ func TestEnumName2(t *testing.T) {
 		t.Errorf("Expected '\"blockedParser\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"blockedParser"`), &enum)
-	if log.Name.BlockedParser != enum {
-		t.Errorf("Expcected %d, got %d", log.Name.BlockedParser, enum)
+	if Name.BlockedParser != enum {
+		t.Errorf("Expcected %d, got %d", Name.BlockedParser, enum)
 	}
 
-	enum = log.Name.DiscouragedAPIUse
+	enum = Name.DiscouragedAPIUse
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -92,11 +90,11 @@ func TestEnumName2(t *testing.T) {
 		t.Errorf("Expected '\"discouragedAPIUse\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"discouragedAPIUse"`), &enum)
-	if log.Name.DiscouragedAPIUse != enum {
-		t.Errorf("Expcected %d, got %d", log.Name.DiscouragedAPIUse, enum)
+	if Name.DiscouragedAPIUse != enum {
+		t.Errorf("Expcected %d, got %d", Name.DiscouragedAPIUse, enum)
 	}
 
-	enum = log.Name.Handler
+	enum = Name.Handler
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -105,11 +103,11 @@ func TestEnumName2(t *testing.T) {
 		t.Errorf("Expected '\"handler\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"handler"`), &enum)
-	if log.Name.Handler != enum {
-		t.Errorf("Expcected %d, got %d", log.Name.Handler, enum)
+	if Name.Handler != enum {
+		t.Errorf("Expcected %d, got %d", Name.Handler, enum)
 	}
 
-	enum = log.Name.RecurringHandler
+	enum = Name.RecurringHandler
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -118,7 +116,7 @@ func TestEnumName2(t *testing.T) {
 		t.Errorf("Expected '\"recurringHandler\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"recurringHandler"`), &enum)
-	if log.Name.RecurringHandler != enum {
-		t.Errorf("Expcected %d, got %d", log.Name.RecurringHandler, enum)
+	if Name.RecurringHandler != enum {
+		t.Errorf("Expcected %d, got %d", Name.RecurringHandler, enum)
 	}
 }

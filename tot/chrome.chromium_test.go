@@ -5,13 +5,11 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
-
-	chrome "github.com/mkenney/go-chrome/tot"
 )
 
 func TestChromiumNew(t *testing.T) {
-	chrome := chrome.New(
-		&chrome.Flags{},
+	chrome := New(
+		&Flags{},
 		"", //"path/to/chrome",
 		"", //"path/to/stderr",
 		"", //"path/to/stdout",
@@ -44,8 +42,8 @@ func TestChromiumNew(t *testing.T) {
 }
 
 func TestChromiumClose(t *testing.T) {
-	chrome := chrome.New(
-		&chrome.Flags{},
+	chrome := New(
+		&Flags{},
 		"", //"path/to/chrome",
 		"", //"path/to/stderr",
 		"", //"path/to/stdout",
@@ -55,8 +53,8 @@ func TestChromiumClose(t *testing.T) {
 }
 
 func TestChromiumGetTab(t *testing.T) {
-	chrome := chrome.New(
-		&chrome.Flags{},
+	chrome := New(
+		&Flags{},
 		"", //"path/to/chrome",
 		"", //"path/to/stderr",
 		"", //"path/to/stdout",
@@ -69,8 +67,8 @@ func TestChromiumGetTab(t *testing.T) {
 }
 
 func TestChromiumLaunch(t *testing.T) {
-	chrome := chrome.New(
-		&chrome.Flags{},
+	chrome := New(
+		&Flags{},
 		"", //"path/to/chrome",
 		"", //"path/to/stderr",
 		"", //"path/to/stdout",
@@ -83,8 +81,8 @@ func TestChromiumLaunch(t *testing.T) {
 }
 
 func TestChromiumQuery(t *testing.T) {
-	chrome := chrome.New(
-		&chrome.Flags{
+	chrome := New(
+		&Flags{
 			"remote-debugging-port": []interface{}{0},
 			"port":                  []interface{}{0},
 		},
@@ -104,8 +102,8 @@ func TestChromiumQuery(t *testing.T) {
 }
 
 func TestChromiumTabs(t *testing.T) {
-	chrome := chrome.New(
-		&chrome.Flags{
+	chrome := New(
+		&Flags{
 			"remote-debugging-port": []interface{}{0},
 			"port":                  []interface{}{0},
 		},
@@ -121,8 +119,8 @@ func TestChromiumTabs(t *testing.T) {
 }
 
 func TestChromiumVersion(t *testing.T) {
-	chrome := chrome.New(
-		&chrome.Flags{
+	chrome := New(
+		&Flags{
 			"addr": []interface{}{"devnul"},
 			"remote-debugging-address": []interface{}{"devnul"},
 			"port":                  []interface{}{9222},

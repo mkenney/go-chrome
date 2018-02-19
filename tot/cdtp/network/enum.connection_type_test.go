@@ -3,12 +3,10 @@ package network
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/network"
 )
 
 func TestEnumConnectionType(t *testing.T) {
-	var enum network.ConnectionTypeEnum
+	var enum ConnectionTypeEnum
 	var err error
 	var result []byte
 
@@ -30,7 +28,7 @@ func TestEnumConnectionType(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = network.ConnectionType.None
+	enum = ConnectionType.None
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -39,11 +37,11 @@ func TestEnumConnectionType(t *testing.T) {
 		t.Errorf("Expected '\"none\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"none"`), &enum)
-	if network.ConnectionType.None != enum {
-		t.Errorf("Expcected %d, got %d", network.ConnectionType.None, enum)
+	if ConnectionType.None != enum {
+		t.Errorf("Expcected %d, got %d", ConnectionType.None, enum)
 	}
 
-	enum = network.ConnectionType.Cellular2g
+	enum = ConnectionType.Cellular2g
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -52,11 +50,11 @@ func TestEnumConnectionType(t *testing.T) {
 		t.Errorf("Expected '\"cellular2g\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"cellular2g"`), &enum)
-	if network.ConnectionType.Cellular2g != enum {
-		t.Errorf("Expcected %d, got %d", network.ConnectionType.Cellular2g, enum)
+	if ConnectionType.Cellular2g != enum {
+		t.Errorf("Expcected %d, got %d", ConnectionType.Cellular2g, enum)
 	}
 
-	enum = network.ConnectionType.Cellular3g
+	enum = ConnectionType.Cellular3g
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -65,17 +63,17 @@ func TestEnumConnectionType(t *testing.T) {
 		t.Errorf("Expected '\"cellular3g\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"cellular3g"`), &enum)
-	if network.ConnectionType.Cellular3g != enum {
-		t.Errorf("Expcected %d, got %d", network.ConnectionType.Cellular3g, enum)
+	if ConnectionType.Cellular3g != enum {
+		t.Errorf("Expcected %d, got %d", ConnectionType.Cellular3g, enum)
 	}
 }
 
 func TestEnumConnectionType2(t *testing.T) {
-	var enum network.ConnectionTypeEnum
+	var enum ConnectionTypeEnum
 	var err error
 	var result []byte
 
-	enum = network.ConnectionType.Cellular4g
+	enum = ConnectionType.Cellular4g
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -84,11 +82,11 @@ func TestEnumConnectionType2(t *testing.T) {
 		t.Errorf("Expected '\"cellular4g\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"cellular4g"`), &enum)
-	if network.ConnectionType.Cellular4g != enum {
-		t.Errorf("Expcected %d, got %d", network.ConnectionType.Cellular4g, enum)
+	if ConnectionType.Cellular4g != enum {
+		t.Errorf("Expcected %d, got %d", ConnectionType.Cellular4g, enum)
 	}
 
-	enum = network.ConnectionType.Bluetooth
+	enum = ConnectionType.Bluetooth
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -97,11 +95,11 @@ func TestEnumConnectionType2(t *testing.T) {
 		t.Errorf("Expected '\"bluetooth\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"bluetooth"`), &enum)
-	if network.ConnectionType.Bluetooth != enum {
-		t.Errorf("Expcected %d, got %d", network.ConnectionType.Bluetooth, enum)
+	if ConnectionType.Bluetooth != enum {
+		t.Errorf("Expcected %d, got %d", ConnectionType.Bluetooth, enum)
 	}
 
-	enum = network.ConnectionType.Ethernet
+	enum = ConnectionType.Ethernet
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -110,11 +108,11 @@ func TestEnumConnectionType2(t *testing.T) {
 		t.Errorf("Expected '\"ethernet\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"ethernet"`), &enum)
-	if network.ConnectionType.Ethernet != enum {
-		t.Errorf("Expcected %d, got %d", network.ConnectionType.Ethernet, enum)
+	if ConnectionType.Ethernet != enum {
+		t.Errorf("Expcected %d, got %d", ConnectionType.Ethernet, enum)
 	}
 
-	enum = network.ConnectionType.Wifi
+	enum = ConnectionType.Wifi
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -123,17 +121,17 @@ func TestEnumConnectionType2(t *testing.T) {
 		t.Errorf("Expected '\"wifi\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"wifi"`), &enum)
-	if network.ConnectionType.Wifi != enum {
-		t.Errorf("Expcected %d, got %d", network.ConnectionType.Wifi, enum)
+	if ConnectionType.Wifi != enum {
+		t.Errorf("Expcected %d, got %d", ConnectionType.Wifi, enum)
 	}
 }
 
 func TestEnumConnectionType3(t *testing.T) {
-	var enum network.ConnectionTypeEnum
+	var enum ConnectionTypeEnum
 	var err error
 	var result []byte
 
-	enum = network.ConnectionType.Wimax
+	enum = ConnectionType.Wimax
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -142,11 +140,11 @@ func TestEnumConnectionType3(t *testing.T) {
 		t.Errorf("Expected '\"wimax\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"wimax"`), &enum)
-	if network.ConnectionType.Wimax != enum {
-		t.Errorf("Expcected %d, got %d", network.ConnectionType.Wimax, enum)
+	if ConnectionType.Wimax != enum {
+		t.Errorf("Expcected %d, got %d", ConnectionType.Wimax, enum)
 	}
 
-	enum = network.ConnectionType.Other
+	enum = ConnectionType.Other
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -155,7 +153,7 @@ func TestEnumConnectionType3(t *testing.T) {
 		t.Errorf("Expected '\"other\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"other"`), &enum)
-	if network.ConnectionType.Other != enum {
-		t.Errorf("Expcected %d, got %d", network.ConnectionType.Other, enum)
+	if ConnectionType.Other != enum {
+		t.Errorf("Expcected %d, got %d", ConnectionType.Other, enum)
 	}
 }

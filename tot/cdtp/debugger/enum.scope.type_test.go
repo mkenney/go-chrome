@@ -3,12 +3,10 @@ package debugger
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/debugger"
 )
 
 func TestEnumScopeType(t *testing.T) {
-	var enum debugger.ScopeTypeEnum
+	var enum ScopeTypeEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumScopeType(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = debugger.ScopeType.Global
+	enum = ScopeType.Global
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumScopeType(t *testing.T) {
 		t.Errorf("Expected '\"global\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"global"`), &enum)
-	if debugger.ScopeType.Global != enum {
-		t.Errorf("Expcected %d, got %d", debugger.ScopeType.Global, enum)
+	if ScopeType.Global != enum {
+		t.Errorf("Expcected %d, got %d", ScopeType.Global, enum)
 	}
 
-	enum = debugger.ScopeType.Local
+	enum = ScopeType.Local
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumScopeType(t *testing.T) {
 		t.Errorf("Expected '\"local\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"local"`), &enum)
-	if debugger.ScopeType.Local != enum {
-		t.Errorf("Expcected %d, got %d", debugger.ScopeType.Local, enum)
+	if ScopeType.Local != enum {
+		t.Errorf("Expcected %d, got %d", ScopeType.Local, enum)
 	}
 
-	enum = debugger.ScopeType.With
+	enum = ScopeType.With
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,16 +58,16 @@ func TestEnumScopeType(t *testing.T) {
 		t.Errorf("Expected '\"with\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"with"`), &enum)
-	if debugger.ScopeType.With != enum {
-		t.Errorf("Expcected %d, got %d", debugger.ScopeType.With, enum)
+	if ScopeType.With != enum {
+		t.Errorf("Expcected %d, got %d", ScopeType.With, enum)
 	}
 }
 func TestEnumScopeType2(t *testing.T) {
-	var enum debugger.ScopeTypeEnum
+	var enum ScopeTypeEnum
 	var err error
 	var result []byte
 
-	enum = debugger.ScopeType.Closure
+	enum = ScopeType.Closure
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -78,11 +76,11 @@ func TestEnumScopeType2(t *testing.T) {
 		t.Errorf("Expected '\"debuggerstatementclosure got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"debuggerstatementclosure"`), &enum)
-	if debugger.ScopeType.Closure != enum {
-		t.Errorf("Expcected %d, got %d", debugger.ScopeType.Closure, enum)
+	if ScopeType.Closure != enum {
+		t.Errorf("Expcected %d, got %d", ScopeType.Closure, enum)
 	}
 
-	enum = debugger.ScopeType.Catch
+	enum = ScopeType.Catch
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -91,11 +89,11 @@ func TestEnumScopeType2(t *testing.T) {
 		t.Errorf("Expected '\"catch\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"catch"`), &enum)
-	if debugger.ScopeType.Catch != enum {
-		t.Errorf("Expcected %d, got %d", debugger.ScopeType.Catch, enum)
+	if ScopeType.Catch != enum {
+		t.Errorf("Expcected %d, got %d", ScopeType.Catch, enum)
 	}
 
-	enum = debugger.ScopeType.Block
+	enum = ScopeType.Block
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -104,11 +102,11 @@ func TestEnumScopeType2(t *testing.T) {
 		t.Errorf("Expected '\"block\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"block"`), &enum)
-	if debugger.ScopeType.Block != enum {
-		t.Errorf("Expcected %d, got %d", debugger.ScopeType.Block, enum)
+	if ScopeType.Block != enum {
+		t.Errorf("Expcected %d, got %d", ScopeType.Block, enum)
 	}
 
-	enum = debugger.ScopeType.Script
+	enum = ScopeType.Script
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -117,17 +115,17 @@ func TestEnumScopeType2(t *testing.T) {
 		t.Errorf("Expected '\"script\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"script"`), &enum)
-	if debugger.ScopeType.Script != enum {
-		t.Errorf("Expcected %d, got %d", debugger.ScopeType.Script, enum)
+	if ScopeType.Script != enum {
+		t.Errorf("Expcected %d, got %d", ScopeType.Script, enum)
 	}
 }
 
 func TestEnumScopeType3(t *testing.T) {
-	var enum debugger.ScopeTypeEnum
+	var enum ScopeTypeEnum
 	var err error
 	var result []byte
 
-	enum = debugger.ScopeType.Eval
+	enum = ScopeType.Eval
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -136,11 +134,11 @@ func TestEnumScopeType3(t *testing.T) {
 		t.Errorf("Expected '\"eval\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"eval"`), &enum)
-	if debugger.ScopeType.Eval != enum {
-		t.Errorf("Expcected %d, got %d", debugger.ScopeType.Eval, enum)
+	if ScopeType.Eval != enum {
+		t.Errorf("Expcected %d, got %d", ScopeType.Eval, enum)
 	}
 
-	enum = debugger.ScopeType.Module
+	enum = ScopeType.Module
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -149,7 +147,7 @@ func TestEnumScopeType3(t *testing.T) {
 		t.Errorf("Expected '\"module\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"module"`), &enum)
-	if debugger.ScopeType.Module != enum {
-		t.Errorf("Expcected %d, got %d", debugger.ScopeType.Module, enum)
+	if ScopeType.Module != enum {
+		t.Errorf("Expcected %d, got %d", ScopeType.Module, enum)
 	}
 }

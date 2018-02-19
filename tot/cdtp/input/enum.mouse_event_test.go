@@ -3,12 +3,10 @@ package input
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/input"
 )
 
 func TestEnumMouseEvent(t *testing.T) {
-	var enum input.MouseEventEnum
+	var enum MouseEventEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumMouseEvent(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = input.MouseEvent.MousePressed
+	enum = MouseEvent.MousePressed
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumMouseEvent(t *testing.T) {
 		t.Errorf("Expected '\"mousePressed\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"mousePressed"`), &enum)
-	if input.MouseEvent.MousePressed != enum {
-		t.Errorf("Expcected %d, got %d", input.MouseEvent.MousePressed, enum)
+	if MouseEvent.MousePressed != enum {
+		t.Errorf("Expcected %d, got %d", MouseEvent.MousePressed, enum)
 	}
 
-	enum = input.MouseEvent.MouseReleased
+	enum = MouseEvent.MouseReleased
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumMouseEvent(t *testing.T) {
 		t.Errorf("Expected '\"mouseReleased\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"mouseReleased"`), &enum)
-	if input.MouseEvent.MouseReleased != enum {
-		t.Errorf("Expcected %d, got %d", input.MouseEvent.MouseReleased, enum)
+	if MouseEvent.MouseReleased != enum {
+		t.Errorf("Expcected %d, got %d", MouseEvent.MouseReleased, enum)
 	}
 
-	enum = input.MouseEvent.MouseMoved
+	enum = MouseEvent.MouseMoved
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,17 +58,17 @@ func TestEnumMouseEvent(t *testing.T) {
 		t.Errorf("Expected '\"mouseMoved\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"mouseMoved"`), &enum)
-	if input.MouseEvent.MouseMoved != enum {
-		t.Errorf("Expcected %d, got %d", input.MouseEvent.MouseMoved, enum)
+	if MouseEvent.MouseMoved != enum {
+		t.Errorf("Expcected %d, got %d", MouseEvent.MouseMoved, enum)
 	}
 }
 
 func TestEnumMouseEvent2(t *testing.T) {
-	var enum input.MouseEventEnum
+	var enum MouseEventEnum
 	var err error
 	var result []byte
 
-	enum = input.MouseEvent.MouseWheel
+	enum = MouseEvent.MouseWheel
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -79,7 +77,7 @@ func TestEnumMouseEvent2(t *testing.T) {
 		t.Errorf("Expected '\"mouseWheel\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"mouseWheel"`), &enum)
-	if input.MouseEvent.MouseWheel != enum {
-		t.Errorf("Expcected %d, got %d", input.MouseEvent.MouseWheel, enum)
+	if MouseEvent.MouseWheel != enum {
+		t.Errorf("Expcected %d, got %d", MouseEvent.MouseWheel, enum)
 	}
 }

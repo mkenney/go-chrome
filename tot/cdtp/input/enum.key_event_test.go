@@ -3,12 +3,10 @@ package input
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/input"
 )
 
 func TestEnumKeyEvent(t *testing.T) {
-	var enum input.KeyEventEnum
+	var enum KeyEventEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumKeyEvent(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = input.KeyEvent.KeyDown
+	enum = KeyEvent.KeyDown
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumKeyEvent(t *testing.T) {
 		t.Errorf("Expected '\"keyDown\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"keyDown"`), &enum)
-	if input.KeyEvent.KeyDown != enum {
-		t.Errorf("Expcected %d, got %d", input.KeyEvent.KeyDown, enum)
+	if KeyEvent.KeyDown != enum {
+		t.Errorf("Expcected %d, got %d", KeyEvent.KeyDown, enum)
 	}
 
-	enum = input.KeyEvent.KeyUp
+	enum = KeyEvent.KeyUp
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumKeyEvent(t *testing.T) {
 		t.Errorf("Expected '\"keyUp\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"keyUp"`), &enum)
-	if input.KeyEvent.KeyUp != enum {
-		t.Errorf("Expcected %d, got %d", input.KeyEvent.KeyUp, enum)
+	if KeyEvent.KeyUp != enum {
+		t.Errorf("Expcected %d, got %d", KeyEvent.KeyUp, enum)
 	}
 
-	enum = input.KeyEvent.RawKeyDown
+	enum = KeyEvent.RawKeyDown
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,17 +58,17 @@ func TestEnumKeyEvent(t *testing.T) {
 		t.Errorf("Expected '\"rawKeyDown\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"rawKeyDown"`), &enum)
-	if input.KeyEvent.RawKeyDown != enum {
-		t.Errorf("Expcected %d, got %d", input.KeyEvent.RawKeyDown, enum)
+	if KeyEvent.RawKeyDown != enum {
+		t.Errorf("Expcected %d, got %d", KeyEvent.RawKeyDown, enum)
 	}
 }
 
 func TestEnumKeyEvent2(t *testing.T) {
-	var enum input.KeyEventEnum
+	var enum KeyEventEnum
 	var err error
 	var result []byte
 
-	enum = input.KeyEvent.Char
+	enum = KeyEvent.Char
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -79,7 +77,7 @@ func TestEnumKeyEvent2(t *testing.T) {
 		t.Errorf("Expected '\"char\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"char"`), &enum)
-	if input.KeyEvent.Char != enum {
-		t.Errorf("Expcected %d, got %d", input.KeyEvent.Char, enum)
+	if KeyEvent.Char != enum {
+		t.Errorf("Expcected %d, got %d", KeyEvent.Char, enum)
 	}
 }

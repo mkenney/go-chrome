@@ -3,12 +3,10 @@ package network
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/network"
 )
 
 func TestEnumResourcePriority(t *testing.T) {
-	var enum network.ResourcePriorityEnum
+	var enum ResourcePriorityEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumResourcePriority(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = network.ResourcePriority.VeryLow
+	enum = ResourcePriority.VeryLow
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumResourcePriority(t *testing.T) {
 		t.Errorf("Expected '\"VeryLow\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"VeryLow"`), &enum)
-	if network.ResourcePriority.VeryLow != enum {
-		t.Errorf("Expcected %d, got %d", network.ResourcePriority.VeryLow, enum)
+	if ResourcePriority.VeryLow != enum {
+		t.Errorf("Expcected %d, got %d", ResourcePriority.VeryLow, enum)
 	}
 
-	enum = network.ResourcePriority.Low
+	enum = ResourcePriority.Low
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumResourcePriority(t *testing.T) {
 		t.Errorf("Expected '\"Low\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"Low"`), &enum)
-	if network.ResourcePriority.Low != enum {
-		t.Errorf("Expcected %d, got %d", network.ResourcePriority.Low, enum)
+	if ResourcePriority.Low != enum {
+		t.Errorf("Expcected %d, got %d", ResourcePriority.Low, enum)
 	}
 
-	enum = network.ResourcePriority.Medium
+	enum = ResourcePriority.Medium
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,17 +58,17 @@ func TestEnumResourcePriority(t *testing.T) {
 		t.Errorf("Expected '\"Medium\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"Medium"`), &enum)
-	if network.ResourcePriority.Medium != enum {
-		t.Errorf("Expcected %d, got %d", network.ResourcePriority.Medium, enum)
+	if ResourcePriority.Medium != enum {
+		t.Errorf("Expcected %d, got %d", ResourcePriority.Medium, enum)
 	}
 }
 
 func TestEnumResourcePriority2(t *testing.T) {
-	var enum network.ResourcePriorityEnum
+	var enum ResourcePriorityEnum
 	var err error
 	var result []byte
 
-	enum = network.ResourcePriority.High
+	enum = ResourcePriority.High
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -79,11 +77,11 @@ func TestEnumResourcePriority2(t *testing.T) {
 		t.Errorf("Expected '\"High\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"High"`), &enum)
-	if network.ResourcePriority.High != enum {
-		t.Errorf("Expcected %d, got %d", network.ResourcePriority.High, enum)
+	if ResourcePriority.High != enum {
+		t.Errorf("Expcected %d, got %d", ResourcePriority.High, enum)
 	}
 
-	enum = network.ResourcePriority.VeryHigh
+	enum = ResourcePriority.VeryHigh
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -92,7 +90,7 @@ func TestEnumResourcePriority2(t *testing.T) {
 		t.Errorf("Expected '\"VeryHigh\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"VeryHigh"`), &enum)
-	if network.ResourcePriority.VeryHigh != enum {
-		t.Errorf("Expcected %d, got %d", network.ResourcePriority.VeryHigh, enum)
+	if ResourcePriority.VeryHigh != enum {
+		t.Errorf("Expcected %d, got %d", ResourcePriority.VeryHigh, enum)
 	}
 }

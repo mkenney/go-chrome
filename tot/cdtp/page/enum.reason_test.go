@@ -3,12 +3,10 @@ package page
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/page"
 )
 
 func TestEnumReason(t *testing.T) {
-	var enum page.ReasonEnum
+	var enum ReasonEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumReason(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = page.Reason.FormSubmissionGet
+	enum = Reason.FormSubmissionGet
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumReason(t *testing.T) {
 		t.Errorf("Expected '\"formSubmissionGet\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"formSubmissionGet"`), &enum)
-	if page.Reason.FormSubmissionGet != enum {
-		t.Errorf("Expcected %d, got %d", page.Reason.FormSubmissionGet, enum)
+	if Reason.FormSubmissionGet != enum {
+		t.Errorf("Expcected %d, got %d", Reason.FormSubmissionGet, enum)
 	}
 
-	enum = page.Reason.FormSubmissionPost
+	enum = Reason.FormSubmissionPost
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumReason(t *testing.T) {
 		t.Errorf("Expected '\"formSubmissionPost\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"formSubmissionPost"`), &enum)
-	if page.Reason.FormSubmissionPost != enum {
-		t.Errorf("Expcected %d, got %d", page.Reason.FormSubmissionPost, enum)
+	if Reason.FormSubmissionPost != enum {
+		t.Errorf("Expcected %d, got %d", Reason.FormSubmissionPost, enum)
 	}
 
-	enum = page.Reason.HTTPHeaderRefresh
+	enum = Reason.HTTPHeaderRefresh
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,16 +58,16 @@ func TestEnumReason(t *testing.T) {
 		t.Errorf("Expected '\"httpHeaderRefresh\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"httpHeaderRefresh"`), &enum)
-	if page.Reason.HTTPHeaderRefresh != enum {
-		t.Errorf("Expcected %d, got %d", page.Reason.HTTPHeaderRefresh, enum)
+	if Reason.HTTPHeaderRefresh != enum {
+		t.Errorf("Expcected %d, got %d", Reason.HTTPHeaderRefresh, enum)
 	}
 }
 func TestEnumReason2(t *testing.T) {
-	var enum page.ReasonEnum
+	var enum ReasonEnum
 	var err error
 	var result []byte
 
-	enum = page.Reason.ScriptInitiated
+	enum = Reason.ScriptInitiated
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -78,11 +76,11 @@ func TestEnumReason2(t *testing.T) {
 		t.Errorf("Expected '\"scriptInitiated\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"scriptInitiated"`), &enum)
-	if page.Reason.ScriptInitiated != enum {
-		t.Errorf("Expcected %d, got %d", page.Reason.ScriptInitiated, enum)
+	if Reason.ScriptInitiated != enum {
+		t.Errorf("Expcected %d, got %d", Reason.ScriptInitiated, enum)
 	}
 
-	enum = page.Reason.MetaTagRefresh
+	enum = Reason.MetaTagRefresh
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -91,11 +89,11 @@ func TestEnumReason2(t *testing.T) {
 		t.Errorf("Expected '\"metaTagRefresh\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"metaTagRefresh"`), &enum)
-	if page.Reason.MetaTagRefresh != enum {
-		t.Errorf("Expcected %d, got %d", page.Reason.MetaTagRefresh, enum)
+	if Reason.MetaTagRefresh != enum {
+		t.Errorf("Expcected %d, got %d", Reason.MetaTagRefresh, enum)
 	}
 
-	enum = page.Reason.PageBlockInterstitial
+	enum = Reason.PageBlockInterstitial
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -104,11 +102,11 @@ func TestEnumReason2(t *testing.T) {
 		t.Errorf("Expected '\"pageBlockInterstitial\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"pageBlockInterstitial"`), &enum)
-	if page.Reason.PageBlockInterstitial != enum {
-		t.Errorf("Expcected %d, got %d", page.Reason.PageBlockInterstitial, enum)
+	if Reason.PageBlockInterstitial != enum {
+		t.Errorf("Expcected %d, got %d", Reason.PageBlockInterstitial, enum)
 	}
 
-	enum = page.Reason.Reload
+	enum = Reason.Reload
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -117,7 +115,7 @@ func TestEnumReason2(t *testing.T) {
 		t.Errorf("Expected '\"reload\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"reload"`), &enum)
-	if page.Reason.Reload != enum {
-		t.Errorf("Expcected %d, got %d", page.Reason.Reload, enum)
+	if Reason.Reload != enum {
+		t.Errorf("Expcected %d, got %d", Reason.Reload, enum)
 	}
 }

@@ -3,12 +3,10 @@ package tree
 import (
 	"encoding/json"
 	"testing"
-
-	"github.com/mkenney/go-chrome/tot/cdtp/layer/tree"
 )
 
 func TestEnumRectType(t *testing.T) {
-	var enum tree.RectTypeEnum
+	var enum RectTypeEnum
 	var err error
 	var result []byte
 
@@ -25,7 +23,7 @@ func TestEnumRectType(t *testing.T) {
 		t.Errorf("Expected empty JSON string, got '%s'", result)
 	}
 
-	enum = tree.RectType.RepaintsOnScroll
+	enum = RectType.RepaintsOnScroll
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -34,11 +32,11 @@ func TestEnumRectType(t *testing.T) {
 		t.Errorf("Expected '\"RepaintsOnScroll\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"RepaintsOnScroll"`), &enum)
-	if tree.RectType.RepaintsOnScroll != enum {
-		t.Errorf("Expcected %d, got %d", tree.RectType.RepaintsOnScroll, enum)
+	if RectType.RepaintsOnScroll != enum {
+		t.Errorf("Expcected %d, got %d", RectType.RepaintsOnScroll, enum)
 	}
 
-	enum = tree.RectType.TouchEventHandler
+	enum = RectType.TouchEventHandler
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -47,11 +45,11 @@ func TestEnumRectType(t *testing.T) {
 		t.Errorf("Expected '\"TouchEventHandler\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"TouchEventHandler"`), &enum)
-	if tree.RectType.TouchEventHandler != enum {
-		t.Errorf("Expcected %d, got %d", tree.RectType.TouchEventHandler, enum)
+	if RectType.TouchEventHandler != enum {
+		t.Errorf("Expcected %d, got %d", RectType.TouchEventHandler, enum)
 	}
 
-	enum = tree.RectType.WheelEventHandler
+	enum = RectType.WheelEventHandler
 	result, err = json.Marshal(enum)
 	if nil != err {
 		t.Errorf("Expected nil, got error")
@@ -60,7 +58,7 @@ func TestEnumRectType(t *testing.T) {
 		t.Errorf("Expected '\"WheelEventHandler\"', got '%s'", result)
 	}
 	json.Unmarshal([]byte(`"WheelEventHandler"`), &enum)
-	if tree.RectType.WheelEventHandler != enum {
-		t.Errorf("Expcected %d, got %d", tree.RectType.WheelEventHandler, enum)
+	if RectType.WheelEventHandler != enum {
+		t.Errorf("Expcected %d, got %d", RectType.WheelEventHandler, enum)
 	}
 }
