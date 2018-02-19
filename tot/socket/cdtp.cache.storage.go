@@ -34,6 +34,7 @@ func (protocol *CacheStorageProtocol) DeleteCache(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -57,6 +58,7 @@ func (protocol *CacheStorageProtocol) DeleteEntry(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -82,6 +84,7 @@ func (protocol *CacheStorageProtocol) RequestCacheNames(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -107,6 +110,7 @@ func (protocol *CacheStorageProtocol) RequestCachedResponse(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -132,6 +136,7 @@ func (protocol *CacheStorageProtocol) RequestEntries(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

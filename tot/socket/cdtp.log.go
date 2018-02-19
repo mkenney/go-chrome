@@ -32,6 +32,7 @@ func (protocol *LogProtocol) Clear() chan *chromeLog.ClearResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -54,6 +55,7 @@ func (protocol *LogProtocol) Disable() chan *chromeLog.DisableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -76,6 +78,7 @@ func (protocol *LogProtocol) Enable() chan *chromeLog.EnableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -99,6 +102,7 @@ func (protocol *LogProtocol) StartViolationsReport(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -120,6 +124,7 @@ func (protocol *LogProtocol) StopViolationsReport() chan *chromeLog.StopViolatio
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

@@ -39,6 +39,7 @@ func (protocol *PageProtocol) AddScriptToEvaluateOnLoad(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -65,6 +66,7 @@ func (protocol *PageProtocol) AddScriptToEvaluateOnNewDocument(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -86,6 +88,7 @@ func (protocol *PageProtocol) BringToFront() chan *page.BringToFrontResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -111,6 +114,7 @@ func (protocol *PageProtocol) CaptureScreenshot(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -136,6 +140,7 @@ func (protocol *PageProtocol) CreateIsolatedWorld(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -157,6 +162,7 @@ func (protocol *PageProtocol) Disable() chan *page.DisableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -178,6 +184,7 @@ func (protocol *PageProtocol) Enable() chan *page.EnableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -201,6 +208,7 @@ func (protocol *PageProtocol) GetAppManifest(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -224,6 +232,7 @@ func (protocol *PageProtocol) GetFrameTree() chan *page.GetFrameTreeResult {
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -248,6 +257,7 @@ func (protocol *PageProtocol) GetLayoutMetrics() chan *page.GetLayoutMetricsResu
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -271,6 +281,7 @@ func (protocol *PageProtocol) GetNavigationHistory() chan *page.GetNavigationHis
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -297,6 +308,7 @@ func (protocol *PageProtocol) GetResourceContent(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -321,6 +333,7 @@ func (protocol *PageProtocol) GetResourceTree() chan *page.GetResourceTreeResult
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -345,6 +358,7 @@ func (protocol *PageProtocol) HandleJavaScriptDialog(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -370,6 +384,7 @@ func (protocol *PageProtocol) Navigate(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -393,6 +408,7 @@ func (protocol *PageProtocol) NavigateToHistoryEntry(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -418,6 +434,7 @@ func (protocol *PageProtocol) PrintToPDF(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -441,6 +458,7 @@ func (protocol *PageProtocol) Reload(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -466,6 +484,7 @@ func (protocol *PageProtocol) RemoveScriptToEvaluateOnLoad(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -489,6 +508,7 @@ func (protocol *PageProtocol) RemoveScriptToEvaluateOnNewDocument(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -510,6 +530,7 @@ func (protocol *PageProtocol) RequestAppBanner() chan *page.RequestAppBannerResu
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -534,6 +555,7 @@ func (protocol *PageProtocol) ScreencastFrameAck(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -560,6 +582,7 @@ func (protocol *PageProtocol) SearchInResource(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -584,6 +607,7 @@ func (protocol *PageProtocol) SetAdBlockingEnabled(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -609,6 +633,7 @@ func (protocol *PageProtocol) SetAutoAttachToCreatedPages(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -632,6 +657,7 @@ func (protocol *PageProtocol) SetDocumentContent(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -656,6 +682,7 @@ func (protocol *PageProtocol) SetDownloadBehavior(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -680,6 +707,7 @@ func (protocol *PageProtocol) SetLifecycleEventsEnabled(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -704,6 +732,7 @@ func (protocol *PageProtocol) StartScreencast(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -725,6 +754,7 @@ func (protocol *PageProtocol) StopLoading() chan *page.StopLoadingResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -747,6 +777,7 @@ func (protocol *PageProtocol) StopScreencast() chan *page.StopScreencastResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

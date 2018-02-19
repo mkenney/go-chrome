@@ -35,6 +35,7 @@ func (protocol *HeapProfilerProtocol) AddInspectedHeapObject(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -57,6 +58,7 @@ func (protocol *HeapProfilerProtocol) CollectGarbage() chan *heapProfiler.Collec
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -78,6 +80,7 @@ func (protocol *HeapProfilerProtocol) Disable() chan *heapProfiler.DisableResult
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -99,6 +102,7 @@ func (protocol *HeapProfilerProtocol) Enable() chan *heapProfiler.EnableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -125,6 +129,7 @@ func (protocol *HeapProfilerProtocol) GetHeapObjectID(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -151,6 +156,7 @@ func (protocol *HeapProfilerProtocol) GetObjectByHeapObjectID(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -175,6 +181,7 @@ func (protocol *HeapProfilerProtocol) GetSamplingProfile(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -199,6 +206,7 @@ func (protocol *HeapProfilerProtocol) StartSampling(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -223,6 +231,7 @@ func (protocol *HeapProfilerProtocol) StartTrackingHeapObjects(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -247,6 +256,7 @@ func (protocol *HeapProfilerProtocol) StopSampling(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -271,6 +281,7 @@ func (protocol *HeapProfilerProtocol) StopTrackingHeapObjects(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -295,6 +306,7 @@ func (protocol *HeapProfilerProtocol) TakeHeapSnapshot(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

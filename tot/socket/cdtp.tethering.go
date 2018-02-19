@@ -35,6 +35,7 @@ func (protocol *TetheringProtocol) Bind(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -58,6 +59,7 @@ func (protocol *TetheringProtocol) Unbind(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

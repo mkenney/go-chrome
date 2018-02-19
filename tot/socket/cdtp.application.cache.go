@@ -32,6 +32,7 @@ func (protocol *ApplicationCacheProtocol) Enable() chan *applicationCache.Enable
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -58,6 +59,7 @@ func (protocol *ApplicationCacheProtocol) GetForFrame(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -82,6 +84,7 @@ func (protocol *ApplicationCacheProtocol) GetFramesWithManifests() chan *applica
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -107,6 +110,7 @@ func (protocol *ApplicationCacheProtocol) GetManifestForFrame(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

@@ -31,6 +31,7 @@ func (protocol *DeviceOrientationProtocol) ClearOverride() chan *deviceOrientati
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -54,6 +55,7 @@ func (protocol *DeviceOrientationProtocol) SetOverride(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

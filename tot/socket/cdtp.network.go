@@ -37,6 +37,7 @@ func (protocol *NetworkProtocol) CanClearBrowserCache() chan *network.CanClearBr
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -61,6 +62,7 @@ func (protocol *NetworkProtocol) CanClearBrowserCookies() chan *network.CanClear
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -85,6 +87,7 @@ func (protocol *NetworkProtocol) CanEmulateConditions() chan *network.CanEmulate
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -106,6 +109,7 @@ func (protocol *NetworkProtocol) ClearBrowserCache() chan *network.ClearBrowserC
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -127,6 +131,7 @@ func (protocol *NetworkProtocol) ClearBrowserCookies() chan *network.ClearBrowse
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -155,6 +160,7 @@ func (protocol *NetworkProtocol) ContinueInterceptedRequest(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -179,6 +185,7 @@ func (protocol *NetworkProtocol) DeleteCookies(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -201,6 +208,7 @@ func (protocol *NetworkProtocol) Disable() chan *network.DisableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -224,6 +232,7 @@ func (protocol *NetworkProtocol) EmulateConditions(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -248,6 +257,7 @@ func (protocol *NetworkProtocol) Enable(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -272,6 +282,7 @@ func (protocol *NetworkProtocol) GetAllCookies() chan *network.GetAllCookiesResu
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -298,6 +309,7 @@ func (protocol *NetworkProtocol) GetCertificate(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -324,6 +336,7 @@ func (protocol *NetworkProtocol) GetCookies(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -349,6 +362,7 @@ func (protocol *NetworkProtocol) GetResponseBody(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -376,6 +390,7 @@ func (protocol *NetworkProtocol) GetResponseBodyForInterception(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -401,6 +416,7 @@ func (protocol *NetworkProtocol) ReplayXHR(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -427,6 +443,7 @@ func (protocol *NetworkProtocol) SearchInResponseBody(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -451,6 +468,7 @@ func (protocol *NetworkProtocol) SetBlockedURLs(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -475,6 +493,7 @@ func (protocol *NetworkProtocol) SetBypassServiceWorker(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -499,6 +518,7 @@ func (protocol *NetworkProtocol) SetCacheDisabled(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -525,6 +545,7 @@ func (protocol *NetworkProtocol) SetCookie(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -548,6 +569,7 @@ func (protocol *NetworkProtocol) SetCookies(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -572,6 +594,7 @@ func (protocol *NetworkProtocol) SetDataSizeLimitsForTest(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -596,6 +619,7 @@ func (protocol *NetworkProtocol) SetExtraHTTPHeaders(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -621,6 +645,7 @@ func (protocol *NetworkProtocol) SetRequestInterception(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -644,6 +669,7 @@ func (protocol *NetworkProtocol) SetUserAgentOverride(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

@@ -31,6 +31,7 @@ func (protocol *TracingProtocol) End() chan *tracing.EndResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -54,6 +55,7 @@ func (protocol *TracingProtocol) GetCategories() chan *tracing.GetCategoriesResu
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 	return resultChan
 }
@@ -76,6 +78,7 @@ func (protocol *TracingProtocol) RecordClockSyncMarker(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -99,6 +102,7 @@ func (protocol *TracingProtocol) RequestMemoryDump() chan *tracing.RequestMemory
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 	return resultChan
 }
@@ -121,6 +125,7 @@ func (protocol *TracingProtocol) Start(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

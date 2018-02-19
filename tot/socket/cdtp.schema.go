@@ -34,6 +34,7 @@ func (protocol *SchemaProtocol) GetDomains() chan *schema.GetDomainsResult {
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

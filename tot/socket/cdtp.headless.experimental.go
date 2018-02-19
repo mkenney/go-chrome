@@ -39,6 +39,7 @@ func (protocol *HeadlessExperimentalProtocol) BeginFrame(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -60,6 +61,7 @@ func (protocol *HeadlessExperimentalProtocol) Disable() chan *headlessExperiment
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -81,6 +83,7 @@ func (protocol *HeadlessExperimentalProtocol) Enable() chan *headlessExperimenta
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

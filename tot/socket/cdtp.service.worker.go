@@ -36,6 +36,7 @@ func (protocol *ServiceWorkerProtocol) DeliverPushMessage(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -58,6 +59,7 @@ func (protocol *ServiceWorkerProtocol) Disable() chan *serviceWorker.DisableResu
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -82,6 +84,7 @@ func (protocol *ServiceWorkerProtocol) DispatchSyncEvent(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -104,6 +107,7 @@ func (protocol *ServiceWorkerProtocol) Enable() chan *serviceWorker.EnableResult
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -128,6 +132,7 @@ func (protocol *ServiceWorkerProtocol) InspectWorker(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -152,6 +157,7 @@ func (protocol *ServiceWorkerProtocol) SetForceUpdateOnPageLoad(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -176,6 +182,7 @@ func (protocol *ServiceWorkerProtocol) SkipWaiting(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -200,6 +207,7 @@ func (protocol *ServiceWorkerProtocol) StartWorker(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -222,6 +230,7 @@ func (protocol *ServiceWorkerProtocol) StopAllWorkers() chan *serviceWorker.Stop
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -246,6 +255,7 @@ func (protocol *ServiceWorkerProtocol) StopWorker(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -270,6 +280,7 @@ func (protocol *ServiceWorkerProtocol) Unregister(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -294,6 +305,7 @@ func (protocol *ServiceWorkerProtocol) UpdateRegistration(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

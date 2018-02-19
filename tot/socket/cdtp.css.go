@@ -44,6 +44,7 @@ func (protocol *CSSProtocol) AddRule(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -69,6 +70,7 @@ func (protocol *CSSProtocol) CollectClassNames(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -95,6 +97,7 @@ func (protocol *CSSProtocol) CreateStyleSheet(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -116,6 +119,7 @@ func (protocol *CSSProtocol) Disable() chan *css.DisableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -138,6 +142,7 @@ func (protocol *CSSProtocol) Enable() chan *css.EnableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -162,6 +167,7 @@ func (protocol *CSSProtocol) ForcePseudoState(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -187,6 +193,7 @@ func (protocol *CSSProtocol) GetBackgroundColors(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -213,6 +220,7 @@ func (protocol *CSSProtocol) GetComputedStyleForNode(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -240,6 +248,7 @@ func (protocol *CSSProtocol) GetInlineStylesForNode(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -266,6 +275,7 @@ func (protocol *CSSProtocol) GetMatchedStylesForNode(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -289,6 +299,7 @@ func (protocol *CSSProtocol) GetMediaQueries() chan *css.GetMediaQueriesResult {
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -315,6 +326,7 @@ func (protocol *CSSProtocol) GetPlatformFontsForNode(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -341,6 +353,7 @@ func (protocol *CSSProtocol) GetStyleSheetText(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -365,6 +378,7 @@ func (protocol *CSSProtocol) SetEffectivePropertyValueForNode(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -390,6 +404,7 @@ func (protocol *CSSProtocol) SetKeyframeKey(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -415,6 +430,7 @@ func (protocol *CSSProtocol) SetMediaText(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -440,6 +456,7 @@ func (protocol *CSSProtocol) SetRuleSelector(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -465,6 +482,7 @@ func (protocol *CSSProtocol) SetStyleSheetText(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -490,6 +508,7 @@ func (protocol *CSSProtocol) SetStyleTexts(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -511,6 +530,7 @@ func (protocol *CSSProtocol) StartRuleUsageTracking() chan *css.StartRuleUsageTr
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -535,6 +555,7 @@ func (protocol *CSSProtocol) StopRuleUsageTracking() chan *css.StopRuleUsageTrac
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -559,6 +580,7 @@ func (protocol *CSSProtocol) TakeCoverageDelta() chan *css.TakeCoverageDeltaResu
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

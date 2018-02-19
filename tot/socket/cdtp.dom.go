@@ -46,6 +46,7 @@ func (protocol *DOMProtocol) CollectClassNamesFromSubtree(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -72,6 +73,7 @@ func (protocol *DOMProtocol) CopyTo(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -98,6 +100,7 @@ func (protocol *DOMProtocol) DescribeNode(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -119,6 +122,7 @@ func (protocol *DOMProtocol) Disable() chan *dom.DisableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -144,6 +148,7 @@ func (protocol *DOMProtocol) DiscardSearchResults(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -165,6 +170,7 @@ func (protocol *DOMProtocol) Enable() chan *dom.EnableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -188,6 +194,7 @@ func (protocol *DOMProtocol) Focus(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -213,6 +220,7 @@ func (protocol *DOMProtocol) GetAttributes(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -238,6 +246,7 @@ func (protocol *DOMProtocol) GetBoxModel(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -264,6 +273,7 @@ func (protocol *DOMProtocol) GetDocument(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -290,6 +300,7 @@ func (protocol *DOMProtocol) GetFlattenedDocument(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -315,6 +326,7 @@ func (protocol *DOMProtocol) GetNodeForLocation(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -340,6 +352,7 @@ func (protocol *DOMProtocol) GetOuterHTML(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -366,6 +379,7 @@ func (protocol *DOMProtocol) GetRelayoutBoundary(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -393,6 +407,7 @@ func (protocol *DOMProtocol) GetSearchResults(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -415,6 +430,7 @@ func (protocol *DOMProtocol) MarkUndoableState() chan *dom.MarkUndoableStateResu
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -440,6 +456,7 @@ func (protocol *DOMProtocol) MoveTo(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -467,6 +484,7 @@ func (protocol *DOMProtocol) PerformSearch(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -494,6 +512,7 @@ func (protocol *DOMProtocol) PushNodeByPathToFrontend(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -521,6 +540,7 @@ func (protocol *DOMProtocol) PushNodesByBackendIDsToFrontend(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -546,6 +566,7 @@ func (protocol *DOMProtocol) QuerySelector(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -571,6 +592,7 @@ func (protocol *DOMProtocol) QuerySelectorAll(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -592,6 +614,7 @@ func (protocol *DOMProtocol) Redo() chan *dom.RedoResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -615,6 +638,7 @@ func (protocol *DOMProtocol) RemoveAttribute(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -638,6 +662,7 @@ func (protocol *DOMProtocol) RemoveNode(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -663,6 +688,7 @@ func (protocol *DOMProtocol) RequestChildNodes(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -690,6 +716,7 @@ func (protocol *DOMProtocol) RequestNode(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -716,6 +743,7 @@ func (protocol *DOMProtocol) ResolveNode(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -739,6 +767,7 @@ func (protocol *DOMProtocol) SetAttributeValue(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -764,6 +793,7 @@ func (protocol *DOMProtocol) SetAttributesAsText(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -787,6 +817,7 @@ func (protocol *DOMProtocol) SetFileInputFiles(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -811,6 +842,7 @@ func (protocol *DOMProtocol) SetInspectedNode(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -836,6 +868,7 @@ func (protocol *DOMProtocol) SetNodeName(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -859,6 +892,7 @@ func (protocol *DOMProtocol) SetNodeValue(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -882,6 +916,7 @@ func (protocol *DOMProtocol) SetOuterHTML(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -904,6 +939,7 @@ func (protocol *DOMProtocol) Undo() chan *dom.UndoResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

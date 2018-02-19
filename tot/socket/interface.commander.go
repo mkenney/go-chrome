@@ -22,4 +22,10 @@ type Commander interface {
 
 	// Response returns the command response channel.
 	Response() chan *Response
+
+	// SetError sets the error value
+	SetError(error)
+
+	// SetID sets the ID value
+	SetID(int)
 }

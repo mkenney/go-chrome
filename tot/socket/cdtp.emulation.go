@@ -34,6 +34,7 @@ func (protocol *EmulationProtocol) CanEmulate() chan *emulation.CanEmulateResult
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -55,6 +56,7 @@ func (protocol *EmulationProtocol) ClearDeviceMetricsOverride() chan *emulation.
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -76,6 +78,7 @@ func (protocol *EmulationProtocol) ClearGeolocationOverride() chan *emulation.Cl
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -98,6 +101,7 @@ func (protocol *EmulationProtocol) ResetPageScaleFactor() chan *emulation.ResetP
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -122,6 +126,7 @@ func (protocol *EmulationProtocol) SetCPUThrottlingRate(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -147,6 +152,7 @@ func (protocol *EmulationProtocol) SetDefaultBackgroundColorOverride(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -173,6 +179,7 @@ func (protocol *EmulationProtocol) SetDeviceMetricsOverride(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -197,6 +204,7 @@ func (protocol *EmulationProtocol) SetEmitTouchEventsForMouse(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -220,6 +228,7 @@ func (protocol *EmulationProtocol) SetEmulatedMedia(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -244,6 +253,7 @@ func (protocol *EmulationProtocol) SetGeolocationOverride(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -269,6 +279,7 @@ func (protocol *EmulationProtocol) SetNavigatorOverrides(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -293,6 +304,7 @@ func (protocol *EmulationProtocol) SetPageScaleFactor(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -316,6 +328,7 @@ func (protocol *EmulationProtocol) SetScriptExecutionDisabled(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -339,6 +352,7 @@ func (protocol *EmulationProtocol) SetTouchEmulationEnabled(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -367,6 +381,7 @@ func (protocol *EmulationProtocol) SetVirtualTimePolicy(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -393,6 +408,7 @@ func (protocol *EmulationProtocol) SetVisibleSize(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

@@ -34,6 +34,7 @@ func (protocol *IndexedDBProtocol) ClearObjectStore(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -57,6 +58,7 @@ func (protocol *IndexedDBProtocol) DeleteDatabase(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -80,6 +82,7 @@ func (protocol *IndexedDBProtocol) DeleteObjectStoreEntries(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -101,6 +104,7 @@ func (protocol *IndexedDBProtocol) Disable() chan *indexedDB.DisableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -122,6 +126,7 @@ func (protocol *IndexedDBProtocol) Enable() chan *indexedDB.EnableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -147,6 +152,7 @@ func (protocol *IndexedDBProtocol) RequestData(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -172,6 +178,7 @@ func (protocol *IndexedDBProtocol) RequestDatabase(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -197,6 +204,7 @@ func (protocol *IndexedDBProtocol) RequestDatabaseNames(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

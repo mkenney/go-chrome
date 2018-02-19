@@ -33,6 +33,7 @@ func (protocol *OverlayProtocol) Disable() chan *overlay.DisableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -54,6 +55,7 @@ func (protocol *OverlayProtocol) Enable() chan *overlay.EnableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -79,6 +81,7 @@ func (protocol *OverlayProtocol) GetHighlightObjectForTest(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -100,6 +103,7 @@ func (protocol *OverlayProtocol) HideHighlight() chan *overlay.HideHighlightResu
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -123,6 +127,7 @@ func (protocol *OverlayProtocol) HighlightFrame(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -147,6 +152,7 @@ func (protocol *OverlayProtocol) HighlightNode(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -171,6 +177,7 @@ func (protocol *OverlayProtocol) HighlightQuad(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -195,6 +202,7 @@ func (protocol *OverlayProtocol) HighlightRect(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -220,6 +228,7 @@ func (protocol *OverlayProtocol) SetInspectMode(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -243,6 +252,7 @@ func (protocol *OverlayProtocol) SetPausedInDebuggerMessage(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -266,6 +276,7 @@ func (protocol *OverlayProtocol) SetShowDebugBorders(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -289,6 +300,7 @@ func (protocol *OverlayProtocol) SetShowFPSCounter(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -312,6 +324,7 @@ func (protocol *OverlayProtocol) SetShowPaintRects(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -335,6 +348,7 @@ func (protocol *OverlayProtocol) SetShowScrollBottleneckRects(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -358,6 +372,7 @@ func (protocol *OverlayProtocol) SetShowViewportSizeOnResize(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -381,6 +396,7 @@ func (protocol *OverlayProtocol) SetSuspended(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

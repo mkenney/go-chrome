@@ -34,6 +34,7 @@ func (protocol *IOProtocol) Close(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -59,6 +60,7 @@ func (protocol *IOProtocol) Read(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -84,6 +86,7 @@ func (protocol *IOProtocol) ResolveBlob(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

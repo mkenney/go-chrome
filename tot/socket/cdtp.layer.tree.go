@@ -36,6 +36,7 @@ func (protocol *LayerTreeProtocol) CompositingReasons(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -57,6 +58,7 @@ func (protocol *LayerTreeProtocol) Disable() chan *layerTree.DisableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -78,6 +80,7 @@ func (protocol *LayerTreeProtocol) Enable() chan *layerTree.EnableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -103,6 +106,7 @@ func (protocol *LayerTreeProtocol) LoadSnapshot(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -128,6 +132,7 @@ func (protocol *LayerTreeProtocol) MakeSnapshot(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -153,6 +158,7 @@ func (protocol *LayerTreeProtocol) ProfileSnapshot(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -176,6 +182,7 @@ func (protocol *LayerTreeProtocol) ReleaseSnapshot(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -201,6 +208,7 @@ func (protocol *LayerTreeProtocol) ReplaySnapshot(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -226,6 +234,7 @@ func (protocol *LayerTreeProtocol) SnapshotCommandLog(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

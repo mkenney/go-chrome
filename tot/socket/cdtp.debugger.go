@@ -36,6 +36,7 @@ func (protocol *DebuggerProtocol) ContinueToLocation(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -57,6 +58,7 @@ func (protocol *DebuggerProtocol) Disable() chan *debugger.DisableResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -81,6 +83,7 @@ func (protocol *DebuggerProtocol) Enable() chan *debugger.EnableResult {
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -106,6 +109,7 @@ func (protocol *DebuggerProtocol) EvaluateOnCallFrame(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -132,6 +136,7 @@ func (protocol *DebuggerProtocol) GetPossibleBreakpoints(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -157,6 +162,7 @@ func (protocol *DebuggerProtocol) GetScriptSource(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -182,6 +188,7 @@ func (protocol *DebuggerProtocol) GetStackTrace(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -203,6 +210,7 @@ func (protocol *DebuggerProtocol) Pause() chan *debugger.PauseResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -226,6 +234,7 @@ func (protocol *DebuggerProtocol) PauseOnAsyncCall(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -249,6 +258,7 @@ func (protocol *DebuggerProtocol) RemoveBreakpoint(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -274,6 +284,7 @@ func (protocol *DebuggerProtocol) RestartFrame(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -295,6 +306,7 @@ func (protocol *DebuggerProtocol) Resume() chan *debugger.ResumeResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -321,6 +333,7 @@ func (protocol *DebuggerProtocol) ScheduleStepIntoAsync() chan *debugger.Schedul
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -346,6 +359,7 @@ func (protocol *DebuggerProtocol) SearchInContent(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -369,6 +383,7 @@ func (protocol *DebuggerProtocol) SetAsyncCallStackDepth(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -397,6 +412,7 @@ func (protocol *DebuggerProtocol) SetBlackboxPatterns(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -423,6 +439,7 @@ func (protocol *DebuggerProtocol) SetBlackboxedRanges(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -448,6 +465,7 @@ func (protocol *DebuggerProtocol) SetBreakpoint(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -476,6 +494,7 @@ func (protocol *DebuggerProtocol) SetBreakpointByURL(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -499,6 +518,7 @@ func (protocol *DebuggerProtocol) SetBreakpointsActive(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -523,6 +543,7 @@ func (protocol *DebuggerProtocol) SetPauseOnExceptions(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -547,6 +568,7 @@ func (protocol *DebuggerProtocol) SetReturnValue(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -572,6 +594,7 @@ func (protocol *DebuggerProtocol) SetScriptSource(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -595,6 +618,7 @@ func (protocol *DebuggerProtocol) SetSkipAllPauses(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -619,6 +643,7 @@ func (protocol *DebuggerProtocol) SetVariableValue(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -642,6 +667,7 @@ func (protocol *DebuggerProtocol) StepInto(
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -663,6 +689,7 @@ func (protocol *DebuggerProtocol) StepOut() chan *debugger.StepOutResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
@@ -684,6 +711,7 @@ func (protocol *DebuggerProtocol) StepOver() chan *debugger.StepOverResult {
 			result.Err = response.Error
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan

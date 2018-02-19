@@ -38,6 +38,7 @@ func (protocol *AuditsProtocol) GetEncodedResponse(
 			result.Err = json.Unmarshal(response.Result, &result)
 		}
 		resultChan <- result
+		close(resultChan)
 	}()
 
 	return resultChan
