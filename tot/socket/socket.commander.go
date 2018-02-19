@@ -92,3 +92,21 @@ Response is a Commander implementation.
 func (cmd *Command) Response() chan *Response {
 	return cmd.response
 }
+
+/*
+SetError sets the error value
+
+SetError is a Commander implementation.
+*/
+func (cmd *Command) SetError(err error) {
+	cmd.err = err
+}
+
+/*
+SetID sets the ID value
+
+SetID is a Commander implementation.
+*/
+func (cmd *Command) SetID(id int) {
+	cmd.id = id
+}
