@@ -70,20 +70,20 @@ func New(url *url.URL) *Socket {
 	return socket
 }
 
+var _socketCounterMux = &sync.Mutex{}
+var _socketCounter = 0
+
 /*
 NextSocketID increments and returns the socket ID for mapping Commander structs
 to socket responses.
 */
 func NextSocketID() int {
-	socketIDMux.Lock()
-	defer socketIDMux.Unlock()
+	_socketCounterMux.Lock()
 	_socketCounter++
 	id := _socketCounter
+	_socketCounterMux.Unlock()
 	return id
 }
-
-var socketIDMux = &sync.Mutex{}
-var _socketCounter = 0
 
 /*
 Socket is a Socketer implementation.
@@ -160,8 +160,8 @@ CurCommandID is a Socketer implementation.
 */
 func (socket *Socket) CurCommandID() int {
 	socket.commandIDMux.Lock()
-	defer socket.commandIDMux.Unlock()
 	id := socket.commandID
+	socket.commandIDMux.Unlock()
 	return id
 }
 
@@ -351,9 +351,9 @@ NextCommandID is a Socketer implementation.
 */
 func (socket *Socket) NextCommandID() int {
 	socket.commandIDMux.Lock()
-	defer socket.commandIDMux.Unlock()
 	socket.commandID++
 	id := socket.commandID
+	socket.commandIDMux.Unlock()
 	return id
 }
 

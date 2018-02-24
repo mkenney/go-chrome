@@ -6,6 +6,14 @@ import (
 	"testing"
 )
 
+func TestNewSocket(t *testing.T) {
+	socketURL, _ := url.Parse("https://www.example.com/")
+	socket := New(socketURL)
+	if err := socket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() {
+		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
+	}
+}
+
 func TestSocketDisconnect(t *testing.T) {
 	socketURL, _ := url.Parse("https://www.example.com/")
 	socket := NewMock(socketURL)
@@ -23,7 +31,7 @@ func TestListenCommand(t *testing.T) {
 	command := NewCommand(mockSocket, "Some.method", nil)
 	resultChan := mockSocket.SendCommand(command)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
+		ID:     command.ID(),
 		Error:  &Error{},
 		Method: "Some.method",
 		Result: []byte(`"Mock Command Result"`),
@@ -43,7 +51,7 @@ func TestListenCommandError(t *testing.T) {
 	command := NewCommand(mockSocket, "Some.methodError", nil)
 	resultChan := mockSocket.SendCommand(command)
 	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
+		ID:     command.ID(),
 		Error:  &Error{},
 		Method: "Some.methodError",
 		Result: []byte(`"Mock Command Result"`),
