@@ -10,12 +10,6 @@ type CommandMapper interface {
 	// Get retrieves a command from the stack.
 	Get(commandID int) (Commander, error)
 
-	// Lock locks the sync mutex.
-	Lock()
-
 	// Set sets a command in the stack.
 	Set(command Commander)
-
-	// Unlock unlocks the sync mutex.
-	Unlock()
 }

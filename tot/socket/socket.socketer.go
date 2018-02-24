@@ -166,15 +166,10 @@ func (socket *Socket) CurCommandID() int {
 }
 
 /*
-HandleCommand receives the responses to requests sent to the websocket
+handleResponse receives the responses to requests sent to the websocket
 connection.
-
-HandleCommand is a Socketer implementation.
 */
-func (socket *Socket) HandleCommand(response *Response) {
-	socket.commands.Lock()
-	defer socket.commands.Unlock()
-
+func (socket *Socket) handleResponse(response *Response) {
 	// Log a message on error
 	if command, err := socket.commands.Get(response.ID); nil != err {
 		errorMessage := ""
@@ -182,7 +177,7 @@ func (socket *Socket) HandleCommand(response *Response) {
 			errorMessage = response.Error.Error()
 		}
 		log.Debugf(
-			"socket #%d - socket.HandleCommand(): %s - result=%s err='%s'",
+			"socket #%d - socket.handleResponse(): %s - result=%s err='%s'",
 			socket.socketID,
 			err.Error(),
 			response.Result,
@@ -191,7 +186,7 @@ func (socket *Socket) HandleCommand(response *Response) {
 
 	} else {
 		log.Debugf(
-			"socket #%d - socket.HandleCommand(): executing handler for command #%d - %s",
+			"socket #%d - socket.handleResponse(): executing handler for command #%d - %s",
 			socket.socketID,
 			command.ID(),
 			command.Method(),
@@ -209,16 +204,14 @@ func (socket *Socket) HandleCommand(response *Response) {
 }
 
 /*
-HandleEvent receives all events and associated data read from the websocket
+handleEvent receives all events and associated data read from the websocket
 connection.
-
-HandleEvent is a Socketer implementation.
 */
-func (socket *Socket) HandleEvent(
+func (socket *Socket) handleEvent(
 	response *Response,
 ) {
 	log.Debugf(
-		"socket #%d - socket.HandleEvent(): handling event %s:{%s}",
+		"socket #%d - socket.handleEvent(): handling event %s:{%s}",
 		socket.socketID,
 		socket.URL(),
 		response.Method,
@@ -240,15 +233,13 @@ func (socket *Socket) HandleEvent(
 }
 
 /*
-HandleUnknown receives all other socket responses.
-
-HandleUnknown is a Socketer implementation.
+handleUnknown receives all other socket responses.
 */
-func (socket *Socket) HandleUnknown(
+func (socket *Socket) handleUnknown(
 	response *Response,
 ) {
 	log.Debugf(
-		"socket #%d - socket.HandleUnknown(): handling unexpected data %s",
+		"socket #%d - socket.handleUnknown(): handling unexpected data %s",
 		socket.socketID,
 		socket.URL(),
 	)
@@ -260,7 +251,7 @@ func (socket *Socket) HandleUnknown(
 			errorMessage = response.Error.Error()
 		}
 		log.Debugf(
-			"socket #%d - socket.HandleCommand(): %s - result=%s err='%s'",
+			"socket #%d - socket.handleResponse(): %s - result=%s err='%s'",
 			socket.socketID,
 			err.Error(),
 			response.Result,
@@ -269,7 +260,7 @@ func (socket *Socket) HandleUnknown(
 
 	} else {
 		log.Debugf(
-			"socket #%d - socket.HandleCommand(): executing handler for command #%d - %s",
+			"socket #%d - socket.handleResponse(): executing handler for command #%d - %s",
 			socket.socketID,
 			command.ID(),
 			command.Method(),
@@ -286,8 +277,8 @@ func (socket *Socket) HandleUnknown(
 }
 
 /*
-Listen starts the socket read loop and delivers messages to HandleCommand() and
-HandleEvent() as appropriate.
+Listen starts the socket read loop and delivers messages to handleResponse() and
+handleEvent() as appropriate.
 
 Listen is a Socketer implementation.
 */
@@ -315,7 +306,7 @@ func (socket *Socket) Listen() error {
 				socket.socketID,
 				response.ID,
 			)
-			socket.HandleCommand(response)
+			socket.handleResponse(response)
 
 		} else if "" != response.Method {
 			log.Debugf(
@@ -323,7 +314,7 @@ func (socket *Socket) Listen() error {
 				socket.socketID,
 				response.Method,
 			)
-			socket.HandleEvent(response)
+			socket.handleEvent(response)
 
 		} else {
 			log.Error(fmt.Errorf(
@@ -337,7 +328,7 @@ func (socket *Socket) Listen() error {
 					Message: "Unknown response from web socket",
 				}
 			}
-			socket.HandleUnknown(response)
+			socket.handleUnknown(response)
 		}
 
 		if socket.stopListening {

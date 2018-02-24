@@ -15,17 +15,6 @@ type Socketer interface {
 	// CurCommandID returns the latest command ID.
 	CurCommandID() int
 
-	// HandleCommand receives the responses to requests sent to the websocket
-	// connection.
-	HandleCommand(response *Response)
-
-	// HandleEvent receives all events and associated data read from the
-	// websocket connection.
-	HandleEvent(response *Response)
-
-	// HandleUnknown receives all other socket responses.
-	HandleUnknown(response *Response)
-
 	// Listen starts the socket read loop and delivers messages to
 	// HandleCommand() and HandleEvent() as appropriate.
 	Listen() error
