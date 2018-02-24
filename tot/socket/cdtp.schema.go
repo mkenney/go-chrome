@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	schema "github.com/mkenney/go-chrome/tot/cdtp/schema"
+	"github.com/mkenney/go-chrome/tot/cdtp/schema"
 )
 
 /*
@@ -21,7 +21,7 @@ GetDomains returns supported domains.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Schema/#method-getDomains
 */
-func (protocol *SchemaProtocol) GetDomains() chan *schema.GetDomainsResult {
+func (protocol *SchemaProtocol) GetDomains() <-chan *schema.GetDomainsResult {
 	resultChan := make(chan *schema.GetDomainsResult)
 	command := NewCommand(protocol.Socket, "Schema.getDomains", nil)
 	result := &schema.GetDomainsResult{}

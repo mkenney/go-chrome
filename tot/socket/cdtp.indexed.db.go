@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	indexedDB "github.com/mkenney/go-chrome/tot/cdtp/indexed/db"
+	"github.com/mkenney/go-chrome/tot/cdtp/indexed/db"
 )
 
 /*
@@ -22,11 +22,11 @@ ClearObjectStore clears all entries from an object store.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-clearObjectStore
 */
 func (protocol *IndexedDBProtocol) ClearObjectStore(
-	params *indexedDB.ClearObjectStoreParams,
-) chan *indexedDB.ClearObjectStoreResult {
-	resultChan := make(chan *indexedDB.ClearObjectStoreResult)
+	params *db.ClearObjectStoreParams,
+) <-chan *db.ClearObjectStoreResult {
+	resultChan := make(chan *db.ClearObjectStoreResult)
 	command := NewCommand(protocol.Socket, "IndexedDB.clearObjectStore", params)
-	result := &indexedDB.ClearObjectStoreResult{}
+	result := &db.ClearObjectStoreResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -46,11 +46,11 @@ DeleteDatabase deletes a database.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-deleteDatabase
 */
 func (protocol *IndexedDBProtocol) DeleteDatabase(
-	params *indexedDB.DeleteDatabaseParams,
-) chan *indexedDB.DeleteDatabaseResult {
-	resultChan := make(chan *indexedDB.DeleteDatabaseResult)
+	params *db.DeleteDatabaseParams,
+) <-chan *db.DeleteDatabaseResult {
+	resultChan := make(chan *db.DeleteDatabaseResult)
 	command := NewCommand(protocol.Socket, "IndexedDB.deleteDatabase", params)
-	result := &indexedDB.DeleteDatabaseResult{}
+	result := &db.DeleteDatabaseResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -70,11 +70,11 @@ DeleteObjectStoreEntries deletes a range of entries from an object store.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-deleteObjectStoreEntries
 */
 func (protocol *IndexedDBProtocol) DeleteObjectStoreEntries(
-	params *indexedDB.DeleteObjectStoreEntriesParams,
-) chan *indexedDB.DeleteObjectStoreEntriesResult {
-	resultChan := make(chan *indexedDB.DeleteObjectStoreEntriesResult)
+	params *db.DeleteObjectStoreEntriesParams,
+) <-chan *db.DeleteObjectStoreEntriesResult {
+	resultChan := make(chan *db.DeleteObjectStoreEntriesResult)
 	command := NewCommand(protocol.Socket, "IndexedDB.deleteObjectStoreEntries", params)
-	result := &indexedDB.DeleteObjectStoreEntriesResult{}
+	result := &db.DeleteObjectStoreEntriesResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -93,10 +93,10 @@ Disable disables events from backend.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-disable
 */
-func (protocol *IndexedDBProtocol) Disable() chan *indexedDB.DisableResult {
-	resultChan := make(chan *indexedDB.DisableResult)
+func (protocol *IndexedDBProtocol) Disable() <-chan *db.DisableResult {
+	resultChan := make(chan *db.DisableResult)
 	command := NewCommand(protocol.Socket, "IndexedDB.disable", nil)
-	result := &indexedDB.DisableResult{}
+	result := &db.DisableResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -115,10 +115,10 @@ Enable enables events from backend.
 
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-enable
 */
-func (protocol *IndexedDBProtocol) Enable() chan *indexedDB.EnableResult {
-	resultChan := make(chan *indexedDB.EnableResult)
+func (protocol *IndexedDBProtocol) Enable() <-chan *db.EnableResult {
+	resultChan := make(chan *db.EnableResult)
 	command := NewCommand(protocol.Socket, "IndexedDB.enable", nil)
-	result := &indexedDB.EnableResult{}
+	result := &db.EnableResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -138,11 +138,11 @@ RequestData requests data from object store or index.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestData
 */
 func (protocol *IndexedDBProtocol) RequestData(
-	params *indexedDB.RequestDataParams,
-) chan *indexedDB.RequestDataResult {
-	resultChan := make(chan *indexedDB.RequestDataResult)
+	params *db.RequestDataParams,
+) <-chan *db.RequestDataResult {
+	resultChan := make(chan *db.RequestDataResult)
 	command := NewCommand(protocol.Socket, "IndexedDB.requestData", params)
-	result := &indexedDB.RequestDataResult{}
+	result := &db.RequestDataResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -164,11 +164,11 @@ RequestDatabase requests database with given name in given frame.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestDatabase
 */
 func (protocol *IndexedDBProtocol) RequestDatabase(
-	params *indexedDB.RequestDatabaseParams,
-) chan *indexedDB.RequestDatabaseResult {
-	resultChan := make(chan *indexedDB.RequestDatabaseResult)
+	params *db.RequestDatabaseParams,
+) <-chan *db.RequestDatabaseResult {
+	resultChan := make(chan *db.RequestDatabaseResult)
 	command := NewCommand(protocol.Socket, "IndexedDB.requestDatabase", params)
-	result := &indexedDB.RequestDatabaseResult{}
+	result := &db.RequestDatabaseResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -190,11 +190,11 @@ RequestDatabaseNames requests database names for given security origin.
 https://chromedevtools.github.io/devtools-protocol/tot/IndexedDB/#method-requestDatabaseNames
 */
 func (protocol *IndexedDBProtocol) RequestDatabaseNames(
-	params *indexedDB.RequestDatabaseNamesParams,
-) chan *indexedDB.RequestDatabaseNamesResult {
-	resultChan := make(chan *indexedDB.RequestDatabaseNamesResult)
+	params *db.RequestDatabaseNamesParams,
+) <-chan *db.RequestDatabaseNamesResult {
+	resultChan := make(chan *db.RequestDatabaseNamesResult)
 	command := NewCommand(protocol.Socket, "IndexedDB.requestDatabaseNames", params)
-	result := &indexedDB.RequestDatabaseNamesResult{}
+	result := &db.RequestDatabaseNamesResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)

@@ -21,8 +21,8 @@ CommandMap provides a CommandMapper interface implementation for managing the
 command stack.
 */
 type CommandMap struct {
-	stack map[int]Commander
 	mux   *sync.Mutex
+	stack map[int]Commander
 }
 
 /*
@@ -31,7 +31,9 @@ Delete removes a command from the stack.
 Delete is a CommandMapper implementation.
 */
 func (stack *CommandMap) Delete(id int) {
+	stack.mux.Lock()
 	delete(stack.stack, id)
+	stack.mux.Unlock()
 }
 
 /*
@@ -40,20 +42,13 @@ Get retrieves a command from the stack.
 Get is a CommandMapper implementation.
 */
 func (stack *CommandMap) Get(id int) (Commander, error) {
+	stack.mux.Lock()
 	command, ok := stack.stack[id]
+	stack.mux.Unlock()
 	if !ok {
 		return nil, fmt.Errorf("Command %d not found", id)
 	}
 	return command, nil
-}
-
-/*
-Lock locks the sync mutex.
-
-Lock is a CommandMapper implementation.
-*/
-func (stack *CommandMap) Lock() {
-	stack.mux.Lock()
 }
 
 /*
@@ -62,14 +57,7 @@ Set sets a command in the stack.
 Set is a CommandMapper implementation.
 */
 func (stack *CommandMap) Set(cmd Commander) {
+	stack.mux.Lock()
 	stack.stack[cmd.ID()] = cmd
-}
-
-/*
-Unlock unlocks the sync mutex.
-
-Unlock is a CommandMapper implementation.
-*/
-func (stack *CommandMap) Unlock() {
 	stack.mux.Unlock()
 }

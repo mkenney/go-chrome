@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	tracing "github.com/mkenney/go-chrome/tot/cdtp/tracing"
+	"github.com/mkenney/go-chrome/tot/cdtp/tracing"
 )
 
 /*
@@ -20,7 +20,7 @@ End stops trace events collection.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-end
 */
-func (protocol *TracingProtocol) End() chan *tracing.EndResult {
+func (protocol *TracingProtocol) End() <-chan *tracing.EndResult {
 	resultChan := make(chan *tracing.EndResult)
 	command := NewCommand(protocol.Socket, "Tracing.end", nil)
 	result := &tracing.EndResult{}
@@ -42,7 +42,7 @@ GetCategories gets supported tracing categories.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-getCategories
 */
-func (protocol *TracingProtocol) GetCategories() chan *tracing.GetCategoriesResult {
+func (protocol *TracingProtocol) GetCategories() <-chan *tracing.GetCategoriesResult {
 	resultChan := make(chan *tracing.GetCategoriesResult)
 	command := NewCommand(protocol.Socket, "Tracing.getCategories", nil)
 	result := &tracing.GetCategoriesResult{}
@@ -67,7 +67,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-recordClo
 */
 func (protocol *TracingProtocol) RecordClockSyncMarker(
 	params *tracing.RecordClockSyncMarkerParams,
-) chan *tracing.RecordClockSyncMarkerResult {
+) <-chan *tracing.RecordClockSyncMarkerResult {
 	resultChan := make(chan *tracing.RecordClockSyncMarkerResult)
 	command := NewCommand(protocol.Socket, "Tracing.recordClockSyncMarker", params)
 	result := &tracing.RecordClockSyncMarkerResult{}
@@ -89,7 +89,7 @@ RequestMemoryDump requests a global memory dump.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-requestMemoryDump
 */
-func (protocol *TracingProtocol) RequestMemoryDump() chan *tracing.RequestMemoryDumpResult {
+func (protocol *TracingProtocol) RequestMemoryDump() <-chan *tracing.RequestMemoryDumpResult {
 	resultChan := make(chan *tracing.RequestMemoryDumpResult)
 	command := NewCommand(protocol.Socket, "Tracing.requestMemoryDump", nil)
 	result := &tracing.RequestMemoryDumpResult{}
@@ -114,7 +114,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Tracing/#method-start
 */
 func (protocol *TracingProtocol) Start(
 	params *tracing.StartParams,
-) chan *tracing.StartResult {
+) <-chan *tracing.StartResult {
 	resultChan := make(chan *tracing.StartResult)
 	command := NewCommand(protocol.Socket, "Tracing.start", params)
 	result := &tracing.StartResult{}

@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	applicationCache "github.com/mkenney/go-chrome/tot/cdtp/application/cache"
+	"github.com/mkenney/go-chrome/tot/cdtp/application/cache"
 )
 
 /*
@@ -21,10 +21,10 @@ Enable enables application cache domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-enable
 */
-func (protocol *ApplicationCacheProtocol) Enable() chan *applicationCache.EnableResult {
-	resultChan := make(chan *applicationCache.EnableResult)
+func (protocol *ApplicationCacheProtocol) Enable() <-chan *cache.EnableResult {
+	resultChan := make(chan *cache.EnableResult)
 	command := NewCommand(protocol.Socket, "ApplicationCache.enable", nil)
-	result := &applicationCache.EnableResult{}
+	result := &cache.EnableResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -45,11 +45,11 @@ in given frame.
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getApplicationCacheForFrame
 */
 func (protocol *ApplicationCacheProtocol) GetForFrame(
-	params *applicationCache.GetForFrameParams,
-) chan *applicationCache.GetForFrameResult {
-	resultChan := make(chan *applicationCache.GetForFrameResult)
+	params *cache.GetForFrameParams,
+) <-chan *cache.GetForFrameResult {
+	resultChan := make(chan *cache.GetForFrameResult)
 	command := NewCommand(protocol.Socket, "ApplicationCache.getApplicationCacheForFrame", params)
-	result := &applicationCache.GetForFrameResult{}
+	result := &cache.GetForFrameResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -71,10 +71,10 @@ each frame containing a document associated with some application cache.
 
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getFramesWithManifests
 */
-func (protocol *ApplicationCacheProtocol) GetFramesWithManifests() chan *applicationCache.GetFramesWithManifestsResult {
-	resultChan := make(chan *applicationCache.GetFramesWithManifestsResult)
+func (protocol *ApplicationCacheProtocol) GetFramesWithManifests() <-chan *cache.GetFramesWithManifestsResult {
+	resultChan := make(chan *cache.GetFramesWithManifestsResult)
 	command := NewCommand(protocol.Socket, "ApplicationCache.getFramesWithManifests", nil)
-	result := &applicationCache.GetFramesWithManifestsResult{}
+	result := &cache.GetFramesWithManifestsResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -96,11 +96,11 @@ GetManifestForFrame returns manifest URL for document in the given frame.
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#method-getManifestForFrame
 */
 func (protocol *ApplicationCacheProtocol) GetManifestForFrame(
-	params *applicationCache.GetManifestForFrameParams,
-) chan *applicationCache.GetManifestForFrameResult {
-	resultChan := make(chan *applicationCache.GetManifestForFrameResult)
+	params *cache.GetManifestForFrameParams,
+) <-chan *cache.GetManifestForFrameResult {
+	resultChan := make(chan *cache.GetManifestForFrameResult)
 	command := NewCommand(protocol.Socket, "ApplicationCache.getManifestForFrame", params)
-	result := &applicationCache.GetManifestForFrameResult{}
+	result := &cache.GetManifestForFrameResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -123,12 +123,12 @@ ApplicationCache.StatusUpdated event.
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#event-applicationCacheStatusUpdated
 */
 func (protocol *ApplicationCacheProtocol) OnApplicationCacheStatusUpdated(
-	callback func(event *applicationCache.StatusUpdatedEvent),
+	callback func(event *cache.StatusUpdatedEvent),
 ) {
 	handler := NewEventHandler(
 		"ApplicationCache.applicationCacheStatusUpdated",
 		func(response *Response) {
-			event := &applicationCache.StatusUpdatedEvent{}
+			event := &cache.StatusUpdatedEvent{}
 			json.Unmarshal([]byte(response.Result), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
@@ -145,12 +145,12 @@ OnNetworkStateUpdated adds a handler to the ApplicationCache.StatusUpdated event
 https://chromedevtools.github.io/devtools-protocol/tot/ApplicationCache/#event-networkStateUpdated
 */
 func (protocol *ApplicationCacheProtocol) OnNetworkStateUpdated(
-	callback func(event *applicationCache.NetworkStateUpdatedEvent),
+	callback func(event *cache.NetworkStateUpdatedEvent),
 ) {
 	handler := NewEventHandler(
 		"ApplicationCache.networkStateUpdated",
 		func(response *Response) {
-			event := &applicationCache.NetworkStateUpdatedEvent{}
+			event := &cache.NetworkStateUpdatedEvent{}
 			json.Unmarshal([]byte(response.Result), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error

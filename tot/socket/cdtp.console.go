@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	console "github.com/mkenney/go-chrome/tot/cdtp/console"
+	"github.com/mkenney/go-chrome/tot/cdtp/console"
 )
 
 /*
@@ -21,7 +21,7 @@ ClearMessages does nothing.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Console/#method-clearMessages
 */
-func (protocol *ConsoleProtocol) ClearMessages() chan *console.ClearMessagesResult {
+func (protocol *ConsoleProtocol) ClearMessages() <-chan *console.ClearMessagesResult {
 	resultChan := make(chan *console.ClearMessagesResult)
 	command := NewCommand(protocol.Socket, "Console.clearMessages", nil)
 	result := &console.ClearMessagesResult{}
@@ -44,7 +44,7 @@ reported to the client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Console/#method-disable
 */
-func (protocol *ConsoleProtocol) Disable() chan *console.DisableResult {
+func (protocol *ConsoleProtocol) Disable() <-chan *console.DisableResult {
 	resultChan := make(chan *console.DisableResult)
 	command := NewCommand(protocol.Socket, "Console.disable", nil)
 	result := &console.DisableResult{}
@@ -67,7 +67,7 @@ by means of the messageAdded notification.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Console/#method-enable
 */
-func (protocol *ConsoleProtocol) Enable() chan *console.EnableResult {
+func (protocol *ConsoleProtocol) Enable() <-chan *console.EnableResult {
 	resultChan := make(chan *console.EnableResult)
 	command := NewCommand(protocol.Socket, "Console.enable", nil)
 	result := &console.EnableResult{}

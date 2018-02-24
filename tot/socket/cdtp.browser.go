@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	browser "github.com/mkenney/go-chrome/tot/cdtp/browser"
+	"github.com/mkenney/go-chrome/tot/cdtp/browser"
 )
 
 /*
@@ -21,7 +21,7 @@ Close closes the browser gracefully.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-close
 */
-func (protocol *BrowserProtocol) Close() chan *browser.CloseResult {
+func (protocol *BrowserProtocol) Close() <-chan *browser.CloseResult {
 	resultChan := make(chan *browser.CloseResult)
 	command := NewCommand(protocol.Socket, "Browser.close", nil)
 	result := &browser.CloseResult{}
@@ -43,7 +43,7 @@ GetVersion returns version information.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getVersion
 */
-func (protocol *BrowserProtocol) GetVersion() chan *browser.GetVersionResult {
+func (protocol *BrowserProtocol) GetVersion() <-chan *browser.GetVersionResult {
 	resultChan := make(chan *browser.GetVersionResult)
 	command := NewCommand(protocol.Socket, "Browser.getVersion", nil)
 	result := &browser.GetVersionResult{}
@@ -69,7 +69,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-getWindow
 */
 func (protocol *BrowserProtocol) GetWindowBounds(
 	params *browser.GetWindowBoundsParams,
-) chan *browser.GetWindowBoundsResult {
+) <-chan *browser.GetWindowBoundsResult {
 	resultChan := make(chan *browser.GetWindowBoundsResult)
 	command := NewCommand(protocol.Socket, "Browser.getWindowBounds", params)
 	result := &browser.GetWindowBoundsResult{}
@@ -96,7 +96,7 @@ EXPERIMENTAL.
 */
 func (protocol *BrowserProtocol) GetWindowForTarget(
 	params *browser.GetWindowForTargetParams,
-) chan *browser.GetWindowForTargetResult {
+) <-chan *browser.GetWindowForTargetResult {
 	resultChan := make(chan *browser.GetWindowForTargetResult)
 	command := NewCommand(protocol.Socket, "Browser.getWindowForTarget", params)
 	result := &browser.GetWindowForTargetResult{}
@@ -122,7 +122,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Browser/#method-setWindow
 */
 func (protocol *BrowserProtocol) SetWindowBounds(
 	params *browser.SetWindowBoundsParams,
-) chan *browser.SetWindowBoundsResult {
+) <-chan *browser.SetWindowBoundsResult {
 	resultChan := make(chan *browser.SetWindowBoundsResult)
 	command := NewCommand(protocol.Socket, "Browser.setWindowBounds", params)
 	result := &browser.SetWindowBoundsResult{}

@@ -1,7 +1,7 @@
 package socket
 
 import (
-	deviceOrientation "github.com/mkenney/go-chrome/tot/cdtp/device/orientation"
+	"github.com/mkenney/go-chrome/tot/cdtp/device/orientation"
 )
 
 /*
@@ -20,10 +20,10 @@ ClearOverride clears the overridden Device Orientation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/#method-clearDeviceOrientationOverride
 */
-func (protocol *DeviceOrientationProtocol) ClearOverride() chan *deviceOrientation.ClearOverrideResult {
-	resultChan := make(chan *deviceOrientation.ClearOverrideResult)
+func (protocol *DeviceOrientationProtocol) ClearOverride() <-chan *orientation.ClearOverrideResult {
+	resultChan := make(chan *orientation.ClearOverrideResult)
 	command := NewCommand(protocol.Socket, "DeviceOrientation.clearDeviceOrientationOverride", nil)
-	result := &deviceOrientation.ClearOverrideResult{}
+	result := &orientation.ClearOverrideResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -43,11 +43,11 @@ SetOverride overrides the Device Orientation.
 https://chromedevtools.github.io/devtools-protocol/tot/DeviceOrientation/#method-setDeviceOrientationOverride
 */
 func (protocol *DeviceOrientationProtocol) SetOverride(
-	params *deviceOrientation.SetOverrideParams,
-) chan *deviceOrientation.SetOverrideResult {
-	resultChan := make(chan *deviceOrientation.SetOverrideResult)
+	params *orientation.SetOverrideParams,
+) <-chan *orientation.SetOverrideResult {
+	resultChan := make(chan *orientation.SetOverrideResult)
 	command := NewCommand(protocol.Socket, "DeviceOrientation.setDeviceOrientationOverride", params)
-	result := &deviceOrientation.SetOverrideResult{}
+	result := &orientation.SetOverrideResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)

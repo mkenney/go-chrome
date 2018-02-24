@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	domStorage "github.com/mkenney/go-chrome/tot/cdtp/dom/storage"
+	"github.com/mkenney/go-chrome/tot/cdtp/dom/storage"
 )
 
 /*
@@ -22,11 +22,11 @@ Clear clears  a stored item.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-clear
 */
 func (protocol *DOMStorageProtocol) Clear(
-	params *domStorage.ClearParams,
-) chan *domStorage.ClearResult {
-	resultChan := make(chan *domStorage.ClearResult)
+	params *storage.ClearParams,
+) <-chan *storage.ClearResult {
+	resultChan := make(chan *storage.ClearResult)
 	command := NewCommand(protocol.Socket, "DOMStorage.clear", params)
-	result := &domStorage.ClearResult{}
+	result := &storage.ClearResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -46,10 +46,10 @@ the client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-disable
 */
-func (protocol *DOMStorageProtocol) Disable() chan *domStorage.DisableResult {
-	resultChan := make(chan *domStorage.DisableResult)
+func (protocol *DOMStorageProtocol) Disable() <-chan *storage.DisableResult {
+	resultChan := make(chan *storage.DisableResult)
 	command := NewCommand(protocol.Socket, "DOMStorage.disable", nil)
-	result := &domStorage.DisableResult{}
+	result := &storage.DisableResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -69,10 +69,10 @@ client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-enable
 */
-func (protocol *DOMStorageProtocol) Enable() chan *domStorage.EnableResult {
-	resultChan := make(chan *domStorage.EnableResult)
+func (protocol *DOMStorageProtocol) Enable() <-chan *storage.EnableResult {
+	resultChan := make(chan *storage.EnableResult)
 	command := NewCommand(protocol.Socket, "DOMStorage.enable", nil)
-	result := &domStorage.EnableResult{}
+	result := &storage.EnableResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -92,11 +92,11 @@ GetItems gets a stored item.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-getDOMStorageItems
 */
 func (protocol *DOMStorageProtocol) GetItems(
-	params *domStorage.GetItemsParams,
-) chan *domStorage.GetItemsResult {
-	resultChan := make(chan *domStorage.GetItemsResult)
+	params *storage.GetItemsParams,
+) <-chan *storage.GetItemsResult {
+	resultChan := make(chan *storage.GetItemsResult)
 	command := NewCommand(protocol.Socket, "DOMStorage.getDOMStorageItems", params)
-	result := &domStorage.GetItemsResult{}
+	result := &storage.GetItemsResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -118,11 +118,11 @@ RemoveItem removes  a stored item.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-removeDOMStorageItem
 */
 func (protocol *DOMStorageProtocol) RemoveItem(
-	params *domStorage.RemoveItemParams,
-) chan *domStorage.RemoveItemResult {
-	resultChan := make(chan *domStorage.RemoveItemResult)
+	params *storage.RemoveItemParams,
+) <-chan *storage.RemoveItemResult {
+	resultChan := make(chan *storage.RemoveItemResult)
 	command := NewCommand(protocol.Socket, "DOMStorage.removeDOMStorageItem", params)
-	result := &domStorage.RemoveItemResult{}
+	result := &storage.RemoveItemResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -142,11 +142,11 @@ SetItem sets a stored item.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#method-setDOMStorageItem
 */
 func (protocol *DOMStorageProtocol) SetItem(
-	params *domStorage.SetItemParams,
-) chan *domStorage.SetItemResult {
-	resultChan := make(chan *domStorage.SetItemResult)
+	params *storage.SetItemParams,
+) <-chan *storage.SetItemResult {
+	resultChan := make(chan *storage.SetItemResult)
 	command := NewCommand(protocol.Socket, "DOMStorage.setDOMStorageItem", params)
-	result := &domStorage.SetItemResult{}
+	result := &storage.SetItemResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -167,12 +167,12 @@ DOMStorage.domStorageItemAdded fires when an item is added to DOM storage.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#event-domStorageItemAdded
 */
 func (protocol *DOMStorageProtocol) OnItemAdded(
-	callback func(event *domStorage.ItemAddedEvent),
+	callback func(event *storage.ItemAddedEvent),
 ) {
 	handler := NewEventHandler(
 		"DOMStorage.domStorageItemAdded",
 		func(response *Response) {
-			event := &domStorage.ItemAddedEvent{}
+			event := &storage.ItemAddedEvent{}
 			json.Unmarshal([]byte(response.Result), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
@@ -190,12 +190,12 @@ DOMStorage.domStorageItemRemoved fires when an item is removed from DOM storage.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#event-domStorageItemRemoved
 */
 func (protocol *DOMStorageProtocol) OnItemRemoved(
-	callback func(event *domStorage.ItemRemovedEvent),
+	callback func(event *storage.ItemRemovedEvent),
 ) {
 	handler := NewEventHandler(
 		"DOMStorage.domStorageItemRemoved",
 		func(response *Response) {
-			event := &domStorage.ItemRemovedEvent{}
+			event := &storage.ItemRemovedEvent{}
 			json.Unmarshal([]byte(response.Result), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
@@ -213,12 +213,12 @@ DOMStorage.domStorageItemUpdated fires when an item in DOM storage is updated.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#event-domStorageItemUpdated
 */
 func (protocol *DOMStorageProtocol) OnItemUpdated(
-	callback func(event *domStorage.ItemUpdatedEvent),
+	callback func(event *storage.ItemUpdatedEvent),
 ) {
 	handler := NewEventHandler(
 		"DOMStorage.domStorageItemUpdated",
 		func(response *Response) {
-			event := &domStorage.ItemUpdatedEvent{}
+			event := &storage.ItemUpdatedEvent{}
 			json.Unmarshal([]byte(response.Result), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
@@ -236,12 +236,12 @@ DOMStorage.domStorageItemsCleared fires when items in DOM storage are cleared.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMStorage/#event-domStorageItemsCleared
 */
 func (protocol *DOMStorageProtocol) OnItemsCleared(
-	callback func(event *domStorage.ItemsClearedEvent),
+	callback func(event *storage.ItemsClearedEvent),
 ) {
 	handler := NewEventHandler(
 		"DOMStorage.domStorageItemsCleared",
 		func(response *Response) {
-			event := &domStorage.ItemsClearedEvent{}
+			event := &storage.ItemsClearedEvent{}
 			json.Unmarshal([]byte(response.Result), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error

@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	domSnapshot "github.com/mkenney/go-chrome/tot/cdtp/dom/snapshot"
+	"github.com/mkenney/go-chrome/tot/cdtp/dom/snapshot"
 )
 
 /*
@@ -26,11 +26,11 @@ nodes. Shadow DOM in the returned DOM tree is flattened.
 https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#method-getSnapshot
 */
 func (protocol *DOMSnapshotProtocol) Get(
-	params *domSnapshot.GetParams,
-) chan *domSnapshot.GetResult {
-	resultChan := make(chan *domSnapshot.GetResult)
+	params *snapshot.GetParams,
+) <-chan *snapshot.GetResult {
+	resultChan := make(chan *snapshot.GetResult)
 	command := NewCommand(protocol.Socket, "DOMSnapshot.getSnapshot", params)
-	result := &domSnapshot.GetResult{}
+	result := &snapshot.GetResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)

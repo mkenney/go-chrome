@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	database "github.com/mkenney/go-chrome/tot/cdtp/database"
+	"github.com/mkenney/go-chrome/tot/cdtp/database"
 )
 
 /*
@@ -21,7 +21,7 @@ the client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-disable
 */
-func (protocol *DatabaseProtocol) Disable() chan *database.DisableResult {
+func (protocol *DatabaseProtocol) Disable() <-chan *database.DisableResult {
 	resultChan := make(chan *database.DisableResult)
 	command := NewCommand(protocol.Socket, "Database.disable", nil)
 	result := &database.DisableResult{}
@@ -44,7 +44,7 @@ client.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-enable
 */
-func (protocol *DatabaseProtocol) Enable() chan *database.EnableResult {
+func (protocol *DatabaseProtocol) Enable() <-chan *database.EnableResult {
 	resultChan := make(chan *database.EnableResult)
 	command := NewCommand(protocol.Socket, "Database.enable", nil)
 	result := &database.EnableResult{}
@@ -68,7 +68,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-executeS
 */
 func (protocol *DatabaseProtocol) ExecuteSQL(
 	params *database.ExecuteSQLParams,
-) chan *database.ExecuteSQLResult {
+) <-chan *database.ExecuteSQLResult {
 	resultChan := make(chan *database.ExecuteSQLResult)
 	command := NewCommand(protocol.Socket, "Database.executeSQL", params)
 	result := &database.ExecuteSQLResult{}
@@ -94,7 +94,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Database/#method-getDatab
 */
 func (protocol *DatabaseProtocol) GetTableNames(
 	params *database.GetTableNamesParams,
-) chan *database.GetTableNamesResult {
+) <-chan *database.GetTableNamesResult {
 	resultChan := make(chan *database.GetTableNamesResult)
 	command := NewCommand(protocol.Socket, "Database.executeSQL", params)
 	result := &database.GetTableNamesResult{}

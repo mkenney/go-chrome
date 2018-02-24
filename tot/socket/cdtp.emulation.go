@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	emulation "github.com/mkenney/go-chrome/tot/cdtp/emulation"
+	"github.com/mkenney/go-chrome/tot/cdtp/emulation"
 )
 
 /*
@@ -21,7 +21,7 @@ CanEmulate tells whether emulation is supported.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-canEmulate
 */
-func (protocol *EmulationProtocol) CanEmulate() chan *emulation.CanEmulateResult {
+func (protocol *EmulationProtocol) CanEmulate() <-chan *emulation.CanEmulateResult {
 	resultChan := make(chan *emulation.CanEmulateResult)
 	command := NewCommand(protocol.Socket, "Emulation.canEmulate", nil)
 	result := &emulation.CanEmulateResult{}
@@ -45,7 +45,7 @@ ClearDeviceMetricsOverride clears the overridden device metrics.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-clearDeviceMetricsOverride
 */
-func (protocol *EmulationProtocol) ClearDeviceMetricsOverride() chan *emulation.ClearDeviceMetricsOverrideResult {
+func (protocol *EmulationProtocol) ClearDeviceMetricsOverride() <-chan *emulation.ClearDeviceMetricsOverrideResult {
 	resultChan := make(chan *emulation.ClearDeviceMetricsOverrideResult)
 	command := NewCommand(protocol.Socket, "Emulation.clearDeviceMetricsOverride", nil)
 	result := &emulation.ClearDeviceMetricsOverrideResult{}
@@ -67,7 +67,7 @@ ClearGeolocationOverride clears the overridden Geolocation Position and Error.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-clearGeolocationOverride
 */
-func (protocol *EmulationProtocol) ClearGeolocationOverride() chan *emulation.ClearGeolocationOverrideResult {
+func (protocol *EmulationProtocol) ClearGeolocationOverride() <-chan *emulation.ClearGeolocationOverrideResult {
 	resultChan := make(chan *emulation.ClearGeolocationOverrideResult)
 	command := NewCommand(protocol.Socket, "Emulation.clearGeolocationOverride", nil)
 	result := &emulation.ClearGeolocationOverrideResult{}
@@ -90,7 +90,7 @@ ResetPageScaleFactor requests that page scale factor is reset to initial values.
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-resetPageScaleFactor
 EXPERIMENTAL.
 */
-func (protocol *EmulationProtocol) ResetPageScaleFactor() chan *emulation.ResetPageScaleFactorResult {
+func (protocol *EmulationProtocol) ResetPageScaleFactor() <-chan *emulation.ResetPageScaleFactorResult {
 	resultChan := make(chan *emulation.ResetPageScaleFactorResult)
 	command := NewCommand(protocol.Socket, "Emulation.resetPageScaleFactor", nil)
 	result := &emulation.ResetPageScaleFactorResult{}
@@ -115,7 +115,7 @@ EXPERIMENTAL.
 */
 func (protocol *EmulationProtocol) SetCPUThrottlingRate(
 	params *emulation.SetCPUThrottlingRateParams,
-) chan *emulation.SetCPUThrottlingRateResult {
+) <-chan *emulation.SetCPUThrottlingRateResult {
 	resultChan := make(chan *emulation.SetCPUThrottlingRateResult)
 	command := NewCommand(protocol.Socket, "Emulation.setCPUThrottlingRate", params)
 	result := &emulation.SetCPUThrottlingRateResult{}
@@ -141,7 +141,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDefa
 */
 func (protocol *EmulationProtocol) SetDefaultBackgroundColorOverride(
 	params *emulation.SetDefaultBackgroundColorOverrideParams,
-) chan *emulation.SetDefaultBackgroundColorOverrideResult {
+) <-chan *emulation.SetDefaultBackgroundColorOverrideResult {
 	resultChan := make(chan *emulation.SetDefaultBackgroundColorOverrideResult)
 	command := NewCommand(protocol.Socket, "Emulation.setDefaultBackgroundColorOverride", params)
 	result := &emulation.SetDefaultBackgroundColorOverrideResult{}
@@ -168,7 +168,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDevi
 */
 func (protocol *EmulationProtocol) SetDeviceMetricsOverride(
 	params *emulation.SetDeviceMetricsOverrideParams,
-) chan *emulation.SetDeviceMetricsOverrideResult {
+) <-chan *emulation.SetDeviceMetricsOverrideResult {
 	resultChan := make(chan *emulation.SetDeviceMetricsOverrideResult)
 	command := NewCommand(protocol.Socket, "Emulation.setDeviceMetricsOverride", params)
 	result := &emulation.SetDeviceMetricsOverrideResult{}
@@ -193,7 +193,7 @@ EXPERIMENTAL.
 */
 func (protocol *EmulationProtocol) SetEmitTouchEventsForMouse(
 	params *emulation.SetEmitTouchEventsForMouseParams,
-) chan *emulation.SetEmitTouchEventsForMouseResult {
+) <-chan *emulation.SetEmitTouchEventsForMouseResult {
 	resultChan := make(chan *emulation.SetEmitTouchEventsForMouseResult)
 	command := NewCommand(protocol.Socket, "Emulation.setEmitTouchEventsForMouse", params)
 	result := &emulation.SetEmitTouchEventsForMouseResult{}
@@ -217,7 +217,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setEmul
 */
 func (protocol *EmulationProtocol) SetEmulatedMedia(
 	params *emulation.SetEmulatedMediaParams,
-) chan *emulation.SetEmulatedMediaResult {
+) <-chan *emulation.SetEmulatedMediaResult {
 	resultChan := make(chan *emulation.SetEmulatedMediaResult)
 	command := NewCommand(protocol.Socket, "Emulation.setEmulatedMedia", params)
 	result := &emulation.SetEmulatedMediaResult{}
@@ -242,7 +242,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setGeol
 */
 func (protocol *EmulationProtocol) SetGeolocationOverride(
 	params *emulation.SetGeolocationOverrideParams,
-) chan *emulation.SetGeolocationOverrideResult {
+) <-chan *emulation.SetGeolocationOverrideResult {
 	resultChan := make(chan *emulation.SetGeolocationOverrideResult)
 	command := NewCommand(protocol.Socket, "Emulation.setGeolocationOverride", params)
 	result := &emulation.SetGeolocationOverrideResult{}
@@ -268,7 +268,7 @@ EXPERIMENTAL.
 */
 func (protocol *EmulationProtocol) SetNavigatorOverrides(
 	params *emulation.SetNavigatorOverridesParams,
-) chan *emulation.SetNavigatorOverridesResult {
+) <-chan *emulation.SetNavigatorOverridesResult {
 	resultChan := make(chan *emulation.SetNavigatorOverridesResult)
 	command := NewCommand(protocol.Socket, "Emulation.setNavigatorOverrides", params)
 	result := &emulation.SetNavigatorOverridesResult{}
@@ -293,7 +293,7 @@ EXPERIMENTAL.
 */
 func (protocol *EmulationProtocol) SetPageScaleFactor(
 	params *emulation.SetPageScaleFactorParams,
-) chan *emulation.SetPageScaleFactorResult {
+) <-chan *emulation.SetPageScaleFactorResult {
 	resultChan := make(chan *emulation.SetPageScaleFactorResult)
 	command := NewCommand(protocol.Socket, "Emulation.setPageScaleFactor", params)
 	result := &emulation.SetPageScaleFactorResult{}
@@ -317,7 +317,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setScri
 */
 func (protocol *EmulationProtocol) SetScriptExecutionDisabled(
 	params *emulation.SetScriptExecutionDisabledParams,
-) chan *emulation.SetScriptExecutionDisabledResult {
+) <-chan *emulation.SetScriptExecutionDisabledResult {
 	resultChan := make(chan *emulation.SetScriptExecutionDisabledResult)
 	command := NewCommand(protocol.Socket, "Emulation.setScriptExecutionDisabled", params)
 	result := &emulation.SetScriptExecutionDisabledResult{}
@@ -341,7 +341,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setTouc
 */
 func (protocol *EmulationProtocol) SetTouchEmulationEnabled(
 	params *emulation.SetTouchEmulationEnabledParams,
-) chan *emulation.SetTouchEmulationEnabledResult {
+) <-chan *emulation.SetTouchEmulationEnabledResult {
 	resultChan := make(chan *emulation.SetTouchEmulationEnabledResult)
 	command := NewCommand(protocol.Socket, "Emulation.setTouchEmulationEnabled", params)
 	result := &emulation.SetTouchEmulationEnabledResult{}
@@ -368,7 +368,7 @@ EXPERIMENTAL.
 */
 func (protocol *EmulationProtocol) SetVirtualTimePolicy(
 	params *emulation.SetVirtualTimePolicyParams,
-) chan *emulation.SetVirtualTimePolicyResult {
+) <-chan *emulation.SetVirtualTimePolicyResult {
 	resultChan := make(chan *emulation.SetVirtualTimePolicyResult)
 	command := NewCommand(protocol.Socket, "Emulation.SetVirtualTimePolicy", nil)
 	result := &emulation.SetVirtualTimePolicyResult{}
@@ -397,7 +397,7 @@ EXPERIMENTAL. DEPRECATED.
 */
 func (protocol *EmulationProtocol) SetVisibleSize(
 	params *emulation.SetVisibleSizeParams,
-) chan *emulation.SetVisibleSizeResult {
+) <-chan *emulation.SetVisibleSizeResult {
 	resultChan := make(chan *emulation.SetVisibleSizeResult)
 	command := NewCommand(protocol.Socket, "Emulation.setVisibleSize", params)
 	result := &emulation.SetVisibleSizeResult{}

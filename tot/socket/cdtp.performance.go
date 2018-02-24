@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	performance "github.com/mkenney/go-chrome/tot/cdtp/performance"
+	"github.com/mkenney/go-chrome/tot/cdtp/performance"
 )
 
 /*
@@ -21,7 +21,7 @@ Disable disables collecting and reporting metrics.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-disable
 */
-func (protocol *PerformanceProtocol) Disable() chan *performance.DisableResult {
+func (protocol *PerformanceProtocol) Disable() <-chan *performance.DisableResult {
 	resultChan := make(chan *performance.DisableResult)
 	command := NewCommand(protocol.Socket, "Performance.disable", nil)
 	result := &performance.DisableResult{}
@@ -43,7 +43,7 @@ Enable enables collecting and reporting metrics.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-enable
 */
-func (protocol *PerformanceProtocol) Enable() chan *performance.EnableResult {
+func (protocol *PerformanceProtocol) Enable() <-chan *performance.EnableResult {
 	resultChan := make(chan *performance.EnableResult)
 	command := NewCommand(protocol.Socket, "Performance.enable", nil)
 	result := &performance.EnableResult{}
@@ -65,7 +65,7 @@ GetMetrics retrieves current values of run-time metrics.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Performance/#method-getMetrics
 */
-func (protocol *PerformanceProtocol) GetMetrics() chan *performance.GetMetricsResult {
+func (protocol *PerformanceProtocol) GetMetrics() <-chan *performance.GetMetricsResult {
 	resultChan := make(chan *performance.GetMetricsResult)
 	command := NewCommand(protocol.Socket, "Performance.getMetrics", nil)
 	result := &performance.GetMetricsResult{}

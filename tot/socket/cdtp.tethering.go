@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	tethering "github.com/mkenney/go-chrome/tot/cdtp/tethering"
+	"github.com/mkenney/go-chrome/tot/cdtp/tethering"
 )
 
 /*
@@ -24,7 +24,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Tethering/#method-bind
 */
 func (protocol *TetheringProtocol) Bind(
 	params *tethering.BindParams,
-) chan *tethering.BindResult {
+) <-chan *tethering.BindResult {
 	resultChan := make(chan *tethering.BindResult)
 	command := NewCommand(protocol.Socket, "Tethering.bind", params)
 	result := &tethering.BindResult{}
@@ -48,7 +48,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Tethering/#method-unbind
 */
 func (protocol *TetheringProtocol) Unbind(
 	params *tethering.UnbindParams,
-) chan *tethering.UnbindResult {
+) <-chan *tethering.UnbindResult {
 	resultChan := make(chan *tethering.UnbindResult)
 	command := NewCommand(protocol.Socket, "Tethering.unbind", params)
 	result := &tethering.UnbindResult{}

@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	storage "github.com/mkenney/go-chrome/tot/cdtp/storage"
+	"github.com/mkenney/go-chrome/tot/cdtp/storage"
 )
 
 /*
@@ -22,7 +22,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-clearData
 */
 func (protocol *StorageProtocol) ClearDataForOrigin(
 	params *storage.ClearDataForOriginParams,
-) chan *storage.ClearDataForOriginResult {
+) <-chan *storage.ClearDataForOriginResult {
 	resultChan := make(chan *storage.ClearDataForOriginResult)
 	command := NewCommand(protocol.Socket, "Storage.clearDataForOrigin", params)
 	result := &storage.ClearDataForOriginResult{}
@@ -46,7 +46,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-getUsageA
 */
 func (protocol *StorageProtocol) GetUsageAndQuota(
 	params *storage.GetUsageAndQuotaParams,
-) chan *storage.GetUsageAndQuotaResult {
+) <-chan *storage.GetUsageAndQuotaResult {
 	resultChan := make(chan *storage.GetUsageAndQuotaResult)
 	command := NewCommand(protocol.Socket, "storage.getUsageAndQuota", params)
 	result := &storage.GetUsageAndQuotaResult{}
@@ -73,7 +73,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-trackCach
 */
 func (protocol *StorageProtocol) TrackCacheStorageForOrigin(
 	params *storage.TrackCacheStorageForOriginParams,
-) chan *storage.TrackCacheStorageForOriginResult {
+) <-chan *storage.TrackCacheStorageForOriginResult {
 	resultChan := make(chan *storage.TrackCacheStorageForOriginResult)
 	command := NewCommand(protocol.Socket, "Storage.trackCacheStorageForOrigin", params)
 	result := &storage.TrackCacheStorageForOriginResult{}
@@ -98,7 +98,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-trackInde
 */
 func (protocol *StorageProtocol) TrackIndexedDBForOrigin(
 	params *storage.TrackIndexedDBForOriginParams,
-) chan *storage.TrackIndexedDBForOriginResult {
+) <-chan *storage.TrackIndexedDBForOriginResult {
 	resultChan := make(chan *storage.TrackIndexedDBForOriginResult)
 	command := NewCommand(protocol.Socket, "Storage.trackIndexedDBForOrigin", params)
 	result := &storage.TrackIndexedDBForOriginResult{}
@@ -123,7 +123,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-untrackCa
 */
 func (protocol *StorageProtocol) UntrackCacheStorageForOrigin(
 	params *storage.UntrackCacheStorageForOriginParams,
-) chan *storage.UntrackCacheStorageForOriginResult {
+) <-chan *storage.UntrackCacheStorageForOriginResult {
 	resultChan := make(chan *storage.UntrackCacheStorageForOriginResult)
 	command := NewCommand(protocol.Socket, "Storage.untrackCacheStorageForOrigin", params)
 	result := &storage.UntrackCacheStorageForOriginResult{}
@@ -148,7 +148,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Storage/#method-untrackIn
 */
 func (protocol *StorageProtocol) UntrackIndexedDBForOrigin(
 	params *storage.UntrackIndexedDBForOriginParams,
-) chan *storage.UntrackIndexedDBForOriginResult {
+) <-chan *storage.UntrackIndexedDBForOriginResult {
 	resultChan := make(chan *storage.UntrackIndexedDBForOriginResult)
 	command := NewCommand(protocol.Socket, "Storage.untrackIndexedDBForOrigin", params)
 	result := &storage.UntrackIndexedDBForOriginResult{}

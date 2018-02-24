@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	animation "github.com/mkenney/go-chrome/tot/cdtp/animation"
+	"github.com/mkenney/go-chrome/tot/cdtp/animation"
 )
 
 /*
@@ -20,7 +20,7 @@ Disable animation domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-disable
 */
-func (protocol *AnimationProtocol) Disable() chan *animation.DisableResult {
+func (protocol *AnimationProtocol) Disable() <-chan *animation.DisableResult {
 	resultChan := make(chan *animation.DisableResult)
 	command := NewCommand(protocol.Socket, "Animation.disable", nil)
 	result := &animation.DisableResult{}
@@ -42,7 +42,7 @@ Enable animation domain notifications.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-enable
 */
-func (protocol *AnimationProtocol) Enable() chan *animation.EnableResult {
+func (protocol *AnimationProtocol) Enable() <-chan *animation.EnableResult {
 	resultChan := make(chan *animation.EnableResult)
 	command := NewCommand(protocol.Socket, "Animation.enable", nil)
 	result := &animation.EnableResult{}
@@ -66,7 +66,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-getCurr
 */
 func (protocol *AnimationProtocol) GetCurrentTime(
 	params *animation.GetCurrentTimeParams,
-) chan *animation.GetCurrentTimeResult {
+) <-chan *animation.GetCurrentTimeResult {
 	resultChan := make(chan *animation.GetCurrentTimeResult)
 	command := NewCommand(protocol.Socket, "Animation.getCurrentTime", params)
 	result := &animation.GetCurrentTimeResult{}
@@ -90,7 +90,7 @@ GetPlaybackRate gets the playback rate of the document timeline.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-getPlaybackRate
 */
-func (protocol *AnimationProtocol) GetPlaybackRate() chan *animation.GetPlaybackRateResult {
+func (protocol *AnimationProtocol) GetPlaybackRate() <-chan *animation.GetPlaybackRateResult {
 	resultChan := make(chan *animation.GetPlaybackRateResult)
 	command := NewCommand(protocol.Socket, "Animation.getPlaybackRate", nil)
 	result := &animation.GetPlaybackRateResult{}
@@ -116,7 +116,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-release
 */
 func (protocol *AnimationProtocol) ReleaseAnimations(
 	params *animation.ReleaseAnimationsParams,
-) chan *animation.ReleaseAnimationsResult {
+) <-chan *animation.ReleaseAnimationsResult {
 	resultChan := make(chan *animation.ReleaseAnimationsResult)
 	command := NewCommand(protocol.Socket, "Animation.releaseAnimations", params)
 	result := &animation.ReleaseAnimationsResult{}
@@ -140,7 +140,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-resolve
 */
 func (protocol *AnimationProtocol) ResolveAnimation(
 	params *animation.ResolveAnimationParams,
-) chan *animation.ResolveAnimationResult {
+) <-chan *animation.ResolveAnimationResult {
 	resultChan := make(chan *animation.ResolveAnimationResult)
 	command := NewCommand(protocol.Socket, "Animation.resolveAnimation", params)
 	result := &animation.ResolveAnimationResult{}
@@ -167,7 +167,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-seekAni
 */
 func (protocol *AnimationProtocol) SeekAnimations(
 	params *animation.SeekAnimationsParams,
-) chan *animation.SeekAnimationsResult {
+) <-chan *animation.SeekAnimationsResult {
 	resultChan := make(chan *animation.SeekAnimationsResult)
 	command := NewCommand(protocol.Socket, "Animation.seekAnimations", params)
 	result := &animation.SeekAnimationsResult{}
@@ -191,7 +191,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-setPaus
 */
 func (protocol *AnimationProtocol) SetPaused(
 	params *animation.SetPausedParams,
-) chan *animation.SetPausedResult {
+) <-chan *animation.SetPausedResult {
 	resultChan := make(chan *animation.SetPausedResult)
 	command := NewCommand(protocol.Socket, "Animation.setPaused", params)
 	result := &animation.SetPausedResult{}
@@ -215,7 +215,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-setPlay
 */
 func (protocol *AnimationProtocol) SetPlaybackRate(
 	params *animation.SetPlaybackRateParams,
-) chan *animation.SetPlaybackRateResult {
+) <-chan *animation.SetPlaybackRateResult {
 	resultChan := make(chan *animation.SetPlaybackRateResult)
 	command := NewCommand(protocol.Socket, "Animation.setPlaybackRate", params)
 	result := &animation.SetPlaybackRateResult{}
@@ -239,7 +239,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Animation/#method-setTimi
 */
 func (protocol *AnimationProtocol) SetTiming(
 	params *animation.SetTimingParams,
-) chan *animation.SetTimingResult {
+) <-chan *animation.SetTimingResult {
 	resultChan := make(chan *animation.SetTimingResult)
 	command := NewCommand(protocol.Socket, "Animation.setTiming", params)
 	result := &animation.SetTimingResult{}

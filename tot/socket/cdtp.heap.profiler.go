@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	heapProfiler "github.com/mkenney/go-chrome/tot/cdtp/heap/profiler"
+	"github.com/mkenney/go-chrome/tot/cdtp/heap/profiler"
 )
 
 /*
@@ -23,11 +23,11 @@ AddInspectedHeapObject enables console to refer to the node with given id via $x
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-addInspectedHeapObject
 */
 func (protocol *HeapProfilerProtocol) AddInspectedHeapObject(
-	params *heapProfiler.AddInspectedHeapObjectParams,
-) chan *heapProfiler.AddInspectedHeapObjectResult {
-	resultChan := make(chan *heapProfiler.AddInspectedHeapObjectResult)
+	params *profiler.AddInspectedHeapObjectParams,
+) <-chan *profiler.AddInspectedHeapObjectResult {
+	resultChan := make(chan *profiler.AddInspectedHeapObjectResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.addInspectedHeapObject", params)
-	result := &heapProfiler.AddInspectedHeapObjectResult{}
+	result := &profiler.AddInspectedHeapObjectResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -47,10 +47,10 @@ CollectGarbage is experimental.
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-collectGarbage
 EXPERIMENTAL.
 */
-func (protocol *HeapProfilerProtocol) CollectGarbage() chan *heapProfiler.CollectGarbageResult {
-	resultChan := make(chan *heapProfiler.CollectGarbageResult)
+func (protocol *HeapProfilerProtocol) CollectGarbage() <-chan *profiler.CollectGarbageResult {
+	resultChan := make(chan *profiler.CollectGarbageResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.collectGarbage", nil)
-	result := &heapProfiler.CollectGarbageResult{}
+	result := &profiler.CollectGarbageResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -69,10 +69,10 @@ Disable disables the HeapProfiler.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-disable
 */
-func (protocol *HeapProfilerProtocol) Disable() chan *heapProfiler.DisableResult {
-	resultChan := make(chan *heapProfiler.DisableResult)
+func (protocol *HeapProfilerProtocol) Disable() <-chan *profiler.DisableResult {
+	resultChan := make(chan *profiler.DisableResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.disable", nil)
-	result := &heapProfiler.DisableResult{}
+	result := &profiler.DisableResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -91,10 +91,10 @@ Enable enables the HeapProfiler.
 
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-enable
 */
-func (protocol *HeapProfilerProtocol) Enable() chan *heapProfiler.EnableResult {
-	resultChan := make(chan *heapProfiler.EnableResult)
+func (protocol *HeapProfilerProtocol) Enable() <-chan *profiler.EnableResult {
+	resultChan := make(chan *profiler.EnableResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.enable", nil)
-	result := &heapProfiler.EnableResult{}
+	result := &profiler.EnableResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -115,11 +115,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getH
 EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) GetHeapObjectID(
-	params *heapProfiler.GetHeapObjectIDParams,
-) chan *heapProfiler.GetHeapObjectIDResult {
-	resultChan := make(chan *heapProfiler.GetHeapObjectIDResult)
+	params *profiler.GetHeapObjectIDParams,
+) <-chan *profiler.GetHeapObjectIDResult {
+	resultChan := make(chan *profiler.GetHeapObjectIDResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.getHeapObjectID", params)
-	result := &heapProfiler.GetHeapObjectIDResult{}
+	result := &profiler.GetHeapObjectIDResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -142,11 +142,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getO
 EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) GetObjectByHeapObjectID(
-	params *heapProfiler.GetObjectByHeapObjectIDParams,
-) chan *heapProfiler.GetObjectByHeapObjectIDResult {
-	resultChan := make(chan *heapProfiler.GetObjectByHeapObjectIDResult)
+	params *profiler.GetObjectByHeapObjectIDParams,
+) <-chan *profiler.GetObjectByHeapObjectIDResult {
+	resultChan := make(chan *profiler.GetObjectByHeapObjectIDResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.getObjectByHeapObjectId", params)
-	result := &heapProfiler.GetObjectByHeapObjectIDResult{}
+	result := &profiler.GetObjectByHeapObjectIDResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -169,11 +169,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-getS
 EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) GetSamplingProfile(
-	params *heapProfiler.GetSamplingProfileParams,
-) chan *heapProfiler.GetSamplingProfileResult {
-	resultChan := make(chan *heapProfiler.GetSamplingProfileResult)
+	params *profiler.GetSamplingProfileParams,
+) <-chan *profiler.GetSamplingProfileResult {
+	resultChan := make(chan *profiler.GetSamplingProfileResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.getSamplingProfile", params)
-	result := &heapProfiler.GetSamplingProfileResult{}
+	result := &profiler.GetSamplingProfileResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -194,11 +194,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-star
 EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) StartSampling(
-	params *heapProfiler.StartSamplingParams,
-) chan *heapProfiler.StartSamplingResult {
-	resultChan := make(chan *heapProfiler.StartSamplingResult)
+	params *profiler.StartSamplingParams,
+) <-chan *profiler.StartSamplingResult {
+	resultChan := make(chan *profiler.StartSamplingResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.startSampling", params)
-	result := &heapProfiler.StartSamplingResult{}
+	result := &profiler.StartSamplingResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -219,11 +219,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-star
 EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) StartTrackingHeapObjects(
-	params *heapProfiler.StartTrackingHeapObjectsParams,
-) chan *heapProfiler.StartTrackingHeapObjectsResult {
-	resultChan := make(chan *heapProfiler.StartTrackingHeapObjectsResult)
+	params *profiler.StartTrackingHeapObjectsParams,
+) <-chan *profiler.StartTrackingHeapObjectsResult {
+	resultChan := make(chan *profiler.StartTrackingHeapObjectsResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.startTrackingHeapObjects", params)
-	result := &heapProfiler.StartTrackingHeapObjectsResult{}
+	result := &profiler.StartTrackingHeapObjectsResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -244,11 +244,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stop
 EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) StopSampling(
-	params *heapProfiler.StopSamplingParams,
-) chan *heapProfiler.StopSamplingResult {
-	resultChan := make(chan *heapProfiler.StopSamplingResult)
+	params *profiler.StopSamplingParams,
+) <-chan *profiler.StopSamplingResult {
+	resultChan := make(chan *profiler.StopSamplingResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.stopSampling", params)
-	result := &heapProfiler.StopSamplingResult{}
+	result := &profiler.StopSamplingResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -269,11 +269,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-stop
 EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) StopTrackingHeapObjects(
-	params *heapProfiler.StopTrackingHeapObjectsParams,
-) chan *heapProfiler.StopTrackingHeapObjectsResult {
-	resultChan := make(chan *heapProfiler.StopTrackingHeapObjectsResult)
+	params *profiler.StopTrackingHeapObjectsParams,
+) <-chan *profiler.StopTrackingHeapObjectsResult {
+	resultChan := make(chan *profiler.StopTrackingHeapObjectsResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.stopTrackingHeapObjects", params)
-	result := &heapProfiler.StopTrackingHeapObjectsResult{}
+	result := &profiler.StopTrackingHeapObjectsResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -294,11 +294,11 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#method-take
 EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) TakeHeapSnapshot(
-	params *heapProfiler.TakeHeapSnapshotParams,
-) chan *heapProfiler.TakeHeapSnapshotResult {
-	resultChan := make(chan *heapProfiler.TakeHeapSnapshotResult)
+	params *profiler.TakeHeapSnapshotParams,
+) <-chan *profiler.TakeHeapSnapshotResult {
+	resultChan := make(chan *profiler.TakeHeapSnapshotResult)
 	command := NewCommand(protocol.Socket, "HeapProfiler.takeHeapSnapshot", params)
-	result := &heapProfiler.TakeHeapSnapshotResult{}
+	result := &profiler.TakeHeapSnapshotResult{}
 
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
@@ -320,12 +320,12 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-addHe
 EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) OnAddHeapSnapshotChunk(
-	callback func(event *heapProfiler.AddHeapSnapshotChunkEvent),
+	callback func(event *profiler.AddHeapSnapshotChunkEvent),
 ) {
 	handler := NewEventHandler(
 		"HeapProfiler.addHeapSnapshotChunk",
 		func(response *Response) {
-			event := &heapProfiler.AddHeapSnapshotChunkEvent{}
+			event := &profiler.AddHeapSnapshotChunkEvent{}
 			json.Unmarshal([]byte(response.Result), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
@@ -344,12 +344,12 @@ one or more fragments.
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-heapStatsUpdate
 */
 func (protocol *HeapProfilerProtocol) OnHeapStatsUpdate(
-	callback func(event *heapProfiler.HeapStatsUpdateEvent),
+	callback func(event *profiler.HeapStatsUpdateEvent),
 ) {
 	handler := NewEventHandler(
 		"HeapProfiler.heapStatsUpdate",
 		func(response *Response) {
-			event := &heapProfiler.HeapStatsUpdateEvent{}
+			event := &profiler.HeapStatsUpdateEvent{}
 			json.Unmarshal([]byte(response.Result), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
@@ -370,12 +370,12 @@ will be sent before a new lastSeenObjectId event.
 https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-lastSeenObjectId
 */
 func (protocol *HeapProfilerProtocol) OnLastSeenObjectID(
-	callback func(event *heapProfiler.LastSeenObjectIDEvent),
+	callback func(event *profiler.LastSeenObjectIDEvent),
 ) {
 	handler := NewEventHandler(
 		"HeapProfiler.lastSeenObjectID",
 		func(response *Response) {
-			event := &heapProfiler.LastSeenObjectIDEvent{}
+			event := &profiler.LastSeenObjectIDEvent{}
 			json.Unmarshal([]byte(response.Result), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
@@ -395,12 +395,12 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-repor
 EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) OnReportHeapSnapshotProgress(
-	callback func(event *heapProfiler.ReportHeapSnapshotProgressEvent),
+	callback func(event *profiler.ReportHeapSnapshotProgressEvent),
 ) {
 	handler := NewEventHandler(
 		"HeapProfiler.reportHeapSnapshotProgress",
 		func(response *Response) {
-			event := &heapProfiler.ReportHeapSnapshotProgressEvent{}
+			event := &profiler.ReportHeapSnapshotProgressEvent{}
 			json.Unmarshal([]byte(response.Result), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
@@ -418,12 +418,12 @@ https://chromedevtools.github.io/devtools-protocol/tot/HeapProfiler/#event-reset
 EXPERIMENTAL.
 */
 func (protocol *HeapProfilerProtocol) OnResetProfiles(
-	callback func(event *heapProfiler.ResetProfilesEvent),
+	callback func(event *profiler.ResetProfilesEvent),
 ) {
 	handler := NewEventHandler(
 		"HeapProfiler.resetProfiles",
 		func(response *Response) {
-			event := &heapProfiler.ResetProfilesEvent{}
+			event := &profiler.ResetProfilesEvent{}
 			json.Unmarshal([]byte(response.Result), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error

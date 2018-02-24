@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
+	"github.com/mkenney/go-chrome/tot/cdtp/runtime"
 )
 
 /*
@@ -28,7 +28,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-awaitProm
 */
 func (protocol *RuntimeProtocol) AwaitPromise(
 	params *runtime.AwaitPromiseParams,
-) chan *runtime.AwaitPromiseResult {
+) <-chan *runtime.AwaitPromiseResult {
 	resultChan := make(chan *runtime.AwaitPromiseResult)
 	command := NewCommand(protocol.Socket, "Runtime.awaitPromise", params)
 	result := &runtime.AwaitPromiseResult{}
@@ -55,7 +55,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-callFunct
 */
 func (protocol *RuntimeProtocol) CallFunctionOn(
 	params *runtime.CallFunctionOnParams,
-) chan *runtime.CallFunctionOnResult {
+) <-chan *runtime.CallFunctionOnResult {
 	resultChan := make(chan *runtime.CallFunctionOnResult)
 	command := NewCommand(protocol.Socket, "Runtime.callFunctionOn", params)
 	result := &runtime.CallFunctionOnResult{}
@@ -81,7 +81,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-compileSc
 */
 func (protocol *RuntimeProtocol) CompileScript(
 	params *runtime.CompileScriptParams,
-) chan *runtime.CompileScriptResult {
+) <-chan *runtime.CompileScriptResult {
 	resultChan := make(chan *runtime.CompileScriptResult)
 	command := NewCommand(protocol.Socket, "Runtime.compileScript", params)
 	result := &runtime.CompileScriptResult{}
@@ -105,7 +105,7 @@ Disable disables reporting of execution contexts creation.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-disable
 */
-func (protocol *RuntimeProtocol) Disable() chan *runtime.DisableResult {
+func (protocol *RuntimeProtocol) Disable() <-chan *runtime.DisableResult {
 	resultChan := make(chan *runtime.DisableResult)
 	command := NewCommand(protocol.Socket, "Runtime.disable", nil)
 	result := &runtime.DisableResult{}
@@ -127,7 +127,7 @@ DiscardConsoleEntries discards collected exceptions and console API calls.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-discardConsoleEntries
 */
-func (protocol *RuntimeProtocol) DiscardConsoleEntries() chan *runtime.DiscardConsoleEntriesResult {
+func (protocol *RuntimeProtocol) DiscardConsoleEntries() <-chan *runtime.DiscardConsoleEntriesResult {
 	resultChan := make(chan *runtime.DiscardConsoleEntriesResult)
 	command := NewCommand(protocol.Socket, "Runtime.discardConsoleEntries", nil)
 	result := &runtime.DiscardConsoleEntriesResult{}
@@ -151,7 +151,7 @@ will be sent immediately for each existing execution context.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-enable
 */
-func (protocol *RuntimeProtocol) Enable() chan *runtime.EnableResult {
+func (protocol *RuntimeProtocol) Enable() <-chan *runtime.EnableResult {
 	resultChan := make(chan *runtime.EnableResult)
 	command := NewCommand(protocol.Socket, "Runtime.enable", nil)
 	result := &runtime.EnableResult{}
@@ -175,7 +175,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-evaluate
 */
 func (protocol *RuntimeProtocol) Evaluate(
 	params *runtime.EvaluateParams,
-) chan *runtime.EvaluateResult {
+) <-chan *runtime.EvaluateResult {
 	resultChan := make(chan *runtime.EvaluateResult)
 	command := NewCommand(protocol.Socket, "Runtime.evaluate", params)
 	result := &runtime.EvaluateResult{}
@@ -202,7 +202,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-getProper
 */
 func (protocol *RuntimeProtocol) GetProperties(
 	params *runtime.GetPropertiesParams,
-) chan *runtime.GetPropertiesResult {
+) <-chan *runtime.GetPropertiesResult {
 	resultChan := make(chan *runtime.GetPropertiesResult)
 	command := NewCommand(protocol.Socket, "Runtime.getProperties", params)
 	result := &runtime.GetPropertiesResult{}
@@ -229,7 +229,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-globalLex
 */
 func (protocol *RuntimeProtocol) GlobalLexicalScopeNames(
 	params *runtime.GlobalLexicalScopeNamesParams,
-) chan *runtime.GlobalLexicalScopeNamesResult {
+) <-chan *runtime.GlobalLexicalScopeNamesResult {
 	resultChan := make(chan *runtime.GlobalLexicalScopeNamesResult)
 	command := NewCommand(protocol.Socket, "Runtime.globalLexicalScopeNames", params)
 	result := &runtime.GlobalLexicalScopeNamesResult{}
@@ -255,7 +255,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-queryObje
 */
 func (protocol *RuntimeProtocol) QueryObjects(
 	params *runtime.QueryObjectsParams,
-) chan *runtime.QueryObjectsResult {
+) <-chan *runtime.QueryObjectsResult {
 	resultChan := make(chan *runtime.QueryObjectsResult)
 	command := NewCommand(protocol.Socket, "Runtime.queryObjects", params)
 	result := &runtime.QueryObjectsResult{}
@@ -281,7 +281,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseOb
 */
 func (protocol *RuntimeProtocol) ReleaseObject(
 	params *runtime.ReleaseObjectParams,
-) chan *runtime.ReleaseObjectResult {
+) <-chan *runtime.ReleaseObjectResult {
 	resultChan := make(chan *runtime.ReleaseObjectResult)
 	command := NewCommand(protocol.Socket, "Runtime.releaseObject", params)
 	result := &runtime.ReleaseObjectResult{}
@@ -305,7 +305,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-releaseOb
 */
 func (protocol *RuntimeProtocol) ReleaseObjectGroup(
 	params *runtime.ReleaseObjectGroupParams,
-) chan *runtime.ReleaseObjectGroupResult {
+) <-chan *runtime.ReleaseObjectGroupResult {
 	resultChan := make(chan *runtime.ReleaseObjectGroupResult)
 	command := NewCommand(protocol.Socket, "Runtime.releaseObjectGroup", params)
 	result := &runtime.ReleaseObjectGroupResult{}
@@ -328,7 +328,7 @@ debugger to attach.
 
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-runIfWaitingForDebugger
 */
-func (protocol *RuntimeProtocol) RunIfWaitingForDebugger() chan *runtime.RunIfWaitingForDebuggerResult {
+func (protocol *RuntimeProtocol) RunIfWaitingForDebugger() <-chan *runtime.RunIfWaitingForDebuggerResult {
 	resultChan := make(chan *runtime.RunIfWaitingForDebuggerResult)
 	command := NewCommand(protocol.Socket, "Runtime.runIfWaitingForDebugger", nil)
 	result := &runtime.RunIfWaitingForDebuggerResult{}
@@ -352,7 +352,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-runScript
 */
 func (protocol *RuntimeProtocol) RunScript(
 	params *runtime.RunScriptParams,
-) chan *runtime.RunScriptResult {
+) <-chan *runtime.RunScriptResult {
 	resultChan := make(chan *runtime.RunScriptResult)
 	command := NewCommand(protocol.Socket, "Runtime.runScript", params)
 	result := &runtime.RunScriptResult{}
@@ -379,7 +379,7 @@ EXPERIMENTAL.
 */
 func (protocol *RuntimeProtocol) SetCustomObjectFormatterEnabled(
 	params *runtime.SetCustomObjectFormatterEnabledParams,
-) chan *runtime.SetCustomObjectFormatterEnabledResult {
+) <-chan *runtime.SetCustomObjectFormatterEnabledResult {
 	resultChan := make(chan *runtime.SetCustomObjectFormatterEnabledResult)
 	command := NewCommand(protocol.Socket, "Runtime.setCustomObjectFormatterEnabled", params)
 	result := &runtime.SetCustomObjectFormatterEnabledResult{}

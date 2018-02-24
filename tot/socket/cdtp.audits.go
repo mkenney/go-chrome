@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	audits "github.com/mkenney/go-chrome/tot/cdtp/audits"
+	"github.com/mkenney/go-chrome/tot/cdtp/audits"
 )
 
 /*
@@ -25,7 +25,7 @@ https://chromedevtools.github.io/devtools-protocol/tot/Audits/#method-getEncoded
 */
 func (protocol *AuditsProtocol) GetEncodedResponse(
 	params *audits.GetEncodedResponseParams,
-) chan *audits.GetEncodedResponseResult {
+) <-chan *audits.GetEncodedResponseResult {
 	resultChan := make(chan *audits.GetEncodedResponseResult)
 	command := NewCommand(protocol.Socket, "Audits.getEncodedResponse", params)
 	result := &audits.GetEncodedResponseResult{}
