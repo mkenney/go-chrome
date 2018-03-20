@@ -364,21 +364,26 @@ RemoveEventHandler is a Socketer implementation.
 */
 func (socket *Socket) RemoveEventHandler(
 	handler EventHandler,
-) {
+) error {
 	socket.handlers.Lock()
 	defer socket.handlers.Unlock()
 
-	if handlers, err := socket.handlers.Get(handler.Name()); nil != err {
-		log.Warnf("socket #%d - Could not remove handler: %s", socket.socketID, err.Error())
-	} else {
-		for i, hndlr := range handlers {
-			if hndlr == handler {
-				handlers = append(handlers[:i], handlers[i+1:]...)
-				socket.handlers.Set(handler.Name(), handlers)
-				return
-			}
+	handlers, err := socket.handlers.Get(handler.Name())
+	if nil != err {
+		log.Warnf("socket #%d - RemoveEventHandler(): Could not remove handler: %s", socket.socketID, err.Error())
+		return err
+	}
+
+	for i, hndlr := range handlers {
+		if hndlr == handler {
+			handlers = append(handlers[:i], handlers[i+1:]...)
+			socket.handlers.Set(handler.Name(), handlers)
+			return nil
 		}
 	}
+
+	log.Warnf("socket #%d - RemoveEventHandler(): handler not found")
+	return nil
 }
 
 /*

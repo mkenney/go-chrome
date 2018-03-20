@@ -80,32 +80,76 @@ func TestListenCommandUnknown(t *testing.T) {
 	if nil == result.Error {
 		t.Errorf("Expected error, received nil")
 	}
+
+	mockSocket2 := NewMock(socketURL)
+	defer mockSocket2.Stop()
+	mockSocket2.Conn().AddMockData(&Response{
+		ID:     0,
+		Error:  &Error{},
+		Method: "",
+	})
 }
 
-func TestReadJSONError(t *testing.T) {
-	//	socketURL, _ := url.Parse("https://www.example.com/error")
-	//	mockSocket := NewMock(socketURL)
-	//	go mockSocket.Listen()
-	//	defer mockSocket.Stop()
-	//
-	//	mockSocket.Conn().AddMockData(
-	//		0,
-	//		&Error{},
-	//		"Some.event",
-	//		"Mock Event Result",
-	//	)
-	//
-	//	mockSocket := NewMock(socketURL)
-	//	err := mockSocket.Listen()
-	//
-	//	if nil == err {
-	//		t.Errorf("Expected an error, received nil")
-	//	}
-	//
-	//	if "Mock Read Error" != err.Error() {
-	//		t.Errorf("Expected error message 'Mock Read Error', received '%s'", err.Error())
-	//	}
+func TestRemoveEventHandler(t *testing.T) {
+	var err error
+	socketURL, _ := url.Parse("https://www.example.com/error")
+	mockSocket := NewMock(socketURL)
+	go mockSocket.Listen()
+	defer mockSocket.Stop()
+
+	handler1 := NewEventHandler(
+		"Test.event",
+		func(response *Response) {},
+	)
+	handler2 := NewEventHandler(
+		"Test.event",
+		func(response *Response) {},
+	)
+
+	// Remove before added
+	err = mockSocket.RemoveEventHandler(handler1)
+	if nil == err {
+		t.Errorf("Expected error, received nil")
+	}
+
+	// Remove added handler
+	mockSocket.AddEventHandler(handler1)
+	err = mockSocket.RemoveEventHandler(handler1)
+	if nil != err {
+		t.Errorf("Expected nil, received error: %s", err.Error())
+	}
+
+	// Removed but never added
+	err = mockSocket.RemoveEventHandler(handler2)
+	if nil != err {
+		t.Errorf("Expected nil, received error: %s", err.Error())
+	}
 }
+
+//func TestReadJSONError(t *testing.T) {
+//	socketURL, _ := url.Parse("https://www.example.com/error")
+//	mockSocket := NewMock(socketURL)
+//	go mockSocket.Listen()
+//	defer mockSocket.Stop()
+//
+//	mockSocket.Conn().AddMockData(
+//		0,
+//		&Error{},
+//		"Some.event",
+//		"Mock Event Result",
+//	)
+//
+//	mockSocket := NewMock(socketURL)
+//	err := mockSocket.Listen()
+//
+//	if nil == err {
+//		t.Errorf("Expected an error, received nil")
+//	}
+//
+//	if "Mock Read Error" != err.Error() {
+//		t.Errorf("Expected error message 'Mock Read Error', received '%s'", err.Error())
+//	}
+//}
 
 func TestURL(t *testing.T) {
 	socketURL, _ := url.Parse("https://www.example.com/")

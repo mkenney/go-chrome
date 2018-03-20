@@ -24,7 +24,7 @@ type Socketer interface {
 
 	// RemoveEventHandler removes a handler from the stack of listeners for an
 	// event.
-	RemoveEventHandler(handler EventHandler)
+	RemoveEventHandler(handler EventHandler) error
 
 	// SendCommand delivers a command payload to the websocket connection.
 	SendCommand(command Commander) chan *Response
