@@ -85,10 +85,10 @@ Default value is 'localhost'
 */
 func (chrome *Chrome) Address() string {
 	if !chrome.Flags().Has("addr") {
-		chrome.Flags().Set("addr", []interface{}{"localhost"})
+		chrome.Flags().Set("addr", "localhost")
 	}
 	value, _ := chrome.Flags().Get("addr")
-	return value[0].(string)
+	return value.(string)
 }
 
 /*
@@ -138,10 +138,10 @@ Default value is '0.0.0.0'.
 */
 func (chrome *Chrome) DebuggingAddress() string {
 	if !chrome.Flags().Has("remote-debugging-address") {
-		chrome.Flags().Set("remote-debugging-address", []interface{}{"0.0.0.0"})
+		chrome.Flags().Set("remote-debugging-address", "0.0.0.0")
 	}
 	value, _ := chrome.Flags().Get("remote-debugging-address")
-	return value[0].(string)
+	return value.(string)
 }
 
 /*
@@ -149,10 +149,10 @@ DebuggingPort implements Chromium.
 */
 func (chrome *Chrome) DebuggingPort() int {
 	if !chrome.Flags().Has("remote-debugging-port") {
-		chrome.Flags().Set("remote-debugging-port", []interface{}{9222})
+		chrome.Flags().Set("remote-debugging-port", 9222)
 	}
 	value, _ := chrome.Flags().Get("remote-debugging-port")
-	return value[0].(int)
+	return value.(int)
 }
 
 /*
@@ -191,7 +191,7 @@ func (chrome *Chrome) Launch() error {
 	chrome.DebuggingPort()
 	chrome.Port()
 	if !chrome.Flags().Has("user-data-dir") {
-		chrome.Flags().Set("user-data-dir", []interface{}{os.TempDir()})
+		chrome.Flags().Set("user-data-dir", os.TempDir())
 	}
 
 	if err := os.MkdirAll(chrome.Workdir(), 0700); err != nil {
@@ -262,10 +262,10 @@ Default value is 9222
 */
 func (chrome *Chrome) Port() int {
 	if !chrome.Flags().Has("port") {
-		chrome.Flags().Set("port", []interface{}{9222})
+		chrome.Flags().Set("port", 9222)
 	}
 	value, _ := chrome.Flags().Get("port")
-	return value[0].(int)
+	return value.(int)
 }
 
 /*

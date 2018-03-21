@@ -83,8 +83,8 @@ func TestChromiumLaunch(t *testing.T) {
 func TestChromiumQuery(t *testing.T) {
 	chrome := New(
 		&Flags{
-			"remote-debugging-port": []interface{}{0},
-			"port":                  []interface{}{0},
+			"remote-debugging-port": 0,
+			"port":                  0,
 		},
 		"",
 		"",
@@ -104,8 +104,8 @@ func TestChromiumQuery(t *testing.T) {
 func TestChromiumTabs(t *testing.T) {
 	chrome := New(
 		&Flags{
-			"remote-debugging-port": []interface{}{0},
-			"port":                  []interface{}{0},
+			"remote-debugging-port": 0,
+			"port":                  0,
 		},
 		"", //"path/to/chrome",
 		"", //"path/to/stderr",
@@ -121,10 +121,10 @@ func TestChromiumTabs(t *testing.T) {
 func TestChromiumVersion(t *testing.T) {
 	chrome := New(
 		&Flags{
-			"addr": []interface{}{"devnul"},
-			"remote-debugging-address": []interface{}{"devnul"},
-			"port":                  []interface{}{9222},
-			"remote-debugging-port": []interface{}{9222},
+			"addr": "devnul",
+			"remote-debugging-address": "devnul",
+			"port":                  9222,
+			"remote-debugging-port": 9222,
 		},
 		"", //"path/to/chrome",
 		"", //"path/to/stderr",

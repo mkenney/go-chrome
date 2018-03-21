@@ -29,13 +29,13 @@ func TestChromiumFlagsList(t *testing.T) {
 	flags := &Flags{}
 	list := flags.List()
 	if nil != list {
-		t.Errorf("Expected nil, received %v", list)
+		t.Errorf("expected nil, received %T: %+v", list, list)
 	}
 
 	flags = &Flags{
-		"test-1": []interface{}{},
-		"test-2": []interface{}{"string"},
-		"test-3": []interface{}{1},
+		"test-1": nil,
+		"test-2": "string",
+		"test-3": 1,
 	}
 
 	list = flags.List()
@@ -65,17 +65,17 @@ func TestChromiumFlagsSet(t *testing.T) {
 		t.Errorf("Expected nil, received error '%s'", err.Error())
 	}
 
-	err = flags.Set("test-2", []interface{}{"string"})
+	err = flags.Set("test-2", "string")
 	if nil != err {
 		t.Errorf("Expected nil, received error '%s'", err.Error())
 	}
 
-	err = flags.Set("test-3", []interface{}{1})
+	err = flags.Set("test-3", 1)
 	if nil != err {
 		t.Errorf("Expected nil, received error '%s'", err.Error())
 	}
 
-	err = flags.Set("test-4", []interface{}{false})
+	err = flags.Set("test-4", false)
 	if nil == err {
 		t.Errorf("Expected error, received nil")
 	}
@@ -91,9 +91,9 @@ func TestChromiumFlagsSet(t *testing.T) {
 
 func TestChromiumFlagsString(t *testing.T) {
 	flags := &Flags{
-		"test-1": []interface{}{},
-		"test-2": []interface{}{"string"},
-		"test-3": []interface{}{1},
+		"test-1": nil,
+		"test-2": "string",
+		"test-3": 1,
 	}
 
 	args := flags.String()

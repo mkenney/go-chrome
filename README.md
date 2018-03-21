@@ -47,11 +47,63 @@ There are a few small examples of how to use the framework API on the [wiki](htt
 
 # TODO
 
-Add more tests, especially for error cases. If you would like to contribute but aren't sure how, take a look at [codecov](https://codecov.io/gh/mkenney/go-chrome) for any tests that could be written. There are [many](https://github.com/mkenney/go-chrome/blob/master/tot/socket/cdtp.animation_test.go) [examples](https://github.com/mkenney/go-chrome/blob/master/tot/cdtp/animation/enum.animation.type_test.go) of tests in the repo.
-
 Any contributions of any kind are very welcome!
 
+* Refactoring to implement standard interfaces where applicable and review current use of interfaces in the API. Some aren't needed at all and others are used to support test mocks.
+* Add more tests, especially for error cases. If you would like to contribute but aren't sure how, take a look at [codecov](https://codecov.io/gh/mkenney/go-chrome) for any tests that could be written. There are [many](https://github.com/mkenney/go-chrome/blob/master/tot/socket/cdtp.animation_test.go) [examples](https://github.com/mkenney/go-chrome/blob/master/tot/cdtp/animation/enum.animation.type_test.go) of tests in the repo.
+
 # Change Log
+
+## 2017-03-20
+
+Removed the unnecessary array notation for the flags passed to the Chrome process. This is a breaking change but it's simple to update client code and easier to use in general.
+
+When defining your Chrome instance, remove any `[]interface{}{}` declarations in the `Flags` parameter. To demonstrate, the [example code](https://github.com/mkenney/go-chrome/wiki/Example%3A-Capture-A-Screenshot) has changed from:
+```go
+	// Define a chrome instance with remote debugging enabled.
+	browser := chrome.New(
+		&chrome.Flags{
+			"addr":               []interface{}{"localhost"},
+			"disable-extensions": nil,
+			"disable-gpu":        nil,
+			"headless":           nil,
+			"hide-scrollbars":    nil,
+			"no-first-run":       nil,
+			"no-sandbox":         nil,
+			"port":               []interface{}{9222},
+			"remote-debugging-address": []interface{}{"0.0.0.0"},
+			"remote-debugging-port":    []interface{}{9222},
+		},
+		"/usr/bin/google-chrome",
+		"",
+		"",
+		"",
+	)
+```
+to simply:
+```go
+	// Define a chrome instance with remote debugging enabled.
+	browser := chrome.New(
+		&chrome.Flags{
+			"addr":               "localhost",
+			"disable-extensions": nil,
+			"disable-gpu":        nil,
+			"headless":           nil,
+			"hide-scrollbars":    nil,
+			"no-first-run":       nil,
+			"no-sandbox":         nil,
+			"port":               9222,
+			"remote-debugging-address": "0.0.0.0",
+			"remote-debugging-port":    9222,
+		},
+		"/usr/bin/google-chrome",
+		"",
+		"",
+		"",
+	)
+```
+
+It's easier to deal with, simpler to understand, and supporting multiple values wasn't ever useful. An [argument could be made](https://github.com/mkenney/go-chrome/issues/new) for supporting something like [`pkg/flag`](https://golang.org/pkg/flag/) I suppose but I don't generally need a CLI interface.
 
 ## 2017-02-06
 
