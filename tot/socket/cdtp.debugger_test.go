@@ -26,7 +26,7 @@ func TestDebuggerContinueToLocation(t *testing.T) {
 	})
 	mockResult := &debugger.ContinueToLocationResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -44,7 +44,7 @@ func TestDebuggerContinueToLocation(t *testing.T) {
 		},
 		TargetCallFrames: debugger.TargetCallFrames.Any,
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -67,7 +67,7 @@ func TestDebuggerDisable(t *testing.T) {
 	resultChan := mockSocket.Debugger().Disable()
 	mockResult := &debugger.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -78,7 +78,7 @@ func TestDebuggerDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Debugger().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -101,7 +101,7 @@ func TestDebuggerEnable(t *testing.T) {
 	resultChan := mockSocket.Debugger().Enable()
 	mockResult := &debugger.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -112,7 +112,7 @@ func TestDebuggerEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Debugger().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -177,7 +177,7 @@ func TestDebuggerEvaluateOnCallFrame(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	log.Debugf("mock data: %s", mockResultBytes)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -200,7 +200,7 @@ func TestDebuggerEvaluateOnCallFrame(t *testing.T) {
 		GeneratePreview:       true,
 		ThrowOnSideEffect:     true,
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -242,7 +242,7 @@ func TestDebuggerGetPossibleBreakpoints(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -268,7 +268,7 @@ func TestDebuggerGetPossibleBreakpoints(t *testing.T) {
 		},
 		RestrictToFunction: true,
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -295,7 +295,7 @@ func TestDebuggerGetScriptSource(t *testing.T) {
 		ScriptSource: "script-source",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -311,7 +311,7 @@ func TestDebuggerGetScriptSource(t *testing.T) {
 	resultChan = mockSocket.Debugger().GetScriptSource(&debugger.GetScriptSourceParams{
 		ScriptID: runtime.ScriptID("script-id"),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -349,7 +349,7 @@ func TestDebuggerGetStackTrace(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -368,7 +368,7 @@ func TestDebuggerGetStackTrace(t *testing.T) {
 			DebuggerID: runtime.UniqueDebuggerID("unique-debugger-id"),
 		},
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -391,7 +391,7 @@ func TestDebuggerPause(t *testing.T) {
 	resultChan := mockSocket.Debugger().Pause()
 	mockResult := &debugger.PauseResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -402,7 +402,7 @@ func TestDebuggerPause(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Debugger().Pause()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -430,7 +430,7 @@ func TestDebuggerPauseOnAsyncCall(t *testing.T) {
 	})
 	mockResult := &debugger.PauseOnAsyncCallResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -446,7 +446,7 @@ func TestDebuggerPauseOnAsyncCall(t *testing.T) {
 			DebuggerID: runtime.UniqueDebuggerID("unique-debugger-id"),
 		},
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -471,7 +471,7 @@ func TestDebuggerRemoveBreakpoint(t *testing.T) {
 	})
 	mockResult := &debugger.RemoveBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -484,7 +484,7 @@ func TestDebuggerRemoveBreakpoint(t *testing.T) {
 	resultChan = mockSocket.Debugger().RemoveBreakpoint(&debugger.RemoveBreakpointParams{
 		BreakpointID: debugger.BreakpointID("breakpoint-id"),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -553,7 +553,7 @@ func TestDebuggerRestartFrame(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -569,7 +569,7 @@ func TestDebuggerRestartFrame(t *testing.T) {
 	resultChan = mockSocket.Debugger().RestartFrame(&debugger.RestartFrameParams{
 		CallFrameID: debugger.CallFrameID("call-frame-id"),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -592,7 +592,7 @@ func TestDebuggerResume(t *testing.T) {
 	resultChan := mockSocket.Debugger().Resume()
 	mockResult := &debugger.ResumeResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -603,7 +603,7 @@ func TestDebuggerResume(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Debugger().Resume()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -626,7 +626,7 @@ func TestDebuggerScheduleStepIntoAsync(t *testing.T) {
 	resultChan := mockSocket.Debugger().ScheduleStepIntoAsync()
 	mockResult := &debugger.ScheduleStepIntoAsyncResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -637,7 +637,7 @@ func TestDebuggerScheduleStepIntoAsync(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Debugger().ScheduleStepIntoAsync()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -670,7 +670,7 @@ func TestDebuggerSearchInContent(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -689,7 +689,7 @@ func TestDebuggerSearchInContent(t *testing.T) {
 		CaseSensitive: true,
 		IsRegex:       true,
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -714,7 +714,7 @@ func TestDebuggerSetAsyncCallStackDepth(t *testing.T) {
 	})
 	mockResult := &debugger.SetAsyncCallStackDepthResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -727,7 +727,7 @@ func TestDebuggerSetAsyncCallStackDepth(t *testing.T) {
 	resultChan = mockSocket.Debugger().SetAsyncCallStackDepth(&debugger.SetAsyncCallStackDepthParams{
 		MaxDepth: 1,
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -752,7 +752,7 @@ func TestDebuggerSetBlackboxPatterns(t *testing.T) {
 	})
 	mockResult := &debugger.SetBlackboxPatternsResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -765,7 +765,7 @@ func TestDebuggerSetBlackboxPatterns(t *testing.T) {
 	resultChan = mockSocket.Debugger().SetBlackboxPatterns(&debugger.SetBlackboxPatternsParams{
 		Patterns: []string{"pattern 1", "pattern 2"},
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -794,7 +794,7 @@ func TestDebuggerSetBlackboxedRanges(t *testing.T) {
 	})
 	mockResult := &debugger.SetBlackboxedRangesResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -811,7 +811,7 @@ func TestDebuggerSetBlackboxedRanges(t *testing.T) {
 			ColumnNumber: 1,
 		}},
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -848,7 +848,7 @@ func TestDebuggerSetBreakpoint(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -869,7 +869,7 @@ func TestDebuggerSetBreakpoint(t *testing.T) {
 		},
 		Condition: "breakpoint-condition",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -906,7 +906,7 @@ func TestDebuggerSetBreakpointByURL(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -927,7 +927,7 @@ func TestDebuggerSetBreakpointByURL(t *testing.T) {
 		ColumnNumber: 1,
 		Condition:    "some condition",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -952,7 +952,7 @@ func TestDebuggerSetBreakpointsActive(t *testing.T) {
 	})
 	mockResult := &debugger.SetBreakpointsActiveResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -965,7 +965,7 @@ func TestDebuggerSetBreakpointsActive(t *testing.T) {
 	resultChan = mockSocket.Debugger().SetBreakpointsActive(&debugger.SetBreakpointsActiveParams{
 		Active: true,
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -990,7 +990,7 @@ func TestDebuggerSetPauseOnExceptions(t *testing.T) {
 	})
 	mockResult := &debugger.SetPauseOnExceptionsResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1003,7 +1003,7 @@ func TestDebuggerSetPauseOnExceptions(t *testing.T) {
 	resultChan = mockSocket.Debugger().SetPauseOnExceptions(&debugger.SetPauseOnExceptionsParams{
 		State: debugger.State.None,
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1032,7 +1032,7 @@ func TestDebuggerSetReturnValue(t *testing.T) {
 	})
 	mockResult := &debugger.SetReturnValueResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1049,7 +1049,7 @@ func TestDebuggerSetReturnValue(t *testing.T) {
 			ObjectID:            runtime.RemoteObjectID("remote-object-id"),
 		},
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1142,7 +1142,7 @@ func TestDebuggerSetScriptSource(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1160,7 +1160,7 @@ func TestDebuggerSetScriptSource(t *testing.T) {
 		ScriptSource: "http://script.source",
 		DryRun:       true,
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1185,7 +1185,7 @@ func TestDebuggerSetSkipAllPauses(t *testing.T) {
 	})
 	mockResult := &debugger.SetSkipAllPausesResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1198,7 +1198,7 @@ func TestDebuggerSetSkipAllPauses(t *testing.T) {
 	resultChan = mockSocket.Debugger().SetSkipAllPauses(&debugger.SetSkipAllPausesParams{
 		Skip: true,
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1230,7 +1230,7 @@ func TestDebuggerSetVariableValue(t *testing.T) {
 	})
 	mockResult := &debugger.SetVariableValueResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1250,7 +1250,7 @@ func TestDebuggerSetVariableValue(t *testing.T) {
 		},
 		CallFrameID: debugger.CallFrameID("call-frame-id"),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1275,7 +1275,7 @@ func TestDebuggerStepInto(t *testing.T) {
 	})
 	mockResult := &debugger.StepIntoResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1288,7 +1288,7 @@ func TestDebuggerStepInto(t *testing.T) {
 	resultChan = mockSocket.Debugger().StepInto(&debugger.StepIntoParams{
 		BreakOnAsyncCall: true,
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1311,7 +1311,7 @@ func TestDebuggerStepOut(t *testing.T) {
 	resultChan := mockSocket.Debugger().StepOut()
 	mockResult := &debugger.StepOutResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1322,7 +1322,7 @@ func TestDebuggerStepOut(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Debugger().StepOut()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1345,7 +1345,7 @@ func TestDebuggerStepOver(t *testing.T) {
 	resultChan := mockSocket.Debugger().StepOver()
 	mockResult := &debugger.StepOverResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1356,7 +1356,7 @@ func TestDebuggerStepOver(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Debugger().StepOver()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1389,7 +1389,7 @@ func TestDebuggerOnBreakpointResolved(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Debugger.breakpointResolved",
@@ -1404,7 +1404,7 @@ func TestDebuggerOnBreakpointResolved(t *testing.T) {
 	mockSocket.Debugger().OnBreakpointResolved(func(eventData *debugger.BreakpointResolvedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1441,7 +1441,7 @@ func TestDebuggerOnPaused(t *testing.T) {
 		AsyncCallStackTraceID: &runtime.StackTraceID{},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Debugger.paused",
@@ -1456,7 +1456,7 @@ func TestDebuggerOnPaused(t *testing.T) {
 	mockSocket.Debugger().OnPaused(func(eventData *debugger.PausedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1483,7 +1483,7 @@ func TestDebuggerOnResumed(t *testing.T) {
 	})
 	mockResult := &debugger.ResumedEvent{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Debugger.resumed",
@@ -1498,7 +1498,7 @@ func TestDebuggerOnResumed(t *testing.T) {
 	mockSocket.Debugger().OnResumed(func(eventData *debugger.ResumedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1540,7 +1540,7 @@ func TestDebuggerOnScriptFailedToParse(t *testing.T) {
 		StackTrace:              &runtime.StackTrace{},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Debugger.scriptFailedToParse",
@@ -1555,7 +1555,7 @@ func TestDebuggerOnScriptFailedToParse(t *testing.T) {
 	mockSocket.Debugger().OnScriptFailedToParse(func(eventData *debugger.ScriptFailedToParseEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1598,7 +1598,7 @@ func TestDebuggerOnScriptParsed(t *testing.T) {
 		StackTrace:              &runtime.StackTrace{},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Debugger.scriptParsed",
@@ -1613,7 +1613,7 @@ func TestDebuggerOnScriptParsed(t *testing.T) {
 	mockSocket.Debugger().OnScriptParsed(func(eventData *debugger.ScriptParsedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

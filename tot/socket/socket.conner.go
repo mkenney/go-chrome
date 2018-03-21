@@ -12,7 +12,7 @@ Conn returns the current web socket pointer.
 
 Conn is a Conner implementation.
 */
-func (socket *Socket) Conn() *ChromeWebSocket {
+func (socket *Socket) Conn() WebSocketer {
 	socket.Connect()
 	return socket.conn
 }
@@ -61,7 +61,7 @@ Disconnect is a Conner implementation.
 */
 func (socket *Socket) Disconnect() error {
 	if !socket.connected {
-		return fmt.Errorf("Could not disconnect (no connection exists)")
+		return fmt.Errorf("not connected")
 	}
 	err := socket.conn.Close()
 	socket.conn = nil

@@ -17,7 +17,7 @@ func TestDatabaseDisable(t *testing.T) {
 	resultChan := mockSocket.Database().Disable()
 	mockResult := &database.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -28,7 +28,7 @@ func TestDatabaseDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Database().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -51,7 +51,7 @@ func TestDatabaseEnable(t *testing.T) {
 	resultChan := mockSocket.Database().Enable()
 	mockResult := &database.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -62,7 +62,7 @@ func TestDatabaseEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Database().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -95,7 +95,7 @@ func TestDatabaseExecuteSQL(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -112,7 +112,7 @@ func TestDatabaseExecuteSQL(t *testing.T) {
 		ID:    database.ID("db-id"),
 		Query: "SELECT * FROM table_name",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -139,7 +139,7 @@ func TestDatabaseGetTableNames(t *testing.T) {
 		TableNames: []string{"table1", "table2"},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -155,7 +155,7 @@ func TestDatabaseGetTableNames(t *testing.T) {
 	resultChan = mockSocket.Database().GetTableNames(&database.GetTableNamesParams{
 		ID: database.ID("db-id"),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -188,7 +188,7 @@ func TestDatabaseOnAdd(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Database.addDatabase",
@@ -203,7 +203,7 @@ func TestDatabaseOnAdd(t *testing.T) {
 	mockSocket.Database().OnAdd(func(eventData *database.AddEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

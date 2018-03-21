@@ -25,7 +25,7 @@ func TestPageAddScriptToEvaluateOnLoad(t *testing.T) {
 		Identifier: page.ScriptIdentifier("script-id"),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -39,7 +39,7 @@ func TestPageAddScriptToEvaluateOnLoad(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().AddScriptToEvaluateOnLoad(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -67,7 +67,7 @@ func TestPageAddScriptToEvaluateOnNewDocument(t *testing.T) {
 		Identifier: page.ScriptIdentifier("script-id"),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -81,7 +81,7 @@ func TestPageAddScriptToEvaluateOnNewDocument(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().AddScriptToEvaluateOnNewDocument(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -104,7 +104,7 @@ func TestPageBringToFront(t *testing.T) {
 	resultChan := mockSocket.Page().BringToFront()
 	mockResult := &page.BringToFrontResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -115,7 +115,7 @@ func TestPageBringToFront(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().BringToFront()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -152,7 +152,7 @@ func TestPageCaptureScreenshot(t *testing.T) {
 		Data: "screenshot data",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -166,7 +166,7 @@ func TestPageCaptureScreenshot(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().CaptureScreenshot(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -196,7 +196,7 @@ func TestPageCreateIsolatedWorld(t *testing.T) {
 		ExecutionContextID: runtime.ExecutionContextID(1),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -210,7 +210,7 @@ func TestPageCreateIsolatedWorld(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().CreateIsolatedWorld(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -233,7 +233,7 @@ func TestPageDisable(t *testing.T) {
 	resultChan := mockSocket.Page().Disable()
 	mockResult := &page.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -244,7 +244,7 @@ func TestPageDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -267,7 +267,7 @@ func TestPageEnable(t *testing.T) {
 	resultChan := mockSocket.Page().Enable()
 	mockResult := &page.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -278,7 +278,7 @@ func TestPageEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -311,7 +311,7 @@ func TestPageGetAppManifest(t *testing.T) {
 	resultChan := mockSocket.Page().GetAppManifest(params)
 	mockResult := &page.GetAppManifestResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -322,7 +322,7 @@ func TestPageGetAppManifest(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().GetAppManifest(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -359,7 +359,7 @@ func TestPageGetFrameTree(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -373,7 +373,7 @@ func TestPageGetFrameTree(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().GetFrameTree()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -418,7 +418,7 @@ func TestPageGetLayoutMetrics(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -432,7 +432,7 @@ func TestPageGetLayoutMetrics(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().GetLayoutMetrics()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -464,7 +464,7 @@ func TestPageGetNavigationHistory(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -478,7 +478,7 @@ func TestPageGetNavigationHistory(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().GetNavigationHistory()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -507,7 +507,7 @@ func TestPageGetResourceContent(t *testing.T) {
 		Base64Encoded: true,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -521,7 +521,7 @@ func TestPageGetResourceContent(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().GetResourceContent(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -559,7 +559,7 @@ func TestPageGetResourceTree(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -573,7 +573,7 @@ func TestPageGetResourceTree(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().GetResourceTree()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -600,7 +600,7 @@ func TestPageHandleJavaScriptDialog(t *testing.T) {
 	resultChan := mockSocket.Page().HandleJavaScriptDialog(params)
 	mockResult := &page.HandleJavaScriptDialogResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -611,7 +611,7 @@ func TestPageHandleJavaScriptDialog(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().HandleJavaScriptDialog(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -643,7 +643,7 @@ func TestPageNavigate(t *testing.T) {
 		ErrorText: "error text",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -657,7 +657,7 @@ func TestPageNavigate(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().Navigate(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -683,7 +683,7 @@ func TestPageNavigateToHistoryEntry(t *testing.T) {
 	resultChan := mockSocket.Page().NavigateToHistoryEntry(params)
 	mockResult := &page.NavigateToHistoryEntryResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -694,7 +694,7 @@ func TestPageNavigateToHistoryEntry(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().NavigateToHistoryEntry(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -733,7 +733,7 @@ func TestPagePrintToPDF(t *testing.T) {
 		Data: "result data",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -747,7 +747,7 @@ func TestPagePrintToPDF(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().PrintToPDF(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -774,7 +774,7 @@ func TestPageReload(t *testing.T) {
 	resultChan := mockSocket.Page().Reload(params)
 	mockResult := &page.ReloadResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -785,7 +785,7 @@ func TestPageReload(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().Reload(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -811,7 +811,7 @@ func TestPageRemoveScriptToEvaluateOnLoad(t *testing.T) {
 	resultChan := mockSocket.Page().RemoveScriptToEvaluateOnLoad(params)
 	mockResult := &page.RemoveScriptToEvaluateOnLoadResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -822,7 +822,7 @@ func TestPageRemoveScriptToEvaluateOnLoad(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().RemoveScriptToEvaluateOnLoad(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -848,7 +848,7 @@ func TestPageRemoveScriptToEvaluateOnNewDocument(t *testing.T) {
 	resultChan := mockSocket.Page().RemoveScriptToEvaluateOnNewDocument(params)
 	mockResult := &page.RemoveScriptToEvaluateOnNewDocumentResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -859,7 +859,7 @@ func TestPageRemoveScriptToEvaluateOnNewDocument(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().RemoveScriptToEvaluateOnNewDocument(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -882,7 +882,7 @@ func TestPageRequestAppBanner(t *testing.T) {
 	resultChan := mockSocket.Page().RequestAppBanner()
 	mockResult := &page.RequestAppBannerResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -893,7 +893,7 @@ func TestPageRequestAppBanner(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().RequestAppBanner()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -919,7 +919,7 @@ func TestPageScreencastFrameAck(t *testing.T) {
 	resultChan := mockSocket.Page().ScreencastFrameAck(params)
 	mockResult := &page.ScreencastFrameAckResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -930,7 +930,7 @@ func TestPageScreencastFrameAck(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().ScreencastFrameAck(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -965,7 +965,7 @@ func TestPageSearchInResource(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -979,7 +979,7 @@ func TestPageSearchInResource(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().SearchInResource(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1005,7 +1005,7 @@ func TestPageSetAdBlockingEnabled(t *testing.T) {
 	resultChan := mockSocket.Page().SetAdBlockingEnabled(params)
 	mockResult := &page.SetAdBlockingEnabledResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1016,7 +1016,7 @@ func TestPageSetAdBlockingEnabled(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().SetAdBlockingEnabled(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1042,7 +1042,7 @@ func TestPageSetAutoAttachToCreatedPages(t *testing.T) {
 	resultChan := mockSocket.Page().SetAutoAttachToCreatedPages(params)
 	mockResult := &page.SetAutoAttachToCreatedPagesResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1053,7 +1053,7 @@ func TestPageSetAutoAttachToCreatedPages(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().SetAutoAttachToCreatedPages(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1080,7 +1080,7 @@ func TestPageSetDocumentContent(t *testing.T) {
 	resultChan := mockSocket.Page().SetDocumentContent(params)
 	mockResult := &page.SetDocumentContentResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1091,7 +1091,7 @@ func TestPageSetDocumentContent(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().SetDocumentContent(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1118,7 +1118,7 @@ func TestPageSetDownloadBehavior(t *testing.T) {
 	resultChan := mockSocket.Page().SetDownloadBehavior(params)
 	mockResult := &page.SetDownloadBehaviorResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1129,7 +1129,7 @@ func TestPageSetDownloadBehavior(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().SetDownloadBehavior(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1155,7 +1155,7 @@ func TestPageSetLifecycleEventsEnabled(t *testing.T) {
 	resultChan := mockSocket.Page().SetLifecycleEventsEnabled(params)
 	mockResult := &page.SetLifecycleEventsEnabledResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1166,7 +1166,7 @@ func TestPageSetLifecycleEventsEnabled(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().SetLifecycleEventsEnabled(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1196,7 +1196,7 @@ func TestPageStartScreencast(t *testing.T) {
 	resultChan := mockSocket.Page().StartScreencast(params)
 	mockResult := &page.StartScreencastResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1207,7 +1207,7 @@ func TestPageStartScreencast(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().StartScreencast(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1230,7 +1230,7 @@ func TestPageStopLoading(t *testing.T) {
 	resultChan := mockSocket.Page().StopLoading()
 	mockResult := &page.StopLoadingResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1241,7 +1241,7 @@ func TestPageStopLoading(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().StopLoading()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1264,7 +1264,7 @@ func TestPageStopScreencast(t *testing.T) {
 	resultChan := mockSocket.Page().StopScreencast()
 	mockResult := &page.StopScreencastResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1275,7 +1275,7 @@ func TestPageStopScreencast(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Page().StopScreencast()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1303,7 +1303,7 @@ func TestPageOnDOMContentEventFired(t *testing.T) {
 		Timestamp: page.MonotonicTime(time.Now().Unix()),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.domContentEventFired",
@@ -1321,7 +1321,7 @@ func TestPageOnDOMContentEventFired(t *testing.T) {
 	mockSocket.Page().OnDOMContentEventFired(func(eventData *page.DOMContentEventFiredEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1352,7 +1352,7 @@ func TestPageOnFrameAttached(t *testing.T) {
 		Stack:         &runtime.StackTrace{},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameAttached",
@@ -1370,7 +1370,7 @@ func TestPageOnFrameAttached(t *testing.T) {
 	mockSocket.Page().OnFrameAttached(func(eventData *page.FrameAttachedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1399,7 +1399,7 @@ func TestPageOnFrameClearedScheduledNavigation(t *testing.T) {
 		FrameID: page.FrameID("frame-id"),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameClearedScheduledNavigation",
@@ -1417,7 +1417,7 @@ func TestPageOnFrameClearedScheduledNavigation(t *testing.T) {
 	mockSocket.Page().OnFrameClearedScheduledNavigation(func(eventData *page.FrameClearedScheduledNavigationEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1446,7 +1446,7 @@ func TestPageOnFrameDetached(t *testing.T) {
 		FrameID: page.FrameID("frame-id"),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameDetached",
@@ -1464,7 +1464,7 @@ func TestPageOnFrameDetached(t *testing.T) {
 	mockSocket.Page().OnFrameDetached(func(eventData *page.FrameDetachedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1502,7 +1502,7 @@ func TestPageOnFrameNavigated(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameNavigated",
@@ -1520,7 +1520,7 @@ func TestPageOnFrameNavigated(t *testing.T) {
 	mockSocket.Page().OnFrameNavigated(func(eventData *page.FrameNavigatedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1547,7 +1547,7 @@ func TestPageOnFrameResized(t *testing.T) {
 	})
 	mockResult := &page.FrameResizedEvent{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameResized",
@@ -1562,7 +1562,7 @@ func TestPageOnFrameResized(t *testing.T) {
 	mockSocket.Page().OnFrameResized(func(eventData *page.FrameResizedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1594,7 +1594,7 @@ func TestPageOnFrameScheduledNavigation(t *testing.T) {
 		URL:     "http://some.url",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameScheduledNavigation",
@@ -1612,7 +1612,7 @@ func TestPageOnFrameScheduledNavigation(t *testing.T) {
 	mockSocket.Page().OnFrameScheduledNavigation(func(eventData *page.FrameScheduledNavigationEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1641,7 +1641,7 @@ func TestPageOnFrameStartedLoading(t *testing.T) {
 		FrameID: page.FrameID("frame-id"),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameStartedLoading",
@@ -1659,7 +1659,7 @@ func TestPageOnFrameStartedLoading(t *testing.T) {
 	mockSocket.Page().OnFrameStartedLoading(func(eventData *page.FrameStartedLoadingEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1688,7 +1688,7 @@ func TestPageOnFrameStoppedLoading(t *testing.T) {
 		FrameID: page.FrameID("frame-id"),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameStoppedLoading",
@@ -1706,7 +1706,7 @@ func TestPageOnFrameStoppedLoading(t *testing.T) {
 	mockSocket.Page().OnFrameStoppedLoading(func(eventData *page.FrameStoppedLoadingEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1733,7 +1733,7 @@ func TestPageOnInterstitialHidden(t *testing.T) {
 	})
 	mockResult := &page.InterstitialHiddenEvent{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.interstitialHidden",
@@ -1748,7 +1748,7 @@ func TestPageOnInterstitialHidden(t *testing.T) {
 	mockSocket.Page().OnInterstitialHidden(func(eventData *page.InterstitialHiddenEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1775,7 +1775,7 @@ func TestPageOnInterstitialShown(t *testing.T) {
 	})
 	mockResult := &page.InterstitialShownEvent{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.interstitialShown",
@@ -1790,7 +1790,7 @@ func TestPageOnInterstitialShown(t *testing.T) {
 	mockSocket.Page().OnInterstitialShown(func(eventData *page.InterstitialShownEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1820,7 +1820,7 @@ func TestPageOnJavascriptDialogClosed(t *testing.T) {
 		UserInput: "user input",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.javascriptDialogClosed",
@@ -1838,7 +1838,7 @@ func TestPageOnJavascriptDialogClosed(t *testing.T) {
 	mockSocket.Page().OnJavascriptDialogClosed(func(eventData *page.JavascriptDialogClosedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1870,7 +1870,7 @@ func TestPageOnJavascriptDialogOpening(t *testing.T) {
 		DefaultPrompt: "some prompt",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.javascriptDialogOpening",
@@ -1888,7 +1888,7 @@ func TestPageOnJavascriptDialogOpening(t *testing.T) {
 	mockSocket.Page().OnJavascriptDialogOpening(func(eventData *page.JavascriptDialogOpeningEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1920,7 +1920,7 @@ func TestPageOnLifecycleEvent(t *testing.T) {
 		Timestamp: page.MonotonicTime(time.Now().Unix()),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.lifecycleEvent",
@@ -1938,7 +1938,7 @@ func TestPageOnLifecycleEvent(t *testing.T) {
 	mockSocket.Page().OnLifecycleEvent(func(eventData *page.LifecycleEventEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1967,7 +1967,7 @@ func TestPageOnLoadEventFired(t *testing.T) {
 		Timestamp: page.MonotonicTime(time.Now().Unix()),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.loadEventFired",
@@ -1985,7 +1985,7 @@ func TestPageOnLoadEventFired(t *testing.T) {
 	mockSocket.Page().OnLoadEventFired(func(eventData *page.LoadEventFiredEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -2024,7 +2024,7 @@ func TestPageOnScreencastFrame(t *testing.T) {
 		SessionID: 1,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.screencastFrame",
@@ -2042,7 +2042,7 @@ func TestPageOnScreencastFrame(t *testing.T) {
 	mockSocket.Page().OnScreencastFrame(func(eventData *page.ScreencastFrameEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -2071,7 +2071,7 @@ func TestPageOnScreencastVisibilityChanged(t *testing.T) {
 		Visible: true,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.screencastVisibilityChanged",
@@ -2089,7 +2089,7 @@ func TestPageOnScreencastVisibilityChanged(t *testing.T) {
 	mockSocket.Page().OnScreencastVisibilityChanged(func(eventData *page.ScreencastVisibilityChangedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -2121,7 +2121,7 @@ func TestPageOnWindowOpen(t *testing.T) {
 		UserGesture:    true,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.windowOpen",
@@ -2139,7 +2139,7 @@ func TestPageOnWindowOpen(t *testing.T) {
 	mockSocket.Page().OnWindowOpen(func(eventData *page.WindowOpenEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

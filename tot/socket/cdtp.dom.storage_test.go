@@ -22,7 +22,7 @@ func TestDOMStorageClear(t *testing.T) {
 	})
 	mockResult := &domStorage.ClearResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -38,7 +38,7 @@ func TestDOMStorageClear(t *testing.T) {
 			IsLocalStorage: true,
 		},
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -61,7 +61,7 @@ func TestDOMStorageDisable(t *testing.T) {
 	resultChan := mockSocket.DOMStorage().Disable()
 	mockResult := &domStorage.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -72,7 +72,7 @@ func TestDOMStorageDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.DOMStorage().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -95,7 +95,7 @@ func TestDOMStorageEnable(t *testing.T) {
 	resultChan := mockSocket.DOMStorage().Enable()
 	mockResult := &domStorage.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -106,7 +106,7 @@ func TestDOMStorageEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.DOMStorage().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -136,7 +136,7 @@ func TestDOMStorageGetItems(t *testing.T) {
 		Entries: []domStorage.Item{{float64(1), "two"}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -158,7 +158,7 @@ func TestDOMStorageGetItems(t *testing.T) {
 			IsLocalStorage: true,
 		},
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -187,7 +187,7 @@ func TestDOMStorageRemoveItem(t *testing.T) {
 	})
 	mockResult := &domStorage.RemoveItemResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -204,7 +204,7 @@ func TestDOMStorageRemoveItem(t *testing.T) {
 		},
 		Key: "item-key",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -234,7 +234,7 @@ func TestDOMStorageSetItem(t *testing.T) {
 	})
 	mockResult := &domStorage.SetItemResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -251,7 +251,7 @@ func TestDOMStorageSetItem(t *testing.T) {
 		},
 		Key: "item-key",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -284,7 +284,7 @@ func TestDOMStorageOnItemAdded(t *testing.T) {
 		NewValue: "item value",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "DOMStorage.domStorageItemAdded",
@@ -299,7 +299,7 @@ func TestDOMStorageOnItemAdded(t *testing.T) {
 	mockSocket.DOMStorage().OnItemAdded(func(eventData *domStorage.ItemAddedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -332,7 +332,7 @@ func TestDOMStorageOnItemRemoved(t *testing.T) {
 		Key: "item-key",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "DOMStorage.domStorageItemRemoved",
@@ -347,7 +347,7 @@ func TestDOMStorageOnItemRemoved(t *testing.T) {
 	mockSocket.DOMStorage().OnItemRemoved(func(eventData *domStorage.ItemRemovedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -382,7 +382,7 @@ func TestDOMStorageOnItemUpdated(t *testing.T) {
 		NewValue: "new-value",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "DOMStorage.domStorageItemUpdated",
@@ -397,7 +397,7 @@ func TestDOMStorageOnItemUpdated(t *testing.T) {
 	mockSocket.DOMStorage().OnItemUpdated(func(eventData *domStorage.ItemUpdatedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -429,7 +429,7 @@ func TestDOMStorageOnItemsCleared(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "DOMStorage.domStorageItemsCleared",
@@ -444,7 +444,7 @@ func TestDOMStorageOnItemsCleared(t *testing.T) {
 	mockSocket.DOMStorage().OnItemsCleared(func(eventData *domStorage.ItemsClearedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

@@ -22,7 +22,7 @@ func TestMemoryGetDOMCounters(t *testing.T) {
 	resultChan := mockSocket.Memory().GetDOMCounters(params)
 	mockResult := &memory.GetDOMCountersResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -33,7 +33,7 @@ func TestMemoryGetDOMCounters(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Memory().GetDOMCounters(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -56,7 +56,7 @@ func TestMemoryPrepareForLeakDetection(t *testing.T) {
 	resultChan := mockSocket.Memory().PrepareForLeakDetection()
 	mockResult := &memory.PrepareForLeakDetectionResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -67,7 +67,7 @@ func TestMemoryPrepareForLeakDetection(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Memory().PrepareForLeakDetection()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -93,7 +93,7 @@ func TestMemorySetPressureNotificationsSuppressed(t *testing.T) {
 	resultChan := mockSocket.Memory().SetPressureNotificationsSuppressed(params)
 	mockResult := &memory.SetPressureNotificationsSuppressedResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -104,7 +104,7 @@ func TestMemorySetPressureNotificationsSuppressed(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Memory().SetPressureNotificationsSuppressed(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -130,7 +130,7 @@ func TestMemorySimulatePressureNotification(t *testing.T) {
 	resultChan := mockSocket.Memory().SimulatePressureNotification(params)
 	mockResult := &memory.SimulatePressureNotificationResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -141,7 +141,7 @@ func TestMemorySimulatePressureNotification(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Memory().SimulatePressureNotification(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,

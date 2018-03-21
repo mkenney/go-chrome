@@ -17,7 +17,7 @@ func TestPerformanceDisable(t *testing.T) {
 	resultChan := mockSocket.Performance().Disable()
 	mockResult := &performance.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -28,7 +28,7 @@ func TestPerformanceDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Performance().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -51,7 +51,7 @@ func TestPerformanceEnable(t *testing.T) {
 	resultChan := mockSocket.Performance().Enable()
 	mockResult := &performance.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -62,7 +62,7 @@ func TestPerformanceEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Performance().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -90,7 +90,7 @@ func TestPerformanceGetMetrics(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -104,7 +104,7 @@ func TestPerformanceGetMetrics(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Performance().GetMetrics()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -136,7 +136,7 @@ func TestPerformanceOnMetrics(t *testing.T) {
 		Title: "event title",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Performance.metrics",
@@ -154,7 +154,7 @@ func TestPerformanceOnMetrics(t *testing.T) {
 	mockSocket.Performance().OnMetrics(func(eventData *performance.MetricsEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

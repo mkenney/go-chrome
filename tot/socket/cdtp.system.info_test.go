@@ -32,7 +32,7 @@ func TestSystemInfoGetInfo(t *testing.T) {
 		CommandLine:  "CommandLine",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -46,7 +46,7 @@ func TestSystemInfoGetInfo(t *testing.T) {
 	}
 
 	resultChan = mockSocket.SystemInfo().GetInfo()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,

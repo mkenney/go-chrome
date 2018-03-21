@@ -21,7 +21,7 @@ func TestStorageClearDataForOrigin(t *testing.T) {
 	resultChan := mockSocket.Storage().ClearDataForOrigin(params)
 	mockResult := &storage.ClearDataForOriginResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -32,7 +32,7 @@ func TestStorageClearDataForOrigin(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Storage().ClearDataForOrigin(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -65,7 +65,7 @@ func TestStorageGetUsageAndQuota(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -79,7 +79,7 @@ func TestStorageGetUsageAndQuota(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Storage().GetUsageAndQuota(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -105,7 +105,7 @@ func TestStorageTrackCacheStorageForOrigin(t *testing.T) {
 	resultChan := mockSocket.Storage().TrackCacheStorageForOrigin(params)
 	mockResult := &storage.TrackCacheStorageForOriginResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -116,7 +116,7 @@ func TestStorageTrackCacheStorageForOrigin(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Storage().TrackCacheStorageForOrigin(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -142,7 +142,7 @@ func TestStorageTrackIndexedDBForOrigin(t *testing.T) {
 	resultChan := mockSocket.Storage().TrackIndexedDBForOrigin(params)
 	mockResult := &storage.TrackIndexedDBForOriginResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -153,7 +153,7 @@ func TestStorageTrackIndexedDBForOrigin(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Storage().TrackIndexedDBForOrigin(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -179,7 +179,7 @@ func TestStorageUntrackCacheStorageForOrigin(t *testing.T) {
 	resultChan := mockSocket.Storage().UntrackCacheStorageForOrigin(params)
 	mockResult := &storage.UntrackCacheStorageForOriginResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -190,7 +190,7 @@ func TestStorageUntrackCacheStorageForOrigin(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Storage().UntrackCacheStorageForOrigin(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -216,7 +216,7 @@ func TestStorageUntrackIndexedDBForOrigin(t *testing.T) {
 	resultChan := mockSocket.Storage().UntrackIndexedDBForOrigin(params)
 	mockResult := &storage.UntrackIndexedDBForOriginResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -227,7 +227,7 @@ func TestStorageUntrackIndexedDBForOrigin(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Storage().UntrackIndexedDBForOrigin(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -256,7 +256,7 @@ func TestStorageOnCacheStorageContentUpdated(t *testing.T) {
 		CacheName: "cache-name",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Storage.cacheStorageContentUpdated",
@@ -274,7 +274,7 @@ func TestStorageOnCacheStorageContentUpdated(t *testing.T) {
 	mockSocket.Storage().OnCacheStorageContentUpdated(func(eventData *storage.CacheStorageContentUpdatedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -303,7 +303,7 @@ func TestStorageOnCacheStorageListUpdated(t *testing.T) {
 		Origin: "origin",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Storage.cacheStorageListUpdated",
@@ -321,7 +321,7 @@ func TestStorageOnCacheStorageListUpdated(t *testing.T) {
 	mockSocket.Storage().OnCacheStorageListUpdated(func(eventData *storage.CacheStorageListUpdatedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -352,7 +352,7 @@ func TestStorageOnIndexedDBContentUpdated(t *testing.T) {
 		ObjectStoreName: "storename",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Storage.indexedDBContentUpdated",
@@ -370,7 +370,7 @@ func TestStorageOnIndexedDBContentUpdated(t *testing.T) {
 	mockSocket.Storage().OnIndexedDBContentUpdated(func(eventData *storage.IndexedDBContentUpdatedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -399,7 +399,7 @@ func TestStorageOnIndexedDBListUpdated(t *testing.T) {
 		Origin: "origin",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Storage.indexedDBListUpdated",
@@ -417,7 +417,7 @@ func TestStorageOnIndexedDBListUpdated(t *testing.T) {
 	mockSocket.Storage().OnIndexedDBListUpdated(func(eventData *storage.IndexedDBListUpdatedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

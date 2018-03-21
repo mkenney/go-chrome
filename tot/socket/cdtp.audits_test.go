@@ -27,7 +27,7 @@ func TestAuditsGetEncodedResponse(t *testing.T) {
 		EncodedSize:  2,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -50,7 +50,7 @@ func TestAuditsGetEncodedResponse(t *testing.T) {
 		Quality:   1,
 		SizeOnly:  true,
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,

@@ -25,7 +25,7 @@ func TestCacheStorageDeleteCache(t *testing.T) {
 	resultChan := mockSocket.CacheStorage().DeleteCache(&cacheStorage.DeleteCacheParams{
 		CacheID: cacheStorage.CacheID("cache-id"),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:    mockSocket.CurCommandID(),
 		Error: &Error{},
 	})
@@ -37,7 +37,7 @@ func TestCacheStorageDeleteCache(t *testing.T) {
 	resultChan = mockSocket.CacheStorage().DeleteCache(&cacheStorage.DeleteCacheParams{
 		CacheID: cacheStorage.CacheID("cache-id"),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -61,7 +61,7 @@ func TestCacheStorageDeleteEntry(t *testing.T) {
 		CacheID: cacheStorage.CacheID("cache-id"),
 		Request: "request",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:    mockSocket.CurCommandID(),
 		Error: &Error{},
 	})
@@ -74,7 +74,7 @@ func TestCacheStorageDeleteEntry(t *testing.T) {
 		CacheID: cacheStorage.CacheID("cache-id"),
 		Request: "request",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -105,7 +105,7 @@ func TestCacheStorageRequestCacheNames(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -125,7 +125,7 @@ func TestCacheStorageRequestCacheNames(t *testing.T) {
 	resultChan = mockSocket.CacheStorage().RequestCacheNames(&cacheStorage.RequestCacheNamesParams{
 		SecurityOrigin: "security-origin",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -155,7 +155,7 @@ func TestCacheStorageRequestCachedResponse(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -176,7 +176,7 @@ func TestCacheStorageRequestCachedResponse(t *testing.T) {
 		CacheID:    cacheStorage.CacheID("security-origin"),
 		RequestURL: mockSocket.URL().String(),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -220,7 +220,7 @@ func TestCacheStorageRequestEntries(t *testing.T) {
 		HasMore: true,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -242,7 +242,7 @@ func TestCacheStorageRequestEntries(t *testing.T) {
 		SkipCount: 1,
 		PageSize:  1,
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,

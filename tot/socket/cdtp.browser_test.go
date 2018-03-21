@@ -16,7 +16,7 @@ func TestBrowserClose(t *testing.T) {
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Browser().Close()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:    mockSocket.CurCommandID(),
 		Error: &Error{},
 	})
@@ -26,7 +26,7 @@ func TestBrowserClose(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Browser().Close()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -55,7 +55,7 @@ func TestBrowserGetVersion(t *testing.T) {
 		JSVersion:       "V8 version",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -73,7 +73,7 @@ func TestBrowserGetVersion(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Browser().GetVersion()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -106,7 +106,7 @@ func TestBrowserGetWindowBounds(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -126,7 +126,7 @@ func TestBrowserGetWindowBounds(t *testing.T) {
 	resultChan = mockSocket.Browser().GetWindowBounds(&browser.GetWindowBoundsParams{
 		WindowID: browser.WindowID(1),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -160,7 +160,7 @@ func TestBrowserGetWindowForTarget(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -187,7 +187,7 @@ func TestBrowserGetWindowForTarget(t *testing.T) {
 	resultChan = mockSocket.Browser().GetWindowForTarget(&browser.GetWindowForTargetParams{
 		TargetID: target.ID("target-id"),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -228,7 +228,7 @@ func TestBrowserSetWindowBounds(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -262,7 +262,7 @@ func TestBrowserSetWindowBounds(t *testing.T) {
 			WindowState: browser.WindowState("window-state"),
 		},
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,

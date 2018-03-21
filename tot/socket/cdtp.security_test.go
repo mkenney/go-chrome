@@ -17,7 +17,7 @@ func TestSecurityDisable(t *testing.T) {
 	resultChan := mockSocket.Security().Disable()
 	mockResult := &security.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -28,7 +28,7 @@ func TestSecurityDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Security().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -51,7 +51,7 @@ func TestSecurityEnable(t *testing.T) {
 	resultChan := mockSocket.Security().Enable()
 	mockResult := &security.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -62,7 +62,7 @@ func TestSecurityEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Security().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -89,7 +89,7 @@ func TestSecurityHandleCertificateError(t *testing.T) {
 	resultChan := mockSocket.Security().HandleCertificateError(params)
 	mockResult := &security.HandleCertificateErrorResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -100,7 +100,7 @@ func TestSecurityHandleCertificateError(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Security().HandleCertificateError(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -126,7 +126,7 @@ func TestSecuritySetIgnoreCertificateErrors(t *testing.T) {
 	resultChan := mockSocket.Security().SetIgnoreCertificateErrors(params)
 	mockResult := &security.SetIgnoreCertificateErrorsResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -137,7 +137,7 @@ func TestSecuritySetIgnoreCertificateErrors(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Security().SetIgnoreCertificateErrors(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -163,7 +163,7 @@ func TestSecuritySetOverrideCertificateErrors(t *testing.T) {
 	resultChan := mockSocket.Security().SetOverrideCertificateErrors(params)
 	mockResult := &security.SetOverrideCertificateErrorsResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -174,7 +174,7 @@ func TestSecuritySetOverrideCertificateErrors(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Security().SetOverrideCertificateErrors(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -204,7 +204,7 @@ func TestSecurityOnCertificateError(t *testing.T) {
 		RequestURL: "http://some.url",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Security.certificateError",
@@ -222,7 +222,7 @@ func TestSecurityOnCertificateError(t *testing.T) {
 	mockSocket.Security().OnCertificateError(func(eventData *security.CertificateErrorEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -269,7 +269,7 @@ func TestSecurityOnSecurityStateChanged(t *testing.T) {
 		Summary: "summary",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Security.securityStateChanged",
@@ -287,7 +287,7 @@ func TestSecurityOnSecurityStateChanged(t *testing.T) {
 	mockSocket.Security().OnSecurityStateChanged(func(eventData *security.StateChangedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

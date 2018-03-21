@@ -17,7 +17,7 @@ func TestApplicationCacheEnable(t *testing.T) {
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.ApplicationCache().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: nil,
@@ -28,7 +28,7 @@ func TestApplicationCacheEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.ApplicationCache().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -64,7 +64,7 @@ func TestApplicationCacheGetForFrame(t *testing.T) {
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockParamsBytes, _ := json.Marshal(mockParams)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:    mockSocket.CurCommandID(),
 		Error: &Error{},
 
@@ -84,7 +84,7 @@ func TestApplicationCacheGetForFrame(t *testing.T) {
 	}
 
 	resultChan = mockSocket.ApplicationCache().GetForFrame(mockParams)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -113,7 +113,7 @@ func TestApplicationCacheGetFramesWithManifests(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -131,7 +131,7 @@ func TestApplicationCacheGetFramesWithManifests(t *testing.T) {
 	}
 
 	resultChan = mockSocket.ApplicationCache().GetFramesWithManifests()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -158,7 +158,7 @@ func TestApplicationCacheGetManifestForFrame(t *testing.T) {
 		ManifestURL: "http://example.com/manifest",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -178,7 +178,7 @@ func TestApplicationCacheGetManifestForFrame(t *testing.T) {
 	resultChan = mockSocket.ApplicationCache().GetManifestForFrame(&application_cache.GetManifestForFrameParams{
 		FrameID: page.FrameID("mock-frame-id"),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -208,7 +208,7 @@ func TestApplicationCacheOnApplicationCacheStatusUpdated(t *testing.T) {
 		Status:      1,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "ApplicationCache.applicationCacheStatusUpdated",
@@ -227,7 +227,7 @@ func TestApplicationCacheOnApplicationCacheStatusUpdated(t *testing.T) {
 	mockSocket.ApplicationCache().OnApplicationCacheStatusUpdated(func(eventData *application_cache.StatusUpdatedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -256,7 +256,7 @@ func TestApplicationCacheOnNetworkStateUpdated(t *testing.T) {
 		IsNowOnline: true,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "ApplicationCache.networkStateUpdated",
@@ -275,7 +275,7 @@ func TestApplicationCacheOnNetworkStateUpdated(t *testing.T) {
 	mockSocket.ApplicationCache().OnNetworkStateUpdated(func(eventData *application_cache.NetworkStateUpdatedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

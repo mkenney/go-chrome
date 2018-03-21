@@ -22,7 +22,7 @@ func TestIndexedDBClearObjectStore(t *testing.T) {
 	resultChan := mockSocket.IndexedDB().ClearObjectStore(params)
 	mockResult := &indexedDB.ClearObjectStoreResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -33,7 +33,7 @@ func TestIndexedDBClearObjectStore(t *testing.T) {
 	}
 
 	resultChan = mockSocket.IndexedDB().ClearObjectStore(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -61,7 +61,7 @@ func TestIndexedDBDeleteDatabase(t *testing.T) {
 	resultChan := mockSocket.IndexedDB().DeleteDatabase(params)
 	mockResult := &indexedDB.DeleteDatabaseResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -72,7 +72,7 @@ func TestIndexedDBDeleteDatabase(t *testing.T) {
 	}
 
 	resultChan = mockSocket.IndexedDB().DeleteDatabase(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -99,7 +99,7 @@ func TestIndexedDBDeleteObjectStoreEntries(t *testing.T) {
 	resultChan := mockSocket.IndexedDB().DeleteObjectStoreEntries(params)
 	mockResult := &indexedDB.DeleteObjectStoreEntriesResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -110,7 +110,7 @@ func TestIndexedDBDeleteObjectStoreEntries(t *testing.T) {
 	}
 
 	resultChan = mockSocket.IndexedDB().DeleteObjectStoreEntries(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -133,7 +133,7 @@ func TestIndexedDBDisable(t *testing.T) {
 	resultChan := mockSocket.IndexedDB().Disable()
 	mockResult := &indexedDB.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -144,7 +144,7 @@ func TestIndexedDBDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.IndexedDB().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -167,7 +167,7 @@ func TestIndexedDBEnable(t *testing.T) {
 	resultChan := mockSocket.IndexedDB().Enable()
 	mockResult := &indexedDB.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -178,7 +178,7 @@ func TestIndexedDBEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.IndexedDB().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -234,7 +234,7 @@ func TestIndexedDBRequestData(t *testing.T) {
 		HasMore: true,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -248,7 +248,7 @@ func TestIndexedDBRequestData(t *testing.T) {
 	}
 
 	resultChan = mockSocket.IndexedDB().RequestData(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -299,7 +299,7 @@ func TestIndexedDBRequestDatabase(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -313,7 +313,7 @@ func TestIndexedDBRequestDatabase(t *testing.T) {
 	}
 
 	resultChan = mockSocket.IndexedDB().RequestDatabase(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -341,7 +341,7 @@ func TestIndexedDBRequestDatabaseNames(t *testing.T) {
 		DatabaseNames: []string{"db1", "db2"},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -355,7 +355,7 @@ func TestIndexedDBRequestDatabaseNames(t *testing.T) {
 	}
 
 	resultChan = mockSocket.IndexedDB().RequestDatabaseNames(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,

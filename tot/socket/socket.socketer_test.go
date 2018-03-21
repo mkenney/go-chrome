@@ -30,7 +30,7 @@ func TestListenCommand(t *testing.T) {
 
 	command := NewCommand(mockSocket, "Some.method", nil)
 	resultChan := mockSocket.SendCommand(command)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     command.ID(),
 		Error:  &Error{},
 		Method: "Some.method",
@@ -50,7 +50,7 @@ func TestListenCommandError(t *testing.T) {
 
 	command := NewCommand(mockSocket, "Some.methodError", nil)
 	resultChan := mockSocket.SendCommand(command)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     command.ID(),
 		Error:  &Error{},
 		Method: "Some.methodError",
@@ -71,7 +71,7 @@ func TestListenCommandUnknown(t *testing.T) {
 	command := NewCommand(mockSocket, "", nil)
 	command.SetID(0)
 	resultChan := mockSocket.SendCommand(command)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  nil,
 		Method: "",
@@ -83,7 +83,7 @@ func TestListenCommandUnknown(t *testing.T) {
 
 	mockSocket2 := NewMock(socketURL)
 	defer mockSocket2.Stop()
-	mockSocket2.Conn().AddMockData(&Response{
+	mockSocket2.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "",
@@ -132,7 +132,7 @@ func TestRemoveEventHandler(t *testing.T) {
 //	go mockSocket.Listen()
 //	defer mockSocket.Stop()
 //
-//	mockSocket.Conn().AddMockData(
+//	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(
 //		0,
 //		&Error{},
 //		"Some.event",

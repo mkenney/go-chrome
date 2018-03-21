@@ -99,7 +99,7 @@ func TestCSSAddRule(t *testing.T) {
 		}},
 	}}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -122,7 +122,7 @@ func TestCSSAddRule(t *testing.T) {
 			EndColumn:   10,
 		},
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -149,7 +149,7 @@ func TestCSSCollectClassNames(t *testing.T) {
 		"class1", "class2",
 	}}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -165,7 +165,7 @@ func TestCSSCollectClassNames(t *testing.T) {
 	resultChan = mockSocket.CSS().CollectClassNames(&css.CollectClassNamesParams{
 		StyleSheetID: css.StyleSheetID("stylesheet-id"),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -192,7 +192,7 @@ func TestCSSCreateStyleSheet(t *testing.T) {
 		StyleSheetID: css.StyleSheetID("stylesheet-id"),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -208,7 +208,7 @@ func TestCSSCreateStyleSheet(t *testing.T) {
 	resultChan = mockSocket.CSS().CreateStyleSheet(&css.CreateStyleSheetParams{
 		FrameID: page.FrameID("frame-id"),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -231,7 +231,7 @@ func TestCSSDisable(t *testing.T) {
 	resultChan := mockSocket.CSS().Disable()
 	mockResult := &css.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -242,7 +242,7 @@ func TestCSSDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.CSS().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -265,7 +265,7 @@ func TestCSSEnable(t *testing.T) {
 	resultChan := mockSocket.CSS().Enable()
 	mockResult := &css.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -276,7 +276,7 @@ func TestCSSEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.CSS().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -302,7 +302,7 @@ func TestCSSForcePseudoState(t *testing.T) {
 	})
 	mockResult := &css.ForcePseudoStateResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -316,7 +316,7 @@ func TestCSSForcePseudoState(t *testing.T) {
 		NodeID:              dom.NodeID(1),
 		ForcedPseudoClasses: []css.ForcedPseudoClassesEnum{css.ForcedPseudoClasses.Active},
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -346,7 +346,7 @@ func TestCSSGetBackgroundColors(t *testing.T) {
 		ComputedBodyFontSize: "10pt",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -362,7 +362,7 @@ func TestCSSGetBackgroundColors(t *testing.T) {
 	resultChan = mockSocket.CSS().GetBackgroundColors(&css.GetBackgroundColorsParams{
 		NodeID: dom.NodeID(1),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -392,7 +392,7 @@ func TestCSSGetComputedStyleForNode(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -408,7 +408,7 @@ func TestCSSGetComputedStyleForNode(t *testing.T) {
 	resultChan = mockSocket.CSS().GetComputedStyleForNode(&css.GetComputedStyleForNodeParams{
 		NodeID: dom.NodeID(1),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -470,7 +470,7 @@ func TestCSSGetInlineStylesForNode(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -486,7 +486,7 @@ func TestCSSGetInlineStylesForNode(t *testing.T) {
 	resultChan = mockSocket.CSS().GetInlineStylesForNode(&css.GetInlineStylesForNodeParams{
 		NodeID: dom.NodeID(1),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -566,7 +566,7 @@ func TestCSSGetMatchedStylesForNode(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -582,7 +582,7 @@ func TestCSSGetMatchedStylesForNode(t *testing.T) {
 	resultChan = mockSocket.CSS().GetMatchedStylesForNode(&css.GetMatchedStylesForNodeParams{
 		NodeID: dom.NodeID(1),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -632,7 +632,7 @@ func TestCSSGetMediaQueries(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -646,7 +646,7 @@ func TestCSSGetMediaQueries(t *testing.T) {
 	}
 
 	resultChan = mockSocket.CSS().GetMediaQueries()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -677,7 +677,7 @@ func TestCSSGetPlatformFontsForNode(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -693,7 +693,7 @@ func TestCSSGetPlatformFontsForNode(t *testing.T) {
 	resultChan = mockSocket.CSS().GetPlatformFontsForNode(&css.GetPlatformFontsForNodeParams{
 		NodeID: dom.NodeID(1),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -720,7 +720,7 @@ func TestCSSGetStyleSheetText(t *testing.T) {
 		Text: "some text",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -736,7 +736,7 @@ func TestCSSGetStyleSheetText(t *testing.T) {
 	resultChan = mockSocket.CSS().GetStyleSheetText(&css.GetStyleSheetTextParams{
 		StyleSheetID: css.StyleSheetID("stylesheet-id"),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -763,7 +763,7 @@ func TestCSSSetEffectivePropertyValueForNode(t *testing.T) {
 	})
 	mockResult := &css.SetEffectivePropertyValueForNodeResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -778,7 +778,7 @@ func TestCSSSetEffectivePropertyValueForNode(t *testing.T) {
 		PropertyName: "property-name",
 		Value:        "property-value",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -820,7 +820,7 @@ func TestCSSSetKeyframeKey(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -843,7 +843,7 @@ func TestCSSSetKeyframeKey(t *testing.T) {
 		},
 		Selector: "selector",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -902,7 +902,7 @@ func TestCSSSetMediaText(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -925,7 +925,7 @@ func TestCSSSetMediaText(t *testing.T) {
 		},
 		Text: "some text",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -969,7 +969,7 @@ func TestCSSSetRuleSelector(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -992,7 +992,7 @@ func TestCSSSetRuleSelector(t *testing.T) {
 		},
 		Selector: "selector",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1020,7 +1020,7 @@ func TestCSSSetStyleSheetText(t *testing.T) {
 		SourceMapURL: "http://sourcemap-url",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1037,7 +1037,7 @@ func TestCSSSetStyleSheetText(t *testing.T) {
 		StyleSheetID: css.StyleSheetID("stylesheet-id"),
 		Text:         "some text",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1090,7 +1090,7 @@ func TestCSSSetStyleTexts(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1115,7 +1115,7 @@ func TestCSSSetStyleTexts(t *testing.T) {
 			Text: "some text",
 		}},
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1138,7 +1138,7 @@ func TestCSSStartRuleUsageTracking(t *testing.T) {
 	resultChan := mockSocket.CSS().StartRuleUsageTracking()
 	mockResult := &css.StartRuleUsageTrackingResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1149,7 +1149,7 @@ func TestCSSStartRuleUsageTracking(t *testing.T) {
 	}
 
 	resultChan = mockSocket.CSS().StartRuleUsageTracking()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1179,7 +1179,7 @@ func TestCSSStopRuleUsageTracking(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1193,7 +1193,7 @@ func TestCSSStopRuleUsageTracking(t *testing.T) {
 	}
 
 	resultChan = mockSocket.CSS().StopRuleUsageTracking()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1223,7 +1223,7 @@ func TestCSSTakeCoverageDelta(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -1237,7 +1237,7 @@ func TestCSSTakeCoverageDelta(t *testing.T) {
 	}
 
 	resultChan = mockSocket.CSS().TakeCoverageDelta()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -1263,7 +1263,7 @@ func TestCSSOnFontsUpdated(t *testing.T) {
 	})
 	mockResult := &css.FontsUpdatedEvent{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "CSS.fontsUpdated",
@@ -1278,7 +1278,7 @@ func TestCSSOnFontsUpdated(t *testing.T) {
 	mockSocket.CSS().OnFontsUpdated(func(eventData *css.FontsUpdatedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1305,7 +1305,7 @@ func TestCSSOnMediaQueryResultChanged(t *testing.T) {
 	})
 	mockResult := &css.MediaQueryResultChangedEvent{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "CSS.mediaQueryResultChanged",
@@ -1320,7 +1320,7 @@ func TestCSSOnMediaQueryResultChanged(t *testing.T) {
 	mockSocket.CSS().OnMediaQueryResultChanged(func(eventData *css.MediaQueryResultChangedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1362,7 +1362,7 @@ func TestCSSOnStyleSheetAdded(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "CSS.styleSheetAdded",
@@ -1380,7 +1380,7 @@ func TestCSSOnStyleSheetAdded(t *testing.T) {
 	mockSocket.CSS().OnStyleSheetAdded(func(eventData *css.StyleSheetAddedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1409,7 +1409,7 @@ func TestCSSOnStyleSheetChanged(t *testing.T) {
 		StyleSheetID: css.StyleSheetID("stylesheet-id"),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "CSS.styleSheetChanged",
@@ -1427,7 +1427,7 @@ func TestCSSOnStyleSheetChanged(t *testing.T) {
 	mockSocket.CSS().OnStyleSheetChanged(func(eventData *css.StyleSheetChangedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -1456,7 +1456,7 @@ func TestCSSOnStyleSheetRemoved(t *testing.T) {
 		StyleSheetID: css.StyleSheetID("stylesheet-id"),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "CSS.styleSheetRemoved",
@@ -1474,7 +1474,7 @@ func TestCSSOnStyleSheetRemoved(t *testing.T) {
 	mockSocket.CSS().OnStyleSheetRemoved(func(eventData *css.StyleSheetRemovedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

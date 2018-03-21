@@ -75,7 +75,7 @@ func TestDOMSnapshotGet(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -91,7 +91,7 @@ func TestDOMSnapshotGet(t *testing.T) {
 	resultChan = mockSocket.DOMSnapshot().Get(&domSnapshot.GetParams{
 		ComputedStyleWhitelist: []string{"one", "two"},
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,

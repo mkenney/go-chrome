@@ -19,7 +19,7 @@ func TestAnimationDisable(t *testing.T) {
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Animation().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: nil,
@@ -30,7 +30,7 @@ func TestAnimationDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Animation().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -51,7 +51,7 @@ func TestAnimationEnable(t *testing.T) {
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Animation().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: nil,
@@ -62,7 +62,7 @@ func TestAnimationEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Animation().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -87,7 +87,7 @@ func TestAnimationGetCurrentTime(t *testing.T) {
 	}
 	resultChan := mockSocket.Animation().GetCurrentTime(params)
 	mockResultBytes, _ := json.Marshal(animation.GetCurrentTimeResult{})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -107,7 +107,7 @@ func TestAnimationGetCurrentTime(t *testing.T) {
 		CurrentTime: time.Now().Unix(),
 	}
 	mockResultBytes, _ = json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -125,7 +125,7 @@ func TestAnimationGetCurrentTime(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Animation().GetCurrentTime(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -150,7 +150,7 @@ func TestAnimationGetPlaybackRate(t *testing.T) {
 		PlaybackRate: 1.0,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -168,7 +168,7 @@ func TestAnimationGetPlaybackRate(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Animation().GetPlaybackRate()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -192,7 +192,7 @@ func TestAnimationReleaseAnimations(t *testing.T) {
 		Animations: []string{"animation1", "animation2"},
 	}
 	resultChan := mockSocket.Animation().ReleaseAnimations(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: nil,
@@ -203,7 +203,7 @@ func TestAnimationReleaseAnimations(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Animation().ReleaseAnimations(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -253,7 +253,7 @@ func TestAnimationResolveAnimation(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -271,7 +271,7 @@ func TestAnimationResolveAnimation(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Animation().ResolveAnimation(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -296,7 +296,7 @@ func TestAnimationSeekAnimations(t *testing.T) {
 		CurrentTime: 1,
 	}
 	resultChan := mockSocket.Animation().SeekAnimations(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: nil,
@@ -307,7 +307,7 @@ func TestAnimationSeekAnimations(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Animation().SeekAnimations(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -332,7 +332,7 @@ func TestAnimationSetPaused(t *testing.T) {
 		Paused:     true,
 	}
 	resultChan := mockSocket.Animation().SetPaused(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: nil,
@@ -343,7 +343,7 @@ func TestAnimationSetPaused(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Animation().SetPaused(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -367,7 +367,7 @@ func TestAnimationSetPlaybackRate(t *testing.T) {
 		PlaybackRate: 1,
 	}
 	resultChan := mockSocket.Animation().SetPlaybackRate(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: nil,
@@ -378,7 +378,7 @@ func TestAnimationSetPlaybackRate(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Animation().SetPlaybackRate(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -404,7 +404,7 @@ func TestAnimationSetTiming(t *testing.T) {
 		Delay:       1,
 	}
 	resultChan := mockSocket.Animation().SetTiming(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: nil,
@@ -415,7 +415,7 @@ func TestAnimationSetTiming(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Animation().SetTiming(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -444,7 +444,7 @@ func TestAnimationOnAnimationCanceled(t *testing.T) {
 		ID: "event-id",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Animation.animationCanceled",
@@ -463,7 +463,7 @@ func TestAnimationOnAnimationCanceled(t *testing.T) {
 	mockSocket.Animation().OnAnimationCanceled(func(eventData *animation.CanceledEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -493,7 +493,7 @@ func TestAnimationOnAnimationCreated(t *testing.T) {
 		ID: "event-id",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Animation.animationCreated",
@@ -512,7 +512,7 @@ func TestAnimationOnAnimationCreated(t *testing.T) {
 	mockSocket.Animation().OnAnimationCreated(func(eventData *animation.CreatedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -566,7 +566,7 @@ func TestAnimationOnAnimationStarted(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Animation.animationStarted",
@@ -588,7 +588,7 @@ func TestAnimationOnAnimationStarted(t *testing.T) {
 	mockSocket.Animation().OnAnimationStarted(func(eventData *animation.StartedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

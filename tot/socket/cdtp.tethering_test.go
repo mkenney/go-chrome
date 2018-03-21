@@ -20,7 +20,7 @@ func TestTetheringBind(t *testing.T) {
 	resultChan := mockSocket.Tethering().Bind(params)
 	mockResult := &tethering.BindResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -31,7 +31,7 @@ func TestTetheringBind(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Tethering().Bind(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -57,7 +57,7 @@ func TestTetheringUnbind(t *testing.T) {
 	resultChan := mockSocket.Tethering().Unbind(params)
 	mockResult := &tethering.UnbindResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -68,7 +68,7 @@ func TestTetheringUnbind(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Tethering().Unbind(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -97,7 +97,7 @@ func TestTetheringOnAccepted(t *testing.T) {
 		ConnectionID: "ConnectionID",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Tethering.accepted",
@@ -115,7 +115,7 @@ func TestTetheringOnAccepted(t *testing.T) {
 	mockSocket.Tethering().OnAccepted(func(eventData *tethering.AcceptedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

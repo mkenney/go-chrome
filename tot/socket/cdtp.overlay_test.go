@@ -20,7 +20,7 @@ func TestOverlayDisable(t *testing.T) {
 	resultChan := mockSocket.Overlay().Disable()
 	mockResult := &overlay.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -31,7 +31,7 @@ func TestOverlayDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Overlay().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -54,7 +54,7 @@ func TestOverlayEnable(t *testing.T) {
 	resultChan := mockSocket.Overlay().Enable()
 	mockResult := &overlay.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -65,7 +65,7 @@ func TestOverlayEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Overlay().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -93,7 +93,7 @@ func TestOverlayGetHighlightObjectForTest(t *testing.T) {
 		Highlight: map[string]string{"key": "data"},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -107,7 +107,7 @@ func TestOverlayGetHighlightObjectForTest(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Overlay().GetHighlightObjectForTest(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -130,7 +130,7 @@ func TestOverlayHideHighlight(t *testing.T) {
 	resultChan := mockSocket.Overlay().HideHighlight()
 	mockResult := &overlay.HideHighlightResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -141,7 +141,7 @@ func TestOverlayHideHighlight(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Overlay().HideHighlight()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -169,7 +169,7 @@ func TestOverlayHighlightFrame(t *testing.T) {
 	resultChan := mockSocket.Overlay().HighlightFrame(params)
 	mockResult := &overlay.HighlightFrameResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -180,7 +180,7 @@ func TestOverlayHighlightFrame(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Overlay().HighlightFrame(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -209,7 +209,7 @@ func TestOverlayHighlightNode(t *testing.T) {
 	resultChan := mockSocket.Overlay().HighlightNode(params)
 	mockResult := &overlay.HighlightNodeResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -220,7 +220,7 @@ func TestOverlayHighlightNode(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Overlay().HighlightNode(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -248,7 +248,7 @@ func TestOverlayHighlightQuad(t *testing.T) {
 	resultChan := mockSocket.Overlay().HighlightQuad(params)
 	mockResult := &overlay.HighlightQuadResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -259,7 +259,7 @@ func TestOverlayHighlightQuad(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Overlay().HighlightQuad(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -290,7 +290,7 @@ func TestOverlayHighlightRect(t *testing.T) {
 	resultChan := mockSocket.Overlay().HighlightRect(params)
 	mockResult := &overlay.HighlightRectResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -301,7 +301,7 @@ func TestOverlayHighlightRect(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Overlay().HighlightRect(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -327,7 +327,7 @@ func TestOverlaySetInspectMode(t *testing.T) {
 	resultChan := mockSocket.Overlay().SetInspectMode(params)
 	mockResult := &overlay.SetInspectModeResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -338,7 +338,7 @@ func TestOverlaySetInspectMode(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Overlay().SetInspectMode(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -364,7 +364,7 @@ func TestOverlaySetPausedInDebuggerMessage(t *testing.T) {
 	resultChan := mockSocket.Overlay().SetPausedInDebuggerMessage(params)
 	mockResult := &overlay.SetPausedInDebuggerMessageResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -375,7 +375,7 @@ func TestOverlaySetPausedInDebuggerMessage(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Overlay().SetPausedInDebuggerMessage(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -401,7 +401,7 @@ func TestOverlaySetShowDebugBorders(t *testing.T) {
 	resultChan := mockSocket.Overlay().SetShowDebugBorders(params)
 	mockResult := &overlay.SetShowDebugBordersResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -412,7 +412,7 @@ func TestOverlaySetShowDebugBorders(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Overlay().SetShowDebugBorders(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -438,7 +438,7 @@ func TestOverlaySetShowFPSCounter(t *testing.T) {
 	resultChan := mockSocket.Overlay().SetShowFPSCounter(params)
 	mockResult := &overlay.SetShowFPSCounterResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -449,7 +449,7 @@ func TestOverlaySetShowFPSCounter(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Overlay().SetShowFPSCounter(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -475,7 +475,7 @@ func TestOverlaySetShowPaintRects(t *testing.T) {
 	resultChan := mockSocket.Overlay().SetShowPaintRects(params)
 	mockResult := &overlay.SetShowPaintRectsResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -486,7 +486,7 @@ func TestOverlaySetShowPaintRects(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Overlay().SetShowPaintRects(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -512,7 +512,7 @@ func TestOverlaySetShowScrollBottleneckRects(t *testing.T) {
 	resultChan := mockSocket.Overlay().SetShowScrollBottleneckRects(params)
 	mockResult := &overlay.SetShowScrollBottleneckRectsResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -523,7 +523,7 @@ func TestOverlaySetShowScrollBottleneckRects(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Overlay().SetShowScrollBottleneckRects(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -549,7 +549,7 @@ func TestOverlaySetShowViewportSizeOnResize(t *testing.T) {
 	resultChan := mockSocket.Overlay().SetShowViewportSizeOnResize(params)
 	mockResult := &overlay.SetShowViewportSizeOnResizeResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -560,7 +560,7 @@ func TestOverlaySetShowViewportSizeOnResize(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Overlay().SetShowViewportSizeOnResize(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -586,7 +586,7 @@ func TestOverlaySetSuspended(t *testing.T) {
 	resultChan := mockSocket.Overlay().SetSuspended(params)
 	mockResult := &overlay.SetSuspendedResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -597,7 +597,7 @@ func TestOverlaySetSuspended(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Overlay().SetSuspended(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,

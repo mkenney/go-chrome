@@ -40,7 +40,7 @@ func TestDOMDebuggerGetEventListeners(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -58,7 +58,7 @@ func TestDOMDebuggerGetEventListeners(t *testing.T) {
 		Depth:    1,
 		Pierce:   true,
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -84,7 +84,7 @@ func TestDOMDebuggerRemoveDOMBreakpoint(t *testing.T) {
 	})
 	mockResult := &domDebugger.RemoveDOMBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -98,7 +98,7 @@ func TestDOMDebuggerRemoveDOMBreakpoint(t *testing.T) {
 		NodeID: dom.NodeID(1),
 		Type:   domDebugger.DOMBreakpointType("breakpoint type"),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -124,7 +124,7 @@ func TestDOMDebuggerRemoveEventListenerBreakpoint(t *testing.T) {
 	})
 	mockResult := &domDebugger.RemoveEventListenerBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -138,7 +138,7 @@ func TestDOMDebuggerRemoveEventListenerBreakpoint(t *testing.T) {
 		EventName:  "event name",
 		TargetName: "target name",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -163,7 +163,7 @@ func TestDOMDebuggerRemoveInstrumentationBreakpoint(t *testing.T) {
 	})
 	mockResult := &domDebugger.RemoveInstrumentationBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -176,7 +176,7 @@ func TestDOMDebuggerRemoveInstrumentationBreakpoint(t *testing.T) {
 	resultChan = mockSocket.DOMDebugger().RemoveInstrumentationBreakpoint(&domDebugger.RemoveInstrumentationBreakpointParams{
 		EventName: "event name",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -201,7 +201,7 @@ func TestDOMDebuggerRemoveXHRBreakpoint(t *testing.T) {
 	})
 	mockResult := &domDebugger.RemoveXHRBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -214,7 +214,7 @@ func TestDOMDebuggerRemoveXHRBreakpoint(t *testing.T) {
 	resultChan = mockSocket.DOMDebugger().RemoveXHRBreakpoint(&domDebugger.RemoveXHRBreakpointParams{
 		URL: "http://xhr.url",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -240,7 +240,7 @@ func TestDOMDebuggerSetDOMBreakpoint(t *testing.T) {
 	})
 	mockResult := &domDebugger.SetDOMBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -254,7 +254,7 @@ func TestDOMDebuggerSetDOMBreakpoint(t *testing.T) {
 		NodeID: dom.NodeID(1),
 		Type:   domDebugger.DOMBreakpointType("breakpoint type"),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -280,7 +280,7 @@ func TestDOMDebuggerSetEventListenerBreakpoint(t *testing.T) {
 	})
 	mockResult := &domDebugger.SetEventListenerBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -294,7 +294,7 @@ func TestDOMDebuggerSetEventListenerBreakpoint(t *testing.T) {
 		EventName:  "event name",
 		TargetName: "target name",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -319,7 +319,7 @@ func TestDOMDebuggerSetInstrumentationBreakpoint(t *testing.T) {
 	})
 	mockResult := &domDebugger.SetInstrumentationBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -332,7 +332,7 @@ func TestDOMDebuggerSetInstrumentationBreakpoint(t *testing.T) {
 	resultChan = mockSocket.DOMDebugger().SetInstrumentationBreakpoint(&domDebugger.SetInstrumentationBreakpointParams{
 		EventName: "event name",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -357,7 +357,7 @@ func TestDOMDebuggerSetXHRBreakpoint(t *testing.T) {
 	})
 	mockResult := &domDebugger.SetXHRBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -370,7 +370,7 @@ func TestDOMDebuggerSetXHRBreakpoint(t *testing.T) {
 	resultChan = mockSocket.DOMDebugger().SetXHRBreakpoint(&domDebugger.SetXHRBreakpointParams{
 		URL: "http://xhr.url",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,

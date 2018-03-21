@@ -17,7 +17,7 @@ func TestDeviceOrientationClearOverride(t *testing.T) {
 	resultChan := mockSocket.DeviceOrientation().ClearOverride()
 	mockResult := &deviceOrientation.ClearOverrideResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -28,7 +28,7 @@ func TestDeviceOrientationClearOverride(t *testing.T) {
 	}
 
 	resultChan = mockSocket.DeviceOrientation().ClearOverride()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -55,7 +55,7 @@ func TestDeviceOrientationSetOverride(t *testing.T) {
 	})
 	mockResult := &deviceOrientation.SetOverrideResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -70,7 +70,7 @@ func TestDeviceOrientationSetOverride(t *testing.T) {
 		Beta:  1,
 		Gamma: 1,
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,

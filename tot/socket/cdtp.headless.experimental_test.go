@@ -32,7 +32,7 @@ func TestHeadlessExperimentalBeginFrame(t *testing.T) {
 		ScreenshotData:          "data",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -46,7 +46,7 @@ func TestHeadlessExperimentalBeginFrame(t *testing.T) {
 	}
 
 	resultChan = mockSocket.HeadlessExperimental().BeginFrame(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -69,7 +69,7 @@ func TestHeadlessExperimentalDisable(t *testing.T) {
 	resultChan := mockSocket.HeadlessExperimental().Disable()
 	mockResult := &headlessExperimental.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -80,7 +80,7 @@ func TestHeadlessExperimentalDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.HeadlessExperimental().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -103,7 +103,7 @@ func TestHeadlessExperimentalEnable(t *testing.T) {
 	resultChan := mockSocket.HeadlessExperimental().Enable()
 	mockResult := &headlessExperimental.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -114,7 +114,7 @@ func TestHeadlessExperimentalEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.HeadlessExperimental().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -140,7 +140,7 @@ func TestHeadlessExperimentalOnMainFrameReadyForScreenshots(t *testing.T) {
 	})
 	mockResult := &headlessExperimental.MainFrameReadyForScreenshotsEvent{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "HeadlessExperimental.mainFrameReadyForScreenshots",
@@ -155,7 +155,7 @@ func TestHeadlessExperimentalOnMainFrameReadyForScreenshots(t *testing.T) {
 	mockSocket.HeadlessExperimental().OnMainFrameReadyForScreenshots(func(eventData *headlessExperimental.MainFrameReadyForScreenshotsEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -184,7 +184,7 @@ func TestHeadlessExperimentalOnNeedsBeginFramesChanged(t *testing.T) {
 		NeedsBeginFrames: true,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "HeadlessExperimental.needsBeginFramesChanged",
@@ -199,7 +199,7 @@ func TestHeadlessExperimentalOnNeedsBeginFramesChanged(t *testing.T) {
 	mockSocket.HeadlessExperimental().OnNeedsBeginFramesChanged(func(eventData *headlessExperimental.NeedsBeginFramesChangedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

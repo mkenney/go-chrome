@@ -19,7 +19,7 @@ func TestProfilerDisable(t *testing.T) {
 	resultChan := mockSocket.Profiler().Disable()
 	mockResult := &profiler.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -30,7 +30,7 @@ func TestProfilerDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -53,7 +53,7 @@ func TestProfilerEnable(t *testing.T) {
 	resultChan := mockSocket.Profiler().Enable()
 	mockResult := &profiler.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -64,7 +64,7 @@ func TestProfilerEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -101,7 +101,7 @@ func TestProfilerGetBestEffortCoverage(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -115,7 +115,7 @@ func TestProfilerGetBestEffortCoverage(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().GetBestEffortCoverage()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -141,7 +141,7 @@ func TestProfilerSetSamplingInterval(t *testing.T) {
 	resultChan := mockSocket.Profiler().SetSamplingInterval(params)
 	mockResult := &profiler.SetSamplingIntervalResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -152,7 +152,7 @@ func TestProfilerSetSamplingInterval(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().SetSamplingInterval(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -175,7 +175,7 @@ func TestProfilerStart(t *testing.T) {
 	resultChan := mockSocket.Profiler().Start()
 	mockResult := &profiler.StartResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -186,7 +186,7 @@ func TestProfilerStart(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().Start()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -213,7 +213,7 @@ func TestProfilerStartPreciseCoverage(t *testing.T) {
 	resultChan := mockSocket.Profiler().StartPreciseCoverage(params)
 	mockResult := &profiler.StartPreciseCoverageResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -224,7 +224,7 @@ func TestProfilerStartPreciseCoverage(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().StartPreciseCoverage(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -247,7 +247,7 @@ func TestProfilerStartTypeProfile(t *testing.T) {
 	resultChan := mockSocket.Profiler().StartTypeProfile()
 	mockResult := &profiler.StartTypeProfileResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -258,7 +258,7 @@ func TestProfilerStartTypeProfile(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().StartTypeProfile()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -299,7 +299,7 @@ func TestProfilerStop(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -313,7 +313,7 @@ func TestProfilerStop(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().Stop()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -336,7 +336,7 @@ func TestProfilerStopPreciseCoverage(t *testing.T) {
 	resultChan := mockSocket.Profiler().StopPreciseCoverage()
 	mockResult := &profiler.StopPreciseCoverageResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -347,7 +347,7 @@ func TestProfilerStopPreciseCoverage(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().StopPreciseCoverage()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -370,7 +370,7 @@ func TestProfilerStopTypeProfile(t *testing.T) {
 	resultChan := mockSocket.Profiler().StopTypeProfile()
 	mockResult := &profiler.StopTypeProfileResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -381,7 +381,7 @@ func TestProfilerStopTypeProfile(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().StopTypeProfile()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -418,7 +418,7 @@ func TestProfilerTakePreciseCoverage(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -432,7 +432,7 @@ func TestProfilerTakePreciseCoverage(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().TakePreciseCoverage()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -466,7 +466,7 @@ func TestProfilerTakeTypeProfile(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -480,7 +480,7 @@ func TestProfilerTakeTypeProfile(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().TakeTypeProfile()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -527,7 +527,7 @@ func TestProfilerOnConsoleProfileFinished(t *testing.T) {
 		Title: "title",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Profiler.consoleProfileFinished",
@@ -545,7 +545,7 @@ func TestProfilerOnConsoleProfileFinished(t *testing.T) {
 	mockSocket.Profiler().OnConsoleProfileFinished(func(eventData *profiler.ConsoleProfileFinishedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -576,7 +576,7 @@ func TestProfilerOnConsoleProfileStarted(t *testing.T) {
 		Title:    "title",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Profiler.consoleProfileStarted",
@@ -594,7 +594,7 @@ func TestProfilerOnConsoleProfileStarted(t *testing.T) {
 	mockSocket.Profiler().OnConsoleProfileStarted(func(eventData *profiler.ConsoleProfileStartedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

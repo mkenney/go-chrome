@@ -22,7 +22,7 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 	resultChan := mockSocket.Accessibility().GetPartialAXTree(params)
 	mockResult := accessibility.PartialAXTreeResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -74,7 +74,7 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ = json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -89,7 +89,7 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Accessibility().GetPartialAXTree(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,

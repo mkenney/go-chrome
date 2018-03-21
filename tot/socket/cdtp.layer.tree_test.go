@@ -23,7 +23,7 @@ func TestLayerTreeCompositingReasons(t *testing.T) {
 		CompositingReasons: []string{"reason1", "reason2"},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -37,7 +37,7 @@ func TestLayerTreeCompositingReasons(t *testing.T) {
 	}
 
 	resultChan = mockSocket.LayerTree().CompositingReasons(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -60,7 +60,7 @@ func TestLayerTreeDisable(t *testing.T) {
 	resultChan := mockSocket.LayerTree().Disable()
 	mockResult := &layerTree.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -71,7 +71,7 @@ func TestLayerTreeDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.LayerTree().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -94,7 +94,7 @@ func TestLayerTreeEnable(t *testing.T) {
 	resultChan := mockSocket.LayerTree().Enable()
 	mockResult := &layerTree.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -105,7 +105,7 @@ func TestLayerTreeEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.LayerTree().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -137,7 +137,7 @@ func TestLayerTreeLoadSnapshot(t *testing.T) {
 		SnapshotID: layerTree.SnapshotID("snapshot-id"),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -151,7 +151,7 @@ func TestLayerTreeLoadSnapshot(t *testing.T) {
 	}
 
 	resultChan = mockSocket.LayerTree().LoadSnapshot(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -179,7 +179,7 @@ func TestLayerTreeMakeSnapshot(t *testing.T) {
 		SnapshotID: layerTree.SnapshotID("snapshot-id"),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -193,7 +193,7 @@ func TestLayerTreeMakeSnapshot(t *testing.T) {
 	}
 
 	resultChan = mockSocket.LayerTree().MakeSnapshot(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -229,7 +229,7 @@ func TestLayerTreeProfileSnapshot(t *testing.T) {
 		Timings: []*layerTree.PaintProfile{},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -240,7 +240,7 @@ func TestLayerTreeProfileSnapshot(t *testing.T) {
 	}
 
 	resultChan = mockSocket.LayerTree().ProfileSnapshot(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -266,7 +266,7 @@ func TestLayerTreeReleaseSnapshot(t *testing.T) {
 	resultChan := mockSocket.LayerTree().ReleaseSnapshot(params)
 	mockResult := &layerTree.ReleaseSnapshotResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -277,7 +277,7 @@ func TestLayerTreeReleaseSnapshot(t *testing.T) {
 	}
 
 	resultChan = mockSocket.LayerTree().ReleaseSnapshot(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -308,7 +308,7 @@ func TestLayerTreeReplaySnapshot(t *testing.T) {
 		DataURL: "data:urldata",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -322,7 +322,7 @@ func TestLayerTreeReplaySnapshot(t *testing.T) {
 	}
 
 	resultChan = mockSocket.LayerTree().ReplaySnapshot(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -350,7 +350,7 @@ func TestLayerTreeSnapshotCommandLog(t *testing.T) {
 		CommandLog: []map[string]string{{"command1": "log1"}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -364,7 +364,7 @@ func TestLayerTreeSnapshotCommandLog(t *testing.T) {
 	}
 
 	resultChan = mockSocket.LayerTree().SnapshotCommandLog(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -398,7 +398,7 @@ func TestLayerTreeOnLayerPainted(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "LayerTree.layerPainted",
@@ -416,7 +416,7 @@ func TestLayerTreeOnLayerPainted(t *testing.T) {
 	mockSocket.LayerTree().OnLayerPainted(func(eventData *layerTree.LayerPaintedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -470,7 +470,7 @@ func TestLayerTreeOnLayerTreeDidChange(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "LayerTree.layerTreeDidChange",
@@ -488,7 +488,7 @@ func TestLayerTreeOnLayerTreeDidChange(t *testing.T) {
 	mockSocket.LayerTree().OnLayerTreeDidChange(func(eventData *layerTree.DidChangeEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

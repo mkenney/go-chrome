@@ -17,7 +17,7 @@ func TestConsoleClearMessages(t *testing.T) {
 	resultChan := mockSocket.Console().ClearMessages()
 	mockResult := &console.ClearMessagesResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -28,7 +28,7 @@ func TestConsoleClearMessages(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Console().ClearMessages()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -51,7 +51,7 @@ func TestConsoleDisable(t *testing.T) {
 	resultChan := mockSocket.Console().Disable()
 	mockResult := &console.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -62,7 +62,7 @@ func TestConsoleDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Console().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -85,7 +85,7 @@ func TestConsoleEnable(t *testing.T) {
 	resultChan := mockSocket.Console().Enable()
 	mockResult := &console.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -96,7 +96,7 @@ func TestConsoleEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Console().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -131,7 +131,7 @@ func TestConsoleOnMessageAdded(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Console.messageAdded",
@@ -150,7 +150,7 @@ func TestConsoleOnMessageAdded(t *testing.T) {
 	mockSocket.Console().OnMessageAdded(func(eventData *console.MessageAddedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
