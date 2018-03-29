@@ -11,7 +11,7 @@
     <td rowspan="7">
         This package aims to be a complete <a href="https://chromedevtools.github.io/devtools-protocol/">Chrome DevTools Protocol</a> implementation. The primary use-case behind this project is interacting with <a href="https://developers.google.com/web/updates/2017/04/headless-chrome">headless Google Chrome</a> in a container environment, but it should be appropriate for developing server side and desktop applications as well.
         <br><br>
-        The API is fairly settled and basic code-coverage tests have been implemented but real-world testing is needed. <a href="https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot">`Page.captureScreenshot`</a> and related calls are working well and are regularly used for validating the workability of code refactoring.
+        The API is fairly settled and basic code-coverage tests have been implemented but real-world testing is needed. <a href="https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot"><code>Page.captureScreenshot</code></a> and related calls are working well and are regularly used for validating the workability of code refactoring.
         <br /><br />
         This implementation is based on the <a href="https://chromedevtools.github.io/devtools-protocol/tot/">Tip-of-Tree</a> documentation and may be prone to change. At some point stable versions will be implemented as well, hopefully beginning with v1.3.
     </td>
@@ -47,11 +47,64 @@ There are a few small examples of how to use the framework API on the [wiki](htt
 
 # TODO
 
-Add more tests, especially for error cases. If you would like to contribute but aren't sure how, take a look at [codecov](https://codecov.io/gh/mkenney/go-chrome) for any tests that could be written. There are [many examples](https://github.com/mkenney/go-chrome/blob/master/socket/cdtp.animation_test.go) of tests in the repo.
-
 Any contributions of any kind are very welcome!
 
+* Refactoring to implement standard interfaces where applicable and review current use of interfaces in the API. Some aren't needed at all and others are used to support test mocks.
+* Add more tests, especially for error cases. If you would like to contribute but aren't sure how, take a look at [codecov](https://codecov.io/gh/mkenney/go-chrome) for any tests that could be written. There are [many](https://github.com/mkenney/go-chrome/blob/master/tot/socket/cdtp.animation_test.go) [examples](https://github.com/mkenney/go-chrome/blob/master/tot/cdtp/animation/enum.animation.type_test.go) of tests in the repo.
+* Add integration test scripts to the `test/` directory to exercise various functions. The [screenshot script](https://github.com/mkenney/go-chrome/wiki/Example%3A-Capture-A-Screenshot) is already setup there.
+
 # Change Log
+
+## 2017-03-20
+
+Removed the unnecessary array notation for the flags passed to the Chrome process. This is a breaking change but it's simple to update client code and easier to use in general.
+
+When defining your Chrome instance, remove any `[]interface{}{}` declarations in the `Flags` parameter. To demonstrate, the [example code](https://github.com/mkenney/go-chrome/wiki/Example%3A-Capture-A-Screenshot) has changed from:
+```go
+	// Define a chrome instance with remote debugging enabled.
+	browser := chrome.New(
+		&chrome.Flags{
+			"addr":               []interface{}{"localhost"},
+			"disable-extensions": nil,
+			"disable-gpu":        nil,
+			"headless":           nil,
+			"hide-scrollbars":    nil,
+			"no-first-run":       nil,
+			"no-sandbox":         nil,
+			"port":               []interface{}{9222},
+			"remote-debugging-address": []interface{}{"0.0.0.0"},
+			"remote-debugging-port":    []interface{}{9222},
+		},
+		"/usr/bin/google-chrome",
+		"",
+		"",
+		"",
+	)
+```
+to simply:
+```go
+	// Define a chrome instance with remote debugging enabled.
+	browser := chrome.New(
+		&chrome.Flags{
+			"addr":               "localhost",
+			"disable-extensions": nil,
+			"disable-gpu":        nil,
+			"headless":           nil,
+			"hide-scrollbars":    nil,
+			"no-first-run":       nil,
+			"no-sandbox":         nil,
+			"port":               9222,
+			"remote-debugging-address": "0.0.0.0",
+			"remote-debugging-port":    9222,
+		},
+		"/usr/bin/google-chrome",
+		"",
+		"",
+		"",
+	)
+```
+
+It's easier to deal with, simpler to understand, and supporting multiple values wasn't ever useful. An [argument could be made](https://github.com/mkenney/go-chrome/issues/new) for supporting something like [`pkg/flag`](https://golang.org/pkg/flag/) I suppose but I don't generally need a CLI interface.
 
 ## 2017-02-06
 

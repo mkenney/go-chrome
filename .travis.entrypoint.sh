@@ -14,7 +14,7 @@ go get -u github.com/golang/dep/cmd/dep
 cd /go/src/github.com/mkenney/go-chrome
 [ "0" = "$?" ] || exit 3
 
-dep ensure
+dep init
 [ "0" = "$?" ] || exit 4
 
 for dir in $(go list ./... | grep -v vendor); do
