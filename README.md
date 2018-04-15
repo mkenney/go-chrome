@@ -6,7 +6,7 @@
 
 <table><tbody><tr>
     <td>
-        <a href="https://github.com/mkenney/go-chrome/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mkenney/go-chrome.svg" alt="MIT License"></a>
+        <a href="https://github.com/mkenney/go-chrome/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mkenney/go-chrome.svg" style="width: 110px;" alt="MIT License"></a>
     </td>
     <td rowspan="7">
         This package aims to be a complete <a href="https://chromedevtools.github.io/devtools-protocol/">Chrome DevTools Protocol</a> implementation. The primary use-case behind this project is interacting with <a href="https://developers.google.com/web/updates/2017/04/headless-chrome">headless Google Chrome</a> in a container environment, but it should be appropriate for developing server side and desktop applications as well.
@@ -17,27 +17,27 @@
     </td>
 </tr><tr>
     <td>
-        <a href="https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#beta"><img src="https://img.shields.io/badge/stability-beta-33bbff.svg" alt="Beta"></a>
+        <a href="https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#beta"><img src="https://img.shields.io/badge/stability-beta-33bbff.svg" style="width: 110px;" alt="Beta"></a>
     </td>
 </tr><tr>
     <td width="150">
-        <a href="https://travis-ci.org/mkenney/go-chrome"><img src="https://travis-ci.org/mkenney/go-chrome.svg?branch=master" alt="Build status"></a>
+        <a href="https://travis-ci.org/mkenney/go-chrome"><img src="https://travis-ci.org/mkenney/go-chrome.svg?branch=master" style="width: 110px;" alt="Build status"></a>
     </td>
 </tr><tr>
     <td width="150">
-        <a href="https://codecov.io/gh/mkenney/go-chrome"><img src="https://img.shields.io/codecov/c/github/mkenney/go-chrome/master.svg" alt="Coverage status"></a>
+        <a href="https://codecov.io/gh/mkenney/go-chrome"><img src="https://img.shields.io/codecov/c/github/mkenney/go-chrome/master.svg" style="width: 110px;" alt="Coverage status"></a>
     </td>
 </tr><tr>
     <td>
-        <a href="https://github.com/mkenney/go-chrome/issues"><img src="https://img.shields.io/github/issues-raw/mkenney/go-chrome.svg" alt="Github issues"></a>
+        <a href="https://github.com/mkenney/go-chrome/issues"><img src="https://img.shields.io/github/issues-raw/mkenney/go-chrome.svg" style="width: 110px;" alt="Github issues"></a>
     </td>
 </tr><tr>
     <td>
-        <a href="https://goreportcard.com/report/github.com/mkenney/go-chrome"><img src="https://goreportcard.com/badge/github.com/mkenney/go-chrome" alt="Go Report Card"></a>
+        <a href="https://goreportcard.com/report/github.com/mkenney/go-chrome"><img src="https://goreportcard.com/badge/github.com/mkenney/go-chrome" style="width: 110px;" alt="Go Report Card"></a>
     </td>
 </tr><tr>
     <td>
-        <a href="https://godoc.org/github.com/mkenney/go-chrome"><img src="https://godoc.org/github.com/mkenney/go-chrome?status.svg" alt="GoDoc"></a>
+        <a href="https://godoc.org/github.com/mkenney/go-chrome"><img src="https://godoc.org/github.com/mkenney/go-chrome?status.svg" style="width: 110px;" alt="GoDoc"></a>
     </td>
 </tr></tbody></table>
 
