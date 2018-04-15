@@ -5,39 +5,39 @@
 # go-chrome
 
 <table><tbody><tr>
-    <td>
-        <a href="https://github.com/mkenney/go-chrome/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mkenney/go-chrome.svg" alt="MIT License"></a>
+    <td valign="middle">
+        <a href="https://github.com/mkenney/go-chrome/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mkenney/go-chrome.svg" width="110px" height="20px" alt="MIT License"></a>
     </td>
-    <td rowspan="7">
+    <td rowspan="7" valign="middle"><p align="justify">
         This package aims to be a complete <a href="https://chromedevtools.github.io/devtools-protocol/">Chrome DevTools Protocol</a> implementation. The primary use-case behind this project is interacting with <a href="https://developers.google.com/web/updates/2017/04/headless-chrome">headless Google Chrome</a> in a container environment, but it should be appropriate for developing server side and desktop applications as well.
         <br><br>
         The API is fairly settled and basic code-coverage tests have been implemented but real-world testing is needed. <a href="https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot"><code>Page.captureScreenshot</code></a> and related calls are working well and are regularly used for validating the workability of code refactoring.
         <br /><br />
         This implementation is based on the <a href="https://chromedevtools.github.io/devtools-protocol/tot/">Tip-of-Tree</a> documentation and may be prone to change. At some point stable versions will be implemented as well, hopefully beginning with v1.3.
-    </td>
+    </p></td>
 </tr><tr>
-    <td>
-        <a href="https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#beta"><img src="https://img.shields.io/badge/stability-beta-33bbff.svg" alt="Beta"></a>
-    </td>
-</tr><tr>
-    <td width="150">
-        <a href="https://travis-ci.org/mkenney/go-chrome"><img src="https://travis-ci.org/mkenney/go-chrome.svg?branch=master" alt="Build status"></a>
+    <td valign="middle">
+        <a href="https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#beta"><img src="https://img.shields.io/badge/stability-beta-33bbff.svg" width="110px" height="20px" alt="Beta"></a>
     </td>
 </tr><tr>
     <td width="150">
-        <a href="https://codecov.io/gh/mkenney/go-chrome"><img src="https://img.shields.io/codecov/c/github/mkenney/go-chrome/master.svg" alt="Coverage status"></a>
+        <a href="https://travis-ci.org/mkenney/go-chrome"><img src="https://travis-ci.org/mkenney/go-chrome.svg?branch=master" width="110px" height="20px" alt="Build status"></a>
     </td>
 </tr><tr>
-    <td>
-        <a href="https://github.com/mkenney/go-chrome/issues"><img src="https://img.shields.io/github/issues-raw/mkenney/go-chrome.svg" alt="Github issues"></a>
+    <td width="150">
+        <a href="https://codecov.io/gh/mkenney/go-chrome"><img src="https://img.shields.io/codecov/c/github/mkenney/go-chrome/master.svg" width="110px" height="20px" alt="Coverage status"></a>
     </td>
 </tr><tr>
-    <td>
-        <a href="https://goreportcard.com/report/github.com/mkenney/go-chrome"><img src="https://goreportcard.com/badge/github.com/mkenney/go-chrome" alt="Go Report Card"></a>
+    <td valign="middle">
+        <a href="https://github.com/mkenney/go-chrome/issues"><img src="https://img.shields.io/github/issues-raw/mkenney/go-chrome.svg" width="110px" height="20px" alt="Github issues"></a>
     </td>
 </tr><tr>
-    <td>
-        <a href="https://godoc.org/github.com/mkenney/go-chrome"><img src="https://godoc.org/github.com/mkenney/go-chrome?status.svg" alt="GoDoc"></a>
+    <td valign="middle">
+        <a href="https://goreportcard.com/report/github.com/mkenney/go-chrome"><img src="https://goreportcard.com/badge/github.com/mkenney/go-chrome" width="110px" height="20px" alt="Go Report Card"></a>
+    </td>
+</tr><tr>
+    <td valign="middle">
+        <a href="https://godoc.org/github.com/mkenney/go-chrome"><img src="https://godoc.org/github.com/mkenney/go-chrome?status.svg" width="110px" height="20px" alt="GoDoc"></a>
     </td>
 </tr></tbody></table>
 
@@ -123,15 +123,15 @@ To provide for more idiomatic package naming the following packages have been re
 * tot/cdtp/service_worker -> tot/cdtp/service/worker
 * tot/cdtp/system_info -> tot/cdtp/system/info
 
-## 2017-12-21
+## 2018-01-21
 
 The core data types have been updated with proper enum support for string properties that only allow specific values.
 
-## 2017-12-05
+## 2018-01-12
 
 In preparation for having stable versions of the library, I updated the directory structure of the repo adding a `tot` package for the current code (Tip-of-Tree).
 
-## 2017-11-05
+## 2018-01-05
 
 I merged some changes that did change the API a bit. Mainly, all the protocol methods now return a channel instead of blocking until they get a result to better handle the nature of socket data streams. This makes unit testing easier and cleaner and the API more useful, but the race detector still finds false positives due to writing test data to a stack that mocks a socket data stream, which is being drained by an independent goroutine...
 
