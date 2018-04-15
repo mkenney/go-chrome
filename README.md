@@ -55,7 +55,7 @@ Any contributions of any kind are very welcome!
 
 # Change Log
 
-## 2017-03-20
+## 2018-03-20
 
 Removed the unnecessary array notation for the flags passed to the Chrome process. This is a breaking change but it's simple to update client code and easier to use in general.
 
@@ -106,7 +106,7 @@ to simply:
 
 It's easier to deal with, simpler to understand, and supporting multiple values wasn't ever useful. An [argument could be made](https://github.com/mkenney/go-chrome/issues/new) for supporting something like [`pkg/flag`](https://golang.org/pkg/flag/) I suppose but I don't generally need a CLI interface.
 
-## 2017-02-06
+## 2018-02-06
 
 To provide for more idiomatic package naming the following packages have been renamed:
 
@@ -131,7 +131,7 @@ The core data types have been updated with proper enum support for string proper
 
 In preparation for having stable versions of the library, I updated the directory structure of the repo adding a `tot` package for the current code (Tip-of-Tree).
 
-## 2017-01-05
+## 2017-11-05
 
 I merged some changes that did change the API a bit. Mainly, all the protocol methods now return a channel instead of blocking until they get a result to better handle the nature of socket data streams. This makes unit testing easier and cleaner and the API more useful, but the race detector still finds false positives due to writing test data to a stack that mocks a socket data stream, which is being drained by an independent goroutine...
 
