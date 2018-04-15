@@ -123,15 +123,15 @@ To provide for more idiomatic package naming the following packages have been re
 * tot/cdtp/service_worker -> tot/cdtp/service/worker
 * tot/cdtp/system_info -> tot/cdtp/system/info
 
-## 2017-12-21
+## 2018-01-21
 
 The core data types have been updated with proper enum support for string properties that only allow specific values.
 
-## 2017-12-05
+## 2018-01-12
 
 In preparation for having stable versions of the library, I updated the directory structure of the repo adding a `tot` package for the current code (Tip-of-Tree).
 
-## 2017-11-05
+## 2018-01-05
 
 I merged some changes that did change the API a bit. Mainly, all the protocol methods now return a channel instead of blocking until they get a result to better handle the nature of socket data streams. This makes unit testing easier and cleaner and the API more useful, but the race detector still finds false positives due to writing test data to a stack that mocks a socket data stream, which is being drained by an independent goroutine...
 
