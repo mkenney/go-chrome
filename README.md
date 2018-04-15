@@ -5,7 +5,7 @@
 # go-chrome
 
 <table><tbody><tr>
-    <td>
+    <td valign="middle">
         <a href="https://github.com/mkenney/go-chrome/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mkenney/go-chrome.svg" width="110px" height="21px" alt="MIT License"></a>
     </td>
     <td rowspan="7">
@@ -16,7 +16,7 @@
         This implementation is based on the <a href="https://chromedevtools.github.io/devtools-protocol/tot/">Tip-of-Tree</a> documentation and may be prone to change. At some point stable versions will be implemented as well, hopefully beginning with v1.3.
     </td>
 </tr><tr>
-    <td>
+    <td valign="middle">
         <a href="https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#beta"><img src="https://img.shields.io/badge/stability-beta-33bbff.svg" width="110px" height="21px" alt="Beta"></a>
     </td>
 </tr><tr>
@@ -28,15 +28,15 @@
         <a href="https://codecov.io/gh/mkenney/go-chrome"><img src="https://img.shields.io/codecov/c/github/mkenney/go-chrome/master.svg" width="110px" height="21px" alt="Coverage status"></a>
     </td>
 </tr><tr>
-    <td>
+    <td valign="middle">
         <a href="https://github.com/mkenney/go-chrome/issues"><img src="https://img.shields.io/github/issues-raw/mkenney/go-chrome.svg" width="110px" height="21px" alt="Github issues"></a>
     </td>
 </tr><tr>
-    <td>
+    <td valign="middle">
         <a href="https://goreportcard.com/report/github.com/mkenney/go-chrome"><img src="https://goreportcard.com/badge/github.com/mkenney/go-chrome" width="110px" height="21px" alt="Go Report Card"></a>
     </td>
 </tr><tr>
-    <td>
+    <td valign="middle">
         <a href="https://godoc.org/github.com/mkenney/go-chrome"><img src="https://godoc.org/github.com/mkenney/go-chrome?status.svg" width="110px" height="21px" alt="GoDoc"></a>
     </td>
 </tr></tbody></table>
