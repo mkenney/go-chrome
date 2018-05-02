@@ -175,7 +175,7 @@ Quad is an array of quad vertices, x immediately followed by y for each point, p
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-Quad
 */
-type Quad [2]int
+type Quad [2]float64
 
 /*
 BoxModel represents the box model.
