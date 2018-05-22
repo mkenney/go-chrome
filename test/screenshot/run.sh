@@ -6,5 +6,6 @@ docker run --rm -it \
 	-e LOG_LEVEL=debug \
 	mkenney/chromium-headless:latest \
 		sh -cexu "cd /go/src/test \
+			&& dep ensure \
 			&& go build -o /go/bin/app \
 			&& /go/bin/app"

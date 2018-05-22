@@ -52,7 +52,7 @@
     "tot/cdtp/tracing",
     "tot/socket"
   ]
-  revision = "206225901d4391f0fffa0e33cc3da9d07d93f19c"
+  revision = "c07d32428f29e926d3d33ea0e887017d03636654"
 
 [[projects]]
   name = "github.com/pkg/errors"
@@ -84,6 +84,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "4accbf30b48b19b144e477ee28fb8f499a8d4ca2b4edf9fca6d1a5e545612084"
+  inputs-digest = "dce3fa8eb876ce33f456298f8099fa1fad5a9be263a9ebfe584dab479a5f5cbe"
   solver-name = "gps-cdcl"
   solver-version = 1
