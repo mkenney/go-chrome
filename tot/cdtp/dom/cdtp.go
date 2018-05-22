@@ -171,7 +171,8 @@ type RGBA struct {
 }
 
 /*
-Quad is an array of quad vertices, x immediately followed by y for each point, points clock-wise.
+Quad is an array of quad vertices, x immediately followed by y for each
+point, points clock-wise.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOM/#type-Quad
 */
