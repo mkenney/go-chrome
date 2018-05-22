@@ -1,6 +1,26 @@
 package snapshot
 
 /*
+DisableResult represents the result of calls to DOMSnapshot.disable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot#method-disable
+*/
+type DisableResult struct {
+	// Error information related to executing this method
+	Err error `json:"-"`
+}
+
+/*
+EnableResult represents the result of calls to DOMSnapshot.enable.
+
+https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot#method-enable
+*/
+type EnableResult struct {
+	// Error information related to executing this method
+	Err error `json:"-"`
+}
+
+/*
 GetParams represents DOMSnapshot.getSnapshot parameters.
 
 https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#method-getSnapshot
