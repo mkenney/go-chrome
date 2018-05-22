@@ -18,9 +18,9 @@ type DOMSnapshotProtocol struct {
 }
 
 /*
-Disable disables the DOM agent for the given page.
+Disable disables the DOM snapshot functionality for the given page.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-disable
+https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#method-disable
 */
 func (protocol *DOMSnapshotProtocol) Disable() <-chan *snapshot.DisableResult {
 	resultChan := make(chan *snapshot.DisableResult)
@@ -40,9 +40,9 @@ func (protocol *DOMSnapshotProtocol) Disable() <-chan *snapshot.DisableResult {
 }
 
 /*
-Enable enables the DOM agent for the given page.
+Enable enables the DOM snapshot functionality for the given page.
 
-https://chromedevtools.github.io/devtools-protocol/tot/DOM/#method-enable
+https://chromedevtools.github.io/devtools-protocol/tot/DOMSnapshot/#method-enable
 */
 func (protocol *DOMSnapshotProtocol) Enable() <-chan *snapshot.EnableResult {
 	resultChan := make(chan *snapshot.EnableResult)
