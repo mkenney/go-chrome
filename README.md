@@ -8,7 +8,7 @@
     <td width="150" valign="middle" align="center">
         <a href="https://github.com/mkenney/go-chrome/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mkenney/go-chrome.svg" alt="MIT License"></a>
     </td>
-    <td rowspan="7" valign="middle"><p align="justify">
+    <td rowspan="8" valign="middle"><p align="justify">
         This package aims to be a complete <a href="https://chromedevtools.github.io/devtools-protocol/">Chrome DevTools Protocol</a> implementation. The primary use-case behind this project is interacting with <a href="https://developers.google.com/web/updates/2017/04/headless-chrome">headless Google Chrome</a> in a container environment, but it should be appropriate for developing server side and desktop applications as well.
         <br><br>
         The API is fairly settled and basic code-coverage tests have been implemented but real-world testing is needed. <a href="https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot"><code>Page.captureScreenshot</code></a> and related calls are working well and are regularly used for validating the workability of code refactoring.
@@ -30,6 +30,10 @@
 </tr><tr>
     <td valign="middle" align="center">
         <a href="https://github.com/mkenney/go-chrome/issues"><img src="https://img.shields.io/github/issues-raw/mkenney/go-chrome.svg" alt="Github issues"></a>
+    </td>
+</tr><tr>
+    <td valign="middle" align="center">
+        <a href="https://github.com/mkenney/go-chrome/issues"><img src="https://img.shields.io/github/issues-pr/mkenney/go-chrome.svg" alt="Github pull requests"></a>
     </td>
 </tr><tr>
     <td valign="middle" align="center">
