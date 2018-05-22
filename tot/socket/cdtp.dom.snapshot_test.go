@@ -10,6 +10,74 @@ import (
 	page "github.com/mkenney/go-chrome/tot/cdtp/page"
 )
 
+func TestDOMSnapshotDisable(t *testing.T) {
+	socketURL, _ := url.Parse("https://test:9222/")
+	mockSocket := NewMock(socketURL)
+	go mockSocket.Listen()
+	defer mockSocket.Stop()
+
+	resultChan := mockSocket.DOMSnapshot().Disable()
+	mockResult := &domSnapshot.DisableResult{}
+	mockResultBytes, _ := json.Marshal(mockResult)
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
+		Result: mockResultBytes,
+	})
+	result := <-resultChan
+	if nil != result.Err {
+		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
+	}
+
+	resultChan = mockSocket.DOMSnapshot().Disable()
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
+}
+
+func TestDOMSnapshotEnable(t *testing.T) {
+	socketURL, _ := url.Parse("https://test:9222/")
+	mockSocket := NewMock(socketURL)
+	go mockSocket.Listen()
+	defer mockSocket.Stop()
+
+	resultChan := mockSocket.DOMSnapshot().Enable()
+	mockResult := &domSnapshot.EnableResult{}
+	mockResultBytes, _ := json.Marshal(mockResult)
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID:     mockSocket.CurCommandID(),
+		Error:  &Error{},
+		Result: mockResultBytes,
+	})
+	result := <-resultChan
+	if nil != result.Err {
+		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
+	}
+
+	resultChan = mockSocket.DOMSnapshot().Enable()
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID: mockSocket.CurCommandID(),
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
+}
+
 func TestDOMSnapshotGet(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/")
 	mockSocket := NewMock(socketURL)
