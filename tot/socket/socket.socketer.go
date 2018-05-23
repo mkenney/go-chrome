@@ -1,6 +1,7 @@
 package socket
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/url"
 	"sync"
@@ -238,9 +239,13 @@ handleUnknown receives all other socket responses.
 func (socket *Socket) handleUnknown(
 	response *Response,
 ) {
-	log.Debugf(
-		"socket #%d - socket.handleUnknown(): handling unexpected data %s",
-		socket.socketID,
+	tmp, _ := json.MarshalIndent(response, "", "  ")
+	log.WithFields(log.Fields{
+		"socket": socket.socketID,
+		"method": "socket.handleUnknown()",
+		"data":   string(tmp),
+	}).Debugf(
+		"handling unexpected data from %s",
 		socket.URL(),
 	)
 
@@ -292,12 +297,18 @@ func (socket *Socket) Listen() error {
 	defer socket.Disconnect()
 
 	socket.stopListening = false
+	errCount := 0
 	for {
+		if errCount > 10 {
+			socket.Stop() // This will end the loop after handling the current response (if any)
+		}
 		response := &Response{}
 		err = socket.ReadJSON(&response)
 		if nil != err {
+			errCount++
 			log.Errorf("socket #%d - %s", socket.socketID, err.Error())
-			socket.Stop() // This will end the loop after handling the current response (if any)
+		} else {
+			errCount = 0
 		}
 
 		if response.ID > 0 {
