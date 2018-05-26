@@ -299,7 +299,7 @@ func (socket *Socket) Listen() error {
 	socket.stopListening = false
 	errCount := 0
 	for {
-		if errCount > 10 {
+		if errCount > 3 {
 			socket.Stop() // This will end the loop after handling the current response (if any)
 		}
 		response := &Response{}
@@ -308,6 +308,8 @@ func (socket *Socket) Listen() error {
 			errCount++
 			log.Errorf("socket #%d - %s", socket.socketID, err.Error())
 		} else {
+			tmp, _ := json.MarshalIndent(response, "-", "    ")
+			log.Errorf("\n\n^^^^^^^^^^^%s^^^^^^^^^^\n\n", string(tmp))
 			errCount = 0
 		}
 
@@ -328,12 +330,18 @@ func (socket *Socket) Listen() error {
 			socket.handleEvent(response)
 
 		} else {
-			log.Error(fmt.Errorf(
+			tmp, _ := json.MarshalIndent(response, "", "    ")
+			log.WithFields(log.Fields{
+				"socket": socket.socketID,
+				"method": "socket.handleUnknown()",
+				"data":   string(tmp),
+			}).Errorf(
 				"socket #%d - Unknown response from web socket: id=%d, method=%s",
 				socket.socketID,
 				response.ID,
 				response.Method,
-			))
+			)
+
 			if nil == response.Error {
 				response.Error = &Error{
 					Message: "Unknown response from web socket",
@@ -427,6 +435,8 @@ func (socket *Socket) SendCommand(command Commander) chan *Response {
 		}
 
 		if err := socket.WriteJSON(payload); err != nil {
+			tmp, _ := json.MarshalIndent(payload, "", "    ")
+			log.Debugf("*********************** %s ****************\nERROR: %v", string(tmp), err)
 			command.Respond(&Response{Error: &Error{
 				Code:    1,
 				Data:    []byte(fmt.Sprintf(`"%s"`, err.Error())),

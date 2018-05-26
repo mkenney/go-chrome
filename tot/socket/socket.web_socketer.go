@@ -1,11 +1,12 @@
 package socket
 
 import (
+	"encoding/json"
 	"fmt"
-	"net/http"
 	"net/url"
 
-	"github.com/gorilla/websocket"
+	"golang.org/x/net/websocket"
+	//"github.com/gorilla/websocket"
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 )
@@ -15,17 +16,19 @@ NewWebsocket returns a connected socket connection that implements the
 WebSocketer interface.
 */
 func NewWebsocket(socketURL *url.URL) (WebSocketer, error) {
-	dialer := &websocket.Dialer{EnableCompression: false}
-	header := http.Header{"Origin": []string{socketURL.String()}}
+	//dialer := &websocket.Dialer{EnableCompression: false}
+	//dialer := &websocket.Conn{}
+	//header := http.Header{"Origin": []string{socketURL.String()}}
 
-	websocket, response, err := dialer.Dial(socketURL.String(), header)
+	//websocket, response, err := dialer.Dial(socketURL.String(), header)
+	websocket, err := websocket.Dial(socketURL.String(), "", socketURL.String())
 	if err != nil {
 		return nil, errors.Wrap(err, fmt.Sprintf(
 			"%s websocket connection failed",
 			socketURL.String(),
 		))
 	}
-	log.Infof("Websocket connection to %s established: %s", socketURL.String(), response.Status)
+	log.Infof("Websocket connection to %s established", socketURL.String())
 
 	return &ChromeWebSocket{conn: websocket}, nil
 }
@@ -68,7 +71,12 @@ func (socket *ChromeWebSocket) ReadJSON(v interface{}) error {
 	if nil == socket.conn {
 		return errors.New("not connected")
 	}
-	return socket.conn.ReadJSON(&v)
+	var socketData []byte
+	_, err := socket.conn.Read(socketData)
+	if nil != err {
+		return err
+	}
+	return json.Unmarshal(socketData, v)
 }
 
 /*
@@ -80,5 +88,10 @@ func (socket *ChromeWebSocket) WriteJSON(v interface{}) error {
 	if nil == socket.conn {
 		return errors.New("not connected")
 	}
-	return socket.conn.WriteJSON(v)
+	data, err := json.Marshal(v)
+	if nil != err {
+		return err
+	}
+	_, err = socket.conn.Write(data)
+	return err
 }
