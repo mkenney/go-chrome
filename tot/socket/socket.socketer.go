@@ -435,8 +435,8 @@ func (socket *Socket) SendCommand(command Commander) chan *Response {
 		}
 
 		if err := socket.WriteJSON(payload); err != nil {
-			tmp, _ := json.MarshalIndent(payload, "", "    ")
-			log.Debugf("*********************** %s ****************\nERROR: %v", string(tmp), err)
+			//tmp, _ := json.MarshalIndent(payload, "", "    ")
+			//log.Debugf("*********************** %s ****************\nERROR: %v", string(tmp), err)
 			command.Respond(&Response{Error: &Error{
 				Code:    1,
 				Data:    []byte(fmt.Sprintf(`"%s"`, err.Error())),

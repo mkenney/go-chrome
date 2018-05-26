@@ -8,7 +8,7 @@
   version = "v1.2.0"
 
 [[projects]]
-  branch = "master"
+  branch = "screenshot"
   name = "github.com/mkenney/go-chrome"
   packages = [
     "tot",
@@ -76,7 +76,7 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  revision = "1a580b3eff7814fc9b40602fd35256c63b50f491"
+  revision = "a3beeb748656e13e54256fd2cde19e058f41f60f"
 
 [[projects]]
   branch = "master"
@@ -85,11 +85,11 @@
     "unix",
     "windows"
   ]
-  revision = "88eb85aaee56831ad49eaf7aa80d73de9814cde2"
+  revision = "c11f84a56e43e20a78cee75a7c034031ecf57d1f"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "04484de959039d4ca13f632bc9984d058ce24a775d3fd2217662af7fdcdc4164"
+  inputs-digest = "851a7cd9964e539b154d93bf132ae2ba8db49cdffeb58c1bd2a2a73d0e3e06b3"
   solver-name = "gps-cdcl"
   solver-version = 1
