@@ -4,46 +4,13 @@
 
 # go-chrome
 
-<table><tbody><tr>
-    <td valign="middle" align="center">
-        <a href="https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#beta"><img src="https://img.shields.io/badge/stability-beta-33bbff.svg" alt="Beta"></a>
-    </td>
-    <td rowspan="8" valign="middle"><p align="justify">
-        This package aims to be a complete <a href="https://chromedevtools.github.io/devtools-protocol/">Chrome DevTools Protocol</a> implementation. The primary use-case behind this project is interacting with <a href="https://developers.google.com/web/updates/2017/04/headless-chrome">headless Google Chrome</a> in a container environment, but it should be appropriate for developing server side and desktop applications as well.
-        <br><br>
-        The API is fairly settled and basic code-coverage tests have been implemented but real-world testing is needed. <a href="https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot"><code>Page.captureScreenshot</code></a> and related calls are working well and are regularly used for validating the workability of code refactoring.
-        <br /><br />
-        This implementation is based on the <a href="https://chromedevtools.github.io/devtools-protocol/tot/">Tip-of-Tree</a> documentation and may be prone to change. At some point stable versions will be implemented as well, hopefully beginning with v1.3.
-    </p></td>
-</tr><tr>
-    <td valign="middle" align="center">
-        <a href="https://travis-ci.org/mkenney/go-chrome"><img src="https://travis-ci.org/mkenney/go-chrome.svg?branch=master" alt="Build status"></a>
-    </td>
-</tr><tr>
-    <td valign="middle" align="center">
-        <a href="https://github.com/mkenney/go-chrome/issues"><img src="https://img.shields.io/github/issues-raw/mkenney/go-chrome.svg" alt="Github issues"></a>
-    </td>
-</tr><tr>
-    <td valign="middle" align="center">
-        <a href="https://github.com/mkenney/go-chrome/issues"><img src="https://img.shields.io/github/issues-pr/mkenney/go-chrome.svg" alt="Github pull requests"></a>
-    </td>
-</tr><tr>
-    <td valign="middle" align="center">
-        <a href="https://codecov.io/gh/mkenney/go-chrome"><img src="https://img.shields.io/codecov/c/github/mkenney/go-chrome/master.svg" alt="Coverage status"></a>
-    </td>
-</tr><tr>
-    <td valign="middle" align="center">
-        <a href="https://goreportcard.com/report/github.com/mkenney/go-chrome"><img src="https://goreportcard.com/badge/github.com/mkenney/go-chrome" alt="Go Report Card"></a>
-    </td>
-</tr><tr>
-    <td valign="middle" align="center">
-        <a href="https://godoc.org/github.com/mkenney/go-chrome"><img src="https://godoc.org/github.com/mkenney/go-chrome?status.svg" alt="GoDoc"></a>
-    </td>
-</tr><tr>
-    <td width="150" valign="middle" align="center">
-        <a href="https://github.com/mkenney/go-chrome/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mkenney/go-chrome.svg" alt="MIT License"></a>
-    </td>
-</tr></tbody></table>
+[![Beta](https://img.shields.io/badge/stability-beta-33bbff.svg)](https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#beta) [![Build status](https://travis-ci.org/mkenney/go-chrome.svg?branch=master)](https://travis-ci.org/mkenney/go-chrome) [![Issues](https://img.shields.io/github/issues-raw/mkenney/go-chrome.svg)](https://github.com/mkenney/go-chrome/issues) [![Pull requests](https://img.shields.io/github/issues-pr/mkenney/go-chrome.svg)](https://github.com/mkenney/go-chrome/pulls) [![Test coverage](https://img.shields.io/codecov/c/github/mkenney/go-chrome/master.svg)](https://codecov.io/gh/mkenney/go-chrome) [![Report card](https://goreportcard.com/badge/github.com/mkenney/go-chrome)](https://goreportcard.com/report/github.com/mkenney/go-chrome) [![Documentation](https://godoc.org/github.com/mkenney/go-chrome?status.svg)](https://godoc.org/github.com/mkenney/go-chrome) [![MIT license](https://img.shields.io/github/license/mkenney/go-chrome.svg)](https://github.com/mkenney/go-chrome/blob/master/LICENSE)
+
+This package aims to be a complete [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) implementation. The primary use-case behind this project is interacting with [headless Google Chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) in a container environment, but it should be appropriate for developing server side and desktop applications in any browser that supports the devtools protocol.
+
+The API is fairly settled and basic code-coverage tests have been implemented but real-world testing is needed. [`Page.captureScreenshot`](https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-captureScreenshot) and related calls are working well and are regularly used for validating the workability of code refactoring.
+
+This implementation is based on the [Tip-of-Tree](https://chromedevtools.github.io/devtools-protocol/tot/) documentation and may be prone to change. At some point stable versions will be implemented as well, hopefully beginning with v1.3.
 
 # Examples
 
