@@ -9,6 +9,7 @@ import (
 	chrome "github.com/mkenney/go-chrome/tot"
 	"github.com/mkenney/go-chrome/tot/cdtp/emulation"
 	"github.com/mkenney/go-chrome/tot/cdtp/page"
+	"github.com/mkenney/go-chrome/tot/socket"
 	logfmt "github.com/mkenney/go-log-fmt"
 	log "github.com/sirupsen/logrus"
 )
@@ -17,6 +18,17 @@ func init() {
 	level, _ := log.ParseLevel("debug")
 	log.SetLevel(level)
 	log.SetFormatter(&logfmt.TextFormat{})
+}
+
+type testHandler struct{}
+
+func (handler testHandler) Name() string {
+	return "Page.setDocumentContent"
+}
+func (handler testHandler) Handle(response *socket.Response) {
+	tmp, _ := json.MarshalIndent(response, "`", "    ")
+	log.Debugf("****testHandler*****\n\n%s\n\n****testHandler*****", string(tmp))
+	return
 }
 
 func main() {
@@ -60,11 +72,13 @@ func main() {
 		panic(enableResult.Err)
 	}
 
+	// Get the root frame ID.
 	ftResult := <-tab.Page().GetFrameTree()
-	tmp, _ := json.MarshalIndent(ftResult, "", "    ")
-	log.Debugf("Frame Tree: %s", string(tmp))
-	log.Debugf("Err: %+v", ftResult.Err)
+	if nil != ftResult.Err {
+		panic(ftResult.Err)
+	}
 
+	// Write data to the frame ID.
 	setContentResult := <-tab.Page().SetDocumentContent(&page.SetDocumentContentParams{
 		FrameID: page.FrameID(ftResult.FrameTree.Frame.ID),
 		HTML:    htmlString,
@@ -73,11 +87,12 @@ func main() {
 		log.Fatalf("%+v", setContentResult.Err)
 	}
 
-	// Set the device emulation parameters.
+	// Set the device emulation parameters, make the page tall enough
+	// for this image.
 	overrideResult := <-tab.Emulation().SetDeviceMetricsOverride(
 		&emulation.SetDeviceMetricsOverrideParams{
 			Width:  1440,
-			Height: 1440,
+			Height: 1800,
 			ScreenOrientation: &emulation.ScreenOrientation{
 				Type:  emulation.OrientationType.PortraitPrimary,
 				Angle: 90,
