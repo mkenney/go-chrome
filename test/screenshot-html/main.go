@@ -93,8 +93,8 @@ func main() {
 	// for this image.
 	overrideResult := <-tab.Emulation().SetDeviceMetricsOverride(
 		&emulation.SetDeviceMetricsOverrideParams{
-			Width:  1440,
-			Height: 1800,
+			Width:  300,
+			Height: 300,
 			ScreenOrientation: &emulation.ScreenOrientation{
 				Type:  emulation.OrientationType.PortraitPrimary,
 				Angle: 90,
@@ -109,8 +109,8 @@ func main() {
 	// page.
 	screenshotResult := <-tab.Page().CaptureScreenshot(
 		&page.CaptureScreenshotParams{
-			Format:  page.Format.Jpeg,
-			Quality: 50,
+			Format: page.Format.Png,
+			//Quality: 100,
 		},
 	)
 	if nil != screenshotResult.Err {
