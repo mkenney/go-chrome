@@ -155,6 +155,9 @@ Are the HTTP endpoints documented
 Not yet. See bugger-daemon’s third-party docs. See also the endpoints
 implementation in Chromium. /json/protocol was added in Chrome 60.
 
+	https://github.com/buggerjs/bugger-daemon/blob/master/README.md#api
+	https://cs.chromium.org/search/?q=f:devtools_http_handler.cc+%22command+%3D%3D+%22&sq=package:chromium&type=cs
+
 How do I access the browser target
 
 The endpoint is exposed as webSocketDebuggerUrl in /json/version. Note
