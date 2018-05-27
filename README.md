@@ -4,7 +4,16 @@
 
 # go-chrome
 
-[![MIT license](https://img.shields.io/github/license/mkenney/go-chrome.svg)](https://github.com/mkenney/go-chrome/blob/master/LICENSE) [![Beta](https://img.shields.io/badge/stability-beta-33bbff.svg)](https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#beta) [![Build status](https://travis-ci.org/mkenney/go-chrome.svg?branch=master)](https://travis-ci.org/mkenney/go-chrome) [![Test coverage](https://img.shields.io/codecov/c/github/mkenney/go-chrome/master.svg)](https://codecov.io/gh/mkenney/go-chrome) [![Report card](https://goreportcard.com/badge/github.com/mkenney/go-chrome)](https://goreportcard.com/report/github.com/mkenney/go-chrome) [![Issues](https://img.shields.io/github/issues-raw/mkenney/go-chrome.svg)](https://github.com/mkenney/go-chrome/issues) [![Pull requests](https://img.shields.io/github/issues-pr/mkenney/go-chrome.svg)](https://github.com/mkenney/go-chrome/pulls) [![Documentation](https://godoc.org/github.com/mkenney/go-chrome?status.svg)](https://godoc.org/github.com/mkenney/go-chrome)
+<p align="center">
+	<a href="https://github.com/mkenney/go-chrome/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mkenney/go-chrome.svg" alt="MIT License"></a>
+	<a href="https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#beta"><img src="https://img.shields.io/badge/stability-beta-33bbff.svg" alt="Beta"></a>
+	<a href="https://travis-ci.org/mkenney/go-chrome"><img src="https://travis-ci.org/mkenney/go-chrome.svg?branch=master" alt="Build status"></a>
+	<a href="https://codecov.io/gh/mkenney/go-chrome"><img src="https://img.shields.io/codecov/c/github/mkenney/go-chrome/master.svg" alt="Coverage status"></a>
+	<a href="https://goreportcard.com/report/github.com/mkenney/go-chrome"><img src="https://goreportcard.com/badge/github.com/mkenney/go-chrome" alt="Go Report Card"></a>
+	<a href="https://github.com/mkenney/go-chrome/issues"><img src="https://img.shields.io/github/issues-raw/mkenney/go-chrome.svg" alt="Github issues"></a>
+	<a href="https://github.com/mkenney/go-chrome/pulls"><img src="https://img.shields.io/github/issues-pr/mkenney/go-chrome.svg" alt="Github pull requests"></a>
+	<a href="https://godoc.org/github.com/mkenney/go-chrome"><img src="https://godoc.org/github.com/mkenney/go-chrome?status.svg" alt="GoDoc"></a>
+</p>
 
 This package aims to be a complete [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) implementation. The primary use-case behind this project is interacting with [headless Google Chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) in a container environment, but it should be appropriate for developing server side and desktop applications in any browser that supports the devtools protocol.
 
