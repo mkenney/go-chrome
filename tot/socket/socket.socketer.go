@@ -1,6 +1,7 @@
 package socket
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/url"
 	"sync"
@@ -292,12 +293,18 @@ func (socket *Socket) Listen() error {
 	defer socket.Disconnect()
 
 	socket.stopListening = false
+	errCount := 0
 	for {
+		if errCount > 10 {
+			socket.Stop() // This will end the loop after handling the current response (if any)
+		}
 		response := &Response{}
 		err = socket.ReadJSON(&response)
 		if nil != err {
+			errCount++
 			log.Errorf("socket #%d - %s", socket.socketID, err.Error())
-			socket.Stop() // This will end the loop after handling the current response (if any)
+		} else {
+			errCount = 0
 		}
 
 		if response.ID > 0 {
@@ -317,12 +324,18 @@ func (socket *Socket) Listen() error {
 			socket.handleEvent(response)
 
 		} else {
-			log.Error(fmt.Errorf(
+			tmp, _ := json.MarshalIndent(response, "", "    ")
+			log.WithFields(log.Fields{
+				"socket": socket.socketID,
+				"method": "socket.handleUnknown()",
+				"data":   string(tmp),
+			}).Errorf(
 				"socket #%d - Unknown response from web socket: id=%d, method=%s",
 				socket.socketID,
 				response.ID,
 				response.Method,
-			))
+			)
+
 			if nil == response.Error {
 				response.Error = &Error{
 					Message: "Unknown response from web socket",

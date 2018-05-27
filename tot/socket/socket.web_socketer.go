@@ -1,6 +1,7 @@
 package socket
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -15,8 +16,14 @@ NewWebsocket returns a connected socket connection that implements the
 WebSocketer interface.
 */
 func NewWebsocket(socketURL *url.URL) (WebSocketer, error) {
-	dialer := &websocket.Dialer{EnableCompression: false}
-	header := http.Header{"Origin": []string{socketURL.String()}}
+	dialer := &websocket.Dialer{
+		EnableCompression: true,
+		// See: https://github.com/gorilla/websocket/issues/245
+		// Chrome does not support socket fragmentation: https://chromium.googlesource.com/chromium/src/+/master/net/server/web_socket_encoder.cc#85
+		// Chrome does not support payloads larger than 1MB: https://chromium.googlesource.com/chromium/src/+/master/net/server/http_connection.h#33
+		WriteBufferSize: 1 * 1024 * 1024,
+	}
+	header := http.Header{"Origin": []string{}}
 
 	websocket, response, err := dialer.Dial(socketURL.String(), header)
 	if err != nil {
@@ -79,6 +86,10 @@ WriteJSON is a WebSocketer implementation.
 func (socket *ChromeWebSocket) WriteJSON(v interface{}) error {
 	if nil == socket.conn {
 		return errors.New("not connected")
+	}
+	tmp, _ := json.Marshal(v)
+	if len(tmp) > 1*1024*1024 {
+		return fmt.Errorf("payload too large. chrome supports a maximum payload size of 1MB. See https://github.com/gorilla/websocket/issues/245")
 	}
 	return socket.conn.WriteJSON(v)
 }
