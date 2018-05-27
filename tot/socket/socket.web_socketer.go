@@ -3,10 +3,10 @@ package socket
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"net/url"
 
-	"golang.org/x/net/websocket"
-	//"github.com/gorilla/websocket"
+	"github.com/gorilla/websocket"
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 )
@@ -16,19 +16,23 @@ NewWebsocket returns a connected socket connection that implements the
 WebSocketer interface.
 */
 func NewWebsocket(socketURL *url.URL) (WebSocketer, error) {
-	//dialer := &websocket.Dialer{EnableCompression: false}
-	//dialer := &websocket.Conn{}
-	//header := http.Header{"Origin": []string{socketURL.String()}}
+	dialer := &websocket.Dialer{
+		EnableCompression: true,
+		// See: https://github.com/gorilla/websocket/issues/245
+		// Chrome does not support socket fragmentation: https://chromium.googlesource.com/chromium/src/+/master/net/server/web_socket_encoder.cc#85
+		// Chrome does not support payloads larger than 1MB: https://chromium.googlesource.com/chromium/src/+/master/net/server/http_connection.h#33
+		WriteBufferSize: 1 * 1024 * 1024,
+	}
+	header := http.Header{"Origin": []string{}}
 
-	//websocket, response, err := dialer.Dial(socketURL.String(), header)
-	websocket, err := websocket.Dial(socketURL.String(), "", socketURL.String())
+	websocket, response, err := dialer.Dial(socketURL.String(), header)
 	if err != nil {
 		return nil, errors.Wrap(err, fmt.Sprintf(
 			"%s websocket connection failed",
 			socketURL.String(),
 		))
 	}
-	log.Infof("Websocket connection to %s established", socketURL.String())
+	log.Infof("Websocket connection to %s established: %s", socketURL.String(), response.Status)
 
 	return &ChromeWebSocket{conn: websocket}, nil
 }
@@ -56,6 +60,10 @@ func (socket *ChromeWebSocket) Close() error {
 	return nil
 }
 
+func (socket *ChromeWebSocket) Conn() *websocket.Conn {
+	return socket.conn
+}
+
 /*
 ReadJSON listens for the next websocket message and unmarshalls it into the
 provided variable.
@@ -71,12 +79,7 @@ func (socket *ChromeWebSocket) ReadJSON(v interface{}) error {
 	if nil == socket.conn {
 		return errors.New("not connected")
 	}
-	var socketData []byte
-	_, err := socket.conn.Read(socketData)
-	if nil != err {
-		return err
-	}
-	return json.Unmarshal(socketData, v)
+	return socket.conn.ReadJSON(&v)
 }
 
 /*
@@ -88,10 +91,9 @@ func (socket *ChromeWebSocket) WriteJSON(v interface{}) error {
 	if nil == socket.conn {
 		return errors.New("not connected")
 	}
-	data, err := json.Marshal(v)
-	if nil != err {
-		return err
+	tmp, _ := json.Marshal(v)
+	if len(tmp) > 1*1024*1024 {
+		return fmt.Errorf("payload too large, chrome only supports 1MB payloads. See https://github.com/gorilla/websocket/issues/245")
 	}
-	_, err = socket.conn.Write(data)
-	return err
+	return socket.conn.WriteJSON(v)
 }
