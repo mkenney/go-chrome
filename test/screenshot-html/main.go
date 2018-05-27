@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"time"
 
 	chrome "github.com/mkenney/go-chrome/tot"
 	"github.com/mkenney/go-chrome/tot/cdtp/emulation"
@@ -78,6 +79,7 @@ func main() {
 		panic(ftResult.Err)
 	}
 
+	start := time.Now()
 	// Write data to the frame ID.
 	setContentResult := <-tab.Page().SetDocumentContent(&page.SetDocumentContentParams{
 		FrameID: page.FrameID(ftResult.FrameTree.Frame.ID),
@@ -114,6 +116,9 @@ func main() {
 	if nil != screenshotResult.Err {
 		panic(screenshotResult.Err)
 	}
+	stop := time.Now()
+	elapsed := stop.Sub(start)
+	log.Debugf("Elapsed time: %s", elapsed)
 
 	// Decode the base64 encoded image data
 	data, err := base64.StdEncoding.DecodeString(screenshotResult.Data)
