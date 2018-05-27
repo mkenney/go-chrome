@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 
 	"github.com/mkenney/go-chrome/tot/cdtp/page"
-	log "github.com/sirupsen/logrus"
 )
 
 /*
@@ -655,13 +654,6 @@ func (protocol *PageProtocol) SetDocumentContent(
 	go func() {
 		response := <-protocol.Socket.SendCommand(command)
 		if nil != response.Error && 0 != response.Error.Code {
-			tmp, _ := json.MarshalIndent(response, "", "    ")
-			log.WithFields(log.Fields{
-				"data": string(tmp),
-			}).Errorf(
-				"\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
-			)
-
 			result.Err = response.Error
 		}
 		resultChan <- result

@@ -60,10 +60,6 @@ func (socket *ChromeWebSocket) Close() error {
 	return nil
 }
 
-func (socket *ChromeWebSocket) Conn() *websocket.Conn {
-	return socket.conn
-}
-
 /*
 ReadJSON listens for the next websocket message and unmarshalls it into the
 provided variable.
@@ -93,7 +89,7 @@ func (socket *ChromeWebSocket) WriteJSON(v interface{}) error {
 	}
 	tmp, _ := json.Marshal(v)
 	if len(tmp) > 1*1024*1024 {
-		return fmt.Errorf("payload too large, chrome only supports 1MB payloads. See https://github.com/gorilla/websocket/issues/245")
+		return fmt.Errorf("payload too large. chrome supports a maximum payload size of 1MB. See https://github.com/gorilla/websocket/issues/245")
 	}
 	return socket.conn.WriteJSON(v)
 }

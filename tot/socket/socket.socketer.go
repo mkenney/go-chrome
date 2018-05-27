@@ -239,13 +239,9 @@ handleUnknown receives all other socket responses.
 func (socket *Socket) handleUnknown(
 	response *Response,
 ) {
-	tmp, _ := json.MarshalIndent(response, "", "  ")
-	log.WithFields(log.Fields{
-		"socket": socket.socketID,
-		"method": "socket.handleUnknown()",
-		"data":   string(tmp),
-	}).Debugf(
-		"handling unexpected data from %s",
+	log.Debugf(
+		"socket #%d - socket.handleUnknown(): handling unexpected data %s",
+		socket.socketID,
 		socket.URL(),
 	)
 
@@ -299,7 +295,7 @@ func (socket *Socket) Listen() error {
 	socket.stopListening = false
 	errCount := 0
 	for {
-		if errCount > 3 {
+		if errCount > 10 {
 			socket.Stop() // This will end the loop after handling the current response (if any)
 		}
 		response := &Response{}
@@ -308,8 +304,6 @@ func (socket *Socket) Listen() error {
 			errCount++
 			log.Errorf("socket #%d - %s", socket.socketID, err.Error())
 		} else {
-			tmp, _ := json.MarshalIndent(response, "-", "    ")
-			log.Errorf("\n\n^^^^^^^^^^^%s^^^^^^^^^^\n\n", string(tmp))
 			errCount = 0
 		}
 
@@ -435,8 +429,6 @@ func (socket *Socket) SendCommand(command Commander) chan *Response {
 		}
 
 		if err := socket.WriteJSON(payload); err != nil {
-			//tmp, _ := json.MarshalIndent(payload, "", "    ")
-			//log.Debugf("*********************** %s ****************\nERROR: %v", string(tmp), err)
 			command.Respond(&Response{Error: &Error{
 				Code:    1,
 				Data:    []byte(fmt.Sprintf(`"%s"`, err.Error())),
