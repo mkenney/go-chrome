@@ -16,6 +16,7 @@ func NewMock(socketURL *url.URL) *Socket {
 		mux:          &sync.Mutex{},
 		newSocket:    NewMockWebsocket,
 		socketID:     NextSocketID(),
+		stopped:      make(chan bool),
 		url:          socketURL,
 	}
 

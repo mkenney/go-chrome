@@ -22,6 +22,7 @@ func New(url *url.URL) *Socket {
 		mux:          &sync.Mutex{},
 		newSocket:    NewWebsocket,
 		socketID:     NextSocketID(),
+		stopped:      make(chan bool),
 		url:          url,
 	}
 
@@ -100,6 +101,7 @@ type Socket struct {
 	url           *url.URL
 	socketID      int
 	stopListening bool
+	stopped       chan bool
 	mux           *sync.Mutex
 
 	// Protocol interfaces for the API.
@@ -295,9 +297,6 @@ func (socket *Socket) Listen() error {
 	socket.stopListening = false
 	errCount := 0
 	for {
-		if errCount > 10 {
-			socket.Stop() // This will end the loop after handling the current response (if any)
-		}
 		response := &Response{}
 		err = socket.ReadJSON(&response)
 		if nil != err {
@@ -346,6 +345,7 @@ func (socket *Socket) Listen() error {
 
 		if socket.stopListening {
 			log.Infof("socket #%d - %s: Socket shutting down", socket.socketID, socket.URL().String())
+			socket.stopped <- true
 			break
 		}
 	}
@@ -451,6 +451,7 @@ Stop is a Socketer implementation.
 */
 func (socket *Socket) Stop() {
 	socket.stopListening = true
+	<-socket.stopped
 }
 
 /*
