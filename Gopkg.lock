@@ -20,6 +20,12 @@
   version = "v0.8.0"
 
 [[projects]]
+  name = "github.com/sanity-io/litter"
+  packages = ["."]
+  revision = "ae543b7ba8fd6af63e4976198f146e1348ae53c1"
+  version = "v1.1.0"
+
+[[projects]]
   name = "github.com/sirupsen/logrus"
   packages = ["."]
   revision = "c155da19408a8799da419ed3eeb0cb5db0ad5dbc"
@@ -29,7 +35,7 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  revision = "a3beeb748656e13e54256fd2cde19e058f41f60f"
+  revision = "ab813273cd59e1333f7ae7bff5d027d4aadf528c"
 
 [[projects]]
   branch = "master"
@@ -43,6 +49,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "59acfa53533e68c3af622cbeff2ba43ac4439e228b5063df5a72b8b0548d4ef1"
+  inputs-digest = "ddd66537c07fd379e2222a41388d823447cc842975ed57c636843571d250af86"
   solver-name = "gps-cdcl"
   solver-version = 1
