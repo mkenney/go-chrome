@@ -605,7 +605,7 @@ func TestTargetOnAttachedToTarget(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Target.attachedToTarget",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -652,7 +652,7 @@ func TestTargetOnDetachedFromTarget(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Target.detachedFromTarget",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -700,7 +700,7 @@ func TestTargetOnReceivedMessageFromTarget(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Target.receivedMessageFromTarget",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -754,7 +754,7 @@ func TestTargetOnTargetCreated(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Target.targetCreated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -801,7 +801,7 @@ func TestTargetOnTargetDestroyed(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Target.targetDestroyed",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -855,7 +855,7 @@ func TestTargetOnTargetInfoChanged(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Target.targetInfoChanged",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

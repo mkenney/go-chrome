@@ -531,7 +531,7 @@ func TestProfilerOnConsoleProfileFinished(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Profiler.consoleProfileFinished",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -580,7 +580,7 @@ func TestProfilerOnConsoleProfileStarted(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Profiler.consoleProfileStarted",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

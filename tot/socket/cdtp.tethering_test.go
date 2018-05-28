@@ -101,7 +101,7 @@ func TestTetheringOnAccepted(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Tethering.accepted",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

@@ -135,7 +135,7 @@ func TestConsoleOnMessageAdded(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Console.messageAdded",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if result.Message.Source != mockResult.Message.Source {

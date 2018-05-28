@@ -140,7 +140,7 @@ func TestPerformanceOnMetrics(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Performance.metrics",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

@@ -260,7 +260,7 @@ func TestStorageOnCacheStorageContentUpdated(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Storage.cacheStorageContentUpdated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -307,7 +307,7 @@ func TestStorageOnCacheStorageListUpdated(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Storage.cacheStorageListUpdated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -356,7 +356,7 @@ func TestStorageOnIndexedDBContentUpdated(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Storage.indexedDBContentUpdated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -403,7 +403,7 @@ func TestStorageOnIndexedDBListUpdated(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Storage.indexedDBListUpdated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

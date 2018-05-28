@@ -1307,7 +1307,7 @@ func TestPageOnDOMContentEventFired(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.domContentEventFired",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1356,7 +1356,7 @@ func TestPageOnFrameAttached(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameAttached",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1403,7 +1403,7 @@ func TestPageOnFrameClearedScheduledNavigation(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameClearedScheduledNavigation",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1450,7 +1450,7 @@ func TestPageOnFrameDetached(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameDetached",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1506,7 +1506,7 @@ func TestPageOnFrameNavigated(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameNavigated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1551,7 +1551,7 @@ func TestPageOnFrameResized(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameResized",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1598,7 +1598,7 @@ func TestPageOnFrameScheduledNavigation(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameScheduledNavigation",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1645,7 +1645,7 @@ func TestPageOnFrameStartedLoading(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameStartedLoading",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1692,7 +1692,7 @@ func TestPageOnFrameStoppedLoading(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameStoppedLoading",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1737,7 +1737,7 @@ func TestPageOnInterstitialHidden(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.interstitialHidden",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1779,7 +1779,7 @@ func TestPageOnInterstitialShown(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.interstitialShown",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1824,7 +1824,7 @@ func TestPageOnJavascriptDialogClosed(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.javascriptDialogClosed",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1874,7 +1874,7 @@ func TestPageOnJavascriptDialogOpening(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.javascriptDialogOpening",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1924,7 +1924,7 @@ func TestPageOnLifecycleEvent(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.lifecycleEvent",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1971,7 +1971,7 @@ func TestPageOnLoadEventFired(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.loadEventFired",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -2028,7 +2028,7 @@ func TestPageOnScreencastFrame(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.screencastFrame",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -2075,7 +2075,7 @@ func TestPageOnScreencastVisibilityChanged(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.screencastVisibilityChanged",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -2125,7 +2125,7 @@ func TestPageOnWindowOpen(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.windowOpen",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

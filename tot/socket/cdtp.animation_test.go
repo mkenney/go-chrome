@@ -448,7 +448,7 @@ func TestAnimationOnAnimationCanceled(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Animation.animationCanceled",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if result.ID != mockResult.ID {
@@ -497,7 +497,7 @@ func TestAnimationOnAnimationCreated(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Animation.animationCreated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if result.ID != mockResult.ID {
@@ -570,7 +570,7 @@ func TestAnimationOnAnimationStarted(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Animation.animationStarted",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	tmp, _ := json.Marshal(result)

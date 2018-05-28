@@ -1393,7 +1393,7 @@ func TestDebuggerOnBreakpointResolved(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Debugger.breakpointResolved",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

@@ -402,7 +402,7 @@ func TestLayerTreeOnLayerPainted(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "LayerTree.layerPainted",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -474,7 +474,7 @@ func TestLayerTreeOnLayerTreeDidChange(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "LayerTree.layerTreeDidChange",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

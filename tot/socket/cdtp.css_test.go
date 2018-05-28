@@ -1267,7 +1267,7 @@ func TestCSSOnFontsUpdated(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "CSS.fontsUpdated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1309,7 +1309,7 @@ func TestCSSOnMediaQueryResultChanged(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "CSS.mediaQueryResultChanged",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1366,7 +1366,7 @@ func TestCSSOnStyleSheetAdded(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "CSS.styleSheetAdded",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if nil != result.Err {
@@ -1413,7 +1413,7 @@ func TestCSSOnStyleSheetChanged(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "CSS.styleSheetChanged",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if nil != result.Err {
@@ -1460,7 +1460,7 @@ func TestCSSOnStyleSheetRemoved(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "CSS.styleSheetRemoved",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if nil != result.Err {

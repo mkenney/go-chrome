@@ -288,7 +288,7 @@ func TestDOMStorageOnItemAdded(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "DOMStorage.domStorageItemAdded",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -336,7 +336,7 @@ func TestDOMStorageOnItemRemoved(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "DOMStorage.domStorageItemRemoved",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -386,7 +386,7 @@ func TestDOMStorageOnItemUpdated(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "DOMStorage.domStorageItemUpdated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -433,7 +433,7 @@ func TestDOMStorageOnItemsCleared(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "DOMStorage.domStorageItemsCleared",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

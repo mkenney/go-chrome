@@ -3,7 +3,16 @@ package socket
 import (
 	"net/url"
 	"sync"
+
+	logfmt "github.com/mkenney/go-log-fmt"
+	log "github.com/sirupsen/logrus"
 )
+
+func init() {
+	level, _ := log.ParseLevel("debug")
+	log.SetLevel(level)
+	log.SetFormatter(&logfmt.TextFormat{})
+}
 
 /*
 NewMock returns a Chromium Socketer mock for unit testing

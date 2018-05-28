@@ -1620,7 +1620,7 @@ func TestDOMOnAttributeModified(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "DOM.attributeModified",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

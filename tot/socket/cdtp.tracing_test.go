@@ -229,7 +229,7 @@ func TestTracingOnBufferUsage(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Tracing.bufferUsage",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -276,7 +276,7 @@ func TestTracingOnDataCollected(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Tracing.dataCollected",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -323,7 +323,7 @@ func TestTracingOnTracingComplete(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Tracing.tracingComplete",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

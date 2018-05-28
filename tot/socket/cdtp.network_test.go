@@ -1096,7 +1096,7 @@ func TestNetworkOnDataReceived(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Network.dataReceived",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1147,7 +1147,7 @@ func TestNetworkOnEventSourceMessageReceived(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Network.eventSourceMessageReceived",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1199,7 +1199,7 @@ func TestNetworkOnLoadingFailed(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Network.loadingFailed",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1248,7 +1248,7 @@ func TestNetworkOnLoadingFinished(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Network.loadingFinished",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1318,7 +1318,7 @@ func TestNetworkOnRequestIntercepted(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Network.requestIntercepted",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1365,7 +1365,7 @@ func TestNetworkOnRequestServedFromCache(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Network.requestServedFromCache",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1494,7 +1494,7 @@ func TestNetworkOnRequestWillBeSent(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Network.requestWillBeSent",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1543,7 +1543,7 @@ func TestNetworkOnResourceChangedPriority(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Network.resourceChangedPriority",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1595,7 +1595,7 @@ func TestNetworkOnResponseReceived(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Network.responseReceived",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1643,7 +1643,7 @@ func TestNetworkOnWebSocketClosed(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Network.webSocketClosed",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1692,7 +1692,7 @@ func TestNetworkOnWebSocketCreated(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Network.webSocketCreated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1741,7 +1741,7 @@ func TestNetworkOnWebSocketFrameError(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Network.webSocketFrameError",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1794,7 +1794,7 @@ func TestNetworkOnWebSocketFrameReceived(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Network.webSocketFrameReceived",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1847,7 +1847,7 @@ func TestNetworkOnWebSocketFrameSent(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Network.webSocketFrameSent",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1900,7 +1900,7 @@ func TestNetworkOnWebSocketHandshakeResponseReceived(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Network.webSocketHandshakeResponseReceived",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1952,7 +1952,7 @@ func TestNetworkOnWebSocketWillSendHandshakeRequest(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Network.webSocketWillSendHandshakeRequest",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

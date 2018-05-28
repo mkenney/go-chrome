@@ -144,7 +144,7 @@ func TestHeadlessExperimentalOnMainFrameReadyForScreenshots(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "HeadlessExperimental.mainFrameReadyForScreenshots",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -188,7 +188,7 @@ func TestHeadlessExperimentalOnNeedsBeginFramesChanged(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "HeadlessExperimental.needsBeginFramesChanged",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

@@ -507,7 +507,7 @@ func TestHeapProfilerOnAddHeapSnapshotChunk(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "HeapProfiler.addHeapSnapshotChunk",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -551,7 +551,7 @@ func TestHeapProfilerOnHeapStatsUpdate(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "HeapProfiler.heapStatsUpdate",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -596,7 +596,7 @@ func TestHeapProfilerOnLastSeenObjectID(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "HeapProfiler.lastSeenObjectID",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -642,7 +642,7 @@ func TestHeapProfilerOnReportHeapSnapshotProgress(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "HeapProfiler.reportHeapSnapshotProgress",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -684,7 +684,7 @@ func TestHeapProfilerOnResetProfiles(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "HeapProfiler.resetProfiles",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

@@ -475,7 +475,7 @@ func TestServiceWorkerOnWorkerErrorReported(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "ServiceWorker.workerErrorReported",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -526,7 +526,7 @@ func TestServiceWorkerOnWorkerRegistrationUpdated(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "ServiceWorker.workerRegistrationUpdated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -583,7 +583,7 @@ func TestServiceWorkerOnWorkerVersionUpdated(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "ServiceWorker.workerVersionUpdated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

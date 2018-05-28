@@ -208,7 +208,7 @@ func TestSecurityOnCertificateError(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Security.certificateError",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -273,7 +273,7 @@ func TestSecurityOnSecurityStateChanged(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Security.securityStateChanged",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

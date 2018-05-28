@@ -242,41 +242,36 @@ func (socket *Socket) handleUnknown(
 	response *Response,
 ) {
 	log.Debugf(
-		"socket #%d - socket.handleUnknown(): handling unexpected data %s",
+		"socket #%d - socket.handleUnknown(): handling unexpected data from %s",
 		socket.socketID,
 		socket.URL(),
 	)
+	var command Commander
+	var err error
 
-	// Log a message on error
-	if command, err := socket.commands.Get(0); nil != err {
-		errorMessage := ""
+	// Check for a command listening for ID 0
+	if command, err = socket.commands.Get(response.ID); nil != err {
 		if nil != response.Error && 0 != response.Error.Code {
-			errorMessage = response.Error.Error()
+			err = fmt.Errorf("%s: %s", response.Error.Error(), err.Error())
 		}
 		log.Debugf(
-			"socket #%d - socket.handleResponse(): %s - result=%s err='%s'",
+			"socket #%d - socket.handleUnknown(): result='%s' err='%s'",
 			socket.socketID,
-			err.Error(),
 			response.Result,
-			errorMessage,
+			err.Error(),
 		)
-
-	} else {
-		log.Debugf(
-			"socket #%d - socket.handleResponse(): executing handler for command #%d - %s",
-			socket.socketID,
-			command.ID(),
-			command.Method(),
-		)
-		command.Respond(response)
-		log.Debugf(
-			"socket #%d - Command #%d complete: %s{%s}",
-			socket.socketID,
-			command.ID(),
-			socket.URL().String(),
-			command.Method(),
-		)
+		return
 	}
+
+	command.Respond(response)
+	log.Debugf(
+		"socket #%d - socket.handleUnknown(): %v - Unrecognised socket message sent to command #%d - method: '%s' - Error: %s",
+		socket.socketID,
+		err,
+		command.ID(),
+		command.Method(),
+		response.Error.Error(),
+	)
 }
 
 /*
@@ -323,13 +318,13 @@ func (socket *Socket) Listen() error {
 			socket.handleEvent(response)
 
 		} else {
-			tmp, _ := json.MarshalIndent(response, "", "    ")
+			tmp, _ := json.Marshal(response)
 			log.WithFields(log.Fields{
 				"socket": socket.socketID,
 				"method": "socket.handleUnknown()",
 				"data":   string(tmp),
 			}).Errorf(
-				"socket #%d - Unknown response from web socket: id=%d, method=%s",
+				"socket #%d - Unknown response from web socket: id='%d', method='%s'",
 				socket.socketID,
 				response.ID,
 				response.Method,
@@ -391,11 +386,12 @@ func (socket *Socket) RemoveEventHandler(
 		if hndlr == handler {
 			handlers = append(handlers[:i], handlers[i+1:]...)
 			socket.handlers.Set(handler.Name(), handlers)
+			log.Infof("socket #%d - RemoveEventHandler(): Removed event handler %d from %s", socket.socketID, i, handler.Name())
 			return nil
 		}
 	}
 
-	log.Warnf("socket #%d - RemoveEventHandler(): handler not found")
+	log.Warnf("socket #%d - RemoveEventHandler(): handler not found", socket.socketID)
 	return nil
 }
 
@@ -415,12 +411,11 @@ Workflow:
 */
 func (socket *Socket) SendCommand(command Commander) chan *Response {
 	log.Debugf(
-		"socket #%d - socket.SendCommand(): sending command #%d (%s) payload to socket",
+		"socket #%d - socket.SendCommand(): sending command #%d ('%+v') payload to socket",
 		socket.socketID,
 		command.ID(),
 		command.Method(),
 	)
-
 	go func() {
 		payload := &Payload{
 			ID:     command.ID(),

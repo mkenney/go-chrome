@@ -192,7 +192,7 @@ func TestDatabaseOnAdd(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Database.addDatabase",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

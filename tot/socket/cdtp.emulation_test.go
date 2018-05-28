@@ -652,7 +652,7 @@ func TestEmulationOnVirtualTimeAdvanced(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Emulation.virtualTimeAdvanced",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -694,7 +694,7 @@ func TestEmulationOnVirtualTimeBudgetExpired(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Emulation.virtualTimeBudgetExpired",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -738,7 +738,7 @@ func TestEmulationOnVirtualTimePaused(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Emulation.virtualTimePaused",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

@@ -212,7 +212,7 @@ func TestApplicationCacheOnApplicationCacheStatusUpdated(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "ApplicationCache.applicationCacheStatusUpdated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if result.ManifestURL != mockResult.ManifestURL {
@@ -260,7 +260,7 @@ func TestApplicationCacheOnNetworkStateUpdated(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "ApplicationCache.networkStateUpdated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if result.IsNowOnline != mockResult.IsNowOnline {

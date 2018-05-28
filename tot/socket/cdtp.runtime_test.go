@@ -930,7 +930,7 @@ func TestRuntimeOnConsoleAPICalled(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Runtime.consoleAPICalled",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -978,7 +978,7 @@ func TestRuntimeOnExceptionRevoked(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Runtime.exceptionRevoked",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1026,7 +1026,7 @@ func TestRuntimeOnExceptionThrown(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Runtime.exceptionThrown",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1078,7 +1078,7 @@ func TestRuntimeOnExecutionContextCreated(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Runtime.executionContextCreated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1125,7 +1125,7 @@ func TestRuntimeOnExecutionContextDestroyed(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Runtime.executionContextDestroyed",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1170,7 +1170,7 @@ func TestRuntimeOnExecutionContextsCleared(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Runtime.executionContextsCleared",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1253,7 +1253,7 @@ func TestRuntimeOnInspectRequested(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Runtime.inspectRequested",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

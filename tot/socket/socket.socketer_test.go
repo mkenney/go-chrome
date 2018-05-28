@@ -80,14 +80,6 @@ func TestListenCommandUnknown(t *testing.T) {
 	if nil == result.Error {
 		t.Errorf("Expected error, received nil")
 	}
-
-	mockSocket2 := NewMock(socketURL)
-	defer mockSocket2.Stop()
-	mockSocket2.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
-		Method: "",
-	})
 }
 
 func TestRemoveEventHandler(t *testing.T) {
