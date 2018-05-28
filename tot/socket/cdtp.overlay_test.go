@@ -610,3 +610,150 @@ func TestOverlaySetSuspended(t *testing.T) {
 		t.Errorf("Expected error, got success")
 	}
 }
+
+func TestOverlayOnInspectNodeRequested(t *testing.T) {
+	socketURL, _ := url.Parse("https://test:9222/")
+	mockSocket := NewMock(socketURL)
+	go mockSocket.Listen()
+	defer mockSocket.Stop()
+
+	resultChan := make(chan *overlay.InspectNodeRequestedEvent)
+	mockSocket.Overlay().OnInspectNodeRequested(func(eventData *overlay.InspectNodeRequestedEvent) {
+		resultChan <- eventData
+	})
+	mockResult := &overlay.InspectNodeRequestedEvent{
+		BackendNodeID: dom.BackendNodeID(1),
+	}
+	mockResultBytes, _ := json.Marshal(mockResult)
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID:     0,
+		Error:  &Error{},
+		Method: "Overlay.inspectNodeRequested",
+		Params: mockResultBytes,
+	})
+	result := <-resultChan
+	if mockResult.Err != result.Err {
+		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
+	}
+	if mockResult.BackendNodeID != result.BackendNodeID {
+		t.Errorf("Expected %d, got %d", mockResult.BackendNodeID, result.BackendNodeID)
+	}
+
+	resultChan = make(chan *overlay.InspectNodeRequestedEvent)
+	mockSocket.Overlay().OnInspectNodeRequested(func(eventData *overlay.InspectNodeRequestedEvent) {
+		resultChan <- eventData
+	})
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID: 0,
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Overlay.inspectNodeRequested",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
+}
+
+func TestOverlayOnNodeHighlightRequested(t *testing.T) {
+	socketURL, _ := url.Parse("https://test:9222/")
+	mockSocket := NewMock(socketURL)
+	go mockSocket.Listen()
+	defer mockSocket.Stop()
+
+	resultChan := make(chan *overlay.NodeHighlightRequestedEvent)
+	mockSocket.Overlay().OnNodeHighlightRequested(func(eventData *overlay.NodeHighlightRequestedEvent) {
+		resultChan <- eventData
+	})
+	mockResult := &overlay.NodeHighlightRequestedEvent{
+		NodeID: dom.NodeID(1),
+	}
+	mockResultBytes, _ := json.Marshal(mockResult)
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID:     0,
+		Error:  &Error{},
+		Method: "Overlay.nodeHighlightRequested",
+		Params: mockResultBytes,
+	})
+	result := <-resultChan
+	if mockResult.Err != result.Err {
+		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
+	}
+	if mockResult.NodeID != result.NodeID {
+		t.Errorf("Expected %d, got %d", mockResult.NodeID, result.NodeID)
+	}
+
+	resultChan = make(chan *overlay.NodeHighlightRequestedEvent)
+	mockSocket.Overlay().OnNodeHighlightRequested(func(eventData *overlay.NodeHighlightRequestedEvent) {
+		resultChan <- eventData
+	})
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID: 0,
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Overlay.nodeHighlightRequested",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
+}
+
+func TestOverlayOnScreenshotRequested(t *testing.T) {
+	socketURL, _ := url.Parse("https://test:9222/")
+	mockSocket := NewMock(socketURL)
+	go mockSocket.Listen()
+	defer mockSocket.Stop()
+
+	resultChan := make(chan *overlay.ScreenshotRequestedEvent)
+	mockSocket.Overlay().OnScreenshotRequested(func(eventData *overlay.ScreenshotRequestedEvent) {
+		resultChan <- eventData
+	})
+	mockResult := &overlay.ScreenshotRequestedEvent{
+		Viewport: &page.Viewport{
+			X:      1,
+			Y:      2,
+			Width:  3,
+			Height: 4,
+			Scale:  5,
+		},
+	}
+	mockResultBytes, _ := json.Marshal(mockResult)
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID:     0,
+		Error:  &Error{},
+		Method: "Overlay.screenshotRequested",
+		Params: mockResultBytes,
+	})
+	result := <-resultChan
+	if mockResult.Err != result.Err {
+		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
+	}
+	if mockResult.Viewport.X != result.Viewport.X {
+		t.Errorf("Expected %d, got %d", mockResult.Viewport.X, result.Viewport.X)
+	}
+
+	resultChan = make(chan *overlay.ScreenshotRequestedEvent)
+	mockSocket.Overlay().OnScreenshotRequested(func(eventData *overlay.ScreenshotRequestedEvent) {
+		resultChan <- eventData
+	})
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID: 0,
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Overlay.screenshotRequested",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
+}
