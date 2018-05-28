@@ -324,7 +324,7 @@ func (protocol *ServiceWorkerProtocol) OnWorkerErrorReported(
 		"ServiceWorker.workerErrorReported",
 		func(response *Response) {
 			event := &worker.ErrorReportedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -347,7 +347,7 @@ func (protocol *ServiceWorkerProtocol) OnWorkerRegistrationUpdated(
 		"ServiceWorker.workerRegistrationUpdated",
 		func(response *Response) {
 			event := &worker.RegistrationUpdatedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -370,7 +370,7 @@ func (protocol *ServiceWorkerProtocol) OnWorkerVersionUpdated(
 		"ServiceWorker.workerVersionUpdated",
 		func(response *Response) {
 			event := &worker.VersionUpdatedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

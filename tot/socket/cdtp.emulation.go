@@ -428,7 +428,7 @@ func (protocol *EmulationProtocol) OnVirtualTimeAdvanced(
 		"Emulation.virtualTimeAdvanced",
 		func(response *Response) {
 			event := &emulation.VirtualTimeAdvancedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -453,7 +453,7 @@ func (protocol *EmulationProtocol) OnVirtualTimeBudgetExpired(
 		"Emulation.virtualTimeBudgetExpired",
 		func(response *Response) {
 			event := &emulation.VirtualTimeBudgetExpiredEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -477,7 +477,7 @@ func (protocol *EmulationProtocol) OnVirtualTimePaused(
 		"Emulation.virtualTimePaused",
 		func(response *Response) {
 			event := &emulation.VirtualTimePausedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

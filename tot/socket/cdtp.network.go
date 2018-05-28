@@ -688,7 +688,7 @@ func (protocol *NetworkProtocol) OnDataReceived(
 		"Network.dataReceived",
 		func(response *Response) {
 			event := &network.DataReceivedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -712,7 +712,7 @@ func (protocol *NetworkProtocol) OnEventSourceMessageReceived(
 		"Network.eventSourceMessageReceived",
 		func(response *Response) {
 			event := &network.EventSourceMessageReceivedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -735,7 +735,7 @@ func (protocol *NetworkProtocol) OnLoadingFailed(
 		"Network.loadingFailed",
 		func(response *Response) {
 			event := &network.LoadingFailedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -758,7 +758,7 @@ func (protocol *NetworkProtocol) OnLoadingFinished(
 		"Network.loadingFinished",
 		func(response *Response) {
 			event := &network.LoadingFinishedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -783,7 +783,7 @@ func (protocol *NetworkProtocol) OnRequestIntercepted(
 		"Network.requestIntercepted",
 		func(response *Response) {
 			event := &network.RequestInterceptedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -807,7 +807,7 @@ func (protocol *NetworkProtocol) OnRequestServedFromCache(
 		"Network.requestServedFromCache",
 		func(response *Response) {
 			event := &network.RequestServedFromCacheEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -830,7 +830,7 @@ func (protocol *NetworkProtocol) OnRequestWillBeSent(
 		"Network.requestWillBeSent",
 		func(response *Response) {
 			event := &network.RequestWillBeSentEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -855,7 +855,7 @@ func (protocol *NetworkProtocol) OnResourceChangedPriority(
 		"Network.resourceChangedPriority",
 		func(response *Response) {
 			event := &network.ResourceChangedPriorityEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -878,7 +878,7 @@ func (protocol *NetworkProtocol) OnResponseReceived(
 		"Network.responseReceived",
 		func(response *Response) {
 			event := &network.ResponseReceivedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -901,7 +901,7 @@ func (protocol *NetworkProtocol) OnWebSocketClosed(
 		"Network.webSocketClosed",
 		func(response *Response) {
 			event := &network.WebSocketClosedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -924,7 +924,7 @@ func (protocol *NetworkProtocol) OnWebSocketCreated(
 		"Network.webSocketCreated",
 		func(response *Response) {
 			event := &network.WebSocketCreatedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -947,7 +947,7 @@ func (protocol *NetworkProtocol) OnWebSocketFrameError(
 		"Network.webSocketFrameError",
 		func(response *Response) {
 			event := &network.WebSocketFrameErrorEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -970,7 +970,7 @@ func (protocol *NetworkProtocol) OnWebSocketFrameReceived(
 		"Network.webSocketFrameReceived",
 		func(response *Response) {
 			event := &network.WebSocketFrameReceivedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -993,7 +993,7 @@ func (protocol *NetworkProtocol) OnWebSocketFrameSent(
 		"Network.webSocketFrameSent",
 		func(response *Response) {
 			event := &network.WebSocketFrameSentEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1017,7 +1017,7 @@ func (protocol *NetworkProtocol) OnWebSocketHandshakeResponseReceived(
 		"Network.webSocketHandshakeResponseReceived",
 		func(response *Response) {
 			event := &network.WebSocketHandshakeResponseReceivedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1041,7 +1041,7 @@ func (protocol *NetworkProtocol) OnWebSocketWillSendHandshakeRequest(
 		"Network.webSocketWillSendHandshakeRequest",
 		func(response *Response) {
 			event := &network.WebSocketWillSendHandshakeRequestEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

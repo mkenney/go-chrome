@@ -730,7 +730,7 @@ func (protocol *DebuggerProtocol) OnBreakpointResolved(
 		"Debugger.breakpointResolved",
 		func(response *Response) {
 			event := &debugger.BreakpointResolvedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -753,7 +753,7 @@ func (protocol *DebuggerProtocol) OnPaused(
 		"Debugger.paused",
 		func(response *Response) {
 			event := &debugger.PausedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -776,7 +776,7 @@ func (protocol *DebuggerProtocol) OnResumed(
 		"Debugger.resumed",
 		func(response *Response) {
 			event := &debugger.ResumedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -799,7 +799,7 @@ func (protocol *DebuggerProtocol) OnScriptFailedToParse(
 		"Debugger.scriptFailedToParse",
 		func(response *Response) {
 			event := &debugger.ScriptFailedToParseEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -823,7 +823,7 @@ func (protocol *DebuggerProtocol) OnScriptParsed(
 		"Debugger.scriptParsed",
 		func(response *Response) {
 			event := &debugger.ScriptParsedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
