@@ -10,7 +10,7 @@ import (
 )
 
 func TestLayerTreeCompositingReasons(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLayerTreeCompositingReasons")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -52,7 +52,7 @@ func TestLayerTreeCompositingReasons(t *testing.T) {
 }
 
 func TestLayerTreeDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLayerTreeDisable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -86,7 +86,7 @@ func TestLayerTreeDisable(t *testing.T) {
 }
 
 func TestLayerTreeEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLayerTreeEnable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -120,7 +120,7 @@ func TestLayerTreeEnable(t *testing.T) {
 }
 
 func TestLayerTreeLoadSnapshot(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLayerTreeLoadSnapshot")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -166,7 +166,7 @@ func TestLayerTreeLoadSnapshot(t *testing.T) {
 }
 
 func TestLayerTreeMakeSnapshot(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLayerTreeMakeSnapshot")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -208,7 +208,7 @@ func TestLayerTreeMakeSnapshot(t *testing.T) {
 }
 
 func TestLayerTreeProfileSnapshot(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLayerTreeProfileSnapshot")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -255,7 +255,7 @@ func TestLayerTreeProfileSnapshot(t *testing.T) {
 }
 
 func TestLayerTreeReleaseSnapshot(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLayerTreeReleaseSnapshot")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -292,7 +292,7 @@ func TestLayerTreeReleaseSnapshot(t *testing.T) {
 }
 
 func TestLayerTreeReplaySnapshot(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLayerTreeReplaySnapshot")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -337,7 +337,7 @@ func TestLayerTreeReplaySnapshot(t *testing.T) {
 }
 
 func TestLayerTreeSnapshotCommandLog(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLayerTreeSnapshotCommandLog")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -379,7 +379,7 @@ func TestLayerTreeSnapshotCommandLog(t *testing.T) {
 }
 
 func TestLayerTreeOnLayerPainted(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLayerTreeOnLayerPainted")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -432,7 +432,7 @@ func TestLayerTreeOnLayerPainted(t *testing.T) {
 }
 
 func TestLayerTreeOnLayerTreeDidChange(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLayerTreeOnLayerTreeDidChange")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()

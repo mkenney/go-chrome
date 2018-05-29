@@ -9,7 +9,7 @@ import (
 )
 
 func TestTargetActivateTarget(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetActivateTarget")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -46,7 +46,7 @@ func TestTargetActivateTarget(t *testing.T) {
 }
 
 func TestTargetAttachToTarget(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetAttachToTarget")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -88,7 +88,7 @@ func TestTargetAttachToTarget(t *testing.T) {
 }
 
 func TestTargetCloseTarget(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetCloseTarget")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -130,7 +130,7 @@ func TestTargetCloseTarget(t *testing.T) {
 }
 
 func TestTargetCreateBrowserContext(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetCreateBrowserContext")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -169,7 +169,7 @@ func TestTargetCreateBrowserContext(t *testing.T) {
 }
 
 func TestTargetCreateTarget(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetCreateTarget")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -215,7 +215,7 @@ func TestTargetCreateTarget(t *testing.T) {
 }
 
 func TestTargetDetachFromTarget(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetDetachFromTarget")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -253,7 +253,7 @@ func TestTargetDetachFromTarget(t *testing.T) {
 }
 
 func TestTargetDisposeBrowserContext(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetDisposeBrowserContext")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -295,7 +295,7 @@ func TestTargetDisposeBrowserContext(t *testing.T) {
 }
 
 func TestTargetGetTargetInfo(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetGetTargetInfo")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -344,7 +344,7 @@ func TestTargetGetTargetInfo(t *testing.T) {
 }
 
 func TestTargetGetTargets(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetGetTargets")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -388,7 +388,7 @@ func TestTargetGetTargets(t *testing.T) {
 }
 
 func TestTargetSendMessageToTarget(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetSendMessageToTarget")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -427,7 +427,7 @@ func TestTargetSendMessageToTarget(t *testing.T) {
 }
 
 func TestTargetSetAttachToFrames(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetSetAttachToFrames")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -464,7 +464,7 @@ func TestTargetSetAttachToFrames(t *testing.T) {
 }
 
 func TestTargetSetAutoAttach(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetSetAutoAttach")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -502,7 +502,7 @@ func TestTargetSetAutoAttach(t *testing.T) {
 }
 
 func TestTargetSetDiscoverTargets(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetSetDiscoverTargets")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -539,7 +539,7 @@ func TestTargetSetDiscoverTargets(t *testing.T) {
 }
 
 func TestTargetSetRemoteLocations(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetSetRemoteLocations")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -579,7 +579,7 @@ func TestTargetSetRemoteLocations(t *testing.T) {
 }
 
 func TestTargetOnAttachedToTarget(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetOnAttachedToTarget")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -635,7 +635,7 @@ func TestTargetOnAttachedToTarget(t *testing.T) {
 }
 
 func TestTargetOnDetachedFromTarget(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetOnDetachedFromTarget")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -682,7 +682,7 @@ func TestTargetOnDetachedFromTarget(t *testing.T) {
 }
 
 func TestTargetOnReceivedMessageFromTarget(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetOnReceivedMessageFromTarget")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -730,7 +730,7 @@ func TestTargetOnReceivedMessageFromTarget(t *testing.T) {
 }
 
 func TestTargetOnTargetCreated(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetOnTargetCreated")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -784,7 +784,7 @@ func TestTargetOnTargetCreated(t *testing.T) {
 }
 
 func TestTargetOnTargetDestroyed(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetOnTargetDestroyed")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -831,7 +831,7 @@ func TestTargetOnTargetDestroyed(t *testing.T) {
 }
 
 func TestTargetOnTargetInfoChanged(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTargetOnTargetInfoChanged")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()

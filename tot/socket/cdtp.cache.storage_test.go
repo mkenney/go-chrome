@@ -17,7 +17,7 @@ func init() {
 }
 
 func TestCacheStorageDeleteCache(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCacheStorageDeleteCache")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -52,7 +52,7 @@ func TestCacheStorageDeleteCache(t *testing.T) {
 }
 
 func TestCacheStorageDeleteEntry(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCacheStorageDeleteEntry")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -89,7 +89,7 @@ func TestCacheStorageDeleteEntry(t *testing.T) {
 }
 
 func TestCacheStorageRequestCacheNames(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCacheStorageRequestCacheNames")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -140,7 +140,7 @@ func TestCacheStorageRequestCacheNames(t *testing.T) {
 }
 
 func TestCacheStorageRequestCachedResponse(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCacheStorageRequestCachedResponse")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -191,7 +191,7 @@ func TestCacheStorageRequestCachedResponse(t *testing.T) {
 }
 
 func TestCacheStorageRequestEntries(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCacheStorageRequestEntries")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()

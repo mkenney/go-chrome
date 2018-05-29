@@ -11,7 +11,7 @@ import (
 )
 
 func TestCSSAddRule(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSAddRule")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -137,7 +137,7 @@ func TestCSSAddRule(t *testing.T) {
 }
 
 func TestCSSCollectClassNames(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSCollectClassNames")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -180,7 +180,7 @@ func TestCSSCollectClassNames(t *testing.T) {
 }
 
 func TestCSSCreateStyleSheet(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSCreateStyleSheet")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -223,7 +223,7 @@ func TestCSSCreateStyleSheet(t *testing.T) {
 }
 
 func TestCSSDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSDisable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -257,7 +257,7 @@ func TestCSSDisable(t *testing.T) {
 }
 
 func TestCSSEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSEnable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -291,7 +291,7 @@ func TestCSSEnable(t *testing.T) {
 }
 
 func TestCSSForcePseudoState(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSForcePseudoState")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -331,7 +331,7 @@ func TestCSSForcePseudoState(t *testing.T) {
 }
 
 func TestCSSGetBackgroundColors(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSGetBackgroundColors")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -377,7 +377,7 @@ func TestCSSGetBackgroundColors(t *testing.T) {
 }
 
 func TestCSSGetComputedStyleForNode(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSGetComputedStyleForNode")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -423,7 +423,7 @@ func TestCSSGetComputedStyleForNode(t *testing.T) {
 }
 
 func TestCSSGetInlineStylesForNode(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSGetInlineStylesForNode")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -501,7 +501,7 @@ func TestCSSGetInlineStylesForNode(t *testing.T) {
 }
 
 func TestCSSGetMatchedStylesForNode(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSGetMatchedStylesForNode")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -597,7 +597,7 @@ func TestCSSGetMatchedStylesForNode(t *testing.T) {
 }
 
 func TestCSSGetMediaQueries(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSGetMediaQueries")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -661,7 +661,7 @@ func TestCSSGetMediaQueries(t *testing.T) {
 }
 
 func TestCSSGetPlatformFontsForNode(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSGetPlatformFontsForNode")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -708,7 +708,7 @@ func TestCSSGetPlatformFontsForNode(t *testing.T) {
 }
 
 func TestCSSGetStyleSheetText(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSGetStyleSheetText")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -751,7 +751,7 @@ func TestCSSGetStyleSheetText(t *testing.T) {
 }
 
 func TestCSSSetEffectivePropertyValueForNode(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSSetEffectivePropertyValueForNode")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -793,7 +793,7 @@ func TestCSSSetEffectivePropertyValueForNode(t *testing.T) {
 }
 
 func TestCSSSetKeyframeKey(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSSetKeyframeKey")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -858,7 +858,7 @@ func TestCSSSetKeyframeKey(t *testing.T) {
 }
 
 func TestCSSSetMediaText(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSSetMediaText")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -940,7 +940,7 @@ func TestCSSSetMediaText(t *testing.T) {
 }
 
 func TestCSSSetRuleSelector(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSSetRuleSelector")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -1007,7 +1007,7 @@ func TestCSSSetRuleSelector(t *testing.T) {
 }
 
 func TestCSSSetStyleSheetText(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSSetStyleSheetText")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -1052,7 +1052,7 @@ func TestCSSSetStyleSheetText(t *testing.T) {
 }
 
 func TestCSSSetStyleTexts(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSSetStyleTexts")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -1130,7 +1130,7 @@ func TestCSSSetStyleTexts(t *testing.T) {
 }
 
 func TestCSSStartRuleUsageTracking(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSStartRuleUsageTracking")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -1164,7 +1164,7 @@ func TestCSSStartRuleUsageTracking(t *testing.T) {
 }
 
 func TestCSSStopRuleUsageTracking(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSStopRuleUsageTracking")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -1208,7 +1208,7 @@ func TestCSSStopRuleUsageTracking(t *testing.T) {
 }
 
 func TestCSSTakeCoverageDelta(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSTakeCoverageDelta")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -1252,7 +1252,7 @@ func TestCSSTakeCoverageDelta(t *testing.T) {
 }
 
 func TestCSSOnFontsUpdated(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSOnFontsUpdated")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -1294,7 +1294,7 @@ func TestCSSOnFontsUpdated(t *testing.T) {
 }
 
 func TestCSSOnMediaQueryResultChanged(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSOnMediaQueryResultChanged")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -1336,7 +1336,7 @@ func TestCSSOnMediaQueryResultChanged(t *testing.T) {
 }
 
 func TestCSSOnStyleSheetAdded(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSOnStyleSheetAdded")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -1396,7 +1396,7 @@ func TestCSSOnStyleSheetAdded(t *testing.T) {
 }
 
 func TestCSSOnStyleSheetChanged(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSOnStyleSheetChanged")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -1443,7 +1443,7 @@ func TestCSSOnStyleSheetChanged(t *testing.T) {
 }
 
 func TestCSSOnStyleSheetRemoved(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestCSSOnStyleSheetRemoved")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()

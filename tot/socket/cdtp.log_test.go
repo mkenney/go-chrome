@@ -12,7 +12,7 @@ import (
 )
 
 func TestLogClear(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLogClear")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -46,7 +46,7 @@ func TestLogClear(t *testing.T) {
 }
 
 func TestLogDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLogDisable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -80,7 +80,7 @@ func TestLogDisable(t *testing.T) {
 }
 
 func TestLogEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLogEnable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -114,7 +114,7 @@ func TestLogEnable(t *testing.T) {
 }
 
 func TestLogStartViolationsReport(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLogStartViolationsReport")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -154,7 +154,7 @@ func TestLogStartViolationsReport(t *testing.T) {
 }
 
 func TestLogStopViolationsReport(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLogStopViolationsReport")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -188,7 +188,7 @@ func TestLogStopViolationsReport(t *testing.T) {
 }
 
 func TestLogOnEntryAdded(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLogOnEntryAdded")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()

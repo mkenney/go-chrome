@@ -11,7 +11,7 @@ import (
 )
 
 func TestHeadlessExperimentalBeginFrame(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalBeginFrame")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -61,7 +61,7 @@ func TestHeadlessExperimentalBeginFrame(t *testing.T) {
 }
 
 func TestHeadlessExperimentalDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalDisable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -95,7 +95,7 @@ func TestHeadlessExperimentalDisable(t *testing.T) {
 }
 
 func TestHeadlessExperimentalEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalEnable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -129,7 +129,7 @@ func TestHeadlessExperimentalEnable(t *testing.T) {
 }
 
 func TestHeadlessExperimentalOnMainFrameReadyForScreenshots(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalOnMainFrameReadyForScreenshots")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -171,7 +171,7 @@ func TestHeadlessExperimentalOnMainFrameReadyForScreenshots(t *testing.T) {
 }
 
 func TestHeadlessExperimentalOnNeedsBeginFramesChanged(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalOnNeedsBeginFramesChanged")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()

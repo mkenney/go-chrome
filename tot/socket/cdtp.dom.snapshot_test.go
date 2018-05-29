@@ -11,7 +11,7 @@ import (
 )
 
 func TestDOMSnapshotDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMSnapshotDisable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -45,7 +45,7 @@ func TestDOMSnapshotDisable(t *testing.T) {
 }
 
 func TestDOMSnapshotEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMSnapshotEnable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -79,7 +79,7 @@ func TestDOMSnapshotEnable(t *testing.T) {
 }
 
 func TestDOMSnapshotGet(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMSnapshotGet")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()

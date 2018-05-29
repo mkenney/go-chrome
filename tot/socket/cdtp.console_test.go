@@ -9,7 +9,7 @@ import (
 )
 
 func TestConsoleClearMessages(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestConsoleClearMessages")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -43,7 +43,7 @@ func TestConsoleClearMessages(t *testing.T) {
 }
 
 func TestConsoleDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestConsoleDisable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -77,7 +77,7 @@ func TestConsoleDisable(t *testing.T) {
 }
 
 func TestConsoleEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestConsoleEnable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -111,7 +111,7 @@ func TestConsoleEnable(t *testing.T) {
 }
 
 func TestConsoleOnMessageAdded(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestConsoleOnMessageAdded")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()

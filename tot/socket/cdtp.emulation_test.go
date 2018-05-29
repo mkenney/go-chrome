@@ -13,7 +13,7 @@ import (
 )
 
 func TestEmulationCanEmulate(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationCanEmulate")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -52,7 +52,7 @@ func TestEmulationCanEmulate(t *testing.T) {
 }
 
 func TestEmulationClearDeviceMetricsOverride(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationClearDeviceMetricsOverride")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -86,7 +86,7 @@ func TestEmulationClearDeviceMetricsOverride(t *testing.T) {
 }
 
 func TestEmulationClearGeolocationOverride(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationClearGeolocationOverride")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -120,7 +120,7 @@ func TestEmulationClearGeolocationOverride(t *testing.T) {
 }
 
 func TestEmulationResetPageScaleFactor(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationResetPageScaleFactor")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -154,7 +154,7 @@ func TestEmulationResetPageScaleFactor(t *testing.T) {
 }
 
 func TestEmulationSetCPUThrottlingRate(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetCPUThrottlingRate")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -191,7 +191,7 @@ func TestEmulationSetCPUThrottlingRate(t *testing.T) {
 }
 
 func TestEmulationSetDefaultBackgroundColorOverride(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetDefaultBackgroundColorOverride")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -233,7 +233,7 @@ func TestEmulationSetDefaultBackgroundColorOverride(t *testing.T) {
 }
 
 func TestEmulationSetDeviceMetricsOverride(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetDeviceMetricsOverride")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -290,7 +290,7 @@ func TestEmulationSetDeviceMetricsOverride(t *testing.T) {
 }
 
 func TestEmulationSetEmitTouchEventsForMouse(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetEmitTouchEventsForMouse")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -328,7 +328,7 @@ func TestEmulationSetEmitTouchEventsForMouse(t *testing.T) {
 }
 
 func TestEmulationSetEmulatedMedia(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetEmulatedMedia")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -365,7 +365,7 @@ func TestEmulationSetEmulatedMedia(t *testing.T) {
 }
 
 func TestEmulationSetGeolocationOverride(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetGeolocationOverride")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -404,7 +404,7 @@ func TestEmulationSetGeolocationOverride(t *testing.T) {
 }
 
 func TestEmulationSetNavigatorOverrides(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetNavigatorOverrides")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -441,7 +441,7 @@ func TestEmulationSetNavigatorOverrides(t *testing.T) {
 }
 
 func TestEmulationSetPageScaleFactor(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetPageScaleFactor")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -478,7 +478,7 @@ func TestEmulationSetPageScaleFactor(t *testing.T) {
 }
 
 func TestEmulationSetScriptExecutionDisabled(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetScriptExecutionDisabled")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -515,7 +515,7 @@ func TestEmulationSetScriptExecutionDisabled(t *testing.T) {
 }
 
 func TestEmulationSetTouchEmulationEnabled(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetTouchEmulationEnabled")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -553,7 +553,7 @@ func TestEmulationSetTouchEmulationEnabled(t *testing.T) {
 }
 
 func TestEmulationSetVirtualTimePolicy(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetVirtualTimePolicy")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -597,7 +597,7 @@ func TestEmulationSetVirtualTimePolicy(t *testing.T) {
 }
 
 func TestEmulationSetVisibleSize(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetVisibleSize")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -635,7 +635,7 @@ func TestEmulationSetVisibleSize(t *testing.T) {
 }
 
 func TestEmulationOnVirtualTimeAdvanced(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationOnVirtualTimeAdvanced")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -679,7 +679,7 @@ func TestEmulationOnVirtualTimeAdvanced(t *testing.T) {
 }
 
 func TestEmulationOnVirtualTimeBudgetExpired(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationOnVirtualTimeBudgetExpired")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -721,7 +721,7 @@ func TestEmulationOnVirtualTimeBudgetExpired(t *testing.T) {
 }
 
 func TestEmulationOnVirtualTimePaused(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationOnVirtualTimePaused")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()

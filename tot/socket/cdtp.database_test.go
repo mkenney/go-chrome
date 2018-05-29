@@ -9,7 +9,7 @@ import (
 )
 
 func TestDatabaseDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDatabaseDisable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -43,7 +43,7 @@ func TestDatabaseDisable(t *testing.T) {
 }
 
 func TestDatabaseEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDatabaseEnable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -77,7 +77,7 @@ func TestDatabaseEnable(t *testing.T) {
 }
 
 func TestDatabaseExecuteSQL(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDatabaseExecuteSQL")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -127,7 +127,7 @@ func TestDatabaseExecuteSQL(t *testing.T) {
 }
 
 func TestDatabaseGetTableNames(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDatabaseGetTableNames")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -170,7 +170,7 @@ func TestDatabaseGetTableNames(t *testing.T) {
 }
 
 func TestDatabaseOnAdd(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDatabaseOnAdd")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()

@@ -10,7 +10,7 @@ import (
 )
 
 func TestAccessibilityGetPartialAXTree(t *testing.T) {
-	socketURL, _ := url.Parse("https://www.example.com/")
+	socketURL, _ := url.Parse("https://test:9222/TestAccessibilityGetPartialAXTree")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()

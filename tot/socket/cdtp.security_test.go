@@ -9,7 +9,7 @@ import (
 )
 
 func TestSecurityDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestSecurityDisable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -43,7 +43,7 @@ func TestSecurityDisable(t *testing.T) {
 }
 
 func TestSecurityEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestSecurityEnable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -77,7 +77,7 @@ func TestSecurityEnable(t *testing.T) {
 }
 
 func TestSecurityHandleCertificateError(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestSecurityHandleCertificateError")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -115,7 +115,7 @@ func TestSecurityHandleCertificateError(t *testing.T) {
 }
 
 func TestSecuritySetIgnoreCertificateErrors(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestSecuritySetIgnoreCertificateErrors")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -152,7 +152,7 @@ func TestSecuritySetIgnoreCertificateErrors(t *testing.T) {
 }
 
 func TestSecuritySetOverrideCertificateErrors(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestSecuritySetOverrideCertificateErrors")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -189,7 +189,7 @@ func TestSecuritySetOverrideCertificateErrors(t *testing.T) {
 }
 
 func TestSecurityOnCertificateError(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestSecurityOnCertificateError")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -238,7 +238,7 @@ func TestSecurityOnCertificateError(t *testing.T) {
 }
 
 func TestSecurityOnSecurityStateChanged(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestSecurityOnSecurityStateChanged")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()

@@ -9,7 +9,7 @@ import (
 )
 
 func TestTetheringBind(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTetheringBind")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -46,7 +46,7 @@ func TestTetheringBind(t *testing.T) {
 }
 
 func TestTetheringUnbind(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTetheringUnbind")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -83,7 +83,7 @@ func TestTetheringUnbind(t *testing.T) {
 }
 
 func TestTetheringOnAccepted(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTetheringOnAccepted")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()

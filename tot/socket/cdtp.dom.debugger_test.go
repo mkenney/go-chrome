@@ -11,7 +11,7 @@ import (
 )
 
 func TestDOMDebuggerGetEventListeners(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDebuggerGetEventListeners")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -73,7 +73,7 @@ func TestDOMDebuggerGetEventListeners(t *testing.T) {
 }
 
 func TestDOMDebuggerRemoveDOMBreakpoint(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDebuggerRemoveDOMBreakpoint")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -113,7 +113,7 @@ func TestDOMDebuggerRemoveDOMBreakpoint(t *testing.T) {
 }
 
 func TestDOMDebuggerRemoveEventListenerBreakpoint(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDebuggerRemoveEventListenerBreakpoint")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -153,7 +153,7 @@ func TestDOMDebuggerRemoveEventListenerBreakpoint(t *testing.T) {
 }
 
 func TestDOMDebuggerRemoveInstrumentationBreakpoint(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDebuggerRemoveInstrumentationBreakpoint")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -191,7 +191,7 @@ func TestDOMDebuggerRemoveInstrumentationBreakpoint(t *testing.T) {
 }
 
 func TestDOMDebuggerRemoveXHRBreakpoint(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDebuggerRemoveXHRBreakpoint")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -229,7 +229,7 @@ func TestDOMDebuggerRemoveXHRBreakpoint(t *testing.T) {
 }
 
 func TestDOMDebuggerSetDOMBreakpoint(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDebuggerSetDOMBreakpoint")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -269,7 +269,7 @@ func TestDOMDebuggerSetDOMBreakpoint(t *testing.T) {
 }
 
 func TestDOMDebuggerSetEventListenerBreakpoint(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDebuggerSetEventListenerBreakpoint")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -309,7 +309,7 @@ func TestDOMDebuggerSetEventListenerBreakpoint(t *testing.T) {
 }
 
 func TestDOMDebuggerSetInstrumentationBreakpoint(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDebuggerSetInstrumentationBreakpoint")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -347,7 +347,7 @@ func TestDOMDebuggerSetInstrumentationBreakpoint(t *testing.T) {
 }
 
 func TestDOMDebuggerSetXHRBreakpoint(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDebuggerSetXHRBreakpoint")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()

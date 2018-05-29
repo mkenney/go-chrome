@@ -10,7 +10,7 @@ import (
 )
 
 func TestInputDispatchKeyEvent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestInputDispatchKeyEvent")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -60,7 +60,7 @@ func TestInputDispatchKeyEvent(t *testing.T) {
 }
 
 func TestInputDispatchMouseEvent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestInputDispatchMouseEvent")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -105,7 +105,7 @@ func TestInputDispatchMouseEvent(t *testing.T) {
 }
 
 func TestInputDispatchTouchEvent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestInputDispatchTouchEvent")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -153,7 +153,7 @@ func TestInputDispatchTouchEvent(t *testing.T) {
 }
 
 func TestInputEmulateTouchFromMouseEvent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestInputEmulateTouchFromMouseEvent")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -198,7 +198,7 @@ func TestInputEmulateTouchFromMouseEvent(t *testing.T) {
 }
 
 func TestInputSetIgnoreEvents(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestInputSetIgnoreEvents")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -235,7 +235,7 @@ func TestInputSetIgnoreEvents(t *testing.T) {
 }
 
 func TestInputSynthesizePinchGesture(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestInputSynthesizePinchGesture")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -276,7 +276,7 @@ func TestInputSynthesizePinchGesture(t *testing.T) {
 }
 
 func TestInputSynthesizeScrollGesture(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestInputSynthesizeScrollGesture")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -324,7 +324,7 @@ func TestInputSynthesizeScrollGesture(t *testing.T) {
 }
 
 func TestInputSynthesizeTapGesture(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestInputSynthesizeTapGesture")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()

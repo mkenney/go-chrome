@@ -9,7 +9,7 @@ import (
 )
 
 func TestDeviceOrientationClearOverride(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDeviceOrientationClearOverride")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -43,7 +43,7 @@ func TestDeviceOrientationClearOverride(t *testing.T) {
 }
 
 func TestDeviceOrientationSetOverride(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDeviceOrientationSetOverride")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()

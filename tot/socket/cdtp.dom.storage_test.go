@@ -9,7 +9,7 @@ import (
 )
 
 func TestDOMStorageClear(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageClear")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -53,7 +53,7 @@ func TestDOMStorageClear(t *testing.T) {
 }
 
 func TestDOMStorageDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageDisable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -87,7 +87,7 @@ func TestDOMStorageDisable(t *testing.T) {
 }
 
 func TestDOMStorageEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageEnable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -121,7 +121,7 @@ func TestDOMStorageEnable(t *testing.T) {
 }
 
 func TestDOMStorageGetItems(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageGetItems")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -173,7 +173,7 @@ func TestDOMStorageGetItems(t *testing.T) {
 }
 
 func TestDOMStorageRemoveItem(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageRemoveItem")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -219,7 +219,7 @@ func TestDOMStorageRemoveItem(t *testing.T) {
 }
 
 func TestDOMStorageSetItem(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageSetItem")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -266,7 +266,7 @@ func TestDOMStorageSetItem(t *testing.T) {
 }
 
 func TestDOMStorageOnItemAdded(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageOnItemAdded")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -315,7 +315,7 @@ func TestDOMStorageOnItemAdded(t *testing.T) {
 }
 
 func TestDOMStorageOnItemRemoved(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageOnItemRemoved")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -363,7 +363,7 @@ func TestDOMStorageOnItemRemoved(t *testing.T) {
 }
 
 func TestDOMStorageOnItemUpdated(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageOnItemUpdated")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -413,7 +413,7 @@ func TestDOMStorageOnItemUpdated(t *testing.T) {
 }
 
 func TestDOMStorageOnItemsCleared(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageOnItemsCleared")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()

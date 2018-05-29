@@ -10,7 +10,7 @@ import (
 )
 
 func TestBrowserClose(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestBrowserClose")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -41,7 +41,7 @@ func TestBrowserClose(t *testing.T) {
 }
 
 func TestBrowserGetVersion(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestBrowserGetVersion")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -88,7 +88,7 @@ func TestBrowserGetVersion(t *testing.T) {
 }
 
 func TestBrowserGetWindowBounds(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestBrowserGetWindowBounds")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -141,7 +141,7 @@ func TestBrowserGetWindowBounds(t *testing.T) {
 }
 
 func TestBrowserGetWindowForTarget(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestBrowserGetWindowForTarget")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -202,7 +202,7 @@ func TestBrowserGetWindowForTarget(t *testing.T) {
 }
 
 func TestBrowserSetWindowBounds(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestBrowserSetWindowBounds")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()

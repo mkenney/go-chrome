@@ -9,7 +9,7 @@ import (
 )
 
 func TestPerformanceDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPerformanceDisable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -43,7 +43,7 @@ func TestPerformanceDisable(t *testing.T) {
 }
 
 func TestPerformanceEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPerformanceEnable")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -77,7 +77,7 @@ func TestPerformanceEnable(t *testing.T) {
 }
 
 func TestPerformanceGetMetrics(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPerformanceGetMetrics")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -119,7 +119,7 @@ func TestPerformanceGetMetrics(t *testing.T) {
 }
 
 func TestPerformanceOnMetrics(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPerformanceOnMetrics")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
