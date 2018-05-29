@@ -17,7 +17,7 @@ type Socketer interface {
 
 	// Listen starts the socket read loop and delivers messages to
 	// HandleCommand() and HandleEvent() as appropriate.
-	Listen() error
+	Listen()
 
 	// NextCommandID generates and returns the next command ID.
 	NextCommandID() int

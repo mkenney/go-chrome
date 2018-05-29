@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/url"
 	"sync"
+	"time"
 
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
@@ -16,13 +17,12 @@ listening to the specified URL.
 */
 func New(url *url.URL) *Socket {
 	socket := &Socket{
-		commands:     NewCommandMap(),
 		commandIDMux: &sync.Mutex{},
+		commands:     NewCommandMap(),
 		handlers:     NewEventHandlerMap(),
 		mux:          &sync.Mutex{},
 		newSocket:    NewWebsocket,
 		socketID:     NextSocketID(),
-		stopped:      make(chan bool),
 		url:          url,
 	}
 
@@ -66,7 +66,7 @@ func New(url *url.URL) *Socket {
 	socket.tethering = &TetheringProtocol{Socket: socket}
 	socket.tracing = &TracingProtocol{Socket: socket}
 
-	go socket.Listen()
+	socket.Listen()
 	log.Infof("socket #%d - New socket connection listening on %s", socket.socketID, socket.url)
 
 	return socket
@@ -91,18 +91,18 @@ func NextSocketID() int {
 Socket is a Socketer implementation.
 */
 type Socket struct {
-	commands      CommandMapper
-	commandID     int
-	commandIDMux  *sync.Mutex
-	conn          WebSocketer
-	connected     bool
-	handlers      EventHandlerMapper
-	newSocket     func(socketURL *url.URL) (WebSocketer, error)
-	url           *url.URL
-	socketID      int
-	stopListening bool
-	stopped       chan bool
-	mux           *sync.Mutex
+	commands     CommandMapper
+	commandID    int
+	commandIDMux *sync.Mutex
+	conn         WebSocketer
+	connected    bool
+	handlers     EventHandlerMapper
+	listenCh     chan bool
+	newSocket    func(socketURL *url.URL) (WebSocketer, error)
+	url          *url.URL
+	socketID     int
+	listening    bool
+	mux          *sync.Mutex
 
 	// Protocol interfaces for the API.
 	accessibility        *AccessibilityProtocol
@@ -280,25 +280,27 @@ handleEvent() as appropriate.
 
 Listen is a Socketer implementation.
 */
-func (socket *Socket) Listen() error {
+func (socket *Socket) Listen() {
+	socket.listenCh = make(chan bool)
+	socket.listening = true
+	errCh := make(chan error)
+	go socket.listen(errCh)
+}
+
+func (socket *Socket) listen(errCh chan error) {
 	var err error
 
 	err = socket.Connect()
 	if nil != err {
-		return errors.Wrap(err, "socket connection failed")
+		errCh <- errors.Wrap(err, "socket connection failed")
 	}
 	defer socket.Disconnect()
 
-	socket.stopListening = false
-	errCount := 0
 	for {
 		response := &Response{}
 		err = socket.ReadJSON(&response)
 		if nil != err {
-			errCount++
 			log.Errorf("socket #%d - %s", socket.socketID, err.Error())
-		} else {
-			errCount = 0
 		}
 
 		if response.ID > 0 {
@@ -338,9 +340,14 @@ func (socket *Socket) Listen() error {
 			socket.handleUnknown(response)
 		}
 
-		if socket.stopListening {
+		if !socket.listening {
 			log.Infof("socket #%d - %s: Socket shutting down", socket.socketID, socket.URL().String())
-			socket.stopped <- true
+			go func() {
+				select {
+				case socket.listenCh <- true:
+				case <-time.After(10 * time.Second):
+				}
+			}()
 			break
 		}
 	}
@@ -349,7 +356,8 @@ func (socket *Socket) Listen() error {
 		err = errors.Wrap(err, "socket read failed")
 	}
 
-	return err
+	errCh <- err
+	socket.listening = false
 }
 
 /*
@@ -445,8 +453,15 @@ websocket connection.
 Stop is a Socketer implementation.
 */
 func (socket *Socket) Stop() {
-	socket.stopListening = true
-	<-socket.stopped
+	if socket.listening {
+		log.Debugf("socket #%d: socket.Stop called", socket.socketID)
+		socket.listening = false
+		select {
+		case <-socket.listenCh:
+		case <-time.After(1 * time.Second):
+		}
+		log.Debugf("socket #%d: socket stopped or timed out", socket.socketID)
+	}
 }
 
 /*

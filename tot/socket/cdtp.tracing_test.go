@@ -12,7 +12,7 @@ import (
 func TestTracingEnd(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestTracingEnd")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Tracing().End()
@@ -46,7 +46,7 @@ func TestTracingEnd(t *testing.T) {
 func TestTracingGetCategories(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestTracingGetCategories")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Tracing().GetCategories()
@@ -85,7 +85,7 @@ func TestTracingGetCategories(t *testing.T) {
 func TestTracingRecordClockSyncMarker(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestTracingRecordClockSyncMarker")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &tracing.RecordClockSyncMarkerParams{
@@ -122,7 +122,7 @@ func TestTracingRecordClockSyncMarker(t *testing.T) {
 func TestTracingRequestMemoryDump(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestTracingRequestMemoryDump")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Tracing().RequestMemoryDump()
@@ -162,7 +162,7 @@ func TestTracingRequestMemoryDump(t *testing.T) {
 func TestTracingStart(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestTracingStart")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &tracing.StartParams{
@@ -212,7 +212,7 @@ func TestTracingStart(t *testing.T) {
 func TestTracingOnBufferUsage(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestTracingOnBufferUsage")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *tracing.BufferUsageEvent)
@@ -261,7 +261,7 @@ func TestTracingOnBufferUsage(t *testing.T) {
 func TestTracingOnDataCollected(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestTracingOnDataCollected")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *tracing.DataCollectedEvent)
@@ -308,7 +308,7 @@ func TestTracingOnDataCollected(t *testing.T) {
 func TestTracingOnTracingComplete(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestTracingOnTracingComplete")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *tracing.CompleteEvent)
