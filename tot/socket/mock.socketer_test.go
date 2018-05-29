@@ -19,15 +19,15 @@ NewMock returns a Chromium Socketer mock for unit testing
 */
 func NewMock(socketURL *url.URL) *Socket {
 	socket := &Socket{
-		commands:     NewCommandMap(),
 		commandIDMux: &sync.Mutex{},
+		commands:     NewCommandMap(),
 		handlers:     NewEventHandlerMap(),
 		mux:          &sync.Mutex{},
 		newSocket:    NewMockWebsocket,
 		socketID:     NextSocketID(),
-		stopped:      make(chan bool),
 		url:          socketURL,
 	}
+	log.Debugf("Created socket #%d", socket.socketID)
 
 	socket.accessibility = &AccessibilityProtocol{Socket: socket}
 	socket.animation = &AnimationProtocol{Socket: socket}

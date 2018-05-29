@@ -28,7 +28,7 @@ func TestNewCommander(t *testing.T) {
 	params := mockParams{
 		Value: 1,
 	}
-	socketURL, _ := url.Parse("https://www.example.com/mock")
+	socketURL, _ := url.Parse("https://test:9222/TestNewCommander")
 	cmd := NewCommand(NewMock(socketURL), "Some.method", params)
 
 	if "Some.method" != cmd.Method() {
@@ -43,7 +43,7 @@ func TestNewCommander(t *testing.T) {
 func TestCommanderNextID(t *testing.T) {
 	// Ids generated safely
 	id := make(chan int)
-	socketURL, _ := url.Parse("https://www.example.com/mock")
+	socketURL, _ := url.Parse("https://test:9222/TestCommanderNextID")
 	mockSocket := NewMock(socketURL)
 	for a := 0; a <= 1000; a++ {
 		go func() {
@@ -72,7 +72,7 @@ func TestCommanderError(t *testing.T) {
 	params := mockParams{
 		Value: 1,
 	}
-	socketURL, _ := url.Parse("https://www.example.com/mock")
+	socketURL, _ := url.Parse("https://test:9222/TestCommanderError")
 	cmd := NewCommand(NewMock(socketURL), "Some.method", params)
 	err := fmt.Errorf("test error")
 

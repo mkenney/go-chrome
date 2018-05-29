@@ -7,7 +7,7 @@ import (
 )
 
 func TestNewSocket(t *testing.T) {
-	socketURL, _ := url.Parse("https://www.example.com/")
+	socketURL, _ := url.Parse("https://test:9222/TestNewSocket")
 	socket := New(socketURL)
 	if err := socket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() {
 		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
@@ -15,7 +15,7 @@ func TestNewSocket(t *testing.T) {
 }
 
 func TestSocketDisconnect(t *testing.T) {
-	socketURL, _ := url.Parse("https://www.example.com/")
+	socketURL, _ := url.Parse("https://test:9222/TestSocketDisconnect")
 	socket := NewMock(socketURL)
 	if err := socket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() {
 		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
@@ -23,7 +23,7 @@ func TestSocketDisconnect(t *testing.T) {
 }
 
 func TestListenCommand(t *testing.T) {
-	socketURL, _ := url.Parse("https://www.example.com/command")
+	socketURL, _ := url.Parse("https://test:9222/TestListenCommand")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -43,7 +43,7 @@ func TestListenCommand(t *testing.T) {
 }
 
 func TestListenCommandError(t *testing.T) {
-	socketURL, _ := url.Parse("https://www.example.com/error")
+	socketURL, _ := url.Parse("https://test:9222/TestListenCommandError")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -63,7 +63,7 @@ func TestListenCommandError(t *testing.T) {
 }
 
 func TestListenCommandUnknown(t *testing.T) {
-	socketURL, _ := url.Parse("https://www.example.com/error")
+	socketURL, _ := url.Parse("https://test:9222/TestListenCommandUnknown")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -84,7 +84,7 @@ func TestListenCommandUnknown(t *testing.T) {
 
 func TestRemoveEventHandler(t *testing.T) {
 	var err error
-	socketURL, _ := url.Parse("https://www.example.com/error")
+	socketURL, _ := url.Parse("https://test:9222/TestRemoveEventHandler")
 	mockSocket := NewMock(socketURL)
 	go mockSocket.Listen()
 	defer mockSocket.Stop()
@@ -119,7 +119,7 @@ func TestRemoveEventHandler(t *testing.T) {
 }
 
 //func TestReadJSONError(t *testing.T) {
-//	socketURL, _ := url.Parse("https://www.example.com/error")
+//	socketURL, _ := url.Parse("https://test:9222/TestReadJSONError")
 //	mockSocket := NewMock(socketURL)
 //	go mockSocket.Listen()
 //	defer mockSocket.Stop()
@@ -144,9 +144,9 @@ func TestRemoveEventHandler(t *testing.T) {
 //}
 
 func TestURL(t *testing.T) {
-	socketURL, _ := url.Parse("https://www.example.com/")
+	socketURL, _ := url.Parse("https://test:9222/TestURL")
 	mockSocket := NewMock(socketURL)
-	if "https://www.example.com/" != mockSocket.URL().String() {
+	if "https://test:9222/TestURL" != mockSocket.URL().String() {
 		t.Errorf("Socketer.URL() failed to return the correct URL")
 	}
 }
