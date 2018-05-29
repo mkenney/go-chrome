@@ -11,9 +11,9 @@ import (
 )
 
 func TestDebuggerContinueToLocation(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerContinueToLocation")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().ContinueToLocation(&debugger.ContinueToLocationParams{
@@ -59,9 +59,9 @@ func TestDebuggerContinueToLocation(t *testing.T) {
 }
 
 func TestDebuggerDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerDisable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().Disable()
@@ -93,9 +93,9 @@ func TestDebuggerDisable(t *testing.T) {
 }
 
 func TestDebuggerEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerEnable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().Enable()
@@ -127,9 +127,9 @@ func TestDebuggerEnable(t *testing.T) {
 }
 
 func TestDebuggerEvaluateOnCallFrame(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerEvaluateOnCallFrame")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().EvaluateOnCallFrame(&debugger.EvaluateOnCallFrameParams{
@@ -215,9 +215,9 @@ func TestDebuggerEvaluateOnCallFrame(t *testing.T) {
 }
 
 func TestDebuggerGetPossibleBreakpoints(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerGetPossibleBreakpoints")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().GetPossibleBreakpoints(&debugger.GetPossibleBreakpointsParams{
@@ -283,9 +283,9 @@ func TestDebuggerGetPossibleBreakpoints(t *testing.T) {
 }
 
 func TestDebuggerGetScriptSource(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerGetScriptSource")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().GetScriptSource(&debugger.GetScriptSourceParams{
@@ -326,9 +326,9 @@ func TestDebuggerGetScriptSource(t *testing.T) {
 }
 
 func TestDebuggerGetStackTrace(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerGetStackTrace")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().GetStackTrace(&debugger.GetStackTraceParams{
@@ -383,9 +383,9 @@ func TestDebuggerGetStackTrace(t *testing.T) {
 }
 
 func TestDebuggerPause(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerPause")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().Pause()
@@ -417,9 +417,9 @@ func TestDebuggerPause(t *testing.T) {
 }
 
 func TestDebuggerPauseOnAsyncCall(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerPauseOnAsyncCall")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().PauseOnAsyncCall(&debugger.PauseOnAsyncCallParams{
@@ -461,9 +461,9 @@ func TestDebuggerPauseOnAsyncCall(t *testing.T) {
 }
 
 func TestDebuggerRemoveBreakpoint(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerRemoveBreakpoint")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().RemoveBreakpoint(&debugger.RemoveBreakpointParams{
@@ -499,9 +499,9 @@ func TestDebuggerRemoveBreakpoint(t *testing.T) {
 }
 
 func TestDebuggerRestartFrame(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerRestartFrame")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().RestartFrame(&debugger.RestartFrameParams{
@@ -584,9 +584,9 @@ func TestDebuggerRestartFrame(t *testing.T) {
 }
 
 func TestDebuggerResume(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerResume")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().Resume()
@@ -618,9 +618,9 @@ func TestDebuggerResume(t *testing.T) {
 }
 
 func TestDebuggerScheduleStepIntoAsync(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerScheduleStepIntoAsync")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().ScheduleStepIntoAsync()
@@ -652,9 +652,9 @@ func TestDebuggerScheduleStepIntoAsync(t *testing.T) {
 }
 
 func TestDebuggerSearchInContent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerSearchInContent")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().SearchInContent(&debugger.SearchInContentParams{
@@ -704,9 +704,9 @@ func TestDebuggerSearchInContent(t *testing.T) {
 }
 
 func TestDebuggerSetAsyncCallStackDepth(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerSetAsyncCallStackDepth")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().SetAsyncCallStackDepth(&debugger.SetAsyncCallStackDepthParams{
@@ -742,9 +742,9 @@ func TestDebuggerSetAsyncCallStackDepth(t *testing.T) {
 }
 
 func TestDebuggerSetBlackboxPatterns(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerSetBlackboxPatterns")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().SetBlackboxPatterns(&debugger.SetBlackboxPatternsParams{
@@ -780,9 +780,9 @@ func TestDebuggerSetBlackboxPatterns(t *testing.T) {
 }
 
 func TestDebuggerSetBlackboxedRanges(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerSetBlackboxedRanges")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().SetBlackboxedRanges(&debugger.SetBlackboxedRangesParams{
@@ -826,9 +826,9 @@ func TestDebuggerSetBlackboxedRanges(t *testing.T) {
 }
 
 func TestDebuggerSetBreakpoint(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerSetBreakpoint")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().SetBreakpoint(&debugger.SetBreakpointParams{
@@ -884,9 +884,9 @@ func TestDebuggerSetBreakpoint(t *testing.T) {
 }
 
 func TestDebuggerSetBreakpointByURL(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerSetBreakpointByURL")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().SetBreakpointByURL(&debugger.SetBreakpointByURLParams{
@@ -942,9 +942,9 @@ func TestDebuggerSetBreakpointByURL(t *testing.T) {
 }
 
 func TestDebuggerSetBreakpointsActive(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerSetBreakpointsActive")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().SetBreakpointsActive(&debugger.SetBreakpointsActiveParams{
@@ -980,9 +980,9 @@ func TestDebuggerSetBreakpointsActive(t *testing.T) {
 }
 
 func TestDebuggerSetPauseOnExceptions(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerSetPauseOnExceptions")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().SetPauseOnExceptions(&debugger.SetPauseOnExceptionsParams{
@@ -1018,9 +1018,9 @@ func TestDebuggerSetPauseOnExceptions(t *testing.T) {
 }
 
 func TestDebuggerSetReturnValue(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerSetReturnValue")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().SetReturnValue(&debugger.SetReturnValueParams{
@@ -1064,9 +1064,9 @@ func TestDebuggerSetReturnValue(t *testing.T) {
 }
 
 func TestDebuggerSetScriptSource(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerSetScriptSource")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().SetScriptSource(&debugger.SetScriptSourceParams{
@@ -1175,9 +1175,9 @@ func TestDebuggerSetScriptSource(t *testing.T) {
 }
 
 func TestDebuggerSetSkipAllPauses(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerSetSkipAllPauses")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().SetSkipAllPauses(&debugger.SetSkipAllPausesParams{
@@ -1213,9 +1213,9 @@ func TestDebuggerSetSkipAllPauses(t *testing.T) {
 }
 
 func TestDebuggerSetVariableValue(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerSetVariableValue")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().SetVariableValue(&debugger.SetVariableValueParams{
@@ -1265,9 +1265,9 @@ func TestDebuggerSetVariableValue(t *testing.T) {
 }
 
 func TestDebuggerStepInto(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerStepInto")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().StepInto(&debugger.StepIntoParams{
@@ -1303,9 +1303,9 @@ func TestDebuggerStepInto(t *testing.T) {
 }
 
 func TestDebuggerStepOut(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerStepOut")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().StepOut()
@@ -1337,9 +1337,9 @@ func TestDebuggerStepOut(t *testing.T) {
 }
 
 func TestDebuggerStepOver(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerStepOver")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Debugger().StepOver()
@@ -1371,9 +1371,9 @@ func TestDebuggerStepOver(t *testing.T) {
 }
 
 func TestDebuggerOnBreakpointResolved(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerOnBreakpointResolved")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *debugger.BreakpointResolvedEvent)
@@ -1393,7 +1393,7 @@ func TestDebuggerOnBreakpointResolved(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Debugger.breakpointResolved",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1420,9 +1420,9 @@ func TestDebuggerOnBreakpointResolved(t *testing.T) {
 }
 
 func TestDebuggerOnPaused(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerOnPaused")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *debugger.PausedEvent)
@@ -1472,9 +1472,9 @@ func TestDebuggerOnPaused(t *testing.T) {
 }
 
 func TestDebuggerOnResumed(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerOnResumed")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *debugger.ResumedEvent)
@@ -1514,9 +1514,9 @@ func TestDebuggerOnResumed(t *testing.T) {
 }
 
 func TestDebuggerOnScriptFailedToParse(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerOnScriptFailedToParse")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *debugger.ScriptFailedToParseEvent)
@@ -1571,9 +1571,9 @@ func TestDebuggerOnScriptFailedToParse(t *testing.T) {
 }
 
 func TestDebuggerOnScriptParsed(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDebuggerOnScriptParsed")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *debugger.ScriptParsedEvent)

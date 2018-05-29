@@ -599,7 +599,7 @@ func (protocol *CSSProtocol) OnFontsUpdated(
 		"CSS.fontsUpdated",
 		func(response *Response) {
 			event := &css.FontsUpdatedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -624,7 +624,7 @@ func (protocol *CSSProtocol) OnMediaQueryResultChanged(
 		"CSS.mediaQueryResultChanged",
 		func(response *Response) {
 			event := &css.MediaQueryResultChangedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -647,7 +647,7 @@ func (protocol *CSSProtocol) OnStyleSheetAdded(
 		"CSS.styleSheetAdded",
 		func(response *Response) {
 			event := &css.StyleSheetAddedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -671,7 +671,7 @@ func (protocol *CSSProtocol) OnStyleSheetChanged(
 		"CSS.styleSheetChanged",
 		func(response *Response) {
 			event := &css.StyleSheetChangedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -694,7 +694,7 @@ func (protocol *CSSProtocol) OnStyleSheetRemoved(
 		"CSS.styleSheetRemoved",
 		func(response *Response) {
 			event := &css.StyleSheetRemovedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

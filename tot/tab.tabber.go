@@ -75,9 +75,9 @@ Close implements Tabber.
 func (tab *Tab) Close() (interface{}, error) {
 	var err error
 	var result interface{}
-
+	tab.Socket().Stop()
 	_, err = tab.Chromium().Query(fmt.Sprintf("/json/close/%s", tab.Data().ID), url.Values{}, &result)
-	log.Debugf("Close result: %s - %s", result, err)
+	log.Debugf("Close result: %v - %v", result, err)
 	if nil != err {
 		log.Warnf("%s: %s", result, err)
 		return nil, errors.Wrap(err, fmt.Sprintf("close/%s query failed", tab.Data().ID))

@@ -10,9 +10,9 @@ import (
 )
 
 func TestBrowserClose(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestBrowserClose")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Browser().Close()
@@ -41,9 +41,9 @@ func TestBrowserClose(t *testing.T) {
 }
 
 func TestBrowserGetVersion(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestBrowserGetVersion")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Browser().GetVersion()
@@ -88,9 +88,9 @@ func TestBrowserGetVersion(t *testing.T) {
 }
 
 func TestBrowserGetWindowBounds(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestBrowserGetWindowBounds")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Browser().GetWindowBounds(&browser.GetWindowBoundsParams{
@@ -141,9 +141,9 @@ func TestBrowserGetWindowBounds(t *testing.T) {
 }
 
 func TestBrowserGetWindowForTarget(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestBrowserGetWindowForTarget")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Browser().GetWindowForTarget(&browser.GetWindowForTargetParams{
@@ -202,9 +202,9 @@ func TestBrowserGetWindowForTarget(t *testing.T) {
 }
 
 func TestBrowserSetWindowBounds(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestBrowserSetWindowBounds")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Browser().SetWindowBounds(&browser.SetWindowBoundsParams{

@@ -796,7 +796,7 @@ func (protocol *PageProtocol) OnDOMContentEventFired(
 		"Page.domContentEventFired",
 		func(response *Response) {
 			event := &page.DOMContentEventFiredEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -819,7 +819,7 @@ func (protocol *PageProtocol) OnFrameAttached(
 		"Page.frameAttached",
 		func(response *Response) {
 			event := &page.FrameAttachedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -844,7 +844,7 @@ func (protocol *PageProtocol) OnFrameClearedScheduledNavigation(
 		"Page.frameClearedScheduledNavigation",
 		func(response *Response) {
 			event := &page.FrameClearedScheduledNavigationEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -867,7 +867,7 @@ func (protocol *PageProtocol) OnFrameDetached(
 		"Page.frameDetached",
 		func(response *Response) {
 			event := &page.FrameDetachedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -891,7 +891,7 @@ func (protocol *PageProtocol) OnFrameNavigated(
 		"Page.frameNavigated",
 		func(response *Response) {
 			event := &page.FrameNavigatedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -915,7 +915,7 @@ func (protocol *PageProtocol) OnFrameResized(
 		"Page.frameResized",
 		func(response *Response) {
 			event := &page.FrameResizedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -940,7 +940,7 @@ func (protocol *PageProtocol) OnFrameScheduledNavigation(
 		"Page.frameScheduledNavigation",
 		func(response *Response) {
 			event := &page.FrameScheduledNavigationEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -964,7 +964,7 @@ func (protocol *PageProtocol) OnFrameStartedLoading(
 		"Page.frameStartedLoading",
 		func(response *Response) {
 			event := &page.FrameStartedLoadingEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -988,7 +988,7 @@ func (protocol *PageProtocol) OnFrameStoppedLoading(
 		"Page.frameStoppedLoading",
 		func(response *Response) {
 			event := &page.FrameStoppedLoadingEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1011,7 +1011,7 @@ func (protocol *PageProtocol) OnInterstitialHidden(
 		"Page.interstitialHidden",
 		func(response *Response) {
 			event := &page.InterstitialHiddenEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1034,7 +1034,7 @@ func (protocol *PageProtocol) OnInterstitialShown(
 		"Page.interstitialShown",
 		func(response *Response) {
 			event := &page.InterstitialShownEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1058,7 +1058,7 @@ func (protocol *PageProtocol) OnJavascriptDialogClosed(
 		"Page.javascriptDialogClosed",
 		func(response *Response) {
 			event := &page.JavascriptDialogClosedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1082,7 +1082,7 @@ func (protocol *PageProtocol) OnJavascriptDialogOpening(
 		"Page.javascriptDialogOpening",
 		func(response *Response) {
 			event := &page.JavascriptDialogOpeningEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1105,7 +1105,7 @@ func (protocol *PageProtocol) OnLifecycleEvent(
 		"Page.lifecycleEvent",
 		func(response *Response) {
 			event := &page.LifecycleEventEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1128,7 +1128,7 @@ func (protocol *PageProtocol) OnLoadEventFired(
 		"Page.loadEventFired",
 		func(response *Response) {
 			event := &page.LoadEventFiredEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1152,7 +1152,7 @@ func (protocol *PageProtocol) OnScreencastFrame(
 		"Page.screencastFrame",
 		func(response *Response) {
 			event := &page.ScreencastFrameEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1177,7 +1177,7 @@ func (protocol *PageProtocol) OnScreencastVisibilityChanged(
 		"Page.screencastVisibilityChanged",
 		func(response *Response) {
 			event := &page.ScreencastVisibilityChangedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1201,7 +1201,7 @@ func (protocol *PageProtocol) OnWindowOpen(
 		"Page.windowOpen",
 		func(response *Response) {
 			event := &page.WindowOpenEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

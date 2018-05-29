@@ -9,9 +9,9 @@ import (
 )
 
 func TestDatabaseDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDatabaseDisable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Database().Disable()
@@ -43,9 +43,9 @@ func TestDatabaseDisable(t *testing.T) {
 }
 
 func TestDatabaseEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDatabaseEnable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Database().Enable()
@@ -77,9 +77,9 @@ func TestDatabaseEnable(t *testing.T) {
 }
 
 func TestDatabaseExecuteSQL(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDatabaseExecuteSQL")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Database().ExecuteSQL(&database.ExecuteSQLParams{
@@ -127,9 +127,9 @@ func TestDatabaseExecuteSQL(t *testing.T) {
 }
 
 func TestDatabaseGetTableNames(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDatabaseGetTableNames")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Database().GetTableNames(&database.GetTableNamesParams{
@@ -170,9 +170,9 @@ func TestDatabaseGetTableNames(t *testing.T) {
 }
 
 func TestDatabaseOnAdd(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDatabaseOnAdd")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *database.AddEvent)
@@ -192,7 +192,7 @@ func TestDatabaseOnAdd(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Database.addDatabase",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

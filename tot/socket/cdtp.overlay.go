@@ -417,7 +417,7 @@ func (protocol *OverlayProtocol) OnInspectNodeRequested(
 		"Overlay.inspectNodeRequested",
 		func(response *Response) {
 			event := &overlay.InspectNodeRequestedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -441,7 +441,7 @@ func (protocol *OverlayProtocol) OnNodeHighlightRequested(
 		"Overlay.nodeHighlightRequested",
 		func(response *Response) {
 			event := &overlay.NodeHighlightRequestedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -465,7 +465,7 @@ func (protocol *OverlayProtocol) OnScreenshotRequested(
 		"Overlay.screenshotRequested",
 		func(response *Response) {
 			event := &overlay.ScreenshotRequestedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

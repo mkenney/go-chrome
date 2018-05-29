@@ -314,7 +314,7 @@ func (protocol *ProfilerProtocol) OnConsoleProfileFinished(
 		"Profiler.consoleProfileFinished",
 		func(response *Response) {
 			event := &profiler.ConsoleProfileFinishedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -338,7 +338,7 @@ func (protocol *ProfilerProtocol) OnConsoleProfileStarted(
 		"Profiler.consoleProfileStarted",
 		func(response *Response) {
 			event := &profiler.ConsoleProfileStartedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

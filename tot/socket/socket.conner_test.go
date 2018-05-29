@@ -7,7 +7,7 @@ import (
 
 func TestConner(t *testing.T) {
 	var err error
-	socketURL, _ := url.Parse("http://www.example.com/")
+	socketURL, _ := url.Parse("http://test:9222/TestConner")
 	socket := NewMock(socketURL)
 
 	err = socket.Connect()

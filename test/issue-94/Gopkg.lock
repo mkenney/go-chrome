@@ -9,6 +9,53 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/mkenney/go-chrome"
+  packages = [
+    "tot",
+    "tot/cdtp/accessibility",
+    "tot/cdtp/animation",
+    "tot/cdtp/application/cache",
+    "tot/cdtp/audits",
+    "tot/cdtp/browser",
+    "tot/cdtp/cache/storage",
+    "tot/cdtp/console",
+    "tot/cdtp/css",
+    "tot/cdtp/database",
+    "tot/cdtp/debugger",
+    "tot/cdtp/device/orientation",
+    "tot/cdtp/dom",
+    "tot/cdtp/dom/debugger",
+    "tot/cdtp/dom/snapshot",
+    "tot/cdtp/dom/storage",
+    "tot/cdtp/emulation",
+    "tot/cdtp/headless/experimental",
+    "tot/cdtp/heap/profiler",
+    "tot/cdtp/indexed/db",
+    "tot/cdtp/input",
+    "tot/cdtp/io",
+    "tot/cdtp/layer/tree",
+    "tot/cdtp/log",
+    "tot/cdtp/memory",
+    "tot/cdtp/network",
+    "tot/cdtp/overlay",
+    "tot/cdtp/page",
+    "tot/cdtp/performance",
+    "tot/cdtp/profiler",
+    "tot/cdtp/runtime",
+    "tot/cdtp/schema",
+    "tot/cdtp/security",
+    "tot/cdtp/service/worker",
+    "tot/cdtp/storage",
+    "tot/cdtp/system/info",
+    "tot/cdtp/target",
+    "tot/cdtp/tethering",
+    "tot/cdtp/tracing",
+    "tot/socket"
+  ]
+  revision = "64a3e5d59cba17c4d7b3963663b691b6ce5339ec"
+
+[[projects]]
+  branch = "master"
   name = "github.com/mkenney/go-log-fmt"
   packages = ["."]
   revision = "c98a00db7ec57537dd33b8bd868c4a75957ed5c2"
@@ -49,6 +96,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "ddd66537c07fd379e2222a41388d823447cc842975ed57c636843571d250af86"
+  inputs-digest = "732bb172b1e6e1272379f52ed00c74a41cc5e435adc072383f6ada81ae529bc1"
   solver-name = "gps-cdcl"
   solver-version = 1

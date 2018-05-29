@@ -173,7 +173,7 @@ func (protocol *DOMStorageProtocol) OnItemAdded(
 		"DOMStorage.domStorageItemAdded",
 		func(response *Response) {
 			event := &storage.ItemAddedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -196,7 +196,7 @@ func (protocol *DOMStorageProtocol) OnItemRemoved(
 		"DOMStorage.domStorageItemRemoved",
 		func(response *Response) {
 			event := &storage.ItemRemovedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -219,7 +219,7 @@ func (protocol *DOMStorageProtocol) OnItemUpdated(
 		"DOMStorage.domStorageItemUpdated",
 		func(response *Response) {
 			event := &storage.ItemUpdatedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -242,7 +242,7 @@ func (protocol *DOMStorageProtocol) OnItemsCleared(
 		"DOMStorage.domStorageItemsCleared",
 		func(response *Response) {
 			event := &storage.ItemsClearedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

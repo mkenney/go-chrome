@@ -9,9 +9,9 @@ import (
 )
 
 func TestTetheringBind(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTetheringBind")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &tethering.BindParams{
@@ -46,9 +46,9 @@ func TestTetheringBind(t *testing.T) {
 }
 
 func TestTetheringUnbind(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTetheringUnbind")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &tethering.UnbindParams{
@@ -83,9 +83,9 @@ func TestTetheringUnbind(t *testing.T) {
 }
 
 func TestTetheringOnAccepted(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTetheringOnAccepted")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *tethering.AcceptedEvent)
@@ -101,7 +101,7 @@ func TestTetheringOnAccepted(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Tethering.accepted",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

@@ -11,9 +11,9 @@ import (
 )
 
 func TestApplicationCacheEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestApplicationCacheEnable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.ApplicationCache().Enable()
@@ -42,9 +42,9 @@ func TestApplicationCacheEnable(t *testing.T) {
 	}
 }
 func TestApplicationCacheGetForFrame(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestApplicationCacheGetForFrame")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	mockParams := &application_cache.GetForFrameParams{FrameID: page.FrameID("mock-frame-id")}
@@ -99,9 +99,9 @@ func TestApplicationCacheGetForFrame(t *testing.T) {
 }
 
 func TestApplicationCacheGetFramesWithManifests(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestApplicationCacheGetFramesWithManifests")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.ApplicationCache().GetFramesWithManifests()
@@ -146,9 +146,9 @@ func TestApplicationCacheGetFramesWithManifests(t *testing.T) {
 }
 
 func TestApplicationCacheGetManifestForFrame(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestApplicationCacheGetManifestForFrame")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.ApplicationCache().GetManifestForFrame(&application_cache.GetManifestForFrameParams{
@@ -193,9 +193,9 @@ func TestApplicationCacheGetManifestForFrame(t *testing.T) {
 }
 
 func TestApplicationCacheOnApplicationCacheStatusUpdated(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestApplicationCacheOnApplicationCacheStatusUpdated")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *application_cache.StatusUpdatedEvent)
@@ -212,7 +212,7 @@ func TestApplicationCacheOnApplicationCacheStatusUpdated(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "ApplicationCache.applicationCacheStatusUpdated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if result.ManifestURL != mockResult.ManifestURL {
@@ -243,9 +243,9 @@ func TestApplicationCacheOnApplicationCacheStatusUpdated(t *testing.T) {
 }
 
 func TestApplicationCacheOnNetworkStateUpdated(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestApplicationCacheOnNetworkStateUpdated")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *application_cache.NetworkStateUpdatedEvent)
@@ -260,7 +260,7 @@ func TestApplicationCacheOnNetworkStateUpdated(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "ApplicationCache.networkStateUpdated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if result.IsNowOnline != mockResult.IsNowOnline {

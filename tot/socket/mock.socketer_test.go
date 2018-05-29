@@ -3,21 +3,31 @@ package socket
 import (
 	"net/url"
 	"sync"
+
+	logfmt "github.com/mkenney/go-log-fmt"
+	log "github.com/sirupsen/logrus"
 )
+
+func init() {
+	level, _ := log.ParseLevel("debug")
+	log.SetLevel(level)
+	log.SetFormatter(&logfmt.TextFormat{})
+}
 
 /*
 NewMock returns a Chromium Socketer mock for unit testing
 */
 func NewMock(socketURL *url.URL) *Socket {
 	socket := &Socket{
-		commands:     NewCommandMap(),
 		commandIDMux: &sync.Mutex{},
+		commands:     NewCommandMap(),
 		handlers:     NewEventHandlerMap(),
 		mux:          &sync.Mutex{},
 		newSocket:    NewMockWebsocket,
 		socketID:     NextSocketID(),
 		url:          socketURL,
 	}
+	log.Debugf("Created socket #%d", socket.socketID)
 
 	socket.accessibility = &AccessibilityProtocol{Socket: socket}
 	socket.animation = &AnimationProtocol{Socket: socket}

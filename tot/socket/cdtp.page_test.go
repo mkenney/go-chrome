@@ -12,9 +12,9 @@ import (
 )
 
 func TestPageAddScriptToEvaluateOnLoad(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageAddScriptToEvaluateOnLoad")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.AddScriptToEvaluateOnLoadParams{
@@ -54,9 +54,9 @@ func TestPageAddScriptToEvaluateOnLoad(t *testing.T) {
 }
 
 func TestPageAddScriptToEvaluateOnNewDocument(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageAddScriptToEvaluateOnNewDocument")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.AddScriptToEvaluateOnNewDocumentParams{
@@ -96,9 +96,9 @@ func TestPageAddScriptToEvaluateOnNewDocument(t *testing.T) {
 }
 
 func TestPageBringToFront(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageBringToFront")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Page().BringToFront()
@@ -130,9 +130,9 @@ func TestPageBringToFront(t *testing.T) {
 }
 
 func TestPageCaptureScreenshot(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageCaptureScreenshot")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.CaptureScreenshotParams{
@@ -181,9 +181,9 @@ func TestPageCaptureScreenshot(t *testing.T) {
 }
 
 func TestPageCreateIsolatedWorld(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageCreateIsolatedWorld")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.CreateIsolatedWorldParams{
@@ -225,9 +225,9 @@ func TestPageCreateIsolatedWorld(t *testing.T) {
 }
 
 func TestPageDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageDisable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Page().Disable()
@@ -259,9 +259,9 @@ func TestPageDisable(t *testing.T) {
 }
 
 func TestPageEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageEnable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Page().Enable()
@@ -293,9 +293,9 @@ func TestPageEnable(t *testing.T) {
 }
 
 func TestPageGetAppManifest(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageGetAppManifest")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.GetAppManifestParams{
@@ -337,9 +337,9 @@ func TestPageGetAppManifest(t *testing.T) {
 }
 
 func TestPageGetFrameTree(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageGetFrameTree")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Page().GetFrameTree()
@@ -388,9 +388,9 @@ func TestPageGetFrameTree(t *testing.T) {
 }
 
 func TestPageGetLayoutMetrics(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageGetLayoutMetrics")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Page().GetLayoutMetrics()
@@ -447,9 +447,9 @@ func TestPageGetLayoutMetrics(t *testing.T) {
 }
 
 func TestPageGetNavigationHistory(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageGetNavigationHistory")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Page().GetNavigationHistory()
@@ -493,9 +493,9 @@ func TestPageGetNavigationHistory(t *testing.T) {
 }
 
 func TestPageGetResourceContent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageGetResourceContent")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.GetResourceContentParams{
@@ -536,9 +536,9 @@ func TestPageGetResourceContent(t *testing.T) {
 }
 
 func TestPageGetResourceTree(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageGetResourceTree")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Page().GetResourceTree()
@@ -588,9 +588,9 @@ func TestPageGetResourceTree(t *testing.T) {
 }
 
 func TestPageHandleJavaScriptDialog(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageHandleJavaScriptDialog")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.HandleJavaScriptDialogParams{
@@ -626,9 +626,9 @@ func TestPageHandleJavaScriptDialog(t *testing.T) {
 }
 
 func TestPageNavigate(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageNavigate")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.NavigateParams{
@@ -672,9 +672,9 @@ func TestPageNavigate(t *testing.T) {
 }
 
 func TestPageNavigateToHistoryEntry(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageNavigateToHistoryEntry")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.NavigateToHistoryEntryParams{
@@ -709,9 +709,9 @@ func TestPageNavigateToHistoryEntry(t *testing.T) {
 }
 
 func TestPagePrintToPDF(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPagePrintToPDF")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.PrintToPDFParams{
@@ -762,9 +762,9 @@ func TestPagePrintToPDF(t *testing.T) {
 }
 
 func TestPageReload(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageReload")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.ReloadParams{
@@ -800,9 +800,9 @@ func TestPageReload(t *testing.T) {
 }
 
 func TestPageRemoveScriptToEvaluateOnLoad(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageRemoveScriptToEvaluateOnLoad")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.RemoveScriptToEvaluateOnLoadParams{
@@ -837,9 +837,9 @@ func TestPageRemoveScriptToEvaluateOnLoad(t *testing.T) {
 }
 
 func TestPageRemoveScriptToEvaluateOnNewDocument(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageRemoveScriptToEvaluateOnNewDocument")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.RemoveScriptToEvaluateOnNewDocumentParams{
@@ -874,9 +874,9 @@ func TestPageRemoveScriptToEvaluateOnNewDocument(t *testing.T) {
 }
 
 func TestPageRequestAppBanner(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageRequestAppBanner")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Page().RequestAppBanner()
@@ -908,9 +908,9 @@ func TestPageRequestAppBanner(t *testing.T) {
 }
 
 func TestPageScreencastFrameAck(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageScreencastFrameAck")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.ScreencastFrameAckParams{
@@ -945,9 +945,9 @@ func TestPageScreencastFrameAck(t *testing.T) {
 }
 
 func TestPageSearchInResource(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageSearchInResource")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.SearchInResourceParams{
@@ -994,9 +994,9 @@ func TestPageSearchInResource(t *testing.T) {
 }
 
 func TestPageSetAdBlockingEnabled(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageSetAdBlockingEnabled")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.SetAdBlockingEnabledParams{
@@ -1031,9 +1031,9 @@ func TestPageSetAdBlockingEnabled(t *testing.T) {
 }
 
 func TestPageSetAutoAttachToCreatedPages(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageSetAutoAttachToCreatedPages")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.SetAutoAttachToCreatedPagesParams{
@@ -1068,9 +1068,9 @@ func TestPageSetAutoAttachToCreatedPages(t *testing.T) {
 }
 
 func TestPageSetDocumentContent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageSetDocumentContent")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.SetDocumentContentParams{
@@ -1106,9 +1106,9 @@ func TestPageSetDocumentContent(t *testing.T) {
 }
 
 func TestPageSetDownloadBehavior(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageSetDownloadBehavior")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.SetDownloadBehaviorParams{
@@ -1144,9 +1144,9 @@ func TestPageSetDownloadBehavior(t *testing.T) {
 }
 
 func TestPageSetLifecycleEventsEnabled(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageSetLifecycleEventsEnabled")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.SetLifecycleEventsEnabledParams{
@@ -1181,9 +1181,9 @@ func TestPageSetLifecycleEventsEnabled(t *testing.T) {
 }
 
 func TestPageStartScreencast(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageStartScreencast")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &page.StartScreencastParams{
@@ -1222,9 +1222,9 @@ func TestPageStartScreencast(t *testing.T) {
 }
 
 func TestPageStopLoading(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageStopLoading")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Page().StopLoading()
@@ -1256,9 +1256,9 @@ func TestPageStopLoading(t *testing.T) {
 }
 
 func TestPageStopScreencast(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageStopScreencast")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Page().StopScreencast()
@@ -1290,9 +1290,9 @@ func TestPageStopScreencast(t *testing.T) {
 }
 
 func TestPageOnDOMContentEventFired(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageOnDOMContentEventFired")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *page.DOMContentEventFiredEvent)
@@ -1307,7 +1307,7 @@ func TestPageOnDOMContentEventFired(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.domContentEventFired",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1337,9 +1337,9 @@ func TestPageOnDOMContentEventFired(t *testing.T) {
 }
 
 func TestPageOnFrameAttached(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageOnFrameAttached")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *page.FrameAttachedEvent)
@@ -1356,7 +1356,7 @@ func TestPageOnFrameAttached(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameAttached",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1386,9 +1386,9 @@ func TestPageOnFrameAttached(t *testing.T) {
 }
 
 func TestPageOnFrameClearedScheduledNavigation(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageOnFrameClearedScheduledNavigation")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *page.FrameClearedScheduledNavigationEvent)
@@ -1403,7 +1403,7 @@ func TestPageOnFrameClearedScheduledNavigation(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameClearedScheduledNavigation",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1433,9 +1433,9 @@ func TestPageOnFrameClearedScheduledNavigation(t *testing.T) {
 }
 
 func TestPageOnFrameDetached(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageOnFrameDetached")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *page.FrameDetachedEvent)
@@ -1450,7 +1450,7 @@ func TestPageOnFrameDetached(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameDetached",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1480,9 +1480,9 @@ func TestPageOnFrameDetached(t *testing.T) {
 }
 
 func TestPageOnFrameNavigated(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageOnFrameNavigated")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *page.FrameNavigatedEvent)
@@ -1506,7 +1506,7 @@ func TestPageOnFrameNavigated(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameNavigated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1536,9 +1536,9 @@ func TestPageOnFrameNavigated(t *testing.T) {
 }
 
 func TestPageOnFrameResized(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageOnFrameResized")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *page.FrameResizedEvent)
@@ -1551,7 +1551,7 @@ func TestPageOnFrameResized(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameResized",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1578,9 +1578,9 @@ func TestPageOnFrameResized(t *testing.T) {
 }
 
 func TestPageOnFrameScheduledNavigation(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageOnFrameScheduledNavigation")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *page.FrameScheduledNavigationEvent)
@@ -1598,7 +1598,7 @@ func TestPageOnFrameScheduledNavigation(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameScheduledNavigation",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1628,9 +1628,9 @@ func TestPageOnFrameScheduledNavigation(t *testing.T) {
 }
 
 func TestPageOnFrameStartedLoading(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageOnFrameStartedLoading")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *page.FrameStartedLoadingEvent)
@@ -1645,7 +1645,7 @@ func TestPageOnFrameStartedLoading(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameStartedLoading",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1675,9 +1675,9 @@ func TestPageOnFrameStartedLoading(t *testing.T) {
 }
 
 func TestPageOnFrameStoppedLoading(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageOnFrameStoppedLoading")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *page.FrameStoppedLoadingEvent)
@@ -1692,7 +1692,7 @@ func TestPageOnFrameStoppedLoading(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.frameStoppedLoading",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1722,9 +1722,9 @@ func TestPageOnFrameStoppedLoading(t *testing.T) {
 }
 
 func TestPageOnInterstitialHidden(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageOnInterstitialHidden")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *page.InterstitialHiddenEvent)
@@ -1737,7 +1737,7 @@ func TestPageOnInterstitialHidden(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.interstitialHidden",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1764,9 +1764,9 @@ func TestPageOnInterstitialHidden(t *testing.T) {
 }
 
 func TestPageOnInterstitialShown(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageOnInterstitialShown")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *page.InterstitialShownEvent)
@@ -1779,7 +1779,7 @@ func TestPageOnInterstitialShown(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.interstitialShown",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1806,9 +1806,9 @@ func TestPageOnInterstitialShown(t *testing.T) {
 }
 
 func TestPageOnJavascriptDialogClosed(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageOnJavascriptDialogClosed")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *page.JavascriptDialogClosedEvent)
@@ -1824,7 +1824,7 @@ func TestPageOnJavascriptDialogClosed(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.javascriptDialogClosed",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1854,9 +1854,9 @@ func TestPageOnJavascriptDialogClosed(t *testing.T) {
 }
 
 func TestPageOnJavascriptDialogOpening(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageOnJavascriptDialogOpening")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *page.JavascriptDialogOpeningEvent)
@@ -1874,7 +1874,7 @@ func TestPageOnJavascriptDialogOpening(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.javascriptDialogOpening",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1904,9 +1904,9 @@ func TestPageOnJavascriptDialogOpening(t *testing.T) {
 }
 
 func TestPageOnLifecycleEvent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageOnLifecycleEvent")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *page.LifecycleEventEvent)
@@ -1924,7 +1924,7 @@ func TestPageOnLifecycleEvent(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.lifecycleEvent",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1954,9 +1954,9 @@ func TestPageOnLifecycleEvent(t *testing.T) {
 }
 
 func TestPageOnLoadEventFired(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageOnLoadEventFired")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *page.LoadEventFiredEvent)
@@ -1971,7 +1971,7 @@ func TestPageOnLoadEventFired(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.loadEventFired",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -2001,9 +2001,9 @@ func TestPageOnLoadEventFired(t *testing.T) {
 }
 
 func TestPageOnScreencastFrame(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageOnScreencastFrame")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *page.ScreencastFrameEvent)
@@ -2028,7 +2028,7 @@ func TestPageOnScreencastFrame(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.screencastFrame",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -2058,9 +2058,9 @@ func TestPageOnScreencastFrame(t *testing.T) {
 }
 
 func TestPageOnScreencastVisibilityChanged(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageOnScreencastVisibilityChanged")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *page.ScreencastVisibilityChangedEvent)
@@ -2075,7 +2075,7 @@ func TestPageOnScreencastVisibilityChanged(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.screencastVisibilityChanged",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -2105,9 +2105,9 @@ func TestPageOnScreencastVisibilityChanged(t *testing.T) {
 }
 
 func TestPageOnWindowOpen(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestPageOnWindowOpen")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *page.WindowOpenEvent)
@@ -2125,7 +2125,7 @@ func TestPageOnWindowOpen(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Page.windowOpen",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {

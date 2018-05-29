@@ -104,7 +104,7 @@ func (protocol *HeadlessExperimentalProtocol) OnMainFrameReadyForScreenshots(
 		"HeadlessExperimental.mainFrameReadyForScreenshots",
 		func(response *Response) {
 			event := &experimental.MainFrameReadyForScreenshotsEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -128,7 +128,7 @@ func (protocol *HeadlessExperimentalProtocol) OnNeedsBeginFramesChanged(
 		"HeadlessExperimental.needsBeginFramesChanged",
 		func(response *Response) {
 			event := &experimental.NeedsBeginFramesChangedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

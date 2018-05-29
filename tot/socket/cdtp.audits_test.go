@@ -10,9 +10,9 @@ import (
 )
 
 func TestAuditsGetEncodedResponse(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestAuditsGetEncodedResponse")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Audits().GetEncodedResponse(&audits.GetEncodedResponseParams{

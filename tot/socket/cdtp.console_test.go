@@ -9,9 +9,9 @@ import (
 )
 
 func TestConsoleClearMessages(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestConsoleClearMessages")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Console().ClearMessages()
@@ -43,9 +43,9 @@ func TestConsoleClearMessages(t *testing.T) {
 }
 
 func TestConsoleDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestConsoleDisable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Console().Disable()
@@ -77,9 +77,9 @@ func TestConsoleDisable(t *testing.T) {
 }
 
 func TestConsoleEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestConsoleEnable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Console().Enable()
@@ -111,9 +111,9 @@ func TestConsoleEnable(t *testing.T) {
 }
 
 func TestConsoleOnMessageAdded(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestConsoleOnMessageAdded")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *console.MessageAddedEvent)
@@ -135,7 +135,7 @@ func TestConsoleOnMessageAdded(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "Console.messageAdded",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if result.Message.Source != mockResult.Message.Source {

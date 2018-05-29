@@ -116,6 +116,9 @@ Close implements Chromium.
 */
 func (chrome *Chrome) Close() error {
 	if chrome.process != nil {
+		for _, tab := range chrome.Tabs() {
+			tab.Close()
+		}
 		if err := chrome.process.Signal(os.Interrupt); err != nil {
 			return errors.Wrap(err, "chrome process interrupt failed")
 		}

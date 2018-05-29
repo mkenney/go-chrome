@@ -12,9 +12,9 @@ import (
 )
 
 func TestOverlayDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestOverlayDisable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Overlay().Disable()
@@ -46,9 +46,9 @@ func TestOverlayDisable(t *testing.T) {
 }
 
 func TestOverlayEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestOverlayEnable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Overlay().Enable()
@@ -80,9 +80,9 @@ func TestOverlayEnable(t *testing.T) {
 }
 
 func TestOverlayGetHighlightObjectForTest(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestOverlayGetHighlightObjectForTest")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &overlay.GetHighlightObjectForTestParams{
@@ -122,9 +122,9 @@ func TestOverlayGetHighlightObjectForTest(t *testing.T) {
 }
 
 func TestOverlayHideHighlight(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestOverlayHideHighlight")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Overlay().HideHighlight()
@@ -156,9 +156,9 @@ func TestOverlayHideHighlight(t *testing.T) {
 }
 
 func TestOverlayHighlightFrame(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestOverlayHighlightFrame")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &overlay.HighlightFrameParams{
@@ -195,9 +195,9 @@ func TestOverlayHighlightFrame(t *testing.T) {
 }
 
 func TestOverlayHighlightNode(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestOverlayHighlightNode")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &overlay.HighlightNodeParams{
@@ -235,9 +235,9 @@ func TestOverlayHighlightNode(t *testing.T) {
 }
 
 func TestOverlayHighlightQuad(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestOverlayHighlightQuad")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &overlay.HighlightQuadParams{
@@ -274,9 +274,9 @@ func TestOverlayHighlightQuad(t *testing.T) {
 }
 
 func TestOverlayHighlightRect(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestOverlayHighlightRect")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &overlay.HighlightRectParams{
@@ -316,9 +316,9 @@ func TestOverlayHighlightRect(t *testing.T) {
 }
 
 func TestOverlaySetInspectMode(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestOverlaySetInspectMode")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &overlay.SetInspectModeParams{
@@ -353,9 +353,9 @@ func TestOverlaySetInspectMode(t *testing.T) {
 }
 
 func TestOverlaySetPausedInDebuggerMessage(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestOverlaySetPausedInDebuggerMessage")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &overlay.SetPausedInDebuggerMessageParams{
@@ -390,9 +390,9 @@ func TestOverlaySetPausedInDebuggerMessage(t *testing.T) {
 }
 
 func TestOverlaySetShowDebugBorders(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestOverlaySetShowDebugBorders")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &overlay.SetShowDebugBordersParams{
@@ -427,9 +427,9 @@ func TestOverlaySetShowDebugBorders(t *testing.T) {
 }
 
 func TestOverlaySetShowFPSCounter(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestOverlaySetShowFPSCounter")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &overlay.SetShowFPSCounterParams{
@@ -464,9 +464,9 @@ func TestOverlaySetShowFPSCounter(t *testing.T) {
 }
 
 func TestOverlaySetShowPaintRects(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestOverlaySetShowPaintRects")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &overlay.SetShowPaintRectsParams{
@@ -501,9 +501,9 @@ func TestOverlaySetShowPaintRects(t *testing.T) {
 }
 
 func TestOverlaySetShowScrollBottleneckRects(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestOverlaySetShowScrollBottleneckRects")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &overlay.SetShowScrollBottleneckRectsParams{
@@ -538,9 +538,9 @@ func TestOverlaySetShowScrollBottleneckRects(t *testing.T) {
 }
 
 func TestOverlaySetShowViewportSizeOnResize(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestOverlaySetShowViewportSizeOnResize")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &overlay.SetShowViewportSizeOnResizeParams{
@@ -575,9 +575,9 @@ func TestOverlaySetShowViewportSizeOnResize(t *testing.T) {
 }
 
 func TestOverlaySetSuspended(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestOverlaySetSuspended")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &overlay.SetSuspendedParams{
@@ -604,6 +604,153 @@ func TestOverlaySetSuspended(t *testing.T) {
 			Data:    []byte(`"error data"`),
 			Message: "error message",
 		},
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
+}
+
+func TestOverlayOnInspectNodeRequested(t *testing.T) {
+	socketURL, _ := url.Parse("https://test:9222/TestOverlayOnInspectNodeRequested")
+	mockSocket := NewMock(socketURL)
+	mockSocket.Listen()
+	defer mockSocket.Stop()
+
+	resultChan := make(chan *overlay.InspectNodeRequestedEvent)
+	mockSocket.Overlay().OnInspectNodeRequested(func(eventData *overlay.InspectNodeRequestedEvent) {
+		resultChan <- eventData
+	})
+	mockResult := &overlay.InspectNodeRequestedEvent{
+		BackendNodeID: dom.BackendNodeID(1),
+	}
+	mockResultBytes, _ := json.Marshal(mockResult)
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID:     0,
+		Error:  &Error{},
+		Method: "Overlay.inspectNodeRequested",
+		Params: mockResultBytes,
+	})
+	result := <-resultChan
+	if mockResult.Err != result.Err {
+		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
+	}
+	if mockResult.BackendNodeID != result.BackendNodeID {
+		t.Errorf("Expected %d, got %d", mockResult.BackendNodeID, result.BackendNodeID)
+	}
+
+	resultChan = make(chan *overlay.InspectNodeRequestedEvent)
+	mockSocket.Overlay().OnInspectNodeRequested(func(eventData *overlay.InspectNodeRequestedEvent) {
+		resultChan <- eventData
+	})
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID: 0,
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Overlay.inspectNodeRequested",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
+}
+
+func TestOverlayOnNodeHighlightRequested(t *testing.T) {
+	socketURL, _ := url.Parse("https://test:9222/TestOverlayOnNodeHighlightRequested")
+	mockSocket := NewMock(socketURL)
+	mockSocket.Listen()
+	defer mockSocket.Stop()
+
+	resultChan := make(chan *overlay.NodeHighlightRequestedEvent)
+	mockSocket.Overlay().OnNodeHighlightRequested(func(eventData *overlay.NodeHighlightRequestedEvent) {
+		resultChan <- eventData
+	})
+	mockResult := &overlay.NodeHighlightRequestedEvent{
+		NodeID: dom.NodeID(1),
+	}
+	mockResultBytes, _ := json.Marshal(mockResult)
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID:     0,
+		Error:  &Error{},
+		Method: "Overlay.nodeHighlightRequested",
+		Params: mockResultBytes,
+	})
+	result := <-resultChan
+	if mockResult.Err != result.Err {
+		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
+	}
+	if mockResult.NodeID != result.NodeID {
+		t.Errorf("Expected %d, got %d", mockResult.NodeID, result.NodeID)
+	}
+
+	resultChan = make(chan *overlay.NodeHighlightRequestedEvent)
+	mockSocket.Overlay().OnNodeHighlightRequested(func(eventData *overlay.NodeHighlightRequestedEvent) {
+		resultChan <- eventData
+	})
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID: 0,
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Overlay.nodeHighlightRequested",
+	})
+	result = <-resultChan
+	if nil == result.Err {
+		t.Errorf("Expected error, got success")
+	}
+}
+
+func TestOverlayOnScreenshotRequested(t *testing.T) {
+	socketURL, _ := url.Parse("https://test:9222/TestOverlayOnScreenshotRequested")
+	mockSocket := NewMock(socketURL)
+	mockSocket.Listen()
+	defer mockSocket.Stop()
+
+	resultChan := make(chan *overlay.ScreenshotRequestedEvent)
+	mockSocket.Overlay().OnScreenshotRequested(func(eventData *overlay.ScreenshotRequestedEvent) {
+		resultChan <- eventData
+	})
+	mockResult := &overlay.ScreenshotRequestedEvent{
+		Viewport: &page.Viewport{
+			X:      1,
+			Y:      2,
+			Width:  3,
+			Height: 4,
+			Scale:  5,
+		},
+	}
+	mockResultBytes, _ := json.Marshal(mockResult)
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID:     0,
+		Error:  &Error{},
+		Method: "Overlay.screenshotRequested",
+		Params: mockResultBytes,
+	})
+	result := <-resultChan
+	if mockResult.Err != result.Err {
+		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
+	}
+	if mockResult.Viewport.X != result.Viewport.X {
+		t.Errorf("Expected %d, got %d", mockResult.Viewport.X, result.Viewport.X)
+	}
+
+	resultChan = make(chan *overlay.ScreenshotRequestedEvent)
+	mockSocket.Overlay().OnScreenshotRequested(func(eventData *overlay.ScreenshotRequestedEvent) {
+		resultChan <- eventData
+	})
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID: 0,
+		Error: &Error{
+			Code:    1,
+			Data:    []byte(`"error data"`),
+			Message: "error message",
+		},
+		Method: "Overlay.screenshotRequested",
 	})
 	result = <-resultChan
 	if nil == result.Err {

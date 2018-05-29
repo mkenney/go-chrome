@@ -7,9 +7,9 @@ import (
 )
 
 func TestHandleEvent(t *testing.T) {
-	socketURL, _ := url.Parse("https://www.example.com/error")
+	socketURL, _ := url.Parse("https://test:9222/TestHandleEvent")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	eventResponse1 := make(chan *Response)

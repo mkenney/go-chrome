@@ -11,9 +11,9 @@ import (
 )
 
 func TestDOMCollectClassNamesFromSubtree(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMCollectClassNamesFromSubtree")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.CollectClassNamesFromSubtreeParams{
@@ -53,9 +53,9 @@ func TestDOMCollectClassNamesFromSubtree(t *testing.T) {
 }
 
 func TestDOMCopyTo(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMCopyTo")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.CopyToParams{
@@ -97,9 +97,9 @@ func TestDOMCopyTo(t *testing.T) {
 }
 
 func TestDOMDescribeNode(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDescribeNode")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.DescribeNodeParams{
@@ -143,9 +143,9 @@ func TestDOMDescribeNode(t *testing.T) {
 }
 
 func TestDOMDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDisable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.DOM().Disable()
@@ -177,9 +177,9 @@ func TestDOMDisable(t *testing.T) {
 }
 
 func TestDOMDiscardSearchResults(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDiscardSearchResults")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.DiscardSearchResultsParams{
@@ -247,9 +247,9 @@ func TestDOMDiscardSearchResults(t *testing.T) {
 }
 
 func TestDOMEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMEnable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.DOM().Enable()
@@ -281,9 +281,9 @@ func TestDOMEnable(t *testing.T) {
 }
 
 func TestDOMFocus(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMFocus")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.FocusParams{
@@ -320,9 +320,9 @@ func TestDOMFocus(t *testing.T) {
 }
 
 func TestDOMGetAttributes(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMGetAttributes")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.GetAttributesParams{
@@ -362,9 +362,9 @@ func TestDOMGetAttributes(t *testing.T) {
 }
 
 func TestDOMGetBoxModel(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMGetBoxModel")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.GetBoxModelParams{
@@ -418,9 +418,9 @@ func TestDOMGetBoxModel(t *testing.T) {
 }
 
 func TestDOMGetDocument(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMGetDocument")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.GetDocumentParams{
@@ -494,9 +494,9 @@ func TestDOMGetDocument(t *testing.T) {
 }
 
 func TestDOMGetFlattenedDocument(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMGetFlattenedDocument")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.GetFlattenedDocumentParams{
@@ -570,9 +570,9 @@ func TestDOMGetFlattenedDocument(t *testing.T) {
 }
 
 func TestDOMGetNodeForLocation(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMGetNodeForLocation")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.GetNodeForLocationParams{
@@ -614,9 +614,9 @@ func TestDOMGetNodeForLocation(t *testing.T) {
 }
 
 func TestDOMGetOuterHTML(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMGetOuterHTML")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.GetOuterHTMLParams{
@@ -658,9 +658,9 @@ func TestDOMGetOuterHTML(t *testing.T) {
 }
 
 func TestDOMGetRelayoutBoundary(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMGetRelayoutBoundary")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.GetRelayoutBoundaryParams{
@@ -700,9 +700,9 @@ func TestDOMGetRelayoutBoundary(t *testing.T) {
 }
 
 func TestDOMGetSearchResults(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMGetSearchResults")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.GetSearchResultsParams{
@@ -744,9 +744,9 @@ func TestDOMGetSearchResults(t *testing.T) {
 }
 
 func TestDOMMarkUndoableState(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMMarkUndoableState")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.DOM().MarkUndoableState()
@@ -778,9 +778,9 @@ func TestDOMMarkUndoableState(t *testing.T) {
 }
 
 func TestDOMMoveTo(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMMoveTo")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.MoveToParams{
@@ -822,9 +822,9 @@ func TestDOMMoveTo(t *testing.T) {
 }
 
 func TestDOMPerformSearch(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMPerformSearch")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.PerformSearchParams{
@@ -866,9 +866,9 @@ func TestDOMPerformSearch(t *testing.T) {
 }
 
 func TestDOMPushNodeByPathToFrontend(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMPushNodeByPathToFrontend")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.PushNodeByPathToFrontendParams{
@@ -908,9 +908,9 @@ func TestDOMPushNodeByPathToFrontend(t *testing.T) {
 }
 
 func TestDOMPushNodesByBackendIDsToFrontend(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMPushNodesByBackendIDsToFrontend")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.PushNodesByBackendIDsToFrontendParams{
@@ -950,9 +950,9 @@ func TestDOMPushNodesByBackendIDsToFrontend(t *testing.T) {
 }
 
 func TestDOMQuerySelector(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMQuerySelector")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.QuerySelectorParams{
@@ -993,9 +993,9 @@ func TestDOMQuerySelector(t *testing.T) {
 }
 
 func TestDOMQuerySelectorAll(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMQuerySelectorAll")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.QuerySelectorAllParams{
@@ -1036,9 +1036,9 @@ func TestDOMQuerySelectorAll(t *testing.T) {
 }
 
 func TestDOMRedo(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMRedo")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.DOM().Redo()
@@ -1070,9 +1070,9 @@ func TestDOMRedo(t *testing.T) {
 }
 
 func TestDOMRemoveAttribute(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMRemoveAttribute")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.RemoveAttributeParams{
@@ -1108,9 +1108,9 @@ func TestDOMRemoveAttribute(t *testing.T) {
 }
 
 func TestDOMRemoveNode(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMRemoveNode")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.RemoveNodeParams{
@@ -1145,9 +1145,9 @@ func TestDOMRemoveNode(t *testing.T) {
 }
 
 func TestDOMRequestChildNodes(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMRequestChildNodes")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.RequestChildNodesParams{
@@ -1184,9 +1184,9 @@ func TestDOMRequestChildNodes(t *testing.T) {
 }
 
 func TestDOMRequestNode(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMRequestNode")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.RequestNodeParams{
@@ -1226,9 +1226,9 @@ func TestDOMRequestNode(t *testing.T) {
 }
 
 func TestDOMResolveNode(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMResolveNode")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.ResolveNodeParams{
@@ -1293,9 +1293,9 @@ func TestDOMResolveNode(t *testing.T) {
 }
 
 func TestDOMSetAttributeValue(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMSetAttributeValue")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.SetAttributeValueParams{
@@ -1332,9 +1332,9 @@ func TestDOMSetAttributeValue(t *testing.T) {
 }
 
 func TestDOMSetAttributesAsText(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMSetAttributesAsText")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.SetAttributesAsTextParams{
@@ -1371,9 +1371,9 @@ func TestDOMSetAttributesAsText(t *testing.T) {
 }
 
 func TestDOMSetFileInputFiles(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMSetFileInputFiles")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.SetFileInputFilesParams{
@@ -1411,9 +1411,9 @@ func TestDOMSetFileInputFiles(t *testing.T) {
 }
 
 func TestDOMSetInspectedNode(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMSetInspectedNode")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.SetInspectedNodeParams{
@@ -1448,9 +1448,9 @@ func TestDOMSetInspectedNode(t *testing.T) {
 }
 
 func TestDOMSetNodeName(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMSetNodeName")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.SetNodeNameParams{
@@ -1491,9 +1491,9 @@ func TestDOMSetNodeName(t *testing.T) {
 }
 
 func TestDOMSetNodeValue(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMSetNodeValue")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.SetNodeValueParams{
@@ -1529,9 +1529,9 @@ func TestDOMSetNodeValue(t *testing.T) {
 }
 
 func TestDOMSetOuterHTML(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMSetOuterHTML")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &dom.SetOuterHTMLParams{
@@ -1567,9 +1567,9 @@ func TestDOMSetOuterHTML(t *testing.T) {
 }
 
 func TestDOMUndo(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMUndo")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.DOM().Undo()
@@ -1601,9 +1601,9 @@ func TestDOMUndo(t *testing.T) {
 }
 
 func TestDOMOnAttributeModified(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMOnAttributeModified")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *dom.AttributeModifiedEvent)
@@ -1620,7 +1620,7 @@ func TestDOMOnAttributeModified(t *testing.T) {
 		ID:     0,
 		Error:  &Error{},
 		Method: "DOM.attributeModified",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1647,9 +1647,9 @@ func TestDOMOnAttributeModified(t *testing.T) {
 }
 
 func TestDOMOnAttributeRemoved(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMOnAttributeRemoved")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *dom.AttributeRemovedEvent)
@@ -1692,9 +1692,9 @@ func TestDOMOnAttributeRemoved(t *testing.T) {
 }
 
 func TestDOMOnCharacterDataModified(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMOnCharacterDataModified")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *dom.CharacterDataModifiedEvent)
@@ -1737,9 +1737,9 @@ func TestDOMOnCharacterDataModified(t *testing.T) {
 }
 
 func TestDOMOnChildNodeCountUpdated(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMOnChildNodeCountUpdated")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *dom.ChildNodeCountUpdatedEvent)
@@ -1783,9 +1783,9 @@ func TestDOMOnChildNodeCountUpdated(t *testing.T) {
 }
 
 func TestDOMOnChildNodeInserted(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMOnChildNodeInserted")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *dom.ChildNodeInsertedEvent)
@@ -1829,9 +1829,9 @@ func TestDOMOnChildNodeInserted(t *testing.T) {
 }
 
 func TestDOMOnChildNodeRemoved(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMOnChildNodeRemoved")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *dom.ChildNodeRemovedEvent)
@@ -1874,9 +1874,9 @@ func TestDOMOnChildNodeRemoved(t *testing.T) {
 }
 
 func TestDOMOnDistributedNodesUpdated(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMOnDistributedNodesUpdated")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *dom.DistributedNodesUpdatedEvent)
@@ -1919,9 +1919,9 @@ func TestDOMOnDistributedNodesUpdated(t *testing.T) {
 }
 
 func TestDOMOnDocumentUpdated(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMOnDocumentUpdated")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *dom.DocumentUpdatedEvent)
@@ -1961,9 +1961,9 @@ func TestDOMOnDocumentUpdated(t *testing.T) {
 }
 
 func TestDOMOnInlineStyleInvalidated(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMOnInlineStyleInvalidated")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *dom.InlineStyleInvalidatedEvent)
@@ -2005,9 +2005,9 @@ func TestDOMOnInlineStyleInvalidated(t *testing.T) {
 }
 
 func TestDOMOnPseudoElementAdded(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMOnPseudoElementAdded")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *dom.PseudoElementAddedEvent)
@@ -2050,9 +2050,9 @@ func TestDOMOnPseudoElementAdded(t *testing.T) {
 }
 
 func TestDOMOnPseudoElementRemoved(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMOnPseudoElementRemoved")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *dom.PseudoElementRemovedEvent)
@@ -2095,9 +2095,9 @@ func TestDOMOnPseudoElementRemoved(t *testing.T) {
 }
 
 func TestDOMOnSetChildNodes(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMOnSetChildNodes")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *dom.SetChildNodesEvent)
@@ -2140,9 +2140,9 @@ func TestDOMOnSetChildNodes(t *testing.T) {
 }
 
 func TestDOMOnShadowRootPopped(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMOnShadowRootPopped")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *dom.ShadowRootPoppedEvent)
@@ -2185,9 +2185,9 @@ func TestDOMOnShadowRootPopped(t *testing.T) {
 }
 
 func TestDOMOnShadowRootPushed(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMOnShadowRootPushed")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *dom.ShadowRootPushedEvent)

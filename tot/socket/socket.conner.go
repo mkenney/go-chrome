@@ -63,6 +63,7 @@ func (socket *Socket) Disconnect() error {
 	if !socket.connected {
 		return fmt.Errorf("not connected")
 	}
+	socket.Stop()
 	err := socket.conn.Close()
 	socket.conn = nil
 	socket.connected = false

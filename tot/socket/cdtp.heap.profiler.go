@@ -326,7 +326,7 @@ func (protocol *HeapProfilerProtocol) OnAddHeapSnapshotChunk(
 		"HeapProfiler.addHeapSnapshotChunk",
 		func(response *Response) {
 			event := &profiler.AddHeapSnapshotChunkEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -350,7 +350,7 @@ func (protocol *HeapProfilerProtocol) OnHeapStatsUpdate(
 		"HeapProfiler.heapStatsUpdate",
 		func(response *Response) {
 			event := &profiler.HeapStatsUpdateEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -376,7 +376,7 @@ func (protocol *HeapProfilerProtocol) OnLastSeenObjectID(
 		"HeapProfiler.lastSeenObjectID",
 		func(response *Response) {
 			event := &profiler.LastSeenObjectIDEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -401,7 +401,7 @@ func (protocol *HeapProfilerProtocol) OnReportHeapSnapshotProgress(
 		"HeapProfiler.reportHeapSnapshotProgress",
 		func(response *Response) {
 			event := &profiler.ReportHeapSnapshotProgressEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -424,7 +424,7 @@ func (protocol *HeapProfilerProtocol) OnResetProfiles(
 		"HeapProfiler.resetProfiles",
 		func(response *Response) {
 			event := &profiler.ResetProfilesEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

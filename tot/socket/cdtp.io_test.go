@@ -10,9 +10,9 @@ import (
 )
 
 func TestIOClose(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestIOClose")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &io.CloseParams{
@@ -47,9 +47,9 @@ func TestIOClose(t *testing.T) {
 }
 
 func TestIORead(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestIORead")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &io.ReadParams{
@@ -93,9 +93,9 @@ func TestIORead(t *testing.T) {
 }
 
 func TestIOResolveBlob(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestIOResolveBlob")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &io.ResolveBlobParams{

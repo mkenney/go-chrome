@@ -152,7 +152,7 @@ func (protocol *SecurityProtocol) OnCertificateError(
 		"Security.certificateError",
 		func(response *Response) {
 			event := &security.CertificateErrorEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -175,7 +175,7 @@ func (protocol *SecurityProtocol) OnSecurityStateChanged(
 		"Security.securityStateChanged",
 		func(response *Response) {
 			event := &security.StateChangedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
