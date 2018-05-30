@@ -1,30 +1,26 @@
 package chrome
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/http"
 	"net/url"
 	"os"
 	"path/filepath"
-	"time"
 
 	errs "github.com/mkenney/go-errors"
 	log "github.com/sirupsen/logrus"
 )
 
 /*
-New returns a pointer to a Chromium instance.
+NewMock returns a pointer to a mock Chromium instance.
 */
-func New(
+func NewMock(
 	flags ChromiumFlags,
 	binary string,
 	workdir string,
 	stdout string,
 	stderr string,
-) *Chrome {
-	return &Chrome{
+) *MockChrome {
+	return &MockChrome{
 		flags:   flags,
 		binary:  binary,
 		stderr:  stderr,
@@ -34,9 +30,9 @@ func New(
 }
 
 /*
-Chrome implements Chromium.
+MockChrome implements Chromium.
 */
-type Chrome struct {
+type MockChrome struct {
 	// flags stores CLI arguments for the Chromium binary.
 	flags ChromiumFlags
 
@@ -80,31 +76,22 @@ type Chrome struct {
 
 /*
 Address implements Chromium.
-
-Default value is 'localhost'
 */
-func (chrome *Chrome) Address() string {
-	if !chrome.Flags().Has("addr") {
-		chrome.Flags().Set("addr", "localhost")
-	}
-	value, _ := chrome.Flags().Get("addr")
-	return value.(string)
+func (chrome *MockChrome) Address() string {
+	return "localhost"
 }
 
 /*
 Flags implements Chromium.
 */
-func (chrome *Chrome) Flags() ChromiumFlags {
+func (chrome *MockChrome) Flags() ChromiumFlags {
 	return chrome.flags
 }
 
 /*
 Binary implements Chromium.
-
-Default value is '/usr/bin/google-chrome' for use with the mkenney/chromium-headless
-Docker image.
 */
-func (chrome *Chrome) Binary() string {
+func (chrome *MockChrome) Binary() string {
 	if "" == chrome.binary {
 		chrome.binary = "/usr/bin/google-chrome"
 	}
@@ -114,20 +101,7 @@ func (chrome *Chrome) Binary() string {
 /*
 Close implements Chromium.
 */
-func (chrome *Chrome) Close() error {
-	if chrome.process != nil {
-		for _, tab := range chrome.Tabs() {
-			tab.Close()
-		}
-		if err := chrome.process.Signal(os.Interrupt); err != nil {
-			return errs.Wrap(err, "chrome process interrupt failed")
-		}
-		ps, err := chrome.process.Wait()
-		if err != nil {
-			return errs.Wrap(err, "error waiting for process exit, result unknown")
-		}
-		log.Infof("Chromium exited: %s", ps.String())
-	}
+func (chrome *MockChrome) Close() error {
 	if chrome.stdOUTFile != nil {
 		chrome.stdOUTFile.Close()
 	}
@@ -139,7 +113,7 @@ DebuggingAddress implements Chromium.
 
 Default value is '0.0.0.0'.
 */
-func (chrome *Chrome) DebuggingAddress() string {
+func (chrome *MockChrome) DebuggingAddress() string {
 	if !chrome.Flags().Has("remote-debugging-address") {
 		chrome.Flags().Set("remote-debugging-address", "0.0.0.0")
 	}
@@ -150,7 +124,7 @@ func (chrome *Chrome) DebuggingAddress() string {
 /*
 DebuggingPort implements Chromium.
 */
-func (chrome *Chrome) DebuggingPort() int {
+func (chrome *MockChrome) DebuggingPort() int {
 	if !chrome.Flags().Has("remote-debugging-port") {
 		chrome.Flags().Set("remote-debugging-port", 9222)
 	}
@@ -161,10 +135,10 @@ func (chrome *Chrome) DebuggingPort() int {
 /*
 GetTab implements Chromium.
 */
-func (chrome *Chrome) GetTab(tabID string) (Tabber, error) {
+func (chrome *MockChrome) GetTab(tabID string) (Tabber, error) {
 	var tab Tabber
 	var err error
-	for _, tab = range chrome.Tabs() {
+	for _, tab = range chrome.tabs {
 		if tab.Data().ID == tabID {
 			return tab, nil
 		}
@@ -187,7 +161,7 @@ they aren't included in the Flags definition:
 	chrome.workdir = "headless-chrome"
 	chrome.output = "/dev/stdout"
 */
-func (chrome *Chrome) Launch() error {
+func (chrome *MockChrome) Launch() error {
 	var err error
 
 	// Default values for required parameters
@@ -197,10 +171,6 @@ func (chrome *Chrome) Launch() error {
 	chrome.Port()
 	if !chrome.Flags().Has("user-data-dir") {
 		chrome.Flags().Set("user-data-dir", os.TempDir())
-	}
-
-	if err = os.MkdirAll(chrome.Workdir(), 0700); err != nil {
-		return errs.Wrap(err, fmt.Sprintf("cannot create working directory '%s'", chrome.Workdir()))
 	}
 
 	if "" == chrome.STDERR() {
@@ -230,30 +200,10 @@ func (chrome *Chrome) Launch() error {
 	}
 
 	log.Infof("Starting process: %s %s", chrome.Binary(), chrome.Flags())
-	var procAttributes os.ProcAttr
-	procAttributes.Dir = chrome.Workdir()
-	procAttributes.Files = []*os.File{nil, chrome.stdOUTFile, chrome.stdERRFile}
-	chrome.process, err = os.StartProcess(
-		chrome.Binary(),
-		chrome.Flags().List(),
-		&procAttributes,
-	)
 	if nil != err {
 		chrome.stdOUTFile.Close()
+		chrome.stdERRFile.Close()
 		return errs.Wrap(err, "error starting chrome")
-	}
-
-	// Wait up to 10 seconds for Chromium to start
-	for i := 0; i < 10; i++ {
-		time.Sleep(time.Second)
-		if _, err = chrome.Version(); nil == err {
-			break
-		}
-	}
-	if err != nil {
-		log.Error("Chromium took too long to start")
-		chrome.Close()
-		return errs.Wrap(err, "chromium took too long to start")
 	}
 
 	return nil
@@ -264,7 +214,7 @@ Port implements Chromium.
 
 Default value is 9222
 */
-func (chrome *Chrome) Port() int {
+func (chrome *MockChrome) Port() int {
 	if !chrome.Flags().Has("port") {
 		chrome.Flags().Set("port", 9222)
 	}
@@ -275,7 +225,7 @@ func (chrome *Chrome) Port() int {
 /*
 Query implements Chromium.
 */
-func (chrome *Chrome) Query(
+func (chrome *MockChrome) Query(
 	path string,
 	params url.Values,
 	msg interface{}, // Data receiver
@@ -283,63 +233,37 @@ func (chrome *Chrome) Query(
 	if len(params) > 0 {
 		path += fmt.Sprintf("?%s", params.Encode())
 	}
-
-	uri := fmt.Sprintf("http://%s:%d%s", chrome.Address(), chrome.Port(), path)
-	resp, err := http.Get(uri)
-	if err != nil {
-		return nil, errs.Wrap(err, "get uri failed")
-	}
-	defer resp.Body.Close()
-
-	log.Debugf("chrome:/%s %s", path, resp.Status)
-	if 200 != resp.StatusCode {
-		return nil, errs.New(resp.Status)
-	}
-
-	content, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, errs.Wrap(err, "read failed")
-	} else if err := json.Unmarshal(content, &msg); err != nil {
-		// it's not JSON so just return it
-		return content, nil
-	}
-
+	log.Debugf("chrome:/%s %s", path)
 	return msg, nil
 }
 
 /*
 STDERR implements Chromium.
 */
-func (chrome *Chrome) STDERR() string {
+func (chrome *MockChrome) STDERR() string {
 	return chrome.stderr
 }
 
 /*
 STDOUT implements Chromium.
 */
-func (chrome *Chrome) STDOUT() string {
+func (chrome *MockChrome) STDOUT() string {
 	return chrome.stdout
 }
 
 /*
 Tabs implements Chromium.
 */
-func (chrome *Chrome) Tabs() []*Tab {
+func (chrome *MockChrome) Tabs() []*Tab {
 	return chrome.tabs
 }
 
 /*
 Version implements Chromium.
 */
-func (chrome *Chrome) Version() (*Version, error) {
+func (chrome *MockChrome) Version() (*Version, error) {
 	if nil == chrome.version {
-		if _, err := chrome.Query(
-			"/json/version",
-			url.Values{},
-			&chrome.version,
-		); err != nil {
-			return nil, errs.Wrap(err, "version query failed")
-		}
+		chrome.version = &Version{}
 	}
 	return chrome.version, nil
 }
@@ -349,9 +273,45 @@ Workdir implements Chromium.
 
 Default value is /tmp/headless-chrome
 */
-func (chrome *Chrome) Workdir() string {
+func (chrome *MockChrome) Workdir() string {
 	if "" == chrome.workdir {
 		chrome.workdir = filepath.Join(os.TempDir(), "headless-chrome")
 	}
 	return chrome.workdir
+}
+
+/*
+NewTab spawns a new Tab and returns a reference to it
+*/
+func (chrome *MockChrome) NewTab(uri string) (*Tab, error) {
+	var err error
+
+	if "" == uri {
+		uri = "about:blank"
+	}
+	targetURL, err := url.Parse(uri)
+	if nil != err {
+		return nil, errs.Wrap(err, "invalid URL")
+	}
+
+	tab := &Tab{
+		chrome: chrome,
+		data: &TabData{
+			Description:          "",
+			DevtoolsFrontendURL:  "",
+			ID:                   "",
+			Title:                "",
+			Type:                 "",
+			URL:                  "",
+			WebSocketDebuggerURL: "",
+		},
+		url: targetURL,
+	}
+
+	socket := NewMockSocket(targetURL)
+	tab.socket = socket
+	tab.protocol = socket
+	chrome.tabs = append(chrome.tabs, tab)
+
+	return tab, nil
 }

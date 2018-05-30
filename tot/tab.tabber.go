@@ -55,7 +55,7 @@ func (chrome *Chrome) NewTab(uri string) (*Tab, error) {
 Tab is a struct representing an individual Chrome tab
 */
 type Tab struct {
-	chrome   *Chrome
+	chrome   Chromium
 	data     *TabData
 	protocol socket.Protocoller
 	socket   socket.Socketer
@@ -65,7 +65,7 @@ type Tab struct {
 /*
 Chromium implements Tabber.
 */
-func (tab *Tab) Chromium() *Chrome {
+func (tab *Tab) Chromium() Chromium {
 	return tab.chrome
 }
 
