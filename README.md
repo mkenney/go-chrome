@@ -49,7 +49,11 @@ There are a few small examples of how to use the framework API on the [wiki](htt
 
 # TODO
 
-Any contributions of any kind are very welcome!
+Contributions of any kind are very welcome!
+
+* Add framework API examples to the `/test` directory and wiki.
+
+  Any example scripts showing various ways people are using the framework would be outstanding!
 
 * Refactoring to implement standard interfaces where applicable and review current use of interfaces in the API. Some aren't needed at all and others are used to support test mocks.
 * Add more tests, especially for error cases. If you would like to contribute but aren't sure how, take a look at [codecov](https://codecov.io/gh/mkenney/go-chrome) for any tests that could be written. There are [many](https://github.com/mkenney/go-chrome/blob/master/tot/socket/cdtp.animation_test.go) [examples](https://github.com/mkenney/go-chrome/blob/master/tot/cdtp/animation/enum.animation.type_test.go) of tests in the repo.
