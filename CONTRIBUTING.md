@@ -4,7 +4,7 @@ Thank you for taking the time to contribute!
 
 The following is a set of guidelines for contributing to `go-chrome` and its packages on GitHub. Feel free to propose changes to this document in a pull request.
 
-[How Can I Contribute?](#how-can-i-contribute)
+**How Can I Contribute?**
   * [Report Bugs](#reporting-bugs)
   * [Suggest Enhancements](#suggesting-enhancements)
   * [Submit pull Requests](#pull-requests)
