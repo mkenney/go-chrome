@@ -25,7 +25,7 @@ This implementation is based on the [Tip-of-Tree](https://chromedevtools.github.
 
 **RC1 available for comment**
 
-The [`PR`](#98) is up and available for comment. I've also [created an issue](#99) for tracking RC-related updates.
+The [`PR`](https://github.com/mkenney/go-chrome/pull/98) is up and available for comment. I've also [created an issue](https://github.com/mkenney/go-chrome/issues/99) for tracking RC-related updates.
 
 **Upcomming breaking changes**
 
