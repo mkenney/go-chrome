@@ -4,12 +4,6 @@ Thank you for taking the time to contribute!
 
 The following is a set of guidelines for contributing to `go-chrome` and its packages on GitHub. Feel free to propose changes to this document in a pull request.
 
-**How Can I Contribute?**
-  * [Report Bugs](#reporting-bugs)
-  * [Suggest Enhancements](#suggesting-enhancements)
-  * [Submit pull Requests](#pull-requests)
-    * [Styleguide](#styleguide)
-
 # Contributor agreement
 
 By contributing code and feedback to this project, you agree to abide by the terms of the [MPLv2 LICENSE](LICENSE).
