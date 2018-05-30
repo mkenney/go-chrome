@@ -1,3 +1,9 @@
+---
+name: Bug report
+about: Please be as detailed as you can
+
+---
+
 <!--
 Thank you for filing an issue! If this is a question or feature request,
 just delete everything here and write out the request, providing as much
@@ -27,4 +33,7 @@ describing here as well.
 <!--
 If possible, provide a recipe for reproducing the error. A complete
 runnable program is great. A link to play.golang.org is best.
+
+If you have a suggested fix for the issue please feel free to include
+that as well.
 -->
