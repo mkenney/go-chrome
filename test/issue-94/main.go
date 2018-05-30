@@ -5,8 +5,8 @@ import (
 	"os"
 
 	"github.com/mkenney/go-chrome/tot"
-	"github.com/mkenney/go-chrome/tot/cdtp/network"
-	"github.com/mkenney/go-chrome/tot/cdtp/page"
+	"github.com/mkenney/go-chrome/tot/network"
+	"github.com/mkenney/go-chrome/tot/page"
 	logfmt "github.com/mkenney/go-log-fmt"
 	"github.com/sanity-io/litter"
 	log "github.com/sirupsen/logrus"
