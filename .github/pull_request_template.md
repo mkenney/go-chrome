@@ -3,9 +3,7 @@ Thank you for submitting a pull request! Please make sure you view the
 contribution guidelines and fill out the fields below.
 -->
 
-# Changes
-
-## Type
+### Change type
 
 What types of changes does your code introduce to `go-chrome`?
 <!--
@@ -17,7 +15,7 @@ Put an `x` in all the boxes that apply
 * [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 * [ ] Other (please explain here)
 
-## Checklist
+### Checklist
 <!--
 Put an `x` in all the boxes that apply. If you're unsure about any of them, don't hesitate to ask.
 -->
@@ -27,22 +25,21 @@ Put an `x` in all the boxes that apply. If you're unsure about any of them, don'
 * [ ] I have created tests which fail without the change (if possible) and prove my fix is effective or that my feature works.
 * [ ] I have added necessary documentation (if appropriate).
 
-## What does this implement/fix? Explain your changes.
+### What does this implement/fix? Explain your changes.
 
 
 
-## Does this close any currently open issues?
+### Does this close any currently open issues?
 
 
 
-## Any relevant logs, error output, etc?
+### Any relevant logs, error output, etc?
 <!--
 If it’s long, please paste to https://pastebin.com/ or similar and insert the link here.
 -->
 
 
 
-## Any other comments?
--------------------
+### Any other comments?
 
 
