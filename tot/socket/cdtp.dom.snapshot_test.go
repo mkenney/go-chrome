@@ -5,9 +5,9 @@ import (
 	"net/url"
 	"testing"
 
-	dom "github.com/mkenney/go-chrome/tot/cdtp/dom"
-	domSnapshot "github.com/mkenney/go-chrome/tot/cdtp/dom/snapshot"
-	page "github.com/mkenney/go-chrome/tot/cdtp/page"
+	"github.com/mkenney/go-chrome/tot/dom"
+	"github.com/mkenney/go-chrome/tot/dom/snapshot"
+	"github.com/mkenney/go-chrome/tot/page"
 )
 
 func TestDOMSnapshotDisable(t *testing.T) {
@@ -17,7 +17,7 @@ func TestDOMSnapshotDisable(t *testing.T) {
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.DOMSnapshot().Disable()
-	mockResult := &domSnapshot.DisableResult{}
+	mockResult := &snapshot.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
@@ -51,7 +51,7 @@ func TestDOMSnapshotEnable(t *testing.T) {
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.DOMSnapshot().Enable()
-	mockResult := &domSnapshot.EnableResult{}
+	mockResult := &snapshot.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
@@ -84,11 +84,11 @@ func TestDOMSnapshotGet(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := mockSocket.DOMSnapshot().Get(&domSnapshot.GetParams{
+	resultChan := mockSocket.DOMSnapshot().Get(&snapshot.GetParams{
 		ComputedStyleWhitelist: []string{"one", "two"},
 	})
-	mockResult := &domSnapshot.GetResult{
-		DOMNodes: []*domSnapshot.DOMNode{{
+	mockResult := &snapshot.GetResult{
+		DOMNodes: []*snapshot.DOMNode{{
 			NodeType:              1,
 			NodeName:              "node-name",
 			NodeValue:             "node-value",
@@ -98,7 +98,7 @@ func TestDOMSnapshotGet(t *testing.T) {
 			OptionSelected:        true,
 			BackendNodeID:         dom.BackendNodeID(1),
 			ChildNodeIndexes:      []int64{1, 2, 3},
-			Attributes:            []*domSnapshot.NameValue{},
+			Attributes:            []*snapshot.NameValue{},
 			PseudoElementIndexes:  []int64{1, 2, 3},
 			LayoutNodeIndex:       1,
 			DocumentURL:           "http://document.url",
@@ -114,7 +114,7 @@ func TestDOMSnapshotGet(t *testing.T) {
 			PseudoType:            dom.PseudoType("pseudo-type"),
 			IsClickable:           true,
 		}},
-		LayoutTreeNodes: []*domSnapshot.LayoutTreeNode{{
+		LayoutTreeNodes: []*snapshot.LayoutTreeNode{{
 			DomNodeIndex: 1,
 			BoundingBox: &dom.Rect{
 				X:      1,
@@ -123,7 +123,7 @@ func TestDOMSnapshotGet(t *testing.T) {
 				Height: 1,
 			},
 			LayoutText: "layout text",
-			InlineTextNodes: []*domSnapshot.InlineTextBox{{
+			InlineTextNodes: []*snapshot.InlineTextBox{{
 				BoundingBox: &dom.Rect{
 					X:      1,
 					Y:      1,
@@ -135,8 +135,8 @@ func TestDOMSnapshotGet(t *testing.T) {
 			}},
 			StyleIndex: 1,
 		}},
-		ComputedStyles: []*domSnapshot.ComputedStyle{{
-			Properties: []*domSnapshot.NameValue{{
+		ComputedStyles: []*snapshot.ComputedStyle{{
+			Properties: []*snapshot.NameValue{{
 				Name:  "name",
 				Value: "value",
 			}},
@@ -156,7 +156,7 @@ func TestDOMSnapshotGet(t *testing.T) {
 		t.Errorf("Expected '%d', got '%d'", mockResult.DOMNodes[0].NodeType, result.DOMNodes[0].NodeType)
 	}
 
-	resultChan = mockSocket.DOMSnapshot().Get(&domSnapshot.GetParams{
+	resultChan = mockSocket.DOMSnapshot().Get(&snapshot.GetParams{
 		ComputedStyleWhitelist: []string{"one", "two"},
 	})
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{

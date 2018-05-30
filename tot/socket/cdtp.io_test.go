@@ -5,8 +5,8 @@ import (
 	"net/url"
 	"testing"
 
-	io "github.com/mkenney/go-chrome/tot/cdtp/io"
-	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
+	"github.com/mkenney/go-chrome/tot/io"
+	"github.com/mkenney/go-chrome/tot/runtime"
 )
 
 func TestIOClose(t *testing.T) {

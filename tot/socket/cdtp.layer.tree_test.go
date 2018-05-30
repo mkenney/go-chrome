@@ -5,8 +5,8 @@ import (
 	"net/url"
 	"testing"
 
-	dom "github.com/mkenney/go-chrome/tot/cdtp/dom"
-	layerTree "github.com/mkenney/go-chrome/tot/cdtp/layer/tree"
+	"github.com/mkenney/go-chrome/tot/dom"
+	"github.com/mkenney/go-chrome/tot/layer/tree"
 )
 
 func TestLayerTreeCompositingReasons(t *testing.T) {
@@ -15,11 +15,11 @@ func TestLayerTreeCompositingReasons(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &layerTree.CompositingReasonsParams{
-		LayerID: layerTree.LayerID("layer-id"),
+	params := &tree.CompositingReasonsParams{
+		LayerID: tree.LayerID("layer-id"),
 	}
 	resultChan := mockSocket.LayerTree().CompositingReasons(params)
-	mockResult := &layerTree.CompositingReasonsResult{
+	mockResult := &tree.CompositingReasonsResult{
 		CompositingReasons: []string{"reason1", "reason2"},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
@@ -58,7 +58,7 @@ func TestLayerTreeDisable(t *testing.T) {
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.LayerTree().Disable()
-	mockResult := &layerTree.DisableResult{}
+	mockResult := &tree.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
@@ -92,7 +92,7 @@ func TestLayerTreeEnable(t *testing.T) {
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.LayerTree().Enable()
-	mockResult := &layerTree.EnableResult{}
+	mockResult := &tree.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
@@ -125,16 +125,16 @@ func TestLayerTreeLoadSnapshot(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &layerTree.LoadSnapshotParams{
-		Tiles: []*layerTree.PictureTile{{
+	params := &tree.LoadSnapshotParams{
+		Tiles: []*tree.PictureTile{{
 			X:       1,
 			Y:       1,
 			Picture: "picture data",
 		}},
 	}
 	resultChan := mockSocket.LayerTree().LoadSnapshot(params)
-	mockResult := &layerTree.LoadSnapshotResult{
-		SnapshotID: layerTree.SnapshotID("snapshot-id"),
+	mockResult := &tree.LoadSnapshotResult{
+		SnapshotID: tree.SnapshotID("snapshot-id"),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
@@ -171,12 +171,12 @@ func TestLayerTreeMakeSnapshot(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &layerTree.MakeSnapshotParams{
-		LayerID: layerTree.LayerID("layer-id"),
+	params := &tree.MakeSnapshotParams{
+		LayerID: tree.LayerID("layer-id"),
 	}
 	resultChan := mockSocket.LayerTree().MakeSnapshot(params)
-	mockResult := &layerTree.MakeSnapshotResult{
-		SnapshotID: layerTree.SnapshotID("snapshot-id"),
+	mockResult := &tree.MakeSnapshotResult{
+		SnapshotID: tree.SnapshotID("snapshot-id"),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
@@ -213,8 +213,8 @@ func TestLayerTreeProfileSnapshot(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &layerTree.ProfileSnapshotParams{
-		SnapshotID:     layerTree.SnapshotID("snapshot-id"),
+	params := &tree.ProfileSnapshotParams{
+		SnapshotID:     tree.SnapshotID("snapshot-id"),
 		MinRepeatCount: 1,
 		MinDuration:    1,
 		ClipRect: &dom.Rect{
@@ -225,8 +225,8 @@ func TestLayerTreeProfileSnapshot(t *testing.T) {
 		},
 	}
 	resultChan := mockSocket.LayerTree().ProfileSnapshot(params)
-	mockResult := &layerTree.ProfileSnapshotResult{
-		Timings: []*layerTree.PaintProfile{},
+	mockResult := &tree.ProfileSnapshotResult{
+		Timings: []*tree.PaintProfile{},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
@@ -260,11 +260,11 @@ func TestLayerTreeReleaseSnapshot(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &layerTree.ReleaseSnapshotParams{
-		SnapshotID: layerTree.SnapshotID("snapshot-id"),
+	params := &tree.ReleaseSnapshotParams{
+		SnapshotID: tree.SnapshotID("snapshot-id"),
 	}
 	resultChan := mockSocket.LayerTree().ReleaseSnapshot(params)
-	mockResult := &layerTree.ReleaseSnapshotResult{}
+	mockResult := &tree.ReleaseSnapshotResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
@@ -297,14 +297,14 @@ func TestLayerTreeReplaySnapshot(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &layerTree.ReplaySnapshotParams{
-		SnapshotID: layerTree.SnapshotID("snapshot-id"),
+	params := &tree.ReplaySnapshotParams{
+		SnapshotID: tree.SnapshotID("snapshot-id"),
 		FromStep:   1,
 		ToStep:     2,
 		Scale:      1,
 	}
 	resultChan := mockSocket.LayerTree().ReplaySnapshot(params)
-	mockResult := &layerTree.ReplaySnapshotResult{
+	mockResult := &tree.ReplaySnapshotResult{
 		DataURL: "data:urldata",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
@@ -342,11 +342,11 @@ func TestLayerTreeSnapshotCommandLog(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &layerTree.SnapshotCommandLogParams{
-		SnapshotID: layerTree.SnapshotID("snapshot-id"),
+	params := &tree.SnapshotCommandLogParams{
+		SnapshotID: tree.SnapshotID("snapshot-id"),
 	}
 	resultChan := mockSocket.LayerTree().SnapshotCommandLog(params)
-	mockResult := &layerTree.SnapshotCommandLogResult{
+	mockResult := &tree.SnapshotCommandLogResult{
 		CommandLog: []map[string]string{{"command1": "log1"}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
@@ -384,12 +384,12 @@ func TestLayerTreeOnLayerPainted(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := make(chan *layerTree.LayerPaintedEvent)
-	mockSocket.LayerTree().OnLayerPainted(func(eventData *layerTree.LayerPaintedEvent) {
+	resultChan := make(chan *tree.LayerPaintedEvent)
+	mockSocket.LayerTree().OnLayerPainted(func(eventData *tree.LayerPaintedEvent) {
 		resultChan <- eventData
 	})
-	mockResult := &layerTree.LayerPaintedEvent{
-		LayerID: layerTree.LayerID("layer-id"),
+	mockResult := &tree.LayerPaintedEvent{
+		LayerID: tree.LayerID("layer-id"),
 		Clip: &dom.Rect{
 			X:      1,
 			Y:      1,
@@ -412,8 +412,8 @@ func TestLayerTreeOnLayerPainted(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.LayerID, result.LayerID)
 	}
 
-	resultChan = make(chan *layerTree.LayerPaintedEvent)
-	mockSocket.LayerTree().OnLayerPainted(func(eventData *layerTree.LayerPaintedEvent) {
+	resultChan = make(chan *tree.LayerPaintedEvent)
+	mockSocket.LayerTree().OnLayerPainted(func(eventData *tree.LayerPaintedEvent) {
 		resultChan <- eventData
 	})
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
@@ -437,14 +437,14 @@ func TestLayerTreeOnLayerTreeDidChange(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := make(chan *layerTree.DidChangeEvent)
-	mockSocket.LayerTree().OnLayerTreeDidChange(func(eventData *layerTree.DidChangeEvent) {
+	resultChan := make(chan *tree.DidChangeEvent)
+	mockSocket.LayerTree().OnLayerTreeDidChange(func(eventData *tree.DidChangeEvent) {
 		resultChan <- eventData
 	})
-	mockResult := &layerTree.DidChangeEvent{
-		Layers: []*layerTree.Layer{{
-			LayerID:       layerTree.LayerID("layer-id"),
-			ParentLayerID: layerTree.LayerID("parent.layer-id"),
+	mockResult := &tree.DidChangeEvent{
+		Layers: []*tree.Layer{{
+			LayerID:       tree.LayerID("layer-id"),
+			ParentLayerID: tree.LayerID("parent.layer-id"),
 			BackendNodeID: dom.BackendNodeID(1),
 			OffsetX:       1,
 			OffsetY:       1,
@@ -457,15 +457,15 @@ func TestLayerTreeOnLayerTreeDidChange(t *testing.T) {
 			PaintCount:    1,
 			DrawsContent:  true,
 			Invisible:     true,
-			ScrollRects: []*layerTree.ScrollRect{{
+			ScrollRects: []*tree.ScrollRect{{
 				Rect: &dom.Rect{},
-				Type: layerTree.RectType.RepaintsOnScroll,
+				Type: tree.RectType.RepaintsOnScroll,
 			}},
-			StickyPositionConstraint: &layerTree.StickyPositionConstraint{
+			StickyPositionConstraint: &tree.StickyPositionConstraint{
 				StickyBoxRect:                       &dom.Rect{},
 				ContainingBlockRect:                 &dom.Rect{},
-				NearestLayerShiftingStickyBox:       layerTree.LayerID("sticky-layer-id"),
-				NearestLayerShiftingContainingBlock: layerTree.LayerID("containing-layer-id"),
+				NearestLayerShiftingStickyBox:       tree.LayerID("sticky-layer-id"),
+				NearestLayerShiftingContainingBlock: tree.LayerID("containing-layer-id"),
 			},
 		}},
 	}
@@ -484,8 +484,8 @@ func TestLayerTreeOnLayerTreeDidChange(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Layers[0].LayerID, result.Layers[0].LayerID)
 	}
 
-	resultChan = make(chan *layerTree.DidChangeEvent)
-	mockSocket.LayerTree().OnLayerTreeDidChange(func(eventData *layerTree.DidChangeEvent) {
+	resultChan = make(chan *tree.DidChangeEvent)
+	mockSocket.LayerTree().OnLayerTreeDidChange(func(eventData *tree.DidChangeEvent) {
 		resultChan <- eventData
 	})
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{

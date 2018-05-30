@@ -5,8 +5,8 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/mkenney/go-chrome/tot/cdtp/accessibility"
-	"github.com/mkenney/go-chrome/tot/cdtp/dom"
+	"github.com/mkenney/go-chrome/tot/accessibility"
+	"github.com/mkenney/go-chrome/tot/dom"
 )
 
 func TestAccessibilityGetPartialAXTree(t *testing.T) {

@@ -5,8 +5,8 @@ import (
 	"net/url"
 	"testing"
 
-	audits "github.com/mkenney/go-chrome/tot/cdtp/audits"
-	network "github.com/mkenney/go-chrome/tot/cdtp/network"
+	audits "github.com/mkenney/go-chrome/tot/audits"
+	network "github.com/mkenney/go-chrome/tot/network"
 )
 
 func TestAuditsGetEncodedResponse(t *testing.T) {

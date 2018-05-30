@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	application_cache "github.com/mkenney/go-chrome/tot/cdtp/application/cache"
-	"github.com/mkenney/go-chrome/tot/cdtp/page"
+	application_cache "github.com/mkenney/go-chrome/tot/application/cache"
+	"github.com/mkenney/go-chrome/tot/page"
 )
 
 func TestApplicationCacheEnable(t *testing.T) {

@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"testing"
 
-	tethering "github.com/mkenney/go-chrome/tot/cdtp/tethering"
+	"github.com/mkenney/go-chrome/tot/tethering"
 )
 
 func TestTetheringBind(t *testing.T) {

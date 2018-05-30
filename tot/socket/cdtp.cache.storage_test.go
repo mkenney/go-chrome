@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"testing"
 
-	cacheStorage "github.com/mkenney/go-chrome/tot/cdtp/cache/storage"
+	cacheStorage "github.com/mkenney/go-chrome/tot/cache/storage"
 	log "github.com/sirupsen/logrus"
 )
 

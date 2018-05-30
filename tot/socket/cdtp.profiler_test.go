@@ -5,9 +5,9 @@ import (
 	"net/url"
 	"testing"
 
-	debugger "github.com/mkenney/go-chrome/tot/cdtp/debugger"
-	profiler "github.com/mkenney/go-chrome/tot/cdtp/profiler"
-	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
+	"github.com/mkenney/go-chrome/tot/debugger"
+	"github.com/mkenney/go-chrome/tot/profiler"
+	"github.com/mkenney/go-chrome/tot/runtime"
 )
 
 func TestProfilerDisable(t *testing.T) {

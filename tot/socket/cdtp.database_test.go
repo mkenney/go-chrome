@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"testing"
 
-	database "github.com/mkenney/go-chrome/tot/cdtp/database"
+	"github.com/mkenney/go-chrome/tot/database"
 )
 
 func TestDatabaseDisable(t *testing.T) {

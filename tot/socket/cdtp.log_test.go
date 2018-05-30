@@ -6,9 +6,9 @@ import (
 	"testing"
 	"time"
 
-	log "github.com/mkenney/go-chrome/tot/cdtp/log"
-	network "github.com/mkenney/go-chrome/tot/cdtp/network"
-	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
+	"github.com/mkenney/go-chrome/tot/log"
+	"github.com/mkenney/go-chrome/tot/network"
+	"github.com/mkenney/go-chrome/tot/runtime"
 )
 
 func TestLogClear(t *testing.T) {

@@ -5,8 +5,8 @@ import (
 	"net/url"
 	"testing"
 
-	browser "github.com/mkenney/go-chrome/tot/cdtp/browser"
-	target "github.com/mkenney/go-chrome/tot/cdtp/target"
+	browser "github.com/mkenney/go-chrome/tot/browser"
+	target "github.com/mkenney/go-chrome/tot/target"
 )
 
 func TestBrowserClose(t *testing.T) {

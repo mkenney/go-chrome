@@ -1,7 +1,7 @@
 package socket
 
 import (
-	"github.com/mkenney/go-chrome/tot/cdtp/input"
+	"github.com/mkenney/go-chrome/tot/input"
 )
 
 /*

@@ -5,8 +5,8 @@ import (
 	"net/url"
 	"testing"
 
-	io "github.com/mkenney/go-chrome/tot/cdtp/io"
-	tracing "github.com/mkenney/go-chrome/tot/cdtp/tracing"
+	"github.com/mkenney/go-chrome/tot/io"
+	"github.com/mkenney/go-chrome/tot/tracing"
 )
 
 func TestTracingEnd(t *testing.T) {

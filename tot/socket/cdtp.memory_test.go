@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"testing"
 
-	memory "github.com/mkenney/go-chrome/tot/cdtp/memory"
+	memory "github.com/mkenney/go-chrome/tot/memory"
 )
 
 func TestMemoryGetDOMCounters(t *testing.T) {

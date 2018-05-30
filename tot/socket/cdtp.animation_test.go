@@ -6,9 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/mkenney/go-chrome/tot/cdtp/animation"
-	"github.com/mkenney/go-chrome/tot/cdtp/dom"
-	"github.com/mkenney/go-chrome/tot/cdtp/runtime"
+	"github.com/mkenney/go-chrome/tot/animation"
+	"github.com/mkenney/go-chrome/tot/dom"
+	"github.com/mkenney/go-chrome/tot/runtime"
 	log "github.com/sirupsen/logrus"
 )
 

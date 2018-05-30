@@ -5,9 +5,9 @@ import (
 	"net/url"
 	"testing"
 
-	css "github.com/mkenney/go-chrome/tot/cdtp/css"
-	dom "github.com/mkenney/go-chrome/tot/cdtp/dom"
-	page "github.com/mkenney/go-chrome/tot/cdtp/page"
+	"github.com/mkenney/go-chrome/tot/css"
+	"github.com/mkenney/go-chrome/tot/dom"
+	"github.com/mkenney/go-chrome/tot/page"
 )
 
 func TestCSSAddRule(t *testing.T) {

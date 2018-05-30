@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	input "github.com/mkenney/go-chrome/tot/cdtp/input"
+	"github.com/mkenney/go-chrome/tot/input"
 )
 
 func TestInputDispatchKeyEvent(t *testing.T) {

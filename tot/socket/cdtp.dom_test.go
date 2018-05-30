@@ -5,9 +5,9 @@ import (
 	"net/url"
 	"testing"
 
-	dom "github.com/mkenney/go-chrome/tot/cdtp/dom"
-	page "github.com/mkenney/go-chrome/tot/cdtp/page"
-	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
+	"github.com/mkenney/go-chrome/tot/dom"
+	"github.com/mkenney/go-chrome/tot/page"
+	"github.com/mkenney/go-chrome/tot/runtime"
 )
 
 func TestDOMCollectClassNamesFromSubtree(t *testing.T) {

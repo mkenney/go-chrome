@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"testing"
 
-	indexedDB "github.com/mkenney/go-chrome/tot/cdtp/indexed/db"
+	"github.com/mkenney/go-chrome/tot/indexed/db"
 )
 
 func TestIndexedDBClearObjectStore(t *testing.T) {
@@ -14,13 +14,13 @@ func TestIndexedDBClearObjectStore(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &indexedDB.ClearObjectStoreParams{
+	params := &db.ClearObjectStoreParams{
 		SecurityOrigin:  "security-origin",
 		DatabaseName:    "database-name",
 		ObjectStoreName: "object-store-name",
 	}
 	resultChan := mockSocket.IndexedDB().ClearObjectStore(params)
-	mockResult := &indexedDB.ClearObjectStoreResult{}
+	mockResult := &db.ClearObjectStoreResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
@@ -53,13 +53,13 @@ func TestIndexedDBDeleteDatabase(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &indexedDB.DeleteDatabaseParams{
+	params := &db.DeleteDatabaseParams{
 		SecurityOrigin:  "security-origin",
 		DatabaseName:    "database-name",
 		ObjectStoreName: "object-store-name",
 	}
 	resultChan := mockSocket.IndexedDB().DeleteDatabase(params)
-	mockResult := &indexedDB.DeleteDatabaseResult{}
+	mockResult := &db.DeleteDatabaseResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
@@ -92,12 +92,12 @@ func TestIndexedDBDeleteObjectStoreEntries(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &indexedDB.DeleteObjectStoreEntriesParams{
+	params := &db.DeleteObjectStoreEntriesParams{
 		SecurityOrigin: "security-origin",
 		DatabaseName:   "database-name",
 	}
 	resultChan := mockSocket.IndexedDB().DeleteObjectStoreEntries(params)
-	mockResult := &indexedDB.DeleteObjectStoreEntriesResult{}
+	mockResult := &db.DeleteObjectStoreEntriesResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
@@ -131,7 +131,7 @@ func TestIndexedDBDisable(t *testing.T) {
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.IndexedDB().Disable()
-	mockResult := &indexedDB.DisableResult{}
+	mockResult := &db.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
@@ -165,7 +165,7 @@ func TestIndexedDBEnable(t *testing.T) {
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.IndexedDB().Enable()
-	mockResult := &indexedDB.EnableResult{}
+	mockResult := &db.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
@@ -198,35 +198,35 @@ func TestIndexedDBRequestData(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &indexedDB.RequestDataParams{
+	params := &db.RequestDataParams{
 		SecurityOrigin:  "security-origin",
 		DatabaseName:    "database-name",
 		ObjectStoreName: "object-store-name",
 		IndexName:       "index-name",
 		SkipCount:       1,
 		PageSize:        1,
-		KeyRange: &indexedDB.KeyRange{
-			Lower: &indexedDB.Key{
-				Type:   indexedDB.KeyType.Number,
+		KeyRange: &db.KeyRange{
+			Lower: &db.Key{
+				Type:   db.KeyType.Number,
 				Number: 1,
 				String: "string",
 				Date:   1,
-				Array:  []*indexedDB.Key{},
+				Array:  []*db.Key{},
 			},
-			Upper: &indexedDB.Key{
-				Type:   indexedDB.KeyType.Number,
+			Upper: &db.Key{
+				Type:   db.KeyType.Number,
 				Number: 1,
 				String: "string",
 				Date:   1,
-				Array:  []*indexedDB.Key{},
+				Array:  []*db.Key{},
 			},
 			LowerOpen: true,
 			UpperOpen: true,
 		},
 	}
 	resultChan := mockSocket.IndexedDB().RequestData(params)
-	mockResult := &indexedDB.RequestDataResult{
-		ObjectStoreDataEntries: []*indexedDB.DataEntry{{
+	mockResult := &db.RequestDataResult{
+		ObjectStoreDataEntries: []*db.DataEntry{{
 			Key:        nil,
 			PrimaryKey: nil,
 			Value:      nil,
@@ -268,27 +268,27 @@ func TestIndexedDBRequestDatabase(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &indexedDB.RequestDatabaseParams{
+	params := &db.RequestDatabaseParams{
 		SecurityOrigin: "security-origin",
 		DatabaseName:   "database-name",
 	}
 	resultChan := mockSocket.IndexedDB().RequestDatabase(params)
-	mockResult := &indexedDB.RequestDatabaseResult{
-		DatabaseWithObjectStores: &indexedDB.DatabaseWithObjectStores{
+	mockResult := &db.RequestDatabaseResult{
+		DatabaseWithObjectStores: &db.DatabaseWithObjectStores{
 			Name:    "name",
 			Version: 1,
-			ObjectStores: []*indexedDB.ObjectStore{{
+			ObjectStores: []*db.ObjectStore{{
 				Name: "name",
-				KeyPath: &indexedDB.KeyPath{
-					Type:   indexedDB.KeyPathType.Null,
+				KeyPath: &db.KeyPath{
+					Type:   db.KeyPathType.Null,
 					String: "string",
 					Array:  []string{"string1", "string2"},
 				},
 				AutoIncrement: true,
-				Indexes: []*indexedDB.ObjectStoreIndex{{
+				Indexes: []*db.ObjectStoreIndex{{
 					Name: "name",
-					KeyPath: &indexedDB.KeyPath{
-						Type:   indexedDB.KeyPathType.Null,
+					KeyPath: &db.KeyPath{
+						Type:   db.KeyPathType.Null,
 						String: "string",
 						Array:  []string{"string1", "string2"},
 					},
@@ -333,11 +333,11 @@ func TestIndexedDBRequestDatabaseNames(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &indexedDB.RequestDatabaseNamesParams{
+	params := &db.RequestDatabaseNamesParams{
 		SecurityOrigin: "security-origin",
 	}
 	resultChan := mockSocket.IndexedDB().RequestDatabaseNames(params)
-	mockResult := &indexedDB.RequestDatabaseNamesResult{
+	mockResult := &db.RequestDatabaseNamesResult{
 		DatabaseNames: []string{"db1", "db2"},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)

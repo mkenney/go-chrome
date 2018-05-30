@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"testing"
 
-	performance "github.com/mkenney/go-chrome/tot/cdtp/performance"
+	"github.com/mkenney/go-chrome/tot/performance"
 )
 
 func TestPerformanceDisable(t *testing.T) {
