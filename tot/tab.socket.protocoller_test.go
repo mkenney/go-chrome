@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestProtocoller(t *testing.T) {
+func TestProtocoller1(t *testing.T) {
 	var err error
 	browser := NewMock(
 		&Flags{},
@@ -73,7 +73,17 @@ func TestProtocoller(t *testing.T) {
 	if testVal := tab.DOMStorage(); nil == testVal {
 		t.Errorf("Expected struct, received nil")
 	}
+}
 
+func TestProtocoller2(t *testing.T) {
+	browser := NewMock(
+		&Flags{},
+		"", //"path/to/chrome",
+		"", //"path/to/stderr",
+		"", //"path/to/stdout",
+		"", //"path/to/workdir",
+	)
+	tab, _ := browser.NewTab("https://TestProtocoller")
 	if testVal := tab.DOM(); nil == testVal {
 		t.Errorf("Expected struct, received nil")
 	}
@@ -137,7 +147,17 @@ func TestProtocoller(t *testing.T) {
 	if testVal := tab.Runtime(); nil == testVal {
 		t.Errorf("Expected struct, received nil")
 	}
+}
 
+func TestProtocoller3(t *testing.T) {
+	browser := NewMock(
+		&Flags{},
+		"", //"path/to/chrome",
+		"", //"path/to/stderr",
+		"", //"path/to/stdout",
+		"", //"path/to/workdir",
+	)
+	tab, _ := browser.NewTab("https://TestProtocoller")
 	if testVal := tab.Schema(); nil == testVal {
 		t.Errorf("Expected struct, received nil")
 	}
