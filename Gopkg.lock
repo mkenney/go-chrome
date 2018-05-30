@@ -9,15 +9,15 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/mkenney/go-errors"
+  packages = ["."]
+  revision = "436418699008426bfa6889c4c818063c7c597dcf"
+
+[[projects]]
+  branch = "master"
   name = "github.com/mkenney/go-log-fmt"
   packages = ["."]
   revision = "c98a00db7ec57537dd33b8bd868c4a75957ed5c2"
-
-[[projects]]
-  name = "github.com/pkg/errors"
-  packages = ["."]
-  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
-  version = "v0.8.0"
 
 [[projects]]
   name = "github.com/sanity-io/litter"
@@ -49,6 +49,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "ddd66537c07fd379e2222a41388d823447cc842975ed57c636843571d250af86"
+  inputs-digest = "de14efa76f6f13efb5fd354a595a9ea17bcc783fc2d053b37ecf59795df2e201"
   solver-name = "gps-cdcl"
   solver-version = 1
