@@ -7,7 +7,7 @@ import (
 	"net/url"
 
 	"github.com/gorilla/websocket"
-	"github.com/pkg/errors"
+	errs "github.com/mkenney/go-errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -27,7 +27,7 @@ func NewWebsocket(socketURL *url.URL) (WebSocketer, error) {
 
 	websocket, response, err := dialer.Dial(socketURL.String(), header)
 	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf(
+		return nil, errs.Wrap(err, fmt.Sprintf(
 			"%s websocket connection failed",
 			socketURL.String(),
 		))
@@ -73,7 +73,7 @@ Response{} pointer with the AddMockData() method.
 */
 func (socket *ChromeWebSocket) ReadJSON(v interface{}) error {
 	if nil == socket.conn {
-		return errors.New("not connected")
+		return errs.New("not connected")
 	}
 	return socket.conn.ReadJSON(&v)
 }
@@ -85,7 +85,7 @@ WriteJSON is a WebSocketer implementation.
 */
 func (socket *ChromeWebSocket) WriteJSON(v interface{}) error {
 	if nil == socket.conn {
-		return errors.New("not connected")
+		return errs.New("not connected")
 	}
 	tmp, _ := json.Marshal(v)
 	if len(tmp) > 1*1024*1024 {

@@ -5,6 +5,7 @@ import (
 	"sort"
 	"strings"
 
+	errs "github.com/mkenney/go-errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -16,9 +17,11 @@ type Flags map[string]interface{}
 /*
 Get implements ChromiumFlags
 */
-func (flags Flags) Get(arg string) (values interface{}, err error) {
+func (flags Flags) Get(arg string) (interface{}, error) {
+	var values interface{}
+	var err error
 	if !flags.Has(arg) {
-		err = fmt.Errorf("The specified argument '%s' does not exist", arg)
+		err = errs.New(fmt.Sprintf("The specified argument '%s' does not exist", arg))
 	} else {
 		values = flags[arg]
 	}
@@ -48,7 +51,7 @@ func (flags Flags) List() []string {
 	for _, arg := range orderedFlags {
 		val, err := flags.Get(arg)
 		if nil != err {
-			log.Fatal(err)
+			log.Error(err)
 		}
 		switch val.(type) {
 		case int:
@@ -81,7 +84,7 @@ func (flags Flags) Set(arg string, value interface{}) (err error) {
 		case string:
 			flags[arg] = value
 		default:
-			return fmt.Errorf("Invalid data type '%T' for argument %s: %+v", value, arg, value)
+			return errs.New(fmt.Sprintf("Invalid data type '%T' for argument %s: %+v", value, arg, value))
 		}
 	}
 

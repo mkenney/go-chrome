@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/pkg/errors"
+	errs "github.com/mkenney/go-errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -175,14 +175,15 @@ connection.
 func (socket *Socket) handleResponse(response *Response) {
 	// Log a message on error
 	if command, err := socket.commands.Get(response.ID); nil != err {
+		err = errs.Wrap(err, fmt.Sprintf("command #%d not found", response.ID))
 		errorMessage := ""
 		if nil != response.Error && 0 != response.Error.Code {
 			errorMessage = response.Error.Error()
 		}
 		log.Debugf(
-			"socket #%d - socket.handleResponse(): %s - result=%s err='%s'",
+			"socket #%d - socket.handleResponse(): %v - result=%s err='%s'",
 			socket.socketID,
-			err.Error(),
+			err,
 			response.Result,
 			errorMessage,
 		)
@@ -225,7 +226,7 @@ func (socket *Socket) handleEvent(
 	}
 
 	if handlers, err := socket.handlers.Get(response.Method); nil != err {
-		log.Debugf("socket #%d - %s", socket.socketID, err.Error())
+		log.Errorf("socket #%d - %v", socket.socketID, err)
 
 	} else {
 		for a, event := range handlers {
@@ -251,26 +252,27 @@ func (socket *Socket) handleUnknown(
 
 	// Check for a command listening for ID 0
 	if command, err = socket.commands.Get(response.ID); nil != err {
+		err = errs.Wrap(err, fmt.Sprintf("command #%d not found", response.ID))
 		if nil != response.Error && 0 != response.Error.Code {
-			err = fmt.Errorf("%s: %s", response.Error.Error(), err.Error())
+			err = err.(errs.Err).With(fmt.Errorf("%s: %s", response.Error.Error(), err.Error()))
 		}
 		log.Debugf(
-			"socket #%d - socket.handleUnknown(): result='%s' err='%s'",
+			"socket #%d - socket.handleUnknown(): result='%s' err='%v'",
 			socket.socketID,
 			response.Result,
-			err.Error(),
+			err,
 		)
 		return
 	}
 
 	command.Respond(response)
 	log.Debugf(
-		"socket #%d - socket.handleUnknown(): %v - Unrecognised socket message sent to command #%d - method: '%s' - Error: %s",
+		"socket #%d - socket.handleUnknown(): %v - Unrecognised socket message sent to command #%d - method: '%s' - Error: %v",
 		socket.socketID,
 		err,
 		command.ID(),
 		command.Method(),
-		response.Error.Error(),
+		response.Error,
 	)
 }
 
@@ -292,7 +294,7 @@ func (socket *Socket) listen(errCh chan error) {
 
 	err = socket.Connect()
 	if nil != err {
-		errCh <- errors.Wrap(err, "socket connection failed")
+		errCh <- errs.Wrap(err, "socket connection failed")
 	}
 	defer socket.Disconnect()
 
@@ -300,7 +302,7 @@ func (socket *Socket) listen(errCh chan error) {
 		response := &Response{}
 		err = socket.ReadJSON(&response)
 		if nil != err {
-			log.Errorf("socket #%d - %s", socket.socketID, err.Error())
+			log.Errorf("socket #%d - %v", socket.socketID, err)
 		}
 
 		if response.ID > 0 {
@@ -353,7 +355,7 @@ func (socket *Socket) listen(errCh chan error) {
 	}
 
 	if nil != err {
-		err = errors.Wrap(err, "socket read failed")
+		err = errs.Wrap(err, "socket read failed")
 	}
 
 	errCh <- err
@@ -387,7 +389,7 @@ func (socket *Socket) RemoveEventHandler(
 	handlers, err := socket.handlers.Get(handler.Name())
 	if nil != err {
 		log.Warnf("socket #%d - RemoveEventHandler(): Could not remove handler: %s", socket.socketID, err.Error())
-		return err
+		return errs.Wrap(err, fmt.Sprintf("failed to remove event handler '%s'", handler.Name()))
 	}
 
 	for i, hndlr := range handlers {
@@ -432,9 +434,10 @@ func (socket *Socket) SendCommand(command Commander) chan *Response {
 		}
 
 		if err := socket.WriteJSON(payload); err != nil {
+			err = errs.Wrap(err, "write failed: could not write data to websocket")
 			command.Respond(&Response{Error: &Error{
 				Code:    1,
-				Data:    []byte(fmt.Sprintf(`"%s"`, err.Error())),
+				Data:    []byte(fmt.Sprintf(`"%#v"`, err)),
 				Message: "Failed to send command payload to socket connection",
 			}})
 			return
@@ -454,13 +457,12 @@ Stop is a Socketer implementation.
 */
 func (socket *Socket) Stop() {
 	if socket.listening {
-		log.Debugf("socket #%d: socket.Stop called", socket.socketID)
 		socket.listening = false
 		select {
 		case <-socket.listenCh:
 		case <-time.After(1 * time.Second):
 		}
-		log.Debugf("socket #%d: socket stopped or timed out", socket.socketID)
+		log.Debugf("socket #%d: socket stopped", socket.socketID)
 	}
 }
 

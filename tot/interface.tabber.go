@@ -11,7 +11,7 @@ Tabber provides an interface for managing a Chromium tab
 */
 type Tabber interface {
 	// Browser returns the Chromium instance this tab is in
-	Chromium() *Chrome
+	Chromium() Chromium
 
 	// Close closes this chromium tab
 	Close() (interface{}, error)

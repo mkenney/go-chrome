@@ -3,6 +3,8 @@ package socket
 import (
 	"fmt"
 	"sync"
+
+	errs "github.com/mkenney/go-errors"
 )
 
 /*
@@ -46,7 +48,7 @@ func (stack *CommandMap) Get(id int) (Commander, error) {
 	command, ok := stack.stack[id]
 	stack.mux.Unlock()
 	if !ok {
-		return nil, fmt.Errorf("Command %d not found", id)
+		return nil, errs.New(fmt.Sprintf("Command %d not found", id))
 	}
 	return command, nil
 }
