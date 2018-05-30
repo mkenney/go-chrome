@@ -23,6 +23,10 @@ This implementation is based on the [Tip-of-Tree](https://chromedevtools.github.
 
 # Announcements
 
+**RC1 available for comment**
+
+The [`PR`](https://github.com/mkenney/go-chrome/pull/98) is up and available for comment. I've also [created an issue](https://github.com/mkenney/go-chrome/issues/99) for tracking RC-related updates.
+
 **Upcomming breaking changes**
 
 I will be refactoring the package layout, deleting the `cdtp` package and moving all the packages within it to the `tot` package. This is just to cleanup import statements and make the layout a bit more natural to use. The only refactoring this will require is removing that folder from your import path, changing them from (for example):
