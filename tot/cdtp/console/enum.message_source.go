@@ -38,17 +38,17 @@ var MessageSource = messageSourceEnum{
 
 /*
 MessageSourceEnum represents the message source. Allowed values:
-	- MessageSource.SourceXML         "xml"
-	- MessageSource.SourceJavascript  "javascript"
-	- MessageSource.SourceNetwork     "network"
-	- MessageSource.SourceConsoleAPI  "console-api"
-	- MessageSource.SourceStorage     "storage"
-	- MessageSource.SourceAppcache    "appcache"
-	- MessageSource.SourceRendering   "rendering"
-	- MessageSource.SourceSecurity    "security"
-	- MessageSource.SourceOther       "other"
-	- MessageSource.SourceDeprecation "deprecation"
-	- MessageSource.SourceWorker      "worker"
+	- MessageSource.XML         "xml"
+	- MessageSource.Javascript  "javascript"
+	- MessageSource.Network     "network"
+	- MessageSource.ConsoleAPI  "console-api"
+	- MessageSource.Storage     "storage"
+	- MessageSource.Appcache    "appcache"
+	- MessageSource.Rendering   "rendering"
+	- MessageSource.Security    "security"
+	- MessageSource.Other       "other"
+	- MessageSource.Deprecation "deprecation"
+	- MessageSource.Worker      "worker"
 */
 type MessageSourceEnum int
 
