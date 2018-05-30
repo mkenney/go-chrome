@@ -21,6 +21,28 @@ The API is fairly settled and basic code-coverage tests have been implemented bu
 
 This implementation is based on the [Tip-of-Tree](https://chromedevtools.github.io/devtools-protocol/tot/) documentation and may be prone to change. At some point stable versions will be implemented as well, hopefully beginning with v1.3.
 
+# Announcements
+
+**Upcomming breaking changes**
+
+I will be refactoring the package layout, deleting the `cdtp` package and moving all the packages within it to the `tot` package. This is just to cleanup import statements and make the layout a bit more natural to use. The only refactoring this will require is removing that folder from your import path, changing them from (for example):
+
+```go
+import (
+	"github.com/mkenney/go-chrome/tot/cdtp/accessibility"
+)
+```
+
+to simply:
+
+```go
+import (
+	"github.com/mkenney/go-chrome/tot/accessibility"
+)
+```
+
+Once this is complete and in `master` for a short time to [gather feedback](https://github.com/mkenney/go-chrome/issues/new), I will tag the repository as a `v1.0.0` release candidate.
+
 # Examples
 
 There are a few small examples of how to use the framework API on the [wiki](https://github.com/mkenney/go-chrome/wiki) and in the [`/test`](https://github.com/mkenney/go-chrome/tree/master/test) directory.
