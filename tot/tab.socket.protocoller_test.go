@@ -17,233 +17,156 @@ func TestProtocoller(t *testing.T) {
 	if nil != err {
 		t.Errorf("Expected nil, received error: %v", err)
 	}
-	go func() {
-		testVal := tab.Accessibility()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Animation()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.ApplicationCache()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Audits()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Browser()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.CacheStorage()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Console()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.CSS()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Database()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Debugger()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.DeviceOrientation()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.DOMDebugger()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.DOMSnapshot()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.DOMStorage()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.DOM()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Emulation()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.HeadlessExperimental()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.HeapProfiler()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.IndexedDB()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Input()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.IO()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.LayerTree()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Log()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Memory()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Network()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Overlay()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Page()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Performance()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Profiler()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Runtime()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Schema()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Security()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.ServiceWorker()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Storage()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.SystemInfo()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Target()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Tethering()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
-	go func() {
-		testVal := tab.Tracing()
-		if nil != testVal {
-			t.Errorf("Expected nil, received %v", testVal)
-		}
-	}()
 
+	if testVal := tab.Accessibility(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Animation(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.ApplicationCache(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Audits(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Browser(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.CacheStorage(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Console(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.CSS(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Database(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Debugger(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.DeviceOrientation(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.DOMDebugger(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.DOMSnapshot(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.DOMStorage(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.DOM(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Emulation(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.HeadlessExperimental(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.HeapProfiler(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.IndexedDB(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Input(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.IO(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.LayerTree(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Log(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Memory(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Network(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Overlay(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Page(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Performance(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Profiler(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Runtime(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Schema(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Security(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.ServiceWorker(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Storage(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.SystemInfo(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Target(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Tethering(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Tracing(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
 }
