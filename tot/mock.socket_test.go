@@ -7,9 +7,50 @@ import (
 )
 
 func NewMockSocket(url *url.URL) *MockSocket {
-	return &MockSocket{
+	mockSocket := &MockSocket{
 		url: url,
 	}
+
+	mockSocket.accessibility = &socket.AccessibilityProtocol{Socket: mockSocket}
+	mockSocket.animation = &socket.AnimationProtocol{Socket: mockSocket}
+	mockSocket.applicationCache = &socket.ApplicationCacheProtocol{Socket: mockSocket}
+	mockSocket.audits = &socket.AuditsProtocol{Socket: mockSocket}
+	mockSocket.browser = &socket.BrowserProtocol{Socket: mockSocket}
+	mockSocket.cacheStorage = &socket.CacheStorageProtocol{Socket: mockSocket}
+	mockSocket.console = &socket.ConsoleProtocol{Socket: mockSocket}
+	mockSocket.css = &socket.CSSProtocol{Socket: mockSocket}
+	mockSocket.database = &socket.DatabaseProtocol{Socket: mockSocket}
+	mockSocket.debugger = &socket.DebuggerProtocol{Socket: mockSocket}
+	mockSocket.deviceOrientation = &socket.DeviceOrientationProtocol{Socket: mockSocket}
+	mockSocket.domDebugger = &socket.DOMDebuggerProtocol{Socket: mockSocket}
+	mockSocket.domSnapshot = &socket.DOMSnapshotProtocol{Socket: mockSocket}
+	mockSocket.domStorage = &socket.DOMStorageProtocol{Socket: mockSocket}
+	mockSocket.dom = &socket.DOMProtocol{Socket: mockSocket}
+	mockSocket.emulation = &socket.EmulationProtocol{Socket: mockSocket}
+	mockSocket.headlessExperimental = &socket.HeadlessExperimentalProtocol{Socket: mockSocket}
+	mockSocket.heapProfiler = &socket.HeapProfilerProtocol{Socket: mockSocket}
+	mockSocket.indexedDB = &socket.IndexedDBProtocol{Socket: mockSocket}
+	mockSocket.input = &socket.InputProtocol{Socket: mockSocket}
+	mockSocket.io = &socket.IOProtocol{Socket: mockSocket}
+	mockSocket.layerTree = &socket.LayerTreeProtocol{Socket: mockSocket}
+	mockSocket.log = &socket.LogProtocol{Socket: mockSocket}
+	mockSocket.memory = &socket.MemoryProtocol{Socket: mockSocket}
+	mockSocket.network = &socket.NetworkProtocol{Socket: mockSocket}
+	mockSocket.overlay = &socket.OverlayProtocol{Socket: mockSocket}
+	mockSocket.page = &socket.PageProtocol{Socket: mockSocket}
+	mockSocket.performance = &socket.PerformanceProtocol{Socket: mockSocket}
+	mockSocket.profiler = &socket.ProfilerProtocol{Socket: mockSocket}
+	mockSocket.runtime = &socket.RuntimeProtocol{Socket: mockSocket}
+	mockSocket.schema = &socket.SchemaProtocol{Socket: mockSocket}
+	mockSocket.security = &socket.SecurityProtocol{Socket: mockSocket}
+	mockSocket.serviceWorker = &socket.ServiceWorkerProtocol{Socket: mockSocket}
+	mockSocket.storage = &socket.StorageProtocol{Socket: mockSocket}
+	mockSocket.systemInfo = &socket.SystemInfoProtocol{Socket: mockSocket}
+	mockSocket.target = &socket.TargetProtocol{Socket: mockSocket}
+	mockSocket.tethering = &socket.TetheringProtocol{Socket: mockSocket}
+	mockSocket.tracing = &socket.TracingProtocol{Socket: mockSocket}
+
+	return mockSocket
 }
 
 /*
