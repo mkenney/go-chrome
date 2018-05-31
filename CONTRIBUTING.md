@@ -16,15 +16,15 @@ To that end, you hereby agree to abide by the [contributor covenant](https://git
 
 # Contributing
 
-In order to contribute, simply [open an issue](https://github.com/mkenney/go-chrome/issues/new) or [create a pull request](#pull-requests).
+In order to contribute, simply [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) or [create a pull request](#pull-requests).
 
 ## Report bugs
 
-Please be as detailed as you can when [opening an issue](https://github.com/mkenney/go-chrome/issues/new) to report a bug. An issue template is provided when a new issue is created to help with what I need to troubleshoot a problem. If you have a suggestion for how to resolve the issue please include that as well (or better yet, open a [pull request](#pull-requests)).
+Please be as detailed as you can when [opening an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report a bug. An issue template is provided when a new issue is created to help with what I need to troubleshoot a problem. If you have a suggestion for how to resolve the issue please include that as well (or better yet, open a [pull request](#pull-requests)).
 
 ## Suggest enhancements
 
-To suggest an enhancement please start a discussion by [opening a new issue](https://github.com/mkenney/go-chrome/issues/new) and, as best you can, clearly describe any changes you would like to see and what benefit they give you or the API as a whole. All suggestions of any kind are welcome!
+To suggest an enhancement please start a discussion by [opening a new issue](https://github.com/mkenney/go-chrome/issues/new/choose) and, as best you can, clearly describe any changes you would like to see and what benefit they give you or the API as a whole. All suggestions of any kind are welcome!
 
 ## Pull requests
 
