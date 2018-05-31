@@ -23,29 +23,9 @@ This implementation is based on the [Tip-of-Tree](https://chromedevtools.github.
 
 # Announcements
 
-**RC1 available for comment**
+## v1.0.0-rc1 released
 
-The [`PR`](https://github.com/mkenney/go-chrome/pull/98) is up and available for comment. I've also [created an issue](https://github.com/mkenney/go-chrome/issues/99) for tracking RC-related updates.
-
-**Upcomming breaking changes**
-
-I will be refactoring the package layout, deleting the `cdtp` package and moving all the packages within it to the `tot` package. This is just to cleanup import statements and make the layout a bit more natural to use. The only refactoring this will require is removing that folder from your import path, changing them from (for example):
-
-```go
-import (
-	"github.com/mkenney/go-chrome/tot/cdtp/accessibility"
-)
-```
-
-to simply:
-
-```go
-import (
-	"github.com/mkenney/go-chrome/tot/accessibility"
-)
-```
-
-Once this is complete and in `master`, I will tag the repository as a `v1.0.0` release candidate.
+[`v1.0.0-rc1`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc1) has been released. Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
 
 # Examples
 
@@ -64,6 +44,28 @@ Contributions of any kind are very welcome!
 * Add integration test scripts to the `test/` directory to exercise various functions. The [screenshot script](https://github.com/mkenney/go-chrome/blob/master/test/screenshot/main.go) is already setup there.
 
 # Change Log
+
+## 2018-05-30
+
+I have [refactored the package layout](https://github.com/mkenney/go-chrome/pull/98), deleting the `cdtp` package and moving all the packages within it to the `tot` package. This cleans up import statements and make the layout a bit more natural to use. The only refactoring this requires is removing that folder from your import path, changing them from (for example):
+
+```go
+import (
+	"github.com/mkenney/go-chrome/tot/cdtp/accessibility"
+)
+```
+
+to simply:
+
+```go
+import (
+	"github.com/mkenney/go-chrome/tot/accessibility"
+)
+```
+
+The [`v1.0.0-rc1`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc1) pre-release candidate coincides with this change. Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any additional changes to further the [`v1`](https://github.com/mkenney/go-chrome/milestone/1) milestone.
+
+
 
 ## 2018-03-20
 
