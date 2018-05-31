@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"testing"
 
-	security "github.com/mkenney/go-chrome/tot/cdtp/security"
+	"github.com/mkenney/go-chrome/tot/security"
 )
 
 func TestSecurityDisable(t *testing.T) {

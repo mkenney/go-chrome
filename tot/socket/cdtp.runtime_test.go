@@ -6,8 +6,7 @@ import (
 	"testing"
 	"time"
 
-	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
-	log "github.com/sirupsen/logrus"
+	"github.com/mkenney/go-chrome/tot/runtime"
 )
 
 func TestRuntimeAwaitPromise(t *testing.T) {
@@ -91,7 +90,6 @@ func TestRuntimeAwaitPromise(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	log.Debugf("mock result: %s", mockResultBytes)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},

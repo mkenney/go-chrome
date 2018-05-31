@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"testing"
 
-	systemInfo "github.com/mkenney/go-chrome/tot/cdtp/system/info"
+	"github.com/mkenney/go-chrome/tot/system/info"
 )
 
 func TestSystemInfoGetInfo(t *testing.T) {
@@ -15,9 +15,9 @@ func TestSystemInfoGetInfo(t *testing.T) {
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.SystemInfo().GetInfo()
-	mockResult := &systemInfo.GetInfoResult{
-		GPU: &systemInfo.GPUInfo{
-			Devices: []*systemInfo.GPUDevice{{
+	mockResult := &info.GetInfoResult{
+		GPU: &info.GPUInfo{
+			Devices: []*info.GPUDevice{{
 				VendorID:     1,
 				DeviceID:     1,
 				VendorString: "VendorString",

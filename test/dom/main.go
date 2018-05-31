@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/mkenney/go-chrome/tot/cdtp/page"
+	"github.com/mkenney/go-chrome/tot/page"
 
 	chrome "github.com/mkenney/go-chrome/tot"
-	"github.com/mkenney/go-chrome/tot/cdtp/dom"
+	"github.com/mkenney/go-chrome/tot/dom"
 )
 
 func main() {

@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"testing"
 
-	console "github.com/mkenney/go-chrome/tot/cdtp/console"
+	console "github.com/mkenney/go-chrome/tot/console"
 )
 
 func TestConsoleClearMessages(t *testing.T) {

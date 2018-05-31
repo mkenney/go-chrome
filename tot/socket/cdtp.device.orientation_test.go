@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"testing"
 
-	deviceOrientation "github.com/mkenney/go-chrome/tot/cdtp/device/orientation"
+	"github.com/mkenney/go-chrome/tot/device/orientation"
 )
 
 func TestDeviceOrientationClearOverride(t *testing.T) {
@@ -15,7 +15,7 @@ func TestDeviceOrientationClearOverride(t *testing.T) {
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.DeviceOrientation().ClearOverride()
-	mockResult := &deviceOrientation.ClearOverrideResult{}
+	mockResult := &orientation.ClearOverrideResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
@@ -48,12 +48,12 @@ func TestDeviceOrientationSetOverride(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := mockSocket.DeviceOrientation().SetOverride(&deviceOrientation.SetOverrideParams{
+	resultChan := mockSocket.DeviceOrientation().SetOverride(&orientation.SetOverrideParams{
 		Alpha: 1,
 		Beta:  1,
 		Gamma: 1,
 	})
-	mockResult := &deviceOrientation.SetOverrideResult{}
+	mockResult := &orientation.SetOverrideResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
@@ -65,7 +65,7 @@ func TestDeviceOrientationSetOverride(t *testing.T) {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.DeviceOrientation().SetOverride(&deviceOrientation.SetOverrideParams{
+	resultChan = mockSocket.DeviceOrientation().SetOverride(&orientation.SetOverrideParams{
 		Alpha: 1,
 		Beta:  1,
 		Gamma: 1,

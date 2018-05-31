@@ -6,9 +6,9 @@ import (
 	"testing"
 	"time"
 
-	debugger "github.com/mkenney/go-chrome/tot/cdtp/debugger"
-	page "github.com/mkenney/go-chrome/tot/cdtp/page"
-	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
+	"github.com/mkenney/go-chrome/tot/debugger"
+	"github.com/mkenney/go-chrome/tot/page"
+	"github.com/mkenney/go-chrome/tot/runtime"
 )
 
 func TestPageAddScriptToEvaluateOnLoad(t *testing.T) {

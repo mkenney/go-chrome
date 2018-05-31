@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	"github.com/mkenney/go-chrome/tot/cdtp/layer/tree"
+	"github.com/mkenney/go-chrome/tot/layer/tree"
 )
 
 /*

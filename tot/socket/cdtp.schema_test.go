@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"testing"
 
-	schema "github.com/mkenney/go-chrome/tot/cdtp/schema"
+	"github.com/mkenney/go-chrome/tot/schema"
 )
 
 func TestSchemaGetDomains(t *testing.T) {

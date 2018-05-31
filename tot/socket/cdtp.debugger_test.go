@@ -5,9 +5,8 @@ import (
 	"net/url"
 	"testing"
 
-	debugger "github.com/mkenney/go-chrome/tot/cdtp/debugger"
-	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
-	log "github.com/sirupsen/logrus"
+	"github.com/mkenney/go-chrome/tot/debugger"
+	"github.com/mkenney/go-chrome/tot/runtime"
 )
 
 func TestDebuggerContinueToLocation(t *testing.T) {
@@ -176,7 +175,6 @@ func TestDebuggerEvaluateOnCallFrame(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	log.Debugf("mock data: %s", mockResultBytes)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},

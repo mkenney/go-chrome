@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	headlessExperimental "github.com/mkenney/go-chrome/tot/cdtp/headless/experimental"
-	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
+	"github.com/mkenney/go-chrome/tot/headless/experimental"
+	"github.com/mkenney/go-chrome/tot/runtime"
 )
 
 func TestHeadlessExperimentalBeginFrame(t *testing.T) {
@@ -16,17 +16,17 @@ func TestHeadlessExperimentalBeginFrame(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &headlessExperimental.BeginFrameParams{
+	params := &experimental.BeginFrameParams{
 		FrameTime: runtime.Timestamp(time.Now().Unix()),
 		Deadline:  runtime.Timestamp(time.Now().Unix()),
 		Interval:  1.1,
-		Screenshot: &headlessExperimental.ScreenshotParams{
-			Format:  headlessExperimental.Format.Jpeg,
+		Screenshot: &experimental.ScreenshotParams{
+			Format:  experimental.Format.Jpeg,
 			Quality: 100,
 		},
 	}
 	resultChan := mockSocket.HeadlessExperimental().BeginFrame(params)
-	mockResult := &headlessExperimental.BeginFrameResult{
+	mockResult := &experimental.BeginFrameResult{
 		HasDamage:               true,
 		MainFrameContentUpdated: true,
 		ScreenshotData:          "data",
@@ -67,7 +67,7 @@ func TestHeadlessExperimentalDisable(t *testing.T) {
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.HeadlessExperimental().Disable()
-	mockResult := &headlessExperimental.DisableResult{}
+	mockResult := &experimental.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
@@ -101,7 +101,7 @@ func TestHeadlessExperimentalEnable(t *testing.T) {
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.HeadlessExperimental().Enable()
-	mockResult := &headlessExperimental.EnableResult{}
+	mockResult := &experimental.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
@@ -134,11 +134,11 @@ func TestHeadlessExperimentalOnMainFrameReadyForScreenshots(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := make(chan *headlessExperimental.MainFrameReadyForScreenshotsEvent)
-	mockSocket.HeadlessExperimental().OnMainFrameReadyForScreenshots(func(eventData *headlessExperimental.MainFrameReadyForScreenshotsEvent) {
+	resultChan := make(chan *experimental.MainFrameReadyForScreenshotsEvent)
+	mockSocket.HeadlessExperimental().OnMainFrameReadyForScreenshots(func(eventData *experimental.MainFrameReadyForScreenshotsEvent) {
 		resultChan <- eventData
 	})
-	mockResult := &headlessExperimental.MainFrameReadyForScreenshotsEvent{}
+	mockResult := &experimental.MainFrameReadyForScreenshotsEvent{}
 	mockResultBytes, _ := json.Marshal(mockResult)
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
@@ -151,8 +151,8 @@ func TestHeadlessExperimentalOnMainFrameReadyForScreenshots(t *testing.T) {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *headlessExperimental.MainFrameReadyForScreenshotsEvent)
-	mockSocket.HeadlessExperimental().OnMainFrameReadyForScreenshots(func(eventData *headlessExperimental.MainFrameReadyForScreenshotsEvent) {
+	resultChan = make(chan *experimental.MainFrameReadyForScreenshotsEvent)
+	mockSocket.HeadlessExperimental().OnMainFrameReadyForScreenshots(func(eventData *experimental.MainFrameReadyForScreenshotsEvent) {
 		resultChan <- eventData
 	})
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
@@ -176,11 +176,11 @@ func TestHeadlessExperimentalOnNeedsBeginFramesChanged(t *testing.T) {
 	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := make(chan *headlessExperimental.NeedsBeginFramesChangedEvent)
-	mockSocket.HeadlessExperimental().OnNeedsBeginFramesChanged(func(eventData *headlessExperimental.NeedsBeginFramesChangedEvent) {
+	resultChan := make(chan *experimental.NeedsBeginFramesChangedEvent)
+	mockSocket.HeadlessExperimental().OnNeedsBeginFramesChanged(func(eventData *experimental.NeedsBeginFramesChangedEvent) {
 		resultChan <- eventData
 	})
-	mockResult := &headlessExperimental.NeedsBeginFramesChangedEvent{
+	mockResult := &experimental.NeedsBeginFramesChangedEvent{
 		NeedsBeginFrames: true,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
@@ -195,8 +195,8 @@ func TestHeadlessExperimentalOnNeedsBeginFramesChanged(t *testing.T) {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *headlessExperimental.NeedsBeginFramesChangedEvent)
-	mockSocket.HeadlessExperimental().OnNeedsBeginFramesChanged(func(eventData *headlessExperimental.NeedsBeginFramesChangedEvent) {
+	resultChan = make(chan *experimental.NeedsBeginFramesChangedEvent)
+	mockSocket.HeadlessExperimental().OnNeedsBeginFramesChanged(func(eventData *experimental.NeedsBeginFramesChangedEvent) {
 		resultChan <- eventData
 	})
 	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{

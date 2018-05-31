@@ -1,7 +1,7 @@
 package socket
 
 import (
-	"github.com/mkenney/go-chrome/tot/cdtp/device/orientation"
+	"github.com/mkenney/go-chrome/tot/device/orientation"
 )
 
 /*

@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	"github.com/mkenney/go-chrome/tot/cdtp/accessibility"
+	"github.com/mkenney/go-chrome/tot/accessibility"
 )
 
 /*

@@ -6,10 +6,10 @@ import (
 	"testing"
 	"time"
 
-	dom "github.com/mkenney/go-chrome/tot/cdtp/dom"
-	emulation "github.com/mkenney/go-chrome/tot/cdtp/emulation"
-	page "github.com/mkenney/go-chrome/tot/cdtp/page"
-	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
+	"github.com/mkenney/go-chrome/tot/dom"
+	"github.com/mkenney/go-chrome/tot/emulation"
+	"github.com/mkenney/go-chrome/tot/page"
+	"github.com/mkenney/go-chrome/tot/runtime"
 )
 
 func TestEmulationCanEmulate(t *testing.T) {

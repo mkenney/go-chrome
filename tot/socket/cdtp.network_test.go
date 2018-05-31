@@ -6,11 +6,11 @@ import (
 	"testing"
 	"time"
 
-	debugger "github.com/mkenney/go-chrome/tot/cdtp/debugger"
-	network "github.com/mkenney/go-chrome/tot/cdtp/network"
-	page "github.com/mkenney/go-chrome/tot/cdtp/page"
-	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
-	security "github.com/mkenney/go-chrome/tot/cdtp/security"
+	"github.com/mkenney/go-chrome/tot/debugger"
+	"github.com/mkenney/go-chrome/tot/network"
+	"github.com/mkenney/go-chrome/tot/page"
+	"github.com/mkenney/go-chrome/tot/runtime"
+	"github.com/mkenney/go-chrome/tot/security"
 )
 
 func TestNetworkCanClearBrowserCache(t *testing.T) {

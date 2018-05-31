@@ -6,8 +6,8 @@ import (
 	"io/ioutil"
 
 	chrome "github.com/mkenney/go-chrome/tot"
-	"github.com/mkenney/go-chrome/tot/cdtp/emulation"
-	"github.com/mkenney/go-chrome/tot/cdtp/page"
+	"github.com/mkenney/go-chrome/tot/emulation"
+	"github.com/mkenney/go-chrome/tot/page"
 	"github.com/mkenney/go-chrome/tot/socket"
 )
 

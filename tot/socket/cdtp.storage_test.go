@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"testing"
 
-	storage "github.com/mkenney/go-chrome/tot/cdtp/storage"
+	"github.com/mkenney/go-chrome/tot/storage"
 )
 
 func TestStorageClearDataForOrigin(t *testing.T) {
