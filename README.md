@@ -45,7 +45,7 @@ import (
 )
 ```
 
-Once this is complete and in `master` for a short time to [gather feedback](https://github.com/mkenney/go-chrome/issues/new), I will tag the repository as a `v1.0.0` release candidate.
+Once this is complete and in `master`, I will tag the repository as a `v1.0.0` release candidate.
 
 # Examples
 
