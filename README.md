@@ -27,6 +27,12 @@ This implementation is based on the [Tip-of-Tree](https://chromedevtools.github.
 
 [`v1.0.0-rc1`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc1) has been released. Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
 
+```toml
+[[constraint]]
+  name = "github.com/mkenney/go-chrome"
+  version = "1.0.0-rc1"
+```
+
 # Examples
 
 There are a few small examples of how to use the framework API on the [wiki](https://github.com/mkenney/go-chrome/wiki) and in the [`/test`](https://github.com/mkenney/go-chrome/tree/master/test) directory.
