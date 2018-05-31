@@ -12,53 +12,53 @@
   name = "github.com/mkenney/go-chrome"
   packages = [
     "tot",
-    "tot/cdtp/accessibility",
-    "tot/cdtp/animation",
-    "tot/cdtp/application/cache",
-    "tot/cdtp/audits",
-    "tot/cdtp/browser",
-    "tot/cdtp/cache/storage",
-    "tot/cdtp/console",
-    "tot/cdtp/css",
-    "tot/cdtp/database",
-    "tot/cdtp/debugger",
-    "tot/cdtp/device/orientation",
-    "tot/cdtp/dom",
-    "tot/cdtp/dom/debugger",
-    "tot/cdtp/dom/snapshot",
-    "tot/cdtp/dom/storage",
-    "tot/cdtp/emulation",
-    "tot/cdtp/headless/experimental",
-    "tot/cdtp/heap/profiler",
-    "tot/cdtp/indexed/db",
-    "tot/cdtp/input",
-    "tot/cdtp/io",
-    "tot/cdtp/layer/tree",
-    "tot/cdtp/log",
-    "tot/cdtp/memory",
-    "tot/cdtp/network",
-    "tot/cdtp/overlay",
-    "tot/cdtp/page",
-    "tot/cdtp/performance",
-    "tot/cdtp/profiler",
-    "tot/cdtp/runtime",
-    "tot/cdtp/schema",
-    "tot/cdtp/security",
-    "tot/cdtp/service/worker",
-    "tot/cdtp/storage",
-    "tot/cdtp/system/info",
-    "tot/cdtp/target",
-    "tot/cdtp/tethering",
-    "tot/cdtp/tracing",
-    "tot/socket"
+    "tot/accessibility",
+    "tot/animation",
+    "tot/application/cache",
+    "tot/audits",
+    "tot/browser",
+    "tot/cache/storage",
+    "tot/console",
+    "tot/css",
+    "tot/database",
+    "tot/debugger",
+    "tot/device/orientation",
+    "tot/dom",
+    "tot/dom/debugger",
+    "tot/dom/snapshot",
+    "tot/dom/storage",
+    "tot/emulation",
+    "tot/headless/experimental",
+    "tot/heap/profiler",
+    "tot/indexed/db",
+    "tot/input",
+    "tot/io",
+    "tot/layer/tree",
+    "tot/log",
+    "tot/memory",
+    "tot/network",
+    "tot/overlay",
+    "tot/page",
+    "tot/performance",
+    "tot/profiler",
+    "tot/runtime",
+    "tot/schema",
+    "tot/security",
+    "tot/service/worker",
+    "tot/socket",
+    "tot/storage",
+    "tot/system/info",
+    "tot/target",
+    "tot/tethering",
+    "tot/tracing"
   ]
-  revision = "bb9110481a7b2d0149617a0827be5fc60bfb684e"
+  revision = "730761fbfadf0ed6fa890edbf6fd0f8a80053bf0"
 
 [[projects]]
-  name = "github.com/pkg/errors"
+  branch = "master"
+  name = "github.com/mkenney/go-errors"
   packages = ["."]
-  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
-  version = "v0.8.0"
+  revision = "436418699008426bfa6889c4c818063c7c597dcf"
 
 [[projects]]
   name = "github.com/sirupsen/logrus"
@@ -70,7 +70,7 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  revision = "80db560fac1fb3e6ac81dbc7f8ae4c061f5257bd"
+  revision = "ab813273cd59e1333f7ae7bff5d027d4aadf528c"
 
 [[projects]]
   branch = "master"
@@ -79,11 +79,11 @@
     "unix",
     "windows"
   ]
-  revision = "c488ab1dd8481ef762f96a79a9577c27825be697"
+  revision = "c11f84a56e43e20a78cee75a7c034031ecf57d1f"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "30838d95c9dddb071f847f88a3807eb8f361c1a3339f1b0bad664697388978f0"
+  inputs-digest = "f7f03460548614af3090e32924fcb6b836804b156623c46986743b31f0e0f8a8"
   solver-name = "gps-cdcl"
   solver-version = 1

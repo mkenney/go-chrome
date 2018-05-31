@@ -61,18 +61,6 @@
   revision = "436418699008426bfa6889c4c818063c7c597dcf"
 
 [[projects]]
-  branch = "master"
-  name = "github.com/mkenney/go-log-fmt"
-  packages = ["."]
-  revision = "c98a00db7ec57537dd33b8bd868c4a75957ed5c2"
-
-[[projects]]
-  name = "github.com/sanity-io/litter"
-  packages = ["."]
-  revision = "ae543b7ba8fd6af63e4976198f146e1348ae53c1"
-  version = "v1.1.0"
-
-[[projects]]
   name = "github.com/sirupsen/logrus"
   packages = ["."]
   revision = "c155da19408a8799da419ed3eeb0cb5db0ad5dbc"
@@ -96,6 +84,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "c0134ccfba10e9f29dccabfedc830d0911eac54ba25b61a8ff2c0bbd41083ca5"
+  inputs-digest = "62825bb2ab0ba2b426f86e09984631ae002a09a62bf2df20972b0191e3765e20"
   solver-name = "gps-cdcl"
   solver-version = 1
