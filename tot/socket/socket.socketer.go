@@ -461,6 +461,7 @@ func (socket *Socket) Stop() {
 		select {
 		case <-socket.listenCh:
 		case <-time.After(1 * time.Second):
+			socket.conn.Close()
 		}
 		log.Debugf("socket #%d: socket stopped", socket.socketID)
 	}
