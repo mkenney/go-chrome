@@ -25,11 +25,14 @@ Put an `x` in all the boxes that apply. If you're unsure about any of them, don'
 * [ ] I have created tests which fail without the change (if possible) and prove my fix is effective or that my feature works.
 * [ ] I have added necessary documentation (if appropriate).
 
-### What does this implement/fix? Explain your changes.
+### What does this implement/fix? Please explain these changes.
 
 
 
 ### Does this close any currently open issues?
+<!--
+If so, please link to them here.
+-->
 
 
 
