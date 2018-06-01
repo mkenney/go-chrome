@@ -65,13 +65,6 @@ func main() {
 	tab.Socket().Stop()
 	fmt.Printf("GOT HERE")
 
-	cnt = 0
-	for {
-		fmt.Printf(".")
-		time.Sleep(1 * time.Second)
-		cnt++
-		if cnt > 10 {
-			break
-		}
-	}
+	// Don't exit before the logs are written
+	time.Sleep(5 * time.Second)
 }
