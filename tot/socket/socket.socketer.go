@@ -285,16 +285,15 @@ Listen is a Socketer implementation.
 func (socket *Socket) Listen() {
 	socket.listenCh = make(chan bool)
 	socket.listening = true
-	errCh := make(chan error)
-	go socket.listen(errCh)
+	go socket.listen()
 }
 
-func (socket *Socket) listen(errCh chan error) {
+func (socket *Socket) listen() error {
 	var err error
 
 	err = socket.Connect()
 	if nil != err {
-		errCh <- errs.Wrap(err, "socket connection failed")
+		return errs.Wrap(err, "socket connection failed")
 	}
 	defer socket.Disconnect()
 
@@ -357,9 +356,8 @@ func (socket *Socket) listen(errCh chan error) {
 	if nil != err {
 		err = errs.Wrap(err, "socket read failed")
 	}
-
-	errCh <- err
 	socket.listening = false
+	return err
 }
 
 /*
@@ -461,6 +459,7 @@ func (socket *Socket) Stop() {
 		select {
 		case <-socket.listenCh:
 		case <-time.After(1 * time.Second):
+			socket.conn.Close()
 		}
 		log.Debugf("socket #%d: socket stopped", socket.socketID)
 	}

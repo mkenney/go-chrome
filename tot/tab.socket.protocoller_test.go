@@ -69,10 +69,6 @@ func TestProtocoller1(t *testing.T) {
 	if testVal := tab.DOMSnapshot(); nil == testVal {
 		t.Errorf("Expected struct, received nil")
 	}
-
-	if testVal := tab.DOMStorage(); nil == testVal {
-		t.Errorf("Expected struct, received nil")
-	}
 }
 
 func TestProtocoller2(t *testing.T) {
@@ -84,6 +80,10 @@ func TestProtocoller2(t *testing.T) {
 		"", //"path/to/workdir",
 	)
 	tab, _ := browser.NewTab("https://TestProtocoller")
+	if testVal := tab.DOMStorage(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
 	if testVal := tab.DOM(); nil == testVal {
 		t.Errorf("Expected struct, received nil")
 	}
@@ -135,18 +135,6 @@ func TestProtocoller2(t *testing.T) {
 	if testVal := tab.Page(); nil == testVal {
 		t.Errorf("Expected struct, received nil")
 	}
-
-	if testVal := tab.Performance(); nil == testVal {
-		t.Errorf("Expected struct, received nil")
-	}
-
-	if testVal := tab.Profiler(); nil == testVal {
-		t.Errorf("Expected struct, received nil")
-	}
-
-	if testVal := tab.Runtime(); nil == testVal {
-		t.Errorf("Expected struct, received nil")
-	}
 }
 
 func TestProtocoller3(t *testing.T) {
@@ -158,6 +146,18 @@ func TestProtocoller3(t *testing.T) {
 		"", //"path/to/workdir",
 	)
 	tab, _ := browser.NewTab("https://TestProtocoller")
+	if testVal := tab.Performance(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Profiler(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
+	if testVal := tab.Runtime(); nil == testVal {
+		t.Errorf("Expected struct, received nil")
+	}
+
 	if testVal := tab.Schema(); nil == testVal {
 		t.Errorf("Expected struct, received nil")
 	}
