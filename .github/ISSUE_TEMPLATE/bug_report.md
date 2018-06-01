@@ -10,7 +10,7 @@ just delete everything here and write out the request, providing as much
 context as you can.
 -->
 
-### What version of `go-chrome` are you using (tagged commit, commit hash, or `master`)?
+### What version of `go-chrome` are you using (tag, hash, etc.)?
 <!--
 A commit hash or tag is preferable. The master branch changes often.
 -->
