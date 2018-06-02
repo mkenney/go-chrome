@@ -26,7 +26,16 @@ type MockChromeWebSocket struct {
 	sleep         time.Duration
 }
 
-func (socket *MockChromeWebSocket) Close() error { return nil }
+func (socket *MockChromeWebSocket) Close() error {
+	socket.mockResponses = []*Response{
+		&Response{},
+		&Response{},
+		&Response{},
+		&Response{},
+		&Response{},
+	}
+	return nil
+}
 
 /*
 This method populates a queue of mock data that will be delivered to the
@@ -67,7 +76,10 @@ func (socket *MockChromeWebSocket) ReadJSON(v interface{}) error {
 	jsonBytes, err := json.Marshal(data)
 	log.Debugf("Mock ReadJSON(): returning mock data %s", jsonBytes)
 	err = json.Unmarshal(jsonBytes, &v)
-	return errs.Wrap(err, fmt.Sprintf("could not unmarshal %s", jsonBytes))
+	if nil != err {
+		return errs.Wrap(err, fmt.Sprintf("could not unmarshal %s", jsonBytes))
+	}
+	return nil
 }
 
 /*

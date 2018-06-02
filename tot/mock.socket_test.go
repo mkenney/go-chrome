@@ -153,7 +153,8 @@ func (socket *MockSocket) SendCommand(command socket.Commander) chan *socket.Res
 /*
 Stop is a Socketer implementation.
 */
-func (socket *MockSocket) Stop() {
+func (socket *MockSocket) Stop() error {
+	return nil
 }
 
 /*

@@ -15,10 +15,20 @@ func TestNewSocket(t *testing.T) {
 	}
 }
 
+func TestSocketStop(t *testing.T) {
+	socketURL, _ := url.Parse("https://test:9222/TestSocketStop")
+	mockSocket := NewMock(socketURL)
+	mockSocket.Listen()
+	time.Sleep(1 * time.Second)
+	if err := mockSocket.Stop(); nil != err {
+		t.Errorf("Expected nil, got error: %v", err)
+	}
+}
+
 func TestSocketDisconnect(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestSocketDisconnect")
 	mockSocket := NewMock(socketURL)
-	if err := mockSocket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() {
+	if err := mockSocket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() && "errors.Err" != reflect.TypeOf(err).String() {
 		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
 	}
 
@@ -27,8 +37,7 @@ func TestSocketDisconnect(t *testing.T) {
 	mockSocket.Listen()
 	mockSocket.Conn().(*MockChromeWebSocket).Sleep(10 * time.Second)
 	start := time.Now()
-	//time.Sleep(1 * time.Second)
-	if err := mockSocket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() {
+	if err := mockSocket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() && "errors.Err" != reflect.TypeOf(err).String() {
 		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
 	}
 	elapsed := time.Since(start)

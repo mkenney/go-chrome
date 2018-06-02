@@ -66,11 +66,14 @@ func (socket *Socket) Disconnect() error {
 	socket.Stop()
 	err := socket.conn.Close()
 	if nil != err {
-		err = errs.Wrap(err, "disconnect failed")
+		socket.listenErr.With(err)
 	}
 	socket.conn = nil
 	socket.connected = false
-	return err
+	if 0 == len(socket.listenErr) {
+		return nil
+	}
+	return socket.listenErr
 }
 
 /*
