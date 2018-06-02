@@ -27,13 +27,7 @@ type MockChromeWebSocket struct {
 }
 
 func (socket *MockChromeWebSocket) Close() error {
-	socket.mockResponses = []*Response{
-		&Response{},
-		&Response{},
-		&Response{},
-		&Response{},
-		&Response{},
-	}
+	socket.mockResponses = []*Response{{}, {}, {}, {}, {}}
 	return nil
 }
 
