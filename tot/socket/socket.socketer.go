@@ -91,18 +91,19 @@ func NextSocketID() int {
 Socket is a Socketer implementation.
 */
 type Socket struct {
-	commands     CommandMapper
 	commandID    int
 	commandIDMux *sync.Mutex
+	commands     CommandMapper
 	conn         WebSocketer
 	connected    bool
 	handlers     EventHandlerMapper
 	listenCh     chan bool
-	newSocket    func(socketURL *url.URL) (WebSocketer, error)
-	url          *url.URL
-	socketID     int
+	listenErr    errs.Err
 	listening    bool
 	mux          *sync.Mutex
+	newSocket    func(socketURL *url.URL) (WebSocketer, error)
+	socketID     int
+	url          *url.URL
 
 	// Protocol interfaces for the API.
 	accessibility        *AccessibilityProtocol
@@ -302,6 +303,14 @@ func (socket *Socket) listen() error {
 		err = socket.ReadJSON(&response)
 		if nil != err {
 			log.Errorf("socket #%d - %v", socket.socketID, err)
+			err = errs.Wrap(err, fmt.Sprintf("socket #%d - socket read failed", socket.socketID))
+			socket.listenErr = err.(errs.Err).With(socket.listenErr)
+		}
+		if 0 == response.ID &&
+			"" == response.Method &&
+			0 == len(response.Params) &&
+			0 == len(response.Result) {
+			log.Errorf("socket #%d - nil response from socket", socket.socketID)
 		}
 
 		if response.ID > 0 {
@@ -453,7 +462,7 @@ websocket connection.
 
 Stop is a Socketer implementation.
 */
-func (socket *Socket) Stop() {
+func (socket *Socket) Stop() error {
 	if socket.listening {
 		socket.listening = false
 		select {
@@ -463,6 +472,10 @@ func (socket *Socket) Stop() {
 		}
 		log.Debugf("socket #%d: socket stopped", socket.socketID)
 	}
+	if 0 == len(socket.listenErr) {
+		return nil
+	}
+	return socket.listenErr
 }
 
 /*

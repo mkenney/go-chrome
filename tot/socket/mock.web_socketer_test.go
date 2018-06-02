@@ -23,9 +23,19 @@ func NewMockWebsocket(socketURL *url.URL) (WebSocketer, error) {
 
 type MockChromeWebSocket struct {
 	mockResponses []*Response
+	sleep         time.Duration
 }
 
-func (socket *MockChromeWebSocket) Close() error { return nil }
+func (socket *MockChromeWebSocket) Close() error {
+	socket.mockResponses = []*Response{
+		&Response{},
+		&Response{},
+		&Response{},
+		&Response{},
+		&Response{},
+	}
+	return nil
+}
 
 /*
 This method populates a queue of mock data that will be delivered to the
@@ -47,6 +57,11 @@ func (socket *MockChromeWebSocket) ReadJSON(v interface{}) error {
 	var data interface{}
 	time.Sleep(time.Millisecond * 10)
 
+	if socket.sleep > 0 {
+		time.Sleep(socket.sleep)
+		socket.sleep = 0
+	}
+
 	if len(socket.mockResponses) > 0 {
 		data = socket.mockResponses[0]
 		socket.mockResponses = socket.mockResponses[1:]
@@ -61,7 +76,18 @@ func (socket *MockChromeWebSocket) ReadJSON(v interface{}) error {
 	jsonBytes, err := json.Marshal(data)
 	log.Debugf("Mock ReadJSON(): returning mock data %s", jsonBytes)
 	err = json.Unmarshal(jsonBytes, &v)
-	return errs.Wrap(err, fmt.Sprintf("could not unmarshal %s", jsonBytes))
+	if nil != err {
+		return errs.Wrap(err, fmt.Sprintf("could not unmarshal %s", jsonBytes))
+	}
+	return nil
+}
+
+/*
+Sleep sets the sleep duration for the next ReadJSON call to replicate
+timeouts and delays.
+*/
+func (socket *MockChromeWebSocket) Sleep(duration time.Duration) {
+	socket.sleep = duration
 }
 
 /*

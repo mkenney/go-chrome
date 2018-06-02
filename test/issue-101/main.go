@@ -57,7 +57,7 @@ func main() {
 		fmt.Printf(".")
 		time.Sleep(1 * time.Second)
 		cnt++
-		if cnt > 10 {
+		if cnt > 5 {
 			break
 		}
 	}

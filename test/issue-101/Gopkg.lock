@@ -67,12 +67,6 @@
   revision = "c98a00db7ec57537dd33b8bd868c4a75957ed5c2"
 
 [[projects]]
-  name = "github.com/sanity-io/litter"
-  packages = ["."]
-  revision = "ae543b7ba8fd6af63e4976198f146e1348ae53c1"
-  version = "v1.1.0"
-
-[[projects]]
   name = "github.com/sirupsen/logrus"
   packages = ["."]
   revision = "c155da19408a8799da419ed3eeb0cb5db0ad5dbc"
@@ -96,6 +90,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "c0134ccfba10e9f29dccabfedc830d0911eac54ba25b61a8ff2c0bbd41083ca5"
+  inputs-digest = "1dc881fec2fd38d911b17e19bd02f0c7d5ad69a2131474cd0f26b870e97aae5f"
   solver-name = "gps-cdcl"
   solver-version = 1
