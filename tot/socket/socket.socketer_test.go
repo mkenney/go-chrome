@@ -4,6 +4,7 @@ import (
 	"net/url"
 	"reflect"
 	"testing"
+	"time"
 )
 
 func TestNewSocket(t *testing.T) {
@@ -16,9 +17,23 @@ func TestNewSocket(t *testing.T) {
 
 func TestSocketDisconnect(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestSocketDisconnect")
-	socket := NewMock(socketURL)
-	if err := socket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() {
+	mockSocket := NewMock(socketURL)
+	if err := mockSocket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() {
 		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
+	}
+
+	// Test the disconnect timeout
+	mockSocket = NewMock(socketURL)
+	mockSocket.Listen()
+	mockSocket.Conn().(*MockChromeWebSocket).Sleep(10 * time.Second)
+	start := time.Now()
+	//time.Sleep(1 * time.Second)
+	if err := mockSocket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() {
+		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
+	}
+	elapsed := time.Since(start)
+	if elapsed < 1*time.Second {
+		t.Errorf("Expected disconnect timeout in 1 seconds, %s elapsed", elapsed)
 	}
 }
 
