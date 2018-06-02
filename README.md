@@ -23,6 +23,22 @@ This implementation is based on the [Tip-of-Tree](https://chromedevtools.github.
 
 # Announcements
 
+## v1.0.0-rc2 released
+
+[`v1.0.0-rc2`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc2) has been released.
+
+* Fixes an issue with zombie listen process
+* Fixes an issue with zombie stop process
+* Adds test coverage for socket timeouts
+
+Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
+
+```toml
+[[constraint]]
+  name = "github.com/mkenney/go-chrome"
+  version = "1.0.0-rc2"
+```
+
 ## v1.0.0-rc1 released
 
 [`v1.0.0-rc1`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc1) has been released. Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
