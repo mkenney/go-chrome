@@ -3,7 +3,6 @@
 </p>
 
 # go-chrome
-[![stability-release-candidate](https://img.shields.io/badge/stability-release%20candidate-48c9b0.svg)](https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#release-candidate)
 
 <p align="center">
 	<a href="https://github.com/mkenney/go-chrome/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mkenney/go-chrome.svg" alt="MIT License"></a>
