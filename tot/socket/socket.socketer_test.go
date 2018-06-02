@@ -15,6 +15,20 @@ func TestNewSocket(t *testing.T) {
 	}
 }
 
+func TestCommandNotFound(t *testing.T) {
+	socketURL, _ := url.Parse("https://test:9222/TestCommandNotFound")
+	mockSocket := NewMock(socketURL)
+	mockSocket.Listen()
+	defer mockSocket.Stop()
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID:     999,
+		Error:  &Error{},
+		Method: "Some.methodError",
+		Result: []byte(`"Mock Command Result"`),
+	})
+	time.Sleep(1 * time.Second)
+}
+
 func TestSocketStop(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestSocketStop")
 	mockSocket := NewMock(socketURL)
