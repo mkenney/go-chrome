@@ -5,21 +5,21 @@ import (
 	"net/url"
 	"testing"
 
-	debugger "github.com/mkenney/go-chrome/tot/cdtp/debugger"
-	profiler "github.com/mkenney/go-chrome/tot/cdtp/profiler"
-	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
+	"github.com/mkenney/go-chrome/tot/debugger"
+	"github.com/mkenney/go-chrome/tot/profiler"
+	"github.com/mkenney/go-chrome/tot/runtime"
 )
 
 func TestProfilerDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestProfilerDisable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().Disable()
 	mockResult := &profiler.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -30,7 +30,7 @@ func TestProfilerDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -45,15 +45,15 @@ func TestProfilerDisable(t *testing.T) {
 }
 
 func TestProfilerEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestProfilerEnable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().Enable()
 	mockResult := &profiler.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -64,7 +64,7 @@ func TestProfilerEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -79,9 +79,9 @@ func TestProfilerEnable(t *testing.T) {
 }
 
 func TestProfilerGetBestEffortCoverage(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestProfilerGetBestEffortCoverage")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().GetBestEffortCoverage()
@@ -101,7 +101,7 @@ func TestProfilerGetBestEffortCoverage(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -115,7 +115,7 @@ func TestProfilerGetBestEffortCoverage(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().GetBestEffortCoverage()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -130,9 +130,9 @@ func TestProfilerGetBestEffortCoverage(t *testing.T) {
 }
 
 func TestProfilerSetSamplingInterval(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestProfilerSetSamplingInterval")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &profiler.SetSamplingIntervalParams{
@@ -141,7 +141,7 @@ func TestProfilerSetSamplingInterval(t *testing.T) {
 	resultChan := mockSocket.Profiler().SetSamplingInterval(params)
 	mockResult := &profiler.SetSamplingIntervalResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -152,7 +152,7 @@ func TestProfilerSetSamplingInterval(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().SetSamplingInterval(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -167,15 +167,15 @@ func TestProfilerSetSamplingInterval(t *testing.T) {
 }
 
 func TestProfilerStart(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestProfilerStart")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().Start()
 	mockResult := &profiler.StartResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -186,7 +186,7 @@ func TestProfilerStart(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().Start()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -201,9 +201,9 @@ func TestProfilerStart(t *testing.T) {
 }
 
 func TestProfilerStartPreciseCoverage(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestProfilerStartPreciseCoverage")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &profiler.StartPreciseCoverageParams{
@@ -213,7 +213,7 @@ func TestProfilerStartPreciseCoverage(t *testing.T) {
 	resultChan := mockSocket.Profiler().StartPreciseCoverage(params)
 	mockResult := &profiler.StartPreciseCoverageResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -224,7 +224,7 @@ func TestProfilerStartPreciseCoverage(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().StartPreciseCoverage(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -239,15 +239,15 @@ func TestProfilerStartPreciseCoverage(t *testing.T) {
 }
 
 func TestProfilerStartTypeProfile(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestProfilerStartTypeProfile")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().StartTypeProfile()
 	mockResult := &profiler.StartTypeProfileResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -258,7 +258,7 @@ func TestProfilerStartTypeProfile(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().StartTypeProfile()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -273,9 +273,9 @@ func TestProfilerStartTypeProfile(t *testing.T) {
 }
 
 func TestProfilerStop(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestProfilerStop")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().Stop()
@@ -299,7 +299,7 @@ func TestProfilerStop(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -313,7 +313,7 @@ func TestProfilerStop(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().Stop()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -328,15 +328,15 @@ func TestProfilerStop(t *testing.T) {
 }
 
 func TestProfilerStopPreciseCoverage(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestProfilerStopPreciseCoverage")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().StopPreciseCoverage()
 	mockResult := &profiler.StopPreciseCoverageResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -347,7 +347,7 @@ func TestProfilerStopPreciseCoverage(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().StopPreciseCoverage()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -362,15 +362,15 @@ func TestProfilerStopPreciseCoverage(t *testing.T) {
 }
 
 func TestProfilerStopTypeProfile(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestProfilerStopTypeProfile")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().StopTypeProfile()
 	mockResult := &profiler.StopTypeProfileResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -381,7 +381,7 @@ func TestProfilerStopTypeProfile(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().StopTypeProfile()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -396,9 +396,9 @@ func TestProfilerStopTypeProfile(t *testing.T) {
 }
 
 func TestProfilerTakePreciseCoverage(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestProfilerTakePreciseCoverage")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().TakePreciseCoverage()
@@ -418,7 +418,7 @@ func TestProfilerTakePreciseCoverage(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -432,7 +432,7 @@ func TestProfilerTakePreciseCoverage(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().TakePreciseCoverage()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -447,9 +447,9 @@ func TestProfilerTakePreciseCoverage(t *testing.T) {
 }
 
 func TestProfilerTakeTypeProfile(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestProfilerTakeTypeProfile")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().TakeTypeProfile()
@@ -466,7 +466,7 @@ func TestProfilerTakeTypeProfile(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -480,7 +480,7 @@ func TestProfilerTakeTypeProfile(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Profiler().TakeTypeProfile()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -495,9 +495,9 @@ func TestProfilerTakeTypeProfile(t *testing.T) {
 }
 
 func TestProfilerOnConsoleProfileFinished(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestProfilerOnConsoleProfileFinished")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *profiler.ConsoleProfileFinishedEvent)
@@ -527,11 +527,11 @@ func TestProfilerOnConsoleProfileFinished(t *testing.T) {
 		Title: "title",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Profiler.consoleProfileFinished",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -545,7 +545,7 @@ func TestProfilerOnConsoleProfileFinished(t *testing.T) {
 	mockSocket.Profiler().OnConsoleProfileFinished(func(eventData *profiler.ConsoleProfileFinishedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -561,9 +561,9 @@ func TestProfilerOnConsoleProfileFinished(t *testing.T) {
 }
 
 func TestProfilerOnConsoleProfileStarted(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestProfilerOnConsoleProfileStarted")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *profiler.ConsoleProfileStartedEvent)
@@ -576,11 +576,11 @@ func TestProfilerOnConsoleProfileStarted(t *testing.T) {
 		Title:    "title",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Profiler.consoleProfileStarted",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -594,7 +594,7 @@ func TestProfilerOnConsoleProfileStarted(t *testing.T) {
 	mockSocket.Profiler().OnConsoleProfileStarted(func(eventData *profiler.ConsoleProfileStartedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

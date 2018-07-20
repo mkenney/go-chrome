@@ -5,20 +5,20 @@ import (
 	"net/url"
 	"testing"
 
-	io "github.com/mkenney/go-chrome/tot/cdtp/io"
-	tracing "github.com/mkenney/go-chrome/tot/cdtp/tracing"
+	"github.com/mkenney/go-chrome/tot/io"
+	"github.com/mkenney/go-chrome/tot/tracing"
 )
 
 func TestTracingEnd(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTracingEnd")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Tracing().End()
 	mockResult := &tracing.EndResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -29,7 +29,7 @@ func TestTracingEnd(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Tracing().End()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -44,9 +44,9 @@ func TestTracingEnd(t *testing.T) {
 }
 
 func TestTracingGetCategories(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTracingGetCategories")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Tracing().GetCategories()
@@ -54,7 +54,7 @@ func TestTracingGetCategories(t *testing.T) {
 		Categories: []string{"cat1", "cat2"},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -68,7 +68,7 @@ func TestTracingGetCategories(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Tracing().GetCategories()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -83,9 +83,9 @@ func TestTracingGetCategories(t *testing.T) {
 }
 
 func TestTracingRecordClockSyncMarker(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTracingRecordClockSyncMarker")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &tracing.RecordClockSyncMarkerParams{
@@ -94,7 +94,7 @@ func TestTracingRecordClockSyncMarker(t *testing.T) {
 	resultChan := mockSocket.Tracing().RecordClockSyncMarker(params)
 	mockResult := &tracing.RecordClockSyncMarkerResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -105,7 +105,7 @@ func TestTracingRecordClockSyncMarker(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Tracing().RecordClockSyncMarker(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -120,9 +120,9 @@ func TestTracingRecordClockSyncMarker(t *testing.T) {
 }
 
 func TestTracingRequestMemoryDump(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTracingRequestMemoryDump")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Tracing().RequestMemoryDump()
@@ -131,7 +131,7 @@ func TestTracingRequestMemoryDump(t *testing.T) {
 		Success:  true,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -145,7 +145,7 @@ func TestTracingRequestMemoryDump(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Tracing().RequestMemoryDump()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -160,9 +160,9 @@ func TestTracingRequestMemoryDump(t *testing.T) {
 }
 
 func TestTracingStart(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTracingStart")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &tracing.StartParams{
@@ -184,7 +184,7 @@ func TestTracingStart(t *testing.T) {
 	resultChan := mockSocket.Tracing().Start(params)
 	mockResult := &tracing.StartResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -195,7 +195,7 @@ func TestTracingStart(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Tracing().Start(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -210,9 +210,9 @@ func TestTracingStart(t *testing.T) {
 }
 
 func TestTracingOnBufferUsage(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTracingOnBufferUsage")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *tracing.BufferUsageEvent)
@@ -225,11 +225,11 @@ func TestTracingOnBufferUsage(t *testing.T) {
 		Value:       1,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Tracing.bufferUsage",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -243,7 +243,7 @@ func TestTracingOnBufferUsage(t *testing.T) {
 	mockSocket.Tracing().OnBufferUsage(func(eventData *tracing.BufferUsageEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -259,9 +259,9 @@ func TestTracingOnBufferUsage(t *testing.T) {
 }
 
 func TestTracingOnDataCollected(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTracingOnDataCollected")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *tracing.DataCollectedEvent)
@@ -272,11 +272,11 @@ func TestTracingOnDataCollected(t *testing.T) {
 		Value: []map[string]string{{"key": "value"}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Tracing.dataCollected",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -290,7 +290,7 @@ func TestTracingOnDataCollected(t *testing.T) {
 	mockSocket.Tracing().OnDataCollected(func(eventData *tracing.DataCollectedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -306,9 +306,9 @@ func TestTracingOnDataCollected(t *testing.T) {
 }
 
 func TestTracingOnTracingComplete(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTracingOnTracingComplete")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *tracing.CompleteEvent)
@@ -319,11 +319,11 @@ func TestTracingOnTracingComplete(t *testing.T) {
 		Stream: io.StreamHandle("StreamHandle"),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Tracing.tracingComplete",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -337,7 +337,7 @@ func TestTracingOnTracingComplete(t *testing.T) {
 	mockSocket.Tracing().OnTracingComplete(func(eventData *tracing.CompleteEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

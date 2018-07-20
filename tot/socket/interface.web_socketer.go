@@ -5,10 +5,6 @@ WebSocketer defines the minimum interface required API for web socket
 connections to the Chromium browser.
 */
 type WebSocketer interface {
-	// AddMockData provides an interface for mocking data. It should panic if
-	// used outside of a unit test.
-	AddMockData(response *Response)
-
 	// Close closes the current websocket connection.
 	Close() error
 

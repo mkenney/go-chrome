@@ -6,21 +6,21 @@ import (
 	"testing"
 	"time"
 
-	log "github.com/mkenney/go-chrome/tot/cdtp/log"
-	network "github.com/mkenney/go-chrome/tot/cdtp/network"
-	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
+	"github.com/mkenney/go-chrome/tot/log"
+	"github.com/mkenney/go-chrome/tot/network"
+	"github.com/mkenney/go-chrome/tot/runtime"
 )
 
 func TestLogClear(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLogClear")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Log().Clear()
 	mockResult := &log.ClearResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -31,7 +31,7 @@ func TestLogClear(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Log().Clear()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -46,15 +46,15 @@ func TestLogClear(t *testing.T) {
 }
 
 func TestLogDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLogDisable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Log().Disable()
 	mockResult := &log.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -65,7 +65,7 @@ func TestLogDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Log().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -80,15 +80,15 @@ func TestLogDisable(t *testing.T) {
 }
 
 func TestLogEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLogEnable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Log().Enable()
 	mockResult := &log.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -99,7 +99,7 @@ func TestLogEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Log().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -114,9 +114,9 @@ func TestLogEnable(t *testing.T) {
 }
 
 func TestLogStartViolationsReport(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLogStartViolationsReport")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &log.StartViolationsReportParams{
@@ -128,7 +128,7 @@ func TestLogStartViolationsReport(t *testing.T) {
 	resultChan := mockSocket.Log().StartViolationsReport(params)
 	mockResult := &log.StartViolationsReportResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -139,7 +139,7 @@ func TestLogStartViolationsReport(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Log().StartViolationsReport(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -154,15 +154,15 @@ func TestLogStartViolationsReport(t *testing.T) {
 }
 
 func TestLogStopViolationsReport(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLogStopViolationsReport")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Log().StopViolationsReport()
 	mockResult := &log.StopViolationsReportResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -173,7 +173,7 @@ func TestLogStopViolationsReport(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Log().StopViolationsReport()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -188,9 +188,9 @@ func TestLogStopViolationsReport(t *testing.T) {
 }
 
 func TestLogOnEntryAdded(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestLogOnEntryAdded")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *log.EntryAddedEvent)
@@ -212,11 +212,11 @@ func TestLogOnEntryAdded(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Log.entryAdded",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -230,7 +230,7 @@ func TestLogOnEntryAdded(t *testing.T) {
 	mockSocket.Log().OnEntryAdded(func(eventData *log.EntryAddedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

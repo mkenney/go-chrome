@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	"github.com/mkenney/go-chrome/tot/cdtp/performance"
+	"github.com/mkenney/go-chrome/tot/performance"
 )
 
 /*
@@ -97,7 +97,7 @@ func (protocol *PerformanceProtocol) OnMetrics(
 		"Performance.metrics",
 		func(response *Response) {
 			event := &performance.MetricsEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

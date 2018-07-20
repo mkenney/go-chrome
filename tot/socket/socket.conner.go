@@ -3,7 +3,7 @@ package socket
 import (
 	"fmt"
 
-	"github.com/pkg/errors"
+	errs "github.com/mkenney/go-errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -12,7 +12,7 @@ Conn returns the current web socket pointer.
 
 Conn is a Conner implementation.
 */
-func (socket *Socket) Conn() *ChromeWebSocket {
+func (socket *Socket) Conn() WebSocketer {
 	socket.Connect()
 	return socket.conn
 }
@@ -35,13 +35,13 @@ func (socket *Socket) Connect() error {
 	if nil != err {
 		log.Debugf("socket #%d - socket.Connect(): received error %s", socket.socketID, err.Error())
 		socket.connected = false
-		return errors.Wrap(err, "creating socket failed")
+		return errs.Wrap(err, "Connect() failed while creating socket")
 	}
-	socket.conn = websocket
 
-	log.Debugf("socket #%d - socket.Connect(): connection to %s established", socket.socketID, socket.url.String())
+	socket.conn = websocket
 	socket.connected = true
 
+	log.Debugf("socket #%d - socket.Connect(): connection to %s established", socket.socketID, socket.url.String())
 	return nil
 }
 
@@ -61,12 +61,19 @@ Disconnect is a Conner implementation.
 */
 func (socket *Socket) Disconnect() error {
 	if !socket.connected {
-		return fmt.Errorf("Could not disconnect (no connection exists)")
+		return fmt.Errorf("not connected")
 	}
+	socket.Stop()
 	err := socket.conn.Close()
+	if nil != err {
+		socket.listenErr.With(err)
+	}
 	socket.conn = nil
 	socket.connected = false
-	return errors.Wrap(err, "disconnect failed")
+	if 0 == len(socket.listenErr) {
+		return nil
+	}
+	return socket.listenErr
 }
 
 /*
@@ -77,9 +84,15 @@ ReadJSON is a Conner implementation.
 func (socket *Socket) ReadJSON(v interface{}) error {
 	err := socket.Connect()
 	if nil != err {
-		return errors.Wrap(err, "socket connect failed")
+		return errs.Wrap(err, "not connected")
 	}
-	return socket.conn.ReadJSON(&v)
+
+	err = socket.conn.ReadJSON(&v)
+	if nil != err {
+		return errs.Wrap(err, "socket read failed")
+	}
+
+	return nil
 }
 
 /*
@@ -90,7 +103,13 @@ WriteJSON is a Conner implementation.
 func (socket *Socket) WriteJSON(v interface{}) error {
 	err := socket.Connect()
 	if nil != err {
-		return errors.Wrap(err, "socket connect failed")
+		return errs.Wrap(err, "not connected")
 	}
-	return socket.conn.WriteJSON(v)
+
+	err = socket.conn.WriteJSON(v)
+	if nil != err {
+		return errs.Wrap(err, "socket write failed")
+	}
+
+	return nil
 }

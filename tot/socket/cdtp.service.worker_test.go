@@ -6,25 +6,25 @@ import (
 	"testing"
 	"time"
 
-	serviceWorker "github.com/mkenney/go-chrome/tot/cdtp/service/worker"
-	target "github.com/mkenney/go-chrome/tot/cdtp/target"
+	"github.com/mkenney/go-chrome/tot/service/worker"
+	"github.com/mkenney/go-chrome/tot/target"
 )
 
 func TestServiceWorkerDeliverPushMessage(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerDeliverPushMessage")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &serviceWorker.DeliverPushMessageParams{
+	params := &worker.DeliverPushMessageParams{
 		Origin:         "origin",
 		RegistrationID: "registration-id",
 		Data:           "data",
 	}
 	resultChan := mockSocket.ServiceWorker().DeliverPushMessage(params)
-	mockResult := &serviceWorker.DeliverPushMessageResult{}
+	mockResult := &worker.DeliverPushMessageResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -35,7 +35,7 @@ func TestServiceWorkerDeliverPushMessage(t *testing.T) {
 	}
 
 	resultChan = mockSocket.ServiceWorker().DeliverPushMessage(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -50,15 +50,15 @@ func TestServiceWorkerDeliverPushMessage(t *testing.T) {
 }
 
 func TestServiceWorkerDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerDisable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.ServiceWorker().Disable()
-	mockResult := &serviceWorker.DisableResult{}
+	mockResult := &worker.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -69,7 +69,7 @@ func TestServiceWorkerDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.ServiceWorker().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -84,21 +84,21 @@ func TestServiceWorkerDisable(t *testing.T) {
 }
 
 func TestServiceWorkerDispatchSyncEvent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerDispatchSyncEvent")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &serviceWorker.DispatchSyncEventParams{
+	params := &worker.DispatchSyncEventParams{
 		Origin:         "origin",
 		RegistrationID: "registration-id",
 		Tag:            "tag",
 		LastChance:     true,
 	}
 	resultChan := mockSocket.ServiceWorker().DispatchSyncEvent(params)
-	mockResult := &serviceWorker.DispatchSyncEventResult{}
+	mockResult := &worker.DispatchSyncEventResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -109,7 +109,7 @@ func TestServiceWorkerDispatchSyncEvent(t *testing.T) {
 	}
 
 	resultChan = mockSocket.ServiceWorker().DispatchSyncEvent(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -124,15 +124,15 @@ func TestServiceWorkerDispatchSyncEvent(t *testing.T) {
 }
 
 func TestServiceWorkerEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerEnable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.ServiceWorker().Enable()
-	mockResult := &serviceWorker.EnableResult{}
+	mockResult := &worker.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -143,7 +143,7 @@ func TestServiceWorkerEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.ServiceWorker().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -158,18 +158,18 @@ func TestServiceWorkerEnable(t *testing.T) {
 }
 
 func TestServiceWorkerInspectWorker(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerInspectWorker")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &serviceWorker.InspectWorkerParams{
+	params := &worker.InspectWorkerParams{
 		VersionID: "version-id",
 	}
 	resultChan := mockSocket.ServiceWorker().InspectWorker(params)
-	mockResult := &serviceWorker.InspectWorkerResult{}
+	mockResult := &worker.InspectWorkerResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -180,7 +180,7 @@ func TestServiceWorkerInspectWorker(t *testing.T) {
 	}
 
 	resultChan = mockSocket.ServiceWorker().InspectWorker(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -195,18 +195,18 @@ func TestServiceWorkerInspectWorker(t *testing.T) {
 }
 
 func TestServiceWorkerSetForceUpdateOnPageLoad(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerSetForceUpdateOnPageLoad")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &serviceWorker.SetForceUpdateOnPageLoadParams{
+	params := &worker.SetForceUpdateOnPageLoadParams{
 		ForceUpdateOnPageLoad: true,
 	}
 	resultChan := mockSocket.ServiceWorker().SetForceUpdateOnPageLoad(params)
-	mockResult := &serviceWorker.SetForceUpdateOnPageLoadResult{}
+	mockResult := &worker.SetForceUpdateOnPageLoadResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -217,7 +217,7 @@ func TestServiceWorkerSetForceUpdateOnPageLoad(t *testing.T) {
 	}
 
 	resultChan = mockSocket.ServiceWorker().SetForceUpdateOnPageLoad(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -232,18 +232,18 @@ func TestServiceWorkerSetForceUpdateOnPageLoad(t *testing.T) {
 }
 
 func TestServiceWorkerSkipWaiting(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerSkipWaiting")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &serviceWorker.SkipWaitingParams{
+	params := &worker.SkipWaitingParams{
 		ScopeURL: "http://some.url",
 	}
 	resultChan := mockSocket.ServiceWorker().SkipWaiting(params)
-	mockResult := &serviceWorker.SkipWaitingResult{}
+	mockResult := &worker.SkipWaitingResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -254,7 +254,7 @@ func TestServiceWorkerSkipWaiting(t *testing.T) {
 	}
 
 	resultChan = mockSocket.ServiceWorker().SkipWaiting(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -269,18 +269,18 @@ func TestServiceWorkerSkipWaiting(t *testing.T) {
 }
 
 func TestServiceWorkerStartWorker(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerStartWorker")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &serviceWorker.StartWorkerParams{
+	params := &worker.StartWorkerParams{
 		ScopeURL: "http://some.url",
 	}
 	resultChan := mockSocket.ServiceWorker().StartWorker(params)
-	mockResult := &serviceWorker.StartWorkerResult{}
+	mockResult := &worker.StartWorkerResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -291,7 +291,7 @@ func TestServiceWorkerStartWorker(t *testing.T) {
 	}
 
 	resultChan = mockSocket.ServiceWorker().StartWorker(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -306,15 +306,15 @@ func TestServiceWorkerStartWorker(t *testing.T) {
 }
 
 func TestServiceWorkerStopAllWorkers(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerStopAllWorkers")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.ServiceWorker().StopAllWorkers()
-	mockResult := &serviceWorker.StopAllWorkersResult{}
+	mockResult := &worker.StopAllWorkersResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -325,7 +325,7 @@ func TestServiceWorkerStopAllWorkers(t *testing.T) {
 	}
 
 	resultChan = mockSocket.ServiceWorker().StopAllWorkers()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -340,18 +340,18 @@ func TestServiceWorkerStopAllWorkers(t *testing.T) {
 }
 
 func TestServiceWorkerStopWorker(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerStopWorker")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &serviceWorker.StopWorkerParams{
+	params := &worker.StopWorkerParams{
 		VersionID: "version-id",
 	}
 	resultChan := mockSocket.ServiceWorker().StopWorker(params)
-	mockResult := &serviceWorker.StopWorkerResult{}
+	mockResult := &worker.StopWorkerResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -362,7 +362,7 @@ func TestServiceWorkerStopWorker(t *testing.T) {
 	}
 
 	resultChan = mockSocket.ServiceWorker().StopWorker(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -377,18 +377,18 @@ func TestServiceWorkerStopWorker(t *testing.T) {
 }
 
 func TestServiceWorkerUnregister(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerUnregister")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &serviceWorker.UnregisterParams{
+	params := &worker.UnregisterParams{
 		ScopeURL: "http://some.url",
 	}
 	resultChan := mockSocket.ServiceWorker().Unregister(params)
-	mockResult := &serviceWorker.UnregisterResult{}
+	mockResult := &worker.UnregisterResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -399,7 +399,7 @@ func TestServiceWorkerUnregister(t *testing.T) {
 	}
 
 	resultChan = mockSocket.ServiceWorker().Unregister(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -414,18 +414,18 @@ func TestServiceWorkerUnregister(t *testing.T) {
 }
 
 func TestServiceWorkerUpdateRegistration(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerUpdateRegistration")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &serviceWorker.UpdateRegistrationParams{
+	params := &worker.UpdateRegistrationParams{
 		ScopeURL: "http://some.url",
 	}
 	resultChan := mockSocket.ServiceWorker().UpdateRegistration(params)
-	mockResult := &serviceWorker.UpdateRegistrationResult{}
+	mockResult := &worker.UpdateRegistrationResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -436,7 +436,7 @@ func TestServiceWorkerUpdateRegistration(t *testing.T) {
 	}
 
 	resultChan = mockSocket.ServiceWorker().UpdateRegistration(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -451,17 +451,17 @@ func TestServiceWorkerUpdateRegistration(t *testing.T) {
 }
 
 func TestServiceWorkerOnWorkerErrorReported(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerOnWorkerErrorReported")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := make(chan *serviceWorker.ErrorReportedEvent)
-	mockSocket.ServiceWorker().OnWorkerErrorReported(func(eventData *serviceWorker.ErrorReportedEvent) {
+	resultChan := make(chan *worker.ErrorReportedEvent)
+	mockSocket.ServiceWorker().OnWorkerErrorReported(func(eventData *worker.ErrorReportedEvent) {
 		resultChan <- eventData
 	})
-	mockResult := &serviceWorker.ErrorReportedEvent{
-		ErrorMessage: &serviceWorker.ErrorMessage{
+	mockResult := &worker.ErrorReportedEvent{
+		ErrorMessage: &worker.ErrorMessage{
 			ErrorMessage:   "error message",
 			RegistrationID: "registration-id",
 			VersionID:      "version-id",
@@ -471,11 +471,11 @@ func TestServiceWorkerOnWorkerErrorReported(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "ServiceWorker.workerErrorReported",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -485,11 +485,11 @@ func TestServiceWorkerOnWorkerErrorReported(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.ErrorMessage.ErrorMessage, result.ErrorMessage.ErrorMessage)
 	}
 
-	resultChan = make(chan *serviceWorker.ErrorReportedEvent)
-	mockSocket.ServiceWorker().OnWorkerErrorReported(func(eventData *serviceWorker.ErrorReportedEvent) {
+	resultChan = make(chan *worker.ErrorReportedEvent)
+	mockSocket.ServiceWorker().OnWorkerErrorReported(func(eventData *worker.ErrorReportedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -505,28 +505,28 @@ func TestServiceWorkerOnWorkerErrorReported(t *testing.T) {
 }
 
 func TestServiceWorkerOnWorkerRegistrationUpdated(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerOnWorkerRegistrationUpdated")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := make(chan *serviceWorker.RegistrationUpdatedEvent)
-	mockSocket.ServiceWorker().OnWorkerRegistrationUpdated(func(eventData *serviceWorker.RegistrationUpdatedEvent) {
+	resultChan := make(chan *worker.RegistrationUpdatedEvent)
+	mockSocket.ServiceWorker().OnWorkerRegistrationUpdated(func(eventData *worker.RegistrationUpdatedEvent) {
 		resultChan <- eventData
 	})
-	mockResult := &serviceWorker.RegistrationUpdatedEvent{
-		Registrations: []*serviceWorker.Registration{{
+	mockResult := &worker.RegistrationUpdatedEvent{
+		Registrations: []*worker.Registration{{
 			RegistrationID: "registration-id",
 			ScopeURL:       "http://some.url",
 			IsDeleted:      true,
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "ServiceWorker.workerRegistrationUpdated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -536,11 +536,11 @@ func TestServiceWorkerOnWorkerRegistrationUpdated(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Registrations[0].RegistrationID, result.Registrations[0].RegistrationID)
 	}
 
-	resultChan = make(chan *serviceWorker.RegistrationUpdatedEvent)
-	mockSocket.ServiceWorker().OnWorkerRegistrationUpdated(func(eventData *serviceWorker.RegistrationUpdatedEvent) {
+	resultChan = make(chan *worker.RegistrationUpdatedEvent)
+	mockSocket.ServiceWorker().OnWorkerRegistrationUpdated(func(eventData *worker.RegistrationUpdatedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -556,22 +556,22 @@ func TestServiceWorkerOnWorkerRegistrationUpdated(t *testing.T) {
 }
 
 func TestServiceWorkerOnWorkerVersionUpdated(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerOnWorkerVersionUpdated")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := make(chan *serviceWorker.VersionUpdatedEvent)
-	mockSocket.ServiceWorker().OnWorkerVersionUpdated(func(eventData *serviceWorker.VersionUpdatedEvent) {
+	resultChan := make(chan *worker.VersionUpdatedEvent)
+	mockSocket.ServiceWorker().OnWorkerVersionUpdated(func(eventData *worker.VersionUpdatedEvent) {
 		resultChan <- eventData
 	})
-	mockResult := &serviceWorker.VersionUpdatedEvent{
-		Versions: []*serviceWorker.Version{{
+	mockResult := &worker.VersionUpdatedEvent{
+		Versions: []*worker.Version{{
 			VersionID:          "version-id",
 			RegistrationID:     "registration-id",
 			ScriptURL:          "http://some.url",
-			RunningStatus:      serviceWorker.VersionRunningStatus.Stopped,
-			Status:             serviceWorker.VersionStatus.New,
+			RunningStatus:      worker.VersionRunningStatus.Stopped,
+			Status:             worker.VersionStatus.New,
 			ScriptLastModified: time.Now().Unix(),
 			ScriptResponseTime: time.Now().Unix(),
 			ControlledClients:  []target.ID{"target-id"},
@@ -579,11 +579,11 @@ func TestServiceWorkerOnWorkerVersionUpdated(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "ServiceWorker.workerVersionUpdated",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -593,11 +593,11 @@ func TestServiceWorkerOnWorkerVersionUpdated(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Versions[0].VersionID, result.Versions[0].VersionID)
 	}
 
-	resultChan = make(chan *serviceWorker.VersionUpdatedEvent)
-	mockSocket.ServiceWorker().OnWorkerVersionUpdated(func(eventData *serviceWorker.VersionUpdatedEvent) {
+	resultChan = make(chan *worker.VersionUpdatedEvent)
+	mockSocket.ServiceWorker().OnWorkerVersionUpdated(func(eventData *worker.VersionUpdatedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	"github.com/mkenney/go-chrome/tot/cdtp/console"
+	"github.com/mkenney/go-chrome/tot/console"
 )
 
 /*
@@ -97,7 +97,7 @@ func (protocol *ConsoleProtocol) OnMessageAdded(
 		"Console.messageAdded",
 		func(response *Response) {
 			event := &console.MessageAddedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

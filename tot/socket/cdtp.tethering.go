@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	"github.com/mkenney/go-chrome/tot/cdtp/tethering"
+	"github.com/mkenney/go-chrome/tot/tethering"
 )
 
 /*
@@ -78,7 +78,7 @@ func (protocol *TetheringProtocol) OnAccepted(
 		"Tethering.accepted",
 		func(response *Response) {
 			event := &tethering.AcceptedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

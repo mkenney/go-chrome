@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	"github.com/mkenney/go-chrome/tot/cdtp/application/cache"
+	"github.com/mkenney/go-chrome/tot/application/cache"
 )
 
 /*
@@ -129,7 +129,7 @@ func (protocol *ApplicationCacheProtocol) OnApplicationCacheStatusUpdated(
 		"ApplicationCache.applicationCacheStatusUpdated",
 		func(response *Response) {
 			event := &cache.StatusUpdatedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -151,7 +151,7 @@ func (protocol *ApplicationCacheProtocol) OnNetworkStateUpdated(
 		"ApplicationCache.networkStateUpdated",
 		func(response *Response) {
 			event := &cache.NetworkStateUpdatedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

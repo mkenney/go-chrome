@@ -5,13 +5,13 @@ import (
 	"net/url"
 	"testing"
 
-	tethering "github.com/mkenney/go-chrome/tot/cdtp/tethering"
+	"github.com/mkenney/go-chrome/tot/tethering"
 )
 
 func TestTetheringBind(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTetheringBind")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &tethering.BindParams{
@@ -20,7 +20,7 @@ func TestTetheringBind(t *testing.T) {
 	resultChan := mockSocket.Tethering().Bind(params)
 	mockResult := &tethering.BindResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -31,7 +31,7 @@ func TestTetheringBind(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Tethering().Bind(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -46,9 +46,9 @@ func TestTetheringBind(t *testing.T) {
 }
 
 func TestTetheringUnbind(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTetheringUnbind")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &tethering.UnbindParams{
@@ -57,7 +57,7 @@ func TestTetheringUnbind(t *testing.T) {
 	resultChan := mockSocket.Tethering().Unbind(params)
 	mockResult := &tethering.UnbindResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -68,7 +68,7 @@ func TestTetheringUnbind(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Tethering().Unbind(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -83,9 +83,9 @@ func TestTetheringUnbind(t *testing.T) {
 }
 
 func TestTetheringOnAccepted(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestTetheringOnAccepted")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *tethering.AcceptedEvent)
@@ -97,11 +97,11 @@ func TestTetheringOnAccepted(t *testing.T) {
 		ConnectionID: "ConnectionID",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Tethering.accepted",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -115,7 +115,7 @@ func TestTetheringOnAccepted(t *testing.T) {
 	mockSocket.Tethering().OnAccepted(func(eventData *tethering.AcceptedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

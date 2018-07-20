@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	"github.com/mkenney/go-chrome/tot/cdtp/storage"
+	"github.com/mkenney/go-chrome/tot/storage"
 )
 
 /*
@@ -179,7 +179,7 @@ func (protocol *StorageProtocol) OnCacheStorageContentUpdated(
 		"Storage.cacheStorageContentUpdated",
 		func(response *Response) {
 			event := &storage.CacheStorageContentUpdatedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -202,7 +202,7 @@ func (protocol *StorageProtocol) OnCacheStorageListUpdated(
 		"Storage.cacheStorageListUpdated",
 		func(response *Response) {
 			event := &storage.CacheStorageListUpdatedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -226,7 +226,7 @@ func (protocol *StorageProtocol) OnIndexedDBContentUpdated(
 		"Storage.indexedDBContentUpdated",
 		func(response *Response) {
 			event := &storage.IndexedDBContentUpdatedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -250,7 +250,7 @@ func (protocol *StorageProtocol) OnIndexedDBListUpdated(
 		"Storage.indexedDBListUpdated",
 		func(response *Response) {
 			event := &storage.IndexedDBListUpdatedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

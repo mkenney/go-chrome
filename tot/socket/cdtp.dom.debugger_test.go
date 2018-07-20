@@ -5,24 +5,24 @@ import (
 	"net/url"
 	"testing"
 
-	dom "github.com/mkenney/go-chrome/tot/cdtp/dom"
-	domDebugger "github.com/mkenney/go-chrome/tot/cdtp/dom/debugger"
-	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
+	"github.com/mkenney/go-chrome/tot/dom"
+	"github.com/mkenney/go-chrome/tot/dom/debugger"
+	"github.com/mkenney/go-chrome/tot/runtime"
 )
 
 func TestDOMDebuggerGetEventListeners(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDebuggerGetEventListeners")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := mockSocket.DOMDebugger().GetEventListeners(&domDebugger.GetEventListenersParams{
+	resultChan := mockSocket.DOMDebugger().GetEventListeners(&debugger.GetEventListenersParams{
 		ObjectID: runtime.RemoteObjectID("remote-object-id"),
 		Depth:    1,
 		Pierce:   true,
 	})
-	mockResult := &domDebugger.GetEventListenersResult{
-		Listeners: []*domDebugger.EventListener{{
+	mockResult := &debugger.GetEventListenersResult{
+		Listeners: []*debugger.EventListener{{
 			Type:         "listener-type",
 			UseCapture:   true,
 			Passive:      true,
@@ -40,7 +40,7 @@ func TestDOMDebuggerGetEventListeners(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -53,12 +53,12 @@ func TestDOMDebuggerGetEventListeners(t *testing.T) {
 		t.Errorf("Expected '%d', got '%d'", mockResult.Listeners[0].BackendNodeID, result.Listeners[0].BackendNodeID)
 	}
 
-	resultChan = mockSocket.DOMDebugger().GetEventListeners(&domDebugger.GetEventListenersParams{
+	resultChan = mockSocket.DOMDebugger().GetEventListeners(&debugger.GetEventListenersParams{
 		ObjectID: runtime.RemoteObjectID("remote-object-id"),
 		Depth:    1,
 		Pierce:   true,
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -73,18 +73,18 @@ func TestDOMDebuggerGetEventListeners(t *testing.T) {
 }
 
 func TestDOMDebuggerRemoveDOMBreakpoint(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDebuggerRemoveDOMBreakpoint")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := mockSocket.DOMDebugger().RemoveDOMBreakpoint(&domDebugger.RemoveDOMBreakpointParams{
+	resultChan := mockSocket.DOMDebugger().RemoveDOMBreakpoint(&debugger.RemoveDOMBreakpointParams{
 		NodeID: dom.NodeID(1),
-		Type:   domDebugger.DOMBreakpointType("breakpoint type"),
+		Type:   debugger.DOMBreakpointType("breakpoint type"),
 	})
-	mockResult := &domDebugger.RemoveDOMBreakpointResult{}
+	mockResult := &debugger.RemoveDOMBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -94,11 +94,11 @@ func TestDOMDebuggerRemoveDOMBreakpoint(t *testing.T) {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.DOMDebugger().RemoveDOMBreakpoint(&domDebugger.RemoveDOMBreakpointParams{
+	resultChan = mockSocket.DOMDebugger().RemoveDOMBreakpoint(&debugger.RemoveDOMBreakpointParams{
 		NodeID: dom.NodeID(1),
-		Type:   domDebugger.DOMBreakpointType("breakpoint type"),
+		Type:   debugger.DOMBreakpointType("breakpoint type"),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -113,18 +113,18 @@ func TestDOMDebuggerRemoveDOMBreakpoint(t *testing.T) {
 }
 
 func TestDOMDebuggerRemoveEventListenerBreakpoint(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDebuggerRemoveEventListenerBreakpoint")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := mockSocket.DOMDebugger().RemoveEventListenerBreakpoint(&domDebugger.RemoveEventListenerBreakpointParams{
+	resultChan := mockSocket.DOMDebugger().RemoveEventListenerBreakpoint(&debugger.RemoveEventListenerBreakpointParams{
 		EventName:  "event name",
 		TargetName: "target name",
 	})
-	mockResult := &domDebugger.RemoveEventListenerBreakpointResult{}
+	mockResult := &debugger.RemoveEventListenerBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -134,11 +134,11 @@ func TestDOMDebuggerRemoveEventListenerBreakpoint(t *testing.T) {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.DOMDebugger().RemoveEventListenerBreakpoint(&domDebugger.RemoveEventListenerBreakpointParams{
+	resultChan = mockSocket.DOMDebugger().RemoveEventListenerBreakpoint(&debugger.RemoveEventListenerBreakpointParams{
 		EventName:  "event name",
 		TargetName: "target name",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -153,17 +153,17 @@ func TestDOMDebuggerRemoveEventListenerBreakpoint(t *testing.T) {
 }
 
 func TestDOMDebuggerRemoveInstrumentationBreakpoint(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDebuggerRemoveInstrumentationBreakpoint")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := mockSocket.DOMDebugger().RemoveInstrumentationBreakpoint(&domDebugger.RemoveInstrumentationBreakpointParams{
+	resultChan := mockSocket.DOMDebugger().RemoveInstrumentationBreakpoint(&debugger.RemoveInstrumentationBreakpointParams{
 		EventName: "event name",
 	})
-	mockResult := &domDebugger.RemoveInstrumentationBreakpointResult{}
+	mockResult := &debugger.RemoveInstrumentationBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -173,10 +173,10 @@ func TestDOMDebuggerRemoveInstrumentationBreakpoint(t *testing.T) {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.DOMDebugger().RemoveInstrumentationBreakpoint(&domDebugger.RemoveInstrumentationBreakpointParams{
+	resultChan = mockSocket.DOMDebugger().RemoveInstrumentationBreakpoint(&debugger.RemoveInstrumentationBreakpointParams{
 		EventName: "event name",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -191,17 +191,17 @@ func TestDOMDebuggerRemoveInstrumentationBreakpoint(t *testing.T) {
 }
 
 func TestDOMDebuggerRemoveXHRBreakpoint(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDebuggerRemoveXHRBreakpoint")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := mockSocket.DOMDebugger().RemoveXHRBreakpoint(&domDebugger.RemoveXHRBreakpointParams{
+	resultChan := mockSocket.DOMDebugger().RemoveXHRBreakpoint(&debugger.RemoveXHRBreakpointParams{
 		URL: "http://xhr.url",
 	})
-	mockResult := &domDebugger.RemoveXHRBreakpointResult{}
+	mockResult := &debugger.RemoveXHRBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -211,10 +211,10 @@ func TestDOMDebuggerRemoveXHRBreakpoint(t *testing.T) {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.DOMDebugger().RemoveXHRBreakpoint(&domDebugger.RemoveXHRBreakpointParams{
+	resultChan = mockSocket.DOMDebugger().RemoveXHRBreakpoint(&debugger.RemoveXHRBreakpointParams{
 		URL: "http://xhr.url",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -229,18 +229,18 @@ func TestDOMDebuggerRemoveXHRBreakpoint(t *testing.T) {
 }
 
 func TestDOMDebuggerSetDOMBreakpoint(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDebuggerSetDOMBreakpoint")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := mockSocket.DOMDebugger().SetDOMBreakpoint(&domDebugger.SetDOMBreakpointParams{
+	resultChan := mockSocket.DOMDebugger().SetDOMBreakpoint(&debugger.SetDOMBreakpointParams{
 		NodeID: dom.NodeID(1),
-		Type:   domDebugger.DOMBreakpointType("breakpoint type"),
+		Type:   debugger.DOMBreakpointType("breakpoint type"),
 	})
-	mockResult := &domDebugger.SetDOMBreakpointResult{}
+	mockResult := &debugger.SetDOMBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -250,11 +250,11 @@ func TestDOMDebuggerSetDOMBreakpoint(t *testing.T) {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.DOMDebugger().SetDOMBreakpoint(&domDebugger.SetDOMBreakpointParams{
+	resultChan = mockSocket.DOMDebugger().SetDOMBreakpoint(&debugger.SetDOMBreakpointParams{
 		NodeID: dom.NodeID(1),
-		Type:   domDebugger.DOMBreakpointType("breakpoint type"),
+		Type:   debugger.DOMBreakpointType("breakpoint type"),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -269,18 +269,18 @@ func TestDOMDebuggerSetDOMBreakpoint(t *testing.T) {
 }
 
 func TestDOMDebuggerSetEventListenerBreakpoint(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDebuggerSetEventListenerBreakpoint")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := mockSocket.DOMDebugger().SetEventListenerBreakpoint(&domDebugger.SetEventListenerBreakpointParams{
+	resultChan := mockSocket.DOMDebugger().SetEventListenerBreakpoint(&debugger.SetEventListenerBreakpointParams{
 		EventName:  "event name",
 		TargetName: "target name",
 	})
-	mockResult := &domDebugger.SetEventListenerBreakpointResult{}
+	mockResult := &debugger.SetEventListenerBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -290,11 +290,11 @@ func TestDOMDebuggerSetEventListenerBreakpoint(t *testing.T) {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.DOMDebugger().SetEventListenerBreakpoint(&domDebugger.SetEventListenerBreakpointParams{
+	resultChan = mockSocket.DOMDebugger().SetEventListenerBreakpoint(&debugger.SetEventListenerBreakpointParams{
 		EventName:  "event name",
 		TargetName: "target name",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -309,17 +309,17 @@ func TestDOMDebuggerSetEventListenerBreakpoint(t *testing.T) {
 }
 
 func TestDOMDebuggerSetInstrumentationBreakpoint(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDebuggerSetInstrumentationBreakpoint")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := mockSocket.DOMDebugger().SetInstrumentationBreakpoint(&domDebugger.SetInstrumentationBreakpointParams{
+	resultChan := mockSocket.DOMDebugger().SetInstrumentationBreakpoint(&debugger.SetInstrumentationBreakpointParams{
 		EventName: "event name",
 	})
-	mockResult := &domDebugger.SetInstrumentationBreakpointResult{}
+	mockResult := &debugger.SetInstrumentationBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -329,10 +329,10 @@ func TestDOMDebuggerSetInstrumentationBreakpoint(t *testing.T) {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.DOMDebugger().SetInstrumentationBreakpoint(&domDebugger.SetInstrumentationBreakpointParams{
+	resultChan = mockSocket.DOMDebugger().SetInstrumentationBreakpoint(&debugger.SetInstrumentationBreakpointParams{
 		EventName: "event name",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -347,17 +347,17 @@ func TestDOMDebuggerSetInstrumentationBreakpoint(t *testing.T) {
 }
 
 func TestDOMDebuggerSetXHRBreakpoint(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDOMDebuggerSetXHRBreakpoint")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := mockSocket.DOMDebugger().SetXHRBreakpoint(&domDebugger.SetXHRBreakpointParams{
+	resultChan := mockSocket.DOMDebugger().SetXHRBreakpoint(&debugger.SetXHRBreakpointParams{
 		URL: "http://xhr.url",
 	})
-	mockResult := &domDebugger.SetXHRBreakpointResult{}
+	mockResult := &debugger.SetXHRBreakpointResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -367,10 +367,10 @@ func TestDOMDebuggerSetXHRBreakpoint(t *testing.T) {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.DOMDebugger().SetXHRBreakpoint(&domDebugger.SetXHRBreakpointParams{
+	resultChan = mockSocket.DOMDebugger().SetXHRBreakpoint(&debugger.SetXHRBreakpointParams{
 		URL: "http://xhr.url",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,

@@ -5,7 +5,7 @@ import (
 	"net/url"
 
 	"github.com/mkenney/go-chrome/tot/socket"
-	"github.com/pkg/errors"
+	errs "github.com/mkenney/go-errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -20,7 +20,7 @@ func (chrome *Chrome) NewTab(uri string) (*Tab, error) {
 	}
 	targetURL, err := url.Parse(uri)
 	if nil != err {
-		return nil, errors.Wrap(err, "invalid URL")
+		return nil, errs.Wrap(err, "invalid URL")
 	}
 
 	tab := &Tab{
@@ -35,12 +35,12 @@ func (chrome *Chrome) NewTab(uri string) (*Tab, error) {
 		tab.data,
 	)
 	if nil != err {
-		return nil, errors.Wrap(err, fmt.Sprintf("/new?%s query failed", url.QueryEscape(uri)))
+		return nil, errs.Wrap(err, fmt.Sprintf("/new?%s query failed", url.QueryEscape(uri)))
 	}
 
 	websocketURL, err := url.Parse(tab.Data().WebSocketDebuggerURL)
 	if nil != err {
-		return nil, errors.Wrap(err, fmt.Sprintf("invalid websocket URL '%s'", tab.Data().WebSocketDebuggerURL))
+		return nil, errs.Wrap(err, fmt.Sprintf("invalid websocket URL '%s'", tab.Data().WebSocketDebuggerURL))
 	}
 
 	socket := socket.New(websocketURL)
@@ -55,7 +55,7 @@ func (chrome *Chrome) NewTab(uri string) (*Tab, error) {
 Tab is a struct representing an individual Chrome tab
 */
 type Tab struct {
-	chrome   *Chrome
+	chrome   Chromium
 	data     *TabData
 	protocol socket.Protocoller
 	socket   socket.Socketer
@@ -65,7 +65,7 @@ type Tab struct {
 /*
 Chromium implements Tabber.
 */
-func (tab *Tab) Chromium() *Chrome {
+func (tab *Tab) Chromium() Chromium {
 	return tab.chrome
 }
 
@@ -75,12 +75,12 @@ Close implements Tabber.
 func (tab *Tab) Close() (interface{}, error) {
 	var err error
 	var result interface{}
-
+	tab.Socket().Stop()
 	_, err = tab.Chromium().Query(fmt.Sprintf("/json/close/%s", tab.Data().ID), url.Values{}, &result)
-	log.Debugf("Close result: %s - %s", result, err)
+	log.Debugf("Close result: %v - %v", result, err)
 	if nil != err {
 		log.Warnf("%s: %s", result, err)
-		return nil, errors.Wrap(err, fmt.Sprintf("close/%s query failed", tab.Data().ID))
+		return nil, errs.Wrap(err, fmt.Sprintf("close/%s query failed", tab.Data().ID))
 	}
 
 	return result, nil

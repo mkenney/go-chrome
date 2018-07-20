@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	"github.com/mkenney/go-chrome/tot/cdtp/animation"
+	"github.com/mkenney/go-chrome/tot/animation"
 )
 
 /*
@@ -269,7 +269,7 @@ func (protocol *AnimationProtocol) OnAnimationCanceled(
 		"Animation.animationCanceled",
 		func(response *Response) {
 			event := &animation.CanceledEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -292,7 +292,7 @@ func (protocol *AnimationProtocol) OnAnimationCreated(
 		"Animation.animationCreated",
 		func(response *Response) {
 			event := &animation.CreatedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -315,7 +315,7 @@ func (protocol *AnimationProtocol) OnAnimationStarted(
 		"Animation.animationStarted",
 		func(response *Response) {
 			event := &animation.StartedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

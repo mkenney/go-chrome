@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	"github.com/mkenney/go-chrome/tot/cdtp/log"
+	"github.com/mkenney/go-chrome/tot/log"
 )
 
 /*
@@ -143,7 +143,7 @@ func (protocol *LogProtocol) OnEntryAdded(
 		"Log.entryAdded",
 		func(response *Response) {
 			event := &log.EntryAddedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

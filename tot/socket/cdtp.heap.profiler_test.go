@@ -5,23 +5,23 @@ import (
 	"net/url"
 	"testing"
 
-	heapProfiler "github.com/mkenney/go-chrome/tot/cdtp/heap/profiler"
-	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
+	"github.com/mkenney/go-chrome/tot/heap/profiler"
+	"github.com/mkenney/go-chrome/tot/runtime"
 )
 
 func TestHeapProfilerAddInspectedHeapObject(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerAddInspectedHeapObject")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &heapProfiler.AddInspectedHeapObjectParams{
-		HeapObjectID: heapProfiler.HeapSnapshotObjectID("snapshot-id"),
+	params := &profiler.AddInspectedHeapObjectParams{
+		HeapObjectID: profiler.HeapSnapshotObjectID("snapshot-id"),
 	}
 	resultChan := mockSocket.HeapProfiler().AddInspectedHeapObject(params)
-	mockResult := &heapProfiler.AddInspectedHeapObjectResult{}
+	mockResult := &profiler.AddInspectedHeapObjectResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -32,7 +32,7 @@ func TestHeapProfilerAddInspectedHeapObject(t *testing.T) {
 	}
 
 	resultChan = mockSocket.HeapProfiler().AddInspectedHeapObject(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -47,15 +47,15 @@ func TestHeapProfilerAddInspectedHeapObject(t *testing.T) {
 }
 
 func TestHeapProfilerCollectGarbage(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerCollectGarbage")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.HeapProfiler().CollectGarbage()
-	mockResult := &heapProfiler.CollectGarbageResult{}
+	mockResult := &profiler.CollectGarbageResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -66,7 +66,7 @@ func TestHeapProfilerCollectGarbage(t *testing.T) {
 	}
 
 	resultChan = mockSocket.HeapProfiler().CollectGarbage()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -81,15 +81,15 @@ func TestHeapProfilerCollectGarbage(t *testing.T) {
 }
 
 func TestHeapProfilerDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerDisable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.HeapProfiler().Disable()
-	mockResult := &heapProfiler.DisableResult{}
+	mockResult := &profiler.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -100,7 +100,7 @@ func TestHeapProfilerDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.HeapProfiler().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -115,15 +115,15 @@ func TestHeapProfilerDisable(t *testing.T) {
 }
 
 func TestHeapProfilerEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerEnable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.HeapProfiler().Enable()
-	mockResult := &heapProfiler.EnableResult{}
+	mockResult := &profiler.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -134,7 +134,7 @@ func TestHeapProfilerEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.HeapProfiler().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -149,20 +149,20 @@ func TestHeapProfilerEnable(t *testing.T) {
 }
 
 func TestHeapProfilerGetHeapObjectID(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerGetHeapObjectID")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &heapProfiler.GetHeapObjectIDParams{
+	params := &profiler.GetHeapObjectIDParams{
 		ObjectID: runtime.RemoteObjectID("remote-object-id"),
 	}
 	resultChan := mockSocket.HeapProfiler().GetHeapObjectID(params)
-	mockResult := &heapProfiler.GetHeapObjectIDResult{
-		HeapSnapshotObjectID: heapProfiler.HeapSnapshotObjectID("heap-snapshot-id"),
+	mockResult := &profiler.GetHeapObjectIDResult{
+		HeapSnapshotObjectID: profiler.HeapSnapshotObjectID("heap-snapshot-id"),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -176,7 +176,7 @@ func TestHeapProfilerGetHeapObjectID(t *testing.T) {
 	}
 
 	resultChan = mockSocket.HeapProfiler().GetHeapObjectID(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -191,16 +191,16 @@ func TestHeapProfilerGetHeapObjectID(t *testing.T) {
 }
 
 func TestHeapProfilerGetObjectByHeapObjectID(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerGetObjectByHeapObjectID")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &heapProfiler.GetObjectByHeapObjectIDParams{
-		ObjectID: heapProfiler.HeapSnapshotObjectID("heap-snapshot-id"),
+	params := &profiler.GetObjectByHeapObjectIDParams{
+		ObjectID: profiler.HeapSnapshotObjectID("heap-snapshot-id"),
 	}
 	resultChan := mockSocket.HeapProfiler().GetObjectByHeapObjectID(params)
-	mockResult := &heapProfiler.GetObjectByHeapObjectIDResult{
+	mockResult := &profiler.GetObjectByHeapObjectIDResult{
 		Result: &runtime.RemoteObject{
 			Type:                runtime.ObjectType.Object,
 			Subtype:             runtime.ObjectSubtype.Array,
@@ -216,7 +216,7 @@ func TestHeapProfilerGetObjectByHeapObjectID(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -230,7 +230,7 @@ func TestHeapProfilerGetObjectByHeapObjectID(t *testing.T) {
 	}
 
 	resultChan = mockSocket.HeapProfiler().GetObjectByHeapObjectID(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -245,14 +245,14 @@ func TestHeapProfilerGetObjectByHeapObjectID(t *testing.T) {
 }
 
 func TestHeapProfilerGetSamplingProfile(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerGetSamplingProfile")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &heapProfiler.GetSamplingProfileParams{
-		Profile: &heapProfiler.SamplingHeapProfile{
-			Head: &heapProfiler.SamplingHeapProfileNode{
+	params := &profiler.GetSamplingProfileParams{
+		Profile: &profiler.SamplingHeapProfile{
+			Head: &profiler.SamplingHeapProfileNode{
 				CallFrame: &runtime.CallFrame{
 					FunctionName: "funcName",
 					ScriptID:     runtime.ScriptID("script-id"),
@@ -261,14 +261,14 @@ func TestHeapProfilerGetSamplingProfile(t *testing.T) {
 					ColumnNumber: 1,
 				},
 				SelfSize: 1,
-				Children: []*heapProfiler.SamplingHeapProfileNode{},
+				Children: []*profiler.SamplingHeapProfileNode{},
 			},
 		},
 	}
 	resultChan := mockSocket.HeapProfiler().GetSamplingProfile(params)
-	mockResult := &heapProfiler.GetSamplingProfileResult{}
+	mockResult := &profiler.GetSamplingProfileResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -279,7 +279,7 @@ func TestHeapProfilerGetSamplingProfile(t *testing.T) {
 	}
 
 	resultChan = mockSocket.HeapProfiler().GetSamplingProfile(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -293,18 +293,18 @@ func TestHeapProfilerGetSamplingProfile(t *testing.T) {
 	}
 }
 func TestHeapProfilerStartSampling(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerStartSampling")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &heapProfiler.StartSamplingParams{
+	params := &profiler.StartSamplingParams{
 		SamplingInterval: 1,
 	}
 	resultChan := mockSocket.HeapProfiler().StartSampling(params)
-	mockResult := &heapProfiler.StartSamplingResult{}
+	mockResult := &profiler.StartSamplingResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -315,7 +315,7 @@ func TestHeapProfilerStartSampling(t *testing.T) {
 	}
 
 	resultChan = mockSocket.HeapProfiler().StartSampling(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -330,18 +330,18 @@ func TestHeapProfilerStartSampling(t *testing.T) {
 }
 
 func TestHeapProfilerStartTrackingHeapObjects(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerStartTrackingHeapObjects")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &heapProfiler.StartTrackingHeapObjectsParams{
+	params := &profiler.StartTrackingHeapObjectsParams{
 		TrackAllocations: true,
 	}
 	resultChan := mockSocket.HeapProfiler().StartTrackingHeapObjects(params)
-	mockResult := &heapProfiler.StartTrackingHeapObjectsResult{}
+	mockResult := &profiler.StartTrackingHeapObjectsResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -352,7 +352,7 @@ func TestHeapProfilerStartTrackingHeapObjects(t *testing.T) {
 	}
 
 	resultChan = mockSocket.HeapProfiler().StartTrackingHeapObjects(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -367,14 +367,14 @@ func TestHeapProfilerStartTrackingHeapObjects(t *testing.T) {
 }
 
 func TestHeapProfilerStopSampling(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerStopSampling")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &heapProfiler.StopSamplingParams{
-		Profile: &heapProfiler.SamplingHeapProfile{
-			Head: &heapProfiler.SamplingHeapProfileNode{
+	params := &profiler.StopSamplingParams{
+		Profile: &profiler.SamplingHeapProfile{
+			Head: &profiler.SamplingHeapProfileNode{
 				CallFrame: &runtime.CallFrame{
 					FunctionName: "funcName",
 					ScriptID:     runtime.ScriptID("script-id"),
@@ -383,14 +383,14 @@ func TestHeapProfilerStopSampling(t *testing.T) {
 					ColumnNumber: 1,
 				},
 				SelfSize: 1,
-				Children: []*heapProfiler.SamplingHeapProfileNode{},
+				Children: []*profiler.SamplingHeapProfileNode{},
 			},
 		},
 	}
 	resultChan := mockSocket.HeapProfiler().StopSampling(params)
-	mockResult := &heapProfiler.StopSamplingResult{}
+	mockResult := &profiler.StopSamplingResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -401,7 +401,7 @@ func TestHeapProfilerStopSampling(t *testing.T) {
 	}
 
 	resultChan = mockSocket.HeapProfiler().StopSampling(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -416,18 +416,18 @@ func TestHeapProfilerStopSampling(t *testing.T) {
 }
 
 func TestHeapProfilerStopTrackingHeapObjects(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerStopTrackingHeapObjects")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &heapProfiler.StopTrackingHeapObjectsParams{
+	params := &profiler.StopTrackingHeapObjectsParams{
 		ReportProgress: true,
 	}
 	resultChan := mockSocket.HeapProfiler().StopTrackingHeapObjects(params)
-	mockResult := &heapProfiler.StopTrackingHeapObjectsResult{}
+	mockResult := &profiler.StopTrackingHeapObjectsResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -438,7 +438,7 @@ func TestHeapProfilerStopTrackingHeapObjects(t *testing.T) {
 	}
 
 	resultChan = mockSocket.HeapProfiler().StopTrackingHeapObjects(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -453,18 +453,18 @@ func TestHeapProfilerStopTrackingHeapObjects(t *testing.T) {
 }
 
 func TestHeapProfilerTakeHeapSnapshot(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerTakeHeapSnapshot")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &heapProfiler.TakeHeapSnapshotParams{
+	params := &profiler.TakeHeapSnapshotParams{
 		ReportProgress: true,
 	}
 	resultChan := mockSocket.HeapProfiler().TakeHeapSnapshot(params)
-	mockResult := &heapProfiler.TakeHeapSnapshotResult{}
+	mockResult := &profiler.TakeHeapSnapshotResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -475,7 +475,7 @@ func TestHeapProfilerTakeHeapSnapshot(t *testing.T) {
 	}
 
 	resultChan = mockSocket.HeapProfiler().TakeHeapSnapshot(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -490,35 +490,35 @@ func TestHeapProfilerTakeHeapSnapshot(t *testing.T) {
 }
 
 func TestHeapProfilerOnAddHeapSnapshotChunk(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerOnAddHeapSnapshotChunk")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := make(chan *heapProfiler.AddHeapSnapshotChunkEvent)
-	mockSocket.HeapProfiler().OnAddHeapSnapshotChunk(func(eventData *heapProfiler.AddHeapSnapshotChunkEvent) {
+	resultChan := make(chan *profiler.AddHeapSnapshotChunkEvent)
+	mockSocket.HeapProfiler().OnAddHeapSnapshotChunk(func(eventData *profiler.AddHeapSnapshotChunkEvent) {
 		resultChan <- eventData
 	})
-	mockResult := &heapProfiler.AddHeapSnapshotChunkEvent{
+	mockResult := &profiler.AddHeapSnapshotChunkEvent{
 		Chunk: "chunk",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "HeapProfiler.addHeapSnapshotChunk",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *heapProfiler.AddHeapSnapshotChunkEvent)
-	mockSocket.HeapProfiler().OnAddHeapSnapshotChunk(func(eventData *heapProfiler.AddHeapSnapshotChunkEvent) {
+	resultChan = make(chan *profiler.AddHeapSnapshotChunkEvent)
+	mockSocket.HeapProfiler().OnAddHeapSnapshotChunk(func(eventData *profiler.AddHeapSnapshotChunkEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -534,35 +534,35 @@ func TestHeapProfilerOnAddHeapSnapshotChunk(t *testing.T) {
 }
 
 func TestHeapProfilerOnHeapStatsUpdate(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerOnHeapStatsUpdate")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := make(chan *heapProfiler.HeapStatsUpdateEvent)
-	mockSocket.HeapProfiler().OnHeapStatsUpdate(func(eventData *heapProfiler.HeapStatsUpdateEvent) {
+	resultChan := make(chan *profiler.HeapStatsUpdateEvent)
+	mockSocket.HeapProfiler().OnHeapStatsUpdate(func(eventData *profiler.HeapStatsUpdateEvent) {
 		resultChan <- eventData
 	})
-	mockResult := &heapProfiler.HeapStatsUpdateEvent{
+	mockResult := &profiler.HeapStatsUpdateEvent{
 		StatsUpdate: []int{1, 2},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "HeapProfiler.heapStatsUpdate",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *heapProfiler.HeapStatsUpdateEvent)
-	mockSocket.HeapProfiler().OnHeapStatsUpdate(func(eventData *heapProfiler.HeapStatsUpdateEvent) {
+	resultChan = make(chan *profiler.HeapStatsUpdateEvent)
+	mockSocket.HeapProfiler().OnHeapStatsUpdate(func(eventData *profiler.HeapStatsUpdateEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -578,36 +578,36 @@ func TestHeapProfilerOnHeapStatsUpdate(t *testing.T) {
 }
 
 func TestHeapProfilerOnLastSeenObjectID(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerOnLastSeenObjectID")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := make(chan *heapProfiler.LastSeenObjectIDEvent)
-	mockSocket.HeapProfiler().OnLastSeenObjectID(func(eventData *heapProfiler.LastSeenObjectIDEvent) {
+	resultChan := make(chan *profiler.LastSeenObjectIDEvent)
+	mockSocket.HeapProfiler().OnLastSeenObjectID(func(eventData *profiler.LastSeenObjectIDEvent) {
 		resultChan <- eventData
 	})
-	mockResult := &heapProfiler.LastSeenObjectIDEvent{
+	mockResult := &profiler.LastSeenObjectIDEvent{
 		LastSeenObjectID: 1,
 		Timestamp:        1,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "HeapProfiler.lastSeenObjectID",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *heapProfiler.LastSeenObjectIDEvent)
-	mockSocket.HeapProfiler().OnLastSeenObjectID(func(eventData *heapProfiler.LastSeenObjectIDEvent) {
+	resultChan = make(chan *profiler.LastSeenObjectIDEvent)
+	mockSocket.HeapProfiler().OnLastSeenObjectID(func(eventData *profiler.LastSeenObjectIDEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -623,37 +623,37 @@ func TestHeapProfilerOnLastSeenObjectID(t *testing.T) {
 }
 
 func TestHeapProfilerOnReportHeapSnapshotProgress(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerOnReportHeapSnapshotProgress")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := make(chan *heapProfiler.ReportHeapSnapshotProgressEvent)
-	mockSocket.HeapProfiler().OnReportHeapSnapshotProgress(func(eventData *heapProfiler.ReportHeapSnapshotProgressEvent) {
+	resultChan := make(chan *profiler.ReportHeapSnapshotProgressEvent)
+	mockSocket.HeapProfiler().OnReportHeapSnapshotProgress(func(eventData *profiler.ReportHeapSnapshotProgressEvent) {
 		resultChan <- eventData
 	})
-	mockResult := &heapProfiler.ReportHeapSnapshotProgressEvent{
+	mockResult := &profiler.ReportHeapSnapshotProgressEvent{
 		Done:     1,
 		Total:    1,
 		Finished: true,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "HeapProfiler.reportHeapSnapshotProgress",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *heapProfiler.ReportHeapSnapshotProgressEvent)
-	mockSocket.HeapProfiler().OnReportHeapSnapshotProgress(func(eventData *heapProfiler.ReportHeapSnapshotProgressEvent) {
+	resultChan = make(chan *profiler.ReportHeapSnapshotProgressEvent)
+	mockSocket.HeapProfiler().OnReportHeapSnapshotProgress(func(eventData *profiler.ReportHeapSnapshotProgressEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -669,33 +669,33 @@ func TestHeapProfilerOnReportHeapSnapshotProgress(t *testing.T) {
 }
 
 func TestHeapProfilerOnResetProfiles(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerOnResetProfiles")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := make(chan *heapProfiler.ResetProfilesEvent)
-	mockSocket.HeapProfiler().OnResetProfiles(func(eventData *heapProfiler.ResetProfilesEvent) {
+	resultChan := make(chan *profiler.ResetProfilesEvent)
+	mockSocket.HeapProfiler().OnResetProfiles(func(eventData *profiler.ResetProfilesEvent) {
 		resultChan <- eventData
 	})
-	mockResult := &heapProfiler.ResetProfilesEvent{}
+	mockResult := &profiler.ResetProfilesEvent{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "HeapProfiler.resetProfiles",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *heapProfiler.ResetProfilesEvent)
-	mockSocket.HeapProfiler().OnResetProfiles(func(eventData *heapProfiler.ResetProfilesEvent) {
+	resultChan = make(chan *profiler.ResetProfilesEvent)
+	mockSocket.HeapProfiler().OnResetProfiles(func(eventData *profiler.ResetProfilesEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

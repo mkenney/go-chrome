@@ -6,33 +6,33 @@ import (
 	"testing"
 	"time"
 
-	headlessExperimental "github.com/mkenney/go-chrome/tot/cdtp/headless/experimental"
-	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
+	"github.com/mkenney/go-chrome/tot/headless/experimental"
+	"github.com/mkenney/go-chrome/tot/runtime"
 )
 
 func TestHeadlessExperimentalBeginFrame(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalBeginFrame")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	params := &headlessExperimental.BeginFrameParams{
+	params := &experimental.BeginFrameParams{
 		FrameTime: runtime.Timestamp(time.Now().Unix()),
 		Deadline:  runtime.Timestamp(time.Now().Unix()),
 		Interval:  1.1,
-		Screenshot: &headlessExperimental.ScreenshotParams{
-			Format:  headlessExperimental.Format.Jpeg,
+		Screenshot: &experimental.ScreenshotParams{
+			Format:  experimental.Format.Jpeg,
 			Quality: 100,
 		},
 	}
 	resultChan := mockSocket.HeadlessExperimental().BeginFrame(params)
-	mockResult := &headlessExperimental.BeginFrameResult{
+	mockResult := &experimental.BeginFrameResult{
 		HasDamage:               true,
 		MainFrameContentUpdated: true,
 		ScreenshotData:          "data",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -46,7 +46,7 @@ func TestHeadlessExperimentalBeginFrame(t *testing.T) {
 	}
 
 	resultChan = mockSocket.HeadlessExperimental().BeginFrame(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -61,15 +61,15 @@ func TestHeadlessExperimentalBeginFrame(t *testing.T) {
 }
 
 func TestHeadlessExperimentalDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalDisable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.HeadlessExperimental().Disable()
-	mockResult := &headlessExperimental.DisableResult{}
+	mockResult := &experimental.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -80,7 +80,7 @@ func TestHeadlessExperimentalDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.HeadlessExperimental().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -95,15 +95,15 @@ func TestHeadlessExperimentalDisable(t *testing.T) {
 }
 
 func TestHeadlessExperimentalEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalEnable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.HeadlessExperimental().Enable()
-	mockResult := &headlessExperimental.EnableResult{}
+	mockResult := &experimental.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -114,7 +114,7 @@ func TestHeadlessExperimentalEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.HeadlessExperimental().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -129,33 +129,33 @@ func TestHeadlessExperimentalEnable(t *testing.T) {
 }
 
 func TestHeadlessExperimentalOnMainFrameReadyForScreenshots(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalOnMainFrameReadyForScreenshots")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := make(chan *headlessExperimental.MainFrameReadyForScreenshotsEvent)
-	mockSocket.HeadlessExperimental().OnMainFrameReadyForScreenshots(func(eventData *headlessExperimental.MainFrameReadyForScreenshotsEvent) {
+	resultChan := make(chan *experimental.MainFrameReadyForScreenshotsEvent)
+	mockSocket.HeadlessExperimental().OnMainFrameReadyForScreenshots(func(eventData *experimental.MainFrameReadyForScreenshotsEvent) {
 		resultChan <- eventData
 	})
-	mockResult := &headlessExperimental.MainFrameReadyForScreenshotsEvent{}
+	mockResult := &experimental.MainFrameReadyForScreenshotsEvent{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "HeadlessExperimental.mainFrameReadyForScreenshots",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *headlessExperimental.MainFrameReadyForScreenshotsEvent)
-	mockSocket.HeadlessExperimental().OnMainFrameReadyForScreenshots(func(eventData *headlessExperimental.MainFrameReadyForScreenshotsEvent) {
+	resultChan = make(chan *experimental.MainFrameReadyForScreenshotsEvent)
+	mockSocket.HeadlessExperimental().OnMainFrameReadyForScreenshots(func(eventData *experimental.MainFrameReadyForScreenshotsEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -171,35 +171,35 @@ func TestHeadlessExperimentalOnMainFrameReadyForScreenshots(t *testing.T) {
 }
 
 func TestHeadlessExperimentalOnNeedsBeginFramesChanged(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalOnNeedsBeginFramesChanged")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
-	resultChan := make(chan *headlessExperimental.NeedsBeginFramesChangedEvent)
-	mockSocket.HeadlessExperimental().OnNeedsBeginFramesChanged(func(eventData *headlessExperimental.NeedsBeginFramesChangedEvent) {
+	resultChan := make(chan *experimental.NeedsBeginFramesChangedEvent)
+	mockSocket.HeadlessExperimental().OnNeedsBeginFramesChanged(func(eventData *experimental.NeedsBeginFramesChangedEvent) {
 		resultChan <- eventData
 	})
-	mockResult := &headlessExperimental.NeedsBeginFramesChangedEvent{
+	mockResult := &experimental.NeedsBeginFramesChangedEvent{
 		NeedsBeginFrames: true,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "HeadlessExperimental.needsBeginFramesChanged",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *headlessExperimental.NeedsBeginFramesChangedEvent)
-	mockSocket.HeadlessExperimental().OnNeedsBeginFramesChanged(func(eventData *headlessExperimental.NeedsBeginFramesChangedEvent) {
+	resultChan = make(chan *experimental.NeedsBeginFramesChangedEvent)
+	mockSocket.HeadlessExperimental().OnNeedsBeginFramesChanged(func(eventData *experimental.NeedsBeginFramesChangedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

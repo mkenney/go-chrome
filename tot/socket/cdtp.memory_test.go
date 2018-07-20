@@ -5,13 +5,13 @@ import (
 	"net/url"
 	"testing"
 
-	memory "github.com/mkenney/go-chrome/tot/cdtp/memory"
+	memory "github.com/mkenney/go-chrome/tot/memory"
 )
 
 func TestMemoryGetDOMCounters(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestMemoryGetDOMCounters")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &memory.GetDOMCountersParams{
@@ -22,7 +22,7 @@ func TestMemoryGetDOMCounters(t *testing.T) {
 	resultChan := mockSocket.Memory().GetDOMCounters(params)
 	mockResult := &memory.GetDOMCountersResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -33,7 +33,7 @@ func TestMemoryGetDOMCounters(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Memory().GetDOMCounters(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -48,15 +48,15 @@ func TestMemoryGetDOMCounters(t *testing.T) {
 }
 
 func TestMemoryPrepareForLeakDetection(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestMemoryPrepareForLeakDetection")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Memory().PrepareForLeakDetection()
 	mockResult := &memory.PrepareForLeakDetectionResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -67,7 +67,7 @@ func TestMemoryPrepareForLeakDetection(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Memory().PrepareForLeakDetection()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -82,9 +82,9 @@ func TestMemoryPrepareForLeakDetection(t *testing.T) {
 }
 
 func TestMemorySetPressureNotificationsSuppressed(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestMemorySetPressureNotificationsSuppressed")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &memory.SetPressureNotificationsSuppressedParams{
@@ -93,7 +93,7 @@ func TestMemorySetPressureNotificationsSuppressed(t *testing.T) {
 	resultChan := mockSocket.Memory().SetPressureNotificationsSuppressed(params)
 	mockResult := &memory.SetPressureNotificationsSuppressedResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -104,7 +104,7 @@ func TestMemorySetPressureNotificationsSuppressed(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Memory().SetPressureNotificationsSuppressed(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -119,9 +119,9 @@ func TestMemorySetPressureNotificationsSuppressed(t *testing.T) {
 }
 
 func TestMemorySimulatePressureNotification(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestMemorySimulatePressureNotification")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &memory.SimulatePressureNotificationParams{
@@ -130,7 +130,7 @@ func TestMemorySimulatePressureNotification(t *testing.T) {
 	resultChan := mockSocket.Memory().SimulatePressureNotification(params)
 	mockResult := &memory.SimulatePressureNotificationResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -141,7 +141,7 @@ func TestMemorySimulatePressureNotification(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Memory().SimulatePressureNotification(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,

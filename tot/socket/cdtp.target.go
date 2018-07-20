@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	"github.com/mkenney/go-chrome/tot/cdtp/target"
+	"github.com/mkenney/go-chrome/tot/target"
 )
 
 /*
@@ -388,7 +388,7 @@ func (protocol *TargetProtocol) OnAttachedToTarget(
 		"Target.attachedToTarget",
 		func(response *Response) {
 			event := &target.AttachedToTargetEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -414,7 +414,7 @@ func (protocol *TargetProtocol) OnDetachedFromTarget(
 		"Target.detachedFromTarget",
 		func(response *Response) {
 			event := &target.DetachedFromTargetEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -438,7 +438,7 @@ func (protocol *TargetProtocol) OnReceivedMessageFromTarget(
 		"Target.receivedMessageFromTarget",
 		func(response *Response) {
 			event := &target.ReceivedMessageFromTargetEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -461,7 +461,7 @@ func (protocol *TargetProtocol) OnTargetCreated(
 		"Target.targetCreated",
 		func(response *Response) {
 			event := &target.CreatedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -484,7 +484,7 @@ func (protocol *TargetProtocol) OnTargetDestroyed(
 		"Target.targetDestroyed",
 		func(response *Response) {
 			event := &target.DestroyedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -508,7 +508,7 @@ func (protocol *TargetProtocol) OnTargetInfoChanged(
 		"Target.targetInfoChanged",
 		func(response *Response) {
 			event := &target.InfoChangedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

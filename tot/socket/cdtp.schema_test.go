@@ -5,13 +5,13 @@ import (
 	"net/url"
 	"testing"
 
-	schema "github.com/mkenney/go-chrome/tot/cdtp/schema"
+	"github.com/mkenney/go-chrome/tot/schema"
 )
 
 func TestSchemaGetDomains(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestSchemaGetDomains")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Schema().GetDomains()
@@ -22,7 +22,7 @@ func TestSchemaGetDomains(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -36,7 +36,7 @@ func TestSchemaGetDomains(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Schema().GetDomains()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,

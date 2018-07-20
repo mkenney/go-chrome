@@ -4,26 +4,72 @@ import (
 	"net/url"
 	"reflect"
 	"testing"
+	"time"
 )
 
-func TestSocketDisconnect(t *testing.T) {
-	socketURL, _ := url.Parse("https://www.example.com/")
-	socket := NewMock(socketURL)
+func TestNewSocket(t *testing.T) {
+	socketURL, _ := url.Parse("https://test:9222/TestNewSocket")
+	socket := New(socketURL)
 	if err := socket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() {
 		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
 	}
 }
 
-func TestListenCommand(t *testing.T) {
-	socketURL, _ := url.Parse("https://www.example.com/command")
+func TestCommandNotFound(t *testing.T) {
+	socketURL, _ := url.Parse("https://test:9222/TestCommandNotFound")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
+	defer mockSocket.Stop()
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID:     999,
+		Error:  &Error{},
+		Method: "Some.methodError",
+		Result: []byte(`"Mock Command Result"`),
+	})
+	time.Sleep(1 * time.Second)
+}
+
+func TestSocketStop(t *testing.T) {
+	socketURL, _ := url.Parse("https://test:9222/TestSocketStop")
+	mockSocket := NewMock(socketURL)
+	mockSocket.Listen()
+	time.Sleep(1 * time.Second)
+	if err := mockSocket.Stop(); nil != err {
+		t.Errorf("Expected nil, got error: %v", err)
+	}
+}
+
+func TestSocketDisconnect(t *testing.T) {
+	socketURL, _ := url.Parse("https://test:9222/TestSocketDisconnect")
+	mockSocket := NewMock(socketURL)
+	if err := mockSocket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() && "errors.Err" != reflect.TypeOf(err).String() {
+		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
+	}
+
+	// Test the disconnect timeout
+	mockSocket = NewMock(socketURL)
+	mockSocket.Listen()
+	mockSocket.Conn().(*MockChromeWebSocket).Sleep(10 * time.Second)
+	start := time.Now()
+	if err := mockSocket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() && "errors.Err" != reflect.TypeOf(err).String() {
+		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
+	}
+	elapsed := time.Since(start)
+	if elapsed < 1*time.Second {
+		t.Errorf("Expected disconnect timeout in 1 seconds, %s elapsed", elapsed)
+	}
+}
+
+func TestListenCommand(t *testing.T) {
+	socketURL, _ := url.Parse("https://test:9222/TestListenCommand")
+	mockSocket := NewMock(socketURL)
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	command := NewCommand(mockSocket, "Some.method", nil)
 	resultChan := mockSocket.SendCommand(command)
-	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID:     command.ID(),
 		Error:  &Error{},
 		Method: "Some.method",
 		Result: []byte(`"Mock Command Result"`),
@@ -35,15 +81,15 @@ func TestListenCommand(t *testing.T) {
 }
 
 func TestListenCommandError(t *testing.T) {
-	socketURL, _ := url.Parse("https://www.example.com/error")
+	socketURL, _ := url.Parse("https://test:9222/TestListenCommandError")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	command := NewCommand(mockSocket, "Some.methodError", nil)
 	resultChan := mockSocket.SendCommand(command)
-	mockSocket.Conn().AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+		ID:     command.ID(),
 		Error:  &Error{},
 		Method: "Some.methodError",
 		Result: []byte(`"Mock Command Result"`),
@@ -55,15 +101,15 @@ func TestListenCommandError(t *testing.T) {
 }
 
 func TestListenCommandUnknown(t *testing.T) {
-	socketURL, _ := url.Parse("https://www.example.com/error")
+	socketURL, _ := url.Parse("https://test:9222/TestListenCommandUnknown")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	command := NewCommand(mockSocket, "", nil)
 	command.SetID(0)
 	resultChan := mockSocket.SendCommand(command)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  nil,
 		Method: "",
@@ -74,35 +120,71 @@ func TestListenCommandUnknown(t *testing.T) {
 	}
 }
 
-func TestReadJSONError(t *testing.T) {
-	//	socketURL, _ := url.Parse("https://www.example.com/error")
-	//	mockSocket := NewMock(socketURL)
-	//	go mockSocket.Listen()
-	//	defer mockSocket.Stop()
-	//
-	//	mockSocket.Conn().AddMockData(
-	//		0,
-	//		&Error{},
-	//		"Some.event",
-	//		"Mock Event Result",
-	//	)
-	//
-	//	mockSocket := NewMock(socketURL)
-	//	err := mockSocket.Listen()
-	//
-	//	if nil == err {
-	//		t.Errorf("Expected an error, received nil")
-	//	}
-	//
-	//	if "Mock Read Error" != err.Error() {
-	//		t.Errorf("Expected error message 'Mock Read Error', received '%s'", err.Error())
-	//	}
+func TestRemoveEventHandler(t *testing.T) {
+	var err error
+	socketURL, _ := url.Parse("https://test:9222/TestRemoveEventHandler")
+	mockSocket := NewMock(socketURL)
+	mockSocket.Listen()
+	defer mockSocket.Stop()
+
+	handler1 := NewEventHandler(
+		"Test.event",
+		func(response *Response) {},
+	)
+	handler2 := NewEventHandler(
+		"Test.event",
+		func(response *Response) {},
+	)
+
+	// Remove before added
+	err = mockSocket.RemoveEventHandler(handler1)
+	if nil == err {
+		t.Errorf("Expected error, received nil")
+	}
+
+	// Remove added handler
+	mockSocket.AddEventHandler(handler1)
+	err = mockSocket.RemoveEventHandler(handler1)
+	if nil != err {
+		t.Errorf("Expected nil, received error: %s", err.Error())
+	}
+
+	// Removed but never added
+	err = mockSocket.RemoveEventHandler(handler2)
+	if nil != err {
+		t.Errorf("Expected nil, received error: %s", err.Error())
+	}
 }
 
+//func TestReadJSONError(t *testing.T) {
+//	socketURL, _ := url.Parse("https://test:9222/TestReadJSONError")
+//	mockSocket := NewMock(socketURL)
+//	mockSocket.Listen()
+//	defer mockSocket.Stop()
+//
+//	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(
+//		0,
+//		&Error{},
+//		"Some.event",
+//		"Mock Event Result",
+//	)
+//
+//	mockSocket := NewMock(socketURL)
+//	err := mockSocket.Listen()
+//
+//	if nil == err {
+//		t.Errorf("Expected an error, received nil")
+//	}
+//
+//	if "Mock Read Error" != err.Error() {
+//		t.Errorf("Expected error message 'Mock Read Error', received '%s'", err.Error())
+//	}
+//}
+
 func TestURL(t *testing.T) {
-	socketURL, _ := url.Parse("https://www.example.com/")
+	socketURL, _ := url.Parse("https://test:9222/TestURL")
 	mockSocket := NewMock(socketURL)
-	if "https://www.example.com/" != mockSocket.URL().String() {
+	if "https://test:9222/TestURL" != mockSocket.URL().String() {
 		t.Errorf("Socketer.URL() failed to return the correct URL")
 	}
 }

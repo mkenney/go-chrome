@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	"github.com/mkenney/go-chrome/tot/cdtp/runtime"
+	"github.com/mkenney/go-chrome/tot/runtime"
 )
 
 /*
@@ -409,7 +409,7 @@ func (protocol *RuntimeProtocol) OnConsoleAPICalled(
 		"Runtime.consoleAPICalled",
 		func(response *Response) {
 			event := &runtime.ConsoleAPICalledEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -432,7 +432,7 @@ func (protocol *RuntimeProtocol) OnExceptionRevoked(
 		"Runtime.exceptionRevoked",
 		func(response *Response) {
 			event := &runtime.ExceptionRevokedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -455,7 +455,7 @@ func (protocol *RuntimeProtocol) OnExceptionThrown(
 		"Runtime.exceptionThrown",
 		func(response *Response) {
 			event := &runtime.ExceptionThrownEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -479,7 +479,7 @@ func (protocol *RuntimeProtocol) OnExecutionContextCreated(
 		"Runtime.executionContextCreated",
 		func(response *Response) {
 			event := &runtime.ExecutionContextCreatedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -503,7 +503,7 @@ func (protocol *RuntimeProtocol) OnExecutionContextDestroyed(
 		"Runtime.executionContextDestroyed",
 		func(response *Response) {
 			event := &runtime.ExecutionContextDestroyedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -527,7 +527,7 @@ func (protocol *RuntimeProtocol) OnExecutionContextsCleared(
 		"Runtime.executionContextsCleared",
 		func(response *Response) {
 			event := &runtime.ExecutionContextsClearedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -551,7 +551,7 @@ func (protocol *RuntimeProtocol) OnInspectRequested(
 		"Runtime.inspectRequested",
 		func(response *Response) {
 			event := &runtime.InspectRequestedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

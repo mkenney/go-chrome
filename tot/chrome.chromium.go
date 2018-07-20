@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/pkg/errors"
+	errs "github.com/mkenney/go-errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -85,10 +85,10 @@ Default value is 'localhost'
 */
 func (chrome *Chrome) Address() string {
 	if !chrome.Flags().Has("addr") {
-		chrome.Flags().Set("addr", []interface{}{"localhost"})
+		chrome.Flags().Set("addr", "localhost")
 	}
 	value, _ := chrome.Flags().Get("addr")
-	return value[0].(string)
+	return value.(string)
 }
 
 /*
@@ -116,12 +116,15 @@ Close implements Chromium.
 */
 func (chrome *Chrome) Close() error {
 	if chrome.process != nil {
+		for _, tab := range chrome.Tabs() {
+			tab.Close()
+		}
 		if err := chrome.process.Signal(os.Interrupt); err != nil {
-			return errors.Wrap(err, "chrome process interrupt failed")
+			return errs.Wrap(err, "chrome process interrupt failed")
 		}
 		ps, err := chrome.process.Wait()
 		if err != nil {
-			return errors.Wrap(err, "error waiting for process exit, result unknown")
+			return errs.Wrap(err, "error waiting for process exit, result unknown")
 		}
 		log.Infof("Chromium exited: %s", ps.String())
 	}
@@ -138,10 +141,10 @@ Default value is '0.0.0.0'.
 */
 func (chrome *Chrome) DebuggingAddress() string {
 	if !chrome.Flags().Has("remote-debugging-address") {
-		chrome.Flags().Set("remote-debugging-address", []interface{}{"0.0.0.0"})
+		chrome.Flags().Set("remote-debugging-address", "0.0.0.0")
 	}
 	value, _ := chrome.Flags().Get("remote-debugging-address")
-	return value[0].(string)
+	return value.(string)
 }
 
 /*
@@ -149,23 +152,25 @@ DebuggingPort implements Chromium.
 */
 func (chrome *Chrome) DebuggingPort() int {
 	if !chrome.Flags().Has("remote-debugging-port") {
-		chrome.Flags().Set("remote-debugging-port", []interface{}{9222})
+		chrome.Flags().Set("remote-debugging-port", 9222)
 	}
 	value, _ := chrome.Flags().Get("remote-debugging-port")
-	return value[0].(int)
+	return value.(int)
 }
 
 /*
 GetTab implements Chromium.
 */
-func (chrome *Chrome) GetTab(tabID string) (tab Tabber, err error) {
-	for _, tab = range chrome.tabs {
+func (chrome *Chrome) GetTab(tabID string) (Tabber, error) {
+	var tab Tabber
+	var err error
+	for _, tab = range chrome.Tabs() {
 		if tab.Data().ID == tabID {
 			return tab, nil
 		}
 	}
-	err = fmt.Errorf("Tab '%s' not found", tabID)
-	return
+	err = errs.New(fmt.Sprintf("tab '%s' not found", tabID))
+	return tab, err
 }
 
 /*
@@ -191,11 +196,11 @@ func (chrome *Chrome) Launch() error {
 	chrome.DebuggingPort()
 	chrome.Port()
 	if !chrome.Flags().Has("user-data-dir") {
-		chrome.Flags().Set("user-data-dir", []interface{}{os.TempDir()})
+		chrome.Flags().Set("user-data-dir", os.TempDir())
 	}
 
-	if err := os.MkdirAll(chrome.Workdir(), 0700); err != nil {
-		return errors.Wrap(err, fmt.Sprintf("cannot create working directory '%s'", chrome.Workdir()))
+	if err = os.MkdirAll(chrome.Workdir(), 0700); err != nil {
+		return errs.Wrap(err, fmt.Sprintf("cannot create working directory '%s'", chrome.Workdir()))
 	}
 
 	if "" == chrome.STDERR() {
@@ -207,7 +212,7 @@ func (chrome *Chrome) Launch() error {
 			0600,
 		)
 		if err != nil {
-			return errors.Wrap(err, fmt.Sprintf("cannot open error output file '%s'", chrome.STDERR()))
+			return errs.Wrap(err, fmt.Sprintf("cannot open error output file '%s'", chrome.STDERR()))
 		}
 	}
 
@@ -220,7 +225,7 @@ func (chrome *Chrome) Launch() error {
 			0600,
 		)
 		if err != nil {
-			return errors.Wrap(err, fmt.Sprintf("cannot open standard output file '%s'", chrome.STDOUT()))
+			return errs.Wrap(err, fmt.Sprintf("cannot open standard output file '%s'", chrome.STDOUT()))
 		}
 	}
 
@@ -235,7 +240,7 @@ func (chrome *Chrome) Launch() error {
 	)
 	if nil != err {
 		chrome.stdOUTFile.Close()
-		return errors.Wrap(err, "error starting chrome")
+		return errs.Wrap(err, "error starting chrome")
 	}
 
 	// Wait up to 10 seconds for Chromium to start
@@ -246,10 +251,9 @@ func (chrome *Chrome) Launch() error {
 		}
 	}
 	if err != nil {
-		log.Errorf("Chromium took too long to start")
-		log.Debugf(err.Error())
+		log.Error("Chromium took too long to start")
 		chrome.Close()
-		return errors.Wrap(err, "chrome took too long to start")
+		return errs.Wrap(err, "chromium took too long to start")
 	}
 
 	return nil
@@ -262,10 +266,10 @@ Default value is 9222
 */
 func (chrome *Chrome) Port() int {
 	if !chrome.Flags().Has("port") {
-		chrome.Flags().Set("port", []interface{}{9222})
+		chrome.Flags().Set("port", 9222)
 	}
 	value, _ := chrome.Flags().Get("port")
-	return value[0].(int)
+	return value.(int)
 }
 
 /*
@@ -283,18 +287,18 @@ func (chrome *Chrome) Query(
 	uri := fmt.Sprintf("http://%s:%d%s", chrome.Address(), chrome.Port(), path)
 	resp, err := http.Get(uri)
 	if err != nil {
-		return nil, errors.Wrap(err, "get uri failed")
+		return nil, errs.Wrap(err, "get uri failed")
 	}
 	defer resp.Body.Close()
 
 	log.Debugf("chrome:/%s %s", path, resp.Status)
 	if 200 != resp.StatusCode {
-		return nil, errors.New(resp.Status)
+		return nil, errs.New(resp.Status)
 	}
 
 	content, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return nil, errors.Wrap(err, "read failed")
+		return nil, errs.Wrap(err, "read failed")
 	} else if err := json.Unmarshal(content, &msg); err != nil {
 		// it's not JSON so just return it
 		return content, nil
@@ -334,7 +338,7 @@ func (chrome *Chrome) Version() (*Version, error) {
 			url.Values{},
 			&chrome.version,
 		); err != nil {
-			return nil, errors.Wrap(err, "version query failed")
+			return nil, errs.Wrap(err, "version query failed")
 		}
 	}
 	return chrome.version, nil

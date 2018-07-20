@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	"github.com/mkenney/go-chrome/tot/cdtp/tracing"
+	"github.com/mkenney/go-chrome/tot/tracing"
 )
 
 /*
@@ -144,7 +144,7 @@ func (protocol *TracingProtocol) OnBufferUsage(
 		"Tracing.bufferUsage",
 		func(response *Response) {
 			event := &tracing.BufferUsageEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -169,7 +169,7 @@ func (protocol *TracingProtocol) OnDataCollected(
 		"Tracing.dataCollected",
 		func(response *Response) {
 			event := &tracing.DataCollectedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -193,7 +193,7 @@ func (protocol *TracingProtocol) OnTracingComplete(
 		"Tracing.tracingComplete",
 		func(response *Response) {
 			event := &tracing.CompleteEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

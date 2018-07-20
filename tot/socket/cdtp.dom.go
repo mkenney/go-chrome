@@ -3,7 +3,7 @@ package socket
 import (
 	"encoding/json"
 
-	"github.com/mkenney/go-chrome/tot/cdtp/dom"
+	"github.com/mkenney/go-chrome/tot/dom"
 )
 
 /*
@@ -958,7 +958,7 @@ func (protocol *DOMProtocol) OnAttributeModified(
 		"DOM.attributeModified",
 		func(response *Response) {
 			event := &dom.AttributeModifiedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -981,7 +981,7 @@ func (protocol *DOMProtocol) OnAttributeRemoved(
 		"DOM.attributeRemoved",
 		func(response *Response) {
 			event := &dom.AttributeRemovedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1004,7 +1004,7 @@ func (protocol *DOMProtocol) OnCharacterDataModified(
 		"DOM.characterDataModified",
 		func(response *Response) {
 			event := &dom.CharacterDataModifiedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1027,7 +1027,7 @@ func (protocol *DOMProtocol) OnChildNodeCountUpdated(
 		"DOM.childNodeCountUpdated",
 		func(response *Response) {
 			event := &dom.ChildNodeCountUpdatedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1050,7 +1050,7 @@ func (protocol *DOMProtocol) OnChildNodeInserted(
 		"DOM.childNodeInserted",
 		func(response *Response) {
 			event := &dom.ChildNodeInsertedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1073,7 +1073,7 @@ func (protocol *DOMProtocol) OnChildNodeRemoved(
 		"DOM.childNodeRemoved",
 		func(response *Response) {
 			event := &dom.ChildNodeRemovedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1097,7 +1097,7 @@ func (protocol *DOMProtocol) OnDistributedNodesUpdated(
 		"DOM.distributedNodesUpdated",
 		func(response *Response) {
 			event := &dom.DistributedNodesUpdatedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1121,7 +1121,7 @@ func (protocol *DOMProtocol) OnDocumentUpdated(
 		"DOM.documentUpdated",
 		func(response *Response) {
 			event := &dom.DocumentUpdatedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1144,7 +1144,7 @@ func (protocol *DOMProtocol) OnInlineStyleInvalidated(
 		"DOM.inlineStyleInvalidated",
 		func(response *Response) {
 			event := &dom.InlineStyleInvalidatedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1167,7 +1167,7 @@ func (protocol *DOMProtocol) OnPseudoElementAdded(
 		"DOM.pseudoElementAdded",
 		func(response *Response) {
 			event := &dom.PseudoElementAddedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1190,7 +1190,7 @@ func (protocol *DOMProtocol) OnPseudoElementRemoved(
 		"DOM.pseudoElementRemoved",
 		func(response *Response) {
 			event := &dom.PseudoElementRemovedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1214,7 +1214,7 @@ func (protocol *DOMProtocol) OnSetChildNodes(
 		"DOM.setChildNodes",
 		func(response *Response) {
 			event := &dom.SetChildNodesEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1237,7 +1237,7 @@ func (protocol *DOMProtocol) OnShadowRootPopped(
 		"DOM.shadowRootPopped",
 		func(response *Response) {
 			event := &dom.ShadowRootPoppedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}
@@ -1260,7 +1260,7 @@ func (protocol *DOMProtocol) OnShadowRootPushed(
 		"DOM.shadowRootPushed",
 		func(response *Response) {
 			event := &dom.ShadowRootPushedEvent{}
-			json.Unmarshal([]byte(response.Result), event)
+			json.Unmarshal([]byte(response.Params), event)
 			if nil != response.Error && 0 != response.Error.Code {
 				event.Err = response.Error
 			}

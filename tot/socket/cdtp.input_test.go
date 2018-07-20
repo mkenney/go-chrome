@@ -6,13 +6,13 @@ import (
 	"testing"
 	"time"
 
-	input "github.com/mkenney/go-chrome/tot/cdtp/input"
+	"github.com/mkenney/go-chrome/tot/input"
 )
 
 func TestInputDispatchKeyEvent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestInputDispatchKeyEvent")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &input.DispatchKeyEventParams{
@@ -34,7 +34,7 @@ func TestInputDispatchKeyEvent(t *testing.T) {
 	resultChan := mockSocket.Input().DispatchKeyEvent(params)
 	mockResult := &input.DispatchKeyEventResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -45,7 +45,7 @@ func TestInputDispatchKeyEvent(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Input().DispatchKeyEvent(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -60,9 +60,9 @@ func TestInputDispatchKeyEvent(t *testing.T) {
 }
 
 func TestInputDispatchMouseEvent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestInputDispatchMouseEvent")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &input.DispatchMouseEventParams{
@@ -79,7 +79,7 @@ func TestInputDispatchMouseEvent(t *testing.T) {
 	resultChan := mockSocket.Input().DispatchMouseEvent(params)
 	mockResult := &input.DispatchMouseEventResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -90,7 +90,7 @@ func TestInputDispatchMouseEvent(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Input().DispatchMouseEvent(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -105,9 +105,9 @@ func TestInputDispatchMouseEvent(t *testing.T) {
 }
 
 func TestInputDispatchTouchEvent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestInputDispatchTouchEvent")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &input.DispatchTouchEventParams{
@@ -127,7 +127,7 @@ func TestInputDispatchTouchEvent(t *testing.T) {
 	resultChan := mockSocket.Input().DispatchTouchEvent(params)
 	mockResult := &input.DispatchTouchEventResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -138,7 +138,7 @@ func TestInputDispatchTouchEvent(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Input().DispatchTouchEvent(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -153,9 +153,9 @@ func TestInputDispatchTouchEvent(t *testing.T) {
 }
 
 func TestInputEmulateTouchFromMouseEvent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestInputEmulateTouchFromMouseEvent")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &input.EmulateTouchFromMouseEventParams{
@@ -172,7 +172,7 @@ func TestInputEmulateTouchFromMouseEvent(t *testing.T) {
 	resultChan := mockSocket.Input().EmulateTouchFromMouseEvent(params)
 	mockResult := &input.EmulateTouchFromMouseEventResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -183,7 +183,7 @@ func TestInputEmulateTouchFromMouseEvent(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Input().EmulateTouchFromMouseEvent(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -198,9 +198,9 @@ func TestInputEmulateTouchFromMouseEvent(t *testing.T) {
 }
 
 func TestInputSetIgnoreEvents(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestInputSetIgnoreEvents")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &input.SetIgnoreEventsParams{
@@ -209,7 +209,7 @@ func TestInputSetIgnoreEvents(t *testing.T) {
 	resultChan := mockSocket.Input().SetIgnoreEvents(params)
 	mockResult := &input.SetIgnoreEventsResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -220,7 +220,7 @@ func TestInputSetIgnoreEvents(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Input().SetIgnoreEvents(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -235,9 +235,9 @@ func TestInputSetIgnoreEvents(t *testing.T) {
 }
 
 func TestInputSynthesizePinchGesture(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestInputSynthesizePinchGesture")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &input.SynthesizePinchGestureParams{
@@ -250,7 +250,7 @@ func TestInputSynthesizePinchGesture(t *testing.T) {
 	resultChan := mockSocket.Input().SynthesizePinchGesture(params)
 	mockResult := &input.SynthesizePinchGestureResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -261,7 +261,7 @@ func TestInputSynthesizePinchGesture(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Input().SynthesizePinchGesture(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -276,9 +276,9 @@ func TestInputSynthesizePinchGesture(t *testing.T) {
 }
 
 func TestInputSynthesizeScrollGesture(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestInputSynthesizeScrollGesture")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &input.SynthesizeScrollGestureParams{
@@ -298,7 +298,7 @@ func TestInputSynthesizeScrollGesture(t *testing.T) {
 	resultChan := mockSocket.Input().SynthesizeScrollGesture(params)
 	mockResult := &input.SynthesizeScrollGestureResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -309,7 +309,7 @@ func TestInputSynthesizeScrollGesture(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Input().SynthesizeScrollGesture(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -324,9 +324,9 @@ func TestInputSynthesizeScrollGesture(t *testing.T) {
 }
 
 func TestInputSynthesizeTapGesture(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestInputSynthesizeTapGesture")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &input.SynthesizeTapGestureParams{
@@ -339,7 +339,7 @@ func TestInputSynthesizeTapGesture(t *testing.T) {
 	resultChan := mockSocket.Input().SynthesizeTapGesture(params)
 	mockResult := &input.SynthesizeTapGestureResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -350,7 +350,7 @@ func TestInputSynthesizeTapGesture(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Input().SynthesizeTapGesture(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,

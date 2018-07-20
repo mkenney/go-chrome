@@ -8,22 +8,34 @@
   version = "v1.2.0"
 
 [[projects]]
-  name = "github.com/pkg/errors"
+  branch = "master"
+  name = "github.com/mkenney/go-errors"
   packages = ["."]
-  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
-  version = "v0.8.0"
+  revision = "436418699008426bfa6889c4c818063c7c597dcf"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/mkenney/go-log-fmt"
+  packages = ["."]
+  revision = "c98a00db7ec57537dd33b8bd868c4a75957ed5c2"
+
+[[projects]]
+  name = "github.com/sanity-io/litter"
+  packages = ["."]
+  revision = "ae543b7ba8fd6af63e4976198f146e1348ae53c1"
+  version = "v1.1.0"
 
 [[projects]]
   name = "github.com/sirupsen/logrus"
   packages = ["."]
-  revision = "d682213848ed68c0a260ca37d6dd5ace8423f5ba"
-  version = "v1.0.4"
+  revision = "c155da19408a8799da419ed3eeb0cb5db0ad5dbc"
+  version = "v1.0.5"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  revision = "650f4a345ab4e5b245a3034b110ebc7299e68186"
+  revision = "ab813273cd59e1333f7ae7bff5d027d4aadf528c"
 
 [[projects]]
   branch = "master"
@@ -32,11 +44,11 @@
     "unix",
     "windows"
   ]
-  revision = "37707fdb30a5b38865cfb95e5aab41707daec7fd"
+  revision = "c11f84a56e43e20a78cee75a7c034031ecf57d1f"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "8277e7e66292847d4eeee68bcf405e820e5c6f8cb1b8785bc23d36f0585395d6"
+  inputs-digest = "de14efa76f6f13efb5fd354a595a9ea17bcc783fc2d053b37ecf59795df2e201"
   solver-name = "gps-cdcl"
   solver-version = 1

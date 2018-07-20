@@ -5,14 +5,14 @@ import (
 	"net/url"
 	"testing"
 
-	audits "github.com/mkenney/go-chrome/tot/cdtp/audits"
-	network "github.com/mkenney/go-chrome/tot/cdtp/network"
+	audits "github.com/mkenney/go-chrome/tot/audits"
+	network "github.com/mkenney/go-chrome/tot/network"
 )
 
 func TestAuditsGetEncodedResponse(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestAuditsGetEncodedResponse")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Audits().GetEncodedResponse(&audits.GetEncodedResponseParams{
@@ -27,7 +27,7 @@ func TestAuditsGetEncodedResponse(t *testing.T) {
 		EncodedSize:  2,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -50,7 +50,7 @@ func TestAuditsGetEncodedResponse(t *testing.T) {
 		Quality:   1,
 		SizeOnly:  true,
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,

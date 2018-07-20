@@ -5,19 +5,19 @@ import (
 	"net/url"
 	"testing"
 
-	systemInfo "github.com/mkenney/go-chrome/tot/cdtp/system/info"
+	"github.com/mkenney/go-chrome/tot/system/info"
 )
 
 func TestSystemInfoGetInfo(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestSystemInfoGetInfo")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.SystemInfo().GetInfo()
-	mockResult := &systemInfo.GetInfoResult{
-		GPU: &systemInfo.GPUInfo{
-			Devices: []*systemInfo.GPUDevice{{
+	mockResult := &info.GetInfoResult{
+		GPU: &info.GPUInfo{
+			Devices: []*info.GPUDevice{{
 				VendorID:     1,
 				DeviceID:     1,
 				VendorString: "VendorString",
@@ -32,7 +32,7 @@ func TestSystemInfoGetInfo(t *testing.T) {
 		CommandLine:  "CommandLine",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -46,7 +46,7 @@ func TestSystemInfoGetInfo(t *testing.T) {
 	}
 
 	resultChan = mockSocket.SystemInfo().GetInfo()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,

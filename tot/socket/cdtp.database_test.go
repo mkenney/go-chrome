@@ -5,19 +5,19 @@ import (
 	"net/url"
 	"testing"
 
-	database "github.com/mkenney/go-chrome/tot/cdtp/database"
+	"github.com/mkenney/go-chrome/tot/database"
 )
 
 func TestDatabaseDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDatabaseDisable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Database().Disable()
 	mockResult := &database.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -28,7 +28,7 @@ func TestDatabaseDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Database().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -43,15 +43,15 @@ func TestDatabaseDisable(t *testing.T) {
 }
 
 func TestDatabaseEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDatabaseEnable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Database().Enable()
 	mockResult := &database.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -62,7 +62,7 @@ func TestDatabaseEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Database().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -77,9 +77,9 @@ func TestDatabaseEnable(t *testing.T) {
 }
 
 func TestDatabaseExecuteSQL(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDatabaseExecuteSQL")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Database().ExecuteSQL(&database.ExecuteSQLParams{
@@ -95,7 +95,7 @@ func TestDatabaseExecuteSQL(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -112,7 +112,7 @@ func TestDatabaseExecuteSQL(t *testing.T) {
 		ID:    database.ID("db-id"),
 		Query: "SELECT * FROM table_name",
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -127,9 +127,9 @@ func TestDatabaseExecuteSQL(t *testing.T) {
 }
 
 func TestDatabaseGetTableNames(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDatabaseGetTableNames")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Database().GetTableNames(&database.GetTableNamesParams{
@@ -139,7 +139,7 @@ func TestDatabaseGetTableNames(t *testing.T) {
 		TableNames: []string{"table1", "table2"},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -155,7 +155,7 @@ func TestDatabaseGetTableNames(t *testing.T) {
 	resultChan = mockSocket.Database().GetTableNames(&database.GetTableNamesParams{
 		ID: database.ID("db-id"),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -170,9 +170,9 @@ func TestDatabaseGetTableNames(t *testing.T) {
 }
 
 func TestDatabaseOnAdd(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestDatabaseOnAdd")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *database.AddEvent)
@@ -188,11 +188,11 @@ func TestDatabaseOnAdd(t *testing.T) {
 		},
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Database.addDatabase",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -203,7 +203,7 @@ func TestDatabaseOnAdd(t *testing.T) {
 	mockSocket.Database().OnAdd(func(eventData *database.AddEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

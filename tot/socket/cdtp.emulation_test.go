@@ -6,16 +6,16 @@ import (
 	"testing"
 	"time"
 
-	dom "github.com/mkenney/go-chrome/tot/cdtp/dom"
-	emulation "github.com/mkenney/go-chrome/tot/cdtp/emulation"
-	page "github.com/mkenney/go-chrome/tot/cdtp/page"
-	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
+	"github.com/mkenney/go-chrome/tot/dom"
+	"github.com/mkenney/go-chrome/tot/emulation"
+	"github.com/mkenney/go-chrome/tot/page"
+	"github.com/mkenney/go-chrome/tot/runtime"
 )
 
 func TestEmulationCanEmulate(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationCanEmulate")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Emulation().CanEmulate()
@@ -23,7 +23,7 @@ func TestEmulationCanEmulate(t *testing.T) {
 		Result: true,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -37,7 +37,7 @@ func TestEmulationCanEmulate(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Emulation().CanEmulate()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -52,15 +52,15 @@ func TestEmulationCanEmulate(t *testing.T) {
 }
 
 func TestEmulationClearDeviceMetricsOverride(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationClearDeviceMetricsOverride")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Emulation().ClearDeviceMetricsOverride()
 	mockResult := &emulation.ClearDeviceMetricsOverrideResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -71,7 +71,7 @@ func TestEmulationClearDeviceMetricsOverride(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Emulation().ClearDeviceMetricsOverride()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -86,15 +86,15 @@ func TestEmulationClearDeviceMetricsOverride(t *testing.T) {
 }
 
 func TestEmulationClearGeolocationOverride(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationClearGeolocationOverride")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Emulation().ClearGeolocationOverride()
 	mockResult := &emulation.ClearGeolocationOverrideResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -105,7 +105,7 @@ func TestEmulationClearGeolocationOverride(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Emulation().ClearGeolocationOverride()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -120,15 +120,15 @@ func TestEmulationClearGeolocationOverride(t *testing.T) {
 }
 
 func TestEmulationResetPageScaleFactor(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationResetPageScaleFactor")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Emulation().ResetPageScaleFactor()
 	mockResult := &emulation.ResetPageScaleFactorResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -139,7 +139,7 @@ func TestEmulationResetPageScaleFactor(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Emulation().ResetPageScaleFactor()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -154,9 +154,9 @@ func TestEmulationResetPageScaleFactor(t *testing.T) {
 }
 
 func TestEmulationSetCPUThrottlingRate(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetCPUThrottlingRate")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &emulation.SetCPUThrottlingRateParams{
@@ -165,7 +165,7 @@ func TestEmulationSetCPUThrottlingRate(t *testing.T) {
 	resultChan := mockSocket.Emulation().SetCPUThrottlingRate(params)
 	mockResult := &emulation.SetCPUThrottlingRateResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -176,7 +176,7 @@ func TestEmulationSetCPUThrottlingRate(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Emulation().SetCPUThrottlingRate(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -191,9 +191,9 @@ func TestEmulationSetCPUThrottlingRate(t *testing.T) {
 }
 
 func TestEmulationSetDefaultBackgroundColorOverride(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetDefaultBackgroundColorOverride")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &emulation.SetDefaultBackgroundColorOverrideParams{
@@ -207,7 +207,7 @@ func TestEmulationSetDefaultBackgroundColorOverride(t *testing.T) {
 	resultChan := mockSocket.Emulation().SetDefaultBackgroundColorOverride(params)
 	mockResult := &emulation.SetDefaultBackgroundColorOverrideResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -218,7 +218,7 @@ func TestEmulationSetDefaultBackgroundColorOverride(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Emulation().SetDefaultBackgroundColorOverride(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -233,9 +233,9 @@ func TestEmulationSetDefaultBackgroundColorOverride(t *testing.T) {
 }
 
 func TestEmulationSetDeviceMetricsOverride(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetDeviceMetricsOverride")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &emulation.SetDeviceMetricsOverrideParams{
@@ -264,7 +264,7 @@ func TestEmulationSetDeviceMetricsOverride(t *testing.T) {
 	resultChan := mockSocket.Emulation().SetDeviceMetricsOverride(params)
 	mockResult := &emulation.SetDeviceMetricsOverrideResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -275,7 +275,7 @@ func TestEmulationSetDeviceMetricsOverride(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Emulation().SetDeviceMetricsOverride(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -290,9 +290,9 @@ func TestEmulationSetDeviceMetricsOverride(t *testing.T) {
 }
 
 func TestEmulationSetEmitTouchEventsForMouse(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetEmitTouchEventsForMouse")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &emulation.SetEmitTouchEventsForMouseParams{
@@ -302,7 +302,7 @@ func TestEmulationSetEmitTouchEventsForMouse(t *testing.T) {
 	resultChan := mockSocket.Emulation().SetEmitTouchEventsForMouse(params)
 	mockResult := &emulation.SetEmitTouchEventsForMouseResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -313,7 +313,7 @@ func TestEmulationSetEmitTouchEventsForMouse(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Emulation().SetEmitTouchEventsForMouse(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -328,9 +328,9 @@ func TestEmulationSetEmitTouchEventsForMouse(t *testing.T) {
 }
 
 func TestEmulationSetEmulatedMedia(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetEmulatedMedia")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &emulation.SetEmulatedMediaParams{
@@ -339,7 +339,7 @@ func TestEmulationSetEmulatedMedia(t *testing.T) {
 	resultChan := mockSocket.Emulation().SetEmulatedMedia(params)
 	mockResult := &emulation.SetEmulatedMediaResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -350,7 +350,7 @@ func TestEmulationSetEmulatedMedia(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Emulation().SetEmulatedMedia(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -365,9 +365,9 @@ func TestEmulationSetEmulatedMedia(t *testing.T) {
 }
 
 func TestEmulationSetGeolocationOverride(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetGeolocationOverride")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &emulation.SetGeolocationOverrideParams{
@@ -378,7 +378,7 @@ func TestEmulationSetGeolocationOverride(t *testing.T) {
 	resultChan := mockSocket.Emulation().SetGeolocationOverride(params)
 	mockResult := &emulation.SetGeolocationOverrideResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -389,7 +389,7 @@ func TestEmulationSetGeolocationOverride(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Emulation().SetGeolocationOverride(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -404,9 +404,9 @@ func TestEmulationSetGeolocationOverride(t *testing.T) {
 }
 
 func TestEmulationSetNavigatorOverrides(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetNavigatorOverrides")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &emulation.SetNavigatorOverridesParams{
@@ -415,7 +415,7 @@ func TestEmulationSetNavigatorOverrides(t *testing.T) {
 	resultChan := mockSocket.Emulation().SetNavigatorOverrides(params)
 	mockResult := &emulation.SetNavigatorOverridesResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -426,7 +426,7 @@ func TestEmulationSetNavigatorOverrides(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Emulation().SetNavigatorOverrides(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -441,9 +441,9 @@ func TestEmulationSetNavigatorOverrides(t *testing.T) {
 }
 
 func TestEmulationSetPageScaleFactor(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetPageScaleFactor")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &emulation.SetPageScaleFactorParams{
@@ -452,7 +452,7 @@ func TestEmulationSetPageScaleFactor(t *testing.T) {
 	resultChan := mockSocket.Emulation().SetPageScaleFactor(params)
 	mockResult := &emulation.SetPageScaleFactorResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -463,7 +463,7 @@ func TestEmulationSetPageScaleFactor(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Emulation().SetPageScaleFactor(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -478,9 +478,9 @@ func TestEmulationSetPageScaleFactor(t *testing.T) {
 }
 
 func TestEmulationSetScriptExecutionDisabled(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetScriptExecutionDisabled")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &emulation.SetScriptExecutionDisabledParams{
@@ -489,7 +489,7 @@ func TestEmulationSetScriptExecutionDisabled(t *testing.T) {
 	resultChan := mockSocket.Emulation().SetScriptExecutionDisabled(params)
 	mockResult := &emulation.SetScriptExecutionDisabledResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -500,7 +500,7 @@ func TestEmulationSetScriptExecutionDisabled(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Emulation().SetScriptExecutionDisabled(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -515,9 +515,9 @@ func TestEmulationSetScriptExecutionDisabled(t *testing.T) {
 }
 
 func TestEmulationSetTouchEmulationEnabled(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetTouchEmulationEnabled")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &emulation.SetTouchEmulationEnabledParams{
@@ -527,7 +527,7 @@ func TestEmulationSetTouchEmulationEnabled(t *testing.T) {
 	resultChan := mockSocket.Emulation().SetTouchEmulationEnabled(params)
 	mockResult := &emulation.SetTouchEmulationEnabledResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -538,7 +538,7 @@ func TestEmulationSetTouchEmulationEnabled(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Emulation().SetTouchEmulationEnabled(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -553,9 +553,9 @@ func TestEmulationSetTouchEmulationEnabled(t *testing.T) {
 }
 
 func TestEmulationSetVirtualTimePolicy(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetVirtualTimePolicy")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &emulation.SetVirtualTimePolicyParams{
@@ -568,7 +568,7 @@ func TestEmulationSetVirtualTimePolicy(t *testing.T) {
 		VirtualTimeBase: runtime.Timestamp(time.Now().Unix()),
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -582,7 +582,7 @@ func TestEmulationSetVirtualTimePolicy(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Emulation().SetVirtualTimePolicy(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -597,9 +597,9 @@ func TestEmulationSetVirtualTimePolicy(t *testing.T) {
 }
 
 func TestEmulationSetVisibleSize(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationSetVisibleSize")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &emulation.SetVisibleSizeParams{
@@ -609,7 +609,7 @@ func TestEmulationSetVisibleSize(t *testing.T) {
 	resultChan := mockSocket.Emulation().SetVisibleSize(params)
 	mockResult := &emulation.SetVisibleSizeResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -620,7 +620,7 @@ func TestEmulationSetVisibleSize(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Emulation().SetVisibleSize(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -635,9 +635,9 @@ func TestEmulationSetVisibleSize(t *testing.T) {
 }
 
 func TestEmulationOnVirtualTimeAdvanced(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationOnVirtualTimeAdvanced")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *emulation.VirtualTimeAdvancedEvent)
@@ -648,11 +648,11 @@ func TestEmulationOnVirtualTimeAdvanced(t *testing.T) {
 		VirtualTimeElapsed: 1,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Emulation.virtualTimeAdvanced",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -663,7 +663,7 @@ func TestEmulationOnVirtualTimeAdvanced(t *testing.T) {
 	mockSocket.Emulation().OnVirtualTimeAdvanced(func(eventData *emulation.VirtualTimeAdvancedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -679,9 +679,9 @@ func TestEmulationOnVirtualTimeAdvanced(t *testing.T) {
 }
 
 func TestEmulationOnVirtualTimeBudgetExpired(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationOnVirtualTimeBudgetExpired")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *emulation.VirtualTimeBudgetExpiredEvent)
@@ -690,11 +690,11 @@ func TestEmulationOnVirtualTimeBudgetExpired(t *testing.T) {
 	})
 	mockResult := &emulation.VirtualTimeBudgetExpiredEvent{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Emulation.virtualTimeBudgetExpired",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -705,7 +705,7 @@ func TestEmulationOnVirtualTimeBudgetExpired(t *testing.T) {
 	mockSocket.Emulation().OnVirtualTimeBudgetExpired(func(eventData *emulation.VirtualTimeBudgetExpiredEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -721,9 +721,9 @@ func TestEmulationOnVirtualTimeBudgetExpired(t *testing.T) {
 }
 
 func TestEmulationOnVirtualTimePaused(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestEmulationOnVirtualTimePaused")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *emulation.VirtualTimePausedEvent)
@@ -734,11 +734,11 @@ func TestEmulationOnVirtualTimePaused(t *testing.T) {
 		VirtualTimeElapsed: 1,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Emulation.virtualTimePaused",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -749,7 +749,7 @@ func TestEmulationOnVirtualTimePaused(t *testing.T) {
 	mockSocket.Emulation().OnVirtualTimePaused(func(eventData *emulation.VirtualTimePausedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

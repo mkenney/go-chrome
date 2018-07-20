@@ -1,7 +1,11 @@
 [[constraint]]
-  name = "github.com/gorilla/websocket"
-  version = "1.2.0"
+  branch = "master"
+  name = "github.com/mkenney/go-log-fmt"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/mkenney/go-errors"
 
 [[constraint]]
   name = "github.com/sirupsen/logrus"
-  version = "1.0.4"
+  version = "1.0.5"

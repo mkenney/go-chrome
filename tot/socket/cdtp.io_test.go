@@ -5,14 +5,14 @@ import (
 	"net/url"
 	"testing"
 
-	io "github.com/mkenney/go-chrome/tot/cdtp/io"
-	runtime "github.com/mkenney/go-chrome/tot/cdtp/runtime"
+	"github.com/mkenney/go-chrome/tot/io"
+	"github.com/mkenney/go-chrome/tot/runtime"
 )
 
 func TestIOClose(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestIOClose")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &io.CloseParams{
@@ -21,7 +21,7 @@ func TestIOClose(t *testing.T) {
 	resultChan := mockSocket.IO().Close(params)
 	mockResult := &io.CloseResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -32,7 +32,7 @@ func TestIOClose(t *testing.T) {
 	}
 
 	resultChan = mockSocket.IO().Close(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -47,9 +47,9 @@ func TestIOClose(t *testing.T) {
 }
 
 func TestIORead(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestIORead")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &io.ReadParams{
@@ -64,7 +64,7 @@ func TestIORead(t *testing.T) {
 		EOF:           true,
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -78,7 +78,7 @@ func TestIORead(t *testing.T) {
 	}
 
 	resultChan = mockSocket.IO().Read(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -93,9 +93,9 @@ func TestIORead(t *testing.T) {
 }
 
 func TestIOResolveBlob(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestIOResolveBlob")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &io.ResolveBlobParams{
@@ -106,7 +106,7 @@ func TestIOResolveBlob(t *testing.T) {
 		UUID: "uuid",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -120,7 +120,7 @@ func TestIOResolveBlob(t *testing.T) {
 	}
 
 	resultChan = mockSocket.IO().ResolveBlob(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,

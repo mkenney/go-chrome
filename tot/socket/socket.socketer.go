@@ -1,11 +1,13 @@
 package socket
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/url"
 	"sync"
+	"time"
 
-	"github.com/pkg/errors"
+	errs "github.com/mkenney/go-errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -15,8 +17,8 @@ listening to the specified URL.
 */
 func New(url *url.URL) *Socket {
 	socket := &Socket{
-		commands:     NewCommandMap(),
 		commandIDMux: &sync.Mutex{},
+		commands:     NewCommandMap(),
 		handlers:     NewEventHandlerMap(),
 		mux:          &sync.Mutex{},
 		newSocket:    NewWebsocket,
@@ -64,42 +66,44 @@ func New(url *url.URL) *Socket {
 	socket.tethering = &TetheringProtocol{Socket: socket}
 	socket.tracing = &TracingProtocol{Socket: socket}
 
-	go socket.Listen()
+	socket.Listen()
 	log.Infof("socket #%d - New socket connection listening on %s", socket.socketID, socket.url)
 
 	return socket
 }
+
+var _socketCounterMux = &sync.Mutex{}
+var _socketCounter = 0
 
 /*
 NextSocketID increments and returns the socket ID for mapping Commander structs
 to socket responses.
 */
 func NextSocketID() int {
-	socketIDMux.Lock()
-	defer socketIDMux.Unlock()
+	_socketCounterMux.Lock()
 	_socketCounter++
 	id := _socketCounter
+	_socketCounterMux.Unlock()
 	return id
 }
-
-var socketIDMux = &sync.Mutex{}
-var _socketCounter = 0
 
 /*
 Socket is a Socketer implementation.
 */
 type Socket struct {
-	commands      CommandMapper
-	commandID     int
-	commandIDMux  *sync.Mutex
-	conn          *ChromeWebSocket
-	connected     bool
-	handlers      EventHandlerMapper
-	newSocket     func(socketURL *url.URL) (*ChromeWebSocket, error)
-	url           *url.URL
-	socketID      int
-	stopListening bool
-	mux           *sync.Mutex
+	commandID    int
+	commandIDMux *sync.Mutex
+	commands     CommandMapper
+	conn         WebSocketer
+	connected    bool
+	handlers     EventHandlerMapper
+	listenCh     chan bool
+	listenErr    errs.Err
+	listening    bool
+	mux          *sync.Mutex
+	newSocket    func(socketURL *url.URL) (WebSocketer, error)
+	socketID     int
+	url          *url.URL
 
 	// Protocol interfaces for the API.
 	accessibility        *AccessibilityProtocol
@@ -160,8 +164,8 @@ CurCommandID is a Socketer implementation.
 */
 func (socket *Socket) CurCommandID() int {
 	socket.commandIDMux.Lock()
-	defer socket.commandIDMux.Unlock()
 	id := socket.commandID
+	socket.commandIDMux.Unlock()
 	return id
 }
 
@@ -172,14 +176,15 @@ connection.
 func (socket *Socket) handleResponse(response *Response) {
 	// Log a message on error
 	if command, err := socket.commands.Get(response.ID); nil != err {
+		err = errs.Wrap(err, fmt.Sprintf("command #%d not found", response.ID))
 		errorMessage := ""
 		if nil != response.Error && 0 != response.Error.Code {
 			errorMessage = response.Error.Error()
 		}
 		log.Debugf(
-			"socket #%d - socket.handleResponse(): %s - result=%s err='%s'",
+			"socket #%d - socket.handleResponse(): %v - result=%s err='%s'",
 			socket.socketID,
-			err.Error(),
+			err,
 			response.Result,
 			errorMessage,
 		)
@@ -222,7 +227,7 @@ func (socket *Socket) handleEvent(
 	}
 
 	if handlers, err := socket.handlers.Get(response.Method); nil != err {
-		log.Debugf("socket #%d - %s", socket.socketID, err.Error())
+		log.Errorf("socket #%d - %v", socket.socketID, err)
 
 	} else {
 		for a, event := range handlers {
@@ -239,41 +244,37 @@ func (socket *Socket) handleUnknown(
 	response *Response,
 ) {
 	log.Debugf(
-		"socket #%d - socket.handleUnknown(): handling unexpected data %s",
+		"socket #%d - socket.handleUnknown(): handling unexpected data from %s",
 		socket.socketID,
 		socket.URL(),
 	)
+	var command Commander
+	var err error
 
-	// Log a message on error
-	if command, err := socket.commands.Get(0); nil != err {
-		errorMessage := ""
+	// Check for a command listening for ID 0
+	if command, err = socket.commands.Get(response.ID); nil != err {
+		err = errs.Wrap(err, fmt.Sprintf("command #%d not found", response.ID))
 		if nil != response.Error && 0 != response.Error.Code {
-			errorMessage = response.Error.Error()
+			err = err.(errs.Err).With(fmt.Errorf("%s: %s", response.Error.Error(), err.Error()))
 		}
 		log.Debugf(
-			"socket #%d - socket.handleResponse(): %s - result=%s err='%s'",
+			"socket #%d - socket.handleUnknown(): result='%s' err='%v'",
 			socket.socketID,
-			err.Error(),
 			response.Result,
-			errorMessage,
+			err,
 		)
-
-	} else {
-		log.Debugf(
-			"socket #%d - socket.handleResponse(): executing handler for command #%d - %s",
-			socket.socketID,
-			command.ID(),
-			command.Method(),
-		)
-		command.Respond(response)
-		log.Debugf(
-			"socket #%d - Command #%d complete: %s{%s}",
-			socket.socketID,
-			command.ID(),
-			socket.URL().String(),
-			command.Method(),
-		)
+		return
 	}
+
+	command.Respond(response)
+	log.Debugf(
+		"socket #%d - socket.handleUnknown(): %v - Unrecognised socket message sent to command #%d - method: '%s' - Error: %v",
+		socket.socketID,
+		err,
+		command.ID(),
+		command.Method(),
+		response.Error,
+	)
 }
 
 /*
@@ -282,22 +283,34 @@ handleEvent() as appropriate.
 
 Listen is a Socketer implementation.
 */
-func (socket *Socket) Listen() error {
+func (socket *Socket) Listen() {
+	socket.listenCh = make(chan bool)
+	socket.listening = true
+	go socket.listen()
+}
+
+func (socket *Socket) listen() error {
 	var err error
 
 	err = socket.Connect()
 	if nil != err {
-		return errors.Wrap(err, "socket connection failed")
+		return errs.Wrap(err, "socket connection failed")
 	}
 	defer socket.Disconnect()
 
-	socket.stopListening = false
 	for {
 		response := &Response{}
 		err = socket.ReadJSON(&response)
 		if nil != err {
-			log.Errorf("socket #%d - %s", socket.socketID, err.Error())
-			socket.Stop() // This will end the loop after handling the current response (if any)
+			log.Errorf("socket #%d - %v", socket.socketID, err)
+			err = errs.Wrap(err, fmt.Sprintf("socket #%d - socket read failed", socket.socketID))
+			socket.listenErr = err.(errs.Err).With(socket.listenErr)
+		}
+		if 0 == response.ID &&
+			"" == response.Method &&
+			0 == len(response.Params) &&
+			0 == len(response.Result) {
+			log.Errorf("socket #%d - nil response from socket", socket.socketID)
 		}
 
 		if response.ID > 0 {
@@ -317,12 +330,18 @@ func (socket *Socket) Listen() error {
 			socket.handleEvent(response)
 
 		} else {
-			log.Error(fmt.Errorf(
-				"socket #%d - Unknown response from web socket: id=%d, method=%s",
+			tmp, _ := json.Marshal(response)
+			log.WithFields(log.Fields{
+				"socket": socket.socketID,
+				"method": "socket.handleUnknown()",
+				"data":   string(tmp),
+			}).Errorf(
+				"socket #%d - Unknown response from web socket: id='%d', method='%s'",
 				socket.socketID,
 				response.ID,
 				response.Method,
-			))
+			)
+
 			if nil == response.Error {
 				response.Error = &Error{
 					Message: "Unknown response from web socket",
@@ -331,16 +350,22 @@ func (socket *Socket) Listen() error {
 			socket.handleUnknown(response)
 		}
 
-		if socket.stopListening {
+		if !socket.listening {
 			log.Infof("socket #%d - %s: Socket shutting down", socket.socketID, socket.URL().String())
+			go func() {
+				select {
+				case socket.listenCh <- true:
+				case <-time.After(10 * time.Second):
+				}
+			}()
 			break
 		}
 	}
 
 	if nil != err {
-		err = errors.Wrap(err, "socket read failed")
+		err = errs.Wrap(err, "socket read failed")
 	}
-
+	socket.listening = false
 	return err
 }
 
@@ -351,9 +376,9 @@ NextCommandID is a Socketer implementation.
 */
 func (socket *Socket) NextCommandID() int {
 	socket.commandIDMux.Lock()
-	defer socket.commandIDMux.Unlock()
 	socket.commandID++
 	id := socket.commandID
+	socket.commandIDMux.Unlock()
 	return id
 }
 
@@ -364,21 +389,27 @@ RemoveEventHandler is a Socketer implementation.
 */
 func (socket *Socket) RemoveEventHandler(
 	handler EventHandler,
-) {
+) error {
 	socket.handlers.Lock()
 	defer socket.handlers.Unlock()
 
-	if handlers, err := socket.handlers.Get(handler.Name()); nil != err {
-		log.Warnf("socket #%d - Could not remove handler: %s", socket.socketID, err.Error())
-	} else {
-		for i, hndlr := range handlers {
-			if hndlr == handler {
-				handlers = append(handlers[:i], handlers[i+1:]...)
-				socket.handlers.Set(handler.Name(), handlers)
-				return
-			}
+	handlers, err := socket.handlers.Get(handler.Name())
+	if nil != err {
+		log.Warnf("socket #%d - RemoveEventHandler(): Could not remove handler: %s", socket.socketID, err.Error())
+		return errs.Wrap(err, fmt.Sprintf("failed to remove event handler '%s'", handler.Name()))
+	}
+
+	for i, hndlr := range handlers {
+		if hndlr == handler {
+			handlers = append(handlers[:i], handlers[i+1:]...)
+			socket.handlers.Set(handler.Name(), handlers)
+			log.Infof("socket #%d - RemoveEventHandler(): Removed event handler %d from %s", socket.socketID, i, handler.Name())
+			return nil
 		}
 	}
+
+	log.Warnf("socket #%d - RemoveEventHandler(): handler not found", socket.socketID)
+	return nil
 }
 
 /*
@@ -397,12 +428,11 @@ Workflow:
 */
 func (socket *Socket) SendCommand(command Commander) chan *Response {
 	log.Debugf(
-		"socket #%d - socket.SendCommand(): sending command #%d (%s) payload to socket",
+		"socket #%d - socket.SendCommand(): sending command #%d ('%+v') payload to socket",
 		socket.socketID,
 		command.ID(),
 		command.Method(),
 	)
-
 	go func() {
 		payload := &Payload{
 			ID:     command.ID(),
@@ -411,9 +441,10 @@ func (socket *Socket) SendCommand(command Commander) chan *Response {
 		}
 
 		if err := socket.WriteJSON(payload); err != nil {
+			err = errs.Wrap(err, "write failed: could not write data to websocket")
 			command.Respond(&Response{Error: &Error{
 				Code:    1,
-				Data:    []byte(fmt.Sprintf(`"%s"`, err.Error())),
+				Data:    []byte(fmt.Sprintf(`"%#v"`, err)),
 				Message: "Failed to send command payload to socket connection",
 			}})
 			return
@@ -431,8 +462,20 @@ websocket connection.
 
 Stop is a Socketer implementation.
 */
-func (socket *Socket) Stop() {
-	socket.stopListening = true
+func (socket *Socket) Stop() error {
+	if socket.listening {
+		socket.listening = false
+		select {
+		case <-socket.listenCh:
+		case <-time.After(1 * time.Second):
+			socket.conn.Close()
+		}
+		log.Debugf("socket #%d: socket stopped", socket.socketID)
+	}
+	if 0 == len(socket.listenErr) {
+		return nil
+	}
+	return socket.listenErr
 }
 
 /*

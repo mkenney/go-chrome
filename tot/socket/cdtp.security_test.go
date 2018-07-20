@@ -5,19 +5,19 @@ import (
 	"net/url"
 	"testing"
 
-	security "github.com/mkenney/go-chrome/tot/cdtp/security"
+	"github.com/mkenney/go-chrome/tot/security"
 )
 
 func TestSecurityDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestSecurityDisable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Security().Disable()
 	mockResult := &security.DisableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -28,7 +28,7 @@ func TestSecurityDisable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Security().Disable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -43,15 +43,15 @@ func TestSecurityDisable(t *testing.T) {
 }
 
 func TestSecurityEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestSecurityEnable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Security().Enable()
 	mockResult := &security.EnableResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -62,7 +62,7 @@ func TestSecurityEnable(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Security().Enable()
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -77,9 +77,9 @@ func TestSecurityEnable(t *testing.T) {
 }
 
 func TestSecurityHandleCertificateError(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestSecurityHandleCertificateError")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &security.HandleCertificateErrorParams{
@@ -89,7 +89,7 @@ func TestSecurityHandleCertificateError(t *testing.T) {
 	resultChan := mockSocket.Security().HandleCertificateError(params)
 	mockResult := &security.HandleCertificateErrorResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -100,7 +100,7 @@ func TestSecurityHandleCertificateError(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Security().HandleCertificateError(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -115,9 +115,9 @@ func TestSecurityHandleCertificateError(t *testing.T) {
 }
 
 func TestSecuritySetIgnoreCertificateErrors(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestSecuritySetIgnoreCertificateErrors")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &security.SetIgnoreCertificateErrorsParams{
@@ -126,7 +126,7 @@ func TestSecuritySetIgnoreCertificateErrors(t *testing.T) {
 	resultChan := mockSocket.Security().SetIgnoreCertificateErrors(params)
 	mockResult := &security.SetIgnoreCertificateErrorsResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -137,7 +137,7 @@ func TestSecuritySetIgnoreCertificateErrors(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Security().SetIgnoreCertificateErrors(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -152,9 +152,9 @@ func TestSecuritySetIgnoreCertificateErrors(t *testing.T) {
 }
 
 func TestSecuritySetOverrideCertificateErrors(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestSecuritySetOverrideCertificateErrors")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &security.SetOverrideCertificateErrorsParams{
@@ -163,7 +163,7 @@ func TestSecuritySetOverrideCertificateErrors(t *testing.T) {
 	resultChan := mockSocket.Security().SetOverrideCertificateErrors(params)
 	mockResult := &security.SetOverrideCertificateErrorsResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -174,7 +174,7 @@ func TestSecuritySetOverrideCertificateErrors(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Security().SetOverrideCertificateErrors(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,
@@ -189,9 +189,9 @@ func TestSecuritySetOverrideCertificateErrors(t *testing.T) {
 }
 
 func TestSecurityOnCertificateError(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestSecurityOnCertificateError")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *security.CertificateErrorEvent)
@@ -204,11 +204,11 @@ func TestSecurityOnCertificateError(t *testing.T) {
 		RequestURL: "http://some.url",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Security.certificateError",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -222,7 +222,7 @@ func TestSecurityOnCertificateError(t *testing.T) {
 	mockSocket.Security().OnCertificateError(func(eventData *security.CertificateErrorEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,
@@ -238,9 +238,9 @@ func TestSecurityOnCertificateError(t *testing.T) {
 }
 
 func TestSecurityOnSecurityStateChanged(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/")
+	socketURL, _ := url.Parse("https://test:9222/TestSecurityOnSecurityStateChanged")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *security.StateChangedEvent)
@@ -269,11 +269,11 @@ func TestSecurityOnSecurityStateChanged(t *testing.T) {
 		Summary: "summary",
 	}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Security.securityStateChanged",
-		Result: mockResultBytes,
+		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -287,7 +287,7 @@ func TestSecurityOnSecurityStateChanged(t *testing.T) {
 	mockSocket.Security().OnSecurityStateChanged(func(eventData *security.StateChangedEvent) {
 		resultChan <- eventData
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: 0,
 		Error: &Error{
 			Code:    1,

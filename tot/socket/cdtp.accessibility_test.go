@@ -5,14 +5,14 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/mkenney/go-chrome/tot/cdtp/accessibility"
-	"github.com/mkenney/go-chrome/tot/cdtp/dom"
+	"github.com/mkenney/go-chrome/tot/accessibility"
+	"github.com/mkenney/go-chrome/tot/dom"
 )
 
 func TestAccessibilityGetPartialAXTree(t *testing.T) {
-	socketURL, _ := url.Parse("https://www.example.com/")
+	socketURL, _ := url.Parse("https://test:9222/TestAccessibilityGetPartialAXTree")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &accessibility.PartialAXTreeParams{
@@ -22,7 +22,7 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 	resultChan := mockSocket.Accessibility().GetPartialAXTree(params)
 	mockResult := accessibility.PartialAXTreeResult{}
 	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -74,7 +74,7 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 		}},
 	}
 	mockResultBytes, _ = json.Marshal(mockResult)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     mockSocket.CurCommandID(),
 		Error:  &Error{},
 		Result: mockResultBytes,
@@ -89,7 +89,7 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 	}
 
 	resultChan = mockSocket.Accessibility().GetPartialAXTree(params)
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID: mockSocket.CurCommandID(),
 		Error: &Error{
 			Code:    1,

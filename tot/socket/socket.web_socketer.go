@@ -5,10 +5,9 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
-	"time"
 
 	"github.com/gorilla/websocket"
-	"github.com/pkg/errors"
+	errs "github.com/mkenney/go-errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -16,13 +15,19 @@ import (
 NewWebsocket returns a connected socket connection that implements the
 WebSocketer interface.
 */
-func NewWebsocket(socketURL *url.URL) (*ChromeWebSocket, error) {
-	dialer := &websocket.Dialer{EnableCompression: false}
-	header := http.Header{"Origin": []string{socketURL.String()}}
+func NewWebsocket(socketURL *url.URL) (WebSocketer, error) {
+	dialer := &websocket.Dialer{
+		EnableCompression: true,
+		// See: https://github.com/gorilla/websocket/issues/245
+		// Chrome does not support socket fragmentation: https://chromium.googlesource.com/chromium/src/+/master/net/server/web_socket_encoder.cc#85
+		// Chrome does not support payloads larger than 1MB: https://chromium.googlesource.com/chromium/src/+/master/net/server/http_connection.h#33
+		WriteBufferSize: 1 * 1024 * 1024,
+	}
+	header := http.Header{"Origin": []string{}}
 
 	websocket, response, err := dialer.Dial(socketURL.String(), header)
 	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf(
+		return nil, errs.Wrap(err, fmt.Sprintf(
 			"%s websocket connection failed",
 			socketURL.String(),
 		))
@@ -67,29 +72,10 @@ Chromium DevProtocol behavior. To populate the mock response stack, add a
 Response{} pointer with the AddMockData() method.
 */
 func (socket *ChromeWebSocket) ReadJSON(v interface{}) error {
-	if nil != socket.conn {
-		return socket.conn.ReadJSON(&v)
+	if nil == socket.conn {
+		return errs.New("not connected")
 	}
-
-	var data interface{}
-
-	time.Sleep(time.Millisecond * 10)
-
-	if len(socket.mockResponses) > 0 {
-		data = socket.mockResponses[0]
-		socket.mockResponses = socket.mockResponses[1:]
-	} else {
-		data = &Response{
-			Error:  &Error{},
-			ID:     0,
-			Method: "Unknown.event",
-		}
-	}
-
-	jsonBytes, err := json.Marshal(data)
-	log.Debugf("ReadJSON(): returning mock data %s", jsonBytes)
-	err = json.Unmarshal(jsonBytes, &v)
-	return errors.Wrap(err, fmt.Sprintf("could not unmarshal %s", jsonBytes))
+	return socket.conn.ReadJSON(&v)
 }
 
 /*
@@ -98,22 +84,12 @@ WriteJSON marshalls the provided data as JSON and writes it to the websocket.
 WriteJSON is a WebSocketer implementation.
 */
 func (socket *ChromeWebSocket) WriteJSON(v interface{}) error {
-	if nil != socket.conn {
-		return socket.conn.WriteJSON(v)
-	}
-	return nil
-}
-
-/*
-AddMockData is a WebSocketer implementation.
-
-This method is only indended for mocking data for unit tests and will panic if
-used on a live websocket connection.
-*/
-func (socket *ChromeWebSocket) AddMockData(response *Response) {
 	if nil == socket.conn {
-		socket.mockResponses = append(socket.mockResponses, response)
-	} else {
-		panic("AddMockData cannot be called on a live websocket connection and is intended for mocking data for unit testing only.")
+		return errs.New("not connected")
 	}
+	tmp, _ := json.Marshal(v)
+	if len(tmp) > 1*1024*1024 {
+		return fmt.Errorf("payload too large. chrome supports a maximum payload size of 1MB. See https://github.com/gorilla/websocket/issues/245")
+	}
+	return socket.conn.WriteJSON(v)
 }

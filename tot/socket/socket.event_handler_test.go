@@ -7,9 +7,9 @@ import (
 )
 
 func TestHandleEvent(t *testing.T) {
-	socketURL, _ := url.Parse("https://www.example.com/error")
+	socketURL, _ := url.Parse("https://test:9222/TestHandleEvent")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	eventResponse1 := make(chan *Response)
@@ -31,13 +31,13 @@ func TestHandleEvent(t *testing.T) {
 	mockSocket.AddEventHandler(handler2)
 	mockSocket.AddEventHandler(handler3)
 
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Some.event",
 		Result: []byte(`"Mock Event Result"`),
 	})
-	mockSocket.Conn().AddMockData(&Response{
+	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
 		ID:     0,
 		Error:  &Error{},
 		Method: "Inspector.targetCrashed",
@@ -69,5 +69,4 @@ func TestHandleEvent(t *testing.T) {
 	if `"Mock Target Crashed"` != string(response3.Result) {
 		t.Errorf("Invalid result: expected 'Mock Target Crashed', received '%s'", response3.Result)
 	}
-
 }

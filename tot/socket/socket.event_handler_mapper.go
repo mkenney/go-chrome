@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"sync"
 
+	errs "github.com/mkenney/go-errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -43,7 +44,7 @@ func (stack *EventHandlerMap) Add(
 	}
 	for _, hndl := range handlers {
 		if hndl == handler {
-			return fmt.Errorf("Attempted to add a duplicate handler for event '%s'", handler.Name())
+			return errs.New(fmt.Sprintf("Attempted to add a duplicate handler for event '%s'", handler.Name()))
 		}
 	}
 
@@ -75,7 +76,7 @@ func (stack *EventHandlerMap) Get(
 	if handlers, ok := stack.stack[name]; ok {
 		return handlers, nil
 	}
-	return nil, fmt.Errorf("No event listeners found for %s", name)
+	return nil, errs.New(fmt.Sprintf("No event listeners found for %s", name))
 }
 
 /*
@@ -104,7 +105,7 @@ func (stack *EventHandlerMap) Remove(
 			return nil
 		}
 	}
-	return fmt.Errorf("Could not remove handler for '%s': not found", handler.Name())
+	return errs.New(fmt.Sprintf("Could not remove handler for '%s': not found", handler.Name()))
 }
 
 /*
