@@ -23,6 +23,14 @@ This implementation is based on the [Tip-of-Tree](https://chromedevtools.github.
 
 # Announcements
 
+## v1.0.0-rc3 released
+
+[`v1.0.0-rc3`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc3) has been released.
+
+* Fixes an issue with an upstream dependency
+
+Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
+
 ## v1.0.0-rc2 released
 
 [`v1.0.0-rc2`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc2) has been released.
