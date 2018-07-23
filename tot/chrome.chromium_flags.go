@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strings"
 
-	errs "github.com/mkenney/go-errors"
+	errs "github.com/bdlm/errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -21,7 +21,7 @@ func (flags Flags) Get(arg string) (interface{}, error) {
 	var values interface{}
 	var err error
 	if !flags.Has(arg) {
-		err = errs.New(fmt.Sprintf("The specified argument '%s' does not exist", arg))
+		err = errs.New(0, fmt.Sprintf("The specified argument '%s' does not exist", arg))
 	} else {
 		values = flags[arg]
 	}
@@ -84,7 +84,7 @@ func (flags Flags) Set(arg string, value interface{}) (err error) {
 		case string:
 			flags[arg] = value
 		default:
-			return errs.New(fmt.Sprintf("Invalid data type '%T' for argument %s: %+v", value, arg, value))
+			return errs.New(0, fmt.Sprintf("Invalid data type '%T' for argument %s: %+v", value, arg, value))
 		}
 	}
 

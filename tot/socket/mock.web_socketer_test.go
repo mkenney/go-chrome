@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"time"
 
-	errs "github.com/mkenney/go-errors"
+	errs "github.com/bdlm/errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -71,7 +71,7 @@ func (socket *MockChromeWebSocket) ReadJSON(v interface{}) error {
 	log.Debugf("Mock ReadJSON(): returning mock data %s", jsonBytes)
 	err = json.Unmarshal(jsonBytes, &v)
 	if nil != err {
-		return errs.Wrap(err, fmt.Sprintf("could not unmarshal %s", jsonBytes))
+		return errs.Wrap(err, 0, fmt.Sprintf("could not unmarshal %s", jsonBytes))
 	}
 	return nil
 }

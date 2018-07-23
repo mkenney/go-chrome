@@ -3,8 +3,8 @@
   name = "github.com/mkenney/go-log-fmt"
 
 [[constraint]]
-  branch = "master"
-  name = "github.com/mkenney/go-errors"
+  name = "github.com/bdlm/errors"
+  version = "0.1.0"
 
 [[constraint]]
   name = "github.com/sirupsen/logrus"
