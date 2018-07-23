@@ -4,7 +4,7 @@
 
 [[constraint]]
   branch = "master"
-  name = "github.com/mkenney/go-errors"
+  name = "github.com/bdlm/errors"
 
 [[constraint]]
   name = "github.com/sirupsen/logrus"

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/url"
 
+	errs "github.com/bdlm/errors"
 	"github.com/mkenney/go-chrome/tot/socket"
-	errs "github.com/mkenney/go-errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -20,7 +20,7 @@ func (chrome *Chrome) NewTab(uri string) (*Tab, error) {
 	}
 	targetURL, err := url.Parse(uri)
 	if nil != err {
-		return nil, errs.Wrap(err, "invalid URL")
+		return nil, errs.Wrap(err, 0, "invalid URL")
 	}
 
 	tab := &Tab{
@@ -35,12 +35,12 @@ func (chrome *Chrome) NewTab(uri string) (*Tab, error) {
 		tab.data,
 	)
 	if nil != err {
-		return nil, errs.Wrap(err, fmt.Sprintf("/new?%s query failed", url.QueryEscape(uri)))
+		return nil, errs.Wrap(err, 0, fmt.Sprintf("/new?%s query failed", url.QueryEscape(uri)))
 	}
 
 	websocketURL, err := url.Parse(tab.Data().WebSocketDebuggerURL)
 	if nil != err {
-		return nil, errs.Wrap(err, fmt.Sprintf("invalid websocket URL '%s'", tab.Data().WebSocketDebuggerURL))
+		return nil, errs.Wrap(err, 0, fmt.Sprintf("invalid websocket URL '%s'", tab.Data().WebSocketDebuggerURL))
 	}
 
 	socket := socket.New(websocketURL)
@@ -80,7 +80,7 @@ func (tab *Tab) Close() (interface{}, error) {
 	log.Debugf("Close result: %v - %v", result, err)
 	if nil != err {
 		log.Warnf("%s: %s", result, err)
-		return nil, errs.Wrap(err, fmt.Sprintf("close/%s query failed", tab.Data().ID))
+		return nil, errs.Wrap(err, 0, fmt.Sprintf("close/%s query failed", tab.Data().ID))
 	}
 
 	return result, nil

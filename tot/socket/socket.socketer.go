@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	errs "github.com/mkenney/go-errors"
+	errs "github.com/bdlm/errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -176,7 +176,7 @@ connection.
 func (socket *Socket) handleResponse(response *Response) {
 	// Log a message on error
 	if command, err := socket.commands.Get(response.ID); nil != err {
-		err = errs.Wrap(err, fmt.Sprintf("command #%d not found", response.ID))
+		err = errs.Wrap(err, 0, fmt.Sprintf("command #%d not found", response.ID))
 		errorMessage := ""
 		if nil != response.Error && 0 != response.Error.Code {
 			errorMessage = response.Error.Error()
@@ -253,9 +253,9 @@ func (socket *Socket) handleUnknown(
 
 	// Check for a command listening for ID 0
 	if command, err = socket.commands.Get(response.ID); nil != err {
-		err = errs.Wrap(err, fmt.Sprintf("command #%d not found", response.ID))
+		err = errs.Wrap(err, 0, fmt.Sprintf("command #%d not found", response.ID))
 		if nil != response.Error && 0 != response.Error.Code {
-			err = err.(errs.Err).With(fmt.Errorf("%s: %s", response.Error.Error(), err.Error()))
+			err = err.(errs.Err).With(response.Error, err.Error())
 		}
 		log.Debugf(
 			"socket #%d - socket.handleUnknown(): result='%s' err='%v'",
@@ -294,7 +294,7 @@ func (socket *Socket) listen() error {
 
 	err = socket.Connect()
 	if nil != err {
-		return errs.Wrap(err, "socket connection failed")
+		return errs.Wrap(err, 0, "socket connection failed")
 	}
 	defer socket.Disconnect()
 
@@ -303,8 +303,7 @@ func (socket *Socket) listen() error {
 		err = socket.ReadJSON(&response)
 		if nil != err {
 			log.Errorf("socket #%d - %v", socket.socketID, err)
-			err = errs.Wrap(err, fmt.Sprintf("socket #%d - socket read failed", socket.socketID))
-			socket.listenErr = err.(errs.Err).With(socket.listenErr)
+			socket.listenErr.With(err, fmt.Sprintf("socket #%d - socket read failed", socket.socketID))
 		}
 		if 0 == response.ID &&
 			"" == response.Method &&
@@ -363,7 +362,7 @@ func (socket *Socket) listen() error {
 	}
 
 	if nil != err {
-		err = errs.Wrap(err, "socket read failed")
+		err = errs.Wrap(err, 0, "socket read failed")
 	}
 	socket.listening = false
 	return err
@@ -396,7 +395,7 @@ func (socket *Socket) RemoveEventHandler(
 	handlers, err := socket.handlers.Get(handler.Name())
 	if nil != err {
 		log.Warnf("socket #%d - RemoveEventHandler(): Could not remove handler: %s", socket.socketID, err.Error())
-		return errs.Wrap(err, fmt.Sprintf("failed to remove event handler '%s'", handler.Name()))
+		return errs.Wrap(err, 0, fmt.Sprintf("failed to remove event handler '%s'", handler.Name()))
 	}
 
 	for i, hndlr := range handlers {
@@ -441,7 +440,7 @@ func (socket *Socket) SendCommand(command Commander) chan *Response {
 		}
 
 		if err := socket.WriteJSON(payload); err != nil {
-			err = errs.Wrap(err, "write failed: could not write data to websocket")
+			err = errs.Wrap(err, 0, "write failed: could not write data to websocket")
 			command.Respond(&Response{Error: &Error{
 				Code:    1,
 				Data:    []byte(fmt.Sprintf(`"%#v"`, err)),

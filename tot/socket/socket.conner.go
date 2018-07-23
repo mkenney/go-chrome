@@ -3,7 +3,7 @@ package socket
 import (
 	"fmt"
 
-	errs "github.com/mkenney/go-errors"
+	errs "github.com/bdlm/errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -35,7 +35,7 @@ func (socket *Socket) Connect() error {
 	if nil != err {
 		log.Debugf("socket #%d - socket.Connect(): received error %s", socket.socketID, err.Error())
 		socket.connected = false
-		return errs.Wrap(err, "Connect() failed while creating socket")
+		return errs.Wrap(err, 0, "Connect() failed while creating socket")
 	}
 
 	socket.conn = websocket
@@ -66,7 +66,7 @@ func (socket *Socket) Disconnect() error {
 	socket.Stop()
 	err := socket.conn.Close()
 	if nil != err {
-		socket.listenErr.With(err)
+		socket.listenErr.With(err, "could not close socket connection")
 	}
 	socket.conn = nil
 	socket.connected = false
@@ -84,12 +84,12 @@ ReadJSON is a Conner implementation.
 func (socket *Socket) ReadJSON(v interface{}) error {
 	err := socket.Connect()
 	if nil != err {
-		return errs.Wrap(err, "not connected")
+		return errs.Wrap(err, 0, "not connected")
 	}
 
 	err = socket.conn.ReadJSON(&v)
 	if nil != err {
-		return errs.Wrap(err, "socket read failed")
+		return errs.Wrap(err, 0, "socket read failed")
 	}
 
 	return nil
@@ -103,12 +103,12 @@ WriteJSON is a Conner implementation.
 func (socket *Socket) WriteJSON(v interface{}) error {
 	err := socket.Connect()
 	if nil != err {
-		return errs.Wrap(err, "not connected")
+		return errs.Wrap(err, 0, "not connected")
 	}
 
 	err = socket.conn.WriteJSON(v)
 	if nil != err {
-		return errs.Wrap(err, "socket write failed")
+		return errs.Wrap(err, 0, "socket write failed")
 	}
 
 	return nil
