@@ -174,6 +174,19 @@ func (chrome *Chrome) GetTab(tabID string) (Tabber, error) {
 }
 
 /*
+RemoveTab implements Chromium.
+*/
+func (chrome *Chrome) RemoveTab(tab *Tab) {
+	tabs := make([]*Tab, 0)
+	for _, t := range chrome.Tabs() {
+		if t != tab {
+			tabs = append(tabs, t)
+		}
+	}
+	chrome.tabs = tabs
+}
+
+/*
 Launch implements Chromium.
 
 This implementation makes it's best effort to set a few sane default values if
