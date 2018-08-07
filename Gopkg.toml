@@ -1,11 +1,11 @@
 [[constraint]]
   branch = "master"
-  name = "github.com/mkenney/go-log-fmt"
+  name = "github.com/bdlm/logfmt"
 
 [[constraint]]
   name = "github.com/bdlm/errors"
   version = "0.1.0"
 
 [[constraint]]
+  branch = "master"
   name = "github.com/bdlm/log"
-  version = "1.0.5"

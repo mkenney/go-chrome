@@ -14,16 +14,16 @@
   revision = "90ec24a3509720dead884f306e9d5326e583e6e9"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/bdlm/logfmt"
+  packages = ["."]
+  revision = "b8790cf3723faec5b498918aa9506e1328ed1bf3"
+
+[[projects]]
   name = "github.com/gorilla/websocket"
   packages = ["."]
   revision = "ea4d1f681babbce9545c9c5f3d5194a789c89f5b"
   version = "v1.2.0"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/mkenney/go-log-fmt"
-  packages = ["."]
-  revision = "7465b590051af33f1c6a859d04e5d35f4e08ea66"
 
 [[projects]]
   name = "github.com/sanity-io/litter"
@@ -49,6 +49,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "bc740c1a18998cb509e05a02866d398fff433ababad451abc60f3f734ac740cc"
+  inputs-digest = "60bc1ceadf6267b2482f9029565c48b430d689e263ab77ff3491f3a082f31ac5"
   solver-name = "gps-cdcl"
   solver-version = 1
