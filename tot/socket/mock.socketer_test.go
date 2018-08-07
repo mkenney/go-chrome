@@ -5,7 +5,7 @@ import (
 	"sync"
 
 	"github.com/bdlm/log"
-	logfmt "github.com/mkenney/go-log-fmt"
+	"github.com/bdlm/logfmt"
 )
 
 func init() {
