@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	errs "github.com/bdlm/errors"
-	log "github.com/sirupsen/logrus"
+	"github.com/bdlm/log"
 )
 
 /*

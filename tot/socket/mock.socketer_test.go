@@ -4,8 +4,8 @@ import (
 	"net/url"
 	"sync"
 
+	"github.com/bdlm/log"
 	logfmt "github.com/mkenney/go-log-fmt"
-	log "github.com/sirupsen/logrus"
 )
 
 func init() {

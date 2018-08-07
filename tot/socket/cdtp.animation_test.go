@@ -9,7 +9,6 @@ import (
 	"github.com/mkenney/go-chrome/tot/animation"
 	"github.com/mkenney/go-chrome/tot/dom"
 	"github.com/mkenney/go-chrome/tot/runtime"
-	log "github.com/sirupsen/logrus"
 )
 
 func TestAnimationDisable(t *testing.T) {
@@ -573,9 +572,6 @@ func TestAnimationOnAnimationStarted(t *testing.T) {
 		Params: mockResultBytes,
 	})
 	result := <-resultChan
-	tmp, _ := json.Marshal(result)
-	log.Debugf("mock: %s", mockResultBytes)
-	log.Debugf("result: %s", tmp)
 	if result.Animation.ID != mockResult.Animation.ID {
 		t.Errorf(
 			"Expected %s, got %s",

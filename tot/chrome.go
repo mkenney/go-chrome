@@ -10,7 +10,7 @@ package chrome
 import (
 	"os"
 
-	log "github.com/sirupsen/logrus"
+	"github.com/bdlm/log"
 )
 
 /*
