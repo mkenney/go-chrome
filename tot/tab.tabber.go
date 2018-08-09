@@ -82,12 +82,7 @@ func (tab *Tab) Close() (interface{}, error) {
 		log.Warnf("%s: %s", result, err)
 		return nil, errs.Wrap(err, 0, fmt.Sprintf("close/%s query failed", tab.Data().ID))
 	}
-	for k, t := range chrome.tabs {
-		if t == tab {
-			chrome.tabs = append(chrome.tabs[:k], chrome.tabs[k+1:]...)
-			break
-		}
-	}
+	tab.Chromium().RemoveTab(tab)
 	return result, nil
 }
 
