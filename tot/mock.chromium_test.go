@@ -238,6 +238,20 @@ func (chrome *MockChrome) Query(
 }
 
 /*
+RemoveTab implements Chromium.
+*/
+func (chrome *MockChrome) RemoveTab(tab *Tab) {
+	tabs := make([]*Tab, 0)
+	for k, t := range chrome.tabs {
+		if t == tab {
+			chrome.tabs = append(chrome.tabs[:k], chrome.tabs[k+1:]...)
+			break
+		}
+	}
+	chrome.tabs = tabs
+}
+
+/*
 STDERR implements Chromium.
 */
 func (chrome *MockChrome) STDERR() string {
