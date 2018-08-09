@@ -21,9 +21,6 @@ type Chromium interface {
 	// does not exist.
 	GetTab(tabID string) (tab Tabber, err error)
 
-	// RemoveTab removes tab reference from chrome tabs list.
-	RemoveTab(tab *Tab)
-
 	// DebuggingAddress returns the address that the remote debugging protocol
 	// is available on. Should return a sane default value such as '0.0.0.0'.
 	DebuggingAddress() string
