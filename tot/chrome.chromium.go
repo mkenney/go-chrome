@@ -312,9 +312,10 @@ RemoveTab implements Chromium.
 */
 func (chrome *Chrome) RemoveTab(tab *Tab) {
 	tabs := make([]*Tab, 0)
-	for _, t := range chrome.Tabs() {
-		if t != tab {
-			tabs = append(tabs, t)
+	for k, t := range chrome.tabs {
+		if t == tab {
+			chrome.tabs = append(chrome.tabs[:k], chrome.tabs[k+1:]...)
+			break
 		}
 	}
 	chrome.tabs = tabs
