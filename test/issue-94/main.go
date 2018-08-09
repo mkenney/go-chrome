@@ -4,18 +4,16 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/bdlm/log"
 	"github.com/mkenney/go-chrome/tot"
 	"github.com/mkenney/go-chrome/tot/network"
 	"github.com/mkenney/go-chrome/tot/page"
-	logfmt "github.com/mkenney/go-log-fmt"
 	"github.com/sanity-io/litter"
-	log "github.com/sirupsen/logrus"
 )
 
 func init() {
 	level, _ := log.ParseLevel("debug")
 	log.SetLevel(level)
-	log.SetFormatter(&logfmt.TextFormat{})
 }
 
 var flags = &chrome.Flags{

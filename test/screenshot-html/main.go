@@ -7,18 +7,16 @@ import (
 	"io/ioutil"
 	"time"
 
+	"github.com/bdlm/log"
 	chrome "github.com/mkenney/go-chrome/tot"
 	"github.com/mkenney/go-chrome/tot/emulation"
 	"github.com/mkenney/go-chrome/tot/page"
 	"github.com/mkenney/go-chrome/tot/socket"
-	logfmt "github.com/mkenney/go-log-fmt"
-	log "github.com/sirupsen/logrus"
 )
 
 func init() {
 	level, _ := log.ParseLevel("debug")
 	log.SetLevel(level)
-	log.SetFormatter(&logfmt.TextFormat{})
 }
 
 type testHandler struct{}
