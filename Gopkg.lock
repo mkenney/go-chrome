@@ -10,12 +10,12 @@
   version = "v0.1.0"
 
 [[projects]]
-  digest = "1:bfe742d5e64b11942d5789975dfae297a33505c55c0e761fdbd7e7490e3a82f7"
+  digest = "1:4f7aa518da0ec97dd4dea4ca7c74e5503d5bd2d528711d40ddb25a6eace3de9c"
   name = "github.com/bdlm/log"
   packages = ["."]
   pruneopts = ""
-  revision = "40c67476ffc72b37b3582fa519c0d70255e0432a"
-  version = "v0.1.0"
+  revision = "6e934cb12ff2818570aa6d4e47ed9eaaec9a8307"
+  version = "v0.1.2"
 
 [[projects]]
   digest = "1:64d212c703a2b94054be0ce470303286b177ad260b2f89a307e3d1bb6c073ef6"
