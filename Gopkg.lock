@@ -8,16 +8,10 @@
   version = "v0.1.0"
 
 [[projects]]
-  branch = "master"
   name = "github.com/bdlm/log"
   packages = ["."]
-  revision = "90ec24a3509720dead884f306e9d5326e583e6e9"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/bdlm/logfmt"
-  packages = ["."]
-  revision = "b8790cf3723faec5b498918aa9506e1328ed1bf3"
+  revision = "40c67476ffc72b37b3582fa519c0d70255e0432a"
+  version = "v0.1.0"
 
 [[projects]]
   name = "github.com/gorilla/websocket"
@@ -49,6 +43,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "60bc1ceadf6267b2482f9029565c48b430d689e263ab77ff3491f3a082f31ac5"
+  inputs-digest = "ab91727300f66c322276ea09971a610d66ef22578f8ce9df533b67443fe6d356"
   solver-name = "gps-cdcl"
   solver-version = 1

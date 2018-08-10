@@ -5,13 +5,10 @@ import (
 	"sync"
 
 	"github.com/bdlm/log"
-	"github.com/bdlm/logfmt"
 )
 
 func init() {
-	level, _ := log.ParseLevel("debug")
-	log.SetLevel(level)
-	log.SetFormatter(&logfmt.TextFormat{})
+	log.SetLevel(log.DebugLevel)
 }
 
 /*

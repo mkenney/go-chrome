@@ -1,11 +1,7 @@
 [[constraint]]
-  branch = "master"
-  name = "github.com/bdlm/logfmt"
-
-[[constraint]]
   name = "github.com/bdlm/errors"
   version = "0.1.0"
 
 [[constraint]]
-  branch = "master"
   name = "github.com/bdlm/log"
+  version = "0.1.0"
