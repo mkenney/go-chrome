@@ -69,7 +69,7 @@ func (socket *MockChromeWebSocket) ReadJSON(v interface{}) error {
 
 	jsonBytes, _ := json.Marshal(data)
 	log.Debugf("Mock ReadJSON(): returning mock data %s", jsonBytes)
-	err = json.Unmarshal(jsonBytes, &v)
+	err := json.Unmarshal(jsonBytes, &v)
 	if nil != err {
 		return errs.Wrap(err, 0, fmt.Sprintf("could not unmarshal %s", jsonBytes))
 	}
