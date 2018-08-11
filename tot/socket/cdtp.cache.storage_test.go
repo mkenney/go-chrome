@@ -5,8 +5,8 @@ import (
 	"net/url"
 	"testing"
 
+	"github.com/bdlm/log"
 	cacheStorage "github.com/mkenney/go-chrome/tot/cache/storage"
-	log "github.com/sirupsen/logrus"
 )
 
 func init() {

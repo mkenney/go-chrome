@@ -2,53 +2,55 @@
 
 
 [[projects]]
+  digest = "1:f254314a58767f8b34862fa09b0a3206e26a38f624d33a66fc0e442403feb94f"
   name = "github.com/bdlm/errors"
   packages = ["."]
+  pruneopts = ""
   revision = "4261cfedec68315454b163ae305cd34ecfc8b059"
   version = "v0.1.0"
 
 [[projects]]
+  digest = "1:4f7aa518da0ec97dd4dea4ca7c74e5503d5bd2d528711d40ddb25a6eace3de9c"
+  name = "github.com/bdlm/log"
+  packages = ["."]
+  pruneopts = ""
+  revision = "6e934cb12ff2818570aa6d4e47ed9eaaec9a8307"
+  version = "v0.1.2"
+
+[[projects]]
+  digest = "1:64d212c703a2b94054be0ce470303286b177ad260b2f89a307e3d1bb6c073ef6"
   name = "github.com/gorilla/websocket"
   packages = ["."]
+  pruneopts = ""
   revision = "ea4d1f681babbce9545c9c5f3d5194a789c89f5b"
   version = "v1.2.0"
 
 [[projects]]
   branch = "master"
-  name = "github.com/mkenney/go-log-fmt"
-  packages = ["."]
-  revision = "7465b590051af33f1c6a859d04e5d35f4e08ea66"
-
-[[projects]]
-  name = "github.com/sanity-io/litter"
-  packages = ["."]
-  revision = "ae543b7ba8fd6af63e4976198f146e1348ae53c1"
-  version = "v1.1.0"
-
-[[projects]]
-  name = "github.com/sirupsen/logrus"
-  packages = ["."]
-  revision = "3e01752db0189b9157070a0e1668a620f9a85da2"
-  version = "v1.0.6"
-
-[[projects]]
-  branch = "master"
+  digest = "1:0773b5c3be42874166670a20aa177872edb450cd9fc70b1df97303d977702a50"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
+  pruneopts = ""
   revision = "a2144134853fc9a27a7b1e3eb4f19f1a76df13c9"
 
 [[projects]]
   branch = "master"
+  digest = "1:677e38cad6833ad266ec843739d167755eda1e6f2d8af1c63102b0426ad820db"
   name = "golang.org/x/sys"
   packages = [
     "unix",
-    "windows"
+    "windows",
   ]
+  pruneopts = ""
   revision = "ac767d655b305d4e9612f5f6e33120b9176c4ad4"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "b1ed6697a054e9c9ed0beb3083b6593e6c8366604170a916225eb695a62916af"
+  input-imports = [
+    "github.com/bdlm/errors",
+    "github.com/bdlm/log",
+    "github.com/gorilla/websocket",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -7,8 +7,8 @@ import (
 	"net/url"
 
 	errs "github.com/bdlm/errors"
+	"github.com/bdlm/log"
 	"github.com/gorilla/websocket"
-	log "github.com/sirupsen/logrus"
 )
 
 /*

@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"testing"
 
-	log "github.com/sirupsen/logrus"
+	"github.com/bdlm/log"
 )
 
 func init() {

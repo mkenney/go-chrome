@@ -5,8 +5,8 @@ import (
 	"net/url"
 
 	errs "github.com/bdlm/errors"
+	"github.com/bdlm/log"
 	"github.com/mkenney/go-chrome/tot/socket"
-	log "github.com/sirupsen/logrus"
 )
 
 /*

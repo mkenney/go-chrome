@@ -4,15 +4,13 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/bdlm/log"
 	"github.com/mkenney/go-chrome/tot"
-	logfmt "github.com/mkenney/go-log-fmt"
-	log "github.com/sirupsen/logrus"
 )
 
 func init() {
 	level, _ := log.ParseLevel("debug")
 	log.SetLevel(level)
-	log.SetFormatter(&logfmt.TextFormat{})
 }
 
 func main() {

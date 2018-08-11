@@ -4,14 +4,11 @@ import (
 	"net/url"
 	"sync"
 
-	logfmt "github.com/mkenney/go-log-fmt"
-	log "github.com/sirupsen/logrus"
+	"github.com/bdlm/log"
 )
 
 func init() {
-	level, _ := log.ParseLevel("debug")
-	log.SetLevel(level)
-	log.SetFormatter(&logfmt.TextFormat{})
+	log.SetLevel(log.DebugLevel)
 }
 
 /*

@@ -91,7 +91,6 @@ func TestChromiumQuery(t *testing.T) {
 		"",
 		"",
 	)
-	_, err := chrome.Query("/json/version", url.Values{}, nil)
 	data, err := chrome.Query("/json/version", url.Values{}, nil)
 	if nil == err {
 		t.Errorf("Expected error, received nil")
