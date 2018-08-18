@@ -126,7 +126,9 @@ func (chrome *Chrome) Close() error {
 		if err != nil {
 			return errs.Wrap(err, 0, "error waiting for process exit, result unknown")
 		}
-		log.Infof("Chromium exited: %s", ps.String())
+		log.WithFields(log.Fields{
+			"signal": ps.String(),
+		}).Info("Chromium exited")
 	}
 	if chrome.stdOUTFile != nil {
 		chrome.stdOUTFile.Close()
@@ -229,7 +231,10 @@ func (chrome *Chrome) Launch() error {
 		}
 	}
 
-	log.Infof("Starting process: %s %s", chrome.Binary(), chrome.Flags())
+	log.WithFields(log.Fields{
+		"path":  chrome.Binary(),
+		"flags": chrome.Flags(),
+	}).Info("Starting process")
 	var procAttributes os.ProcAttr
 	procAttributes.Dir = chrome.Workdir()
 	procAttributes.Files = []*os.File{nil, chrome.stdOUTFile, chrome.stdERRFile}
@@ -291,7 +296,10 @@ func (chrome *Chrome) Query(
 	}
 	defer resp.Body.Close()
 
-	log.Debugf("chrome:/%s %s", path, resp.Status)
+	log.WithFields(log.Fields{
+		"path":   path,
+		"status": resp.Status,
+	}).Debug("querying chrome:/%s %s", path, resp.Status)
 	if 200 != resp.StatusCode {
 		return nil, errs.New(0, resp.Status)
 	}
