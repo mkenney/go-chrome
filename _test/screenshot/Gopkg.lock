@@ -35,7 +35,7 @@
 
 [[projects]]
   branch = "logger"
-  digest = "1:3b417a287c041ff46dc1757a62a28120ed4218aab03822915a1b39e5eb7968a3"
+  digest = "1:48a9a511494b853718ed19826ff91ffec2998f3fdc36958ea84cc7e64a56539f"
   name = "github.com/mkenney/go-chrome"
   packages = [
     "tot",
@@ -80,7 +80,7 @@
     "tot/tracing",
   ]
   pruneopts = ""
-  revision = "96670d6f118a5cfd335f4cfaa08668df01771921"
+  revision = "6f124dfec0005088d2e8a5941c9fdebd6f233f5e"
 
 [[projects]]
   branch = "master"
