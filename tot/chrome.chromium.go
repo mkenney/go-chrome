@@ -232,8 +232,8 @@ func (chrome *Chrome) Launch() error {
 	}
 
 	log.WithFields(log.Fields{
-		"path":  chrome.Binary(),
 		"flags": chrome.Flags(),
+		"path":  chrome.Binary(),
 	}).Info("Starting process")
 	var procAttributes os.ProcAttr
 	procAttributes.Dir = chrome.Workdir()

@@ -31,15 +31,15 @@ func (socket *Socket) Connect() error {
 	}
 
 	log.WithFields(log.Fields{
-		"socket-id": socket.socketID,
-		"url":       socket.url.String(),
-	}).Debug("socket.Connect(): connecting")
+		"socketID": socket.socketID,
+		"url":      socket.url.String(),
+	}).Debug("connecting")
 	websocket, err := socket.newSocket(socket.url)
 	if nil != err {
 		log.WithFields(log.Fields{
-			"socket-id": socket.socketID,
-			"error":     err.Error(),
-		}).Debug("socket.Connect(): received error")
+			"error":    err.Error(),
+			"socketID": socket.socketID,
+		}).Debug("received error")
 		socket.connected = false
 		return errs.Wrap(err, 0, "Connect() failed while creating socket")
 	}
@@ -48,9 +48,9 @@ func (socket *Socket) Connect() error {
 	socket.connected = true
 
 	log.WithFields(log.Fields{
-		"socket-id": socket.socketID,
-		"url":       socket.url.String(),
-	}).Debug(" socket.Connect(): connection established")
+		"socketID": socket.socketID,
+		"url":      socket.url.String(),
+	}).Debug("connection established")
 	return nil
 }
 

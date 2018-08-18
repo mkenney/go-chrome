@@ -33,8 +33,8 @@ func NewWebsocket(socketURL *url.URL) (WebSocketer, error) {
 		))
 	}
 	log.WithFields(log.Fields{
-		"url":    socketURL.String(),
 		"status": response.Status,
+		"url":    socketURL.String(),
 	}).Info("Websocket connection to %s established: %s")
 
 	return &ChromeWebSocket{conn: websocket}, nil
