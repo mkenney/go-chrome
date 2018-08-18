@@ -2,13 +2,40 @@
 
 
 [[projects]]
+  digest = "1:f254314a58767f8b34862fa09b0a3206e26a38f624d33a66fc0e442403feb94f"
+  name = "github.com/bdlm/errors"
+  packages = ["."]
+  pruneopts = ""
+  revision = "4261cfedec68315454b163ae305cd34ecfc8b059"
+  version = "v0.1.0"
+
+[[projects]]
+  digest = "1:dad84a5b80c9cc6b9ee62236482b3e800eef019794f55a311f362977ca7580f6"
+  name = "github.com/bdlm/log"
+  packages = ["."]
+  pruneopts = ""
+  revision = "09ffec84c7dadbb7dbe314e5bc27ac7a86ce5245"
+  version = "v0.1.10"
+
+[[projects]]
+  branch = "master"
+  digest = "1:229dccc6286f2dd642f3c217c56fa340bb8dbe0c7ca05512ad49102dfbab1840"
+  name = "github.com/bdlm/std"
+  packages = ["logger"]
+  pruneopts = ""
+  revision = "ba3aa8890134f4246631d714d79a75f53fca0c53"
+
+[[projects]]
+  digest = "1:64d212c703a2b94054be0ce470303286b177ad260b2f89a307e3d1bb6c073ef6"
   name = "github.com/gorilla/websocket"
   packages = ["."]
+  pruneopts = ""
   revision = "ea4d1f681babbce9545c9c5f3d5194a789c89f5b"
   version = "v1.2.0"
 
 [[projects]]
-  branch = "master"
+  branch = "logger"
+  digest = "1:3b417a287c041ff46dc1757a62a28120ed4218aab03822915a1b39e5eb7968a3"
   name = "github.com/mkenney/go-chrome"
   packages = [
     "tot",
@@ -50,40 +77,38 @@
     "tot/system/info",
     "tot/target",
     "tot/tethering",
-    "tot/tracing"
+    "tot/tracing",
   ]
-  revision = "730761fbfadf0ed6fa890edbf6fd0f8a80053bf0"
+  pruneopts = ""
+  revision = "96670d6f118a5cfd335f4cfaa08668df01771921"
 
 [[projects]]
   branch = "master"
-  name = "github.com/mkenney/go-errors"
-  packages = ["."]
-  revision = "436418699008426bfa6889c4c818063c7c597dcf"
-
-[[projects]]
-  name = "github.com/sirupsen/logrus"
-  packages = ["."]
-  revision = "c155da19408a8799da419ed3eeb0cb5db0ad5dbc"
-  version = "v1.0.5"
-
-[[projects]]
-  branch = "master"
+  digest = "1:97fb4f02b231deef44704b6fa74d31e46f669fb217f192754ba603c2b32a190b"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  revision = "ab813273cd59e1333f7ae7bff5d027d4aadf528c"
+  pruneopts = ""
+  revision = "aabede6cba87e37f413b3e60ebfc214f8eeca1b0"
 
 [[projects]]
   branch = "master"
+  digest = "1:1132cbdac95d6a2a30f7434f7190b3b1345e85b6071e74911b1dce3e19e1543d"
   name = "golang.org/x/sys"
   packages = [
     "unix",
-    "windows"
+    "windows",
   ]
-  revision = "c11f84a56e43e20a78cee75a7c034031ecf57d1f"
+  pruneopts = ""
+  revision = "1c9583448a9c3aa0f9a6a5241bf73c0bd8aafded"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "f7f03460548614af3090e32924fcb6b836804b156623c46986743b31f0e0f8a8"
+  input-imports = [
+    "github.com/mkenney/go-chrome/tot",
+    "github.com/mkenney/go-chrome/tot/emulation",
+    "github.com/mkenney/go-chrome/tot/page",
+    "github.com/mkenney/go-chrome/tot/socket",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1

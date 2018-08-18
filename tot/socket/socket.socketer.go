@@ -202,7 +202,7 @@ func (socket *Socket) handleResponse(response *Response) {
 			"socket-id":  socket.socketID,
 			"command-id": command.ID(),
 			"method":     command.Method(),
-			"url":        socket.URL(),
+			"url":        socket.url.String(),
 		}).Debug("socket.handleResponse(): Command complete")
 	}
 }
@@ -217,7 +217,7 @@ func (socket *Socket) handleEvent(
 	log.WithFields(log.Fields{
 		"socket-id": socket.socketID,
 		"method":    response.Method,
-		"url":       socket.URL(),
+		"url":       socket.url.String(),
 	}).Debug("socket.handleEvent(): handling event")
 
 	if response.Method == "Inspector.targetCrashed" {
@@ -250,7 +250,7 @@ func (socket *Socket) handleUnknown(
 ) {
 	log.WithFields(log.Fields{
 		"socket-id": socket.socketID,
-		"url":       socket.URL(),
+		"url":       socket.url.String(),
 	}).Debug("socket.handleUnknown(): handling unexpected data")
 	var command Commander
 	var err error
@@ -358,7 +358,7 @@ func (socket *Socket) listen() error {
 		if !socket.listening {
 			log.WithFields(log.Fields{
 				"socket": socket.socketID,
-				"url":    socket.URL(),
+				"url":    socket.url.String(),
 			}).Info("Socket shutting down")
 			go func() {
 				select {
