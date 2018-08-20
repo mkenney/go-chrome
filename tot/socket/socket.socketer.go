@@ -67,7 +67,10 @@ func New(url *url.URL) *Socket {
 	socket.tracing = &TracingProtocol{Socket: socket}
 
 	socket.Listen()
-	log.Infof("socket #%d - New socket connection listening on %s", socket.socketID, socket.url)
+	log.WithFields(log.Fields{
+		"socketID": socket.socketID,
+		"url":      socket.url.String(),
+	}).Info("New socket connection listening")
 
 	return socket
 }
@@ -177,34 +180,26 @@ func (socket *Socket) handleResponse(response *Response) {
 	// Log a message on error
 	if command, err := socket.commands.Get(response.ID); nil != err {
 		err = errs.Wrap(err, 0, fmt.Sprintf("command #%d not found", response.ID))
-		errorMessage := ""
-		if nil != response.Error && 0 != response.Error.Code {
-			errorMessage = response.Error.Error()
-		}
-		log.Debugf(
-			"socket #%d - socket.handleResponse(): %v - result=%s err='%s'",
-			socket.socketID,
-			err,
-			response.Result,
-			errorMessage,
-		)
+		log.WithFields(log.Fields{
+			"error":    err,
+			"result":   response.Result,
+			"socketID": socket.socketID,
+		}).Debug(response.Error)
 
 	} else {
-		log.Debugf(
-			"socket #%d - socket.handleResponse(): executing handler for command #%d - %s",
-			socket.socketID,
-			command.ID(),
-			command.Method(),
-		)
+		log.WithFields(log.Fields{
+			"commandID": command.ID(),
+			"method":    command.Method(),
+			"socketID":  socket.socketID,
+		}).Debug("executing handler")
 		command.Respond(response)
 		socket.commands.Delete(command.ID())
-		log.Debugf(
-			"socket #%d - Command #%d complete: %s{%s}",
-			socket.socketID,
-			command.ID(),
-			socket.URL().String(),
-			command.Method(),
-		)
+		log.WithFields(log.Fields{
+			"commandID": command.ID(),
+			"method":    command.Method(),
+			"socketID":  socket.socketID,
+			"url":       socket.url.String(),
+		}).Debug("Command complete")
 	}
 }
 
@@ -215,23 +210,30 @@ connection.
 func (socket *Socket) handleEvent(
 	response *Response,
 ) {
-	log.Debugf(
-		"socket #%d - socket.handleEvent(): handling event %s:{%s}",
-		socket.socketID,
-		socket.URL(),
-		response.Method,
-	)
+	log.WithFields(log.Fields{
+		"event":    response.Method,
+		"socketID": socket.socketID,
+		"url":      socket.url.String(),
+	}).Debug("handling event")
 
 	if response.Method == "Inspector.targetCrashed" {
-		log.Errorf("socket #%d - Chrome has crashed!", socket.socketID)
+		log.WithFields(log.Fields{
+			"socketID": socket.socketID,
+		}).Error("Chrome has crashed!")
 	}
 
 	if handlers, err := socket.handlers.Get(response.Method); nil != err {
-		log.Errorf("socket #%d - %v", socket.socketID, err)
-
+		log.WithFields(log.Fields{
+			"error":    err,
+			"socketID": socket.socketID,
+		}).Debug(err)
 	} else {
 		for a, event := range handlers {
-			log.Infof("socket #%d - Executing handler #%d for event %s", socket.socketID, a, response.Method)
+			log.WithFields(log.Fields{
+				"event":    response.Method,
+				"handler#": a,
+				"socketID": socket.socketID,
+			}).Info("Executing handler")
 			go event.Handle(response)
 		}
 	}
@@ -243,11 +245,10 @@ handleUnknown receives all other socket responses.
 func (socket *Socket) handleUnknown(
 	response *Response,
 ) {
-	log.Debugf(
-		"socket #%d - socket.handleUnknown(): handling unexpected data from %s",
-		socket.socketID,
-		socket.URL(),
-	)
+	log.WithFields(log.Fields{
+		"socketID": socket.socketID,
+		"url":      socket.url.String(),
+	}).Debug("handling unexpected data")
 	var command Commander
 	var err error
 
@@ -257,24 +258,21 @@ func (socket *Socket) handleUnknown(
 		if nil != response.Error && 0 != response.Error.Code {
 			err = err.(errs.Err).With(response.Error, err.Error())
 		}
-		log.Debugf(
-			"socket #%d - socket.handleUnknown(): result='%s' err='%v'",
-			socket.socketID,
-			response.Result,
-			err,
-		)
+		log.WithFields(log.Fields{
+			"error":    err,
+			"result":   response.Result,
+			"socketID": socket.socketID,
+		}).Debug(err)
 		return
 	}
 
 	command.Respond(response)
-	log.Debugf(
-		"socket #%d - socket.handleUnknown(): %v - Unrecognised socket message sent to command #%d - method: '%s' - Error: %v",
-		socket.socketID,
-		err,
-		command.ID(),
-		command.Method(),
-		response.Error,
-	)
+	log.WithFields(log.Fields{
+		"commandID": command.ID(),
+		"error":     response.Error,
+		"method":    command.Method(),
+		"socketID":  socket.socketID,
+	}).Debug("Unrecognised socket message")
 }
 
 /*
@@ -302,44 +300,42 @@ func (socket *Socket) listen() error {
 		response := &Response{}
 		err = socket.ReadJSON(&response)
 		if nil != err {
-			log.Errorf("socket #%d - %v", socket.socketID, err)
+			log.WithFields(log.Fields{
+				"socketID": socket.socketID,
+			}).Error(err)
 			socket.listenErr.With(err, fmt.Sprintf("socket #%d - socket read failed", socket.socketID))
 		}
 		if 0 == response.ID &&
 			"" == response.Method &&
 			0 == len(response.Params) &&
 			0 == len(response.Result) {
-			log.Errorf("socket #%d - nil response from socket", socket.socketID)
+			log.WithFields(log.Fields{
+				"socketID": socket.socketID,
+			}).Error("nil response from socket")
 		}
 
 		if response.ID > 0 {
-			log.Debugf(
-				"socket #%d - socket.Listen(): Response ID #%d, sending to command handler",
-				socket.socketID,
-				response.ID,
-			)
+			log.WithFields(log.Fields{
+				"responseID": response.ID,
+				"socketID":   socket.socketID,
+			}).Debug("sending to command handler")
 			socket.handleResponse(response)
 
 		} else if "" != response.Method {
-			log.Debugf(
-				"socket #%d - socket.Listen(): Response method %s, sending to event handler",
-				socket.socketID,
-				response.Method,
-			)
+			log.WithFields(log.Fields{
+				"method":   response.Method,
+				"socketID": socket.socketID,
+			}).Debug("sending to event handler")
 			socket.handleEvent(response)
 
 		} else {
 			tmp, _ := json.Marshal(response)
 			log.WithFields(log.Fields{
-				"socket": socket.socketID,
-				"method": "socket.handleUnknown()",
-				"data":   string(tmp),
-			}).Errorf(
-				"socket #%d - Unknown response from web socket: id='%d', method='%s'",
-				socket.socketID,
-				response.ID,
-				response.Method,
-			)
+				"data":       string(tmp),
+				"method":     response.Method,
+				"responseID": response.ID,
+				"socketID":   socket.socketID,
+			}).Error("Unknown response from web socket")
 
 			if nil == response.Error {
 				response.Error = &Error{
@@ -350,7 +346,10 @@ func (socket *Socket) listen() error {
 		}
 
 		if !socket.listening {
-			log.Infof("socket #%d - %s: Socket shutting down", socket.socketID, socket.URL().String())
+			log.WithFields(log.Fields{
+				"socketID": socket.socketID,
+				"url":      socket.url.String(),
+			}).Info("Socket shutting down")
 			go func() {
 				select {
 				case socket.listenCh <- true:
@@ -394,7 +393,10 @@ func (socket *Socket) RemoveEventHandler(
 
 	handlers, err := socket.handlers.Get(handler.Name())
 	if nil != err {
-		log.Warnf("socket #%d - RemoveEventHandler(): Could not remove handler: %s", socket.socketID, err.Error())
+		log.WithFields(log.Fields{
+			"error":    err,
+			"socketID": socket.socketID,
+		}).Warn("Could not remove handler")
 		return errs.Wrap(err, 0, fmt.Sprintf("failed to remove event handler '%s'", handler.Name()))
 	}
 
@@ -402,12 +404,18 @@ func (socket *Socket) RemoveEventHandler(
 		if hndlr == handler {
 			handlers = append(handlers[:i], handlers[i+1:]...)
 			socket.handlers.Set(handler.Name(), handlers)
-			log.Infof("socket #%d - RemoveEventHandler(): Removed event handler %d from %s", socket.socketID, i, handler.Name())
+			log.WithFields(log.Fields{
+				"handler":   handler.Name(),
+				"handlerID": i,
+				"socketID":  socket.socketID,
+			}).Info("Removed event handler")
 			return nil
 		}
 	}
 
-	log.Warnf("socket #%d - RemoveEventHandler(): handler not found", socket.socketID)
+	log.WithFields(log.Fields{
+		"socketID": socket.socketID,
+	}).Warn("handler not found")
 	return nil
 }
 
@@ -426,12 +434,11 @@ Workflow:
 	response and the command unlocks itself.
 */
 func (socket *Socket) SendCommand(command Commander) chan *Response {
-	log.Debugf(
-		"socket #%d - socket.SendCommand(): sending command #%d ('%+v') payload to socket",
-		socket.socketID,
-		command.ID(),
-		command.Method(),
-	)
+	log.WithFields(log.Fields{
+		"commandID": command.ID(),
+		"method":    command.Method(),
+		"socketID":  socket.socketID,
+	}).Debug("sending command payload to socket")
 	go func() {
 		payload := &Payload{
 			ID:     command.ID(),
@@ -469,7 +476,9 @@ func (socket *Socket) Stop() error {
 		case <-time.After(1 * time.Second):
 			socket.conn.Close()
 		}
-		log.Debugf("socket #%d: socket stopped", socket.socketID)
+		log.WithFields(log.Fields{
+			"socketID": socket.socketID,
+		}).Debug("socket stopped")
 	}
 	if 0 == len(socket.listenErr) {
 		return nil

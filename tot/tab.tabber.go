@@ -77,9 +77,10 @@ func (tab *Tab) Close() (interface{}, error) {
 	var result interface{}
 	tab.Socket().Stop()
 	_, err = tab.Chromium().Query(fmt.Sprintf("/json/close/%s", tab.Data().ID), url.Values{}, &result)
-	log.Debugf("Close result: %v - %v", result, err)
 	if nil != err {
-		log.Warnf("%s: %s", result, err)
+		log.WithFields(log.Fields{
+			"result": result,
+		}).Warn("%s", err)
 		return nil, errs.Wrap(err, 0, fmt.Sprintf("close/%s query failed", tab.Data().ID))
 	}
 	tab.Chromium().RemoveTab(tab)
