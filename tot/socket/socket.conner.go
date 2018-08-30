@@ -23,10 +23,10 @@ Connect establishes a websocket connection.
 Connect is a Conner implementation.
 */
 func (socket *Socket) Connect() error {
-	socket.connMux.Lock()
-	defer socket.connMux.Unlock()
+	socket.mux.Lock()
+	defer socket.mux.Unlock()
 
-	if socket.connected {
+	if nil != socket.conn {
 		return nil
 	}
 
@@ -40,12 +40,11 @@ func (socket *Socket) Connect() error {
 			"error":    err.Error(),
 			"socketID": socket.socketID,
 		}).Debug("received error")
-		socket.connected = false
+		socket.conn = nil
 		return errs.Wrap(err, 0, "Connect() failed while creating socket")
 	}
 
 	socket.conn = websocket
-	socket.connected = true
 
 	log.WithFields(log.Fields{
 		"socketID": socket.socketID,
@@ -60,7 +59,7 @@ Connected returns whether a connection exists.
 Connected is a Conner implementation.
 */
 func (socket *Socket) Connected() bool {
-	return socket.connected
+	return nil != socket.conn
 }
 
 /*
@@ -69,7 +68,7 @@ Disconnect closes a websocket connection.
 Disconnect is a Conner implementation.
 */
 func (socket *Socket) Disconnect() error {
-	if !socket.connected {
+	if nil == socket.conn {
 		return fmt.Errorf("not connected")
 	}
 	socket.Stop()

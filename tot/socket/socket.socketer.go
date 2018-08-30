@@ -20,11 +20,11 @@ func New(url *url.URL) *Socket {
 		commandIDMux: &sync.Mutex{},
 		commands:     NewCommandMap(),
 		handlers:     NewEventHandlerMap(),
-		connMux:      &sync.Mutex{},
-		listenMux:    &sync.Mutex{},
+		mux:          &sync.Mutex{},
 		newSocket:    NewWebsocket,
 		socketID:     NextSocketID(),
 		url:          url,
+		stop:         make(chan bool),
 	}
 
 	// Init the protocol interfaces for the API.
@@ -105,10 +105,9 @@ type Socket struct {
 	socketID     int
 	url          *url.URL
 
-	listenMux *sync.Mutex
-	listening bool
+	stop chan bool
 
-	connMux   *sync.Mutex
+	mux       *sync.Mutex
 	conn      WebSocketer
 	connected bool
 
@@ -286,10 +285,6 @@ handleEvent() as appropriate.
 Listen is a Socketer implementation.
 */
 func (socket *Socket) Listen() {
-	socket.listenMux.Lock()
-	defer socket.listenMux.Unlock()
-	socket.listenCh = make(chan bool)
-	socket.listening = true
 	go socket.listen()
 }
 
@@ -303,56 +298,8 @@ func (socket *Socket) listen() error {
 	defer socket.Disconnect()
 
 	for {
-		response := &Response{}
-		err = socket.ReadJSON(&response)
-		if nil != err {
-			log.WithFields(log.Fields{
-				"socketID": socket.socketID,
-			}).Error(err)
-			socket.listenErr.With(err, fmt.Sprintf("socket #%d - socket read failed", socket.socketID))
-		}
-		if 0 == response.ID &&
-			"" == response.Method &&
-			0 == len(response.Params) &&
-			0 == len(response.Result) {
-			log.WithFields(log.Fields{
-				"socketID": socket.socketID,
-			}).Error("nil response from socket")
-		}
-
-		if response.ID > 0 {
-			log.WithFields(log.Fields{
-				"responseID": response.ID,
-				"socketID":   socket.socketID,
-			}).Debug("sending to command handler")
-			socket.handleResponse(response)
-
-		} else if "" != response.Method {
-			log.WithFields(log.Fields{
-				"method":   response.Method,
-				"socketID": socket.socketID,
-			}).Debug("sending to event handler")
-			socket.handleEvent(response)
-
-		} else {
-			tmp, _ := json.Marshal(response)
-			log.WithFields(log.Fields{
-				"data":       string(tmp),
-				"method":     response.Method,
-				"responseID": response.ID,
-				"socketID":   socket.socketID,
-			}).Error("Unknown response from web socket")
-
-			if nil == response.Error {
-				response.Error = &Error{
-					Message: "Unknown response from web socket",
-				}
-			}
-			socket.handleUnknown(response)
-		}
-
-		socket.listenMux.Lock()
-		if !socket.listening {
+		select {
+		case <-socket.stop:
 			log.WithFields(log.Fields{
 				"socketID": socket.socketID,
 				"url":      socket.url.String(),
@@ -363,21 +310,60 @@ func (socket *Socket) listen() error {
 				case <-time.After(10 * time.Second):
 				}
 			}()
-			socket.listenMux.Unlock()
-			break
+			if nil != err {
+				err = errs.Wrap(err, 0, "socket read failed")
+			}
+			return err
+		default:
+			response := &Response{}
+			err = socket.ReadJSON(&response)
+			if nil != err {
+				log.WithFields(log.Fields{
+					"socketID": socket.socketID,
+				}).Error(err)
+				socket.listenErr.With(err, fmt.Sprintf("socket #%d - socket read failed", socket.socketID))
+			}
+			if 0 == response.ID &&
+				"" == response.Method &&
+				0 == len(response.Params) &&
+				0 == len(response.Result) {
+				log.WithFields(log.Fields{
+					"socketID": socket.socketID,
+				}).Error("nil response from socket")
+			}
+
+			if response.ID > 0 {
+				log.WithFields(log.Fields{
+					"responseID": response.ID,
+					"socketID":   socket.socketID,
+				}).Debug("sending to command handler")
+				socket.handleResponse(response)
+
+			} else if "" != response.Method {
+				log.WithFields(log.Fields{
+					"method":   response.Method,
+					"socketID": socket.socketID,
+				}).Debug("sending to event handler")
+				socket.handleEvent(response)
+
+			} else {
+				tmp, _ := json.Marshal(response)
+				log.WithFields(log.Fields{
+					"data":       string(tmp),
+					"method":     response.Method,
+					"responseID": response.ID,
+					"socketID":   socket.socketID,
+				}).Error("Unknown response from web socket")
+
+				if nil == response.Error {
+					response.Error = &Error{
+						Message: "Unknown response from web socket",
+					}
+				}
+				socket.handleUnknown(response)
+			}
 		}
-		socket.listenMux.Unlock()
 	}
-
-	if nil != err {
-		err = errs.Wrap(err, 0, "socket read failed")
-	}
-
-	socket.listenMux.Lock()
-	socket.listening = false
-	socket.listenMux.Unlock()
-
-	return err
 }
 
 /*
@@ -482,22 +468,7 @@ websocket connection.
 Stop is a Socketer implementation.
 */
 func (socket *Socket) Stop() error {
-	socket.listenMux.Lock()
-	defer socket.listenMux.Unlock()
-	if socket.listening {
-		socket.listening = false
-		select {
-		case <-socket.listenCh:
-		case <-time.After(1 * time.Second):
-			socket.conn.Close()
-		}
-		log.WithFields(log.Fields{
-			"socketID": socket.socketID,
-		}).Debug("socket stopped")
-	}
-	if 0 == len(socket.listenErr) {
-		return nil
-	}
+	socket.stop <- true
 	return socket.listenErr
 }
 
