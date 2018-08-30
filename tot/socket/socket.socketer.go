@@ -107,9 +107,8 @@ type Socket struct {
 
 	stop chan bool
 
-	mux       *sync.Mutex
-	conn      WebSocketer
-	connected bool
+	mux  *sync.Mutex
+	conn WebSocketer
 
 	// Protocol interfaces for the API.
 	accessibility        *AccessibilityProtocol

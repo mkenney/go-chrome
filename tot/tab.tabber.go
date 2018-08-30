@@ -80,7 +80,8 @@ func (tab *Tab) Close() (interface{}, error) {
 	if nil != err {
 		log.WithFields(log.Fields{
 			"result": result,
-		}).Warn("%s", err)
+			"error":  err,
+		}).Warnf("%v", err)
 		return nil, errs.Wrap(err, 0, fmt.Sprintf("close/%s query failed", tab.Data().ID))
 	}
 	tab.Chromium().RemoveTab(tab)

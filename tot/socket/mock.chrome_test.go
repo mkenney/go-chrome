@@ -22,6 +22,12 @@ func NewMockChrome() *MockChrome {
 
 var upgrader = websocket.Upgrader{}
 
+var genericError = &Error{
+	Code:    1,
+	Data:    []byte(`"error data"`),
+	Message: "error message",
+}
+
 type MockChrome struct {
 	IgnoreInput bool
 	Server      *httptest.Server

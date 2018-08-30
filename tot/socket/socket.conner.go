@@ -59,6 +59,8 @@ Connected returns whether a connection exists.
 Connected is a Conner implementation.
 */
 func (socket *Socket) Connected() bool {
+	socket.mux.Lock()
+	defer socket.mux.Unlock()
 	return nil != socket.conn
 }
 
@@ -68,6 +70,8 @@ Disconnect closes a websocket connection.
 Disconnect is a Conner implementation.
 */
 func (socket *Socket) Disconnect() error {
+	socket.mux.Lock()
+	defer socket.mux.Unlock()
 	if nil == socket.conn {
 		return fmt.Errorf("not connected")
 	}
@@ -77,7 +81,6 @@ func (socket *Socket) Disconnect() error {
 		socket.listenErr.With(err, "could not close socket connection")
 	}
 	socket.conn = nil
-	socket.connected = false
 	if 0 == len(socket.listenErr) {
 		return nil
 	}
