@@ -23,8 +23,8 @@ Connect establishes a websocket connection.
 Connect is a Conner implementation.
 */
 func (socket *Socket) Connect() error {
-	socket.mux.Lock()
-	defer socket.mux.Unlock()
+	socket.connMux.Lock()
+	defer socket.connMux.Unlock()
 
 	if socket.connected {
 		return nil

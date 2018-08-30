@@ -20,7 +20,8 @@ func New(url *url.URL) *Socket {
 		commandIDMux: &sync.Mutex{},
 		commands:     NewCommandMap(),
 		handlers:     NewEventHandlerMap(),
-		mux:          &sync.Mutex{},
+		connMux:      &sync.Mutex{},
+		listenMux:    &sync.Mutex{},
 		newSocket:    NewWebsocket,
 		socketID:     NextSocketID(),
 		url:          url,
@@ -97,16 +98,19 @@ type Socket struct {
 	commandID    int
 	commandIDMux *sync.Mutex
 	commands     CommandMapper
-	conn         WebSocketer
-	connected    bool
 	handlers     EventHandlerMapper
 	listenCh     chan bool
 	listenErr    errs.Err
-	listening    bool
-	mux          *sync.Mutex
 	newSocket    func(socketURL *url.URL) (WebSocketer, error)
 	socketID     int
 	url          *url.URL
+
+	listenMux *sync.Mutex
+	listening bool
+
+	connMux   *sync.Mutex
+	conn      WebSocketer
+	connected bool
 
 	// Protocol interfaces for the API.
 	accessibility        *AccessibilityProtocol
@@ -282,6 +286,8 @@ handleEvent() as appropriate.
 Listen is a Socketer implementation.
 */
 func (socket *Socket) Listen() {
+	socket.listenMux.Lock()
+	defer socket.listenMux.Unlock()
 	socket.listenCh = make(chan bool)
 	socket.listening = true
 	go socket.listen()
@@ -345,6 +351,7 @@ func (socket *Socket) listen() error {
 			socket.handleUnknown(response)
 		}
 
+		socket.listenMux.Lock()
 		if !socket.listening {
 			log.WithFields(log.Fields{
 				"socketID": socket.socketID,
@@ -356,14 +363,20 @@ func (socket *Socket) listen() error {
 				case <-time.After(10 * time.Second):
 				}
 			}()
+			socket.listenMux.Unlock()
 			break
 		}
+		socket.listenMux.Unlock()
 	}
 
 	if nil != err {
 		err = errs.Wrap(err, 0, "socket read failed")
 	}
+
+	socket.listenMux.Lock()
 	socket.listening = false
+	socket.listenMux.Unlock()
+
 	return err
 }
 
@@ -469,6 +482,8 @@ websocket connection.
 Stop is a Socketer implementation.
 */
 func (socket *Socket) Stop() error {
+	socket.listenMux.Lock()
+	defer socket.listenMux.Unlock()
 	if socket.listening {
 		socket.listening = false
 		select {

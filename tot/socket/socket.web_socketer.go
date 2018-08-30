@@ -3,7 +3,6 @@ package socket
 import (
 	"encoding/json"
 	"fmt"
-	"net/http"
 	"net/url"
 
 	errs "github.com/bdlm/errors"
@@ -23,9 +22,8 @@ func NewWebsocket(socketURL *url.URL) (WebSocketer, error) {
 		// Chrome does not support payloads larger than 1MB: https://chromium.googlesource.com/chromium/src/+/master/net/server/http_connection.h#33
 		WriteBufferSize: 1 * 1024 * 1024,
 	}
-	header := http.Header{"Origin": []string{}}
 
-	websocket, response, err := dialer.Dial(socketURL.String(), header)
+	websocket, response, err := dialer.Dial(socketURL.String(), nil)
 	if err != nil {
 		return nil, errs.Wrap(err, 0, fmt.Sprintf(
 			"%s websocket connection failed",
