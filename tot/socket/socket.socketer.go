@@ -67,6 +67,7 @@ func New(url *url.URL) *Socket {
 	socket.tethering = &TetheringProtocol{Socket: socket}
 	socket.tracing = &TracingProtocol{Socket: socket}
 
+	socket.Connect()
 	socket.Listen()
 	log.WithFields(log.Fields{
 		"socketID": socket.socketID,
@@ -467,6 +468,7 @@ websocket connection.
 Stop is a Socketer implementation.
 */
 func (socket *Socket) Stop() error {
+	socket.Disconnect()
 	socket.stop <- true
 	return socket.listenErr
 }

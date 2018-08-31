@@ -2,7 +2,6 @@ package socket
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -10,9 +9,18 @@ import (
 	"sync"
 	"testing"
 
+	"github.com/bdlm/log"
 	"github.com/gorilla/websocket"
 	"github.com/mkenney/go-chrome/tot/tracing"
 )
+
+func init() {
+	log.SetFormatter(&log.TextFormatter{ForceTTY: true})
+	level, err := log.ParseLevel("debug")
+	if nil == err {
+		log.SetLevel(level)
+	}
+}
 
 func NewMockChrome() *MockChrome {
 	return &MockChrome{
@@ -66,6 +74,7 @@ func (chrome *MockChrome) handle(writer http.ResponseWriter, request *http.Reque
 		if !chrome.IgnoreInput {
 			err := socket.ReadJSON(&payload)
 			if err != nil {
+				socket.WriteJSON(err)
 				break
 			}
 			response.ID = payload.ID
@@ -73,9 +82,9 @@ func (chrome *MockChrome) handle(writer http.ResponseWriter, request *http.Reque
 		chrome.mux.Lock()
 		if 0 == len(chrome.Data) {
 			chrome.mux.Unlock()
+			socket.WriteJSON("no data available")
 			break
 		}
-		fmt.Println(len(chrome.Data))
 		response.Error = chrome.Data[0].Err
 		response.Method = chrome.Data[0].Method
 

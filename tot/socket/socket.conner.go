@@ -1,8 +1,6 @@
 package socket
 
 import (
-	"fmt"
-
 	errs "github.com/bdlm/errors"
 	"github.com/bdlm/log"
 )
@@ -73,9 +71,8 @@ func (socket *Socket) Disconnect() error {
 	socket.mux.Lock()
 	defer socket.mux.Unlock()
 	if nil == socket.conn {
-		return fmt.Errorf("not connected")
+		return errs.New(0, "not connected")
 	}
-	socket.Stop()
 	err := socket.conn.Close()
 	if nil != err {
 		socket.listenErr.With(err, "could not close socket connection")
@@ -93,12 +90,11 @@ ReadJSON reads data from a websocket connection.
 ReadJSON is a Conner implementation.
 */
 func (socket *Socket) ReadJSON(v interface{}) error {
-	err := socket.Connect()
-	if nil != err {
-		return errs.Wrap(err, 0, "not connected")
+	if nil == socket.conn {
+		return errs.New(0, "not connected")
 	}
 
-	err = socket.conn.ReadJSON(&v)
+	err := socket.conn.ReadJSON(&v)
 	if nil != err {
 		return errs.Wrap(err, 0, "socket read failed")
 	}
@@ -112,12 +108,11 @@ WriteJSON writes data to a websocket connection.
 WriteJSON is a Conner implementation.
 */
 func (socket *Socket) WriteJSON(v interface{}) error {
-	err := socket.Connect()
-	if nil != err {
-		return errs.Wrap(err, 0, "not connected")
+	if nil == socket.conn {
+		return errs.New(0, "not connected")
 	}
 
-	err = socket.conn.WriteJSON(v)
+	err := socket.conn.WriteJSON(v)
 	if nil != err {
 		return errs.Wrap(err, 0, "socket write failed")
 	}
