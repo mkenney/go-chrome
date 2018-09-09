@@ -1,78 +1,77 @@
 package socket
 
 import (
-	"net/url"
 	"reflect"
 	"testing"
 	"time"
 )
 
 func TestNewSocket(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestNewSocket")
-	socket := New(socketURL)
-	if err := socket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() {
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+
+	soc := New(chrome.URL)
+	defer soc.Stop()
+
+	if err := soc.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() {
 		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
 	}
 }
 
 func TestCommandNotFound(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestCommandNotFound")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
+
+	chrome.AddData(MockData{
 		ID:     999,
-		Error:  &Error{},
+		Err:    &Error{},
 		Method: "Some.methodError",
-		Result: []byte(`"Mock Command Result"`),
+		Result: "Mock Command Result",
 	})
 	time.Sleep(1 * time.Second)
 }
 
 func TestSocketStop(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestSocketStop")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+
 	time.Sleep(1 * time.Second)
-	if err := mockSocket.Stop(); nil != err {
-		t.Errorf("Expected nil, got error: %v", err)
+	if err := soc.Stop(); nil != err {
+		t.Errorf("Expected nil, got error: %T", err)
 	}
 }
 
 func TestSocketDisconnect(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestSocketDisconnect")
-	mockSocket := NewMock(socketURL)
-	if err := mockSocket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() && "errors.Err" != reflect.TypeOf(err).String() {
-		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
-	}
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
 
-	// Test the disconnect timeout
-	mockSocket = NewMock(socketURL)
-	mockSocket.Listen()
-	mockSocket.Conn().(*MockChromeWebSocket).Sleep(10 * time.Second)
-	start := time.Now()
-	if err := mockSocket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() && "errors.Err" != reflect.TypeOf(err).String() {
+	if err := soc.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() && "errors.Err" != reflect.TypeOf(err).String() {
 		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
-	}
-	elapsed := time.Since(start)
-	if elapsed < 1*time.Second {
-		t.Errorf("Expected disconnect timeout in 1 seconds, %s elapsed", elapsed)
 	}
 }
 
 func TestListenCommand(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestListenCommand")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	command := NewCommand(mockSocket, "Some.method", nil)
-	resultChan := mockSocket.SendCommand(command)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+	command := NewCommand(soc, "Some.method", nil)
+	resultChan := soc.SendCommand(command)
+	chrome.AddData(MockData{
 		ID:     command.ID(),
-		Error:  &Error{},
+		Err:    &Error{},
 		Method: "Some.method",
-		Result: []byte(`"Mock Command Result"`),
+		Result: "Mock Command Result",
 	})
 	result := <-resultChan
 	if `"Mock Command Result"` != string(result.Result) {
@@ -81,18 +80,19 @@ func TestListenCommand(t *testing.T) {
 }
 
 func TestListenCommandError(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestListenCommandError")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	command := NewCommand(mockSocket, "Some.methodError", nil)
-	resultChan := mockSocket.SendCommand(command)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
+	command := NewCommand(soc, "Some.methodError", nil)
+	resultChan := soc.SendCommand(command)
+	chrome.AddData(MockData{
 		ID:     command.ID(),
-		Error:  &Error{},
+		Err:    &Error{},
 		Method: "Some.methodError",
-		Result: []byte(`"Mock Command Result"`),
+		Result: "Mock Command Result",
 	})
 	result := <-resultChan
 	if `"Mock Command Result"` != string(result.Result) {
@@ -101,18 +101,18 @@ func TestListenCommandError(t *testing.T) {
 }
 
 func TestListenCommandUnknown(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestListenCommandUnknown")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	command := NewCommand(mockSocket, "", nil)
+	command := NewCommand(soc, "", nil)
 	command.SetID(0)
-	resultChan := mockSocket.SendCommand(command)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  nil,
-		Method: "",
+	resultChan := soc.SendCommand(command)
+	chrome.AddData(MockData{
+		ID:  0,
+		Err: nil,
 	})
 	result := <-resultChan
 	if nil == result.Error {
@@ -122,10 +122,11 @@ func TestListenCommandUnknown(t *testing.T) {
 
 func TestRemoveEventHandler(t *testing.T) {
 	var err error
-	socketURL, _ := url.Parse("https://test:9222/TestRemoveEventHandler")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	handler1 := NewEventHandler(
 		"Test.event",
@@ -137,20 +138,20 @@ func TestRemoveEventHandler(t *testing.T) {
 	)
 
 	// Remove before added
-	err = mockSocket.RemoveEventHandler(handler1)
+	err = soc.RemoveEventHandler(handler1)
 	if nil == err {
 		t.Errorf("Expected error, received nil")
 	}
 
 	// Remove added handler
-	mockSocket.AddEventHandler(handler1)
-	err = mockSocket.RemoveEventHandler(handler1)
+	soc.AddEventHandler(handler1)
+	err = soc.RemoveEventHandler(handler1)
 	if nil != err {
 		t.Errorf("Expected nil, received error: %s", err.Error())
 	}
 
 	// Removed but never added
-	err = mockSocket.RemoveEventHandler(handler2)
+	err = soc.RemoveEventHandler(handler2)
 	if nil != err {
 		t.Errorf("Expected nil, received error: %s", err.Error())
 	}
@@ -182,9 +183,13 @@ func TestRemoveEventHandler(t *testing.T) {
 //}
 
 func TestURL(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestURL")
-	mockSocket := NewMock(socketURL)
-	if "https://test:9222/TestURL" != mockSocket.URL().String() {
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
+
+	if chrome.URL.String() != soc.URL().String() {
 		t.Errorf("Socketer.URL() failed to return the correct URL")
 	}
 }

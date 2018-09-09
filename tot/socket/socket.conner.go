@@ -21,33 +21,25 @@ Connect establishes a websocket connection.
 Connect is a Conner implementation.
 */
 func (socket *Socket) Connect() error {
-	socket.mux.Lock()
-	defer socket.mux.Unlock()
-
 	if nil != socket.conn {
 		return nil
 	}
 
-	log.WithFields(log.Fields{
-		"socketID": socket.socketID,
-		"url":      socket.url.String(),
-	}).Debug("connecting")
+	socket.logger.Debug("connecting")
 	websocket, err := socket.newSocket(socket.url)
 	if nil != err {
-		log.WithFields(log.Fields{
-			"error":    err.Error(),
-			"socketID": socket.socketID,
-		}).Debug("received error")
+		socket.logger.WithFields(log.Fields{"error": err.Error()}).
+			Debug("received error")
+		socket.mux.Lock()
 		socket.conn = nil
+		socket.mux.Unlock()
 		return errs.Wrap(err, 0, "Connect() failed while creating socket")
 	}
-
+	socket.mux.Lock()
 	socket.conn = websocket
+	socket.mux.Unlock()
 
-	log.WithFields(log.Fields{
-		"socketID": socket.socketID,
-		"url":      socket.url.String(),
-	}).Debug("connection established")
+	socket.logger.Debug("connection established")
 	return nil
 }
 
@@ -57,9 +49,8 @@ Connected returns whether a connection exists.
 Connected is a Conner implementation.
 */
 func (socket *Socket) Connected() bool {
-	socket.mux.Lock()
-	defer socket.mux.Unlock()
-	return nil != socket.conn
+	connected := nil != socket.conn
+	return connected
 }
 
 /*
@@ -69,16 +60,22 @@ Disconnect is a Conner implementation.
 */
 func (socket *Socket) Disconnect() error {
 	socket.mux.Lock()
-	defer socket.mux.Unlock()
 	if nil == socket.conn {
+		socket.mux.Unlock()
 		return errs.New(0, "not connected")
 	}
+	socket.mux.Unlock()
+
+	socket.mux.Lock()
 	err := socket.conn.Close()
+	socket.mux.Unlock()
 	if nil != err {
 		socket.listenErr.With(err, "could not close socket connection")
 	}
+	socket.mux.Lock()
 	socket.conn = nil
-	if 0 == len(socket.listenErr) {
+	socket.mux.Unlock()
+	if 0 == socket.listenErr.Len() {
 		return nil
 	}
 	return socket.listenErr
@@ -90,11 +87,15 @@ ReadJSON reads data from a websocket connection.
 ReadJSON is a Conner implementation.
 */
 func (socket *Socket) ReadJSON(v interface{}) error {
+	socket.mux.Lock()
 	if nil == socket.conn {
+		socket.mux.Unlock()
 		return errs.New(0, "not connected")
 	}
+	socket.mux.Unlock()
 
 	err := socket.conn.ReadJSON(&v)
+
 	if nil != err {
 		return errs.Wrap(err, 0, "socket read failed")
 	}
@@ -108,11 +109,17 @@ WriteJSON writes data to a websocket connection.
 WriteJSON is a Conner implementation.
 */
 func (socket *Socket) WriteJSON(v interface{}) error {
+	socket.mux.Lock()
 	if nil == socket.conn {
+		socket.mux.Unlock()
 		return errs.New(0, "not connected")
 	}
+	socket.mux.Unlock()
 
+	socket.mux.Lock()
 	err := socket.conn.WriteJSON(v)
+	socket.mux.Unlock()
+
 	if nil != err {
 		return errs.Wrap(err, 0, "socket write failed")
 	}

@@ -11,9 +11,6 @@ branches:
     only:
         - master
 
-services:
-    - docker
-
 language: go
 go_import_path: github.com/mkenney/go-chrome
 go:
