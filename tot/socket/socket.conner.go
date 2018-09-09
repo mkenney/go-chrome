@@ -64,14 +64,13 @@ func (socket *Socket) Disconnect() error {
 		socket.mux.Unlock()
 		return errs.New(0, "not connected")
 	}
-	socket.mux.Unlock()
-
-	socket.mux.Lock()
 	err := socket.conn.Close()
 	socket.mux.Unlock()
+
 	if nil != err {
 		socket.listenErr.With(err, "could not close socket connection")
 	}
+
 	socket.mux.Lock()
 	socket.conn = nil
 	socket.mux.Unlock()
