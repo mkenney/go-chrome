@@ -264,7 +264,7 @@ func (socket *Socket) listen() error {
 	}
 	readLoopChan := make(chan ReadLoopData)
 
-	// launch the main
+	// launch the main read loop
 	go func() {
 		for {
 			select {

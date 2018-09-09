@@ -21,6 +21,8 @@ Connect establishes a websocket connection.
 Connect is a Conner implementation.
 */
 func (socket *Socket) Connect() error {
+	socket.mux.Lock()
+	defer socket.mux.Unlock()
 	if nil != socket.conn {
 		return nil
 	}
@@ -30,14 +32,10 @@ func (socket *Socket) Connect() error {
 	if nil != err {
 		socket.logger.WithFields(log.Fields{"error": err.Error()}).
 			Debug("received error")
-		socket.mux.Lock()
 		socket.conn = nil
-		socket.mux.Unlock()
 		return errs.Wrap(err, 0, "Connect() failed while creating socket")
 	}
-	socket.mux.Lock()
 	socket.conn = websocket
-	socket.mux.Unlock()
 
 	socket.logger.Debug("connection established")
 	return nil
