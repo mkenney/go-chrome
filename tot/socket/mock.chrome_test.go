@@ -94,92 +94,115 @@ func (chrome *MockChrome) popMockData(socket *websocket.Conn) MockData {
 		break
 	}
 	chrome.logger.WithFields(log.Fields{"data": data}).
-		Info("Fetching mock chrome socket response data")
+		Info("fetching mock chrome socket response data")
 	return data
 }
 
+type ReadLoopData struct {
+	Err     error
+	Payload Payload
+}
+
+// launchListener starts the websocket input read loop.
+func (chrome *MockChrome) launchListener(
+	websoc *websocket.Conn,
+	breaker chan bool,
+	dataChan chan ReadLoopData,
+) error {
+
+	if chrome.IgnoreInput {
+		<-breaker
+		return nil
+	}
+
+	dataFeed := make(chan ReadLoopData)
+	go func() {
+		for {
+			var data ReadLoopData
+			err := websoc.ReadJSON(&data.Payload)
+			if nil != err {
+				data.Err = err
+				// If the websocket closes kill the loop
+				if strings.Contains(data.Err.Error(), "abnormal closure") {
+					chrome.logger.WithFields(log.Fields{"data": data}).
+						Warn("websocket closed, ending read loop")
+					return
+				}
+			}
+			chrome.logger.WithFields(log.Fields{"data": data}).
+				Debug("returning websocket input")
+			dataFeed <- data
+		}
+	}()
+
+	for {
+		select {
+		case <-breaker:
+			chrome.logger.Debug("shutting down mock chrome websocket input read loop")
+			breaker <- true
+			return nil
+		case dataChan <- <-dataFeed:
+		}
+	}
+	return nil
+}
+
+// launchMockDataFeed starts the mock input data feeder.
+func (chrome *MockChrome) launchMockDataFeed(
+	websoc *websocket.Conn,
+	breaker chan bool,
+	dataChan chan MockData,
+) error {
+	if !chrome.IgnoreInput {
+		<-breaker
+		return nil
+	}
+	for {
+		if chrome.sleep > 0 {
+			time.Sleep(chrome.sleep)
+		}
+		select {
+		case <-breaker:
+			chrome.logger.Debug("shutting down mock chrome websocket write loop")
+			breaker <- true
+			return nil
+		case dataChan <- chrome.popMockData(websoc):
+			chrome.logger.Debug("mock data written to mock chrome websocket")
+		}
+	}
+	return nil
+}
+
+// handle is the request data handler.
 func (chrome *MockChrome) handle(writer http.ResponseWriter, request *http.Request) {
 	var err error
 	var response *Response
-	type ReadLoopData struct {
-		Err     error
-		Payload Payload
-	}
-	readLoopBreaker := make(chan bool)
+	readLoopBreaker := make(chan bool, 1)
 	readLoopChan := make(chan ReadLoopData, 3)
-	writeLoopBreaker := make(chan bool)
+	writeLoopBreaker := make(chan bool, 1)
 	writeLoopChan := make(chan MockData, 3)
 
 	// upgrade connection to a websocket
-	socket, err := upgrader.Upgrade(writer, request, nil)
+	websoc, err := upgrader.Upgrade(writer, request, nil)
 	if err != nil {
 		return
 	}
 
-	// socket handler cleanup
+	// websocket handler cleanup
 	defer func() {
-		chrome.logger.Warn("Shutting down mock chrome")
+		chrome.logger.Warn("shutting down mock chrome")
 		readLoopBreaker <- true
 		writeLoopBreaker <- true
-		socket.Close()
+		<-readLoopBreaker
+		<-writeLoopBreaker
+		websoc.Close()
 	}()
 
-	// launch the socket input read loop for this connection.
-	go func() {
-		if chrome.IgnoreInput {
-			<-readLoopBreaker
-			return
-		}
-
-		socketChan := make(chan ReadLoopData)
-		go func() {
-			for {
-				var data ReadLoopData
-				err := socket.ReadJSON(&data.Payload)
-				if nil != err {
-					data.Err = err
-					// If the socket closes kill the loop
-					if strings.Contains(data.Err.Error(), "abnormal closure") {
-						chrome.logger.WithFields(log.Fields{"data": data}).
-							Warn("socket closed, ending read loop")
-						return
-					}
-				}
-				chrome.logger.WithFields(log.Fields{"data": data}).
-					Debug("returning socket input")
-				socketChan <- data
-			}
-		}()
-
-		for {
-			select {
-			case <-readLoopBreaker:
-				chrome.logger.Debug("shutting down mock chrome socket input read loop")
-				return
-			case readLoopChan <- <-socketChan:
-			}
-		}
-	}()
+	// launch the websocket input read loop for this connection.
+	go chrome.launchListener(websoc, readLoopBreaker, readLoopChan)
 
 	// launch the mock data loop for this connection.
-	go func() {
-		if !chrome.IgnoreInput {
-			<-writeLoopBreaker
-			return
-		}
-		for {
-			if chrome.sleep > 0 {
-				time.Sleep(chrome.sleep)
-			}
-			select {
-			case <-writeLoopBreaker:
-				chrome.logger.Debug("shutting down mock chrome socket write loop")
-				return
-			case writeLoopChan <- chrome.popMockData(socket):
-				chrome.logger.Debug("mock data written to mock chrome socket")
-			}
-		}
-	}()
+	go chrome.launchMockDataFeed(websoc, writeLoopBreaker, writeLoopChan)
 
 	// main event loop
 	errCnt := 0
@@ -188,7 +211,7 @@ func (chrome *MockChrome) handle(writer http.ResponseWriter, request *http.Reque
 
 		select {
 		case <-chrome.breaker:
-			chrome.logger.Warn("Shutting down mock chrome event loop")
+			chrome.logger.Warn("shutting down mock chrome event loop")
 			return
 
 		// Manage any data input.
@@ -198,23 +221,23 @@ func (chrome *MockChrome) handle(writer http.ResponseWriter, request *http.Reque
 				if errCnt > 10 {
 					chrome.breaker <- true
 				}
-				chrome.logger.WithField("error", data.Err).Error("Mock chrome read loop returned an error")
+				chrome.logger.WithField("error", data.Err).Error("mock chrome read loop returned an error")
 			} else {
 				errCnt = 0
 			}
 
-			mockData := chrome.popMockData(socket)
+			mockData := chrome.popMockData(websoc)
 			mockData.ID = data.Payload.ID
 			mockData.Method = data.Payload.Method
 			if mockData.ID == 0 {
 				mockData.Result = data.Payload.Params
 			}
-			chrome.logger.WithField("data", mockData).Info("Handling mock chrome socket input")
+			chrome.logger.WithField("data", mockData).Info("handling mock chrome websocket input")
 			writeLoopChan <- mockData
 
 			// Return responses.
 		case data := <-writeLoopChan:
-			chrome.logger.WithField("data", data).Info("Building mock chrome socket response")
+			chrome.logger.WithField("data", data).Info("building mock chrome websocket response")
 
 			response = &Response{}
 			response.Error = data.Err
@@ -232,10 +255,10 @@ func (chrome *MockChrome) handle(writer http.ResponseWriter, request *http.Reque
 			}
 
 			chrome.logger.WithFields(log.Fields{"data": data, "response": response}).
-				Info("Writing response to mock chrome socket connection")
+				Info("writing response to mock chrome websocket connection")
 
 			socketMux.Lock()
-			err = socket.WriteJSON(response)
+			err = websoc.WriteJSON(response)
 			socketMux.Unlock()
 
 			if nil != err {
@@ -258,9 +281,9 @@ func (chrome *MockChrome) Sleep(duration time.Duration) {
 func TestMockSocket(t *testing.T) {
 	chrome := NewMockChrome()
 	chrome.ListenAndServe()
-	defer func() { chrome.Close() }()
+	defer chrome.Close()
 	soc := New(chrome.URL)
-	defer func() { soc.Stop() }()
+	defer soc.Stop()
 
 	chrome.AddData(MockData{
 		Err: &Error{},

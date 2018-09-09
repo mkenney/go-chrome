@@ -58,22 +58,25 @@ Disconnect closes a websocket connection.
 
 Disconnect is a Conner implementation.
 */
-func (socket *Socket) Disconnect() {
+func (socket *Socket) Disconnect() error {
+	var err error
 	socket.mux.Lock()
 	if nil == socket.conn {
 		socket.mux.Unlock()
-		return
+		return errs.New(0, "not connected")
 	}
-	err := socket.conn.Close()
+	err = socket.conn.Close()
 	socket.mux.Unlock()
 
 	if nil != err {
-		socket.listenErr.With(err, "could not close socket connection")
+		err = errs.New(0, "could not close socket connection")
 	}
 
 	socket.mux.Lock()
 	socket.conn = nil
 	socket.mux.Unlock()
+
+	return err
 }
 
 /*
@@ -105,16 +108,13 @@ WriteJSON is a Conner implementation.
 */
 func (socket *Socket) WriteJSON(v interface{}) error {
 	socket.mux.Lock()
+	defer socket.mux.Unlock()
+
 	if nil == socket.conn {
-		socket.mux.Unlock()
 		return errs.New(0, "not connected")
 	}
-	socket.mux.Unlock()
 
-	socket.mux.Lock()
 	err := socket.conn.WriteJSON(v)
-	socket.mux.Unlock()
-
 	if nil != err {
 		return errs.Wrap(err, 0, "socket write failed")
 	}

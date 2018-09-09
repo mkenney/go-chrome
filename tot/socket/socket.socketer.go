@@ -99,7 +99,6 @@ type Socket struct {
 	commandIDMux *sync.Mutex
 	commands     CommandMapper
 	handlers     EventHandlerMapper
-	listenErr    errs.Err
 	logger       *log.Entry
 	newSocket    func(socketURL *url.URL) (WebSocketer, error)
 	socketID     int
@@ -258,7 +257,7 @@ func (socket *Socket) Listen() {
 
 func (socket *Socket) listen() error {
 	var failures int
-	breaker := make(chan bool)
+	breaker := make(chan bool, 1)
 	type ReadLoopData struct {
 		Err      error
 		Response *Response
@@ -271,8 +270,10 @@ func (socket *Socket) listen() error {
 			select {
 			// stop signal, stop the socket read loop and end the listner loop.
 			case <-socket.stop:
-				socket.logger.Info("Socket shutting down")
 				breaker <- true
+				<-breaker
+				socket.stop <- true
+				socket.logger.Info("socket read loop shutting down")
 				return
 
 			case data := <-readLoopChan:
@@ -280,14 +281,13 @@ func (socket *Socket) listen() error {
 				if nil != data.Err {
 					socket.logger.WithFields(log.Fields{"error": data.Err, "data": data}).
 						Warnf("%-v", data.Err)
-					socket.listenErr.With(data.Err, fmt.Sprintf("socket #%d - socket read failed", socket.socketID))
 					failures++
 				} else {
 					failures = 0
 				}
 
 				// too many read failures.
-				if failures > 10 {
+				if failures > 20 {
 					socket.logger.Error("too many read failures, shutting down")
 					socket.Stop()
 					continue
@@ -332,6 +332,7 @@ func (socket *Socket) listen() error {
 			return data
 		}():
 		case <-breaker:
+			breaker <- true
 			return nil
 		}
 	}
@@ -426,9 +427,10 @@ websocket connection.
 
 Stop is a Socketer implementation.
 */
-func (socket *Socket) Stop() {
+func (socket *Socket) Stop() error {
 	socket.stop <- true
-	socket.Disconnect()
+	<-socket.stop
+	return socket.Disconnect()
 }
 
 /*
