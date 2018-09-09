@@ -12,7 +12,7 @@ dep ensure
 
 rm -f coverage.txt
 for dir in $(go list ./... | grep -v vendor); do
-    go test -race -timeout 60s -coverprofile=profile.out $dir
+    go test -race -timeout 300s -coverprofile=profile.out $dir
     exit_code=$?
     if [ "0" != "$exit_code" ]; then
         exit $exit_code
