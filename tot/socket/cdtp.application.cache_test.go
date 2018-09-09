@@ -151,24 +151,24 @@ func TestApplicationCacheOnApplicationCacheStatusUpdated(t *testing.T) {
 	chrome.ListenAndServe()
 	chrome.IgnoreInput = true
 	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
+
+	resultChan := make(chan *application_cache.StatusUpdatedEvent)
+	soc.ApplicationCache().OnApplicationCacheStatusUpdated(func(eventData *application_cache.StatusUpdatedEvent) {
+		resultChan <- eventData
+	})
 
 	mockResult := &application_cache.StatusUpdatedEvent{
 		FrameID:     page.FrameID("mock-frame-id"),
 		ManifestURL: "http://example.com/manifest",
 		Status:      1,
 	}
-
-	soc := New(chrome.URL)
-	defer soc.Stop()
 	chrome.AddData(MockData{
 		0,
 		&Error{},
 		mockResult,
 		"ApplicationCache.applicationCacheStatusUpdated",
-	})
-	resultChan := make(chan *application_cache.StatusUpdatedEvent)
-	soc.ApplicationCache().OnApplicationCacheStatusUpdated(func(eventData *application_cache.StatusUpdatedEvent) {
-		resultChan <- eventData
 	})
 	result := <-resultChan
 	if result.ManifestURL != mockResult.ManifestURL {
@@ -179,17 +179,11 @@ func TestApplicationCacheOnApplicationCacheStatusUpdated(t *testing.T) {
 		)
 	}
 
-	soc = New(chrome.URL)
-	defer soc.Stop()
 	chrome.AddData(MockData{
 		0,
 		genericError,
 		nil,
 		"ApplicationCache.applicationCacheStatusUpdated",
-	})
-	resultChan = make(chan *application_cache.StatusUpdatedEvent)
-	soc.ApplicationCache().OnApplicationCacheStatusUpdated(func(eventData *application_cache.StatusUpdatedEvent) {
-		resultChan <- eventData
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -202,21 +196,21 @@ func TestApplicationCacheOnNetworkStateUpdated(t *testing.T) {
 	chrome.ListenAndServe()
 	chrome.IgnoreInput = true
 	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
+
+	resultChan := make(chan *application_cache.NetworkStateUpdatedEvent)
+	soc.ApplicationCache().OnNetworkStateUpdated(func(eventData *application_cache.NetworkStateUpdatedEvent) {
+		resultChan <- eventData
+	})
 
 	mockResult := &application_cache.NetworkStateUpdatedEvent{
 		IsNowOnline: true,
 	}
-
-	soc := New(chrome.URL)
-	defer soc.Stop()
 	chrome.AddData(MockData{
 		Err:    &Error{},
 		Result: mockResult,
 		Method: "ApplicationCache.networkStateUpdated",
-	})
-	resultChan := make(chan *application_cache.NetworkStateUpdatedEvent)
-	soc.ApplicationCache().OnNetworkStateUpdated(func(eventData *application_cache.NetworkStateUpdatedEvent) {
-		resultChan <- eventData
 	})
 	result := <-resultChan
 	if result.IsNowOnline != mockResult.IsNowOnline {
@@ -227,16 +221,10 @@ func TestApplicationCacheOnNetworkStateUpdated(t *testing.T) {
 		)
 	}
 
-	soc = New(chrome.URL)
-	defer soc.Stop()
 	chrome.AddData(MockData{
 		Err:    genericError,
 		Result: nil,
 		Method: "ApplicationCache.networkStateUpdated",
-	})
-	resultChan = make(chan *application_cache.NetworkStateUpdatedEvent)
-	soc.ApplicationCache().OnNetworkStateUpdated(func(eventData *application_cache.NetworkStateUpdatedEvent) {
-		resultChan <- eventData
 	})
 	result = <-resultChan
 	if nil == result.Err {
