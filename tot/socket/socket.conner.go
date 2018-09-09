@@ -74,10 +74,6 @@ func (socket *Socket) Disconnect() {
 	socket.mux.Lock()
 	socket.conn = nil
 	socket.mux.Unlock()
-	if 0 == socket.listenErr.Len() {
-		return
-	}
-	return
 }
 
 /*
