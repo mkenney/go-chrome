@@ -2,12 +2,12 @@
 
 
 [[projects]]
-  digest = "1:338af15e3215ecaefbb2072cb06258f8db9d6da1e81379803d8a6c18042715ae"
+  digest = "1:26a8cd2b5c205710c74dca6c6fa5e8944985d7dfb8435ab2d299d9d57c7ff176"
   name = "github.com/bdlm/errors"
   packages = ["."]
   pruneopts = ""
-  revision = "d165b6114cc2ae2d83282a45792c73fc08d338c8"
-  version = "v0.1.1"
+  revision = "1e47c06d58b39d53be1b8f4e9bc353422a14aaa0"
+  version = "v0.1.2"
 
 [[projects]]
   digest = "1:aa0ea6789f494e72359ee8da88e82c96a084960cc7ca2f594d04192e34c6e78c"
