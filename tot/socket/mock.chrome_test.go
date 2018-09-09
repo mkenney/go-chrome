@@ -108,11 +108,11 @@ func (chrome *MockChrome) launchListener(
 	websoc *websocket.Conn,
 	breaker chan bool,
 	dataChan chan ReadLoopData,
-) error {
+) {
 
 	if chrome.IgnoreInput {
 		<-breaker
-		return nil
+		return
 	}
 
 	dataFeed := make(chan ReadLoopData)
@@ -140,11 +140,10 @@ func (chrome *MockChrome) launchListener(
 		case <-breaker:
 			chrome.logger.Debug("shutting down mock chrome websocket input read loop")
 			breaker <- true
-			return nil
+			return
 		case dataChan <- <-dataFeed:
 		}
 	}
-	return nil
 }
 
 // launchMockDataFeed starts the mock input data feeder.
@@ -152,10 +151,10 @@ func (chrome *MockChrome) launchMockDataFeed(
 	websoc *websocket.Conn,
 	breaker chan bool,
 	dataChan chan MockData,
-) error {
+) {
 	if !chrome.IgnoreInput {
 		<-breaker
-		return nil
+		return
 	}
 	for {
 		if chrome.sleep > 0 {
@@ -165,12 +164,11 @@ func (chrome *MockChrome) launchMockDataFeed(
 		case <-breaker:
 			chrome.logger.Debug("shutting down mock chrome websocket write loop")
 			breaker <- true
-			return nil
+			return
 		case dataChan <- chrome.popMockData(websoc):
 			chrome.logger.Debug("mock data written to mock chrome websocket")
 		}
 	}
-	return nil
 }
 
 // handle is the request data handler.
