@@ -112,6 +112,7 @@ func (chrome *MockChrome) launchListener(
 
 	if chrome.IgnoreInput {
 		<-breaker
+		breaker <- true
 		return
 	}
 
@@ -154,6 +155,7 @@ func (chrome *MockChrome) launchMockDataFeed(
 ) {
 	if !chrome.IgnoreInput {
 		<-breaker
+		breaker <- true
 		return
 	}
 	for {
