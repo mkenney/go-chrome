@@ -1,8 +1,6 @@
 package socket
 
 import (
-	"encoding/json"
-	"net/url"
 	"testing"
 	"time"
 
@@ -12,112 +10,77 @@ import (
 )
 
 func TestLogClear(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestLogClear")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Log().Clear()
 	mockResult := &log.ClearResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Log().Clear()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Log().Clear()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Log().Clear()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestLogDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestLogDisable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Log().Disable()
 	mockResult := &log.DisableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Log().Disable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Log().Disable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Log().Disable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestLogEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestLogEnable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Log().Enable()
 	mockResult := &log.EnableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Log().Enable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Log().Enable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Log().Enable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestLogStartViolationsReport(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestLogStartViolationsReport")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &log.StartViolationsReportParams{
 		Config: []*log.ViolationSetting{{
@@ -125,78 +88,56 @@ func TestLogStartViolationsReport(t *testing.T) {
 			Threshold: 1,
 		}},
 	}
-	resultChan := mockSocket.Log().StartViolationsReport(params)
 	mockResult := &log.StartViolationsReportResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Log().StartViolationsReport(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Log().StartViolationsReport(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Log().StartViolationsReport(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestLogStopViolationsReport(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestLogStopViolationsReport")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Log().StopViolationsReport()
 	mockResult := &log.StopViolationsReportResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Log().StopViolationsReport()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Log().StopViolationsReport()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Log().StopViolationsReport()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestLogOnEntryAdded(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestLogOnEntryAdded")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *log.EntryAddedEvent)
-	mockSocket.Log().OnEntryAdded(func(eventData *log.EntryAddedEvent) {
+	soc.Log().OnEntryAdded(func(eventData *log.EntryAddedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &log.EntryAddedEvent{
 		Entry: &log.Entry{
 			Source:           log.Source.XML,
@@ -211,12 +152,10 @@ func TestLogOnEntryAdded(t *testing.T) {
 			Args:             []*runtime.RemoteObject{{}},
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Log.entryAdded",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -226,17 +165,9 @@ func TestLogOnEntryAdded(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Entry.Source, result.Entry.Source)
 	}
 
-	resultChan = make(chan *log.EntryAddedEvent)
-	mockSocket.Log().OnEntryAdded(func(eventData *log.EntryAddedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Log.entryAdded",
 	})
 	result = <-resultChan

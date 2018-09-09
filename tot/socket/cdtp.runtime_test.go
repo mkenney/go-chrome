@@ -1,8 +1,6 @@
 package socket
 
 import (
-	"encoding/json"
-	"net/url"
 	"testing"
 	"time"
 
@@ -10,17 +8,17 @@ import (
 )
 
 func TestRuntimeAwaitPromise(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeAwaitPromise")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &runtime.AwaitPromiseParams{
 		PromiseObjectID: runtime.RemoteObjectID("remote-object-id"),
 		ReturnByValue:   true,
 		GeneratePreview: true,
 	}
-	resultChan := mockSocket.Runtime().AwaitPromise(params)
 	mockResult := &runtime.AwaitPromiseResult{
 		Result: &runtime.RemoteObject{
 			Type:                runtime.ObjectType.Object,
@@ -89,13 +87,9 @@ func TestRuntimeAwaitPromise(t *testing.T) {
 			ExecutionContextID: runtime.ExecutionContextID(1),
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Runtime().AwaitPromise(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -103,26 +97,19 @@ func TestRuntimeAwaitPromise(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Result.Type, result.Result.Type)
 	}
 
-	resultChan = mockSocket.Runtime().AwaitPromise(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Runtime().AwaitPromise(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestRuntimeCallFunctionOn(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeCallFunctionOn")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &runtime.CallFunctionOnParams{
 		FunctionDeclaration: "function(){}",
@@ -140,7 +127,6 @@ func TestRuntimeCallFunctionOn(t *testing.T) {
 		ExecutionContextID: runtime.ExecutionContextID(1),
 		ObjectGroup:        "object group",
 	}
-	resultChan := mockSocket.Runtime().CallFunctionOn(params)
 	mockResult := &runtime.CallFunctionOnResult{
 		Result: &runtime.RemoteObject{
 			Type:                runtime.ObjectType.Object,
@@ -209,13 +195,9 @@ func TestRuntimeCallFunctionOn(t *testing.T) {
 			ExecutionContextID: runtime.ExecutionContextID(1),
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Runtime().CallFunctionOn(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -223,26 +205,19 @@ func TestRuntimeCallFunctionOn(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Result.Type, result.Result.Type)
 	}
 
-	resultChan = mockSocket.Runtime().CallFunctionOn(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Runtime().CallFunctionOn(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestRuntimeCompileScript(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeCompileScript")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &runtime.CompileScriptParams{
 		Expression:         "expression",
@@ -250,7 +225,6 @@ func TestRuntimeCompileScript(t *testing.T) {
 		PersistScript:      true,
 		ExecutionContextID: runtime.ExecutionContextID(1),
 	}
-	resultChan := mockSocket.Runtime().CompileScript(params)
 	mockResult := &runtime.CompileScriptResult{
 		ScriptID: runtime.ScriptID("script-id"),
 		ExceptionDetails: &runtime.ExceptionDetails{
@@ -281,13 +255,9 @@ func TestRuntimeCompileScript(t *testing.T) {
 			ExecutionContextID: runtime.ExecutionContextID(1),
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Runtime().CompileScript(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -295,128 +265,85 @@ func TestRuntimeCompileScript(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.ScriptID, result.ScriptID)
 	}
 
-	resultChan = mockSocket.Runtime().CompileScript(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Runtime().CompileScript(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestRuntimeDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeDisable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Runtime().Disable()
 	mockResult := &runtime.DisableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Runtime().Disable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Runtime().Disable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Runtime().Disable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestRuntimeDiscardConsoleEntries(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeDiscardConsoleEntries")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Runtime().DiscardConsoleEntries()
 	mockResult := &runtime.DiscardConsoleEntriesResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Runtime().DiscardConsoleEntries()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Runtime().DiscardConsoleEntries()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Runtime().DiscardConsoleEntries()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestRuntimeEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeEnable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Runtime().Enable()
 	mockResult := &runtime.EnableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Runtime().Enable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Runtime().Enable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Runtime().Enable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestRuntimeEvaluate(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeEvaluate")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &runtime.EvaluateParams{
 		Expression:            "expression",
@@ -429,7 +356,6 @@ func TestRuntimeEvaluate(t *testing.T) {
 		UserGesture:           true,
 		AwaitPromise:          true,
 	}
-	resultChan := mockSocket.Runtime().Evaluate(params)
 	mockResult := &runtime.EvaluateResult{
 		Result: &runtime.RemoteObject{
 			Type:                runtime.ObjectType.Object,
@@ -498,13 +424,9 @@ func TestRuntimeEvaluate(t *testing.T) {
 			ExecutionContextID: runtime.ExecutionContextID(1),
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Runtime().Evaluate(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -512,26 +434,19 @@ func TestRuntimeEvaluate(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Result.Type, result.Result.Type)
 	}
 
-	resultChan = mockSocket.Runtime().Evaluate(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Runtime().Evaluate(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestRuntimeGetProperties(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeGetProperties")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &runtime.GetPropertiesParams{
 		ObjectID:               runtime.RemoteObjectID("remote-object-id"),
@@ -539,7 +454,6 @@ func TestRuntimeGetProperties(t *testing.T) {
 		AccessorPropertiesOnly: true,
 		GeneratePreview:        true,
 	}
-	resultChan := mockSocket.Runtime().GetProperties(params)
 	mockResult := &runtime.GetPropertiesResult{
 		Result: []*runtime.PropertyDescriptor{{
 			Name: "name",
@@ -595,13 +509,9 @@ func TestRuntimeGetProperties(t *testing.T) {
 			ExecutionContextID: runtime.ExecutionContextID(1),
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Runtime().GetProperties(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -609,41 +519,29 @@ func TestRuntimeGetProperties(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Result[0].Name, result.Result[0].Name)
 	}
 
-	resultChan = mockSocket.Runtime().GetProperties(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Runtime().GetProperties(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestRuntimeGlobalLexicalScopeNames(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeGlobalLexicalScopeNames")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &runtime.GlobalLexicalScopeNamesParams{
 		ExecutionContextID: runtime.ExecutionContextID(1),
 	}
-	resultChan := mockSocket.Runtime().GlobalLexicalScopeNames(params)
 	mockResult := &runtime.GlobalLexicalScopeNamesResult{
 		Names: []string{"name1", "name2"},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Runtime().GlobalLexicalScopeNames(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -651,41 +549,29 @@ func TestRuntimeGlobalLexicalScopeNames(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Names[0], result.Names[0])
 	}
 
-	resultChan = mockSocket.Runtime().GlobalLexicalScopeNames(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Runtime().GlobalLexicalScopeNames(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestRuntimeQueryObjects(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeQueryObjects")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &runtime.QueryObjectsParams{
 		PrototypeObjectID: runtime.RemoteObjectID("remote-object-id"),
 	}
-	resultChan := mockSocket.Runtime().QueryObjects(params)
 	mockResult := &runtime.QueryObjectsResult{
 		ObjectID: runtime.RemoteObjectID("remote-object-id"),
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Runtime().QueryObjects(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -693,134 +579,91 @@ func TestRuntimeQueryObjects(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.ObjectID, result.ObjectID)
 	}
 
-	resultChan = mockSocket.Runtime().QueryObjects(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Runtime().QueryObjects(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestRuntimeReleaseObject(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeReleaseObject")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &runtime.ReleaseObjectParams{
 		ObjectID: runtime.RemoteObjectID("remote-object-id"),
 	}
-	resultChan := mockSocket.Runtime().ReleaseObject(params)
 	mockResult := &runtime.ReleaseObjectResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Runtime().ReleaseObject(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Runtime().ReleaseObject(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Runtime().ReleaseObject(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestRuntimeReleaseObjectGroup(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeReleaseObjectGroup")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &runtime.ReleaseObjectGroupParams{
 		ObjectGroup: "object-group",
 	}
-	resultChan := mockSocket.Runtime().ReleaseObjectGroup(params)
 	mockResult := &runtime.ReleaseObjectGroupResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Runtime().ReleaseObjectGroup(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Runtime().ReleaseObjectGroup(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Runtime().ReleaseObjectGroup(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestRuntimeRunIfWaitingForDebugger(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeRunIfWaitingForDebugger")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Runtime().RunIfWaitingForDebugger()
 	mockResult := &runtime.RunIfWaitingForDebuggerResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Runtime().RunIfWaitingForDebugger()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Runtime().RunIfWaitingForDebugger()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Runtime().RunIfWaitingForDebugger()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestRuntimeRunScript(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeRunScript")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &runtime.RunScriptParams{
 		ScriptID:              runtime.ScriptID("script-id"),
@@ -832,17 +675,12 @@ func TestRuntimeRunScript(t *testing.T) {
 		GeneratePreview:       true,
 		AwaitPromise:          true,
 	}
-	resultChan := mockSocket.Runtime().RunScript(params)
 	mockResult := &runtime.RunScriptResult{
 		ObjectID: runtime.RemoteObjectID("remote-object-id"),
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Runtime().RunScript(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -850,26 +688,19 @@ func TestRuntimeRunScript(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.ObjectID, result.ObjectID)
 	}
 
-	resultChan = mockSocket.Runtime().RunScript(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Runtime().RunScript(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestRuntimeSetCustomObjectFormatterEnabled(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeSetCustomObjectFormatterEnabled")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &runtime.SetCustomObjectFormatterEnabledParams{
 		Result: &runtime.RemoteObject{
@@ -877,44 +708,34 @@ func TestRuntimeSetCustomObjectFormatterEnabled(t *testing.T) {
 		},
 		ExceptionDetails: &runtime.ExceptionDetails{},
 	}
-	resultChan := mockSocket.Runtime().SetCustomObjectFormatterEnabled(params)
 	mockResult := &runtime.SetCustomObjectFormatterEnabledResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Runtime().SetCustomObjectFormatterEnabled(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Runtime().SetCustomObjectFormatterEnabled(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Runtime().SetCustomObjectFormatterEnabled(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestRuntimeOnConsoleAPICalled(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeOnConsoleAPICalled")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *runtime.ConsoleAPICalledEvent)
-	mockSocket.Runtime().OnConsoleAPICalled(func(eventData *runtime.ConsoleAPICalledEvent) {
+	soc.Runtime().OnConsoleAPICalled(func(eventData *runtime.ConsoleAPICalledEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &runtime.ConsoleAPICalledEvent{
 		Type:               runtime.CallType.Assert,
 		Args:               []*runtime.RemoteObject{{}},
@@ -923,12 +744,10 @@ func TestRuntimeOnConsoleAPICalled(t *testing.T) {
 		StackTrace:         &runtime.StackTrace{},
 		Context:            "context",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Runtime.consoleAPICalled",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -938,17 +757,9 @@ func TestRuntimeOnConsoleAPICalled(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Type, result.Type)
 	}
 
-	resultChan = make(chan *runtime.ConsoleAPICalledEvent)
-	mockSocket.Runtime().OnConsoleAPICalled(func(eventData *runtime.ConsoleAPICalledEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Runtime.consoleAPICalled",
 	})
 	result = <-resultChan
@@ -958,25 +769,26 @@ func TestRuntimeOnConsoleAPICalled(t *testing.T) {
 }
 
 func TestRuntimeOnExceptionRevoked(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeOnExceptionRevoked")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *runtime.ExceptionRevokedEvent)
-	mockSocket.Runtime().OnExceptionRevoked(func(eventData *runtime.ExceptionRevokedEvent) {
+	soc.Runtime().OnExceptionRevoked(func(eventData *runtime.ExceptionRevokedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &runtime.ExceptionRevokedEvent{
 		Reason:      "reason",
 		ExceptionID: 1,
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Runtime.exceptionRevoked",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -986,17 +798,9 @@ func TestRuntimeOnExceptionRevoked(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Reason, result.Reason)
 	}
 
-	resultChan = make(chan *runtime.ExceptionRevokedEvent)
-	mockSocket.Runtime().OnExceptionRevoked(func(eventData *runtime.ExceptionRevokedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Runtime.exceptionRevoked",
 	})
 	result = <-resultChan
@@ -1006,25 +810,26 @@ func TestRuntimeOnExceptionRevoked(t *testing.T) {
 }
 
 func TestRuntimeOnExceptionThrown(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeOnExceptionThrown")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *runtime.ExceptionThrownEvent)
-	mockSocket.Runtime().OnExceptionThrown(func(eventData *runtime.ExceptionThrownEvent) {
+	soc.Runtime().OnExceptionThrown(func(eventData *runtime.ExceptionThrownEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &runtime.ExceptionThrownEvent{
 		Timestamp:        runtime.Timestamp(time.Now().Unix()),
 		ExceptionDetails: &runtime.ExceptionDetails{},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Runtime.exceptionThrown",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1034,17 +839,9 @@ func TestRuntimeOnExceptionThrown(t *testing.T) {
 		t.Errorf("Expected %d, got %d", mockResult.Timestamp, result.Timestamp)
 	}
 
-	resultChan = make(chan *runtime.ExceptionThrownEvent)
-	mockSocket.Runtime().OnExceptionThrown(func(eventData *runtime.ExceptionThrownEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Runtime.exceptionThrown",
 	})
 	result = <-resultChan
@@ -1054,15 +851,18 @@ func TestRuntimeOnExceptionThrown(t *testing.T) {
 }
 
 func TestRuntimeOnExecutionContextCreated(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeOnExecutionContextCreated")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *runtime.ExecutionContextCreatedEvent)
-	mockSocket.Runtime().OnExecutionContextCreated(func(eventData *runtime.ExecutionContextCreatedEvent) {
+	soc.Runtime().OnExecutionContextCreated(func(eventData *runtime.ExecutionContextCreatedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &runtime.ExecutionContextCreatedEvent{
 		Context: &runtime.ExecutionContextDescription{
 			ID:      runtime.ExecutionContextID(1),
@@ -1071,12 +871,10 @@ func TestRuntimeOnExecutionContextCreated(t *testing.T) {
 			AuxData: map[string]string{"key": "value"},
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Runtime.executionContextCreated",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1086,17 +884,9 @@ func TestRuntimeOnExecutionContextCreated(t *testing.T) {
 		t.Errorf("Expected %d, got %d", mockResult.Context.ID, result.Context.ID)
 	}
 
-	resultChan = make(chan *runtime.ExecutionContextCreatedEvent)
-	mockSocket.Runtime().OnExecutionContextCreated(func(eventData *runtime.ExecutionContextCreatedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Runtime.executionContextCreated",
 	})
 	result = <-resultChan
@@ -1106,24 +896,25 @@ func TestRuntimeOnExecutionContextCreated(t *testing.T) {
 }
 
 func TestRuntimeOnExecutionContextDestroyed(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeOnExecutionContextDestroyed")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *runtime.ExecutionContextDestroyedEvent)
-	mockSocket.Runtime().OnExecutionContextDestroyed(func(eventData *runtime.ExecutionContextDestroyedEvent) {
+	soc.Runtime().OnExecutionContextDestroyed(func(eventData *runtime.ExecutionContextDestroyedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &runtime.ExecutionContextDestroyedEvent{
 		ExecutionContextID: runtime.ExecutionContextID(1),
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Runtime.executionContextDestroyed",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1133,17 +924,9 @@ func TestRuntimeOnExecutionContextDestroyed(t *testing.T) {
 		t.Errorf("Expected %d, got %d", mockResult.ExecutionContextID, result.ExecutionContextID)
 	}
 
-	resultChan = make(chan *runtime.ExecutionContextDestroyedEvent)
-	mockSocket.Runtime().OnExecutionContextDestroyed(func(eventData *runtime.ExecutionContextDestroyedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Runtime.executionContextDestroyed",
 	})
 	result = <-resultChan
@@ -1153,39 +936,32 @@ func TestRuntimeOnExecutionContextDestroyed(t *testing.T) {
 }
 
 func TestRuntimeOnExecutionContextsCleared(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeOnExecutionContextsCleared")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *runtime.ExecutionContextsClearedEvent)
-	mockSocket.Runtime().OnExecutionContextsCleared(func(eventData *runtime.ExecutionContextsClearedEvent) {
+	soc.Runtime().OnExecutionContextsCleared(func(eventData *runtime.ExecutionContextsClearedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &runtime.ExecutionContextsClearedEvent{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Runtime.executionContextsCleared",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *runtime.ExecutionContextsClearedEvent)
-	mockSocket.Runtime().OnExecutionContextsCleared(func(eventData *runtime.ExecutionContextsClearedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Runtime.executionContextsCleared",
 	})
 	result = <-resultChan
@@ -1195,15 +971,18 @@ func TestRuntimeOnExecutionContextsCleared(t *testing.T) {
 }
 
 func TestRuntimeOnInspectRequested(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestRuntimeOnInspectRequested")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *runtime.InspectRequestedEvent)
-	mockSocket.Runtime().OnInspectRequested(func(eventData *runtime.InspectRequestedEvent) {
+	soc.Runtime().OnInspectRequested(func(eventData *runtime.InspectRequestedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &runtime.InspectRequestedEvent{
 		Object: &runtime.RemoteObject{
 			Type:                runtime.ObjectType.Object,
@@ -1246,12 +1025,10 @@ func TestRuntimeOnInspectRequested(t *testing.T) {
 		},
 		Hints: map[string]string{"key": "value"},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Runtime.inspectRequested",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1261,17 +1038,9 @@ func TestRuntimeOnInspectRequested(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Object.Type, result.Object.Type)
 	}
 
-	resultChan = make(chan *runtime.InspectRequestedEvent)
-	mockSocket.Runtime().OnInspectRequested(func(eventData *runtime.InspectRequestedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Runtime.inspectRequested",
 	})
 	result = <-resultChan

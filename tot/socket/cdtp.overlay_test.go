@@ -1,8 +1,6 @@
 package socket
 
 import (
-	"encoding/json"
-	"net/url"
 	"testing"
 
 	"github.com/mkenney/go-chrome/tot/dom"
@@ -12,93 +10,65 @@ import (
 )
 
 func TestOverlayDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestOverlayDisable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Overlay().Disable()
 	mockResult := &overlay.DisableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Overlay().Disable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Overlay().Disable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Overlay().Disable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestOverlayEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestOverlayEnable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Overlay().Enable()
 	mockResult := &overlay.EnableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Overlay().Enable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Overlay().Enable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Overlay().Enable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestOverlayGetHighlightObjectForTest(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestOverlayGetHighlightObjectForTest")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &overlay.GetHighlightObjectForTestParams{
 		NodeID: dom.NodeID(1),
 	}
-	resultChan := mockSocket.Overlay().GetHighlightObjectForTest(params)
 	mockResult := &overlay.GetHighlightObjectForTestResult{
 		Highlight: map[string]string{"key": "data"},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Overlay().GetHighlightObjectForTest(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -106,99 +76,68 @@ func TestOverlayGetHighlightObjectForTest(t *testing.T) {
 		t.Errorf("Expected %v, got %v", mockResult.Highlight["key"], result.Highlight["key"])
 	}
 
-	resultChan = mockSocket.Overlay().GetHighlightObjectForTest(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Overlay().GetHighlightObjectForTest(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestOverlayHideHighlight(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestOverlayHideHighlight")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Overlay().HideHighlight()
 	mockResult := &overlay.HideHighlightResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Overlay().HideHighlight()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Overlay().HideHighlight()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Overlay().HideHighlight()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestOverlayHighlightFrame(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestOverlayHighlightFrame")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &overlay.HighlightFrameParams{
 		FrameID:             page.FrameID("frame-id"),
 		ContentColor:        &dom.RGBA{},
 		ContentOutlineColor: &dom.RGBA{},
 	}
-	resultChan := mockSocket.Overlay().HighlightFrame(params)
 	mockResult := &overlay.HighlightFrameResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Overlay().HighlightFrame(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Overlay().HighlightFrame(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Overlay().HighlightFrame(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestOverlayHighlightNode(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestOverlayHighlightNode")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &overlay.HighlightNodeParams{
 		HighlightConfig: &overlay.HighlightConfig{},
@@ -206,78 +145,54 @@ func TestOverlayHighlightNode(t *testing.T) {
 		BackendNodeID:   dom.BackendNodeID(1),
 		ObjectID:        runtime.RemoteObjectID("remote-object-id"),
 	}
-	resultChan := mockSocket.Overlay().HighlightNode(params)
 	mockResult := &overlay.HighlightNodeResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Overlay().HighlightNode(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Overlay().HighlightNode(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Overlay().HighlightNode(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestOverlayHighlightQuad(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestOverlayHighlightQuad")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &overlay.HighlightQuadParams{
 		Quad:         dom.Quad{1, 2},
 		Color:        &dom.RGBA{},
 		OutlineColor: &dom.RGBA{},
 	}
-	resultChan := mockSocket.Overlay().HighlightQuad(params)
 	mockResult := &overlay.HighlightQuadResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Overlay().HighlightQuad(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Overlay().HighlightQuad(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Overlay().HighlightQuad(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestOverlayHighlightRect(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestOverlayHighlightRect")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &overlay.HighlightRectParams{
 		X:            1,
@@ -287,349 +202,241 @@ func TestOverlayHighlightRect(t *testing.T) {
 		Color:        &dom.RGBA{},
 		OutlineColor: &dom.RGBA{},
 	}
-	resultChan := mockSocket.Overlay().HighlightRect(params)
 	mockResult := &overlay.HighlightRectResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Overlay().HighlightRect(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Overlay().HighlightRect(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Overlay().HighlightRect(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestOverlaySetInspectMode(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestOverlaySetInspectMode")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &overlay.SetInspectModeParams{
 		Mode: overlay.InspectMode.SearchForNode,
 	}
-	resultChan := mockSocket.Overlay().SetInspectMode(params)
 	mockResult := &overlay.SetInspectModeResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Overlay().SetInspectMode(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Overlay().SetInspectMode(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Overlay().SetInspectMode(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestOverlaySetPausedInDebuggerMessage(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestOverlaySetPausedInDebuggerMessage")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &overlay.SetPausedInDebuggerMessageParams{
 		Message: "message",
 	}
-	resultChan := mockSocket.Overlay().SetPausedInDebuggerMessage(params)
 	mockResult := &overlay.SetPausedInDebuggerMessageResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Overlay().SetPausedInDebuggerMessage(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Overlay().SetPausedInDebuggerMessage(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Overlay().SetPausedInDebuggerMessage(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestOverlaySetShowDebugBorders(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestOverlaySetShowDebugBorders")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &overlay.SetShowDebugBordersParams{
 		Show: true,
 	}
-	resultChan := mockSocket.Overlay().SetShowDebugBorders(params)
 	mockResult := &overlay.SetShowDebugBordersResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Overlay().SetShowDebugBorders(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Overlay().SetShowDebugBorders(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Overlay().SetShowDebugBorders(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestOverlaySetShowFPSCounter(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestOverlaySetShowFPSCounter")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &overlay.SetShowFPSCounterParams{
 		Show: true,
 	}
-	resultChan := mockSocket.Overlay().SetShowFPSCounter(params)
 	mockResult := &overlay.SetShowFPSCounterResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Overlay().SetShowFPSCounter(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Overlay().SetShowFPSCounter(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Overlay().SetShowFPSCounter(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestOverlaySetShowPaintRects(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestOverlaySetShowPaintRects")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &overlay.SetShowPaintRectsParams{
 		Result: true,
 	}
-	resultChan := mockSocket.Overlay().SetShowPaintRects(params)
 	mockResult := &overlay.SetShowPaintRectsResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Overlay().SetShowPaintRects(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Overlay().SetShowPaintRects(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Overlay().SetShowPaintRects(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestOverlaySetShowScrollBottleneckRects(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestOverlaySetShowScrollBottleneckRects")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &overlay.SetShowScrollBottleneckRectsParams{
 		Show: true,
 	}
-	resultChan := mockSocket.Overlay().SetShowScrollBottleneckRects(params)
 	mockResult := &overlay.SetShowScrollBottleneckRectsResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Overlay().SetShowScrollBottleneckRects(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Overlay().SetShowScrollBottleneckRects(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Overlay().SetShowScrollBottleneckRects(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestOverlaySetShowViewportSizeOnResize(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestOverlaySetShowViewportSizeOnResize")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &overlay.SetShowViewportSizeOnResizeParams{
 		Show: true,
 	}
-	resultChan := mockSocket.Overlay().SetShowViewportSizeOnResize(params)
 	mockResult := &overlay.SetShowViewportSizeOnResizeResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Overlay().SetShowViewportSizeOnResize(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Overlay().SetShowViewportSizeOnResize(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Overlay().SetShowViewportSizeOnResize(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestOverlaySetSuspended(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestOverlaySetSuspended")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &overlay.SetSuspendedParams{
 		Suspended: true,
 	}
-	resultChan := mockSocket.Overlay().SetSuspended(params)
 	mockResult := &overlay.SetSuspendedResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Overlay().SetSuspended(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Overlay().SetSuspended(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Overlay().SetSuspended(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestOverlayOnInspectNodeRequested(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestOverlayOnInspectNodeRequested")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *overlay.InspectNodeRequestedEvent)
-	mockSocket.Overlay().OnInspectNodeRequested(func(eventData *overlay.InspectNodeRequestedEvent) {
+	soc.Overlay().OnInspectNodeRequested(func(eventData *overlay.InspectNodeRequestedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &overlay.InspectNodeRequestedEvent{
 		BackendNodeID: dom.BackendNodeID(1),
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Overlay.inspectNodeRequested",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -639,17 +446,9 @@ func TestOverlayOnInspectNodeRequested(t *testing.T) {
 		t.Errorf("Expected %d, got %d", mockResult.BackendNodeID, result.BackendNodeID)
 	}
 
-	resultChan = make(chan *overlay.InspectNodeRequestedEvent)
-	mockSocket.Overlay().OnInspectNodeRequested(func(eventData *overlay.InspectNodeRequestedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Overlay.inspectNodeRequested",
 	})
 	result = <-resultChan
@@ -659,24 +458,25 @@ func TestOverlayOnInspectNodeRequested(t *testing.T) {
 }
 
 func TestOverlayOnNodeHighlightRequested(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestOverlayOnNodeHighlightRequested")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *overlay.NodeHighlightRequestedEvent)
-	mockSocket.Overlay().OnNodeHighlightRequested(func(eventData *overlay.NodeHighlightRequestedEvent) {
+	soc.Overlay().OnNodeHighlightRequested(func(eventData *overlay.NodeHighlightRequestedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &overlay.NodeHighlightRequestedEvent{
 		NodeID: dom.NodeID(1),
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Overlay.nodeHighlightRequested",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -686,17 +486,9 @@ func TestOverlayOnNodeHighlightRequested(t *testing.T) {
 		t.Errorf("Expected %d, got %d", mockResult.NodeID, result.NodeID)
 	}
 
-	resultChan = make(chan *overlay.NodeHighlightRequestedEvent)
-	mockSocket.Overlay().OnNodeHighlightRequested(func(eventData *overlay.NodeHighlightRequestedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Overlay.nodeHighlightRequested",
 	})
 	result = <-resultChan
@@ -706,15 +498,18 @@ func TestOverlayOnNodeHighlightRequested(t *testing.T) {
 }
 
 func TestOverlayOnScreenshotRequested(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestOverlayOnScreenshotRequested")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *overlay.ScreenshotRequestedEvent)
-	mockSocket.Overlay().OnScreenshotRequested(func(eventData *overlay.ScreenshotRequestedEvent) {
+	soc.Overlay().OnScreenshotRequested(func(eventData *overlay.ScreenshotRequestedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &overlay.ScreenshotRequestedEvent{
 		Viewport: &page.Viewport{
 			X:      1,
@@ -724,12 +519,10 @@ func TestOverlayOnScreenshotRequested(t *testing.T) {
 			Scale:  5,
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Overlay.screenshotRequested",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -739,17 +532,9 @@ func TestOverlayOnScreenshotRequested(t *testing.T) {
 		t.Errorf("Expected %d, got %d", mockResult.Viewport.X, result.Viewport.X)
 	}
 
-	resultChan = make(chan *overlay.ScreenshotRequestedEvent)
-	mockSocket.Overlay().OnScreenshotRequested(func(eventData *overlay.ScreenshotRequestedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Overlay.screenshotRequested",
 	})
 	result = <-resultChan

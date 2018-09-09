@@ -1,8 +1,6 @@
 package socket
 
 import (
-	"encoding/json"
-	"net/url"
 	"testing"
 	"time"
 
@@ -12,25 +10,21 @@ import (
 )
 
 func TestPageAddScriptToEvaluateOnLoad(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageAddScriptToEvaluateOnLoad")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.AddScriptToEvaluateOnLoadParams{
 		ScriptSource: "some-source",
 	}
-	resultChan := mockSocket.Page().AddScriptToEvaluateOnLoad(params)
 	mockResult := &page.AddScriptToEvaluateOnLoadResult{
 		Identifier: page.ScriptIdentifier("script-id"),
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().AddScriptToEvaluateOnLoad(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -38,41 +32,29 @@ func TestPageAddScriptToEvaluateOnLoad(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Identifier, result.Identifier)
 	}
 
-	resultChan = mockSocket.Page().AddScriptToEvaluateOnLoad(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().AddScriptToEvaluateOnLoad(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageAddScriptToEvaluateOnNewDocument(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageAddScriptToEvaluateOnNewDocument")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.AddScriptToEvaluateOnNewDocumentParams{
 		Source: "some-source",
 	}
-	resultChan := mockSocket.Page().AddScriptToEvaluateOnNewDocument(params)
 	mockResult := &page.AddScriptToEvaluateOnNewDocumentResult{
 		Identifier: page.ScriptIdentifier("script-id"),
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().AddScriptToEvaluateOnNewDocument(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -80,60 +62,41 @@ func TestPageAddScriptToEvaluateOnNewDocument(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Identifier, result.Identifier)
 	}
 
-	resultChan = mockSocket.Page().AddScriptToEvaluateOnNewDocument(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().AddScriptToEvaluateOnNewDocument(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageBringToFront(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageBringToFront")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Page().BringToFront()
 	mockResult := &page.BringToFrontResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().BringToFront()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Page().BringToFront()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().BringToFront()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageCaptureScreenshot(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageCaptureScreenshot")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.CaptureScreenshotParams{
 		Format:  page.Format.Jpeg,
@@ -147,17 +110,12 @@ func TestPageCaptureScreenshot(t *testing.T) {
 		},
 		FromSurface: true,
 	}
-	resultChan := mockSocket.Page().CaptureScreenshot(params)
 	mockResult := &page.CaptureScreenshotResult{
 		Data: "screenshot data",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().CaptureScreenshot(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -165,43 +123,31 @@ func TestPageCaptureScreenshot(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Data, result.Data)
 	}
 
-	resultChan = mockSocket.Page().CaptureScreenshot(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().CaptureScreenshot(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageCreateIsolatedWorld(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageCreateIsolatedWorld")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.CreateIsolatedWorldParams{
 		FrameID:             page.FrameID("frame-id"),
 		WorldName:           "world-name",
 		GrantUniveralAccess: true,
 	}
-	resultChan := mockSocket.Page().CreateIsolatedWorld(params)
 	mockResult := &page.CreateIsolatedWorldResult{
 		ExecutionContextID: runtime.ExecutionContextID(1),
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().CreateIsolatedWorld(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -209,94 +155,63 @@ func TestPageCreateIsolatedWorld(t *testing.T) {
 		t.Errorf("Expected %d, got %d", mockResult.ExecutionContextID, result.ExecutionContextID)
 	}
 
-	resultChan = mockSocket.Page().CreateIsolatedWorld(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().CreateIsolatedWorld(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageDisable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Page().Disable()
 	mockResult := &page.DisableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().Disable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Page().Disable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().Disable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageEnable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Page().Enable()
 	mockResult := &page.EnableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().Enable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Page().Enable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().Enable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageGetAppManifest(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageGetAppManifest")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.GetAppManifestParams{
 		URL: "http://some.url",
@@ -308,41 +223,28 @@ func TestPageGetAppManifest(t *testing.T) {
 		}},
 		Data: "some data",
 	}
-	resultChan := mockSocket.Page().GetAppManifest(params)
 	mockResult := &page.GetAppManifestResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().GetAppManifest(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Page().GetAppManifest(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().GetAppManifest(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageGetFrameTree(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageGetFrameTree")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Page().GetFrameTree()
 	mockResult := &page.GetFrameTreeResult{
 		FrameTree: &page.FrameTree{
 			Frame: &page.Frame{
@@ -358,13 +260,9 @@ func TestPageGetFrameTree(t *testing.T) {
 			ChildFrames: []*page.FrameTree{},
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().GetFrameTree()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -372,28 +270,20 @@ func TestPageGetFrameTree(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.FrameTree.Frame.ID, result.FrameTree.Frame.ID)
 	}
 
-	resultChan = mockSocket.Page().GetFrameTree()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().GetFrameTree()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageGetLayoutMetrics(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageGetLayoutMetrics")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Page().GetLayoutMetrics()
 	mockResult := &page.GetLayoutMetricsResult{
 		LayoutViewport: &page.LayoutViewport{
 			PageX:        1,
@@ -417,13 +307,9 @@ func TestPageGetLayoutMetrics(t *testing.T) {
 			Height: 1,
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().GetLayoutMetrics()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -431,28 +317,20 @@ func TestPageGetLayoutMetrics(t *testing.T) {
 		t.Errorf("Expected %d, got %d", mockResult.LayoutViewport.PageX, result.LayoutViewport.PageX)
 	}
 
-	resultChan = mockSocket.Page().GetLayoutMetrics()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().GetLayoutMetrics()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageGetNavigationHistory(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageGetNavigationHistory")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Page().GetNavigationHistory()
 	mockResult := &page.GetNavigationHistoryResult{
 		CurrentIndex: 1,
 		Entries: []*page.NavigationEntry{{
@@ -463,13 +341,9 @@ func TestPageGetNavigationHistory(t *testing.T) {
 			TransitionType: page.TransitionType("type"),
 		}},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().GetNavigationHistory()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -477,42 +351,30 @@ func TestPageGetNavigationHistory(t *testing.T) {
 		t.Errorf("Expected %d, got %d", mockResult.CurrentIndex, result.CurrentIndex)
 	}
 
-	resultChan = mockSocket.Page().GetNavigationHistory()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().GetNavigationHistory()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageGetResourceContent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageGetResourceContent")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.GetResourceContentParams{
 		FrameID: page.FrameID("frame-id"),
 	}
-	resultChan := mockSocket.Page().GetResourceContent(params)
 	mockResult := &page.GetResourceContentResult{
 		Content:       "content",
 		Base64Encoded: true,
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().GetResourceContent(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -520,28 +382,20 @@ func TestPageGetResourceContent(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Content, result.Content)
 	}
 
-	resultChan = mockSocket.Page().GetResourceContent(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().GetResourceContent(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageGetResourceTree(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageGetResourceTree")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Page().GetResourceTree()
 	mockResult := &page.GetResourceTreeResult{
 		FrameTree: &page.FrameResourceTree{
 			Frame: &page.Frame{
@@ -558,13 +412,9 @@ func TestPageGetResourceTree(t *testing.T) {
 			Resources:   []*page.FrameResource{},
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().GetResourceTree()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -572,83 +422,59 @@ func TestPageGetResourceTree(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.FrameTree.Frame.ID, result.FrameTree.Frame.ID)
 	}
 
-	resultChan = mockSocket.Page().GetResourceTree()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().GetResourceTree()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageHandleJavaScriptDialog(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageHandleJavaScriptDialog")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.HandleJavaScriptDialogParams{
 		Accept:     true,
 		PromptText: "prompt text",
 	}
-	resultChan := mockSocket.Page().HandleJavaScriptDialog(params)
 	mockResult := &page.HandleJavaScriptDialogResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().HandleJavaScriptDialog(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Page().HandleJavaScriptDialog(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().HandleJavaScriptDialog(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageNavigate(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageNavigate")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.NavigateParams{
 		URL:            "http://some.url",
 		Referrer:       "http://referrer.url",
 		TransitionType: page.TransitionType("transition-type"),
 	}
-	resultChan := mockSocket.Page().Navigate(params)
 	mockResult := &page.NavigateResult{
 		FrameID:   page.FrameID("frame-id"),
 		LoaderID:  page.LoaderID("loader-id"),
 		ErrorText: "error text",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().Navigate(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -656,63 +482,44 @@ func TestPageNavigate(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.FrameID, result.FrameID)
 	}
 
-	resultChan = mockSocket.Page().Navigate(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().Navigate(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageNavigateToHistoryEntry(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageNavigateToHistoryEntry")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.NavigateToHistoryEntryParams{
 		EntryID: 1,
 	}
-	resultChan := mockSocket.Page().NavigateToHistoryEntry(params)
 	mockResult := &page.NavigateToHistoryEntryResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().NavigateToHistoryEntry(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Page().NavigateToHistoryEntry(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().NavigateToHistoryEntry(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPagePrintToPDF(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPagePrintToPDF")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.PrintToPDFParams{
 		Landscape:               true,
@@ -728,17 +535,12 @@ func TestPagePrintToPDF(t *testing.T) {
 		PageRanges:              "1-2",
 		IgnoreInvalidPageRanges: true,
 	}
-	resultChan := mockSocket.Page().PrintToPDF(params)
 	mockResult := &page.PrintToPDFResult{
 		Data: "result data",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().PrintToPDF(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -746,209 +548,142 @@ func TestPagePrintToPDF(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Data, result.Data)
 	}
 
-	resultChan = mockSocket.Page().PrintToPDF(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().PrintToPDF(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageReload(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageReload")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.ReloadParams{
 		IgnoreCache:            true,
 		ScriptToEvaluateOnLoad: "some-script",
 	}
-	resultChan := mockSocket.Page().Reload(params)
 	mockResult := &page.ReloadResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().Reload(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Page().Reload(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().Reload(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageRemoveScriptToEvaluateOnLoad(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageRemoveScriptToEvaluateOnLoad")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.RemoveScriptToEvaluateOnLoadParams{
 		Identifier: page.ScriptIdentifier("script-id"),
 	}
-	resultChan := mockSocket.Page().RemoveScriptToEvaluateOnLoad(params)
 	mockResult := &page.RemoveScriptToEvaluateOnLoadResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().RemoveScriptToEvaluateOnLoad(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Page().RemoveScriptToEvaluateOnLoad(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().RemoveScriptToEvaluateOnLoad(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageRemoveScriptToEvaluateOnNewDocument(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageRemoveScriptToEvaluateOnNewDocument")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.RemoveScriptToEvaluateOnNewDocumentParams{
 		Identifier: page.ScriptIdentifier("script-id"),
 	}
-	resultChan := mockSocket.Page().RemoveScriptToEvaluateOnNewDocument(params)
 	mockResult := &page.RemoveScriptToEvaluateOnNewDocumentResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().RemoveScriptToEvaluateOnNewDocument(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Page().RemoveScriptToEvaluateOnNewDocument(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().RemoveScriptToEvaluateOnNewDocument(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageRequestAppBanner(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageRequestAppBanner")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Page().RequestAppBanner()
 	mockResult := &page.RequestAppBannerResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().RequestAppBanner()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Page().RequestAppBanner()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().RequestAppBanner()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageScreencastFrameAck(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageScreencastFrameAck")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.ScreencastFrameAckParams{
 		SessionID: 1,
 	}
-	resultChan := mockSocket.Page().ScreencastFrameAck(params)
 	mockResult := &page.ScreencastFrameAckResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().ScreencastFrameAck(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Page().ScreencastFrameAck(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().ScreencastFrameAck(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageSearchInResource(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageSearchInResource")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.SearchInResourceParams{
 		FrameID:       page.FrameID("frame-id"),
@@ -957,20 +692,15 @@ func TestPageSearchInResource(t *testing.T) {
 		CaseSensitive: true,
 		IsRegex:       true,
 	}
-	resultChan := mockSocket.Page().SearchInResource(params)
 	mockResult := &page.SearchInResourceResult{
 		Result: []*debugger.SearchMatch{{
 			LineNumber:  1,
 			LineContent: "some content",
 		}},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().SearchInResource(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -978,213 +708,146 @@ func TestPageSearchInResource(t *testing.T) {
 		t.Errorf("Expected %d, got %d", mockResult.Result[0].LineNumber, result.Result[0].LineNumber)
 	}
 
-	resultChan = mockSocket.Page().SearchInResource(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().SearchInResource(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageSetAdBlockingEnabled(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageSetAdBlockingEnabled")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.SetAdBlockingEnabledParams{
 		Enabled: true,
 	}
-	resultChan := mockSocket.Page().SetAdBlockingEnabled(params)
 	mockResult := &page.SetAdBlockingEnabledResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().SetAdBlockingEnabled(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Page().SetAdBlockingEnabled(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().SetAdBlockingEnabled(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageSetAutoAttachToCreatedPages(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageSetAutoAttachToCreatedPages")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.SetAutoAttachToCreatedPagesParams{
 		AutoAttach: true,
 	}
-	resultChan := mockSocket.Page().SetAutoAttachToCreatedPages(params)
 	mockResult := &page.SetAutoAttachToCreatedPagesResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().SetAutoAttachToCreatedPages(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Page().SetAutoAttachToCreatedPages(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().SetAutoAttachToCreatedPages(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageSetDocumentContent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageSetDocumentContent")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.SetDocumentContentParams{
 		FrameID: page.FrameID("frame-id"),
 		HTML:    "<some>html</some>",
 	}
-	resultChan := mockSocket.Page().SetDocumentContent(params)
 	mockResult := &page.SetDocumentContentResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().SetDocumentContent(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Page().SetDocumentContent(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().SetDocumentContent(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageSetDownloadBehavior(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageSetDownloadBehavior")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.SetDownloadBehaviorParams{
 		Behavior:     page.Behavior.Allow,
 		DownloadPath: "/some/path",
 	}
-	resultChan := mockSocket.Page().SetDownloadBehavior(params)
 	mockResult := &page.SetDownloadBehaviorResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().SetDownloadBehavior(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Page().SetDownloadBehavior(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().SetDownloadBehavior(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageSetLifecycleEventsEnabled(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageSetLifecycleEventsEnabled")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.SetLifecycleEventsEnabledParams{
 		Enabled: true,
 	}
-	resultChan := mockSocket.Page().SetLifecycleEventsEnabled(params)
 	mockResult := &page.SetLifecycleEventsEnabledResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().SetLifecycleEventsEnabled(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Page().SetLifecycleEventsEnabled(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().SetLifecycleEventsEnabled(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageStartScreencast(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageStartScreencast")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &page.StartScreencastParams{
 		Format:        page.Format.Jpeg,
@@ -1193,121 +856,85 @@ func TestPageStartScreencast(t *testing.T) {
 		MaxHeight:     1,
 		EveryNthFrame: 1,
 	}
-	resultChan := mockSocket.Page().StartScreencast(params)
 	mockResult := &page.StartScreencastResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().StartScreencast(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Page().StartScreencast(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().StartScreencast(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageStopLoading(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageStopLoading")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Page().StopLoading()
 	mockResult := &page.StopLoadingResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().StopLoading()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Page().StopLoading()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().StopLoading()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageStopScreencast(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageStopScreencast")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Page().StopScreencast()
 	mockResult := &page.StopScreencastResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Page().StopScreencast()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Page().StopScreencast()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Page().StopScreencast()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestPageOnDOMContentEventFired(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageOnDOMContentEventFired")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *page.DOMContentEventFiredEvent)
-	mockSocket.Page().OnDOMContentEventFired(func(eventData *page.DOMContentEventFiredEvent) {
+	soc.Page().OnDOMContentEventFired(func(eventData *page.DOMContentEventFiredEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &page.DOMContentEventFiredEvent{
 		Timestamp: page.MonotonicTime(time.Now().Unix()),
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Page.domContentEventFired",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1317,17 +944,9 @@ func TestPageOnDOMContentEventFired(t *testing.T) {
 		t.Errorf("Expected %d, got %d", mockResult.Timestamp, result.Timestamp)
 	}
 
-	resultChan = make(chan *page.DOMContentEventFiredEvent)
-	mockSocket.Page().OnDOMContentEventFired(func(eventData *page.DOMContentEventFiredEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Page.domContentEventFired",
 	})
 	result = <-resultChan
@@ -1337,26 +956,27 @@ func TestPageOnDOMContentEventFired(t *testing.T) {
 }
 
 func TestPageOnFrameAttached(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageOnFrameAttached")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *page.FrameAttachedEvent)
-	mockSocket.Page().OnFrameAttached(func(eventData *page.FrameAttachedEvent) {
+	soc.Page().OnFrameAttached(func(eventData *page.FrameAttachedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &page.FrameAttachedEvent{
 		FrameID:       page.FrameID("frame-id"),
 		ParentFrameID: page.FrameID("parent-id"),
 		Stack:         &runtime.StackTrace{},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Page.frameAttached",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1366,17 +986,9 @@ func TestPageOnFrameAttached(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.FrameID, result.FrameID)
 	}
 
-	resultChan = make(chan *page.FrameAttachedEvent)
-	mockSocket.Page().OnFrameAttached(func(eventData *page.FrameAttachedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Page.frameAttached",
 	})
 	result = <-resultChan
@@ -1386,24 +998,25 @@ func TestPageOnFrameAttached(t *testing.T) {
 }
 
 func TestPageOnFrameClearedScheduledNavigation(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageOnFrameClearedScheduledNavigation")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *page.FrameClearedScheduledNavigationEvent)
-	mockSocket.Page().OnFrameClearedScheduledNavigation(func(eventData *page.FrameClearedScheduledNavigationEvent) {
+	soc.Page().OnFrameClearedScheduledNavigation(func(eventData *page.FrameClearedScheduledNavigationEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &page.FrameClearedScheduledNavigationEvent{
 		FrameID: page.FrameID("frame-id"),
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Page.frameClearedScheduledNavigation",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1413,17 +1026,9 @@ func TestPageOnFrameClearedScheduledNavigation(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.FrameID, result.FrameID)
 	}
 
-	resultChan = make(chan *page.FrameClearedScheduledNavigationEvent)
-	mockSocket.Page().OnFrameClearedScheduledNavigation(func(eventData *page.FrameClearedScheduledNavigationEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Page.frameClearedScheduledNavigation",
 	})
 	result = <-resultChan
@@ -1433,24 +1038,24 @@ func TestPageOnFrameClearedScheduledNavigation(t *testing.T) {
 }
 
 func TestPageOnFrameDetached(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageOnFrameDetached")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := make(chan *page.FrameDetachedEvent)
-	mockSocket.Page().OnFrameDetached(func(eventData *page.FrameDetachedEvent) {
-		resultChan <- eventData
-	})
 	mockResult := &page.FrameDetachedEvent{
 		FrameID: page.FrameID("frame-id"),
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Page.frameDetached",
-		Params: mockResultBytes,
+	})
+	resultChan := make(chan *page.FrameDetachedEvent)
+	soc.Page().OnFrameDetached(func(eventData *page.FrameDetachedEvent) {
+		resultChan <- eventData
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1460,17 +1065,9 @@ func TestPageOnFrameDetached(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.FrameID, result.FrameID)
 	}
 
-	resultChan = make(chan *page.FrameDetachedEvent)
-	mockSocket.Page().OnFrameDetached(func(eventData *page.FrameDetachedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Page.frameDetached",
 	})
 	result = <-resultChan
@@ -1480,15 +1077,18 @@ func TestPageOnFrameDetached(t *testing.T) {
 }
 
 func TestPageOnFrameNavigated(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageOnFrameNavigated")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *page.FrameNavigatedEvent)
-	mockSocket.Page().OnFrameNavigated(func(eventData *page.FrameNavigatedEvent) {
+	soc.Page().OnFrameNavigated(func(eventData *page.FrameNavigatedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &page.FrameNavigatedEvent{
 		Frame: &page.Frame{
 			ID:             "frame-id",
@@ -1501,12 +1101,10 @@ func TestPageOnFrameNavigated(t *testing.T) {
 			UnreachableURL: "http://someother.url",
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Page.frameNavigated",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1516,17 +1114,9 @@ func TestPageOnFrameNavigated(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Frame.ID, result.Frame.ID)
 	}
 
-	resultChan = make(chan *page.FrameNavigatedEvent)
-	mockSocket.Page().OnFrameNavigated(func(eventData *page.FrameNavigatedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Page.frameNavigated",
 	})
 	result = <-resultChan
@@ -1536,39 +1126,32 @@ func TestPageOnFrameNavigated(t *testing.T) {
 }
 
 func TestPageOnFrameResized(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageOnFrameResized")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *page.FrameResizedEvent)
-	mockSocket.Page().OnFrameResized(func(eventData *page.FrameResizedEvent) {
+	soc.Page().OnFrameResized(func(eventData *page.FrameResizedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &page.FrameResizedEvent{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Page.frameResized",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *page.FrameResizedEvent)
-	mockSocket.Page().OnFrameResized(func(eventData *page.FrameResizedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Page.frameResized",
 	})
 	result = <-resultChan
@@ -1578,27 +1161,28 @@ func TestPageOnFrameResized(t *testing.T) {
 }
 
 func TestPageOnFrameScheduledNavigation(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageOnFrameScheduledNavigation")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *page.FrameScheduledNavigationEvent)
-	mockSocket.Page().OnFrameScheduledNavigation(func(eventData *page.FrameScheduledNavigationEvent) {
+	soc.Page().OnFrameScheduledNavigation(func(eventData *page.FrameScheduledNavigationEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &page.FrameScheduledNavigationEvent{
 		FrameID: page.FrameID("frame-id"),
 		Delay:   1,
 		Reason:  page.Reason.FormSubmissionGet,
 		URL:     "http://some.url",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Page.frameScheduledNavigation",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1608,17 +1192,9 @@ func TestPageOnFrameScheduledNavigation(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.FrameID, result.FrameID)
 	}
 
-	resultChan = make(chan *page.FrameScheduledNavigationEvent)
-	mockSocket.Page().OnFrameScheduledNavigation(func(eventData *page.FrameScheduledNavigationEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Page.frameScheduledNavigation",
 	})
 	result = <-resultChan
@@ -1628,24 +1204,25 @@ func TestPageOnFrameScheduledNavigation(t *testing.T) {
 }
 
 func TestPageOnFrameStartedLoading(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageOnFrameStartedLoading")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *page.FrameStartedLoadingEvent)
-	mockSocket.Page().OnFrameStartedLoading(func(eventData *page.FrameStartedLoadingEvent) {
+	soc.Page().OnFrameStartedLoading(func(eventData *page.FrameStartedLoadingEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &page.FrameStartedLoadingEvent{
 		FrameID: page.FrameID("frame-id"),
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Page.frameStartedLoading",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1655,17 +1232,9 @@ func TestPageOnFrameStartedLoading(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.FrameID, result.FrameID)
 	}
 
-	resultChan = make(chan *page.FrameStartedLoadingEvent)
-	mockSocket.Page().OnFrameStartedLoading(func(eventData *page.FrameStartedLoadingEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Page.frameStartedLoading",
 	})
 	result = <-resultChan
@@ -1675,24 +1244,25 @@ func TestPageOnFrameStartedLoading(t *testing.T) {
 }
 
 func TestPageOnFrameStoppedLoading(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageOnFrameStoppedLoading")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *page.FrameStoppedLoadingEvent)
-	mockSocket.Page().OnFrameStoppedLoading(func(eventData *page.FrameStoppedLoadingEvent) {
+	soc.Page().OnFrameStoppedLoading(func(eventData *page.FrameStoppedLoadingEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &page.FrameStoppedLoadingEvent{
 		FrameID: page.FrameID("frame-id"),
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Page.frameStoppedLoading",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1702,17 +1272,9 @@ func TestPageOnFrameStoppedLoading(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.FrameID, result.FrameID)
 	}
 
-	resultChan = make(chan *page.FrameStoppedLoadingEvent)
-	mockSocket.Page().OnFrameStoppedLoading(func(eventData *page.FrameStoppedLoadingEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Page.frameStoppedLoading",
 	})
 	result = <-resultChan
@@ -1722,39 +1284,32 @@ func TestPageOnFrameStoppedLoading(t *testing.T) {
 }
 
 func TestPageOnInterstitialHidden(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageOnInterstitialHidden")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *page.InterstitialHiddenEvent)
-	mockSocket.Page().OnInterstitialHidden(func(eventData *page.InterstitialHiddenEvent) {
+	soc.Page().OnInterstitialHidden(func(eventData *page.InterstitialHiddenEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &page.InterstitialHiddenEvent{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Page.interstitialHidden",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *page.InterstitialHiddenEvent)
-	mockSocket.Page().OnInterstitialHidden(func(eventData *page.InterstitialHiddenEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Page.interstitialHidden",
 	})
 	result = <-resultChan
@@ -1764,39 +1319,32 @@ func TestPageOnInterstitialHidden(t *testing.T) {
 }
 
 func TestPageOnInterstitialShown(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageOnInterstitialShown")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *page.InterstitialShownEvent)
-	mockSocket.Page().OnInterstitialShown(func(eventData *page.InterstitialShownEvent) {
+	soc.Page().OnInterstitialShown(func(eventData *page.InterstitialShownEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &page.InterstitialShownEvent{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Page.interstitialShown",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *page.InterstitialShownEvent)
-	mockSocket.Page().OnInterstitialShown(func(eventData *page.InterstitialShownEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Page.interstitialShown",
 	})
 	result = <-resultChan
@@ -1806,25 +1354,26 @@ func TestPageOnInterstitialShown(t *testing.T) {
 }
 
 func TestPageOnJavascriptDialogClosed(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageOnJavascriptDialogClosed")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *page.JavascriptDialogClosedEvent)
-	mockSocket.Page().OnJavascriptDialogClosed(func(eventData *page.JavascriptDialogClosedEvent) {
+	soc.Page().OnJavascriptDialogClosed(func(eventData *page.JavascriptDialogClosedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &page.JavascriptDialogClosedEvent{
 		Result:    true,
 		UserInput: "user input",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Page.javascriptDialogClosed",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1834,17 +1383,9 @@ func TestPageOnJavascriptDialogClosed(t *testing.T) {
 		t.Errorf("Expected %v, got %v", mockResult.Result, result.Result)
 	}
 
-	resultChan = make(chan *page.JavascriptDialogClosedEvent)
-	mockSocket.Page().OnJavascriptDialogClosed(func(eventData *page.JavascriptDialogClosedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Page.javascriptDialogClosed",
 	})
 	result = <-resultChan
@@ -1854,27 +1395,28 @@ func TestPageOnJavascriptDialogClosed(t *testing.T) {
 }
 
 func TestPageOnJavascriptDialogOpening(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageOnJavascriptDialogOpening")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *page.JavascriptDialogOpeningEvent)
-	mockSocket.Page().OnJavascriptDialogOpening(func(eventData *page.JavascriptDialogOpeningEvent) {
+	soc.Page().OnJavascriptDialogOpening(func(eventData *page.JavascriptDialogOpeningEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &page.JavascriptDialogOpeningEvent{
 		URL:           "http://some.url",
 		Message:       "some message",
 		Type:          page.DialogType.Alert,
 		DefaultPrompt: "some prompt",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Page.javascriptDialogOpening",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1884,17 +1426,9 @@ func TestPageOnJavascriptDialogOpening(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.URL, result.URL)
 	}
 
-	resultChan = make(chan *page.JavascriptDialogOpeningEvent)
-	mockSocket.Page().OnJavascriptDialogOpening(func(eventData *page.JavascriptDialogOpeningEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Page.javascriptDialogOpening",
 	})
 	result = <-resultChan
@@ -1904,27 +1438,28 @@ func TestPageOnJavascriptDialogOpening(t *testing.T) {
 }
 
 func TestPageOnLifecycleEvent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageOnLifecycleEvent")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *page.LifecycleEventEvent)
-	mockSocket.Page().OnLifecycleEvent(func(eventData *page.LifecycleEventEvent) {
+	soc.Page().OnLifecycleEvent(func(eventData *page.LifecycleEventEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &page.LifecycleEventEvent{
 		FrameID:   page.FrameID("frame-id"),
 		LoaderID:  page.LoaderID("loader-id"),
 		Name:      "name",
 		Timestamp: page.MonotonicTime(time.Now().Unix()),
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Page.lifecycleEvent",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1934,17 +1469,9 @@ func TestPageOnLifecycleEvent(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.FrameID, result.FrameID)
 	}
 
-	resultChan = make(chan *page.LifecycleEventEvent)
-	mockSocket.Page().OnLifecycleEvent(func(eventData *page.LifecycleEventEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Page.lifecycleEvent",
 	})
 	result = <-resultChan
@@ -1954,24 +1481,25 @@ func TestPageOnLifecycleEvent(t *testing.T) {
 }
 
 func TestPageOnLoadEventFired(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageOnLoadEventFired")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *page.LoadEventFiredEvent)
-	mockSocket.Page().OnLoadEventFired(func(eventData *page.LoadEventFiredEvent) {
+	soc.Page().OnLoadEventFired(func(eventData *page.LoadEventFiredEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &page.LoadEventFiredEvent{
 		Timestamp: page.MonotonicTime(time.Now().Unix()),
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Page.loadEventFired",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -1981,17 +1509,9 @@ func TestPageOnLoadEventFired(t *testing.T) {
 		t.Errorf("Expected %d, got %d", mockResult.Timestamp, result.Timestamp)
 	}
 
-	resultChan = make(chan *page.LoadEventFiredEvent)
-	mockSocket.Page().OnLoadEventFired(func(eventData *page.LoadEventFiredEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Page.loadEventFired",
 	})
 	result = <-resultChan
@@ -2001,15 +1521,18 @@ func TestPageOnLoadEventFired(t *testing.T) {
 }
 
 func TestPageOnScreencastFrame(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageOnScreencastFrame")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *page.ScreencastFrameEvent)
-	mockSocket.Page().OnScreencastFrame(func(eventData *page.ScreencastFrameEvent) {
+	soc.Page().OnScreencastFrame(func(eventData *page.ScreencastFrameEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &page.ScreencastFrameEvent{
 		Data: "data",
 		Metadata: &page.ScreencastFrameMetadata{
@@ -2023,12 +1546,10 @@ func TestPageOnScreencastFrame(t *testing.T) {
 		},
 		SessionID: 1,
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Page.screencastFrame",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -2038,17 +1559,9 @@ func TestPageOnScreencastFrame(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Data, result.Data)
 	}
 
-	resultChan = make(chan *page.ScreencastFrameEvent)
-	mockSocket.Page().OnScreencastFrame(func(eventData *page.ScreencastFrameEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Page.screencastFrame",
 	})
 	result = <-resultChan
@@ -2058,24 +1571,25 @@ func TestPageOnScreencastFrame(t *testing.T) {
 }
 
 func TestPageOnScreencastVisibilityChanged(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageOnScreencastVisibilityChanged")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *page.ScreencastVisibilityChangedEvent)
-	mockSocket.Page().OnScreencastVisibilityChanged(func(eventData *page.ScreencastVisibilityChangedEvent) {
+	soc.Page().OnScreencastVisibilityChanged(func(eventData *page.ScreencastVisibilityChangedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &page.ScreencastVisibilityChangedEvent{
 		Visible: true,
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Page.screencastVisibilityChanged",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -2085,17 +1599,9 @@ func TestPageOnScreencastVisibilityChanged(t *testing.T) {
 		t.Errorf("Expected %v, got %v", mockResult.Visible, result.Visible)
 	}
 
-	resultChan = make(chan *page.ScreencastVisibilityChangedEvent)
-	mockSocket.Page().OnScreencastVisibilityChanged(func(eventData *page.ScreencastVisibilityChangedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Page.screencastVisibilityChanged",
 	})
 	result = <-resultChan
@@ -2105,27 +1611,28 @@ func TestPageOnScreencastVisibilityChanged(t *testing.T) {
 }
 
 func TestPageOnWindowOpen(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestPageOnWindowOpen")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *page.WindowOpenEvent)
-	mockSocket.Page().OnWindowOpen(func(eventData *page.WindowOpenEvent) {
+	soc.Page().OnWindowOpen(func(eventData *page.WindowOpenEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &page.WindowOpenEvent{
 		URL:            "http://some.url",
 		WindowName:     "window-name",
 		WindowFeatures: []string{"feature1", "feature2"},
 		UserGesture:    true,
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Page.windowOpen",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -2135,17 +1642,9 @@ func TestPageOnWindowOpen(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.URL, result.URL)
 	}
 
-	resultChan = make(chan *page.WindowOpenEvent)
-	mockSocket.Page().OnWindowOpen(func(eventData *page.WindowOpenEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Page.windowOpen",
 	})
 	result = <-resultChan

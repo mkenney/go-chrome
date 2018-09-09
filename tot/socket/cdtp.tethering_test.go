@@ -1,107 +1,82 @@
 package socket
 
 import (
-	"encoding/json"
-	"net/url"
 	"testing"
 
 	"github.com/mkenney/go-chrome/tot/tethering"
 )
 
 func TestTetheringBind(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestTetheringBind")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &tethering.BindParams{
 		Port: 1,
 	}
-	resultChan := mockSocket.Tethering().Bind(params)
 	mockResult := &tethering.BindResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Tethering().Bind(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Tethering().Bind(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Tethering().Bind(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestTetheringUnbind(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestTetheringUnbind")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &tethering.UnbindParams{
 		Port: 1,
 	}
-	resultChan := mockSocket.Tethering().Unbind(params)
 	mockResult := &tethering.UnbindResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Tethering().Unbind(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Tethering().Unbind(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Tethering().Unbind(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestTetheringOnAccepted(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestTetheringOnAccepted")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *tethering.AcceptedEvent)
-	mockSocket.Tethering().OnAccepted(func(eventData *tethering.AcceptedEvent) {
+	soc.Tethering().OnAccepted(func(eventData *tethering.AcceptedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &tethering.AcceptedEvent{
 		Port:         1,
 		ConnectionID: "ConnectionID",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Tethering.accepted",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -111,17 +86,9 @@ func TestTetheringOnAccepted(t *testing.T) {
 		t.Errorf("Expected %d, got %d", mockResult.Port, result.Port)
 	}
 
-	resultChan = make(chan *tethering.AcceptedEvent)
-	mockSocket.Tethering().OnAccepted(func(eventData *tethering.AcceptedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Tethering.accepted",
 	})
 	result = <-resultChan

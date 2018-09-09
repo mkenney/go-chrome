@@ -1,8 +1,6 @@
 package socket
 
 import (
-	"encoding/json"
-	"net/url"
 	"testing"
 	"time"
 
@@ -10,20 +8,21 @@ import (
 )
 
 func TestInputDispatchKeyEvent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestInputDispatchKeyEvent")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &input.DispatchKeyEventParams{
-		Type:           input.KeyEvent.KeyDown,
-		Modifiers:      1,
-		Timestamp:      input.TimeSinceEpoch(time.Now().Unix()),
-		Text:           "text",
-		UnmodifiedText: "unmodified text",
-		KeyIdentifier:  "key-id",
-		Code:           "code",
-		Key:            "key",
+		Type:                  input.KeyEvent.KeyDown,
+		Modifiers:             1,
+		Timestamp:             input.TimeSinceEpoch(time.Now().Unix()),
+		Text:                  "text",
+		UnmodifiedText:        "unmodified text",
+		KeyIdentifier:         "key-id",
+		Code:                  "code",
+		Key:                   "key",
 		WindowsVirtualKeyCode: 1,
 		NativeVirtualKeyCode:  1,
 		AutoRepeat:            true,
@@ -31,39 +30,27 @@ func TestInputDispatchKeyEvent(t *testing.T) {
 		IsSystemKey:           true,
 		Location:              1,
 	}
-	resultChan := mockSocket.Input().DispatchKeyEvent(params)
 	mockResult := &input.DispatchKeyEventResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Input().DispatchKeyEvent(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Input().DispatchKeyEvent(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Input().DispatchKeyEvent(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestInputDispatchMouseEvent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestInputDispatchMouseEvent")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &input.DispatchMouseEventParams{
 		Type:       input.MouseEvent.MousePressed,
@@ -76,39 +63,27 @@ func TestInputDispatchMouseEvent(t *testing.T) {
 		DeltaX:     1,
 		DeltaY:     1,
 	}
-	resultChan := mockSocket.Input().DispatchMouseEvent(params)
 	mockResult := &input.DispatchMouseEventResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Input().DispatchMouseEvent(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Input().DispatchMouseEvent(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Input().DispatchMouseEvent(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestInputDispatchTouchEvent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestInputDispatchTouchEvent")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &input.DispatchTouchEventParams{
 		Type: input.TouchEvent.TouchStart,
@@ -124,39 +99,27 @@ func TestInputDispatchTouchEvent(t *testing.T) {
 		Modifiers: 1,
 		Timestamp: input.TimeSinceEpoch(time.Now().Unix()),
 	}
-	resultChan := mockSocket.Input().DispatchTouchEvent(params)
 	mockResult := &input.DispatchTouchEventResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Input().DispatchTouchEvent(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Input().DispatchTouchEvent(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Input().DispatchTouchEvent(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestInputEmulateTouchFromMouseEvent(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestInputEmulateTouchFromMouseEvent")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &input.EmulateTouchFromMouseEventParams{
 		Type:       input.MouseEvent.MousePressed,
@@ -169,76 +132,52 @@ func TestInputEmulateTouchFromMouseEvent(t *testing.T) {
 		Modifiers:  1,
 		ClickCount: 1,
 	}
-	resultChan := mockSocket.Input().EmulateTouchFromMouseEvent(params)
 	mockResult := &input.EmulateTouchFromMouseEventResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Input().EmulateTouchFromMouseEvent(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Input().EmulateTouchFromMouseEvent(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Input().EmulateTouchFromMouseEvent(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestInputSetIgnoreEvents(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestInputSetIgnoreEvents")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &input.SetIgnoreEventsParams{
 		Ignore: true,
 	}
-	resultChan := mockSocket.Input().SetIgnoreEvents(params)
 	mockResult := &input.SetIgnoreEventsResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Input().SetIgnoreEvents(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Input().SetIgnoreEvents(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Input().SetIgnoreEvents(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestInputSynthesizePinchGesture(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestInputSynthesizePinchGesture")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &input.SynthesizePinchGestureParams{
 		X:                 1,
@@ -247,39 +186,27 @@ func TestInputSynthesizePinchGesture(t *testing.T) {
 		RelativeSpeed:     1,
 		GestureSourceType: input.GestureSourceType("gesture-source-type"),
 	}
-	resultChan := mockSocket.Input().SynthesizePinchGesture(params)
 	mockResult := &input.SynthesizePinchGestureResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Input().SynthesizePinchGesture(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Input().SynthesizePinchGesture(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Input().SynthesizePinchGesture(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestInputSynthesizeScrollGesture(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestInputSynthesizeScrollGesture")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &input.SynthesizeScrollGestureParams{
 		X:                     1,
@@ -295,39 +222,27 @@ func TestInputSynthesizeScrollGesture(t *testing.T) {
 		RepeatDelayMs:         1,
 		InteractionMarkerName: "marker-name",
 	}
-	resultChan := mockSocket.Input().SynthesizeScrollGesture(params)
 	mockResult := &input.SynthesizeScrollGestureResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Input().SynthesizeScrollGesture(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Input().SynthesizeScrollGesture(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Input().SynthesizeScrollGesture(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestInputSynthesizeTapGesture(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestInputSynthesizeTapGesture")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &input.SynthesizeTapGestureParams{
 		X:                 1,
@@ -336,29 +251,16 @@ func TestInputSynthesizeTapGesture(t *testing.T) {
 		TapCount:          1,
 		GestureSourceType: input.GestureSourceType("gesture-source-type"),
 	}
-	resultChan := mockSocket.Input().SynthesizeTapGesture(params)
 	mockResult := &input.SynthesizeTapGestureResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Input().SynthesizeTapGesture(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Input().SynthesizeTapGesture(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Input().SynthesizeTapGesture(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}

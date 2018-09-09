@@ -1,8 +1,6 @@
 package socket
 
 import (
-	"encoding/json"
-	"net/url"
 	"testing"
 	"time"
 
@@ -12,86 +10,73 @@ import (
 )
 
 func TestAnimationDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestAnimationDisable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Animation().Disable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: nil,
-	})
-	result := <-resultChan
+	mockResult := MockData{
+		0,
+		&Error{},
+		nil,
+		"",
+	}
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Animation().Disable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Animation().Disable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Animation().Disable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestAnimationEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestAnimationEnable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Animation().Enable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: nil,
-	})
-	result := <-resultChan
+	mockResult := MockData{
+		0,
+		&Error{},
+		nil,
+		"",
+	}
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Animation().Enable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Animation().Enable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Animation().Enable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestAnimationGetCurrentTime(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestAnimationGetCurrentTime")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &animation.GetCurrentTimeParams{
 		ID: "animation-id",
 	}
-	resultChan := mockSocket.Animation().GetCurrentTime(params)
-	mockResultBytes, _ := json.Marshal(animation.GetCurrentTimeResult{})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+	mockResult := &animation.GetCurrentTimeResult{}
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Animation().GetCurrentTime(params)
 	if nil != result.Err {
 		t.Errorf("Expected success, got error: '%s'", result.Err.Error())
 	}
@@ -99,19 +84,13 @@ func TestAnimationGetCurrentTime(t *testing.T) {
 		t.Errorf("Expected 0, got %d", result.CurrentTime)
 	}
 
-	resultChan = mockSocket.Animation().GetCurrentTime(&animation.GetCurrentTimeParams{
-		ID: "animation-id",
-	})
-	mockResult := &animation.GetCurrentTimeResult{
+	mockResult = &animation.GetCurrentTimeResult{
 		CurrentTime: time.Now().Unix(),
 	}
-	mockResultBytes, _ = json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result = <-soc.Animation().GetCurrentTime(&animation.GetCurrentTimeParams{
+		ID: "animation-id",
 	})
-	result = <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -123,38 +102,26 @@ func TestAnimationGetCurrentTime(t *testing.T) {
 		)
 	}
 
-	resultChan = mockSocket.Animation().GetCurrentTime(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Animation().GetCurrentTime(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestAnimationGetPlaybackRate(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestAnimationGetPlaybackRate")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Animation().GetPlaybackRate()
 	mockResult := &animation.GetPlaybackRateResult{
 		PlaybackRate: 1.0,
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Animation().GetPlaybackRate()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -166,66 +133,55 @@ func TestAnimationGetPlaybackRate(t *testing.T) {
 		)
 	}
 
-	resultChan = mockSocket.Animation().GetPlaybackRate()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Animation().GetPlaybackRate()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestAnimationReleaseAnimations(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestAnimationReleaseAnimations")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &animation.ReleaseAnimationsParams{
 		Animations: []string{"animation1", "animation2"},
 	}
-	resultChan := mockSocket.Animation().ReleaseAnimations(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: nil,
-	})
-	result := <-resultChan
+
+	mockResult := MockData{
+		0,
+		&Error{},
+		nil,
+		"",
+	}
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Animation().ReleaseAnimations(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Animation().ReleaseAnimations(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Animation().ReleaseAnimations(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestAnimationResolveAnimation(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestAnimationResolveAnimation")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &animation.ResolveAnimationParams{
 		AnimationID: "animation-id",
 	}
-	resultChan := mockSocket.Animation().ResolveAnimation(params)
+
 	mockResult := &animation.ResolveAnimationResult{
 		RemoteObject: &runtime.RemoteObject{
 			Type:                runtime.ObjectType.Object,
@@ -251,13 +207,9 @@ func TestAnimationResolveAnimation(t *testing.T) {
 			},
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Animation().ResolveAnimation(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -269,185 +221,161 @@ func TestAnimationResolveAnimation(t *testing.T) {
 		)
 	}
 
-	resultChan = mockSocket.Animation().ResolveAnimation(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Animation().ResolveAnimation(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestAnimationSeekAnimations(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestAnimationSeekAnimations")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &animation.SeekAnimationsParams{
 		Animations:  []string{"animation1", "animation2"},
 		CurrentTime: 1,
 	}
-	resultChan := mockSocket.Animation().SeekAnimations(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: nil,
-	})
-	result := <-resultChan
+
+	mockResult := MockData{
+		0,
+		&Error{},
+		nil,
+		"",
+	}
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Animation().SeekAnimations(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Animation().SeekAnimations(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Animation().SeekAnimations(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestAnimationSetPaused(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestAnimationSetPaused")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &animation.SetPausedParams{
 		Animations: []string{"animation1", "animation2"},
 		Paused:     true,
 	}
-	resultChan := mockSocket.Animation().SetPaused(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: nil,
-	})
-	result := <-resultChan
+
+	mockResult := MockData{
+		0,
+		&Error{},
+		nil,
+		"",
+	}
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Animation().SetPaused(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Animation().SetPaused(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Animation().SetPaused(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestAnimationSetPlaybackRate(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestAnimationSetPlaybackRate")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &animation.SetPlaybackRateParams{
 		PlaybackRate: 1,
 	}
-	resultChan := mockSocket.Animation().SetPlaybackRate(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: nil,
-	})
-	result := <-resultChan
+
+	mockResult := MockData{
+		0,
+		&Error{},
+		nil,
+		"",
+	}
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Animation().SetPlaybackRate(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Animation().SetPlaybackRate(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Animation().SetPlaybackRate(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestAnimationSetTiming(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestAnimationSetTiming")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &animation.SetTimingParams{
 		AnimationID: "animation-id",
 		Duration:    1,
 		Delay:       1,
 	}
-	resultChan := mockSocket.Animation().SetTiming(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: nil,
-	})
-	result := <-resultChan
+
+	mockResult := MockData{
+		0,
+		&Error{},
+		nil,
+		"",
+	}
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Animation().SetTiming(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Animation().SetTiming(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Animation().SetTiming(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestAnimationOnAnimationCanceled(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestAnimationOnAnimationCanceled")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *animation.CanceledEvent)
-	mockSocket.Animation().OnAnimationCanceled(func(eventData *animation.CanceledEvent) {
+	soc.Animation().OnAnimationCanceled(func(eventData *animation.CanceledEvent) {
 		resultChan <- eventData
 	})
 
 	mockResult := &animation.CanceledEvent{
 		ID: "event-id",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
-		Method: "Animation.animationCanceled",
-		Params: mockResultBytes,
+	chrome.AddData(MockData{0,
+		&Error{},
+		mockResult,
+		"Animation.animationCanceled",
 	})
 	result := <-resultChan
 	if result.ID != mockResult.ID {
@@ -458,18 +386,10 @@ func TestAnimationOnAnimationCanceled(t *testing.T) {
 		)
 	}
 
-	resultChan = make(chan *animation.CanceledEvent)
-	mockSocket.Animation().OnAnimationCanceled(func(eventData *animation.CanceledEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-		Method: "Animation.animationCanceled",
+	chrome.AddData(MockData{0,
+		genericError,
+		nil,
+		"Animation.animationCanceled",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -478,25 +398,25 @@ func TestAnimationOnAnimationCanceled(t *testing.T) {
 }
 
 func TestAnimationOnAnimationCreated(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestAnimationOnAnimationCreated")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *animation.CreatedEvent)
-	mockSocket.Animation().OnAnimationCreated(func(eventData *animation.CreatedEvent) {
+	soc.Animation().OnAnimationCreated(func(eventData *animation.CreatedEvent) {
 		resultChan <- eventData
 	})
 
 	mockResult := &animation.CreatedEvent{
 		ID: "event-id",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
-		Method: "Animation.animationCreated",
-		Params: mockResultBytes,
+	chrome.AddData(MockData{0,
+		&Error{},
+		mockResult,
+		"Animation.animationCreated",
 	})
 	result := <-resultChan
 	if result.ID != mockResult.ID {
@@ -507,18 +427,10 @@ func TestAnimationOnAnimationCreated(t *testing.T) {
 		)
 	}
 
-	resultChan = make(chan *animation.CreatedEvent)
-	mockSocket.Animation().OnAnimationCreated(func(eventData *animation.CreatedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-		Method: "Animation.animationCreated",
+	chrome.AddData(MockData{0,
+		genericError,
+		nil,
+		"Animation.animationCreated",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -527,15 +439,18 @@ func TestAnimationOnAnimationCreated(t *testing.T) {
 }
 
 func TestAnimationOnAnimationStarted(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestAnimationOnAnimationStarted")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *animation.StartedEvent)
-	mockSocket.Animation().OnAnimationStarted(func(eventData *animation.StartedEvent) {
+	soc.Animation().OnAnimationStarted(func(eventData *animation.StartedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &animation.StartedEvent{
 		Animation: &animation.Animation{
 			ID:           "animation-id",
@@ -564,12 +479,10 @@ func TestAnimationOnAnimationStarted(t *testing.T) {
 			CSSID: "css-id",
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
-		Method: "Animation.animationStarted",
-		Params: mockResultBytes,
+	chrome.AddData(MockData{0,
+		&Error{},
+		mockResult,
+		"Animation.animationStarted",
 	})
 	result := <-resultChan
 	if result.Animation.ID != mockResult.Animation.ID {
@@ -580,18 +493,10 @@ func TestAnimationOnAnimationStarted(t *testing.T) {
 		)
 	}
 
-	resultChan = make(chan *animation.StartedEvent)
-	mockSocket.Animation().OnAnimationStarted(func(eventData *animation.StartedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-		Method: "Animation.animationStarted",
+	chrome.AddData(MockData{0,
+		genericError,
+		nil,
+		"Animation.animationStarted",
 	})
 	result = <-resultChan
 	if nil == result.Err {

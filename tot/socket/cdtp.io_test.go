@@ -1,8 +1,6 @@
 package socket
 
 import (
-	"encoding/json"
-	"net/url"
 	"testing"
 
 	"github.com/mkenney/go-chrome/tot/io"
@@ -10,66 +8,50 @@ import (
 )
 
 func TestIOClose(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestIOClose")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &io.CloseParams{
 		Handle: io.StreamHandle("stream-handle"),
 	}
-	resultChan := mockSocket.IO().Close(params)
 	mockResult := &io.CloseResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.IO().Close(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.IO().Close(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.IO().Close(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestIORead(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestIORead")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &io.ReadParams{
 		Handle: io.StreamHandle("stream-handle"),
 		Offset: 1,
 		Size:   1,
 	}
-	resultChan := mockSocket.IO().Read(params)
 	mockResult := &io.ReadResult{
 		Base64Encoded: true,
 		Data:          "data",
 		EOF:           true,
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.IO().Read(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -77,41 +59,29 @@ func TestIORead(t *testing.T) {
 		t.Errorf("Expected %v, got %v", mockResult.Base64Encoded, result.Base64Encoded)
 	}
 
-	resultChan = mockSocket.IO().Read(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.IO().Read(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestIOResolveBlob(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestIOResolveBlob")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &io.ResolveBlobParams{
 		ObjectID: runtime.RemoteObjectID("remote-object-id"),
 	}
-	resultChan := mockSocket.IO().ResolveBlob(params)
 	mockResult := &io.ResolveBlobResult{
 		UUID: "uuid",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.IO().ResolveBlob(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -119,16 +89,8 @@ func TestIOResolveBlob(t *testing.T) {
 		t.Errorf("Expected %v, got %v", mockResult.UUID, result.UUID)
 	}
 
-	resultChan = mockSocket.IO().ResolveBlob(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.IO().ResolveBlob(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}

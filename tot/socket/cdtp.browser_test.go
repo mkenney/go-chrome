@@ -1,8 +1,6 @@
 package socket
 
 import (
-	"encoding/json"
-	"net/url"
 	"testing"
 
 	browser "github.com/mkenney/go-chrome/tot/browser"
@@ -10,43 +8,39 @@ import (
 )
 
 func TestBrowserClose(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestBrowserClose")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Browser().Close()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-	})
-	result := <-resultChan
+	mockResult := MockData{
+		0,
+		&Error{},
+		nil,
+		"",
+	}
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Browser().Close()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Browser().Close()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Browser().Close()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestBrowserGetVersion(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestBrowserGetVersion")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Browser().GetVersion()
 	mockResult := &browser.GetVersionResult{
 		ProtocolVersion: "1.2",
 		Product:         "product",
@@ -54,13 +48,9 @@ func TestBrowserGetVersion(t *testing.T) {
 		UserAgent:       "user-agent",
 		JSVersion:       "V8 version",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Browser().GetVersion()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -72,30 +62,20 @@ func TestBrowserGetVersion(t *testing.T) {
 		)
 	}
 
-	resultChan = mockSocket.Browser().GetVersion()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Browser().GetVersion()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestBrowserGetWindowBounds(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestBrowserGetWindowBounds")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Browser().GetWindowBounds(&browser.GetWindowBoundsParams{
-		WindowID: browser.WindowID(1),
-	})
 	mockResult := &browser.GetWindowBoundsResult{
 		Bounds: &browser.Bounds{
 			Height:      100,
@@ -105,13 +85,11 @@ func TestBrowserGetWindowBounds(t *testing.T) {
 			WindowState: browser.WindowState("window-state"),
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Browser().GetWindowBounds(&browser.GetWindowBoundsParams{
+		WindowID: browser.WindowID(1),
 	})
-	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -123,32 +101,22 @@ func TestBrowserGetWindowBounds(t *testing.T) {
 		)
 	}
 
-	resultChan = mockSocket.Browser().GetWindowBounds(&browser.GetWindowBoundsParams{
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Browser().GetWindowBounds(&browser.GetWindowBoundsParams{
 		WindowID: browser.WindowID(1),
 	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestBrowserGetWindowForTarget(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestBrowserGetWindowForTarget")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Browser().GetWindowForTarget(&browser.GetWindowForTargetParams{
-		TargetID: target.ID("target-id"),
-	})
 	mockResult := &browser.GetWindowForTargetResult{
 		WindowID: browser.WindowID(1),
 		Bounds: &browser.Bounds{
@@ -159,13 +127,11 @@ func TestBrowserGetWindowForTarget(t *testing.T) {
 			WindowState: browser.WindowState("window-state"),
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Browser().GetWindowForTarget(&browser.GetWindowForTargetParams{
+		TargetID: target.ID("target-id"),
 	})
-	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -184,39 +150,22 @@ func TestBrowserGetWindowForTarget(t *testing.T) {
 		)
 	}
 
-	resultChan = mockSocket.Browser().GetWindowForTarget(&browser.GetWindowForTargetParams{
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Browser().GetWindowForTarget(&browser.GetWindowForTargetParams{
 		TargetID: target.ID("target-id"),
 	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestBrowserSetWindowBounds(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestBrowserSetWindowBounds")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Browser().SetWindowBounds(&browser.SetWindowBoundsParams{
-		WindowID: browser.WindowID(1),
-		Bounds: &browser.Bounds{
-			Height:      100,
-			Left:        0,
-			Top:         0,
-			Width:       100,
-			WindowState: browser.WindowState("window-state"),
-		},
-	})
 	mockResult := &browser.SetWindowBoundsResult{
 		WindowID: browser.WindowID(1),
 		Bounds: &browser.Bounds{
@@ -227,13 +176,18 @@ func TestBrowserSetWindowBounds(t *testing.T) {
 			WindowState: browser.WindowState("window-state"),
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Browser().SetWindowBounds(&browser.SetWindowBoundsParams{
+		WindowID: browser.WindowID(1),
+		Bounds: &browser.Bounds{
+			Height:      100,
+			Left:        0,
+			Top:         0,
+			Width:       100,
+			WindowState: browser.WindowState("window-state"),
+		},
 	})
-	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -252,7 +206,8 @@ func TestBrowserSetWindowBounds(t *testing.T) {
 		)
 	}
 
-	resultChan = mockSocket.Browser().SetWindowBounds(&browser.SetWindowBoundsParams{
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Browser().SetWindowBounds(&browser.SetWindowBoundsParams{
 		WindowID: browser.WindowID(1),
 		Bounds: &browser.Bounds{
 			Height:      100,
@@ -262,15 +217,6 @@ func TestBrowserSetWindowBounds(t *testing.T) {
 			WindowState: browser.WindowState("window-state"),
 		},
 	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
