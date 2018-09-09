@@ -31,7 +31,7 @@ type Socketer interface {
 
 	// Stop signals the socket read loop to stop listening for data and close
 	// the websocket connection.
-	Stop() error
+	Stop()
 
 	// URL returns the URL of the websocket connection.
 	URL() *url.URL

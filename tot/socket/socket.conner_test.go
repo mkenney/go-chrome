@@ -22,8 +22,5 @@ func TestConner(t *testing.T) {
 		t.Errorf("Expected true, got false")
 	}
 
-	err = soc.Disconnect()
-	if nil != err {
-		t.Errorf("Expected nil, got error: '%s'", err.Error())
-	}
+	soc.Disconnect()
 }

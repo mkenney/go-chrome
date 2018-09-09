@@ -14,9 +14,7 @@ func TestNewSocket(t *testing.T) {
 	soc := New(chrome.URL)
 	defer soc.Stop()
 
-	if err := soc.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() {
-		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
-	}
+	soc.Disconnect()
 }
 
 func TestCommandNotFound(t *testing.T) {
@@ -42,9 +40,7 @@ func TestSocketStop(t *testing.T) {
 	soc := New(chrome.URL)
 
 	time.Sleep(1 * time.Second)
-	if err := soc.Stop(); nil != err {
-		t.Errorf("Expected nil, got error: %T", err)
-	}
+	soc.Stop()
 }
 
 func TestSocketDisconnect(t *testing.T) {
@@ -53,9 +49,7 @@ func TestSocketDisconnect(t *testing.T) {
 	defer chrome.Close()
 	soc := New(chrome.URL)
 
-	if err := soc.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() && "errors.Err" != reflect.TypeOf(err).String() {
-		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
-	}
+	soc.Disconnect()
 }
 
 func TestListenCommand(t *testing.T) {

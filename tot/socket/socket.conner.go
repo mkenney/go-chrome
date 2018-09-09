@@ -58,11 +58,11 @@ Disconnect closes a websocket connection.
 
 Disconnect is a Conner implementation.
 */
-func (socket *Socket) Disconnect() error {
+func (socket *Socket) Disconnect() {
 	socket.mux.Lock()
 	if nil == socket.conn {
 		socket.mux.Unlock()
-		return errs.New(0, "not connected")
+		return
 	}
 	err := socket.conn.Close()
 	socket.mux.Unlock()
@@ -75,9 +75,9 @@ func (socket *Socket) Disconnect() error {
 	socket.conn = nil
 	socket.mux.Unlock()
 	if 0 == socket.listenErr.Len() {
-		return nil
+		return
 	}
-	return socket.listenErr
+	return
 }
 
 /*

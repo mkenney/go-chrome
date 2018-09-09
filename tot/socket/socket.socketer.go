@@ -426,9 +426,9 @@ websocket connection.
 
 Stop is a Socketer implementation.
 */
-func (socket *Socket) Stop() error {
+func (socket *Socket) Stop() {
 	socket.stop <- true
-	return socket.Disconnect()
+	socket.Disconnect()
 }
 
 /*
