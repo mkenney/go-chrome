@@ -18,6 +18,7 @@ func New(url *url.URL) *Socket {
 	socket := &Socket{
 		commandIDMux: &sync.Mutex{},
 		commands:     NewCommandMap(),
+		disconnect:   make(chan bool),
 		handlers:     NewEventHandlerMap(),
 		mux:          &sync.Mutex{},
 		newSocket:    NewWebsocket,
@@ -104,7 +105,8 @@ type Socket struct {
 	socketID     int
 	url          *url.URL
 
-	stop chan bool
+	disconnect chan bool
+	stop       chan bool
 
 	mux  *sync.Mutex
 	conn WebSocketer
@@ -257,7 +259,7 @@ func (socket *Socket) Listen() {
 
 func (socket *Socket) listen() error {
 	var failures int
-	breaker := make(chan bool, 1)
+	breaker := make(chan bool)
 	type ReadLoopData struct {
 		Err      error
 		Response *Response
@@ -270,10 +272,13 @@ func (socket *Socket) listen() error {
 			select {
 			// stop signal, stop the socket read loop and end the listner loop.
 			case <-socket.stop:
-				breaker <- true
-				<-breaker
-				socket.stop <- true
 				socket.logger.Info("socket read loop shutting down")
+				breaker <- true
+				socket.logger.Info("breaker stopped")
+				<-breaker
+				socket.logger.Info("'breaker stopped' signal sent")
+				socket.stop <- true
+				socket.logger.Info("'socket stopped' signal sent")
 				return
 
 			case data := <-readLoopChan:
@@ -322,18 +327,30 @@ func (socket *Socket) listen() error {
 	}()
 
 	// launch the socket reader.
+	readLoopBreaker := make(chan bool)
+	readLoopFeed := make(chan ReadLoopData)
 	for {
-		select {
-		case readLoopChan <- func() ReadLoopData {
-			data := ReadLoopData{
-				Response: &Response{},
+		go func() {
+			for {
+				data := ReadLoopData{
+					Response: &Response{},
+				}
+				select {
+				case <-readLoopBreaker:
+					readLoopBreaker <- true
+					return
+				default:
+					data.Err = socket.ReadJSON(&data.Response)
+					readLoopFeed <- data
+				}
 			}
-			data.Err = socket.ReadJSON(&data.Response)
-			return data
-		}():
+		}()
+		select {
 		case <-breaker:
+			go func() { readLoopBreaker <- true }()
 			breaker <- true
 			return nil
+		case readLoopChan <- <-readLoopFeed:
 		}
 	}
 }

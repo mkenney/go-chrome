@@ -117,22 +117,30 @@ func (chrome *MockChrome) launchListener(
 	}
 
 	dataFeed := make(chan ReadLoopData)
+	dataFeedBreaker := make(chan bool)
 	go func() {
 		for {
-			var data ReadLoopData
-			err := websoc.ReadJSON(&data.Payload)
-			if nil != err {
-				data.Err = err
-				// If the websocket closes kill the loop
-				if strings.Contains(data.Err.Error(), "abnormal closure") {
-					chrome.logger.WithFields(log.Fields{"data": data}).
-						Warn("websocket closed, ending read loop")
-					return
+			select {
+			case <-dataFeedBreaker:
+				dataFeedBreaker <- true
+				return
+			default:
+				var data ReadLoopData
+				err := websoc.ReadJSON(&data.Payload)
+				if nil != err {
+					data.Err = err
+					// If the websocket closes kill the loop
+					if strings.Contains(data.Err.Error(), "abnormal closure") {
+						chrome.logger.WithFields(log.Fields{"data": data}).
+							Debug("websocket closed, ending read loop")
+						dataFeed <- data
+						return
+					}
 				}
+				chrome.logger.WithFields(log.Fields{"data": data}).
+					Debug("returning websocket input")
+				dataFeed <- data
 			}
-			chrome.logger.WithFields(log.Fields{"data": data}).
-				Debug("returning websocket input")
-			dataFeed <- data
 		}
 	}()
 
@@ -140,7 +148,8 @@ func (chrome *MockChrome) launchListener(
 		select {
 		case <-breaker:
 			chrome.logger.Debug("shutting down mock chrome websocket input read loop")
-			breaker <- true
+			dataFeedBreaker <- true
+			breaker <- <-dataFeedBreaker
 			return
 		case dataChan <- <-dataFeed:
 		}
@@ -190,7 +199,7 @@ func (chrome *MockChrome) handle(writer http.ResponseWriter, request *http.Reque
 
 	// websocket handler cleanup
 	defer func() {
-		chrome.logger.Warn("shutting down mock chrome")
+		chrome.logger.Debug("shutting down mock chrome")
 		readLoopBreaker <- true
 		writeLoopBreaker <- true
 		<-readLoopBreaker
@@ -211,17 +220,17 @@ func (chrome *MockChrome) handle(writer http.ResponseWriter, request *http.Reque
 
 		select {
 		case <-chrome.breaker:
-			chrome.logger.Warn("shutting down mock chrome event loop")
+			chrome.logger.Debug("shutting down mock chrome event loop")
 			return
 
 		// Manage any data input.
 		case data := <-readLoopChan:
 			if nil != data.Err {
 				errCnt++
+				chrome.logger.WithField("error", data.Err).Warn("mock chrome read loop returned an error, shutting down")
 				if errCnt > 10 {
 					chrome.breaker <- true
 				}
-				chrome.logger.WithField("error", data.Err).Error("mock chrome read loop returned an error")
 			} else {
 				errCnt = 0
 			}

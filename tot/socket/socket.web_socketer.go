@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+	"sync"
 
 	errs "github.com/bdlm/errors"
 	"github.com/bdlm/log"
@@ -35,7 +36,7 @@ func NewWebsocket(socketURL *url.URL) (WebSocketer, error) {
 		"url":    socketURL.String(),
 	}).Info("Websocket connection established")
 
-	return &ChromeWebSocket{conn: websocket}, nil
+	return &ChromeWebSocket{conn: websocket, mux: &sync.Mutex{}}, nil
 }
 
 /*
@@ -47,6 +48,7 @@ ChromeWebSocket represents a WebSocketer interface
 type ChromeWebSocket struct {
 	conn          *websocket.Conn
 	mockResponses []*Response
+	mux           *sync.Mutex
 }
 
 /*
@@ -54,9 +56,11 @@ Close closes the current websocket connection.
 
 Close is a WebSocketer implementation.
 */
-func (socket *ChromeWebSocket) Close() error {
-	if nil != socket.conn {
-		return socket.conn.Close()
+func (websocket *ChromeWebSocket) Close() error {
+	websocket.mux.Lock()
+	defer websocket.mux.Unlock()
+	if nil != websocket.conn {
+		return websocket.conn.Close()
 	}
 	return nil
 }
@@ -72,11 +76,13 @@ reads from a stack of manually populated responses in an attempt to emulate the
 Chromium DevProtocol behavior. To populate the mock response stack, add a
 Response{} pointer with the AddMockData() method.
 */
-func (socket *ChromeWebSocket) ReadJSON(v interface{}) error {
-	if nil == socket.conn {
+func (websocket *ChromeWebSocket) ReadJSON(v interface{}) error {
+	websocket.mux.Lock()
+	if nil == websocket.conn {
+		websocket.mux.Unlock()
 		return errs.New(0, "not connected")
 	}
-	return socket.conn.ReadJSON(&v)
+	return websocket.conn.ReadJSON(&v)
 }
 
 /*
@@ -84,13 +90,15 @@ WriteJSON marshalls the provided data as JSON and writes it to the websocket.
 
 WriteJSON is a WebSocketer implementation.
 */
-func (socket *ChromeWebSocket) WriteJSON(v interface{}) error {
-	if nil == socket.conn {
+func (websocket *ChromeWebSocket) WriteJSON(v interface{}) error {
+	websocket.mux.Lock()
+	defer websocket.mux.Unlock()
+	if nil == websocket.conn {
 		return errs.New(0, "not connected")
 	}
 	tmp, _ := json.Marshal(v)
 	if len(tmp) > 1*1024*1024 {
 		return fmt.Errorf("payload too large. chrome supports a maximum payload size of 1MB. See https://github.com/gorilla/websocket/issues/245")
 	}
-	return socket.conn.WriteJSON(v)
+	return websocket.conn.WriteJSON(v)
 }
