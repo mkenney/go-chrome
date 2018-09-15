@@ -1,202 +1,141 @@
 package socket
 
 import (
-	"encoding/json"
-	"net/url"
 	"testing"
 
 	"github.com/mkenney/go-chrome/tot/indexed/db"
 )
 
 func TestIndexedDBClearObjectStore(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestIndexedDBClearObjectStore")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &db.ClearObjectStoreParams{
 		SecurityOrigin:  "security-origin",
 		DatabaseName:    "database-name",
 		ObjectStoreName: "object-store-name",
 	}
-	resultChan := mockSocket.IndexedDB().ClearObjectStore(params)
 	mockResult := &db.ClearObjectStoreResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.IndexedDB().ClearObjectStore(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.IndexedDB().ClearObjectStore(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.IndexedDB().ClearObjectStore(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestIndexedDBDeleteDatabase(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestIndexedDBDeleteDatabase")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &db.DeleteDatabaseParams{
 		SecurityOrigin:  "security-origin",
 		DatabaseName:    "database-name",
 		ObjectStoreName: "object-store-name",
 	}
-	resultChan := mockSocket.IndexedDB().DeleteDatabase(params)
 	mockResult := &db.DeleteDatabaseResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.IndexedDB().DeleteDatabase(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.IndexedDB().DeleteDatabase(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.IndexedDB().DeleteDatabase(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestIndexedDBDeleteObjectStoreEntries(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestIndexedDBDeleteObjectStoreEntries")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &db.DeleteObjectStoreEntriesParams{
 		SecurityOrigin: "security-origin",
 		DatabaseName:   "database-name",
 	}
-	resultChan := mockSocket.IndexedDB().DeleteObjectStoreEntries(params)
 	mockResult := &db.DeleteObjectStoreEntriesResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.IndexedDB().DeleteObjectStoreEntries(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.IndexedDB().DeleteObjectStoreEntries(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.IndexedDB().DeleteObjectStoreEntries(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestIndexedDBDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestIndexedDBDisable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.IndexedDB().Disable()
 	mockResult := &db.DisableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.IndexedDB().Disable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.IndexedDB().Disable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.IndexedDB().Disable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestIndexedDBEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestIndexedDBEnable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.IndexedDB().Enable()
 	mockResult := &db.EnableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.IndexedDB().Enable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.IndexedDB().Enable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.IndexedDB().Enable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestIndexedDBRequestData(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestIndexedDBRequestData")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &db.RequestDataParams{
 		SecurityOrigin:  "security-origin",
@@ -224,7 +163,6 @@ func TestIndexedDBRequestData(t *testing.T) {
 			UpperOpen: true,
 		},
 	}
-	resultChan := mockSocket.IndexedDB().RequestData(params)
 	mockResult := &db.RequestDataResult{
 		ObjectStoreDataEntries: []*db.DataEntry{{
 			Key:        nil,
@@ -233,13 +171,9 @@ func TestIndexedDBRequestData(t *testing.T) {
 		}},
 		HasMore: true,
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.IndexedDB().RequestData(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -247,32 +181,24 @@ func TestIndexedDBRequestData(t *testing.T) {
 		t.Errorf("Expected %v, got %v", mockResult.ObjectStoreDataEntries[0].Key, result.ObjectStoreDataEntries[0].Key)
 	}
 
-	resultChan = mockSocket.IndexedDB().RequestData(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.IndexedDB().RequestData(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestIndexedDBRequestDatabase(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestIndexedDBRequestDatabase")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &db.RequestDatabaseParams{
 		SecurityOrigin: "security-origin",
 		DatabaseName:   "database-name",
 	}
-	resultChan := mockSocket.IndexedDB().RequestDatabase(params)
 	mockResult := &db.RequestDatabaseResult{
 		DatabaseWithObjectStores: &db.DatabaseWithObjectStores{
 			Name:    "name",
@@ -298,13 +224,9 @@ func TestIndexedDBRequestDatabase(t *testing.T) {
 			}},
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.IndexedDB().RequestDatabase(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -312,41 +234,29 @@ func TestIndexedDBRequestDatabase(t *testing.T) {
 		t.Errorf("Expected '%s', got '%s'", mockResult.DatabaseWithObjectStores.ObjectStores[0].KeyPath.Type, result.DatabaseWithObjectStores.ObjectStores[0].KeyPath.Type)
 	}
 
-	resultChan = mockSocket.IndexedDB().RequestDatabase(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.IndexedDB().RequestDatabase(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestIndexedDBRequestDatabaseNames(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestIndexedDBRequestDatabaseNames")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &db.RequestDatabaseNamesParams{
 		SecurityOrigin: "security-origin",
 	}
-	resultChan := mockSocket.IndexedDB().RequestDatabaseNames(params)
 	mockResult := &db.RequestDatabaseNamesResult{
 		DatabaseNames: []string{"db1", "db2"},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.IndexedDB().RequestDatabaseNames(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -354,16 +264,8 @@ func TestIndexedDBRequestDatabaseNames(t *testing.T) {
 		t.Errorf("Expected '%s', got '%s'", mockResult.DatabaseNames[0], result.DatabaseNames[0])
 	}
 
-	resultChan = mockSocket.IndexedDB().RequestDatabaseNames(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.IndexedDB().RequestDatabaseNames(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}

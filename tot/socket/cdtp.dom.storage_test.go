@@ -1,147 +1,105 @@
 package socket
 
 import (
-	"encoding/json"
-	"net/url"
 	"testing"
 
 	"github.com/mkenney/go-chrome/tot/dom/storage"
 )
 
 func TestDOMStorageClear(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageClear")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.DOMStorage().Clear(&storage.ClearParams{
+	mockResult := &storage.ClearResult{}
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.DOMStorage().Clear(&storage.ClearParams{
 		StorageID: &storage.ID{
 			SecurityOrigin: "security-origin",
 			IsLocalStorage: true,
 		},
 	})
-	mockResult := &storage.ClearResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.DOMStorage().Clear(&storage.ClearParams{
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.DOMStorage().Clear(&storage.ClearParams{
 		StorageID: &storage.ID{
 			SecurityOrigin: "security-origin",
 			IsLocalStorage: true,
 		},
 	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestDOMStorageDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageDisable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.DOMStorage().Disable()
 	mockResult := &storage.DisableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.DOMStorage().Disable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.DOMStorage().Disable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.DOMStorage().Disable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestDOMStorageEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageEnable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.DOMStorage().Enable()
 	mockResult := &storage.EnableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.DOMStorage().Enable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.DOMStorage().Enable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.DOMStorage().Enable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestDOMStorageGetItems(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageGetItems")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.DOMStorage().GetItems(&storage.GetItemsParams{
+	mockResult := &storage.GetItemsResult{
+		Entries: []storage.Item{{float64(1), "two"}},
+	}
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.DOMStorage().GetItems(&storage.GetItemsParams{
 		StorageID: &storage.ID{
 			SecurityOrigin: "security-origin",
 			IsLocalStorage: true,
 		},
 	})
-	mockResult := &storage.GetItemsResult{
-		Entries: []storage.Item{{float64(1), "two"}},
-	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -152,79 +110,63 @@ func TestDOMStorageGetItems(t *testing.T) {
 		t.Errorf("Expected '%s', got '%s'", mockResult.Entries[0][0], result.Entries[0][0])
 	}
 
-	resultChan = mockSocket.DOMStorage().GetItems(&storage.GetItemsParams{
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.DOMStorage().GetItems(&storage.GetItemsParams{
 		StorageID: &storage.ID{
 			SecurityOrigin: "security-origin",
 			IsLocalStorage: true,
 		},
 	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestDOMStorageRemoveItem(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageRemoveItem")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.DOMStorage().RemoveItem(&storage.RemoveItemParams{
+	mockResult := &storage.RemoveItemResult{}
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.DOMStorage().RemoveItem(&storage.RemoveItemParams{
 		StorageID: &storage.ID{
 			SecurityOrigin: "security-origin",
 			IsLocalStorage: true,
 		},
 		Key: "item-key",
 	})
-	mockResult := &storage.RemoveItemResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.DOMStorage().RemoveItem(&storage.RemoveItemParams{
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.DOMStorage().RemoveItem(&storage.RemoveItemParams{
 		StorageID: &storage.ID{
 			SecurityOrigin: "security-origin",
 			IsLocalStorage: true,
 		},
 		Key: "item-key",
 	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestDOMStorageSetItem(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageSetItem")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.DOMStorage().SetItem(&storage.SetItemParams{
+	mockResult := &storage.SetItemResult{}
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.DOMStorage().SetItem(&storage.SetItemParams{
 		StorageID: &storage.ID{
 			SecurityOrigin: "security-origin",
 			IsLocalStorage: true,
@@ -232,49 +174,37 @@ func TestDOMStorageSetItem(t *testing.T) {
 		Key:   "item-key",
 		Value: "item value",
 	})
-	mockResult := &storage.SetItemResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.DOMStorage().SetItem(&storage.SetItemParams{
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.DOMStorage().SetItem(&storage.SetItemParams{
 		StorageID: &storage.ID{
 			SecurityOrigin: "security-origin",
 			IsLocalStorage: true,
 		},
 		Key: "item-key",
 	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestDOMStorageOnItemAdded(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageOnItemAdded")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *storage.ItemAddedEvent)
-	mockSocket.DOMStorage().OnItemAdded(func(eventData *storage.ItemAddedEvent) {
+	soc.DOMStorage().OnItemAdded(func(eventData *storage.ItemAddedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &storage.ItemAddedEvent{
 		StorageID: &storage.ID{
 			SecurityOrigin: "security-origin",
@@ -283,29 +213,19 @@ func TestDOMStorageOnItemAdded(t *testing.T) {
 		Key:      "item-key",
 		NewValue: "item value",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "DOMStorage.domStorageItemAdded",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *storage.ItemAddedEvent)
-	mockSocket.DOMStorage().OnItemAdded(func(eventData *storage.ItemAddedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "DOMStorage.domStorageItemAdded",
 	})
 	result = <-resultChan
@@ -315,15 +235,18 @@ func TestDOMStorageOnItemAdded(t *testing.T) {
 }
 
 func TestDOMStorageOnItemRemoved(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageOnItemRemoved")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *storage.ItemRemovedEvent)
-	mockSocket.DOMStorage().OnItemRemoved(func(eventData *storage.ItemRemovedEvent) {
+	soc.DOMStorage().OnItemRemoved(func(eventData *storage.ItemRemovedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &storage.ItemRemovedEvent{
 		StorageID: &storage.ID{
 			SecurityOrigin: "security-origin",
@@ -331,29 +254,19 @@ func TestDOMStorageOnItemRemoved(t *testing.T) {
 		},
 		Key: "item-key",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "DOMStorage.domStorageItemRemoved",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *storage.ItemRemovedEvent)
-	mockSocket.DOMStorage().OnItemRemoved(func(eventData *storage.ItemRemovedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "DOMStorage.domStorageItemRemoved",
 	})
 	result = <-resultChan
@@ -363,15 +276,18 @@ func TestDOMStorageOnItemRemoved(t *testing.T) {
 }
 
 func TestDOMStorageOnItemUpdated(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageOnItemUpdated")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *storage.ItemUpdatedEvent)
-	mockSocket.DOMStorage().OnItemUpdated(func(eventData *storage.ItemUpdatedEvent) {
+	soc.DOMStorage().OnItemUpdated(func(eventData *storage.ItemUpdatedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &storage.ItemUpdatedEvent{
 		StorageID: &storage.ID{
 			SecurityOrigin: "security-origin",
@@ -381,29 +297,19 @@ func TestDOMStorageOnItemUpdated(t *testing.T) {
 		OldValue: "old-value",
 		NewValue: "new-value",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "DOMStorage.domStorageItemUpdated",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *storage.ItemUpdatedEvent)
-	mockSocket.DOMStorage().OnItemUpdated(func(eventData *storage.ItemUpdatedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "DOMStorage.domStorageItemUpdated",
 	})
 	result = <-resultChan
@@ -413,44 +319,37 @@ func TestDOMStorageOnItemUpdated(t *testing.T) {
 }
 
 func TestDOMStorageOnItemsCleared(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestDOMStorageOnItemsCleared")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *storage.ItemsClearedEvent)
-	mockSocket.DOMStorage().OnItemsCleared(func(eventData *storage.ItemsClearedEvent) {
+	soc.DOMStorage().OnItemsCleared(func(eventData *storage.ItemsClearedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &storage.ItemsClearedEvent{
 		StorageID: &storage.ID{
 			SecurityOrigin: "security-origin",
 			IsLocalStorage: true,
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "DOMStorage.domStorageItemsCleared",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *storage.ItemsClearedEvent)
-	mockSocket.DOMStorage().OnItemsCleared(func(eventData *storage.ItemsClearedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "DOMStorage.domStorageItemsCleared",
 	})
 	result = <-resultChan

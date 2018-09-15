@@ -1,8 +1,6 @@
 package socket
 
 import (
-	"encoding/json"
-	"net/url"
 	"testing"
 
 	"github.com/mkenney/go-chrome/tot/debugger"
@@ -11,80 +9,56 @@ import (
 )
 
 func TestProfilerDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestProfilerDisable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Profiler().Disable()
 	mockResult := &profiler.DisableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Profiler().Disable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Profiler().Disable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Profiler().Disable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestProfilerEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestProfilerEnable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Profiler().Enable()
 	mockResult := &profiler.EnableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Profiler().Enable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Profiler().Enable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Profiler().Enable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestProfilerGetBestEffortCoverage(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestProfilerGetBestEffortCoverage")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Profiler().GetBestEffortCoverage()
 	mockResult := &profiler.GetBestEffortCoverageResult{
 		Result: []*profiler.ScriptCoverage{{
 			ScriptID: runtime.ScriptID("script-id"),
@@ -100,13 +74,9 @@ func TestProfilerGetBestEffortCoverage(t *testing.T) {
 			}},
 		}},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Profiler().GetBestEffortCoverage()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -114,171 +84,115 @@ func TestProfilerGetBestEffortCoverage(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Result[0].ScriptID, result.Result[0].ScriptID)
 	}
 
-	resultChan = mockSocket.Profiler().GetBestEffortCoverage()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Profiler().GetBestEffortCoverage()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestProfilerSetSamplingInterval(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestProfilerSetSamplingInterval")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &profiler.SetSamplingIntervalParams{
 		Interval: 1,
 	}
-	resultChan := mockSocket.Profiler().SetSamplingInterval(params)
 	mockResult := &profiler.SetSamplingIntervalResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Profiler().SetSamplingInterval(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Profiler().SetSamplingInterval(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Profiler().SetSamplingInterval(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestProfilerStart(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestProfilerStart")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Profiler().Start()
 	mockResult := &profiler.StartResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Profiler().Start()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Profiler().Start()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Profiler().Start()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestProfilerStartPreciseCoverage(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestProfilerStartPreciseCoverage")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &profiler.StartPreciseCoverageParams{
 		CallCount: true,
 		Detailed:  true,
 	}
-	resultChan := mockSocket.Profiler().StartPreciseCoverage(params)
 	mockResult := &profiler.StartPreciseCoverageResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Profiler().StartPreciseCoverage(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Profiler().StartPreciseCoverage(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Profiler().StartPreciseCoverage(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestProfilerStartTypeProfile(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestProfilerStartTypeProfile")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Profiler().StartTypeProfile()
 	mockResult := &profiler.StartTypeProfileResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Profiler().StartTypeProfile()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Profiler().StartTypeProfile()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Profiler().StartTypeProfile()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestProfilerStop(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestProfilerStop")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Profiler().Stop()
 	mockResult := &profiler.StopResult{
 		Profile: &profiler.Profile{
 			Nodes: []*profiler.ProfileNode{{
@@ -298,13 +212,9 @@ func TestProfilerStop(t *testing.T) {
 			TimeDeltas: []int{1, 2},
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Profiler().Stop()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -312,96 +222,64 @@ func TestProfilerStop(t *testing.T) {
 		t.Errorf("Expected %d, got %d", mockResult.Profile.Nodes[0].ID, result.Profile.Nodes[0].ID)
 	}
 
-	resultChan = mockSocket.Profiler().Stop()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Profiler().Stop()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestProfilerStopPreciseCoverage(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestProfilerStopPreciseCoverage")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Profiler().StopPreciseCoverage()
 	mockResult := &profiler.StopPreciseCoverageResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Profiler().StopPreciseCoverage()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Profiler().StopPreciseCoverage()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Profiler().StopPreciseCoverage()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestProfilerStopTypeProfile(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestProfilerStopTypeProfile")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Profiler().StopTypeProfile()
 	mockResult := &profiler.StopTypeProfileResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Profiler().StopTypeProfile()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Profiler().StopTypeProfile()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Profiler().StopTypeProfile()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestProfilerTakePreciseCoverage(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestProfilerTakePreciseCoverage")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Profiler().TakePreciseCoverage()
 	mockResult := &profiler.TakePreciseCoverageResult{
 		Result: []*profiler.ScriptCoverage{{
 			ScriptID: runtime.ScriptID("script-id"),
@@ -417,13 +295,9 @@ func TestProfilerTakePreciseCoverage(t *testing.T) {
 			}},
 		}},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Profiler().TakePreciseCoverage()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -431,28 +305,20 @@ func TestProfilerTakePreciseCoverage(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Result[0].ScriptID, result.Result[0].ScriptID)
 	}
 
-	resultChan = mockSocket.Profiler().TakePreciseCoverage()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Profiler().TakePreciseCoverage()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestProfilerTakeTypeProfile(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestProfilerTakeTypeProfile")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Profiler().TakeTypeProfile()
 	mockResult := &profiler.TakeTypeProfileResult{
 		Result: []*profiler.ScriptTypeProfile{{
 			ScriptID: runtime.ScriptID("script-id"),
@@ -465,13 +331,9 @@ func TestProfilerTakeTypeProfile(t *testing.T) {
 			}},
 		}},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Profiler().TakeTypeProfile()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -479,31 +341,26 @@ func TestProfilerTakeTypeProfile(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.Result[0].ScriptID, result.Result[0].ScriptID)
 	}
 
-	resultChan = mockSocket.Profiler().TakeTypeProfile()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Profiler().TakeTypeProfile()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestProfilerOnConsoleProfileFinished(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestProfilerOnConsoleProfileFinished")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *profiler.ConsoleProfileFinishedEvent)
-	mockSocket.Profiler().OnConsoleProfileFinished(func(eventData *profiler.ConsoleProfileFinishedEvent) {
+	soc.Profiler().OnConsoleProfileFinished(func(eventData *profiler.ConsoleProfileFinishedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &profiler.ConsoleProfileFinishedEvent{
 		ID:       "finished-id",
 		Location: &debugger.Location{},
@@ -526,12 +383,10 @@ func TestProfilerOnConsoleProfileFinished(t *testing.T) {
 		},
 		Title: "title",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Profiler.consoleProfileFinished",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -541,17 +396,9 @@ func TestProfilerOnConsoleProfileFinished(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.ID, result.ID)
 	}
 
-	resultChan = make(chan *profiler.ConsoleProfileFinishedEvent)
-	mockSocket.Profiler().OnConsoleProfileFinished(func(eventData *profiler.ConsoleProfileFinishedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Profiler.consoleProfileFinished",
 	})
 	result = <-resultChan
@@ -561,26 +408,27 @@ func TestProfilerOnConsoleProfileFinished(t *testing.T) {
 }
 
 func TestProfilerOnConsoleProfileStarted(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestProfilerOnConsoleProfileStarted")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *profiler.ConsoleProfileStartedEvent)
-	mockSocket.Profiler().OnConsoleProfileStarted(func(eventData *profiler.ConsoleProfileStartedEvent) {
+	soc.Profiler().OnConsoleProfileStarted(func(eventData *profiler.ConsoleProfileStartedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &profiler.ConsoleProfileStartedEvent{
 		ID:       "event-id",
 		Location: &debugger.Location{},
 		Title:    "title",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Profiler.consoleProfileStarted",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -590,17 +438,9 @@ func TestProfilerOnConsoleProfileStarted(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.ID, result.ID)
 	}
 
-	resultChan = make(chan *profiler.ConsoleProfileStartedEvent)
-	mockSocket.Profiler().OnConsoleProfileStarted(func(eventData *profiler.ConsoleProfileStartedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Profiler.consoleProfileStarted",
 	})
 	result = <-resultChan

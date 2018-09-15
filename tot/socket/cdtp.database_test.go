@@ -1,91 +1,62 @@
 package socket
 
 import (
-	"encoding/json"
-	"net/url"
 	"testing"
 
 	"github.com/mkenney/go-chrome/tot/database"
 )
 
 func TestDatabaseDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestDatabaseDisable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Database().Disable()
 	mockResult := &database.DisableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Database().Disable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Database().Disable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Database().Disable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestDatabaseEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestDatabaseEnable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Database().Enable()
 	mockResult := &database.EnableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Database().Enable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Database().Enable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Database().Enable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestDatabaseExecuteSQL(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestDatabaseExecuteSQL")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Database().ExecuteSQL(&database.ExecuteSQLParams{
-		ID:    database.ID("db-id"),
-		Query: "SELECT * FROM table_name",
-	})
 	mockResult := &database.ExecuteSQLResult{
 		ColumnNames: []string{"column1", "column2"},
 		Values:      []interface{}{"value1", 2},
@@ -94,13 +65,12 @@ func TestDatabaseExecuteSQL(t *testing.T) {
 			Message: "error message",
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Database().ExecuteSQL(&database.ExecuteSQLParams{
+		ID:    database.ID("db-id"),
+		Query: "SELECT * FROM table_name",
 	})
-	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -108,43 +78,31 @@ func TestDatabaseExecuteSQL(t *testing.T) {
 		t.Errorf("Expected '%s', got '%s'", mockResult.ColumnNames[0], result.ColumnNames[0])
 	}
 
-	resultChan = mockSocket.Database().ExecuteSQL(&database.ExecuteSQLParams{
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Database().ExecuteSQL(&database.ExecuteSQLParams{
 		ID:    database.ID("db-id"),
 		Query: "SELECT * FROM table_name",
 	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestDatabaseGetTableNames(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestDatabaseGetTableNames")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Database().GetTableNames(&database.GetTableNamesParams{
-		ID: database.ID("db-id"),
-	})
 	mockResult := &database.GetTableNamesResult{
 		TableNames: []string{"table1", "table2"},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Database().GetTableNames(&database.GetTableNamesParams{
+		ID: database.ID("db-id"),
 	})
-	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -152,33 +110,28 @@ func TestDatabaseGetTableNames(t *testing.T) {
 		t.Errorf("Expected '%s', got '%s'", mockResult.TableNames[0], result.TableNames[0])
 	}
 
-	resultChan = mockSocket.Database().GetTableNames(&database.GetTableNamesParams{
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Database().GetTableNames(&database.GetTableNamesParams{
 		ID: database.ID("db-id"),
 	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestDatabaseOnAdd(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestDatabaseOnAdd")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *database.AddEvent)
-	mockSocket.Database().OnAdd(func(eventData *database.AddEvent) {
+	soc.Database().OnAdd(func(eventData *database.AddEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &database.AddEvent{
 		Database: &database.Database{
 			ID:      database.ID("db-id"),
@@ -187,29 +140,19 @@ func TestDatabaseOnAdd(t *testing.T) {
 			Version: "v1.0",
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Database.addDatabase",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *database.AddEvent)
-	mockSocket.Database().OnAdd(func(eventData *database.AddEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Database.addDatabase",
 	})
 	result = <-resultChan

@@ -1,16 +1,13 @@
 package socket
 
 import (
-	"fmt"
-
 	errs "github.com/bdlm/errors"
 	"github.com/bdlm/log"
 )
 
 /*
-Conn returns the current web socket pointer.
-
-Conn is a Conner implementation.
+Conn returns the current web socket pointer. Conn is a Conner
+implementation.
 */
 func (socket *Socket) Conn() WebSocketer {
 	socket.Connect()
@@ -18,85 +15,93 @@ func (socket *Socket) Conn() WebSocketer {
 }
 
 /*
-Connect establishes a websocket connection.
-
-Connect is a Conner implementation.
+Connect establishes a websocket connection. Connect is a Conner
+implementation.
 */
 func (socket *Socket) Connect() error {
 	socket.mux.Lock()
-	defer socket.mux.Unlock()
-
-	if socket.connected {
+	if nil != socket.conn {
+		socket.mux.Unlock()
 		return nil
 	}
+	socket.mux.Lock()
 
-	log.WithFields(log.Fields{
-		"socketID": socket.socketID,
-		"url":      socket.url.String(),
-	}).Debug("connecting")
+	socket.logger.Debug("connecting")
 	websocket, err := socket.newSocket(socket.url)
 	if nil != err {
-		log.WithFields(log.Fields{
-			"error":    err.Error(),
-			"socketID": socket.socketID,
-		}).Debug("received error")
-		socket.connected = false
+		socket.logger.WithFields(log.Fields{"error": err.Error()}).
+			Debug("received error")
+		socket.mux.Lock()
+		socket.conn = nil
+		socket.mux.Unlock()
 		return errs.Wrap(err, 0, "Connect() failed while creating socket")
 	}
-
+	socket.mux.Lock()
 	socket.conn = websocket
-	socket.connected = true
+	socket.mux.Unlock()
 
-	log.WithFields(log.Fields{
-		"socketID": socket.socketID,
-		"url":      socket.url.String(),
-	}).Debug("connection established")
+	socket.logger.Debug("connection established")
+
+	// launch the connection circuit breaker
+	go func() {
+		<-socket.disconnect
+		success := true
+		socket.mux.Lock()
+		if nil == socket.conn {
+			socket.mux.Unlock()
+			socket.logger.Warn("disconnect requested on nil connection")
+		} else {
+			socket.mux.Unlock()
+			err := socket.conn.Close()
+			if nil != err {
+				success = false
+			}
+			socket.mux.Lock()
+			socket.conn = nil
+			socket.mux.Unlock()
+		}
+		socket.disconnect <- success
+
+	}()
 	return nil
 }
 
 /*
-Connected returns whether a connection exists.
-
-Connected is a Conner implementation.
+Connected returns whether a connection exists. Connected is a Conner
+implementation.
 */
 func (socket *Socket) Connected() bool {
-	return socket.connected
+	socket.mux.Lock()
+	connected := nil != socket.conn
+	socket.mux.Unlock()
+	return connected
 }
 
 /*
-Disconnect closes a websocket connection.
-
-Disconnect is a Conner implementation.
+Disconnect closes a websocket connection. Disconnect is a Conner
+implementation.
 */
 func (socket *Socket) Disconnect() error {
-	if !socket.connected {
-		return fmt.Errorf("not connected")
+	socket.disconnect <- true
+	if !<-socket.disconnect {
+		return errs.New(0, "error disconnecting socket connection")
 	}
-	socket.Stop()
-	err := socket.conn.Close()
-	if nil != err {
-		socket.listenErr.With(err, "could not close socket connection")
-	}
-	socket.conn = nil
-	socket.connected = false
-	if 0 == len(socket.listenErr) {
-		return nil
-	}
-	return socket.listenErr
+	return nil
 }
 
 /*
-ReadJSON reads data from a websocket connection.
-
-ReadJSON is a Conner implementation.
+ReadJSON reads data from a websocket connection. ReadJSON is a Conner
+implementation.
 */
 func (socket *Socket) ReadJSON(v interface{}) error {
-	err := socket.Connect()
-	if nil != err {
-		return errs.Wrap(err, 0, "not connected")
+	socket.mux.Lock()
+	if nil == socket.conn {
+		socket.mux.Unlock()
+		return errs.New(0, "not connected")
 	}
+	socket.mux.Unlock()
 
-	err = socket.conn.ReadJSON(&v)
+	err := socket.conn.ReadJSON(&v)
 	if nil != err {
 		return errs.Wrap(err, 0, "socket read failed")
 	}
@@ -105,17 +110,18 @@ func (socket *Socket) ReadJSON(v interface{}) error {
 }
 
 /*
-WriteJSON writes data to a websocket connection.
-
-WriteJSON is a Conner implementation.
+WriteJSON writes data to a websocket connection. WriteJSON is a Conner
+implementation.
 */
 func (socket *Socket) WriteJSON(v interface{}) error {
-	err := socket.Connect()
-	if nil != err {
-		return errs.Wrap(err, 0, "not connected")
+	socket.mux.Lock()
+	if nil == socket.conn {
+		socket.mux.Unlock()
+		return errs.New(0, "not connected")
 	}
+	socket.mux.Unlock()
 
-	err = socket.conn.WriteJSON(v)
+	err := socket.conn.WriteJSON(v)
 	if nil != err {
 		return errs.Wrap(err, 0, "socket write failed")
 	}

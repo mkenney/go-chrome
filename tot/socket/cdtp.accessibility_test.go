@@ -2,7 +2,6 @@ package socket
 
 import (
 	"encoding/json"
-	"net/url"
 	"testing"
 
 	"github.com/mkenney/go-chrome/tot/accessibility"
@@ -10,24 +9,20 @@ import (
 )
 
 func TestAccessibilityGetPartialAXTree(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestAccessibilityGetPartialAXTree")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer func() { chrome.Close() }()
+	soc := New(chrome.URL)
+	defer func() { soc.Stop() }()
 
 	params := &accessibility.PartialAXTreeParams{
 		NodeID:         dom.NodeID(1),
 		FetchRelatives: true,
 	}
-	resultChan := mockSocket.Accessibility().GetPartialAXTree(params)
-	mockResult := accessibility.PartialAXTreeResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+	mockResult := &accessibility.PartialAXTreeResult{}
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Accessibility().GetPartialAXTree(params)
 	if nil != result.Err {
 		t.Errorf("Expected success, got error: %s", result.Err)
 	}
@@ -36,8 +31,7 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 		t.Errorf("Expected empty set, got '%s'", tmp)
 	}
 
-	resultChan = mockSocket.Accessibility().GetPartialAXTree(params)
-	mockResult = accessibility.PartialAXTreeResult{
+	mockResult = &accessibility.PartialAXTreeResult{
 		Nodes: []*accessibility.AXNode{{
 			NodeID:  accessibility.AXNodeID("NodeID"),
 			Ignored: false,
@@ -73,13 +67,8 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 			BackendDOMNodeID: dom.BackendNodeID(1),
 		}},
 	}
-	mockResultBytes, _ = json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result = <-soc.Accessibility().GetPartialAXTree(params)
 	if nil != result.Err {
 		t.Errorf("Expected success, got error: %s", result.Err)
 	}
@@ -88,16 +77,8 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 		t.Errorf("Expected dataset, got '%s'", tmp)
 	}
 
-	resultChan = mockSocket.Accessibility().GetPartialAXTree(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Accessibility().GetPartialAXTree(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}

@@ -1,102 +1,81 @@
 package socket
 
 import (
-	"encoding/json"
-	"net/url"
 	"testing"
 
-	"github.com/bdlm/log"
 	cacheStorage "github.com/mkenney/go-chrome/tot/cache/storage"
 )
 
-func init() {
-	level, err := log.ParseLevel("debug")
-	if nil == err {
-		log.SetLevel(level)
-	}
-}
-
 func TestCacheStorageDeleteCache(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestCacheStorageDeleteCache")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.CacheStorage().DeleteCache(&cacheStorage.DeleteCacheParams{
+	mockResult := MockData{
+		0,
+		&Error{},
+		nil,
+		"",
+	}
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.CacheStorage().DeleteCache(&cacheStorage.DeleteCacheParams{
 		CacheID: cacheStorage.CacheID("cache-id"),
 	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-	})
-	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.CacheStorage().DeleteCache(&cacheStorage.DeleteCacheParams{
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.CacheStorage().DeleteCache(&cacheStorage.DeleteCacheParams{
 		CacheID: cacheStorage.CacheID("cache-id"),
 	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestCacheStorageDeleteEntry(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestCacheStorageDeleteEntry")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.CacheStorage().DeleteEntry(&cacheStorage.DeleteEntryParams{
+	mockResult := MockData{
+		0,
+		&Error{},
+		nil,
+		"",
+	}
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.CacheStorage().DeleteEntry(&cacheStorage.DeleteEntryParams{
 		CacheID: cacheStorage.CacheID("cache-id"),
 		Request: "request",
 	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
-	})
-	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.CacheStorage().DeleteEntry(&cacheStorage.DeleteEntryParams{
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.CacheStorage().DeleteEntry(&cacheStorage.DeleteEntryParams{
 		CacheID: cacheStorage.CacheID("cache-id"),
 		Request: "request",
 	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestCacheStorageRequestCacheNames(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestCacheStorageRequestCacheNames")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.CacheStorage().RequestCacheNames(&cacheStorage.RequestCacheNamesParams{
-		SecurityOrigin: "security-origin",
-	})
 	mockResult := &cacheStorage.RequestCacheNamesResult{
 		Caches: []*cacheStorage.Cache{{
 			CacheID:        cacheStorage.CacheID("cache-id"),
@@ -104,13 +83,16 @@ func TestCacheStorageRequestCacheNames(t *testing.T) {
 			CacheName:      "cache-name",
 		}},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
+
+	chrome.AddData(MockData{
+		0,
+		&Error{},
+		mockResult,
+		"",
 	})
-	result := <-resultChan
+	result := <-soc.CacheStorage().RequestCacheNames(&cacheStorage.RequestCacheNamesParams{
+		SecurityOrigin: "security-origin",
+	})
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -122,45 +104,38 @@ func TestCacheStorageRequestCacheNames(t *testing.T) {
 		)
 	}
 
-	resultChan = mockSocket.CacheStorage().RequestCacheNames(&cacheStorage.RequestCacheNamesParams{
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.CacheStorage().RequestCacheNames(&cacheStorage.RequestCacheNamesParams{
 		SecurityOrigin: "security-origin",
 	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestCacheStorageRequestCachedResponse(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestCacheStorageRequestCachedResponse")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.CacheStorage().RequestCachedResponse(&cacheStorage.RequestCachedResponseParams{
-		CacheID:    cacheStorage.CacheID("security-origin"),
-		RequestURL: mockSocket.URL().String(),
-	})
 	mockResult := &cacheStorage.RequestCachedResponseResult{
 		Response: &cacheStorage.CachedResponse{
 			Body: "body",
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
+
+	chrome.AddData(MockData{
+		0,
+		&Error{},
+		mockResult,
+		"",
 	})
-	result := <-resultChan
+	result := <-soc.CacheStorage().RequestCachedResponse(&cacheStorage.RequestCachedResponseParams{
+		CacheID:    cacheStorage.CacheID("security-origin"),
+		RequestURL: soc.URL().String(),
+	})
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -172,38 +147,26 @@ func TestCacheStorageRequestCachedResponse(t *testing.T) {
 		)
 	}
 
-	resultChan = mockSocket.CacheStorage().RequestCachedResponse(&cacheStorage.RequestCachedResponseParams{
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.CacheStorage().RequestCachedResponse(&cacheStorage.RequestCachedResponseParams{
 		CacheID:    cacheStorage.CacheID("security-origin"),
-		RequestURL: mockSocket.URL().String(),
+		RequestURL: soc.URL().String(),
 	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestCacheStorageRequestEntries(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestCacheStorageRequestEntries")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.CacheStorage().RequestEntries(&cacheStorage.RequestEntriesParams{
-		CacheID:   cacheStorage.CacheID("security-origin"),
-		SkipCount: 1,
-		PageSize:  1,
-	})
 	mockResult := &cacheStorage.RequestEntriesResult{
 		CacheDataEntries: []*cacheStorage.DataEntry{{
-			RequestURL:    mockSocket.URL().String(),
+			RequestURL:    soc.URL().String(),
 			RequestMethod: "POST",
 			RequestHeaders: []*cacheStorage.Header{{
 				Name:  "Header",
@@ -219,13 +182,18 @@ func TestCacheStorageRequestEntries(t *testing.T) {
 		}},
 		HasMore: true,
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
+
+	chrome.AddData(MockData{
+		0,
+		&Error{},
+		mockResult,
+		"",
 	})
-	result := <-resultChan
+	result := <-soc.CacheStorage().RequestEntries(&cacheStorage.RequestEntriesParams{
+		CacheID:   cacheStorage.CacheID("security-origin"),
+		SkipCount: 1,
+		PageSize:  1,
+	})
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -237,20 +205,12 @@ func TestCacheStorageRequestEntries(t *testing.T) {
 		)
 	}
 
-	resultChan = mockSocket.CacheStorage().RequestEntries(&cacheStorage.RequestEntriesParams{
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.CacheStorage().RequestEntries(&cacheStorage.RequestEntriesParams{
 		CacheID:   cacheStorage.CacheID("security-origin"),
 		SkipCount: 1,
 		PageSize:  1,
 	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}

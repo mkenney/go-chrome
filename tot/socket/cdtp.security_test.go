@@ -1,214 +1,153 @@
 package socket
 
 import (
-	"encoding/json"
-	"net/url"
 	"testing"
 
 	"github.com/mkenney/go-chrome/tot/security"
 )
 
 func TestSecurityDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestSecurityDisable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Security().Disable()
 	mockResult := &security.DisableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Security().Disable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Security().Disable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Security().Disable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestSecurityEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestSecurityEnable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Security().Enable()
 	mockResult := &security.EnableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Security().Enable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Security().Enable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Security().Enable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestSecurityHandleCertificateError(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestSecurityHandleCertificateError")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &security.HandleCertificateErrorParams{
 		EventID: 1,
 		Action:  security.CertificateErrorAction.Continue,
 	}
-	resultChan := mockSocket.Security().HandleCertificateError(params)
 	mockResult := &security.HandleCertificateErrorResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Security().HandleCertificateError(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Security().HandleCertificateError(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Security().HandleCertificateError(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestSecuritySetIgnoreCertificateErrors(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestSecuritySetIgnoreCertificateErrors")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &security.SetIgnoreCertificateErrorsParams{
 		Ignore: true,
 	}
-	resultChan := mockSocket.Security().SetIgnoreCertificateErrors(params)
 	mockResult := &security.SetIgnoreCertificateErrorsResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Security().SetIgnoreCertificateErrors(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Security().SetIgnoreCertificateErrors(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Security().SetIgnoreCertificateErrors(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestSecuritySetOverrideCertificateErrors(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestSecuritySetOverrideCertificateErrors")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &security.SetOverrideCertificateErrorsParams{
 		Override: true,
 	}
-	resultChan := mockSocket.Security().SetOverrideCertificateErrors(params)
 	mockResult := &security.SetOverrideCertificateErrorsResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Security().SetOverrideCertificateErrors(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.Security().SetOverrideCertificateErrors(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Security().SetOverrideCertificateErrors(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestSecurityOnCertificateError(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestSecurityOnCertificateError")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *security.CertificateErrorEvent)
-	mockSocket.Security().OnCertificateError(func(eventData *security.CertificateErrorEvent) {
+	soc.Security().OnCertificateError(func(eventData *security.CertificateErrorEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &security.CertificateErrorEvent{
 		EventID:    1,
 		ErrorType:  "error-type",
 		RequestURL: "http://some.url",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Security.certificateError",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -218,17 +157,9 @@ func TestSecurityOnCertificateError(t *testing.T) {
 		t.Errorf("Expected %d, got %d", mockResult.EventID, result.EventID)
 	}
 
-	resultChan = make(chan *security.CertificateErrorEvent)
-	mockSocket.Security().OnCertificateError(func(eventData *security.CertificateErrorEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Security.certificateError",
 	})
 	result = <-resultChan
@@ -238,17 +169,20 @@ func TestSecurityOnCertificateError(t *testing.T) {
 }
 
 func TestSecurityOnSecurityStateChanged(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestSecurityOnSecurityStateChanged")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *security.StateChangedEvent)
-	mockSocket.Security().OnSecurityStateChanged(func(eventData *security.StateChangedEvent) {
+	soc.Security().OnSecurityStateChanged(func(eventData *security.StateChangedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &security.StateChangedEvent{
-		State: security.State.Unknown,
+		State:                 security.State.Unknown,
 		SchemeIsCryptographic: true,
 		Explanations: []*security.StateExplanation{{
 			State:            security.State.Unknown,
@@ -268,12 +202,10 @@ func TestSecurityOnSecurityStateChanged(t *testing.T) {
 		},
 		Summary: "summary",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "Security.securityStateChanged",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
@@ -283,17 +215,9 @@ func TestSecurityOnSecurityStateChanged(t *testing.T) {
 		t.Errorf("Expected %s, got %s", mockResult.State, result.State)
 	}
 
-	resultChan = make(chan *security.StateChangedEvent)
-	mockSocket.Security().OnSecurityStateChanged(func(eventData *security.StateChangedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "Security.securityStateChanged",
 	})
 	result = <-resultChan

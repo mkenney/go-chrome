@@ -1,26 +1,26 @@
 package socket
 
 import (
-	"net/url"
 	"testing"
 )
 
 func TestConner(t *testing.T) {
 	var err error
-	socketURL, _ := url.Parse("http://test:9222/TestConner")
-	socket := NewMock(socketURL)
 
-	err = socket.Connect()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
+
+	err = soc.Connect()
 	if nil != err {
 		t.Errorf("Expected nil, got error: '%s'", err.Error())
 	}
 
-	if !socket.Connected() {
+	if !soc.Connected() {
 		t.Errorf("Expected true, got false")
 	}
 
-	err = socket.Disconnect()
-	if nil != err {
-		t.Errorf("Expected nil, got error: '%s'", err.Error())
-	}
+	soc.Disconnect()
 }

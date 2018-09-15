@@ -1,8 +1,6 @@
 package socket
 
 import (
-	"encoding/json"
-	"net/url"
 	"testing"
 
 	"github.com/mkenney/go-chrome/tot/dom"
@@ -11,82 +9,56 @@ import (
 )
 
 func TestDOMSnapshotDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestDOMSnapshotDisable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.DOMSnapshot().Disable()
 	mockResult := &snapshot.DisableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.DOMSnapshot().Disable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.DOMSnapshot().Disable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.DOMSnapshot().Disable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestDOMSnapshotEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestDOMSnapshotEnable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.DOMSnapshot().Enable()
 	mockResult := &snapshot.EnableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.DOMSnapshot().Enable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.DOMSnapshot().Enable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.DOMSnapshot().Enable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestDOMSnapshotGet(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestDOMSnapshotGet")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.DOMSnapshot().Get(&snapshot.GetParams{
-		ComputedStyleWhitelist: []string{"one", "two"},
-	})
 	mockResult := &snapshot.GetResult{
 		DOMNodes: []*snapshot.DOMNode{{
 			NodeType:              1,
@@ -142,13 +114,11 @@ func TestDOMSnapshotGet(t *testing.T) {
 			}},
 		}},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.DOMSnapshot().Get(&snapshot.GetParams{
+		ComputedStyleWhitelist: []string{"one", "two"},
 	})
-	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -156,18 +126,10 @@ func TestDOMSnapshotGet(t *testing.T) {
 		t.Errorf("Expected '%d', got '%d'", mockResult.DOMNodes[0].NodeType, result.DOMNodes[0].NodeType)
 	}
 
-	resultChan = mockSocket.DOMSnapshot().Get(&snapshot.GetParams{
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.DOMSnapshot().Get(&snapshot.GetParams{
 		ComputedStyleWhitelist: []string{"one", "two"},
 	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}

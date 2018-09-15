@@ -35,9 +35,6 @@ Add is an EventHandlerMapper implementation.
 func (stack *EventHandlerMap) Add(
 	handler EventHandler,
 ) error {
-	stack.Lock()
-	defer stack.Unlock()
-
 	handlers, err := stack.Get(handler.Name())
 	if nil != err {
 		handlers = make([]EventHandler, 0)
@@ -64,7 +61,9 @@ Delete is an EventHandlerMapper implementation.
 func (stack *EventHandlerMap) Delete(
 	name string,
 ) {
+	stack.Lock()
 	delete(stack.stack, name)
+	stack.Unlock()
 }
 
 /*
@@ -75,6 +74,8 @@ Get is an EventHandlerMapper implementation.
 func (stack *EventHandlerMap) Get(
 	name string,
 ) ([]EventHandler, error) {
+	stack.Lock()
+	defer stack.Unlock()
 	if handlers, ok := stack.stack[name]; ok {
 		return handlers, nil
 	}
@@ -119,7 +120,9 @@ func (stack *EventHandlerMap) Set(
 	eventName string,
 	handlers []EventHandler,
 ) {
+	stack.Lock()
 	stack.stack[eventName] = handlers
+	stack.Unlock()
 }
 
 /*

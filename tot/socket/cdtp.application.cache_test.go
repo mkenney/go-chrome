@@ -1,8 +1,6 @@
 package socket
 
 import (
-	"encoding/json"
-	"net/url"
 	"testing"
 	"time"
 
@@ -11,44 +9,39 @@ import (
 )
 
 func TestApplicationCacheEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestApplicationCacheEnable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.ApplicationCache().Enable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: nil,
-	})
-	result := <-resultChan
+	mockResult := MockData{
+		0,
+		&Error{},
+		nil,
+		"",
+	}
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.ApplicationCache().Enable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.ApplicationCache().Enable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.ApplicationCache().Enable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 func TestApplicationCacheGetForFrame(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestApplicationCacheGetForFrame")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	mockParams := &application_cache.GetForFrameParams{FrameID: page.FrameID("mock-frame-id")}
-	resultChan := mockSocket.ApplicationCache().GetForFrame(mockParams)
 	mockResult := &application_cache.GetForFrameResult{
 		ApplicationCache: &application_cache.ApplicationCache{
 			ManifestURL:  "http://example.com/manifest",
@@ -62,16 +55,9 @@ func TestApplicationCacheGetForFrame(t *testing.T) {
 			}},
 		},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockParamsBytes, _ := json.Marshal(mockParams)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:    mockSocket.CurCommandID(),
-		Error: &Error{},
 
-		Params: mockParamsBytes,
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.ApplicationCache().GetForFrame(mockParams)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -83,28 +69,20 @@ func TestApplicationCacheGetForFrame(t *testing.T) {
 		)
 	}
 
-	resultChan = mockSocket.ApplicationCache().GetForFrame(mockParams)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.ApplicationCache().GetForFrame(mockParams)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestApplicationCacheGetFramesWithManifests(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestApplicationCacheGetFramesWithManifests")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.ApplicationCache().GetFramesWithManifests()
 	mockResult := &application_cache.GetFramesWithManifestsResult{
 		FrameIDs: []*application_cache.FrameWithManifest{{
 			FrameID:     page.FrameID(1),
@@ -112,13 +90,9 @@ func TestApplicationCacheGetFramesWithManifests(t *testing.T) {
 			Status:      1,
 		}},
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.ApplicationCache().GetFramesWithManifests()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -130,40 +104,28 @@ func TestApplicationCacheGetFramesWithManifests(t *testing.T) {
 		)
 	}
 
-	resultChan = mockSocket.ApplicationCache().GetFramesWithManifests()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.ApplicationCache().GetFramesWithManifests()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestApplicationCacheGetManifestForFrame(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestApplicationCacheGetManifestForFrame")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.ApplicationCache().GetManifestForFrame(&application_cache.GetManifestForFrameParams{
-		FrameID: page.FrameID("mock-frame-id"),
-	})
 	mockResult := &application_cache.GetManifestForFrameResult{
 		ManifestURL: "http://example.com/manifest",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.ApplicationCache().GetManifestForFrame(&application_cache.GetManifestForFrameParams{
+		FrameID: page.FrameID("mock-frame-id"),
 	})
-	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -175,44 +137,38 @@ func TestApplicationCacheGetManifestForFrame(t *testing.T) {
 		)
 	}
 
-	resultChan = mockSocket.ApplicationCache().GetManifestForFrame(&application_cache.GetManifestForFrameParams{
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.ApplicationCache().GetManifestForFrame(&application_cache.GetManifestForFrameParams{
 		FrameID: page.FrameID("mock-frame-id"),
 	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestApplicationCacheOnApplicationCacheStatusUpdated(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestApplicationCacheOnApplicationCacheStatusUpdated")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *application_cache.StatusUpdatedEvent)
-	mockSocket.ApplicationCache().OnApplicationCacheStatusUpdated(func(eventData *application_cache.StatusUpdatedEvent) {
+	soc.ApplicationCache().OnApplicationCacheStatusUpdated(func(eventData *application_cache.StatusUpdatedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &application_cache.StatusUpdatedEvent{
 		FrameID:     page.FrameID("mock-frame-id"),
 		ManifestURL: "http://example.com/manifest",
 		Status:      1,
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
-		Method: "ApplicationCache.applicationCacheStatusUpdated",
-		Params: mockResultBytes,
+	chrome.AddData(MockData{
+		0,
+		&Error{},
+		mockResult,
+		"ApplicationCache.applicationCacheStatusUpdated",
 	})
 	result := <-resultChan
 	if result.ManifestURL != mockResult.ManifestURL {
@@ -223,18 +179,11 @@ func TestApplicationCacheOnApplicationCacheStatusUpdated(t *testing.T) {
 		)
 	}
 
-	resultChan = make(chan *application_cache.StatusUpdatedEvent)
-	mockSocket.ApplicationCache().OnApplicationCacheStatusUpdated(func(eventData *application_cache.StatusUpdatedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-		Method: "ApplicationCache.applicationCacheStatusUpdated",
+	chrome.AddData(MockData{
+		0,
+		genericError,
+		nil,
+		"ApplicationCache.applicationCacheStatusUpdated",
 	})
 	result = <-resultChan
 	if nil == result.Err {
@@ -243,24 +192,25 @@ func TestApplicationCacheOnApplicationCacheStatusUpdated(t *testing.T) {
 }
 
 func TestApplicationCacheOnNetworkStateUpdated(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestApplicationCacheOnNetworkStateUpdated")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *application_cache.NetworkStateUpdatedEvent)
-	mockSocket.ApplicationCache().OnNetworkStateUpdated(func(eventData *application_cache.NetworkStateUpdatedEvent) {
+	soc.ApplicationCache().OnNetworkStateUpdated(func(eventData *application_cache.NetworkStateUpdatedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &application_cache.NetworkStateUpdatedEvent{
 		IsNowOnline: true,
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "ApplicationCache.networkStateUpdated",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if result.IsNowOnline != mockResult.IsNowOnline {
@@ -271,17 +221,9 @@ func TestApplicationCacheOnNetworkStateUpdated(t *testing.T) {
 		)
 	}
 
-	resultChan = make(chan *application_cache.NetworkStateUpdatedEvent)
-	mockSocket.ApplicationCache().OnNetworkStateUpdated(func(eventData *application_cache.NetworkStateUpdatedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "ApplicationCache.networkStateUpdated",
 	})
 	result = <-resultChan

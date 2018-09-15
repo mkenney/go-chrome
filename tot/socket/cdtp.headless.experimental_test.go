@@ -1,8 +1,6 @@
 package socket
 
 import (
-	"encoding/json"
-	"net/url"
 	"testing"
 	"time"
 
@@ -11,10 +9,11 @@ import (
 )
 
 func TestHeadlessExperimentalBeginFrame(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalBeginFrame")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	params := &experimental.BeginFrameParams{
 		FrameTime: runtime.Timestamp(time.Now().Unix()),
@@ -25,19 +24,14 @@ func TestHeadlessExperimentalBeginFrame(t *testing.T) {
 			Quality: 100,
 		},
 	}
-	resultChan := mockSocket.HeadlessExperimental().BeginFrame(params)
 	mockResult := &experimental.BeginFrameResult{
 		HasDamage:               true,
 		MainFrameContentUpdated: true,
 		ScreenshotData:          "data",
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.HeadlessExperimental().BeginFrame(params)
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -45,123 +39,84 @@ func TestHeadlessExperimentalBeginFrame(t *testing.T) {
 		t.Errorf("Expected %v, got %v", mockResult.HasDamage, result.HasDamage)
 	}
 
-	resultChan = mockSocket.HeadlessExperimental().BeginFrame(params)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.HeadlessExperimental().BeginFrame(params)
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestHeadlessExperimentalDisable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalDisable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.HeadlessExperimental().Disable()
 	mockResult := &experimental.DisableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.HeadlessExperimental().Disable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.HeadlessExperimental().Disable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.HeadlessExperimental().Disable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestHeadlessExperimentalEnable(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalEnable")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.HeadlessExperimental().Enable()
 	mockResult := &experimental.EnableResult{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
-	})
-	result := <-resultChan
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.HeadlessExperimental().Enable()
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
 
-	resultChan = mockSocket.HeadlessExperimental().Enable()
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.HeadlessExperimental().Enable()
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
 }
 
 func TestHeadlessExperimentalOnMainFrameReadyForScreenshots(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalOnMainFrameReadyForScreenshots")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *experimental.MainFrameReadyForScreenshotsEvent)
-	mockSocket.HeadlessExperimental().OnMainFrameReadyForScreenshots(func(eventData *experimental.MainFrameReadyForScreenshotsEvent) {
+	soc.HeadlessExperimental().OnMainFrameReadyForScreenshots(func(eventData *experimental.MainFrameReadyForScreenshotsEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &experimental.MainFrameReadyForScreenshotsEvent{}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "HeadlessExperimental.mainFrameReadyForScreenshots",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *experimental.MainFrameReadyForScreenshotsEvent)
-	mockSocket.HeadlessExperimental().OnMainFrameReadyForScreenshots(func(eventData *experimental.MainFrameReadyForScreenshotsEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "HeadlessExperimental.mainFrameReadyForScreenshots",
 	})
 	result = <-resultChan
@@ -171,41 +126,34 @@ func TestHeadlessExperimentalOnMainFrameReadyForScreenshots(t *testing.T) {
 }
 
 func TestHeadlessExperimentalOnNeedsBeginFramesChanged(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalOnNeedsBeginFramesChanged")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	chrome.IgnoreInput = true
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
 	resultChan := make(chan *experimental.NeedsBeginFramesChangedEvent)
-	mockSocket.HeadlessExperimental().OnNeedsBeginFramesChanged(func(eventData *experimental.NeedsBeginFramesChangedEvent) {
+	soc.HeadlessExperimental().OnNeedsBeginFramesChanged(func(eventData *experimental.NeedsBeginFramesChangedEvent) {
 		resultChan <- eventData
 	})
+
 	mockResult := &experimental.NeedsBeginFramesChangedEvent{
 		NeedsBeginFrames: true,
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     0,
-		Error:  &Error{},
+	chrome.AddData(MockData{
+		Err:    &Error{},
+		Result: mockResult,
 		Method: "HeadlessExperimental.needsBeginFramesChanged",
-		Params: mockResultBytes,
 	})
 	result := <-resultChan
 	if mockResult.Err != result.Err {
 		t.Errorf("Expected '%v', got: '%v'", mockResult, result)
 	}
 
-	resultChan = make(chan *experimental.NeedsBeginFramesChangedEvent)
-	mockSocket.HeadlessExperimental().OnNeedsBeginFramesChanged(func(eventData *experimental.NeedsBeginFramesChangedEvent) {
-		resultChan <- eventData
-	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: 0,
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
+	chrome.AddData(MockData{
+		Err:    genericError,
+		Result: nil,
 		Method: "HeadlessExperimental.needsBeginFramesChanged",
 	})
 	result = <-resultChan

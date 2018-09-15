@@ -1,8 +1,6 @@
 package socket
 
 import (
-	"encoding/json"
-	"net/url"
 	"testing"
 
 	audits "github.com/mkenney/go-chrome/tot/audits"
@@ -10,29 +8,25 @@ import (
 )
 
 func TestAuditsGetEncodedResponse(t *testing.T) {
-	socketURL, _ := url.Parse("https://test:9222/TestAuditsGetEncodedResponse")
-	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
-	defer mockSocket.Stop()
+	chrome := NewMockChrome()
+	chrome.ListenAndServe()
+	defer chrome.Close()
+	soc := New(chrome.URL)
+	defer soc.Stop()
 
-	resultChan := mockSocket.Audits().GetEncodedResponse(&audits.GetEncodedResponseParams{
-		RequestID: network.RequestID("audit-id"),
-		Encoding:  audits.Encoding.Webp,
-		Quality:   1,
-		SizeOnly:  true,
-	})
 	mockResult := &audits.GetEncodedResponseResult{
 		Body:         "Response body",
 		OriginalSize: 1,
 		EncodedSize:  2,
 	}
-	mockResultBytes, _ := json.Marshal(mockResult)
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID:     mockSocket.CurCommandID(),
-		Error:  &Error{},
-		Result: mockResultBytes,
+
+	chrome.AddData(MockData{0, &Error{}, mockResult, ""})
+	result := <-soc.Audits().GetEncodedResponse(&audits.GetEncodedResponseParams{
+		RequestID: network.RequestID("audit-id"),
+		Encoding:  audits.Encoding.Webp,
+		Quality:   1,
+		SizeOnly:  true,
 	})
-	result := <-resultChan
 	if nil != result.Err {
 		t.Errorf("Expected nil, got error: '%s'", result.Err.Error())
 	}
@@ -44,21 +38,13 @@ func TestAuditsGetEncodedResponse(t *testing.T) {
 		)
 	}
 
-	resultChan = mockSocket.Audits().GetEncodedResponse(&audits.GetEncodedResponseParams{
+	chrome.AddData(MockData{0, genericError, nil, ""})
+	result = <-soc.Audits().GetEncodedResponse(&audits.GetEncodedResponseParams{
 		RequestID: network.RequestID("audit-id"),
 		Encoding:  audits.Encoding.Webp,
 		Quality:   1,
 		SizeOnly:  true,
 	})
-	mockSocket.Conn().(*MockChromeWebSocket).AddMockData(&Response{
-		ID: mockSocket.CurCommandID(),
-		Error: &Error{
-			Code:    1,
-			Data:    []byte(`"error data"`),
-			Message: "error message",
-		},
-	})
-	result = <-resultChan
 	if nil == result.Err {
 		t.Errorf("Expected error, got success")
 	}
