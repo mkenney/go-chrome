@@ -7,6 +7,8 @@ git:
     quiet: true
     submodules: false
 
+install: true
+
 branches:
     only:
         - master
@@ -20,7 +22,6 @@ go:
     - 1.9.x
     - 1.10.x
     - tip
-install: false
 
 script:
     - ./.travis.sh
