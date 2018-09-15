@@ -233,7 +233,7 @@ func (chrome *MockChrome) Query(
 	if len(params) > 0 {
 		path += fmt.Sprintf("?%s", params.Encode())
 	}
-	log.Debugf("chrome:/%s %s", path)
+	log.Debugf("chrome:/%s", path)
 	return msg, nil
 }
 

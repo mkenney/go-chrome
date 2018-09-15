@@ -299,7 +299,7 @@ func (chrome *Chrome) Query(
 	log.WithFields(log.Fields{
 		"path":   path,
 		"status": resp.Status,
-	}).Debug("querying chrome:/%s %s", path, resp.Status)
+	}).Debug("querying chrome")
 	if 200 != resp.StatusCode {
 		return nil, errs.New(0, resp.Status)
 	}
