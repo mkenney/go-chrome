@@ -7,18 +7,18 @@ git:
     quiet: true
     submodules: false
 
+install: true
+
 branches:
     only:
         - master
-
-services:
-    - docker
 
 language: go
 go_import_path: github.com/mkenney/go-chrome
 go:
     - 1.9.x
     - 1.10.x
+    - 1.11.x
     - tip
 
 

@@ -1,8 +1,40 @@
 #!/bin/sh
 set -e
-docker pull golang:1.10-alpine
-docker run \
-    --rm \
-    -v $(pwd):/go/src/github.com/mkenney/go-chrome \
-    --entrypoint="/go/src/github.com/mkenney/go-chrome/.travis.entrypoint.sh" \
-    golang:1.10-alpine
+
+exit_code=0
+
+go get -v github.com/golang/lint/golint
+[ "0" = "$?" ] || exit 1
+
+go get -u github.com/golang/dep/cmd/dep
+[ "0" = "$?" ] || exit 2
+
+dep ensure
+[ "0" = "$?" ] || exit 3
+
+for dir in $(go list ./... | grep -v vendor); do
+    echo "golint $dir"
+    result=$(golint $dir)
+    if [ "" != "$result" ]; then
+        echo $result
+        exit_code=5
+    fi
+    if [ "0" != "$exit_code" ]; then
+        exit $exit_code
+    fi
+done
+
+rm -f coverage.txt
+for dir in $(go list ./... | grep -v vendor); do
+    GOCACHE=off go test -timeout 300s -coverprofile=profile.out $dir
+    exit_code=$?
+    if [ "0" != "$exit_code" ]; then
+        exit $exit_code
+    fi
+    if [ -f profile.out ]; then
+        cat profile.out >> coverage.txt
+        rm profile.out
+    fi
+done
+
+exit $exit_code
