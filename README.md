@@ -23,6 +23,14 @@ This implementation is based on the [Tip-of-Tree](https://chromedevtools.github.
 
 # Announcements
 
+## v1.0.0-rc5 released
+
+[`v1.0.0-rc5`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc5) has been released.
+
+* Fixes a `dep` issue with transitive dependencies
+
+Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
+
 ## v1.0.0-rc4 released
 
 [`v1.0.0-rc4`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc4) has been released.
