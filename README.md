@@ -47,6 +47,12 @@ Contributions of any kind are very welcome!
 
 Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
 
+```toml
+[[constraint]]
+  name = "github.com/mkenney/go-chrome"
+  version = "1.0.0-rc5"
+```
+
 ## v1.0.0-rc4 released
 
 [`v1.0.0-rc4`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc4) has been released.
@@ -56,6 +62,12 @@ Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) t
 
 Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
 
+```toml
+[[constraint]]
+  name = "github.com/mkenney/go-chrome"
+  version = "1.0.0-rc4"
+```
+
 ## v1.0.0-rc3 released
 
 [`v1.0.0-rc3`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc3) has been released.
@@ -63,6 +75,12 @@ Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) t
 * Fixes an issue with an upstream dependency
 
 Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
+
+```toml
+[[constraint]]
+  name = "github.com/mkenney/go-chrome"
+  version = "1.0.0-rc3"
+```
 
 ## v1.0.0-rc2 released
 
