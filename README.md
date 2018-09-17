@@ -21,6 +21,22 @@ The API is fairly settled and basic code-coverage tests have been implemented bu
 
 This implementation is based on the [Tip-of-Tree](https://chromedevtools.github.io/devtools-protocol/tot/) documentation and may be prone to change. At some point stable versions will be implemented as well, hopefully beginning with v1.3.
 
+# Examples
+
+There are a few small examples of how to use the framework API on the [wiki](https://github.com/mkenney/go-chrome/wiki) and in the [`/_examples`](https://github.com/mkenney/go-chrome/tree/master/_examples) directory.
+
+# TODO
+
+Contributions of any kind are very welcome!
+
+* Add framework API examples to the `/test` directory and wiki.
+
+  Any example scripts showing various ways people are using the framework would be outstanding!
+
+* Refactoring to implement standard interfaces where applicable and review current use of interfaces in the API. Some aren't needed at all and others are used to support test mocks.
+* Add more tests, especially for error cases. If you would like to contribute but aren't sure how, take a look at [codecov](https://codecov.io/gh/mkenney/go-chrome) for any tests that could be written. There are [many](https://github.com/mkenney/go-chrome/blob/master/tot/socket/cdtp.animation_test.go) [examples](https://github.com/mkenney/go-chrome/blob/master/tot/cdtp/animation/enum.animation.type_test.go) of tests in the repo.
+* Add example scripts to the `_examples/` directory to showcase various ways people are using the package. The [screenshot script](https://github.com/mkenney/go-chrome/blob/master/test/screenshot/main.go) is already setup there.
+
 # Announcements
 
 ## v1.0.0-rc5 released
@@ -73,19 +89,3 @@ Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) t
   name = "github.com/mkenney/go-chrome"
   version = "1.0.0-rc1"
 ```
-
-# Examples
-
-There are a few small examples of how to use the framework API on the [wiki](https://github.com/mkenney/go-chrome/wiki) and in the [`/_examples`](https://github.com/mkenney/go-chrome/tree/master/_examples) directory.
-
-# TODO
-
-Contributions of any kind are very welcome!
-
-* Add framework API examples to the `/test` directory and wiki.
-
-  Any example scripts showing various ways people are using the framework would be outstanding!
-
-* Refactoring to implement standard interfaces where applicable and review current use of interfaces in the API. Some aren't needed at all and others are used to support test mocks.
-* Add more tests, especially for error cases. If you would like to contribute but aren't sure how, take a look at [codecov](https://codecov.io/gh/mkenney/go-chrome) for any tests that could be written. There are [many](https://github.com/mkenney/go-chrome/blob/master/tot/socket/cdtp.animation_test.go) [examples](https://github.com/mkenney/go-chrome/blob/master/tot/cdtp/animation/enum.animation.type_test.go) of tests in the repo.
-* Add example scripts to the `_examples/` directory to showcase various ways people are using the package. The [screenshot script](https://github.com/mkenney/go-chrome/blob/master/test/screenshot/main.go) is already setup there.
