@@ -29,13 +29,16 @@ There are a few small examples of how to use the framework API on the [wiki](htt
 
 Contributions of any kind are very welcome!
 
-* Resolve [race condition issues](https://github.com/mkenney/go-chrome/pull/119). Any assistance is appreciated.
+* Resolve [race condition issues](https://github.com/mkenney/go-chrome/pull/119). Any assistance is appreciated!
 * Add framework API examples to the `/_examples` directory and wiki to showcase various ways people are using the package.
 
   Any example scripts showing various ways people are using the framework would be outstanding! The [screenshot script](https://github.com/mkenney/go-chrome/blob/master/test/screenshot/main.go) and several others are available there.
 
 * Refactoring to implement standard interfaces where applicable and review current use of interfaces in the API. Some aren't needed at all and others are used to support test mocks.
-* Add more tests, especially for error cases. If you would like to contribute but aren't sure how, take a look at [codecov](https://codecov.io/gh/mkenney/go-chrome) for any tests that could be written. There are [many](https://github.com/mkenney/go-chrome/blob/master/tot/socket/cdtp.animation_test.go) [examples](https://github.com/mkenney/go-chrome/blob/master/tot/cdtp/animation/enum.animation.type_test.go) of tests in the repo.
+* Add more tests, particularly for error cases.
+* Add integrated tests to stablize package interactions raised in various issues.
+
+If you would like to contribute but aren't sure how, take a look at [codecov](https://codecov.io/gh/mkenney/go-chrome) for any tests that could be written. There are [many](https://github.com/mkenney/go-chrome/blob/master/tot/socket/cdtp.animation_test.go) [examples](https://github.com/mkenney/go-chrome/blob/master/tot/cdtp/animation/enum.animation.type_test.go) of tests in the repo.
 
 # Announcements
 
