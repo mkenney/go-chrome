@@ -21,6 +21,25 @@ The API is fairly settled and basic code-coverage tests have been implemented bu
 
 This implementation is based on the [Tip-of-Tree](https://chromedevtools.github.io/devtools-protocol/tot/) documentation and may be prone to change. At some point stable versions will be implemented as well, hopefully beginning with v1.3.
 
+# Examples
+
+There are a few small examples of how to use the framework API on the [wiki](https://github.com/mkenney/go-chrome/wiki) and in the [`/_examples`](https://github.com/mkenney/go-chrome/tree/master/_examples) directory.
+
+# TODO
+
+Contributions of any kind are very welcome!
+
+* Resolve [race condition issues](https://github.com/mkenney/go-chrome/pull/119). Any assistance is appreciated!
+* Add framework API examples to the `/_examples` directory and wiki to showcase various ways people are using the package.
+
+  Any example scripts showing various ways people are using the framework would be outstanding! The [screenshot script](https://github.com/mkenney/go-chrome/blob/master/test/screenshot/main.go) and several others are available there.
+
+* Refactoring to implement standard interfaces where applicable and review current use of interfaces in the API. Some aren't needed at all and others are used to support test mocks.
+* Add more tests, particularly for error cases.
+* Add integrated tests to stablize package interactions raised in various issues.
+
+If you would like to contribute but aren't sure how, take a look at [codecov](https://codecov.io/gh/mkenney/go-chrome) for any tests that could be written. There are [many](https://github.com/mkenney/go-chrome/blob/master/tot/socket/cdtp.animation_test.go) [examples](https://github.com/mkenney/go-chrome/blob/master/tot/cdtp/animation/enum.animation.type_test.go) of tests in the repo.
+
 # Announcements
 
 ## v1.0.0-rc5 released
@@ -31,6 +50,12 @@ This implementation is based on the [Tip-of-Tree](https://chromedevtools.github.
 
 Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
 
+```toml
+[[constraint]]
+  name = "github.com/mkenney/go-chrome"
+  version = "1.0.0-rc5"
+```
+
 ## v1.0.0-rc4 released
 
 [`v1.0.0-rc4`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc4) has been released.
@@ -40,6 +65,12 @@ Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) t
 
 Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
 
+```toml
+[[constraint]]
+  name = "github.com/mkenney/go-chrome"
+  version = "1.0.0-rc4"
+```
+
 ## v1.0.0-rc3 released
 
 [`v1.0.0-rc3`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc3) has been released.
@@ -47,6 +78,12 @@ Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) t
 * Fixes an issue with an upstream dependency
 
 Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
+
+```toml
+[[constraint]]
+  name = "github.com/mkenney/go-chrome"
+  version = "1.0.0-rc3"
+```
 
 ## v1.0.0-rc2 released
 
@@ -73,125 +110,3 @@ Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) t
   name = "github.com/mkenney/go-chrome"
   version = "1.0.0-rc1"
 ```
-
-# Examples
-
-There are a few small examples of how to use the framework API on the [wiki](https://github.com/mkenney/go-chrome/wiki) and in the [`/test`](https://github.com/mkenney/go-chrome/tree/master/test) directory.
-
-# TODO
-
-Contributions of any kind are very welcome!
-
-* Add framework API examples to the `/test` directory and wiki.
-
-  Any example scripts showing various ways people are using the framework would be outstanding!
-
-* Refactoring to implement standard interfaces where applicable and review current use of interfaces in the API. Some aren't needed at all and others are used to support test mocks.
-* Add more tests, especially for error cases. If you would like to contribute but aren't sure how, take a look at [codecov](https://codecov.io/gh/mkenney/go-chrome) for any tests that could be written. There are [many](https://github.com/mkenney/go-chrome/blob/master/tot/socket/cdtp.animation_test.go) [examples](https://github.com/mkenney/go-chrome/blob/master/tot/cdtp/animation/enum.animation.type_test.go) of tests in the repo.
-* Add integration test scripts to the `test/` directory to exercise various functions. The [screenshot script](https://github.com/mkenney/go-chrome/blob/master/test/screenshot/main.go) is already setup there.
-
-# Change Log
-
-## 2018-05-30
-
-I have [refactored the package layout](https://github.com/mkenney/go-chrome/pull/98), deleting the `cdtp` package and moving all the packages within it to the `tot` package. This cleans up import statements and make the layout a bit more natural to use. The only refactoring this requires is removing that folder from your import path, changing them from (for example):
-
-```go
-import (
-	"github.com/mkenney/go-chrome/tot/cdtp/accessibility"
-)
-```
-
-to simply:
-
-```go
-import (
-	"github.com/mkenney/go-chrome/tot/accessibility"
-)
-```
-
-The [`v1.0.0-rc1`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc1) pre-release candidate coincides with this change. Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any additional changes to further the [`v1`](https://github.com/mkenney/go-chrome/milestone/1) milestone.
-
-
-
-## 2018-03-20
-
-Removed the unnecessary array notation for the flags passed to the Chrome process. This is a breaking change but it's simple to update client code and easier to use in general.
-
-When defining your Chrome instance, remove any `[]interface{}{}` declarations in the `Flags` parameter. To demonstrate, the [example code](https://github.com/mkenney/go-chrome/wiki/Example%3A-Capture-A-Screenshot) has changed from:
-```go
-	// Define a chrome instance with remote debugging enabled.
-	browser := chrome.New(
-		&chrome.Flags{
-			"addr":               []interface{}{"localhost"},
-			"disable-extensions": nil,
-			"disable-gpu":        nil,
-			"headless":           nil,
-			"hide-scrollbars":    nil,
-			"no-first-run":       nil,
-			"no-sandbox":         nil,
-			"port":               []interface{}{9222},
-			"remote-debugging-address": []interface{}{"0.0.0.0"},
-			"remote-debugging-port":    []interface{}{9222},
-		},
-		"/usr/bin/google-chrome",
-		"",
-		"",
-		"",
-	)
-```
-to simply:
-```go
-	// Define a chrome instance with remote debugging enabled.
-	browser := chrome.New(
-		&chrome.Flags{
-			"addr":               "localhost",
-			"disable-extensions": nil,
-			"disable-gpu":        nil,
-			"headless":           nil,
-			"hide-scrollbars":    nil,
-			"no-first-run":       nil,
-			"no-sandbox":         nil,
-			"port":               9222,
-			"remote-debugging-address": "0.0.0.0",
-			"remote-debugging-port":    9222,
-		},
-		"/usr/bin/google-chrome",
-		"",
-		"",
-		"",
-	)
-```
-
-It's easier to deal with, simpler to understand, and supporting multiple values wasn't ever useful. An [argument could be made](https://github.com/mkenney/go-chrome/issues/new/choose) for supporting something like [`pkg/flag`](https://golang.org/pkg/flag/) I suppose but I don't generally need a CLI interface.
-
-## 2018-02-06
-
-To provide for more idiomatic package naming the following packages have been renamed:
-
-* tot/cdtp/application_cache -> tot/cdtp/application/cache
-* tot/cdtp/cache_storage -> tot/cdtp/cache/storage
-* tot/cdtp/device_orientation -> tot/cdtp/device/orientation
-* tot/cdtp/dom_debugger -> tot/cdtp/dom/debugger
-* tot/cdtp/dom_snapshot -> tot/cdtp/dom/snapshot
-* tot/cdtp/dom_storage -> tot/cdtp/dom/storage
-* tot/cdtp/headless_experimental -> tot/cdtp/headless/experimental
-* tot/cdtp/heap_profiler -> tot/cdtp/heap/profiler
-* tot/cdtp/indexed_db -> tot/cdtp/indexed/db
-* tot/cdtp/layer_tree -> tot/cdtp/layer/tree
-* tot/cdtp/service_worker -> tot/cdtp/service/worker
-* tot/cdtp/system_info -> tot/cdtp/system/info
-
-## 2018-01-21
-
-The core data types have been updated with proper enum support for string properties that only allow specific values.
-
-## 2018-01-12
-
-In preparation for having stable versions of the library, I updated the directory structure of the repo adding a `tot` package for the current code (Tip-of-Tree).
-
-## 2018-01-05
-
-I merged some changes that did change the API a bit. Mainly, all the protocol methods now return a channel instead of blocking until they get a result to better handle the nature of socket data streams. This makes unit testing easier and cleaner and the API more useful, but the race detector still finds false positives due to writing test data to a stack that mocks a socket data stream, which is being drained by an independent goroutine...
-
-I'm not sure what to do with that, or if I care at this point. You can see it by running `go test -race ./...`.
