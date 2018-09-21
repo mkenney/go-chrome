@@ -38,7 +38,9 @@ Contributions of any kind are very welcome!
 * Add more tests, particularly for error cases.
 * Add integrated tests to stablize package interactions raised in various issues.
 
-If you would like to contribute but aren't sure how, take a look at [codecov](https://codecov.io/gh/mkenney/go-chrome) for any tests that could be written. There are [many](https://github.com/mkenney/go-chrome/blob/master/tot/socket/cdtp.animation_test.go) [examples](https://github.com/mkenney/go-chrome/blob/master/tot/cdtp/animation/enum.animation.type_test.go) of tests in the repo.
+If you would like to contribute but aren't sure how, take a look at the [issue tracker](https://github.com/mkenney/go-chrome/issues). Issues are labeled as bug reports, feature requests, feedback requests, help wanted, etc.
+
+There are also always [tests that could be written](https://codecov.io/gh/mkenney/go-chrome). There are [many](https://github.com/mkenney/go-chrome/blob/master/tot/socket/cdtp.animation_test.go) [examples](https://github.com/mkenney/go-chrome/blob/master/tot/cdtp/animation/enum.animation.type_test.go) of tests in the package.
 
 # Announcements
 
