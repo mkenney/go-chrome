@@ -34,9 +34,7 @@ func TestSocketStop(t *testing.T) {
 	mockSocket := NewMock(socketURL)
 	mockSocket.Listen()
 	time.Sleep(1 * time.Second)
-	if err := mockSocket.Stop(); nil != err {
-		t.Errorf("Expected nil, got error: %v", err)
-	}
+	mockSocket.Stop()
 }
 
 func TestSocketDisconnect(t *testing.T) {

@@ -9,6 +9,7 @@ import (
 
 	errs "github.com/bdlm/errors"
 	"github.com/bdlm/log"
+	"github.com/mkenney/go-chrome/codes"
 )
 
 /*
@@ -19,6 +20,7 @@ func New(url *url.URL) *Socket {
 	socket := &Socket{
 		commandIDMux: &sync.Mutex{},
 		commands:     NewCommandMap(),
+		errCh:        make(chan error, 1),
 		handlers:     NewEventHandlerMap(),
 		mux:          &sync.Mutex{},
 		newSocket:    NewWebsocket,
@@ -67,6 +69,7 @@ func New(url *url.URL) *Socket {
 	socket.tracing = &TracingProtocol{Socket: socket}
 
 	socket.Listen()
+
 	log.WithFields(log.Fields{
 		"socketID": socket.socketID,
 		"url":      socket.url.String(),
@@ -99,12 +102,14 @@ type Socket struct {
 	commands     CommandMapper
 	conn         WebSocketer
 	connected    bool
+	errCh        chan error
 	handlers     EventHandlerMapper
+	lastErr      error
 	listenCh     chan bool
-	listenErr    errs.Err
 	listening    bool
 	mux          *sync.Mutex
 	newSocket    func(socketURL *url.URL) (WebSocketer, error)
+	socketErr    error
 	socketID     int
 	url          *url.URL
 
@@ -276,6 +281,13 @@ func (socket *Socket) handleUnknown(
 }
 
 /*
+Errors returns the last error returned by the listen routine, if any.
+*/
+func (socket *Socket) Errors() chan error {
+	return socket.errCh
+}
+
+/*
 Listen starts the socket read loop and delivers messages to handleResponse() and
 handleEvent() as appropriate.
 
@@ -284,15 +296,31 @@ Listen is a Socketer implementation.
 func (socket *Socket) Listen() {
 	socket.listenCh = make(chan bool)
 	socket.listening = true
-	go socket.listen()
+	go socket.listen(socket.errCh)
 }
 
-func (socket *Socket) listen() error {
+func (socket *Socket) listen(errCh chan error) {
 	var err error
+
+	// recover socket panics caused by defunct or dead connections. This
+	// also returns the error signal.
+	defer func() {
+		if r := recover(); r != nil {
+			err = errs.New(codes.SocketPanic, "recovered from panic in Socket.listen()")
+			if e, ok := r.(error); ok {
+				err = errs.Wrap(e, codes.SocketPanic, "recovered from panic in Socket.listen()")
+			}
+			log.WithFields(log.Fields{
+				"error": err,
+			}).Error(err)
+		}
+		errCh <- err
+	}()
 
 	err = socket.Connect()
 	if nil != err {
-		return errs.Wrap(err, 0, "socket connection failed")
+		errCh <- errs.Wrap(err, 0, "socket connection failed")
+		return
 	}
 	defer socket.Disconnect()
 
@@ -300,10 +328,12 @@ func (socket *Socket) listen() error {
 		response := &Response{}
 		err = socket.ReadJSON(&response)
 		if nil != err {
+			err = errs.Wrap(err, codes.SocketReadFailed, fmt.Sprintf("socket #%d - socket read failed", socket.socketID))
 			log.WithFields(log.Fields{
 				"socketID": socket.socketID,
 			}).Error(err)
-			socket.listenErr.With(err, fmt.Sprintf("socket #%d - socket read failed", socket.socketID))
+
+			errCh <- err
 		}
 		if 0 == response.ID &&
 			"" == response.Method &&
@@ -360,11 +390,12 @@ func (socket *Socket) listen() error {
 		}
 	}
 
-	if nil != err {
-		err = errs.Wrap(err, 0, "socket read failed")
-	}
 	socket.listening = false
-	return err
+	if nil != err {
+		errCh <- errs.Wrap(err, 0, "socket closed")
+		return
+	}
+	errCh <- nil
 }
 
 /*
@@ -468,7 +499,7 @@ websocket connection.
 
 Stop is a Socketer implementation.
 */
-func (socket *Socket) Stop() error {
+func (socket *Socket) Stop() {
 	if socket.listening {
 		socket.listening = false
 		select {
@@ -480,10 +511,6 @@ func (socket *Socket) Stop() error {
 			"socketID": socket.socketID,
 		}).Debug("socket stopped")
 	}
-	if 0 == len(socket.listenErr) {
-		return nil
-	}
-	return socket.listenErr
 }
 
 /*

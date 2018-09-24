@@ -15,6 +15,9 @@ type Socketer interface {
 	// CurCommandID returns the latest command ID.
 	CurCommandID() int
 
+	// Errors returns a channel of errors
+	Errors() chan error
+
 	// Listen starts the socket read loop and delivers messages to
 	// HandleCommand() and HandleEvent() as appropriate.
 	Listen()
@@ -31,7 +34,7 @@ type Socketer interface {
 
 	// Stop signals the socket read loop to stop listening for data and close
 	// the websocket connection.
-	Stop() error
+	Stop()
 
 	// URL returns the URL of the websocket connection.
 	URL() *url.URL

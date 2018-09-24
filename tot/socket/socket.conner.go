@@ -5,6 +5,7 @@ import (
 
 	errs "github.com/bdlm/errors"
 	"github.com/bdlm/log"
+	"github.com/mkenney/go-chrome/codes"
 )
 
 /*
@@ -75,14 +76,11 @@ func (socket *Socket) Disconnect() error {
 	socket.Stop()
 	err := socket.conn.Close()
 	if nil != err {
-		socket.listenErr.With(err, "could not close socket connection")
+		err = errs.Wrap(err, codes.SocketCloseFailed, "could not close socket connection")
 	}
 	socket.conn = nil
 	socket.connected = false
-	if 0 == len(socket.listenErr) {
-		return nil
-	}
-	return socket.listenErr
+	return err
 }
 
 /*
