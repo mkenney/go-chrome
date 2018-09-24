@@ -182,7 +182,7 @@ connection.
 func (socket *Socket) handleResponse(response *Response) {
 	// Log a message on error
 	if command, err := socket.commands.Get(response.ID); nil != err {
-		err = errs.Wrap(err, 0, fmt.Sprintf("command #%d not found", response.ID))
+		err = errs.Wrap(err, codes.SocketCmdHandlerNotFound, fmt.Sprintf("command #%d not found", response.ID))
 		log.WithFields(log.Fields{
 			"error":    err,
 			"result":   response.Result,
@@ -257,7 +257,7 @@ func (socket *Socket) handleUnknown(
 
 	// Check for a command listening for ID 0
 	if command, err = socket.commands.Get(response.ID); nil != err {
-		err = errs.Wrap(err, 0, fmt.Sprintf("command #%d not found", response.ID))
+		err = errs.Wrap(err, codes.SocketCmdHandlerNotFound, fmt.Sprintf("command #%d not found", response.ID))
 		if nil != response.Error && 0 != response.Error.Code {
 			err = err.(errs.Err).With(response.Error, err.Error())
 		}

@@ -12,6 +12,7 @@ import (
 
 	errs "github.com/bdlm/errors"
 	"github.com/bdlm/log"
+	"github.com/mkenney/go-chrome/codes"
 )
 
 /*
@@ -120,11 +121,11 @@ func (chrome *Chrome) Close() error {
 			tab.Close()
 		}
 		if err := chrome.process.Signal(os.Interrupt); err != nil {
-			return errs.Wrap(err, 0, "chrome process interrupt failed")
+			return errs.Wrap(err, codes.ChromeSigintFailed, "chrome process interrupt failed")
 		}
 		ps, err := chrome.process.Wait()
 		if err != nil {
-			return errs.Wrap(err, 0, "error waiting for process exit, result unknown")
+			return errs.Wrap(err, codes.ChromeExitTimeout, "error waiting for process exit, result unknown")
 		}
 		log.WithFields(log.Fields{
 			"signal": ps.String(),
@@ -171,7 +172,7 @@ func (chrome *Chrome) GetTab(tabID string) (Tabber, error) {
 			return tab, nil
 		}
 	}
-	err = errs.New(0, fmt.Sprintf("tab '%s' not found", tabID))
+	err = errs.New(codes.ChromeTabNotFound, fmt.Sprintf("tab '%s' not found", tabID))
 	return tab, err
 }
 
@@ -202,7 +203,7 @@ func (chrome *Chrome) Launch() error {
 	}
 
 	if err = os.MkdirAll(chrome.Workdir(), 0700); err != nil {
-		return errs.Wrap(err, 0, fmt.Sprintf("cannot create working directory '%s'", chrome.Workdir()))
+		return errs.Wrap(err, codes.ChromeInvalidWorkdir, fmt.Sprintf("cannot create working directory '%s'", chrome.Workdir()))
 	}
 
 	if "" == chrome.STDERR() {
@@ -214,7 +215,7 @@ func (chrome *Chrome) Launch() error {
 			0600,
 		)
 		if err != nil {
-			return errs.Wrap(err, 0, fmt.Sprintf("cannot open error output file '%s'", chrome.STDERR()))
+			return errs.Wrap(err, codes.ChromeCannotOpenStderr, fmt.Sprintf("cannot open error output file '%s'", chrome.STDERR()))
 		}
 	}
 
@@ -227,7 +228,7 @@ func (chrome *Chrome) Launch() error {
 			0600,
 		)
 		if err != nil {
-			return errs.Wrap(err, 0, fmt.Sprintf("cannot open standard output file '%s'", chrome.STDOUT()))
+			return errs.Wrap(err, codes.ChromeCannotOpenStdout, fmt.Sprintf("cannot open standard output file '%s'", chrome.STDOUT()))
 		}
 	}
 
@@ -245,7 +246,7 @@ func (chrome *Chrome) Launch() error {
 	)
 	if nil != err {
 		chrome.stdOUTFile.Close()
-		return errs.Wrap(err, 0, "error starting chrome")
+		return errs.Wrap(err, codes.ChromeCannotOpenStdout, "error starting chrome")
 	}
 
 	// Wait up to 10 seconds for Chromium to start
@@ -258,7 +259,7 @@ func (chrome *Chrome) Launch() error {
 	if err != nil {
 		log.Error("Chromium took too long to start")
 		chrome.Close()
-		return errs.Wrap(err, 0, "chromium took too long to start")
+		return errs.Wrap(err, codes.ChromeStartTimeout, "chromium took too long to start")
 	}
 
 	return nil
@@ -292,7 +293,7 @@ func (chrome *Chrome) Query(
 	uri := fmt.Sprintf("http://%s:%d%s", chrome.Address(), chrome.Port(), path)
 	resp, err := http.Get(uri)
 	if err != nil {
-		return nil, errs.Wrap(err, 0, "get uri failed")
+		return nil, errs.Wrap(err, codes.ChromeQueryFailed, "get uri failed")
 	}
 	defer resp.Body.Close()
 
@@ -301,12 +302,12 @@ func (chrome *Chrome) Query(
 		"status": resp.Status,
 	}).Debug("querying chrome")
 	if 200 != resp.StatusCode {
-		return nil, errs.New(0, resp.Status)
+		return nil, errs.New(codes.ChromeQueryFailed, resp.Status)
 	}
 
 	content, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return nil, errs.Wrap(err, 0, "read failed")
+		return nil, errs.Wrap(err, codes.ChromeQueryFailed, "read failed")
 	} else if err := json.Unmarshal(content, &msg); err != nil {
 		// it's not JSON so just return it
 		return content, nil
@@ -360,7 +361,7 @@ func (chrome *Chrome) Version() (*Version, error) {
 			url.Values{},
 			&chrome.version,
 		); err != nil {
-			return nil, errs.Wrap(err, 0, "version query failed")
+			return nil, errs.Wrap(err, codes.ChromeVersionQueryFailed, "version query failed")
 		}
 	}
 	return chrome.version, nil

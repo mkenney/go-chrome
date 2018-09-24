@@ -6,6 +6,7 @@ import (
 
 	errs "github.com/bdlm/errors"
 	"github.com/bdlm/log"
+	"github.com/mkenney/go-chrome/codes"
 	"github.com/mkenney/go-chrome/tot/socket"
 )
 
@@ -20,7 +21,7 @@ func (chrome *Chrome) NewTab(uri string) (*Tab, error) {
 	}
 	targetURL, err := url.Parse(uri)
 	if nil != err {
-		return nil, errs.Wrap(err, 0, "invalid URL")
+		return nil, errs.Wrap(err, codes.TabURLInvalid, "invalid URL")
 	}
 
 	tab := &Tab{
@@ -35,12 +36,12 @@ func (chrome *Chrome) NewTab(uri string) (*Tab, error) {
 		tab.data,
 	)
 	if nil != err {
-		return nil, errs.Wrap(err, 0, fmt.Sprintf("/new?%s query failed", url.QueryEscape(uri)))
+		return nil, errs.Wrap(err, codes.TabQueryFailed, fmt.Sprintf("/new?%s query failed", url.QueryEscape(uri)))
 	}
 
 	websocketURL, err := url.Parse(tab.Data().WebSocketDebuggerURL)
 	if nil != err {
-		return nil, errs.Wrap(err, 0, fmt.Sprintf("invalid websocket URL '%s'", tab.Data().WebSocketDebuggerURL))
+		return nil, errs.Wrap(err, codes.TabWebsocketURLInvalid, fmt.Sprintf("invalid websocket URL '%s'", tab.Data().WebSocketDebuggerURL))
 	}
 
 	socket := socket.New(websocketURL)

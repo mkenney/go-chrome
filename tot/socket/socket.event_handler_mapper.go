@@ -6,6 +6,7 @@ import (
 
 	errs "github.com/bdlm/errors"
 	"github.com/bdlm/log"
+	"github.com/mkenney/go-chrome/codes"
 )
 
 /*
@@ -44,7 +45,7 @@ func (stack *EventHandlerMap) Add(
 	}
 	for _, hndl := range handlers {
 		if hndl == handler {
-			return errs.New(0, fmt.Sprintf("Attempted to add a duplicate handler for event '%s'", handler.Name()))
+			return errs.New(codes.SocketDuplicateEventHandler, fmt.Sprintf("Attempted to add a duplicate handler for event '%s'", handler.Name()))
 		}
 	}
 
@@ -78,7 +79,7 @@ func (stack *EventHandlerMap) Get(
 	if handlers, ok := stack.stack[name]; ok {
 		return handlers, nil
 	}
-	return nil, errs.New(0, fmt.Sprintf("No event listeners found for %s", name))
+	return nil, errs.New(codes.SocketDuplicateEventHandler, fmt.Sprintf("No event listeners found for %s", name))
 }
 
 /*
@@ -107,7 +108,7 @@ func (stack *EventHandlerMap) Remove(
 			return nil
 		}
 	}
-	return errs.New(0, fmt.Sprintf("Could not remove handler for '%s': not found", handler.Name()))
+	return errs.New(codes.SocketEventHandlerNotFound, fmt.Sprintf("Could not remove handler for '%s': not found", handler.Name()))
 }
 
 /*
