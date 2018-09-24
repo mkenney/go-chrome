@@ -330,8 +330,6 @@ func (socket *Socket) listen(errCh chan error) {
 			log.WithFields(log.Fields{
 				"socketID": socket.socketID,
 			}).Error(err)
-
-			errCh <- err
 		}
 		if 0 == response.ID &&
 			"" == response.Method &&
