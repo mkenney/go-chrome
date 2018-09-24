@@ -104,12 +104,10 @@ type Socket struct {
 	connected    bool
 	errCh        chan error
 	handlers     EventHandlerMapper
-	lastErr      error
 	listenCh     chan bool
 	listening    bool
 	mux          *sync.Mutex
 	newSocket    func(socketURL *url.URL) (WebSocketer, error)
-	socketErr    error
 	socketID     int
 	url          *url.URL
 
