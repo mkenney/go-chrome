@@ -20,7 +20,7 @@ func New(url *url.URL) *Socket {
 	socket := &Socket{
 		commandIDMux: &sync.Mutex{},
 		commands:     NewCommandMap(),
-		errCh:        make(chan error, 1),
+		errCh:        make(chan error, 3),
 		handlers:     NewEventHandlerMap(),
 		mux:          &sync.Mutex{},
 		newSocket:    NewWebsocket,

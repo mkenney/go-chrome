@@ -8,7 +8,8 @@ import (
 
 func NewMockSocket(url *url.URL) *MockSocket {
 	mockSocket := &MockSocket{
-		url: url,
+		url:   url,
+		errCh: make(chan error, 3),
 	}
 
 	mockSocket.accessibility = &socket.AccessibilityProtocol{Socket: mockSocket}
