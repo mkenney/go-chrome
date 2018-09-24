@@ -31,6 +31,7 @@ func main() {
 		fmt.Printf("%+v\n", enableResult.Err)
 	}
 
+	// While this is waiting, stop chrome
 	for err := range tab.Socket().Errors() {
 		fmt.Printf("%+v\n", err)
 		if e, ok := err.(errs.Err); ok {
