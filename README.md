@@ -48,7 +48,11 @@ There are also always [tests that could be written](https://codecov.io/gh/mkenne
 
 [`v1.0.0-rc6`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc6) has been released.
 
-* Fixes a `dep` issue with transitive dependencies
+* enable handling socket errors
+* add initial error codes
+* cleanup logging code
+* example documentation
+* add useful docker-compose
 
 Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
 
