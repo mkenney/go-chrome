@@ -1,0 +1,12 @@
+version: '3.5'
+services:
+    chrome:
+        container_name: chrome
+        hostname: chrome
+        image: mkenney/chromium-headless:latest
+        ports:
+            - 9222:9222
+        entrypoint: sh
+        command:
+            - "-cexu"
+            - "/usr/bin/google-chrome --addr=localhost --port=9222 --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 --disable-extensions --disable-gpu --headless --hide-scrollbars --no-first-run --no-sandbox"

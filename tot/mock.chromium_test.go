@@ -8,6 +8,7 @@ import (
 
 	errs "github.com/bdlm/errors"
 	"github.com/bdlm/log"
+	"github.com/mkenney/go-chrome/codes"
 )
 
 /*
@@ -143,7 +144,7 @@ func (chrome *MockChrome) GetTab(tabID string) (Tabber, error) {
 			return tab, nil
 		}
 	}
-	err = errs.New(0, fmt.Sprintf("tab '%s' not found", tabID))
+	err = errs.New(codes.MockErr, fmt.Sprintf("tab '%s' not found", tabID))
 	return tab, err
 }
 
@@ -182,7 +183,7 @@ func (chrome *MockChrome) Launch() error {
 			0600,
 		)
 		if err != nil {
-			return errs.Wrap(err, 0, fmt.Sprintf("cannot open error output file '%s'", chrome.STDERR()))
+			return errs.Wrap(err, codes.MockErr, fmt.Sprintf("cannot open error output file '%s'", chrome.STDERR()))
 		}
 	}
 
@@ -195,7 +196,7 @@ func (chrome *MockChrome) Launch() error {
 			0600,
 		)
 		if err != nil {
-			return errs.Wrap(err, 0, fmt.Sprintf("cannot open standard output file '%s'", chrome.STDOUT()))
+			return errs.Wrap(err, codes.MockErr, fmt.Sprintf("cannot open standard output file '%s'", chrome.STDOUT()))
 		}
 	}
 
@@ -203,7 +204,7 @@ func (chrome *MockChrome) Launch() error {
 	if nil != err {
 		chrome.stdOUTFile.Close()
 		chrome.stdERRFile.Close()
-		return errs.Wrap(err, 0, "error starting chrome")
+		return errs.Wrap(err, codes.MockErr, "error starting chrome")
 	}
 
 	return nil
@@ -305,7 +306,7 @@ func (chrome *MockChrome) NewTab(uri string) (*Tab, error) {
 	}
 	targetURL, err := url.Parse(uri)
 	if nil != err {
-		return nil, errs.Wrap(err, 0, "invalid URL")
+		return nil, errs.Wrap(err, codes.MockErr, "invalid URL")
 	}
 
 	tab := &Tab{

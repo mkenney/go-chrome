@@ -8,7 +8,8 @@ import (
 
 func NewMockSocket(url *url.URL) *MockSocket {
 	mockSocket := &MockSocket{
-		url: url,
+		url:   url,
+		errCh: make(chan error, 3),
 	}
 
 	mockSocket.accessibility = &socket.AccessibilityProtocol{Socket: mockSocket}
@@ -59,6 +60,7 @@ Socket is a Socketer implementation.
 type MockSocket struct {
 	url       *url.URL
 	commandID int
+	errCh     chan error
 
 	// Protocol interfaces for the API.
 	accessibility        *socket.AccessibilityProtocol
@@ -117,6 +119,10 @@ func (socket *MockSocket) CurCommandID() int {
 	return id
 }
 
+func (socket *MockSocket) Errors() chan error {
+	return socket.errCh
+}
+
 /*
 Listen starts the socket read loop and delivers messages to handleResponse() and
 handleEvent() as appropriate.
@@ -153,8 +159,7 @@ func (socket *MockSocket) SendCommand(command socket.Commander) chan *socket.Res
 /*
 Stop is a Socketer implementation.
 */
-func (socket *MockSocket) Stop() error {
-	return nil
+func (socket *MockSocket) Stop() {
 }
 
 /*

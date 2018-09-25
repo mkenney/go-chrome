@@ -9,6 +9,7 @@ import (
 	errs "github.com/bdlm/errors"
 	"github.com/bdlm/log"
 	"github.com/gorilla/websocket"
+	"github.com/mkenney/go-chrome/codes"
 )
 
 /*
@@ -27,15 +28,13 @@ func NewWebsocket(socketURL *url.URL) (WebSocketer, error) {
 
 	websocket, response, err := dialer.Dial(socketURL.String(), header)
 	if err != nil {
-		return nil, errs.Wrap(err, 0, fmt.Sprintf(
+		return nil, errs.Wrap(err, codes.WebsocketConnectFailed, fmt.Sprintf(
 			"%s websocket connection failed",
 			socketURL.String(),
 		))
 	}
-	log.WithFields(log.Fields{
-		"status": response.Status,
-		"url":    socketURL.String(),
-	}).Info("Websocket connection established")
+	log.WithFields(log.Fields{"status": response.Status, "url": socketURL.String()}).
+		Info("Websocket connection established")
 
 	return &ChromeWebSocket{conn: websocket}, nil
 }
@@ -76,7 +75,7 @@ Response{} pointer with the AddMockData() method.
 */
 func (socket *ChromeWebSocket) ReadJSON(v interface{}) error {
 	if nil == socket.conn {
-		return errs.New(0, "not connected")
+		return errs.New(codes.WebsocketNotConnected, "not connected")
 	}
 	return socket.conn.ReadJSON(&v)
 }
@@ -88,7 +87,7 @@ WriteJSON is a WebSocketer implementation.
 */
 func (socket *ChromeWebSocket) WriteJSON(v interface{}) error {
 	if nil == socket.conn {
-		return errs.New(0, "not connected")
+		return errs.New(codes.WebsocketNotConnected, "not connected")
 	}
 	tmp, _ := json.Marshal(v)
 	if len(tmp) > 1*1024*1024 {

@@ -8,6 +8,7 @@ import (
 
 	errs "github.com/bdlm/errors"
 	"github.com/bdlm/log"
+	"github.com/mkenney/go-chrome/codes"
 )
 
 /*
@@ -71,7 +72,7 @@ func (socket *MockChromeWebSocket) ReadJSON(v interface{}) error {
 	log.Debugf("Mock ReadJSON(): returning mock data %s", jsonBytes)
 	err := json.Unmarshal(jsonBytes, &v)
 	if nil != err {
-		return errs.Wrap(err, 0, fmt.Sprintf("could not unmarshal %s", jsonBytes))
+		return errs.Wrap(err, codes.MockErr, fmt.Sprintf("could not unmarshal %s", jsonBytes))
 	}
 	return nil
 }
