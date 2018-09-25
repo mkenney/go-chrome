@@ -44,6 +44,20 @@ There are also always [tests that could be written](https://codecov.io/gh/mkenne
 
 # Announcements
 
+## v1.0.0-rc6 released
+
+[`v1.0.0-rc6`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc6) has been released.
+
+* Fixes a `dep` issue with transitive dependencies
+
+Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
+
+```toml
+[[constraint]]
+  name = "github.com/mkenney/go-chrome"
+  version = "1.0.0-rc6"
+```
+
 ## v1.0.0-rc5 released
 
 [`v1.0.0-rc5`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc5) has been released.
