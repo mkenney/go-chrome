@@ -1,3 +1,4 @@
+// +build ignore
 package main
 
 import (
@@ -23,14 +24,14 @@ func main() {
 		// See https://developers.google.com/web/updates/2017/04/headless-chrome#cli
 		// for details about startup flags
 		&chrome.Flags{
-			"addr":               "localhost",
-			"disable-extensions": nil,
-			"disable-gpu":        nil,
-			"headless":           true,
-			"hide-scrollbars":    nil,
-			"no-first-run":       nil,
-			"no-sandbox":         nil,
-			"port":               9222,
+			"addr":                     "localhost",
+			"disable-extensions":       nil,
+			"disable-gpu":              nil,
+			"headless":                 true,
+			"hide-scrollbars":          nil,
+			"no-first-run":             nil,
+			"no-sandbox":               nil,
+			"port":                     9222,
 			"remote-debugging-address": "0.0.0.0",
 			"remote-debugging-port":    9222,
 		},

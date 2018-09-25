@@ -1,3 +1,4 @@
+// +build ignore
 package main
 
 import (
@@ -38,21 +39,21 @@ func main() {
 		// See https://developers.google.com/web/updates/2017/04/headless-chrome#cli
 		// for details about startup flags
 		&chrome.Flags{
-			"addr":               "localhost",
-			"disable-extensions": nil,
-			"disable-gpu":        nil,
-			"headless":           nil,
-			"hide-scrollbars":    nil,
-			"no-first-run":       nil,
-			"no-sandbox":         nil,
-			"port":               9222,
+			"addr":                     "localhost",
+			"disable-extensions":       nil,
+			"disable-gpu":              nil,
+			"headless":                 nil,
+			"hide-scrollbars":          nil,
+			"no-first-run":             nil,
+			"no-sandbox":               nil,
+			"port":                     9222,
 			"remote-debugging-address": "0.0.0.0",
 			"remote-debugging-port":    9222,
 		},
 		"/usr/bin/google-chrome", // Path to Chromeium binary
-		"/tmp",      // Set the Chromium working directory
-		"/dev/null", // Ignore internal Chromium output, set to empty string for os.Stdout
-		"/dev/null", // Ignore internal Chromium errors, set to empty string for os.Stderr
+		"/tmp",                   // Set the Chromium working directory
+		"/dev/null",              // Ignore internal Chromium output, set to empty string for os.Stdout
+		"/dev/null",              // Ignore internal Chromium errors, set to empty string for os.Stderr
 	)
 
 	// Start the chrome process.
