@@ -1,3 +1,0 @@
-+ cd /go/src/test
-+ go build -o /go/bin/app
-^C

@@ -1,3 +1,7 @@
 [[constraint]]
-  branch = "master"
   name = "github.com/mkenney/go-chrome"
+  version = "1.0.0-rc6"
+
+[prune]
+  go-tests = true
+  unused-packages = true
