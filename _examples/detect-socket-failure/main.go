@@ -14,11 +14,7 @@ func main() {
 			"addr":                     "0.0.0.0",
 			"remote-debugging-address": "0.0.0.0",
 			"remote-debugging-port":    9222,
-		},
-		"",
-		"",
-		"",
-		"",
+		}, "", "", "", "",
 	)
 
 	tab, err := browser.NewTab("https://www.google.com")
