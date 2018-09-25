@@ -49,9 +49,8 @@ func (stack *EventHandlerMap) Add(
 		}
 	}
 
-	log.WithFields(log.Fields{
-		"event": handler.Name(),
-	}).Debug("Adding event handler")
+	log.WithFields(log.Fields{"event": handler.Name()}).
+		Debug("Adding event handler")
 	handlers = append(handlers, handler)
 	stack.Set(handler.Name(), handlers)
 	return nil
