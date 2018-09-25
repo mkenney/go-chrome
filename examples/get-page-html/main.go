@@ -1,4 +1,5 @@
 // +build ignore
+
 package main
 
 import (
@@ -16,35 +17,14 @@ func main() {
 	outer_html_chan := make(chan *dom.GetOuterHTMLResult)
 	var document *dom.GetDocumentResult
 
-	chrome_path := "/usr/bin/google-chrome"
-	//chrome_path := "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-
-	// Define a chrome instance with remote debugging enabled.
+	// Create a chrome instance
 	browser := chrome.New(
-		// See https://developers.google.com/web/updates/2017/04/headless-chrome#cli
-		// for details about startup flags
 		&chrome.Flags{
-			"addr":                     "localhost",
-			"disable-extensions":       nil,
-			"disable-gpu":              nil,
-			"headless":                 true,
-			"hide-scrollbars":          nil,
-			"no-first-run":             nil,
-			"no-sandbox":               nil,
-			"port":                     9222,
+			"addr":                     "0.0.0.0",
 			"remote-debugging-address": "0.0.0.0",
 			"remote-debugging-port":    9222,
-		},
-		chrome_path, // Path to Chromeium binary
-		"/tmp",      // Set the Chromium working directory
-		"/dev/null", // Ignore internal Chromium output, set to empty string for os.Stdout
-		"/dev/null", // Ignore internal Chromium errors, set to empty string for os.Stderr
+		}, "", "", "", "",
 	)
-
-	// Start the chrome process.
-	if err := browser.Launch(); nil != err {
-		panic(err)
-	}
 
 	// Open a tab and navigate to the URL you want to screenshot.
 	tab, err := browser.NewTab("http://www.brainjar.com/java/host/test.html")

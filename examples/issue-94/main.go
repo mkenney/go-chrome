@@ -1,4 +1,5 @@
 // +build ignore
+
 package main
 
 import (
@@ -53,10 +54,14 @@ var flags = &chrome.Flags{
 }
 
 func main() {
-	browser := chrome.New(flags, `/usr/bin/google-chrome`, os.TempDir(), "", "")
-	if err := browser.Launch(); nil != err {
-		panic(err)
-	}
+	// Create a chrome instance
+	browser := chrome.New(
+		&chrome.Flags{
+			"addr":                     "0.0.0.0",
+			"remote-debugging-address": "0.0.0.0",
+			"remote-debugging-port":    9222,
+		}, "", "", "", "",
+	)
 
 	defer func() {
 		if err := browser.Close(); err != nil {

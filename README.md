@@ -23,16 +23,16 @@ This implementation is based on the [Tip-of-Tree](https://chromedevtools.github.
 
 # Examples
 
-There are a few small examples of how to use the framework API on the [wiki](https://github.com/mkenney/go-chrome/wiki) and in the [`/_examples`](https://github.com/mkenney/go-chrome/tree/master/_examples) directory.
+There are a few small examples of how to use the framework API on the [wiki](https://github.com/mkenney/go-chrome/wiki) and in the [`/examples`](https://github.com/mkenney/go-chrome/tree/master/examples) directory.
 
 # TODO
 
 Contributions of any kind are very welcome!
 
 * Resolve [race condition issues](https://github.com/mkenney/go-chrome/pull/119). Any assistance is appreciated!
-* Add framework API examples to the `/_examples` directory and wiki to showcase various ways people are using the package.
+* Add framework API examples to the `/examples` directory and wiki to showcase various ways people are using the package.
 
-  Any example scripts showing various ways people are using the framework would be outstanding! The [screenshot script](https://github.com/mkenney/go-chrome/tree/master/_examples/screenshot-url) and several others are available there.
+  Any example scripts showing various ways people are using the framework would be outstanding! The [screenshot script](https://github.com/mkenney/go-chrome/tree/master/examples/screenshot-url) and several others are available there.
 
 * Refactoring to implement standard interfaces where applicable and review current use of interfaces in the API. Some aren't needed at all and others are used to support test mocks.
 * Add more tests, particularly for error cases.
