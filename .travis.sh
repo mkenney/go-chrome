@@ -37,4 +37,5 @@ for dir in $(go list ./... | grep -v vendor); do
     fi
 done
 
+cat coverage.txt
 exit $exit_code
