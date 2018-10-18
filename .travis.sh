@@ -3,7 +3,7 @@ set -e
 
 exit_code=0
 
-go get -v github.com/golang/lint/golint
+go get -u github.com/golang/lint/golint
 [ "0" = "$?" ] || exit 1
 
 go get -u github.com/golang/dep/cmd/dep
