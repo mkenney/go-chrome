@@ -40,8 +40,11 @@ func TestSocketStop(t *testing.T) {
 func TestSocketDisconnect(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestSocketDisconnect")
 	mockSocket := NewMock(socketURL)
-	if err := mockSocket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() && "errors.Err" != reflect.TypeOf(err).String() {
-		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
+	if err := mockSocket.Disconnect(); nil != err &&
+		"*errors.errorString" != reflect.TypeOf(err).String() &&
+		"errors.Err" != reflect.TypeOf(err).String() &&
+		"*fmt.noWrapError" != reflect.TypeOf(err).String() {
+		t.Errorf("Socketer.Disconnect() must return an error or nil, '%s' found", reflect.TypeOf(err).String())
 	}
 
 	// Test the disconnect timeout
