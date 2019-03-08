@@ -8,13 +8,6 @@ import (
 	"github.com/bdlm/log"
 )
 
-func init() {
-	level, err := log.ParseLevel("debug")
-	if nil == err {
-		log.SetLevel(level)
-	}
-}
-
 type mockParams struct {
 	Value int `json:"value"`
 }
