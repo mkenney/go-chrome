@@ -5,16 +5,8 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/bdlm/log"
 	cacheStorage "github.com/mkenney/go-chrome/tot/cache/storage"
 )
-
-func init() {
-	level, err := log.ParseLevel("debug")
-	if nil == err {
-		log.SetLevel(level)
-	}
-}
 
 func TestCacheStorageDeleteCache(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestCacheStorageDeleteCache")
