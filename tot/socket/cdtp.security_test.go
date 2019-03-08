@@ -248,7 +248,7 @@ func TestSecurityOnSecurityStateChanged(t *testing.T) {
 		resultChan <- eventData
 	})
 	mockResult := &security.StateChangedEvent{
-		State: security.State.Unknown,
+		State:                 security.State.Unknown,
 		SchemeIsCryptographic: true,
 		Explanations: []*security.StateExplanation{{
 			State:            security.State.Unknown,

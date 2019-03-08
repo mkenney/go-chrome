@@ -559,8 +559,8 @@ func TestEmulationSetVirtualTimePolicy(t *testing.T) {
 	defer mockSocket.Stop()
 
 	params := &emulation.SetVirtualTimePolicyParams{
-		Policy: emulation.VirtualTimePolicy("policy"),
-		Budget: 1,
+		Policy:                            emulation.VirtualTimePolicy("policy"),
+		Budget:                            1,
 		MaxVirtualTimeTaskStarvationCount: 1,
 	}
 	resultChan := mockSocket.Emulation().SetVirtualTimePolicy(params)

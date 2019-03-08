@@ -120,10 +120,10 @@ func TestChromiumTabs(t *testing.T) {
 func TestChromiumVersion(t *testing.T) {
 	chrome := New(
 		&Flags{
-			"addr": "devnul",
+			"addr":                     "devnul",
 			"remote-debugging-address": "devnul",
-			"port":                  9222,
-			"remote-debugging-port": 9222,
+			"port":                     9222,
+			"remote-debugging-port":    9222,
 		},
 		"", //"path/to/chrome",
 		"", //"path/to/stderr",
