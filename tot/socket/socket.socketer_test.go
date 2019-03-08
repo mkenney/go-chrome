@@ -10,7 +10,10 @@ import (
 func TestNewSocket(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNewSocket")
 	socket := New(socketURL)
-	if err := socket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() {
+	if err := socket.Disconnect(); nil != err &&
+		"*errors.errorString" != reflect.TypeOf(err).String() &&
+		"errors.Err" != reflect.TypeOf(err).String() &&
+		"*fmt.noWrapError" != reflect.TypeOf(err).String() {
 		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
 	}
 }
@@ -52,7 +55,10 @@ func TestSocketDisconnect(t *testing.T) {
 	mockSocket.Listen()
 	mockSocket.Conn().(*MockChromeWebSocket).Sleep(10 * time.Second)
 	start := time.Now()
-	if err := mockSocket.Disconnect(); nil != err && "*errors.errorString" != reflect.TypeOf(err).String() && "errors.Err" != reflect.TypeOf(err).String() {
+	if err := mockSocket.Disconnect(); nil != err &&
+		"*errors.errorString" != reflect.TypeOf(err).String() &&
+		"errors.Err" != reflect.TypeOf(err).String() &&
+		"*fmt.noWrapError" != reflect.TypeOf(err).String() {
 		t.Errorf("Socketer.Disconnect() must return an error or nil, %s found", reflect.TypeOf(err).String())
 	}
 	elapsed := time.Since(start)
