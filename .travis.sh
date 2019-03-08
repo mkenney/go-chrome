@@ -13,8 +13,8 @@ dep ensure
 [ "0" = "$?" ] || exit 3
 
 for dir in $(go list ./... | grep -v vendor); do
-    echo "golint -s $dir"
-    result=$(golint -s $dir)
+    echo "golint $dir"
+    result=$(golint $dir)
     if [ "" != "$result" ]; then
         echo $result
         exit_code=5
