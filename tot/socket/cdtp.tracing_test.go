@@ -166,8 +166,8 @@ func TestTracingStart(t *testing.T) {
 	defer mockSocket.Stop()
 
 	params := &tracing.StartParams{
-		Categories: "Categories",
-		Options:    "Options",
+		Categories:                   "Categories",
+		Options:                      "Options",
 		BufferUsageReportingInterval: 1,
 		TransferMode:                 tracing.TransferMode.ReportEvents,
 		TraceConfig: &tracing.TraceConfig{

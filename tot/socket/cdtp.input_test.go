@@ -16,14 +16,14 @@ func TestInputDispatchKeyEvent(t *testing.T) {
 	defer mockSocket.Stop()
 
 	params := &input.DispatchKeyEventParams{
-		Type:           input.KeyEvent.KeyDown,
-		Modifiers:      1,
-		Timestamp:      input.TimeSinceEpoch(time.Now().Unix()),
-		Text:           "text",
-		UnmodifiedText: "unmodified text",
-		KeyIdentifier:  "key-id",
-		Code:           "code",
-		Key:            "key",
+		Type:                  input.KeyEvent.KeyDown,
+		Modifiers:             1,
+		Timestamp:             input.TimeSinceEpoch(time.Now().Unix()),
+		Text:                  "text",
+		UnmodifiedText:        "unmodified text",
+		KeyIdentifier:         "key-id",
+		Code:                  "code",
+		Key:                   "key",
 		WindowsVirtualKeyCode: 1,
 		NativeVirtualKeyCode:  1,
 		AutoRepeat:            true,

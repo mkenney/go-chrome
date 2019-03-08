@@ -576,8 +576,8 @@ func TestDOMGetNodeForLocation(t *testing.T) {
 	defer mockSocket.Stop()
 
 	params := &dom.GetNodeForLocationParams{
-		X: 1,
-		Y: 1,
+		X:                         1,
+		Y:                         1,
 		IncludeUserAgentShadowDOM: true,
 	}
 	resultChan := mockSocket.DOM().GetNodeForLocation(params)
@@ -828,7 +828,7 @@ func TestDOMPerformSearch(t *testing.T) {
 	defer mockSocket.Stop()
 
 	params := &dom.PerformSearchParams{
-		Query: "search query",
+		Query:                     "search query",
 		IncludeUserAgentShadowDOM: true,
 	}
 	resultChan := mockSocket.DOM().PerformSearch(params)
