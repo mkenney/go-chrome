@@ -48,7 +48,7 @@ There are also always [tests that could be written](https://codecov.io/gh/mkenne
 
 [`v1.0.0-rc7`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc7) has been released.
 
-* fixes an issue with taking the address of a pointer reference
+* fixes an issue with taking the address of a pointer reference, see #132
 
 Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
 
@@ -56,6 +56,12 @@ Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) t
 [[constraint]]
   name = "github.com/mkenney/go-chrome"
   version = "1.0.0-rc7"
+```
+
+```mod
+require (
+	github.com/mkenney/go-chrome v1.0.0-rc7
+)
 ```
 
 ## v1.0.0-rc6 released
