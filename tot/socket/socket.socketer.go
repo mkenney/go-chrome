@@ -236,7 +236,8 @@ func (socket *Socket) handleUnknown(
 	if command, err = socket.commands.Get(response.ID); nil != err {
 		err = errs.Wrap(err, codes.SocketCmdHandlerNotFound, fmt.Sprintf("command #%d not found", response.ID))
 		if nil != response.Error && 0 != response.Error.Code {
-			err = err.(*errs.Err).With(response.Error, err.Error())
+			e := err.(*errs.Err)
+			err = e.With(response.Error, err.Error())
 		}
 		log.WithFields(log.Fields{"error": err, "result": response.Result, "socketID": socket.socketID}).
 			Debug(err)
