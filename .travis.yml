@@ -10,7 +10,7 @@ git:
 
 install: true
 env:
-    - GOFLAGS="-count=1" GOCACHE=
+    - GOMAXPROCS=4 GOFLAGS="-count=1" GOCACHE=
 
 branches:
     only:
