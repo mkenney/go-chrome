@@ -12,7 +12,7 @@ import (
 func TestHeapProfilerAddInspectedHeapObject(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerAddInspectedHeapObject")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &profiler.AddInspectedHeapObjectParams{
@@ -49,7 +49,7 @@ func TestHeapProfilerAddInspectedHeapObject(t *testing.T) {
 func TestHeapProfilerCollectGarbage(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerCollectGarbage")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.HeapProfiler().CollectGarbage()
@@ -83,7 +83,7 @@ func TestHeapProfilerCollectGarbage(t *testing.T) {
 func TestHeapProfilerDisable(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerDisable")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.HeapProfiler().Disable()
@@ -117,7 +117,7 @@ func TestHeapProfilerDisable(t *testing.T) {
 func TestHeapProfilerEnable(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerEnable")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.HeapProfiler().Enable()
@@ -151,7 +151,7 @@ func TestHeapProfilerEnable(t *testing.T) {
 func TestHeapProfilerGetHeapObjectID(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerGetHeapObjectID")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &profiler.GetHeapObjectIDParams{
@@ -193,7 +193,7 @@ func TestHeapProfilerGetHeapObjectID(t *testing.T) {
 func TestHeapProfilerGetObjectByHeapObjectID(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerGetObjectByHeapObjectID")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &profiler.GetObjectByHeapObjectIDParams{
@@ -247,7 +247,7 @@ func TestHeapProfilerGetObjectByHeapObjectID(t *testing.T) {
 func TestHeapProfilerGetSamplingProfile(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerGetSamplingProfile")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &profiler.GetSamplingProfileParams{
@@ -295,7 +295,7 @@ func TestHeapProfilerGetSamplingProfile(t *testing.T) {
 func TestHeapProfilerStartSampling(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerStartSampling")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &profiler.StartSamplingParams{
@@ -332,7 +332,7 @@ func TestHeapProfilerStartSampling(t *testing.T) {
 func TestHeapProfilerStartTrackingHeapObjects(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerStartTrackingHeapObjects")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &profiler.StartTrackingHeapObjectsParams{
@@ -369,7 +369,7 @@ func TestHeapProfilerStartTrackingHeapObjects(t *testing.T) {
 func TestHeapProfilerStopSampling(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerStopSampling")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &profiler.StopSamplingParams{
@@ -418,7 +418,7 @@ func TestHeapProfilerStopSampling(t *testing.T) {
 func TestHeapProfilerStopTrackingHeapObjects(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerStopTrackingHeapObjects")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &profiler.StopTrackingHeapObjectsParams{
@@ -455,7 +455,7 @@ func TestHeapProfilerStopTrackingHeapObjects(t *testing.T) {
 func TestHeapProfilerTakeHeapSnapshot(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerTakeHeapSnapshot")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &profiler.TakeHeapSnapshotParams{
@@ -492,7 +492,7 @@ func TestHeapProfilerTakeHeapSnapshot(t *testing.T) {
 func TestHeapProfilerOnAddHeapSnapshotChunk(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerOnAddHeapSnapshotChunk")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *profiler.AddHeapSnapshotChunkEvent)
@@ -536,7 +536,7 @@ func TestHeapProfilerOnAddHeapSnapshotChunk(t *testing.T) {
 func TestHeapProfilerOnHeapStatsUpdate(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerOnHeapStatsUpdate")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *profiler.HeapStatsUpdateEvent)
@@ -580,7 +580,7 @@ func TestHeapProfilerOnHeapStatsUpdate(t *testing.T) {
 func TestHeapProfilerOnLastSeenObjectID(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerOnLastSeenObjectID")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *profiler.LastSeenObjectIDEvent)
@@ -625,7 +625,7 @@ func TestHeapProfilerOnLastSeenObjectID(t *testing.T) {
 func TestHeapProfilerOnReportHeapSnapshotProgress(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerOnReportHeapSnapshotProgress")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *profiler.ReportHeapSnapshotProgressEvent)
@@ -671,7 +671,7 @@ func TestHeapProfilerOnReportHeapSnapshotProgress(t *testing.T) {
 func TestHeapProfilerOnResetProfiles(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeapProfilerOnResetProfiles")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *profiler.ResetProfilesEvent)

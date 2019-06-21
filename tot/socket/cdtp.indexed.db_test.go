@@ -11,7 +11,7 @@ import (
 func TestIndexedDBClearObjectStore(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestIndexedDBClearObjectStore")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &db.ClearObjectStoreParams{
@@ -50,7 +50,7 @@ func TestIndexedDBClearObjectStore(t *testing.T) {
 func TestIndexedDBDeleteDatabase(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestIndexedDBDeleteDatabase")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &db.DeleteDatabaseParams{
@@ -89,7 +89,7 @@ func TestIndexedDBDeleteDatabase(t *testing.T) {
 func TestIndexedDBDeleteObjectStoreEntries(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestIndexedDBDeleteObjectStoreEntries")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &db.DeleteObjectStoreEntriesParams{
@@ -127,7 +127,7 @@ func TestIndexedDBDeleteObjectStoreEntries(t *testing.T) {
 func TestIndexedDBDisable(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestIndexedDBDisable")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.IndexedDB().Disable()
@@ -161,7 +161,7 @@ func TestIndexedDBDisable(t *testing.T) {
 func TestIndexedDBEnable(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestIndexedDBEnable")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.IndexedDB().Enable()
@@ -195,7 +195,7 @@ func TestIndexedDBEnable(t *testing.T) {
 func TestIndexedDBRequestData(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestIndexedDBRequestData")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &db.RequestDataParams{
@@ -265,7 +265,7 @@ func TestIndexedDBRequestData(t *testing.T) {
 func TestIndexedDBRequestDatabase(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestIndexedDBRequestDatabase")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &db.RequestDatabaseParams{
@@ -330,7 +330,7 @@ func TestIndexedDBRequestDatabase(t *testing.T) {
 func TestIndexedDBRequestDatabaseNames(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestIndexedDBRequestDatabaseNames")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &db.RequestDatabaseNamesParams{

@@ -9,7 +9,7 @@ import (
 )
 
 func init() {
-	log.SetLevel(log.InfoLevel)
+	log.SetLevel(log.ErrorLevel)
 }
 
 /*

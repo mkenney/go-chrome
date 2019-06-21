@@ -11,7 +11,7 @@ import (
 func TestSchemaGetDomains(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestSchemaGetDomains")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Schema().GetDomains()

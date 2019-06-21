@@ -12,7 +12,7 @@ import (
 func TestRuntimeAwaitPromise(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeAwaitPromise")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &runtime.AwaitPromiseParams{
@@ -121,7 +121,7 @@ func TestRuntimeAwaitPromise(t *testing.T) {
 func TestRuntimeCallFunctionOn(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeCallFunctionOn")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &runtime.CallFunctionOnParams{
@@ -241,7 +241,7 @@ func TestRuntimeCallFunctionOn(t *testing.T) {
 func TestRuntimeCompileScript(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeCompileScript")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &runtime.CompileScriptParams{
@@ -313,7 +313,7 @@ func TestRuntimeCompileScript(t *testing.T) {
 func TestRuntimeDisable(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeDisable")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Runtime().Disable()
@@ -347,7 +347,7 @@ func TestRuntimeDisable(t *testing.T) {
 func TestRuntimeDiscardConsoleEntries(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeDiscardConsoleEntries")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Runtime().DiscardConsoleEntries()
@@ -381,7 +381,7 @@ func TestRuntimeDiscardConsoleEntries(t *testing.T) {
 func TestRuntimeEnable(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeEnable")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Runtime().Enable()
@@ -415,7 +415,7 @@ func TestRuntimeEnable(t *testing.T) {
 func TestRuntimeEvaluate(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeEvaluate")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &runtime.EvaluateParams{
@@ -530,7 +530,7 @@ func TestRuntimeEvaluate(t *testing.T) {
 func TestRuntimeGetProperties(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeGetProperties")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &runtime.GetPropertiesParams{
@@ -627,7 +627,7 @@ func TestRuntimeGetProperties(t *testing.T) {
 func TestRuntimeGlobalLexicalScopeNames(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeGlobalLexicalScopeNames")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &runtime.GlobalLexicalScopeNamesParams{
@@ -669,7 +669,7 @@ func TestRuntimeGlobalLexicalScopeNames(t *testing.T) {
 func TestRuntimeQueryObjects(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeQueryObjects")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &runtime.QueryObjectsParams{
@@ -711,7 +711,7 @@ func TestRuntimeQueryObjects(t *testing.T) {
 func TestRuntimeReleaseObject(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeReleaseObject")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &runtime.ReleaseObjectParams{
@@ -748,7 +748,7 @@ func TestRuntimeReleaseObject(t *testing.T) {
 func TestRuntimeReleaseObjectGroup(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeReleaseObjectGroup")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &runtime.ReleaseObjectGroupParams{
@@ -785,7 +785,7 @@ func TestRuntimeReleaseObjectGroup(t *testing.T) {
 func TestRuntimeRunIfWaitingForDebugger(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeRunIfWaitingForDebugger")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Runtime().RunIfWaitingForDebugger()
@@ -819,7 +819,7 @@ func TestRuntimeRunIfWaitingForDebugger(t *testing.T) {
 func TestRuntimeRunScript(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeRunScript")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &runtime.RunScriptParams{
@@ -868,7 +868,7 @@ func TestRuntimeRunScript(t *testing.T) {
 func TestRuntimeSetCustomObjectFormatterEnabled(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeSetCustomObjectFormatterEnabled")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	params := &runtime.SetCustomObjectFormatterEnabledParams{
@@ -908,7 +908,7 @@ func TestRuntimeSetCustomObjectFormatterEnabled(t *testing.T) {
 func TestRuntimeOnConsoleAPICalled(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeOnConsoleAPICalled")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *runtime.ConsoleAPICalledEvent)
@@ -960,7 +960,7 @@ func TestRuntimeOnConsoleAPICalled(t *testing.T) {
 func TestRuntimeOnExceptionRevoked(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeOnExceptionRevoked")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *runtime.ExceptionRevokedEvent)
@@ -1008,7 +1008,7 @@ func TestRuntimeOnExceptionRevoked(t *testing.T) {
 func TestRuntimeOnExceptionThrown(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeOnExceptionThrown")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *runtime.ExceptionThrownEvent)
@@ -1056,7 +1056,7 @@ func TestRuntimeOnExceptionThrown(t *testing.T) {
 func TestRuntimeOnExecutionContextCreated(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeOnExecutionContextCreated")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *runtime.ExecutionContextCreatedEvent)
@@ -1108,7 +1108,7 @@ func TestRuntimeOnExecutionContextCreated(t *testing.T) {
 func TestRuntimeOnExecutionContextDestroyed(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeOnExecutionContextDestroyed")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *runtime.ExecutionContextDestroyedEvent)
@@ -1155,7 +1155,7 @@ func TestRuntimeOnExecutionContextDestroyed(t *testing.T) {
 func TestRuntimeOnExecutionContextsCleared(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeOnExecutionContextsCleared")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *runtime.ExecutionContextsClearedEvent)
@@ -1197,7 +1197,7 @@ func TestRuntimeOnExecutionContextsCleared(t *testing.T) {
 func TestRuntimeOnInspectRequested(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestRuntimeOnInspectRequested")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go mockSocket.Listen()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *runtime.InspectRequestedEvent)

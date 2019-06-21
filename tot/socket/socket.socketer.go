@@ -110,8 +110,6 @@ type Socket struct {
 	conn         WebSocketer
 	connected    bool
 	handlers     EventHandlerMapper
-	listenCh     chan bool
-	listening    bool
 	mux          *sync.Mutex
 	newSocket    func(socketURL *url.URL) (WebSocketer, error)
 	socketID     int
