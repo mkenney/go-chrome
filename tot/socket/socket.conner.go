@@ -67,7 +67,6 @@ func (socket *Socket) Disconnect() error {
 	if !socket.connected {
 		return fmt.Errorf("not connected")
 	}
-	socket.Stop()
 	err := socket.conn.Close()
 	if nil != err {
 		err = errs.Wrap(err, codes.SocketCloseFailed, "could not close socket connection")
@@ -90,7 +89,7 @@ func (socket *Socket) ReadJSON(v interface{}) error {
 
 	err = socket.conn.ReadJSON(&v)
 	if nil != err {
-		return errs.Wrap(err, codes.SocketReadFailed, "socket read failed")
+		return err
 	}
 
 	return nil

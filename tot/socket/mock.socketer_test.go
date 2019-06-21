@@ -1,6 +1,7 @@
 package socket
 
 import (
+	"context"
 	"net/url"
 	"sync"
 
@@ -15,6 +16,7 @@ func init() {
 NewMock returns a Chromium Socketer mock for unit testing
 */
 func NewMock(socketURL *url.URL) *Socket {
+	ctx, cancel := context.WithCancel(context.Background())
 	socket := &Socket{
 		commandIDMux: &sync.Mutex{},
 		commands:     NewCommandMap(),
@@ -23,6 +25,10 @@ func NewMock(socketURL *url.URL) *Socket {
 		newSocket:    NewMockWebsocket,
 		socketID:     NextSocketID(),
 		url:          socketURL,
+
+		ctx:    ctx,
+		cancel: cancel,
+		wg:     &sync.WaitGroup{},
 	}
 	log.Debugf("Created socket #%d", socket.socketID)
 
