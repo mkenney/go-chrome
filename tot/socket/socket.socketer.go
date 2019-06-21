@@ -72,7 +72,12 @@ func New(url *url.URL) *Socket {
 	socket.tethering = &TetheringProtocol{Socket: socket}
 	socket.tracing = &TracingProtocol{Socket: socket}
 
-	socket.Listen()
+	go func() {
+		err := socket.Listen()
+		if nil != err {
+			log.WithError(err).Error("could not start socket listener")
+		}
+	}()
 
 	log.WithFields(log.Fields{"socketID": socket.socketID, "url": socket.url.String()}).
 		Info("New socket connection listening")
@@ -314,9 +319,6 @@ func (socket *Socket) Listen() error {
 
 		// Process the next socket response.
 		case response := <-readCh:
-			if nil != err {
-				return err
-			}
 			if 0 == response.ID &&
 				"" == response.Method &&
 				0 == len(response.Params) &&
@@ -335,7 +337,7 @@ func (socket *Socket) Listen() error {
 					Debug("sending to event handler")
 				socket.handleEvent(response)
 
-			} else if nil == err {
+			} else {
 				tmp, _ := json.Marshal(response)
 				log.WithFields(log.Fields{"data": string(tmp), "method": response.Method, "responseID": response.ID, "socketID": socket.socketID}).
 					Error("Unknown response from web socket")
