@@ -40,7 +40,8 @@ func TestSocketStop(t *testing.T) {
 	mockSocket.Stop()
 }
 
-func TestSocketDisconnect(t *testing.T) {
+// https://github.com/mkenney/go-chrome/pull/136
+func deprecatedTestSocketDisconnect(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestSocketDisconnect")
 	mockSocket := NewMock(socketURL)
 	if err := mockSocket.Disconnect(); nil != err &&
