@@ -129,7 +129,8 @@ handleEvent() as appropriate.
 
 Listen is a Socketer implementation.
 */
-func (socket *MockSocket) Listen() {
+func (socket *MockSocket) Listen() error {
+	return nil
 }
 
 /*

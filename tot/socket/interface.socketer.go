@@ -15,12 +15,9 @@ type Socketer interface {
 	// CurCommandID returns the latest command ID.
 	CurCommandID() int
 
-	// Errors returns a channel of errors
-	Errors() chan error
-
 	// Listen starts the socket read loop and delivers messages to
 	// HandleCommand() and HandleEvent() as appropriate.
-	Listen()
+	Listen() error
 
 	// NextCommandID generates and returns the next command ID.
 	NextCommandID() int

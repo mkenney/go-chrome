@@ -9,7 +9,6 @@
 	<a href="https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#release-candidate"><img src="https://img.shields.io/badge/stability-pre--release-48c9b0.svg" alt="Release Candidate"></a>
 	<a href="https://travis-ci.org/mkenney/go-chrome"><img src="https://travis-ci.org/mkenney/go-chrome.svg?branch=master" alt="Build status"></a>
 	<a href="https://codecov.io/gh/mkenney/go-chrome"><img src="https://img.shields.io/codecov/c/github/mkenney/go-chrome/master.svg" alt="Coverage status"></a>
-	<a href="https://goreportcard.com/report/github.com/mkenney/go-chrome"><img src="https://goreportcard.com/badge/github.com/mkenney/go-chrome" alt="Go Report Card"></a>
 	<a href="https://github.com/mkenney/go-chrome/issues"><img src="https://img.shields.io/github/issues-raw/mkenney/go-chrome.svg" alt="Github issues"></a>
 	<a href="https://github.com/mkenney/go-chrome/pulls"><img src="https://img.shields.io/github/issues-pr/mkenney/go-chrome.svg" alt="Github pull requests"></a>
 	<a href="https://godoc.org/github.com/mkenney/go-chrome"><img src="https://godoc.org/github.com/mkenney/go-chrome?status.svg" alt="GoDoc"></a>
@@ -21,9 +20,9 @@ The API is fairly settled and basic code-coverage tests have been implemented bu
 
 This implementation is based on the [Tip-of-Tree](https://chromedevtools.github.io/devtools-protocol/tot/) documentation and may be prone to change. At some point stable versions will be implemented as well, hopefully beginning with v1.3.
 
-# Examples
+# Documentation and Examples
 
-There are a few small examples of how to use the framework API on the [wiki](https://github.com/mkenney/go-chrome/wiki) and in the [`/_examples`](https://github.com/mkenney/go-chrome/tree/master/_examples) directory.
+There are a few small examples of how to use the framework API on the [wiki](https://github.com/mkenney/go-chrome/wiki) and in the [`/_examples`](https://github.com/mkenney/go-chrome/tree/master/_examples) directory. Additional documentation is available on the [wiki](https://github.com/mkenney/go-chrome/wiki) as well.
 
 # TODO
 
@@ -42,111 +41,6 @@ If you would like to contribute but aren't sure how, take a look at the [issue t
 
 There are also always [tests that could be written](https://codecov.io/gh/mkenney/go-chrome). There are [many](https://github.com/mkenney/go-chrome/blob/master/tot/socket/cdtp.animation_test.go) [examples](https://github.com/mkenney/go-chrome/blob/master/tot/cdtp/animation/enum.animation.type_test.go) of tests in the package.
 
-# Announcements
+# [`CHANGELOG`](CHANGELOG.md)
 
-## v1.0.0-rc7 released
-
-[`v1.0.0-rc7`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc7) has been released.
-
-* fixes an issue with taking the address of a pointer reference, see [#132](https://github.com/mkenney/go-chrome/issues/132)
-
-Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
-
-```toml
-[[constraint]]
-  name = "github.com/mkenney/go-chrome"
-  version = "1.0.0-rc7"
-```
-
-```mod
-require (
-	github.com/mkenney/go-chrome v1.0.0-rc7
-)
-```
-
-## v1.0.0-rc6 released
-
-[`v1.0.0-rc6`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc6) has been released.
-
-* enable handling socket errors
-* add initial error codes
-* cleanup logging code
-* example documentation
-* add useful docker-compose
-
-Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
-
-```toml
-[[constraint]]
-  name = "github.com/mkenney/go-chrome"
-  version = "1.0.0-rc6"
-```
-
-## v1.0.0-rc5 released
-
-[`v1.0.0-rc5`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc5) has been released.
-
-* Fixes a `dep` issue with transitive dependencies
-
-Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
-
-```toml
-[[constraint]]
-  name = "github.com/mkenney/go-chrome"
-  version = "1.0.0-rc5"
-```
-
-## v1.0.0-rc4 released
-
-[`v1.0.0-rc4`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc4) has been released.
-
-* Updates the log package
-* Cleans up and clarifies some log messages
-
-Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
-
-```toml
-[[constraint]]
-  name = "github.com/mkenney/go-chrome"
-  version = "1.0.0-rc4"
-```
-
-## v1.0.0-rc3 released
-
-[`v1.0.0-rc3`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc3) has been released.
-
-* Fixes an issue with an upstream dependency
-
-Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
-
-```toml
-[[constraint]]
-  name = "github.com/mkenney/go-chrome"
-  version = "1.0.0-rc3"
-```
-
-## v1.0.0-rc2 released
-
-[`v1.0.0-rc2`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc2) has been released.
-
-* Fixes an issue with zombie listen process
-* Fixes an issue with zombie stop process
-* Adds test coverage for socket timeouts
-
-Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
-
-```toml
-[[constraint]]
-  name = "github.com/mkenney/go-chrome"
-  version = "1.0.0-rc2"
-```
-
-## v1.0.0-rc1 released
-
-[`v1.0.0-rc1`](https://github.com/mkenney/go-chrome/releases/tag/v1.0.0-rc1) has been released. Please [open an issue](https://github.com/mkenney/go-chrome/issues/new/choose) to report any problems or suggest any changes.
-
-```toml
-[[constraint]]
-  name = "github.com/mkenney/go-chrome"
-  version = "1.0.0-rc1"
-```
+All notable changes to this project are documented in the [`CHANGELOG`](CHANGELOG.md). The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).

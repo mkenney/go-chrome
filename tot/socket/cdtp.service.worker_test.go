@@ -13,7 +13,7 @@ import (
 func TestServiceWorkerDeliverPushMessage(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerDeliverPushMessage")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &worker.DeliverPushMessageParams{
@@ -52,7 +52,7 @@ func TestServiceWorkerDeliverPushMessage(t *testing.T) {
 func TestServiceWorkerDisable(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerDisable")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.ServiceWorker().Disable()
@@ -86,7 +86,7 @@ func TestServiceWorkerDisable(t *testing.T) {
 func TestServiceWorkerDispatchSyncEvent(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerDispatchSyncEvent")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &worker.DispatchSyncEventParams{
@@ -126,7 +126,7 @@ func TestServiceWorkerDispatchSyncEvent(t *testing.T) {
 func TestServiceWorkerEnable(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerEnable")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.ServiceWorker().Enable()
@@ -160,7 +160,7 @@ func TestServiceWorkerEnable(t *testing.T) {
 func TestServiceWorkerInspectWorker(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerInspectWorker")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &worker.InspectWorkerParams{
@@ -197,7 +197,7 @@ func TestServiceWorkerInspectWorker(t *testing.T) {
 func TestServiceWorkerSetForceUpdateOnPageLoad(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerSetForceUpdateOnPageLoad")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &worker.SetForceUpdateOnPageLoadParams{
@@ -234,7 +234,7 @@ func TestServiceWorkerSetForceUpdateOnPageLoad(t *testing.T) {
 func TestServiceWorkerSkipWaiting(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerSkipWaiting")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &worker.SkipWaitingParams{
@@ -271,7 +271,7 @@ func TestServiceWorkerSkipWaiting(t *testing.T) {
 func TestServiceWorkerStartWorker(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerStartWorker")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &worker.StartWorkerParams{
@@ -308,7 +308,7 @@ func TestServiceWorkerStartWorker(t *testing.T) {
 func TestServiceWorkerStopAllWorkers(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerStopAllWorkers")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.ServiceWorker().StopAllWorkers()
@@ -342,7 +342,7 @@ func TestServiceWorkerStopAllWorkers(t *testing.T) {
 func TestServiceWorkerStopWorker(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerStopWorker")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &worker.StopWorkerParams{
@@ -379,7 +379,7 @@ func TestServiceWorkerStopWorker(t *testing.T) {
 func TestServiceWorkerUnregister(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerUnregister")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &worker.UnregisterParams{
@@ -416,7 +416,7 @@ func TestServiceWorkerUnregister(t *testing.T) {
 func TestServiceWorkerUpdateRegistration(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerUpdateRegistration")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &worker.UpdateRegistrationParams{
@@ -453,7 +453,7 @@ func TestServiceWorkerUpdateRegistration(t *testing.T) {
 func TestServiceWorkerOnWorkerErrorReported(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerOnWorkerErrorReported")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *worker.ErrorReportedEvent)
@@ -507,7 +507,7 @@ func TestServiceWorkerOnWorkerErrorReported(t *testing.T) {
 func TestServiceWorkerOnWorkerRegistrationUpdated(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerOnWorkerRegistrationUpdated")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *worker.RegistrationUpdatedEvent)
@@ -558,7 +558,7 @@ func TestServiceWorkerOnWorkerRegistrationUpdated(t *testing.T) {
 func TestServiceWorkerOnWorkerVersionUpdated(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestServiceWorkerOnWorkerVersionUpdated")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *worker.VersionUpdatedEvent)

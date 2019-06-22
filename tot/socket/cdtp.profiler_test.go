@@ -13,7 +13,7 @@ import (
 func TestProfilerDisable(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestProfilerDisable")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().Disable()
@@ -47,7 +47,7 @@ func TestProfilerDisable(t *testing.T) {
 func TestProfilerEnable(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestProfilerEnable")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().Enable()
@@ -81,7 +81,7 @@ func TestProfilerEnable(t *testing.T) {
 func TestProfilerGetBestEffortCoverage(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestProfilerGetBestEffortCoverage")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().GetBestEffortCoverage()
@@ -132,7 +132,7 @@ func TestProfilerGetBestEffortCoverage(t *testing.T) {
 func TestProfilerSetSamplingInterval(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestProfilerSetSamplingInterval")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &profiler.SetSamplingIntervalParams{
@@ -169,7 +169,7 @@ func TestProfilerSetSamplingInterval(t *testing.T) {
 func TestProfilerStart(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestProfilerStart")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().Start()
@@ -203,7 +203,7 @@ func TestProfilerStart(t *testing.T) {
 func TestProfilerStartPreciseCoverage(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestProfilerStartPreciseCoverage")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &profiler.StartPreciseCoverageParams{
@@ -241,7 +241,7 @@ func TestProfilerStartPreciseCoverage(t *testing.T) {
 func TestProfilerStartTypeProfile(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestProfilerStartTypeProfile")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().StartTypeProfile()
@@ -275,7 +275,7 @@ func TestProfilerStartTypeProfile(t *testing.T) {
 func TestProfilerStop(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestProfilerStop")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().Stop()
@@ -330,7 +330,7 @@ func TestProfilerStop(t *testing.T) {
 func TestProfilerStopPreciseCoverage(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestProfilerStopPreciseCoverage")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().StopPreciseCoverage()
@@ -364,7 +364,7 @@ func TestProfilerStopPreciseCoverage(t *testing.T) {
 func TestProfilerStopTypeProfile(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestProfilerStopTypeProfile")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().StopTypeProfile()
@@ -398,7 +398,7 @@ func TestProfilerStopTypeProfile(t *testing.T) {
 func TestProfilerTakePreciseCoverage(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestProfilerTakePreciseCoverage")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().TakePreciseCoverage()
@@ -449,7 +449,7 @@ func TestProfilerTakePreciseCoverage(t *testing.T) {
 func TestProfilerTakeTypeProfile(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestProfilerTakeTypeProfile")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Profiler().TakeTypeProfile()
@@ -497,7 +497,7 @@ func TestProfilerTakeTypeProfile(t *testing.T) {
 func TestProfilerOnConsoleProfileFinished(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestProfilerOnConsoleProfileFinished")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *profiler.ConsoleProfileFinishedEvent)
@@ -563,7 +563,7 @@ func TestProfilerOnConsoleProfileFinished(t *testing.T) {
 func TestProfilerOnConsoleProfileStarted(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestProfilerOnConsoleProfileStarted")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *profiler.ConsoleProfileStartedEvent)

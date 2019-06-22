@@ -11,7 +11,7 @@ import (
 func TestStorageClearDataForOrigin(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestStorageClearDataForOrigin")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &storage.ClearDataForOriginParams{
@@ -49,7 +49,7 @@ func TestStorageClearDataForOrigin(t *testing.T) {
 func TestStorageGetUsageAndQuota(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestStorageGetUsageAndQuota")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &storage.GetUsageAndQuotaParams{
@@ -96,7 +96,7 @@ func TestStorageGetUsageAndQuota(t *testing.T) {
 func TestStorageTrackCacheStorageForOrigin(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestStorageTrackCacheStorageForOrigin")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &storage.TrackCacheStorageForOriginParams{
@@ -133,7 +133,7 @@ func TestStorageTrackCacheStorageForOrigin(t *testing.T) {
 func TestStorageTrackIndexedDBForOrigin(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestStorageTrackIndexedDBForOrigin")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &storage.TrackIndexedDBForOriginParams{
@@ -170,7 +170,7 @@ func TestStorageTrackIndexedDBForOrigin(t *testing.T) {
 func TestStorageUntrackCacheStorageForOrigin(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestStorageUntrackCacheStorageForOrigin")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &storage.UntrackCacheStorageForOriginParams{
@@ -207,7 +207,7 @@ func TestStorageUntrackCacheStorageForOrigin(t *testing.T) {
 func TestStorageUntrackIndexedDBForOrigin(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestStorageUntrackIndexedDBForOrigin")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &storage.UntrackIndexedDBForOriginParams{
@@ -244,7 +244,7 @@ func TestStorageUntrackIndexedDBForOrigin(t *testing.T) {
 func TestStorageOnCacheStorageContentUpdated(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestStorageOnCacheStorageContentUpdated")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *storage.CacheStorageContentUpdatedEvent)
@@ -292,7 +292,7 @@ func TestStorageOnCacheStorageContentUpdated(t *testing.T) {
 func TestStorageOnCacheStorageListUpdated(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestStorageOnCacheStorageListUpdated")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *storage.CacheStorageListUpdatedEvent)
@@ -339,7 +339,7 @@ func TestStorageOnCacheStorageListUpdated(t *testing.T) {
 func TestStorageOnIndexedDBContentUpdated(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestStorageOnIndexedDBContentUpdated")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *storage.IndexedDBContentUpdatedEvent)
@@ -388,7 +388,7 @@ func TestStorageOnIndexedDBContentUpdated(t *testing.T) {
 func TestStorageOnIndexedDBListUpdated(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestStorageOnIndexedDBListUpdated")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *storage.IndexedDBListUpdatedEvent)

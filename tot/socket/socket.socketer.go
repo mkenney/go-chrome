@@ -1,11 +1,11 @@
 package socket
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/url"
 	"sync"
-	"time"
 
 	errs "github.com/bdlm/errors"
 	"github.com/bdlm/log"
@@ -17,15 +17,19 @@ New returns a pointer to a websocket struct that implements Socketer interface
 listening to the specified URL.
 */
 func New(url *url.URL) *Socket {
+	ctx, cancel := context.WithCancel(context.Background())
 	socket := &Socket{
 		commandIDMux: &sync.Mutex{},
 		commands:     NewCommandMap(),
-		errCh:        make(chan error, 3),
 		handlers:     NewEventHandlerMap(),
 		mux:          &sync.Mutex{},
 		newSocket:    NewWebsocket,
 		socketID:     NextSocketID(),
 		url:          url,
+
+		ctx:    ctx,
+		cancel: cancel,
+		wg:     &sync.WaitGroup{},
 	}
 
 	// Init the protocol interfaces for the API.
@@ -68,7 +72,12 @@ func New(url *url.URL) *Socket {
 	socket.tethering = &TetheringProtocol{Socket: socket}
 	socket.tracing = &TracingProtocol{Socket: socket}
 
-	socket.Listen()
+	go func() {
+		err := socket.Listen()
+		if nil != err {
+			log.WithError(err).Error("could not start socket listener")
+		}
+	}()
 
 	log.WithFields(log.Fields{"socketID": socket.socketID, "url": socket.url.String()}).
 		Info("New socket connection listening")
@@ -100,14 +109,15 @@ type Socket struct {
 	commands     CommandMapper
 	conn         WebSocketer
 	connected    bool
-	errCh        chan error
 	handlers     EventHandlerMapper
-	listenCh     chan bool
-	listening    bool
 	mux          *sync.Mutex
 	newSocket    func(socketURL *url.URL) (WebSocketer, error)
 	socketID     int
 	url          *url.URL
+
+	ctx    context.Context
+	cancel context.CancelFunc
+	wg     *sync.WaitGroup
 
 	// Protocol interfaces for the API.
 	accessibility        *AccessibilityProtocol
@@ -250,107 +260,95 @@ func (socket *Socket) handleUnknown(
 }
 
 /*
-Errors returns the last error returned by the listen routine, if any.
-*/
-func (socket *Socket) Errors() chan error {
-	return socket.errCh
-}
-
-/*
 Listen starts the socket read loop and delivers messages to handleResponse() and
 handleEvent() as appropriate.
 
 Listen is a Socketer implementation.
 */
-func (socket *Socket) Listen() {
-	socket.listenCh = make(chan bool)
-	socket.listening = true
-	go socket.listen(socket.errCh)
-}
-
-func (socket *Socket) listen(errCh chan error) {
+func (socket *Socket) Listen() error {
 	var err error
 
 	// recover socket panics caused by defunct or dead connections. This
 	// also returns the error signal.
 	defer func() {
 		if r := recover(); r != nil {
-			err = errs.New(codes.SocketPanic, "recovered from panic in Socket.listen()")
+			err := errs.New(codes.SocketPanic, "recovered from panic in Socket.listen()")
 			if e, ok := r.(error); ok {
 				err = errs.Wrap(e, codes.SocketPanic, "recovered from panic in Socket.listen()")
 			}
 			log.WithFields(log.Fields{"error": err}).
 				Error(err)
 		}
-		errCh <- err
 	}()
 
 	err = socket.Connect()
 	if nil != err {
-		errCh <- errs.Wrap(err, 0, "socket connection failed")
-		return
+		return errs.Wrap(err, 0, "socket connection failed")
 	}
 	defer socket.Disconnect()
 
+	socket.wg.Add(1)
+	defer socket.wg.Done()
+
+	readCh := make(chan *Response) // websocket data
+	errCh := make(chan error)      // websocket errors
 	for {
-		response := &Response{}
-		err = socket.ReadJSON(&response)
-		if nil != err {
-			err = errs.Wrap(err, codes.SocketReadFailed, fmt.Sprintf("socket #%d - socket read failed", socket.socketID))
-			log.WithFields(log.Fields{
-				"socketID": socket.socketID,
-			}).Error(err)
-		}
-		if 0 == response.ID &&
-			"" == response.Method &&
-			0 == len(response.Params) &&
-			0 == len(response.Result) {
-			log.WithFields(log.Fields{"socketID": socket.socketID}).
-				Error("nil response from socket")
-		}
 
-		if response.ID > 0 {
-			log.WithFields(log.Fields{"responseID": response.ID, "socketID": socket.socketID}).
-				Debug("sending to command handler")
-			socket.handleResponse(response)
-
-		} else if "" != response.Method {
-			log.WithFields(log.Fields{"method": response.Method, "socketID": socket.socketID}).
-				Debug("sending to event handler")
-			socket.handleEvent(response)
-
-		} else {
-			tmp, _ := json.Marshal(response)
-			log.WithFields(log.Fields{"data": string(tmp), "method": response.Method, "responseID": response.ID, "socketID": socket.socketID}).
-				Error("Unknown response from web socket")
-
-			if nil == response.Error {
-				response.Error = &Error{
-					Message: "Unknown response from web socket",
-				}
+		// Fetch the next socket response in the background.
+		go func() {
+			response := &Response{}
+			err := socket.ReadJSON(&response)
+			if nil != err {
+				errCh <- err
+			} else {
+				readCh <- response
 			}
-			socket.handleUnknown(response)
-		}
+		}()
 
-		if !socket.listening {
-			log.WithFields(log.Fields{"socketID": socket.socketID, "url": socket.url.String()}).
-				Info("Socket shutting down")
-			go func() {
-				select {
-				case socket.listenCh <- true:
-				case <-time.After(10 * time.Second):
+		select {
+		// Shutdown when signaled.
+		case <-socket.ctx.Done():
+			log.WithField("socketID", socket.socketID).Debug("shutting down socket listener")
+			return nil
+
+		// Process any errors
+		case err := <-errCh:
+			return err
+
+		// Process the next socket response.
+		case response := <-readCh:
+			if 0 == response.ID &&
+				"" == response.Method &&
+				0 == len(response.Params) &&
+				0 == len(response.Result) {
+				log.WithFields(log.Fields{"socketID": socket.socketID}).
+					Debug("nil response from socket")
+			}
+
+			if response.ID > 0 {
+				log.WithFields(log.Fields{"responseID": response.ID, "socketID": socket.socketID}).
+					Debug("sending to command handler")
+				socket.handleResponse(response)
+
+			} else if "" != response.Method {
+				log.WithFields(log.Fields{"method": response.Method, "socketID": socket.socketID}).
+					Debug("sending to event handler")
+				socket.handleEvent(response)
+
+			} else {
+				tmp, _ := json.Marshal(response)
+				log.WithFields(log.Fields{"data": string(tmp), "method": response.Method, "responseID": response.ID, "socketID": socket.socketID}).
+					Error("Unknown response from web socket")
+
+				if nil == response.Error {
+					response.Error = &Error{
+						Message: "Unknown response from web socket",
+					}
 				}
-			}()
-			break
+				socket.handleUnknown(response)
+			}
 		}
 	}
-
-	socket.listening = false
-	if nil != err {
-		errCh <- errs.Wrap(err, 0, "socket closed")
-		return
-	}
-	errCh <- nil
 }
 
 /*
@@ -446,16 +444,9 @@ websocket connection.
 Stop is a Socketer implementation.
 */
 func (socket *Socket) Stop() {
-	if socket.listening {
-		socket.listening = false
-		select {
-		case <-socket.listenCh:
-		case <-time.After(1 * time.Second):
-			socket.conn.Close()
-		}
-		log.WithFields(log.Fields{"socketID": socket.socketID}).
-			Debug("socket stopped")
-	}
+	log.WithFields(log.Fields{"socketID": socket.socketID}).Info("closing websocket")
+	socket.cancel()
+	socket.wg.Wait()
 }
 
 /*

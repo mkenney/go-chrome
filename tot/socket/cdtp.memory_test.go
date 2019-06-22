@@ -11,7 +11,7 @@ import (
 func TestMemoryGetDOMCounters(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestMemoryGetDOMCounters")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &memory.GetDOMCountersParams{
@@ -50,7 +50,7 @@ func TestMemoryGetDOMCounters(t *testing.T) {
 func TestMemoryPrepareForLeakDetection(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestMemoryPrepareForLeakDetection")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Memory().PrepareForLeakDetection()
@@ -84,7 +84,7 @@ func TestMemoryPrepareForLeakDetection(t *testing.T) {
 func TestMemorySetPressureNotificationsSuppressed(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestMemorySetPressureNotificationsSuppressed")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &memory.SetPressureNotificationsSuppressedParams{
@@ -121,7 +121,7 @@ func TestMemorySetPressureNotificationsSuppressed(t *testing.T) {
 func TestMemorySimulatePressureNotification(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestMemorySimulatePressureNotification")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &memory.SimulatePressureNotificationParams{

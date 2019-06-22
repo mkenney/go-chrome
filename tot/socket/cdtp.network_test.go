@@ -16,7 +16,7 @@ import (
 func TestNetworkCanClearBrowserCache(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkCanClearBrowserCache")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Network().CanClearBrowserCache()
@@ -55,7 +55,7 @@ func TestNetworkCanClearBrowserCache(t *testing.T) {
 func TestNetworkCanClearBrowserCookies(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkCanClearBrowserCookies")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Network().CanClearBrowserCookies()
@@ -94,7 +94,7 @@ func TestNetworkCanClearBrowserCookies(t *testing.T) {
 func TestNetworkCanEmulateConditions(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkCanEmulateConditions")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Network().CanEmulateConditions()
@@ -133,7 +133,7 @@ func TestNetworkCanEmulateConditions(t *testing.T) {
 func TestNetworkClearBrowserCache(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkClearBrowserCache")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Network().ClearBrowserCache()
@@ -167,7 +167,7 @@ func TestNetworkClearBrowserCache(t *testing.T) {
 func TestNetworkClearBrowserCookies(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkClearBrowserCookies")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Network().ClearBrowserCookies()
@@ -201,7 +201,7 @@ func TestNetworkClearBrowserCookies(t *testing.T) {
 func TestNetworkContinueInterceptedRequest(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkContinueInterceptedRequest")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &network.ContinueInterceptedRequestParams{
@@ -249,7 +249,7 @@ func TestNetworkContinueInterceptedRequest(t *testing.T) {
 func TestNetworkDeleteCookies(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkDeleteCookies")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &network.DeleteCookiesParams{
@@ -289,7 +289,7 @@ func TestNetworkDeleteCookies(t *testing.T) {
 func TestNetworkDisable(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkDisable")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Network().Disable()
@@ -323,7 +323,7 @@ func TestNetworkDisable(t *testing.T) {
 func TestNetworkEmulateConditions(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkEmulateConditions")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &network.EmulateConditionsParams{
@@ -363,7 +363,7 @@ func TestNetworkEmulateConditions(t *testing.T) {
 func TestNetworkEnable(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkEnable")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &network.EnableParams{
@@ -401,7 +401,7 @@ func TestNetworkEnable(t *testing.T) {
 func TestNetworkGetAllCookies(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkGetAllCookies")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Network().GetAllCookies()
@@ -451,7 +451,7 @@ func TestNetworkGetAllCookies(t *testing.T) {
 func TestNetworkGetCertificate(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkGetCertificate")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &network.GetCertificateParams{
@@ -493,7 +493,7 @@ func TestNetworkGetCertificate(t *testing.T) {
 func TestNetworkGetCookies(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkGetCookies")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &network.GetCookiesParams{
@@ -546,7 +546,7 @@ func TestNetworkGetCookies(t *testing.T) {
 func TestNetworkGetResponseBody(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkGetResponseBody")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &network.GetResponseBodyParams{
@@ -589,7 +589,7 @@ func TestNetworkGetResponseBody(t *testing.T) {
 func TestNetworkGetResponseBodyForInterception(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkGetResponseBodyForInterception")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &network.GetResponseBodyForInterceptionParams{
@@ -632,7 +632,7 @@ func TestNetworkGetResponseBodyForInterception(t *testing.T) {
 func TestNetworkReplayXHR(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkReplayXHR")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &network.ReplayXHRParams{
@@ -669,7 +669,7 @@ func TestNetworkReplayXHR(t *testing.T) {
 func TestNetworkSearchInResponseBody(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkSearchInResponseBody")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &network.SearchInResponseBodyParams{
@@ -717,7 +717,7 @@ func TestNetworkSearchInResponseBody(t *testing.T) {
 func TestNetworkSetBlockedURLs(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkSetBlockedURLs")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &network.SetBlockedURLsParams{
@@ -754,7 +754,7 @@ func TestNetworkSetBlockedURLs(t *testing.T) {
 func TestNetworkSetBypassServiceWorker(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkSetBypassServiceWorker")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &network.SetBypassServiceWorkerParams{
@@ -791,7 +791,7 @@ func TestNetworkSetBypassServiceWorker(t *testing.T) {
 func TestNetworkSetCacheDisabled(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkSetCacheDisabled")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &network.SetCacheDisabledParams{
@@ -828,7 +828,7 @@ func TestNetworkSetCacheDisabled(t *testing.T) {
 func TestNetworkSetCookie(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkSetCookie")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &network.SetCookieParams{
@@ -878,7 +878,7 @@ func TestNetworkSetCookie(t *testing.T) {
 func TestNetworkSetCookies(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkSetCookies")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &network.SetCookiesParams{
@@ -925,7 +925,7 @@ func TestNetworkSetCookies(t *testing.T) {
 func TestNetworkSetDataSizeLimitsForTest(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkSetDataSizeLimitsForTest")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &network.SetDataSizeLimitsForTestParams{
@@ -963,7 +963,7 @@ func TestNetworkSetDataSizeLimitsForTest(t *testing.T) {
 func TestNetworkSetExtraHTTPHeaders(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkSetExtraHTTPHeaders")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &network.SetExtraHTTPHeadersParams{
@@ -1000,7 +1000,7 @@ func TestNetworkSetExtraHTTPHeaders(t *testing.T) {
 func TestNetworkSetRequestInterception(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkSetRequestInterception")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &network.SetRequestInterceptionParams{
@@ -1041,7 +1041,7 @@ func TestNetworkSetRequestInterception(t *testing.T) {
 func TestNetworkSetUserAgentOverride(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkSetUserAgentOverride")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &network.SetUserAgentOverrideParams{
@@ -1078,7 +1078,7 @@ func TestNetworkSetUserAgentOverride(t *testing.T) {
 func TestNetworkOnDataReceived(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkOnDataReceived")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *network.DataReceivedEvent)
@@ -1128,7 +1128,7 @@ func TestNetworkOnDataReceived(t *testing.T) {
 func TestNetworkOnEventSourceMessageReceived(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkOnEventSourceMessageReceived")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *network.EventSourceMessageReceivedEvent)
@@ -1179,7 +1179,7 @@ func TestNetworkOnEventSourceMessageReceived(t *testing.T) {
 func TestNetworkOnLoadingFailed(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkOnLoadingFailed")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *network.LoadingFailedEvent)
@@ -1231,7 +1231,7 @@ func TestNetworkOnLoadingFailed(t *testing.T) {
 func TestNetworkOnLoadingFinished(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkOnLoadingFinished")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *network.LoadingFinishedEvent)
@@ -1280,7 +1280,7 @@ func TestNetworkOnLoadingFinished(t *testing.T) {
 func TestNetworkOnRequestIntercepted(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkOnRequestIntercepted")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *network.RequestInterceptedEvent)
@@ -1350,7 +1350,7 @@ func TestNetworkOnRequestIntercepted(t *testing.T) {
 func TestNetworkOnRequestServedFromCache(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkOnRequestServedFromCache")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *network.RequestServedFromCacheEvent)
@@ -1397,7 +1397,7 @@ func TestNetworkOnRequestServedFromCache(t *testing.T) {
 func TestNetworkOnRequestWillBeSent(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkOnRequestWillBeSent")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *network.RequestWillBeSentEvent)
@@ -1526,7 +1526,7 @@ func TestNetworkOnRequestWillBeSent(t *testing.T) {
 func TestNetworkOnResourceChangedPriority(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkOnResourceChangedPriority")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *network.ResourceChangedPriorityEvent)
@@ -1575,7 +1575,7 @@ func TestNetworkOnResourceChangedPriority(t *testing.T) {
 func TestNetworkOnResponseReceived(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkOnResponseReceived")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *network.ResponseReceivedEvent)
@@ -1627,7 +1627,7 @@ func TestNetworkOnResponseReceived(t *testing.T) {
 func TestNetworkOnWebSocketClosed(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkOnWebSocketClosed")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *network.WebSocketClosedEvent)
@@ -1675,7 +1675,7 @@ func TestNetworkOnWebSocketClosed(t *testing.T) {
 func TestNetworkOnWebSocketCreated(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkOnWebSocketCreated")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *network.WebSocketCreatedEvent)
@@ -1724,7 +1724,7 @@ func TestNetworkOnWebSocketCreated(t *testing.T) {
 func TestNetworkOnWebSocketFrameError(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkOnWebSocketFrameError")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *network.WebSocketFrameErrorEvent)
@@ -1773,7 +1773,7 @@ func TestNetworkOnWebSocketFrameError(t *testing.T) {
 func TestNetworkOnWebSocketFrameReceived(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkOnWebSocketFrameReceived")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *network.WebSocketFrameReceivedEvent)
@@ -1826,7 +1826,7 @@ func TestNetworkOnWebSocketFrameReceived(t *testing.T) {
 func TestNetworkOnWebSocketFrameSent(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkOnWebSocketFrameSent")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *network.WebSocketFrameSentEvent)
@@ -1879,7 +1879,7 @@ func TestNetworkOnWebSocketFrameSent(t *testing.T) {
 func TestNetworkOnWebSocketHandshakeResponseReceived(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkOnWebSocketHandshakeResponseReceived")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *network.WebSocketHandshakeResponseReceivedEvent)
@@ -1932,7 +1932,7 @@ func TestNetworkOnWebSocketHandshakeResponseReceived(t *testing.T) {
 func TestNetworkOnWebSocketWillSendHandshakeRequest(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestNetworkOnWebSocketWillSendHandshakeRequest")
 	mockSocket := NewMock(socketURL)
-	mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *network.WebSocketWillSendHandshakeRequestEvent)

@@ -27,7 +27,7 @@ func (socket *Socket) Connect() error {
 	socket.mux.Lock()
 	defer socket.mux.Unlock()
 
-	if socket.connected {
+	if nil != socket.conn {
 		return nil
 	}
 
@@ -35,17 +35,13 @@ func (socket *Socket) Connect() error {
 		Debug("connecting")
 	websocket, err := socket.newSocket(socket.url)
 	if nil != err {
-		log.WithFields(log.Fields{"error": err.Error(), "socketID": socket.socketID}).
-			Debug("received error")
-		socket.connected = false
 		return errs.Wrap(err, codes.SocketEventHandlerNotFound, "Connect() failed while creating socket")
 	}
 
 	socket.conn = websocket
-	socket.connected = true
-
 	log.WithFields(log.Fields{"socketID": socket.socketID, "url": socket.url.String()}).
 		Debug("connection established")
+
 	return nil
 }
 
@@ -55,7 +51,7 @@ Connected returns whether a connection exists.
 Connected is a Conner implementation.
 */
 func (socket *Socket) Connected() bool {
-	return socket.connected
+	return nil != socket.conn
 }
 
 /*
@@ -64,10 +60,9 @@ Disconnect closes a websocket connection.
 Disconnect is a Conner implementation.
 */
 func (socket *Socket) Disconnect() error {
-	if !socket.connected {
+	if !socket.Connected() {
 		return fmt.Errorf("not connected")
 	}
-	socket.Stop()
 	err := socket.conn.Close()
 	if nil != err {
 		err = errs.Wrap(err, codes.SocketCloseFailed, "could not close socket connection")
@@ -90,7 +85,7 @@ func (socket *Socket) ReadJSON(v interface{}) error {
 
 	err = socket.conn.ReadJSON(&v)
 	if nil != err {
-		return errs.Wrap(err, codes.SocketReadFailed, "socket read failed")
+		return err
 	}
 
 	return nil
