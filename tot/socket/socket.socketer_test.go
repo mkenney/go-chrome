@@ -41,7 +41,8 @@ func TestSocketStop(t *testing.T) {
 }
 
 // https://github.com/mkenney/go-chrome/pull/136
-func deprecatedTestSocketDisconnect(t *testing.T) {
+/*
+func TestSocketDisconnect(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestSocketDisconnect")
 	mockSocket := NewMock(socketURL)
 	if err := mockSocket.Disconnect(); nil != err &&
@@ -67,6 +68,7 @@ func deprecatedTestSocketDisconnect(t *testing.T) {
 		t.Errorf("Expected disconnect timeout in 1 seconds, %s elapsed", elapsed)
 	}
 }
+*/
 
 func TestListenCommand(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestListenCommand")
