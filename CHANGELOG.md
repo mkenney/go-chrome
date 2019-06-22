@@ -24,9 +24,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 #### Changed
 * Cleanup logging code
 
-#### Removed
-- n/a
-
 
 # v1.0.0-rc5 - 2018-09-15
 #### Changed
