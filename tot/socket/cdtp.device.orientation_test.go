@@ -11,7 +11,7 @@ import (
 func TestDeviceOrientationClearOverride(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestDeviceOrientationClearOverride")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.DeviceOrientation().ClearOverride()
@@ -45,7 +45,7 @@ func TestDeviceOrientationClearOverride(t *testing.T) {
 func TestDeviceOrientationSetOverride(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestDeviceOrientationSetOverride")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.DeviceOrientation().SetOverride(&orientation.SetOverrideParams{

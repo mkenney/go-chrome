@@ -13,7 +13,7 @@ import (
 func TestHeadlessExperimentalBeginFrame(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalBeginFrame")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &experimental.BeginFrameParams{
@@ -63,7 +63,7 @@ func TestHeadlessExperimentalBeginFrame(t *testing.T) {
 func TestHeadlessExperimentalDisable(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalDisable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.HeadlessExperimental().Disable()
@@ -97,7 +97,7 @@ func TestHeadlessExperimentalDisable(t *testing.T) {
 func TestHeadlessExperimentalEnable(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalEnable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.HeadlessExperimental().Enable()
@@ -131,7 +131,7 @@ func TestHeadlessExperimentalEnable(t *testing.T) {
 func TestHeadlessExperimentalOnMainFrameReadyForScreenshots(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalOnMainFrameReadyForScreenshots")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *experimental.MainFrameReadyForScreenshotsEvent)
@@ -173,7 +173,7 @@ func TestHeadlessExperimentalOnMainFrameReadyForScreenshots(t *testing.T) {
 func TestHeadlessExperimentalOnNeedsBeginFramesChanged(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestHeadlessExperimentalOnNeedsBeginFramesChanged")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *experimental.NeedsBeginFramesChangedEvent)

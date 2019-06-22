@@ -9,7 +9,10 @@ import (
 )
 
 func init() {
-	log.SetLevel(log.ErrorLevel)
+	log.SetLevel(log.DebugLevel)
+	log.SetFormatter(&log.TextFormatter{
+		ForceTTY: true,
+	})
 }
 
 /*

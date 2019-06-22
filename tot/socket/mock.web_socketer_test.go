@@ -50,16 +50,34 @@ ReadJSON is a WebSocketer implementation.
 */
 func (socket *MockChromeWebSocket) ReadJSON(v interface{}) error {
 	var data interface{}
-	time.Sleep(time.Millisecond * 10)
 
 	if socket.sleep > 0 {
 		time.Sleep(socket.sleep)
 		socket.sleep = 0
 	}
 
+	for {
+		select {
+		case <-time.After(time.Millisecond * 10):
+			if len(socket.mockResponses) > 0 {
+				data = socket.mockResponses[0]
+				socket.mockResponses = socket.mockResponses[1:]
+
+				jsonBytes, _ := json.Marshal(data)
+				log.Debugf("Mock ReadJSON(): returning mock data %s", jsonBytes)
+				err := json.Unmarshal(jsonBytes, &v)
+				if nil != err {
+					return errs.Wrap(err, codes.MockErr, fmt.Sprintf("could not unmarshal %s", jsonBytes))
+				}
+				return nil
+			}
+		}
+	}
+
 	if len(socket.mockResponses) > 0 {
 		data = socket.mockResponses[0]
 		socket.mockResponses = socket.mockResponses[1:]
+
 	} else {
 		data = &Response{
 			Error:  &Error{},

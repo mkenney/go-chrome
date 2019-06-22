@@ -14,7 +14,7 @@ import (
 func TestAnimationDisable(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestAnimationDisable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Animation().Disable()
@@ -46,7 +46,7 @@ func TestAnimationDisable(t *testing.T) {
 func TestAnimationEnable(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestAnimationEnable")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Animation().Enable()
@@ -78,7 +78,7 @@ func TestAnimationEnable(t *testing.T) {
 func TestAnimationGetCurrentTime(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestAnimationGetCurrentTime")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &animation.GetCurrentTimeParams{
@@ -141,7 +141,7 @@ func TestAnimationGetCurrentTime(t *testing.T) {
 func TestAnimationGetPlaybackRate(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestAnimationGetPlaybackRate")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := mockSocket.Animation().GetPlaybackRate()
@@ -184,7 +184,7 @@ func TestAnimationGetPlaybackRate(t *testing.T) {
 func TestAnimationReleaseAnimations(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestAnimationReleaseAnimations")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &animation.ReleaseAnimationsParams{
@@ -219,7 +219,7 @@ func TestAnimationReleaseAnimations(t *testing.T) {
 func TestAnimationResolveAnimation(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestAnimationResolveAnimation")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &animation.ResolveAnimationParams{
@@ -287,7 +287,7 @@ func TestAnimationResolveAnimation(t *testing.T) {
 func TestAnimationSeekAnimations(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestAnimationSeekAnimations")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &animation.SeekAnimationsParams{
@@ -323,7 +323,7 @@ func TestAnimationSeekAnimations(t *testing.T) {
 func TestAnimationSetPaused(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestAnimationSetPaused")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &animation.SetPausedParams{
@@ -359,7 +359,7 @@ func TestAnimationSetPaused(t *testing.T) {
 func TestAnimationSetPlaybackRate(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestAnimationSetPlaybackRate")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &animation.SetPlaybackRateParams{
@@ -394,7 +394,7 @@ func TestAnimationSetPlaybackRate(t *testing.T) {
 func TestAnimationSetTiming(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestAnimationSetTiming")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	params := &animation.SetTimingParams{
@@ -431,7 +431,7 @@ func TestAnimationSetTiming(t *testing.T) {
 func TestAnimationOnAnimationCanceled(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestAnimationOnAnimationCanceled")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *animation.CanceledEvent)
@@ -480,7 +480,7 @@ func TestAnimationOnAnimationCanceled(t *testing.T) {
 func TestAnimationOnAnimationCreated(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestAnimationOnAnimationCreated")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *animation.CreatedEvent)
@@ -529,7 +529,7 @@ func TestAnimationOnAnimationCreated(t *testing.T) {
 func TestAnimationOnAnimationStarted(t *testing.T) {
 	socketURL, _ := url.Parse("https://test:9222/TestAnimationOnAnimationStarted")
 	mockSocket := NewMock(socketURL)
-	go mockSocket.Listen()
+	go func() {_ = mockSocket.Listen()}()
 	defer mockSocket.Stop()
 
 	resultChan := make(chan *animation.StartedEvent)
