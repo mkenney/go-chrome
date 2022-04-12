@@ -69,7 +69,7 @@ func TestAccessibilityGetPartialAXTree(t *testing.T) {
 			Description:      &accessibility.AXValue{},
 			Value:            &accessibility.AXValue{},
 			Properties:       []*accessibility.AXProperty{},
-			ChildIDs:         []accessibility.AXNodeID{accessibility.AXNodeID(1)},
+			ChildIDs:         []accessibility.AXNodeID{accessibility.AXNodeID(rune(1))},
 			BackendDOMNodeID: dom.BackendNodeID(1),
 		}},
 	}
